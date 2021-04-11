@@ -1,0 +1,1513 @@
+// Pink CSS
+
+$light-green-color: #44ce6f;
+$white-color: #ffffff;
+$black-color: #0e314c;
+$navlink-color: #4a6f8a;
+$paragraph-color: #6084a4;
+$pink-color: #FF1494;
+$bg-color: #f7fafd;
+$bg-color2: #f9f6f6;
+$hosting-main-color: #032b8d;
+$gradient-color: linear-gradient(135deg, #e36cd9 0%, #fe60ae 100%);
+$gradient-color2: linear-gradient(to right bottom, #1fa2ff, #00c0ff, #00d9f2, #53eedd, #a6ffcb);
+
+a {
+    &:hover, &:focus {
+        color: $pink-color;
+    }
+}
+
+.btn-primary {
+    background-color: $pink-color;
+    box-shadow: 0 13px 27px 0 rgba(227, 108, 217, 0.25);
+
+    &:hover, &:focus, &:active {
+        box-shadow: 0 13px 27px 0 rgba(68, 206, 111, 0.25);
+    }
+    &:not(:disabled):not(.disabled).active, &:not(:disabled):not(.disabled):active, & .show > &.dropdown-toggle {
+        box-shadow: 0 13px 27px 0 rgba(68, 206, 111, 0.25);
+    }
+    &.disabled, &:disabled {
+        box-shadow: 0 13px 27px 0 rgba(68, 206, 111, 0.25);
+    }
+    &.disabled:hover, &.disabled:focus, &:disabled:hover, &:disabled:focus {
+        box-shadow: 0 13px 27px 0 rgba(68, 206, 111, 0.25);
+    }
+}
+.btn {
+    &::after, &::before {
+        background: $light-green-color;
+    }
+}
+
+.owl-theme {
+    .owl-dots {        
+        .owl-dot {
+            &:hover, &.active {
+                span {
+                    background: $pink-color;
+                }
+            }
+        }
+    }
+}
+.form-control {
+    &:focus {
+        background: $white-color;
+        border-color: $pink-color;
+    }
+}
+.section-title {
+    .bar {
+        background: #ffe1fd;
+
+        &::before {
+            background: $pink-color;
+        }
+    }
+}
+
+.preloader {
+    background: $pink-color;
+}
+
+.startp-mobile-nav {
+    &.mean-container {
+        .mean-nav {
+            ul {
+                li {
+                    a {
+                        &.active {
+                            color: $pink-color;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+.startp-nav {
+    nav {
+        .navbar-nav {
+            .nav-item {
+                a {
+                    color: $navlink-color;
+
+                    &:hover, &:focus, &.active {
+                        color: $pink-color;
+                    }
+                }
+                .dropdown_menu {
+                    li {
+                        a {
+                            color: $navlink-color;
+
+                            &:hover, &:focus, &.active {
+                                color: $pink-color;
+                            }
+                        }
+                        .dropdown_menu {
+                            li {
+                                a {
+                                    color: $navlink-color;
+
+                                    &:hover, &:focus, &.active {
+                                        color: $pink-color;
+                                    }
+                                }
+                            }
+                        }
+                        &:hover {
+                            a {
+                                color: $pink-color;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        .others-option {
+            .btn {
+                &.btn-light {
+                    border-color: #d6b4e7;
+
+                    &:hover, &:focus {
+                        color: $white-color;
+                        border-color: $pink-color;
+                    }
+                    &::after, &::before {
+                        background: $pink-color;
+                    }
+                }
+                &.btn-primary {
+                    background: $light-green-color;
+                    box-shadow: 0 13px 27px 0 rgba(68, 206, 111, 0.25);
+
+                    &::after, &::before {
+                        background: $pink-color;
+                        box-shadow: 0 13px 27px 0 rgba(198, 121, 227, 0.25);
+                    }
+                }
+            }
+        }
+    }
+}
+.others-option-for-responsive {
+    .dot-menu {
+        &:hover {
+            .inner {
+                .circle {
+                    background-color: $pink-color;
+                }
+            }
+        }
+    }
+    .option-inner {
+        .others-option {
+            .btn {
+                &.btn-light {
+                    border-color: #d6b4e7;
+
+                    &:hover, &:focus {
+                        color: $white-color;
+                        border-color: $pink-color;
+                    }
+                    &::after, &::before {
+                        background: $pink-color;
+                    }
+                }
+                &.btn-primary {
+                    background: $light-green-color;
+                    box-shadow: 0 13px 27px 0 rgba(68, 206, 111, 0.25);
+
+                    &::after, &::before {
+                        background: $pink-color;
+                        box-shadow: 0 13px 27px 0 rgba(198, 121, 227, 0.25);
+                    }
+                }
+            }
+        }
+    }
+}
+
+.hosting-main-banner {
+    .hosting-banner-content {
+        ul {
+            li {
+                &::before {
+                    background: $pink-color;
+                }
+            }
+        }
+    }
+}
+
+.single-box {
+    &::before {
+        background: $gradient-color;
+        
+    }
+}
+
+.single-why-choose-us {
+    .icon {
+        color: $pink-color;
+    }
+    &::before {
+        background: $gradient-color;
+    }
+}
+
+.services-content {
+    .box {
+        &::before {
+            background: $gradient-color;
+        }
+        svg {
+            color: $pink-color;
+        }
+    }
+}
+.single-services-box {
+    &::before, &::after {
+        background: $pink-color;
+    }
+}
+
+.services-details-desc {
+    .services-details-accordion {
+        .accordion {
+            .accordion-title {
+                i {
+                    background: $pink-color;
+                }
+            }
+        }
+    }
+}
+
+.single-features {
+    &:hover {
+        .icon {
+            background: $pink-color;
+            color: $white-color;
+
+            &.bg-c679e3 {
+                background: $pink-color;
+            }
+            &.bg-eb6b3d {
+                background: $pink-color;
+            }
+        }
+    }
+}
+.single-hosting-features {
+    &::before, &::after {
+        background: $pink-color;
+    }
+}
+
+.features-details-desc {
+    .features-details-list {
+        li {
+            &::before {
+                background: $pink-color;
+            }
+        }
+    }
+    .features-details-accordion {
+        .accordion {
+            .accordion-title {
+                i {
+                    background: $pink-color;
+                }
+            }
+        }
+    }
+}
+
+.single-team {
+    .team-content {
+        ul {
+            li {
+                a {
+                    color: $light-green-color;
+
+                    &:hover {
+                        color: $pink-color;
+                    }
+                }
+            }
+        }
+    }
+    .team-info {
+        background: $gradient-color;
+    }
+    &:hover {
+        .team-image {
+            img {
+                border-color: $pink-color;
+            }
+        }
+    }
+}
+
+.single-works {
+    &::before {
+        background: $gradient-color;
+    }
+}
+
+.funfact {
+    h3 {
+        color: $pink-color;
+    }
+}
+.contact-cta-box {
+    .btn {
+        &::before, &::after {
+            background: $pink-color;
+        }
+    }
+    .btn-primary {
+        background: $light-green-color;
+        box-shadow: 0 13px 27px 0 rgba(68, 206, 111, 0.25);
+
+        &:hover, &:focus {
+            box-shadow: 0 13px 27px 0 rgba(227, 108, 217, 0.25);
+        }
+    }
+}
+
+.pricing-table {
+    .pricing-header {
+        &::before {
+            background: $gradient-color;
+        }
+    }
+    .price {
+        span {
+            color: $pink-color;
+        }
+    }
+    &.active-plan {
+        .btn-primary {
+            background: $light-green-color;
+            box-shadow: 0 13px 27px 0 rgba(68, 206, 111, 0.25);
+
+            &::after, &::before {
+                background: $pink-color;
+                box-shadow: 0 13px 27px 0 rgba(227, 108, 217, 0.25);
+            }
+        }
+    }
+}
+.single-pricing-table {
+    .price {
+        span {
+            color: $pink-color;
+        }
+    }
+    &.active-plan {
+        .btn-primary {
+            background: $light-green-color;
+            box-shadow: 0 13px 27px 0 rgba(68, 206, 111, 0.25);
+
+            &::after, &::before {
+                background: $pink-color;
+                box-shadow: 0 13px 27px 0 rgba(227, 108, 217, 0.25);
+            }
+        }
+    }
+}
+
+.domain-search-content {
+    form {
+        button {
+            background-color: $pink-color;
+
+            &:hover, &:focus {
+                background-color: $light-green-color;
+            }
+        }
+    }
+}
+
+.feedback-slides {
+    .client-feedback {
+        .single-feedback {
+            .client-img {
+                img {
+                    border-color: $pink-color;
+                }
+            }
+            span {
+                color: $light-green-color;
+            }
+        }
+    }
+    .client-thumbnails {
+        .item {
+            .img-fill {
+                img {
+                    border-color: $pink-color;
+                }
+            }
+        }
+    }
+}
+.client-thumbnails {
+    .next-arrow, .prev-arrow {
+        &::before {
+            background: $gradient-color;
+        }
+        &:hover {
+            color: $white-color;
+            border-color: $pink-color;
+        }
+    }
+}
+.testimonials-slides {
+    &.owl-theme {
+        .owl-dots {
+            .owl-dot {
+                &:hover, &.active {
+                    span {
+                        border-color: $pink-color;
+
+                        &::before {
+                            background: $pink-color;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+.single-feedback-item {
+    .client-info {
+        .image {
+            img {
+                border-color: $pink-color;
+            }
+        }
+        .title {
+            span {
+                color: $light-green-color;
+            }
+        }
+    }
+}
+
+.ready-to-talk {
+    background: $gradient-color;
+
+    .btn-primary {
+        background: $light-green-color;
+    }
+}
+
+.single-blog-post {
+    .blog-image {
+        .date {
+            background: $gradient-color;
+        }
+    }
+    .blog-post-content {
+        span {
+            a {
+                &:hover {
+                    color: $pink-color;
+                }
+            }
+        }
+        .read-more-btn {
+            &:hover {
+                color: $pink-color;
+            }
+        }
+    }
+}
+
+.single-products {
+    .products-image {
+        ul {
+            li {
+                a {
+                    &:hover, &:focus {
+                        background-color: $pink-color;
+                    }
+                }
+            }
+        }
+    }
+}
+#productsModalCenter {
+    .modal-content {
+        button.close {
+            &:hover, &:focus {
+                background-color: $pink-color;
+            }
+        }
+        .products-content {
+            form {
+                .quantity {
+                    .input-counter {
+                        span {
+                            &:hover {
+                                color: $pink-color;
+                            }
+                        }
+                    }
+                }
+                button {
+                    background: $pink-color;
+    
+                    &:hover, &:focus {
+                        background-color: $light-green-color;
+                    }
+                }
+            }
+        }
+    }
+}
+
+.products-details {
+    .availability {
+        span {
+            color: $pink-color;
+        }
+    }
+    form {
+        .quantity {
+            .input-counter {
+                span {
+                    &:hover {
+                        color: $pink-color;
+                    }
+                }
+            }
+        }
+        button {
+            background: $pink-color;
+
+            &:hover, &:focus {
+                background-color: $light-green-color;
+            }
+        }
+        .add-to-wishlist-btn {
+            &:hover, &:focus {
+                background-color: $light-green-color;
+                border-color: $light-green-color;
+            }
+        }
+        .buy-btn {
+            margin-top: 20px;
+
+            .btn-primary {
+                background: $light-green-color;
+                box-shadow: 0 13px 27px 0 rgba(198, 121, 227, 0.25);
+
+                &::after, &::before {
+                    background: $pink-color;
+                    box-shadow: 0 13px 27px 0 rgba(227, 108, 217, 0.25);
+                }
+            }
+        }
+    }
+    .products-share-social {
+        ul {
+            li {
+                a {
+                    border-color: $pink-color;
+                    color: $pink-color;
+                    
+                    &:hover {
+                        background: $pink-color;
+                        color: $white-color;
+                    }
+                }
+            }
+        }
+    }
+}
+.products-details-tabs {
+    #tabs {
+        li {
+            &.active {
+                &::before {
+                    background: $pink-color;
+                }
+            }
+        }
+    }
+}
+
+.cart-table {
+    table {
+        tbody {
+            tr {
+                td {
+                    &.product-name {
+                        a {
+                            &:hover {
+                                color: $pink-color;
+                            }
+                        }
+                    }
+                    &.product-quantity {
+                        .input-counter {
+                            span {
+                                &:hover {
+                                    color: $pink-color;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+.user-actions {
+    border-top-color: $pink-color;
+
+    svg {
+        color: $pink-color;
+    }
+    span {
+        color: $pink-color;
+
+        a {
+            &:hover, &:focus {
+                color: $pink-color;
+            }
+        }
+    }
+}
+.order-details {
+    .order-table {
+        table {
+            tbody {
+                tr {
+                    td {
+                        &.product-name {
+                            a {
+                                &:hover {
+                                    color: $pink-color;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+    .payment-method {
+        p {
+            [type="radio"] {
+                &:checked, &:not(:checked) {
+                    + label {
+                        &::after {
+                            background: $pink-color;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+.faq-accordion {
+    .accordion {
+        .accordion-item {
+            .accordion-title {
+                i {
+                    background: $pink-color;
+                }
+            }
+        }
+    }
+}
+
+.pagination-area {
+    ul {
+        .page-item {
+            .page-link {
+                &:hover, &:focus {
+                    background-color: $pink-color;
+                }
+            }
+            &.active {
+                .page-link {
+                    background-color: $pink-color;
+                }
+            }
+        }
+    }
+}
+
+.blog-details-desc {
+    .article-content {
+        .entry-meta {    
+            ul {
+                li {
+                    a {
+                        &:hover {
+                            color: $pink-color;
+                        }
+                    }
+                    svg {
+                        color: $light-green-color;
+                    }
+                    &::before {
+                        background: $pink-color;
+                    }
+                }
+            }
+        }
+        .features-list {
+            li {
+                svg {
+                    color: $pink-color;
+                }
+            }
+        }
+    }
+    .article-footer {
+        .article-tags {
+            a {
+                background-color: $light-green-color;
+
+                &:hover {
+                    background-color: $pink-color;
+                }
+            }
+        }
+    }
+}
+.comments-area {
+    .comment-body {
+        .reply {
+            a {
+                &:hover {
+                    background-color: $pink-color;
+                    border-color: $pink-color;
+                }
+            }
+        }
+    }
+    .comment-metadata {
+        a {
+            &:hover {
+                color: $pink-color;
+            }
+        }
+    }
+    .comment-respond {
+        input[type="date"], input[type="time"], input[type="datetime-local"], input[type="week"], input[type="month"], input[type="text"], input[type="email"], input[type="url"], input[type="password"], input[type="search"], input[type="tel"], input[type="number"], textarea {
+            &:focus {
+                border-color: $pink-color;
+            }
+        }
+        .form-submit {
+            input {
+                background: $pink-color;
+
+                &:hover, &:focus {
+                    background-color: $light-green-color;
+                }
+            }
+        }
+    }
+}
+.prev-link-wrapper {
+    a {
+        &:hover {
+            .prev-link-info-wrapper {
+                color: $pink-color;
+            }
+        }
+    }
+    .image-prev {
+        &::after {
+            background-color: $pink-color;
+        }
+    }
+}
+.next-link-wrapper {
+    a {
+        &:hover {
+            .next-link-info-wrapper {
+                color: $pink-color;
+            }
+        }
+    }
+    .image-next {
+        &::after {
+            background-color: $pink-color;
+        }
+    }
+}
+blockquote, .blockquote {
+    &::after {
+        background-color: $pink-color;
+    }
+}
+
+.widget-area {
+    .widget {
+        .widget-title {
+            &::before {
+                background: $pink-color;
+            }
+        }
+    }
+    .widget_search {
+        form {
+            .search-field {
+                &:focus {
+                    border-color: $pink-color;
+                }
+            }
+            button {
+                background-color: $pink-color;
+                
+                &:hover {
+                    background-color: $light-green-color;
+                }
+            }
+        }
+    }
+    .widget_recent_entries {
+        ul {
+            li {
+                &::before {
+                    background: $pink-color;
+                }
+                a {
+                    &:hover {
+                        color: $pink-color;
+                    }
+                }
+            }
+        }
+    }
+    .widget_recent_comments {
+        ul {
+            li {
+                &::before {
+                    background: $pink-color;
+                }
+                a {
+                    &:hover {
+                        color: $pink-color;
+                    }
+                }
+            }
+        }
+    }
+    .widget_archive {
+        ul {
+            li {
+                &::before {
+                    background: $pink-color;
+                }
+                a {
+                    &:hover {
+                        color: $pink-color;
+                    }
+                }
+            }
+        }
+    }
+    .widget_categories {
+        ul {
+            li {
+                &::before {
+                    background: $pink-color;
+                }
+                a {
+                    &:hover {
+                        color: $pink-color;
+                    }
+                }
+            }
+        }
+    }
+    .widget_meta {
+        ul {
+            li {
+                &::before {
+                    background: $pink-color;
+                }
+                a {
+                    &:hover {
+                        color: $pink-color;
+                    }
+                }
+            }
+        }
+    }
+    .tagcloud {
+        a {
+            &:hover, &:focus {
+                background-color: $pink-color;
+                border-color: $pink-color;
+            }
+        }
+    }
+}
+
+.project-details-image {
+    a {
+        &:hover {
+            color: $pink-color;
+        }
+    }
+}
+.project-details-desc {
+    .project-details-information {
+        .single-info-box {
+            ul {
+                li {
+                    a {
+                        &:hover {
+                            color: $pink-color;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+.contact-info-box {
+    .icon {
+        color: $pink-color;
+    }
+    p {
+        a {
+            &:hover {
+                color: $pink-color;
+            }
+        }
+    }
+    &:hover {
+        .icon {
+            background: $pink-color;
+        }
+    }
+}
+
+.coming-soon-area {
+    .social-list {
+        li {
+            a {
+                background: $light-green-color;
+
+                &:hover, &:focus {
+                    background-color: $pink-color;
+                }
+            }
+        }
+    }
+}
+.coming-soon-content {
+    form {
+        .submit-btn {
+            background-color: $pink-color;
+            
+            &:hover, &:focus {
+                background: $light-green-color;
+            }
+        }
+    }
+    #timer {
+        div {
+            color: $light-green-color;
+        }
+    }
+}
+
+.cta-area {
+    background: $gradient-color;
+}
+.cta-right-content {
+    .buy-btn {
+        .btn-primary {
+            background: $light-green-color;
+            box-shadow: 0 13px 27px 0 rgba(198, 121, 227, 0.25);
+
+            &::after, &::before {
+                background: $white-color;
+                box-shadow: 0 13px 27px 0 rgba(68, 206, 111, 0.25);
+            }
+            &:hover, &:focus {
+                color: $light-green-color;
+            }
+        }
+    }
+}
+
+.repair-about-content {
+    .sub-title {
+        color: $pink-color;
+    }
+    ul {
+        li {
+            span {
+                svg {
+                    color: $pink-color;
+                }
+                &::before {
+                    background: $gradient-color;
+                }
+            }
+        }
+    }
+}
+
+.single-repair-services {
+    &::before {
+        border-color: #fbf0ec;
+    }
+    &::after {
+        background: $gradient-color;
+    }
+    .icon {
+        color: $pink-color;
+        border-color: #fbf0ec;
+    }
+    &:hover, &:focus {
+        a {
+            color: $pink-color;
+        }
+    }
+}
+
+.repair-why-choose-us {
+    background: $gradient-color;
+}
+.single-repair-box {
+    border-color: #fbf0ec;
+
+    .icon {
+        &::before {
+            background: $gradient-color2;
+        }
+    }
+    &:hover, &:focus {
+        border-color: $pink-color;
+
+        a {
+            background-color: $pink-color;
+        }
+    }
+}
+
+.single-repair-feedback {
+    .client-img {
+        img {
+            border-color: $pink-color;
+        }
+        span {
+            color: $light-green-color;
+        }
+    }
+}
+
+.iot-banner-content {
+    span {
+        color: $pink-color;
+    }
+}
+
+.single-iot-services {
+    border-color: #fbf0ec;
+    
+    &::after {
+        background: $gradient-color;
+    }
+    .icon {
+        border-color: #fbf0ec;
+        color: $pink-color;
+    }
+    &:hover, &:focus {
+        a {
+            color: $pink-color;
+        }
+    }
+}
+
+.iot-why-choose-us {
+    background: $gradient-color;
+}
+.single-iot-box {
+    border-color: #fbf0ec;
+    
+    &:hover, &:focus {
+        border-color: $pink-color;
+
+        a {
+            background-color: $pink-color;
+        }
+    }
+}
+
+.section-title {
+    .sub-title {
+        color: $light-green-color;
+        background-color: #d4f7df;
+    }
+}
+
+.btn {
+    &.btn-secondary {
+        background-color: $pink-color;
+        box-shadow: 5px 5px 5px #fdb2db;
+
+        &::before {
+            background: $light-green-color;
+        }
+        &::after {
+            background: $light-green-color;
+        }
+        &:not(:disabled):not(.disabled).active, &:not(:disabled):not(.disabled):active, .show>&.dropdown-toggle {
+            background-color: $pink-color;
+            border-color: $pink-color;
+        }
+        &:not(:disabled):not(.disabled).active:focus, &:not(:disabled):not(.disabled):active:focus, .show>&.dropdown-toggle:focus {
+            box-shadow: 5px 5px 5px #a6f5be;
+        }
+        &:hover, &:focus {
+            box-shadow: 5px 5px 5px #a6f5be;
+        }
+    }
+}
+
+.ml-about-content {
+    .sub-title {
+        color: $light-green-color;
+        background-color: #d4f7df;
+    }
+    .bar {
+        background: #ffe1fd;
+
+        &::before {
+            background: $pink-color;
+        }
+    }
+}
+
+.single-ml-services-box {
+    &::before {
+        background: $pink-color;
+    }
+}
+
+.pricing-box {
+    .buy-btn {
+        .btn-primary {
+            &::after {
+                background: $pink-color;
+            }
+        }
+    }
+    .pricing-features {
+        li {
+            svg {
+                color: $pink-color;
+            }
+        }
+    }
+}
+
+.single-ml-feedback-item {
+    .client-info {
+        span {
+            color: $light-green-color;
+        }
+    }
+}
+.ml-feedback-slides {
+    .owl-dots {
+        .owl-dot {
+            span {
+                &::before {
+                    background-color: $pink-color;
+                }
+            }
+            &:hover, &.active {
+                span {
+                    border-color: $pink-color;
+                    background-color: transparent;
+                }
+            }
+        }
+    }
+}
+
+.single-blog-post-box {
+    .entry-post-content {
+        .entry-meta {
+            ul {
+                li {
+                    a {
+                        &:hover {
+                            color: $pink-color;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+.free-trial-content {
+    form {
+        button {
+            background-color: $pink-color;
+            
+            &:hover {
+                background-color: $light-green-color;
+            }
+        }
+    }
+}
+
+.single-ml-projects-box {
+    .plus-icon {
+        a {
+            background-color: $pink-color;
+            
+            &:hover {
+                background-color: $light-green-color;
+            }
+        }
+    }
+}
+.ml-projects-slides {
+    &.owl-theme {
+        .owl-dots {
+            .owl-dot {
+                span {
+                    &::before {
+                        background-color: $pink-color;
+                    }
+                }
+                &:hover, &.active {
+                    span {
+                        border-color: $pink-color;
+                    }
+                }
+            }
+        }
+    }
+}
+
+.solutions-box {
+    .icon {
+        color: $pink-color;
+    }
+    .learn-more-btn {
+        &:hover {
+            color: $pink-color;
+        }
+    }
+}
+
+.agency-about-content {
+    .sub-title {
+        color: $light-green-color;
+        background-color: #d4f7df;
+    }
+    .bar {
+        background: #ffe1fd;
+
+        &::before {
+            background: $pink-color;
+        }
+    }
+}
+
+.agency-services-box {
+    .content {
+        .read-more-btn {
+            &:hover {
+                background-color: $pink-color;
+                border-color: $pink-color;
+            }
+        }
+    }
+}
+
+.single-testimonials-item {
+    .client-info {
+        span {
+            color: $light-green-color;
+        }
+    }
+}
+
+.single-blog-post-item {
+    .post-content {
+        .post-meta {
+            li {
+                a {
+                    &:hover {
+                        color: $pink-color;
+                    }
+                }
+            }
+        }
+        .read-more-btn {
+            &:hover {
+                background-color: $pink-color;
+                border-color: $pink-color;
+            }
+        }
+    }
+}
+
+.single-footer-widget {
+    ul {
+        &.list {
+            li {
+                a {
+                    &:hover {
+                        color: $pink-color;
+                    }
+                }
+            }
+        }
+        &.footer-contact-info {
+            li {
+                a {
+                    &:hover {
+                        color: $pink-color;
+                    }
+                }
+            }
+        }
+        &.social-links {
+            li {
+                a {
+                    border-color: $light-green-color;
+
+                    &:hover {
+                        background: $light-green-color;
+                        color: $white-color;
+                    }
+                }
+            }
+        }
+    }
+}
+
+.go-top {
+	background-color: $pink-color;
+    
+    &:hover {
+        background: $light-green-color;
+    }
+}
+
+.agency-portfolio-home-slides {
+    &.owl-theme {
+        .owl-nav {
+            [class*='owl-'] {
+                &:hover {
+                    background-color: $pink-color;
+                    color: $white-color;
+                }
+            }
+        }
+    }
+}
+
+.single-text-box {
+    .learn-more-btn {
+        &:hover {
+            color: $pink-color;
+        }
+    }
+}
+
+.creative-inner-area {
+    .col-lg-6 {
+        &:nth-child(1) {
+            .single-counter {
+                background-color: $pink-color;
+            }
+        }
+    }
+}
+
+.navbar-color-white {
+    .startp-nav {
+        nav {
+            .navbar-nav {
+                .nav-item {
+                    a {
+                        &:hover, &:focus, &.active {
+                            color: $pink-color
+                        }
+                    }
+                }
+            }
+            .others-option {
+                .btn {
+                    &.btn-primary {
+                        background: $light-green-color;
+                        box-shadow: 0 13px 27px 0 rgba(68, 206, 111, 0.25);
+    
+                        &::after, &::before {
+                            background: $pink-color;
+                            box-shadow: 0 13px 27px 0 rgba(227, 108, 217, 0.25);
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+.single-banner-boxes {
+    &::before {
+        background: $gradient-color;
+    }
+}
+
+.single-what-we-do-box {
+    .icon {
+        background: $gradient-color;
+    }
+}
+
+.discover-area {
+    background: $gradient-color;
+}
+
+.single-services-box-item {
+    .learn-more-btn {
+        color: $pink-color;
+        
+        &:hover {
+            svg {
+                color: $pink-color;
+            }
+        }
+    }
+}
+
+.single-funfact {
+    h3 {
+        color: $pink-color;
+    }
+}
+
+.single-feedback-box {
+    &::before {
+        background: $gradient-color;
+    }
+}
+
+.industries-serve-area {
+    background: $gradient-color;
+}
+
+.newsletter-area {
+    &::before {
+        background: $gradient-color;
+    }
+}
+.newsletter-content {
+    &::before {
+        background: $gradient-color;
+    }
+}
+
+@media only screen and (max-width: 991px) {
+
+    .startp-responsive-nav {
+        .startp-responsive-menu {
+            &.mean-container {
+                .mean-nav {
+                    ul {
+                        li {
+                            a {
+                                &.active {
+                                    color: $pink-color;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+}
