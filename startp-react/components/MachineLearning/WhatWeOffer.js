@@ -7,8 +7,8 @@ const WhatWeOffer = () => {
         <div className="solutions-area ptb-80">
             <div className="container">
                 <div className="section-title">
-                    <span className="sub-title">What We Offer</span>
-                    <h2>Our Featured Solutions</h2>
+                    <span className="sub-title">Categories</span>
+                    <h2>Discover projects that inspire you</h2>
                     <div className="bar"></div>
                     <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
                 </div>

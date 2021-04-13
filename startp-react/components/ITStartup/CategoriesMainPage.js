@@ -5,14 +5,18 @@ import PageBanner from '@/components/Common/PageBanner';
 import Link from 'next/link';
 import * as Icon from 'react-feather';
  
-const Services3 = () => {
+const CategoriesMainPage = () => {
     return (
         <>
-            <Navbar />
-
 
             <div className="solutions-area ptb-80">
                 <div className="container">
+                    <div className="section-title">
+                        <span className="sub-title">Categories</span>
+                        <h2>Discover projects that inspire you</h2>
+                        <div className="bar"></div>
+                        {/* <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p> */}
+                    </div>
                     <div className="row justify-content-center">
                         <div className="col-lg-3 col-sm-6 col-md-6">
                             <div className="single-solutions-box">
@@ -199,10 +203,8 @@ const Services3 = () => {
                     <img src="/images/shape2.svg" alt="shape" />
                 </div>
             </div>
-
-            <Footer />
         </>
     )
 }
 
-export default Services3;
+export default CategoriesMainPage;

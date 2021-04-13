@@ -12,11 +12,6 @@ import Feedback from "@/components/Common/Feedback";
 import Partner from "@/components/Common/Partner";
 import BlogPost from "@/components/Common/BlogPost";
 import Footer from "@/components/_App/Footer";
-import CategoriesMainPage from "@/components/ITStartup/CategoriesMainPage";
-import CategoriesLight from "@/components/ITStartup/CategoriesLight";
-import ProjectGridMain from "@/components/ITStartup/ProjectGridMain";
-import DiscoverArea from '@/components/ITStartup/DiscoverArea';
-
 
 const ITStartup = () => {
     return (
@@ -24,21 +19,15 @@ const ITStartup = () => {
             <Navbar />
             <MainBanner />
             <Features />
-
-            <CategoriesLight />
-            <ProjectGridMain />
-            <DiscoverArea />
-            {/* <ServicesArea />
+            <ServicesArea />
             <OurFeatures />
             <Team />
             <FunFactsArea />
             <RecentWorks />
             <PricingStyleOne />
             <Feedback />
-            <Partner /> */}
-            {/* <BlogPost /> */}
-            <CategoriesMainPage />
-
+            <Partner />
+            <BlogPost />
             <Footer />
         </>
     )

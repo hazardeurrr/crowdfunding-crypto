@@ -10,11 +10,11 @@ const MainBanner = () => {
 						<div className="row h-100 justify-content-center align-items-center">
 							<div className="col-lg-5">
 								<div className="hero-content">
-									<h1>Secure IT Solutions for a more secure environment</h1>
-									<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Quis ipsum suspendisse ultrices gravida</p>
+									<h1>A new way to raise funds</h1>
+									<p>Create a campaign and raise funds for your project or organization in ETH or USDT</p>
 									
 									<Link href="/contact">
-										<a className="btn btn-primary">Get Started</a>
+										<a className="btn btn-primary">Create a campaign</a>
 									</Link>
 								</div>
 							</div>
