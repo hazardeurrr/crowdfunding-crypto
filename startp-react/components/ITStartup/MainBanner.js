@@ -13,7 +13,7 @@ const MainBanner = () => {
 									<h1>A new way to raise funds</h1>
 									<p>Create a campaign and raise funds for your project or organization in ETH or USDT</p>
 									
-									<Link href="/contact">
+									<Link href="/services-1">
 										<a className="btn btn-primary">Create a campaign</a>
 									</Link>
 								</div>

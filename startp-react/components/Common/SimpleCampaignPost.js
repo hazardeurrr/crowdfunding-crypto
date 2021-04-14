@@ -5,7 +5,7 @@ import ProgressBar from 'react-bootstrap/ProgressBar';
 
 
 const SimpleCampaignPost = (props) => {
-    const campaign = props      // could be change if we pass an object
+    const campaign = props.project
     const pct = (campaign.raised / campaign.objective) * 100
     return (
         <>
@@ -23,7 +23,7 @@ const SimpleCampaignPost = (props) => {
           <div className="blog-post-content">
               <h3>
                   <Link href="/blog-details">
-                      <a>{campaign.small_description}</a>
+                      <a>{campaign.title}</a>
                   </Link>
               </h3>
               <span>By <a href="#">{campaign.creator}</a></span>

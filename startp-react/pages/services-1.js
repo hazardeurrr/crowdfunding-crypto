@@ -6,150 +6,87 @@ import Link from 'next/link';
 import * as Icon from 'react-feather';
  
 const Services1 = () => {
+
     return (
         <>
             <Navbar />
 
-            <PageBanner pageTitle="Services Style One" />
+            <PageBanner pageTitle="Create your campaign !" />
 
             <div className="services-area-two pt-80 pb-50 bg-f9f6f6">
                 <div className="container">
                     <div className="section-title">
-                        <h2>Our Services</h2>
+                        <h2>Campaign</h2>
                         <div className="bar"></div>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+                        <p>Here is the place where you can create your campaign and start raising funds for your project.</p>
                     </div>
 
-                    <div className="row justify-content-center">
-                        <div className="col-lg-4 col-sm-6">
-                            <div className="single-services-box">
-                                <div className="icon">
-                                    <Icon.Settings />
+                    <div className="faq-contact">
+                        <h3>Complete the information for your campaign</h3>
+                        <form>
+                            <div className="row">
+                                <p><strong> Fundraiser Name </strong><br/>Give a name to your project to make it searchable for the users.</p>
+                                <div className="col-lg-12 col-md-12">
+                                    <div className="form-group">
+                                        <input type="text" placeholder="Title" className="form-control" />
+                                    </div>
                                 </div>
-                                <h3>
-                                    <Link href="/service-details">
-                                        <a>Incredible Infrastructure</a>
-                                    </Link>
-                                </h3>
-                                <p>Lorem ipsum dolor amet, adipiscing, sed do eiusmod tempor incididunt ut labore dolore magna aliqua.</p>
-                            </div>
-                        </div>
 
-                        <div className="col-lg-4 col-sm-6">
-                            <div className="single-services-box">
-                                <div className="icon">
-                                    <Icon.Mail />
+                                <p><strong> Project Description </strong><br/> Make a short description of your project to make it more attractive.</p>
+                                <div className="col-lg-12 col-md-12">
+                                    <div className="form-group">
+                                        <textarea name="message" cols="30" rows="6" placeholder="Description" className="form-control"></textarea>
+                                    </div>
                                 </div>
-                                <h3>
-                                    <Link href="/service-details">
-                                        <a>Email Notifications</a>
-                                    </Link>
-                                </h3>
-                                <p>Lorem ipsum dolor amet, adipiscing, sed do eiusmod tempor incididunt ut labore dolore magna aliqua.</p>
-                            </div>
-                        </div>
 
-                        <div className="col-lg-4 col-sm-6">
-                            <div className="single-services-box">
-                                <div className="icon">
-                                    <Icon.Bell />
+                                <p><strong> Project Category </strong><br/> Choose a category that describes your project.</p>
+                                <div className="col-lg-12 col-md-12">
+                                    <div className="form-group">
+                                    
+                                        <div className="select-box">
+                                            <select className="form-select">
+                                                <option value="Book">Book</option>
+                                                <option value="Crafts">Crafts</option>
+                                                <option value="Design">Design and Art</option>
+                                                <option value="Performances">Performances</option>
+                                                <option value="Technology">Technology</option>
+                                            </select>
+                                        </div>
+                                    </div>
                                 </div>
-                                <h3>
-                                    <Link href="/service-details">
-                                        <a>Best Analytics Audits</a>
-                                    </Link>
-                                </h3>
-                                <p>Lorem ipsum dolor amet, adipiscing, sed do eiusmod tempor incididunt ut labore dolore magna aliqua.</p>
-                            </div>
-                        </div>
 
-                        <div className="col-lg-4 col-sm-6">
-                            <div className="single-services-box">
-                                <div className="icon bg-c679e3">
-                                    <Icon.Grid />
+                                <p><strong> Fudraising Duration </strong><br/> Projects with shorter durations have higher success rates. You won’t be able to adjust your duration after you launch.</p>
+                                <div className="col-lg-12 col-md-12">
+                                    <div className="form-group">
+                                        <input
+                                            id="date"
+                                            label="Birthday"
+                                            type="date"
+                                            defaultValue='2021-04-15'
+                                            className="form-control"
+                                            InputLabelProps={{
+                                            shrink: true,
+                                            }}
+                                        />
+                                    </div>
                                 </div>
-                                <h3>
-                                    <Link href="/service-details">
-                                        <a>Simple Dashboard</a>
-                                    </Link>
-                                </h3>
-                                <p>Lorem ipsum dolor amet, adipiscing, sed do eiusmod tempor incididunt ut labore dolore magna aliqua.</p>
-                            </div>
-                        </div>
 
-                        <div className="col-lg-4 col-sm-6">
-                            <div className="single-services-box">
-                                <div className="icon bg-c679e3">
-                                    <Icon.Info />
+                                <p><strong> Project Goal </strong><br/> Your goal should reflect the minimum amount of funds you need to complete your project and send out rewards, and include a buffer for payments processing fees.</p>
+                                <div className="col-lg-12 col-md-12">
+                                    <div className="form-group">
+                                    <input type="number" placeholder="Goal" className="form-control" />
+                                    </div>
                                 </div>
-                                <h3>
-                                    <Link href="/service-details">
-                                        <a>Information Retrieval</a>
-                                    </Link>
-                                </h3>
-                                <p>Lorem ipsum dolor amet, adipiscing, sed do eiusmod tempor incididunt ut labore dolore magna aliqua.</p>
-                            </div>
-                        </div>
-
-                        <div className="col-lg-4 col-sm-6">
-                            <div className="single-services-box">
-                                <div className="icon bg-c679e3">
-                                    <Icon.HardDrive />
+                                
+                                <div className="col-lg-12 col-md-12">
+                                    <button className="btn btn-primary" type="submit">Create Fundraiser !</button>
                                 </div>
-                                <h3>
-                                    <Link href="/service-details">
-                                        <a>Deep Technical SEO</a>
-                                    </Link>
-                                </h3>
-                                <p>Lorem ipsum dolor amet, adipiscing, sed do eiusmod tempor incididunt ut labore dolore magna aliqua.</p>
                             </div>
-                        </div>
-
-                        <div className="col-lg-4 col-sm-6">
-                            <div className="single-services-box">
-                                <div className="icon bg-eb6b3d">
-                                    <Icon.MousePointer />
-                                </div>
-                                <h3>
-                                    <Link href="/service-details">
-                                        <a>Drag & Drop Functionality</a>
-                                    </Link>
-                                </h3>
-                                <p>Lorem ipsum dolor amet, adipiscing, sed do eiusmod tempor incididunt ut labore dolore magna aliqua.</p>
-                            </div>
-                        </div>
-
-                        <div className="col-lg-4 col-sm-6">
-                            <div className="single-services-box">
-                                <div className="icon bg-eb6b3d">
-                                    <Icon.Bell />
-                                </div> 
-                                <h3>
-                                    <Link href="/service-details">
-                                        <a>Deadline Reminders</a>
-                                    </Link>
-                                </h3>
-                                <p>Lorem ipsum dolor amet, adipiscing, sed do eiusmod tempor incididunt ut labore dolore magna aliqua.</p>
-                            </div>
-                        </div>
-
-                        <div className="col-lg-4 col-sm-6">
-                            <div className="single-services-box">
-                                <div className="icon bg-eb6b3d">
-                                    <Icon.Send />
-                                </div>
-                                <h3>
-                                    <Link href="/service-details">
-                                        <a>Modern Keyword Analysis</a>
-                                    </Link>
-                                </h3>
-                                <p>Lorem ipsum dolor amet, adipiscing, sed do eiusmod tempor incididunt ut labore dolore magna aliqua.</p>
-                            </div>
-                        </div>
+                        </form>
                     </div>
                 </div>
             </div>
- 
+
             <Footer />
         </>
     )
