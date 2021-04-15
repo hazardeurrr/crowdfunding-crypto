@@ -2,20 +2,27 @@ import React from 'react';
 import Navbar from "@/components/_App/Navbar";
 import Footer from "@/components/_App/Footer";
 import PageBanner from '@/components/Common/PageBanner';
-import * as Icon from 'react-feather';
-import Link from 'next/link';
-import SimpleCampaignPost from '@/components/Common/SimpleCampaignPost';
+import OurFeatures from '@/components/Features/OurFeatures';
+import SingleFeatures from '@/components/Features/SingleFeatures';
 import projectList from '@/utils/projectList'
- 
-const Blog1 = () => {
+import SimpleCampaignPost from '@/components/Common/SimpleCampaignPost';
+
+
+const SearchPage = () => {
     return (
         <>
             <Navbar />
-
-            
-
-            <PageBanner pageTitle="Blog Grid" />
-                    <div className="blog-area ptb-80">
+            <PageBanner />
+            <div className="features-area pt-80 pb-50 bg-f7fafd">
+                <div className="container">
+                    <div className="section-title">
+                        <h2>Discover the projects that need you !</h2>
+                        <div className="bar"></div>
+                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+                    </div>
+                </div>
+            </div>
+            <div className="blog-area ptb-80">
                         <div className="container">
                             <div className="row justify-content-center">
                                 <div className="col-lg-4 col-md-6">
@@ -69,10 +76,9 @@ const Blog1 = () => {
                             </div>
                         </div>
                     </div>
-
             <Footer />
         </>
     )
 }
 
-export default Blog1;
+export default SearchPage;

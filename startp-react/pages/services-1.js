@@ -3,6 +3,7 @@ import Navbar from "@/components/_App/Navbar";
 import Footer from "@/components/_App/Footer";
 import PageBanner from '@/components/Common/PageBanner';
 import Link from 'next/link';
+import HTMLEditor from '@/components/Common/HTMLEditor';
 import * as Icon from 'react-feather';
  
 const Services1 = () => {
@@ -71,10 +72,18 @@ const Services1 = () => {
                                     </div>
                                 </div>
 
+
                                 <p><strong> Project Goal </strong><br/> Your goal should reflect the minimum amount of funds you need to complete your project and send out rewards, and include a buffer for payments processing fees.</p>
                                 <div className="col-lg-12 col-md-12">
                                     <div className="form-group">
                                     <input type="number" placeholder="Goal" className="form-control" />
+                                    </div>
+                                </div>
+                                
+                                <p><strong> Page of the project </strong><br/>Give an aspect to your page to make it more visual for the users.</p>
+                                <div className="col-lg-12 col-md-12">
+                                    <div className="form-group">
+                                        <HTMLEditor />
                                     </div>
                                 </div>
                                 

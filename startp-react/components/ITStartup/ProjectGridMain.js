@@ -43,7 +43,7 @@ const ProjectGridMain = () => {
                         </div>
                         
                         {/* Pagination */}
-                        <div className="col-lg-12 col-md-12">
+                        {/* <div className="col-lg-12 col-md-12">
                             <div className="pagination-area">
                                 <nav aria-label="Page navigation">
                                     <ul className="pagination justify-content-center">
@@ -59,7 +59,7 @@ const ProjectGridMain = () => {
                                     </ul>
                                 </nav>
                             </div>
-                        </div>
+                        </div> */}
                     </div>
                 </div>
 		    </div>
