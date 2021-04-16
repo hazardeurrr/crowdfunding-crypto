@@ -5698,6 +5698,14 @@ Checkout CSS
   border-radius: 5px;
 }
 
+.order-detail {
+  -webkit-box-shadow: 0 2px 48px 0 rgba(0, 0, 0, 0.08);
+          box-shadow: 0 2px 48px 0 rgba(0, 0, 0, 0.08);
+  background: #ffffff;
+  padding: 25px;
+  border-radius: 5px;
+}
+
 .order-details .order-table table {
   margin-bottom: 0;
   text-align: left;
@@ -5733,9 +5741,9 @@ Checkout CSS
 }
 
 .order-details .payment-method {
-  margin-top: 40px;
-  border-top: 1px solid #eaedff;
-  padding-top: 35px;
+  /* margin-top: 40px; */
+  /* border-top: 1px solid #eaedff;
+  padding-top: 35px; */
 }
 
 .order-details .payment-method p {
@@ -5796,6 +5804,72 @@ Checkout CSS
 }
 
 .order-details .btn.order-btn {
+  display: block;
+  margin-top: 25px;
+}
+
+/* **************************************
+SECOND ORDER DETAILS
+************************************** */
+
+.order-detail .payment-method p {
+  font-size: 14px;
+}
+
+.order-detail .payment-method p [type="radio2"]:checked, .order-detail .payment-method p [type="radio2"]:not(:checked) {
+  display: none;
+}
+
+.order-detail .payment-method p [type="radio2"]:checked + label, .order-detail .payment-method p [type="radio2"]:not(:checked) + label {
+  padding-left: 27px;
+  cursor: pointer;
+  display: block;
+  color: #0e314c;
+  position: relative;
+  margin-bottom: 8px;
+  font-weight: 500;
+}
+
+.order-detail .payment-method p [type="radio2"]:checked + label::before, .order-detail .payment-method p [type="radio2"]:not(:checked) + label::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 4px;
+  width: 18px;
+  height: 18px;
+  border: 1px solid #dddddd;
+  border-radius: 50%;
+  background: #ffffff;
+}
+
+.order-detail .payment-method p [type="radio2"]:checked + label::after, .order-detail .payment-method p [type="radio2"]:not(:checked) + label::after {
+  content: '';
+  width: 12px;
+  height: 12px;
+  background: #44ce6f;
+  position: absolute;
+  top: 7px;
+  left: 3px;
+  border-radius: 50%;
+  -webkit-transition: 0.5s;
+  transition: 0.5s;
+}
+
+.order-detail .payment-method p [type="radio2"]:not(:checked) + label::after {
+  opacity: 0;
+  visibility: hidden;
+  -webkit-transform: scale(0);
+          transform: scale(0);
+}
+
+.order-detail .payment-method p [type="radio2"]:checked + label::after {
+  opacity: 1;
+  visibility: visible;
+  -webkit-transform: scale(1);
+          transform: scale(1);
+}
+
+.order-detail .btn.order-btn {
   display: block;
   margin-top: 25px;
 }
