@@ -86,18 +86,7 @@ class SearchPage extends React.Component {
                             <div className="container">
                                 <div className="row justify-content-center">
                                    {this.displayProjects()}
-                                   <div className="col-lg-4 col-md-6">
-                                        <SimpleCampaignPost project={this.state.projects[0]}
-                                        />
-                                    </div>
-                                    <div className="col-lg-4 col-md-6">
-                                        <SimpleCampaignPost project={this.state.projects[1]}
-                                        />
-                                    </div>
-                                    <div className="col-lg-4 col-md-6">
-                                        <SimpleCampaignPost project={this.state.projects[2]}
-                                        />
-                                    </div>
+                                 
                                     
                                     {/* Pagination */}
                                     {/* <div className="col-lg-12 col-md-12">
