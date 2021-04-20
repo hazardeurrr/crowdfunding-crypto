@@ -1,6 +1,6 @@
 var projectList = [
   {
-    main_category:'Tech',
+    categories:['Technology', 'Innovation'],
     title : "Invest'easy : the new investment app",
     small_description:"Invest'easy is an app made to make investing easier for beginners.",
     creator:"Invest'easy",
@@ -27,7 +27,7 @@ var projectList = [
     long_desc:"<h4>Invest'easy, the new way of investing for young and dynamic people</h4><p>Hello, herre is a long description. <br>Bla bla bla</p> <h4>And now what ?</h4><p>I don't know but if you pay we will launch the project asap !</p><img src='https://www.w3schools.com/images/w3schools_green.jpg' alt='W3Schools.com'>"
   },
   {
-    main_category:'Innovation',
+    categories: ['Innovation'],
     title : "The future of energy",
     small_description:"Our product is the new innovation in the energy market.",
     creator:"Solarr",
@@ -54,7 +54,7 @@ var projectList = [
     long_desc:"<h4>Invest'easy, the new way of investing for young and dynamic people</h4><p>Hello, herre is a long description. <br>Bla bla bla</p> <h4>And now what ?</h4><p>I don't know but if you pay we will launch the project asap !</p><img src='https://www.w3schools.com/images/w3schools_green.jpg' alt='W3Schools.com'>"
   },
   {
-    main_category:'Charity',
+    categories:['Charity', 'Special Event'],
     title : "Help us saving the children",
     small_description:"Charityy is an organization that helps children in various countries",
     creator:"Childhelp",
@@ -82,7 +82,7 @@ var projectList = [
 
   },
   {
-    main_category:'Innovation',
+    categories:['Innovation'],
     title : "The future of energy",
     small_description:"Our product is the new innovation in the energy market.",
     creator:"Solarr",
@@ -110,7 +110,7 @@ var projectList = [
 
   },
   {
-    main_category:'Charity',
+    categories:['Charity'],
     title : "Save children",
     small_description:"Help us saving the children",
     creator:"Childhelp",
@@ -138,7 +138,7 @@ var projectList = [
 
   },
   {
-    main_category:'Charity',
+    categories:['Charity'],
     title : "Help us !",
     small_description:"Help us saving the children",
     creator:"Childhelp",

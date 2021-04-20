@@ -1,5 +1,6 @@
 import React from 'react';
 import Link from 'next/link';
+import CategoryList from '@/utils/CategoryList'
 
 const CategoriesLight = () => {
     return (
@@ -15,9 +16,9 @@ const CategoriesLight = () => {
                     <div className="col-lg-3 col-6 col-sm-6 col-md-4">
                         <div className="single-industries-serve-box">
                             <div className="icon">
-                                <i className='bx bx-buildings'></i>
+                                <i className='bx bx-paint'></i>
                             </div>
-                            Tech
+                            {CategoryList[0]}
                             <Link href="/service-details">
                                 <a className="link-btn"></a>
                             </Link>
@@ -27,9 +28,9 @@ const CategoriesLight = () => {
                     <div className="col-lg-3 col-6 col-sm-6 col-md-4">
                         <div className="single-industries-serve-box">
                             <div className="icon">
-                                <i className='bx bx-building-house'></i>
+                                <i className='bx bx-chip'></i>
                             </div>
-                            Healthcare
+                            {CategoryList[1]}
                             <Link href="/service-details">
                                 <a className="link-btn"></a>
                             </Link>
@@ -39,9 +40,9 @@ const CategoriesLight = () => {
                     <div className="col-lg-3 col-6 col-sm-6 col-md-4">
                         <div className="single-industries-serve-box">
                             <div className="icon">
-                                <i className='bx bx-car'></i>
+                                <i className='bx bx-donate-heart'></i>
                             </div>
-                            Innovation
+                            {CategoryList[2]}
                             <Link href="/service-details">
                                 <a className="link-btn"></a>
                             </Link>
@@ -51,9 +52,9 @@ const CategoriesLight = () => {
                     <div className="col-lg-3 col-6 col-sm-6 col-md-4">
                         <div className="single-industries-serve-box">
                             <div className="icon">
-                                <i className='bx bx-credit-card'></i>
+                                <i className='bx bx-star'></i>
                             </div>
-                            Special Event
+                            {CategoryList[3]}
                             <Link href="/service-details">
                                 <a className="link-btn"></a>
                             </Link>
@@ -63,33 +64,9 @@ const CategoriesLight = () => {
                     <div className="col-lg-3 col-6 col-sm-6 col-md-4">
                         <div className="single-industries-serve-box">
                             <div className="icon">
-                                <i className='bx bx-building'></i>
+                                <i className='bx bx-game'></i>
                             </div>
-                            Art
-                            <Link href="/service-details">
-                                <a className="link-btn"></a>
-                            </Link>
-                        </div>
-                    </div>
-
-                    <div className="col-lg-3 col-6 col-sm-6 col-md-4">
-                        <div className="single-industries-serve-box">
-                            <div className="icon">
-                                <i className='bx bxs-plane-alt'></i>
-                            </div>
-                            Travel
-                            <Link href="/service-details">
-                                <a className="link-btn"></a>
-                            </Link>
-                        </div>
-                    </div>
-
-                    <div className="col-lg-3 col-6 col-sm-6 col-md-4">
-                        <div className="single-industries-serve-box">
-                            <div className="icon">
-                                <i className='bx bx-group'></i>
-                            </div>
-                            Charity
+                            {CategoryList[4]}
                             <Link href="/service-details">
                                 <a className="link-btn"></a>
                             </Link>
@@ -101,7 +78,31 @@ const CategoriesLight = () => {
                             <div className="icon">
                                 <i className='bx bx-bitcoin'></i>
                             </div>
-                            Crypto
+                            {CategoryList[5]}
+                            <Link href="/service-details">
+                                <a className="link-btn"></a>
+                            </Link>
+                        </div>
+                    </div>
+
+                    <div className="col-lg-3 col-6 col-sm-6 col-md-4">
+                        <div className="single-industries-serve-box">
+                            <div className="icon">
+                                <i className='bx bx-bulb'></i>
+                            </div>
+                            {CategoryList[6]}
+                            <Link href="/service-details">
+                                <a className="link-btn"></a>
+                            </Link>
+                        </div>
+                    </div>
+
+                    <div className="col-lg-3 col-6 col-sm-6 col-md-4">
+                        <div className="single-industries-serve-box">
+                            <div className="icon">
+                                <i className='bx bx-world'></i>
+                            </div>
+                            {CategoryList[7]}
                             <Link href="/service-details">
                                 <a className="link-btn"></a>
                             </Link>

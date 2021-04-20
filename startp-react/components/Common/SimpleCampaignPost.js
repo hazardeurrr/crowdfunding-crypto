@@ -7,6 +7,23 @@ import ProgressBar from 'react-bootstrap/ProgressBar';
 const SimpleCampaignPost = (props) => {
     const campaign = props.project
     const pct = (campaign.raised / campaign.objective) * 100
+
+    const cat = () => {
+        if(campaign.categories.length == 2){
+            return (
+                <div className="date">
+                  <Icon.Bookmark /> {campaign.categories[0]}, {campaign.categories[1]}
+                </div>
+            )
+        } else {
+            return (
+                <div className="date">
+                  <Icon.Bookmark /> {campaign.categories[0]}
+                </div>
+            )
+        }
+    }
+
     return (
         <>
         <div className="single-blog-post">
@@ -16,9 +33,7 @@ const SimpleCampaignPost = (props) => {
                       <img src={campaign.main_img} alt="image" />
                   </a>
               </Link>
-              <div className="date">
-                  <Icon.Bookmark /> {campaign.main_category}
-              </div>
+              {cat()}
           </div>
           <div className="blog-post-content">
               <h3>
