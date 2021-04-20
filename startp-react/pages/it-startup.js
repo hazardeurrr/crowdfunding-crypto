@@ -37,7 +37,7 @@ const ITStartup = () => {
             <Feedback />
             <Partner /> */}
             {/* <BlogPost /> */}
-            <CategoriesMainPage />
+            {/* <CategoriesMainPage /> */}
 
             <Footer />
         </>
