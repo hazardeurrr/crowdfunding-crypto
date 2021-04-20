@@ -138,7 +138,7 @@ var projectList = [
 
   },
   {
-    categories:['Charity'],
+    categories:['Charity', 'Technology'],
     title : "Help us !",
     small_description:"Help us saving the children",
     creator:"Childhelp",

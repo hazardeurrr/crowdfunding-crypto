@@ -24,6 +24,11 @@ const SimpleCampaignPost = (props) => {
         }
     }
 
+    const newTo = { 
+        pathname: campaign.contract_address, 
+        param1: campaign 
+      };
+
     return (
         <>
         <div className="single-blog-post">
@@ -37,7 +42,7 @@ const SimpleCampaignPost = (props) => {
           </div>
           <div className="blog-post-content">
               <h3>
-                  <Link href="/CampaignDetails">
+                  <Link href={`CampaignDetails/`} as={`CampaignDetails/${campaign.contract_address}`}>
                       <a>{campaign.title}</a>
                   </Link>
               </h3>

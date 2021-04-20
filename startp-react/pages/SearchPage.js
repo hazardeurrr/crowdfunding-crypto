@@ -28,8 +28,8 @@ class SearchPage extends React.Component {
     }
 
     dynamicSearch(){
-        console.log(this.categoriesSelected + " cat selected")
-        return this.state.projects.filter(p => p.categories.some(r=> this.categoriesSelected.includes(r)))
+        console.log(this.categoriesSelected)
+        return projectList.filter(p => p.categories.some(r=> this.categoriesSelected.includes(r)))
       }
     
     loadProjects(){
@@ -42,7 +42,7 @@ class SearchPage extends React.Component {
     
 
     addCategory(i){
-        this.categoriesSelected = this.categoriesSelected.concat(categoryList[i]);
+        this.categoriesSelected.push(categoryList[i]);
         this.loadProjects();
     }
 
@@ -54,12 +54,12 @@ class SearchPage extends React.Component {
     displayProjects = () => {
         var rows = [];
         for (var i = 0; i < this.state.projects.length; i++) {
-            rows.push( <div className="col-lg-4 col-md-6">
+            rows.push( <div key={i} className="col-lg-4 col-md-6">
             <SimpleCampaignPost project={this.state.projects[i]}
             />
         </div>);
         }
-        return <tbody>{rows}</tbody>;
+        return rows;
       }
 
 
