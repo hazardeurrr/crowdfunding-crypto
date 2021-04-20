@@ -63,7 +63,7 @@ var projectList = [
     currency:'USDT',
     time_left:'4 days',
     main_img: 'https://dl.img-news.com/dl/img/s3/dl/2020/09/should-you-buy-tesla-stock.jpg',
-    contract_address:'0x56985475654az9e8z5f6az6',
+    contract_address:'0x569854865654az9e8z5f6az6',
     tiers: [{threshold: 0.1,
       title: 'Get a free stock',
       description: "You will get a free stock when our app is up, thanks for being one of the first contributor !"
@@ -91,7 +91,7 @@ var projectList = [
     currency:'ETH',
     time_left:'5 days',
     main_img: 'https://dl.img-news.com/dl/img/s3/dl/2020/09/should-you-buy-tesla-stock.jpg',
-    contract_address:'0x56985475654az9e8z5f6az7',
+    contract_address:'0x56985475654az9f8z5f6az7',
     tiers: [{threshold: 0.1,
       title: 'Get a free stock',
       description: "You will get a free stock when our app is up, thanks for being one of the first contributor !"

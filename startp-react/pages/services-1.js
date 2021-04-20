@@ -8,11 +8,34 @@ import * as Icon from 'react-feather';
 import "react-dates/initialize";
 import { DateRangePicker } from "react-dates";
 import "react-dates/lib/css/_datepicker.css";
- 
+import FormControlLabel from '@material-ui/core/FormControlLabel';
+import Checkbox from '@material-ui/core/Checkbox';
+import { withStyles } from '@material-ui/core/styles';
+
+const GreenCheckbox = withStyles({
+    root: {
+      color: '#44ce6f',
+      '&$checked': {
+        color: '#44ce6f',
+      },
+    },
+    checked: {},
+  })((props) => <Checkbox color="default" {...props} />);
+
+const handleCampain = (event) => {
+    console.log('click on submit button')
+}
+
 const Services1 = () => {
     const [startDate, setStartDate] = React.useState();
     const [endDate, setEndDate] = React.useState();
     const [focusedInput, setFocusedInput] = React.useState();
+    const [state, setState] = React.useState({
+        checkedG: true,
+      });
+    const handleChange = (event) => {
+        setState({ ...state, [event.target.name]: event.target.checked });
+    };
 
     return (
         <>
@@ -30,7 +53,7 @@ const Services1 = () => {
 
                     <div className="faq-contact">
                         <h3>Complete the information for your campaign</h3>
-                        <form>
+                        <form id="formCampaign" onSubmit={handleCampain()}>
                             <div className="row">
                                 <p><strong> Fundraiser Name </strong><br/>Give a name to your project to make it searchable for the users.</p>
                                 <div className="col-lg-12 col-md-12">
@@ -106,7 +129,7 @@ const Services1 = () => {
                                         <HTMLEditor />
                                     </div>
                                 </div>
-                                
+
                                 <p><strong> Raising Method </strong><br/>Give a raising currency for your crowdfunding project.</p>
                                 <div className="col-lg-12 col-md-12">
                                     <div className="form-group">
@@ -128,21 +151,15 @@ const Services1 = () => {
                                 <p><strong> Flexibilty </strong><br/>Indicate how flexible can you be on your fundraising and the amount you want to gather.</p>
                                 <div className="col-lg-12 col-md-12">
                                     <div className="form-group">
-                                        <div className="order-detail">
-                                            <div className="payment-method">
-                                                <p>
-                                                    <input type="radio2" id="flexible" name="radio-group" defaultChecked/>
-                                                    <label htmlFor="flexible">Flexible</label>
-                                                </p>
-                                                <p>
-                                                    <input type="radio2" id="goal" name="radio-group" />
-                                                    <label htmlFor="goal">Goal has to be reached</label>
-                                                </p>
+                                        <div className="order-details">
+                                            <FormControlLabel
+                                                control={<GreenCheckbox checked={state.checkedG} onChange={handleChange} name="checkedG" />}
+                                                label="Goal has to be reached"
+                                            />
                                             </div>
-                                        </div>
                                     </div>
                                 </div>
-
+                                
                                 <h4 style={{marginTop: "15px", marginBottom: "20px"}}>Optionnal</h4>
                                 <p><strong> Tiers </strong><br/>Indicate differents levels of contribution for your fundraising.</p>
                                 <div className="col-lg-12 col-md-12">
@@ -156,10 +173,9 @@ const Services1 = () => {
                                         <textarea name="message" cols="30" rows="6" placeholder="Description" className="form-control"></textarea>
                                     </div>
                                 </div>
-
                                 
                                 <div className="col-lg-12 col-md-12">
-                                    <button className="btn btn-primary" type="submit">Create Fundraiser !</button>
+                                    <button className="btn btn-primary" type="submit" >Create Fundraiser !</button>
                                 </div>
 
                             </div>

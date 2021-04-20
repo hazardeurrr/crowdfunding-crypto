@@ -33,7 +33,7 @@ const SimpleCampaignPost = (props) => {
         <>
         <div className="single-blog-post">
           <div className="blog-image">
-              <Link href="/CampaignDetails">
+              <Link href="/Campaigns/[id]" as={`/Campaigns/${campaign.contract_address}`}>
                   <a>
                       <img src={campaign.main_img} alt="image" />
                   </a>
@@ -42,7 +42,13 @@ const SimpleCampaignPost = (props) => {
           </div>
           <div className="blog-post-content">
               <h3>
-                  <Link href={`CampaignDetails/`} as={`CampaignDetails/${campaign.contract_address}`}>
+                  <Link href={{
+                        pathname: "/Campaigns/[id]",
+                        query: {
+                            id: campaign.contract_address,
+                        }
+                    }}
+                    as={`/Campaigns/${campaign.contract_address}`}>
                       <a>{campaign.title}</a>
                   </Link>
               </h3>
