@@ -15,9 +15,8 @@ const Login = () => {
 
             <div className="ptb-80">
                 <div className="container">
-                <button type="submit" className="btn btn-primary" onClick={() => loadWeb3()}>Login with Metamask</button>
-                    <div className="auth-form">
-                        <div className="auth-head">
+                    {/* <div className="auth-form"> */}
+                        {/* <div className="auth-head">
                             <Link href="/it-startup">
                                 <a><img src="/images/logo.png" /></a>
                             </Link>
@@ -61,6 +60,15 @@ const Login = () => {
                                     </a>
                                 </li>
                             </ul>
+                        </div>
+                    </div> */}
+                    <div className="auth-form">
+                        <div className="auth-head">
+                            <Link href="/it-startup">
+                                <a><img src="/images/logo.png" /></a>
+                            </Link>
+                            <p>Login with your Metamask account to start interacting !</p><br/>
+                            <button type="submit" className="btn btn-primary" onClick={() => loadWeb3()}>Login with Metamask</button>
                         </div>
                     </div>
                 </div>
