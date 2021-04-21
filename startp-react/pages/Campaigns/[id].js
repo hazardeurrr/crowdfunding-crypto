@@ -14,13 +14,8 @@ import categoryList from '@/utils/CategoryList';
  
 const Campaign = (props) => {
 
-    // const { addToast } = useToasts()
-    // const dispatch = useDispatch()
-    // const router = useRouter()
-    // const contract_address = router.query.id
-    // const campaign = useSelector((state) => state.projectList.find(item => item.contract_address === contract_address))  
 
-    const campaign = projectList.find(e => e.contract_address == props.address) // hardcoded, change
+    const campaign = projectList.find(e => e.contract_address == props.address)
     console.log("Campaign : " + campaign)
     const desc = campaign.long_desc
     const pct = (campaign.raised / campaign.objective) * 100

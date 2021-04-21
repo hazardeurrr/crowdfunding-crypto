@@ -33,11 +33,17 @@ const SimpleCampaignPost = (props) => {
         <>
         <div className="single-blog-post">
           <div className="blog-image">
-              <Link href="/Campaigns/[id]" as={`/Campaigns/${campaign.contract_address}`}>
-                  <a>
-                      <img src={campaign.main_img} alt="image" />
-                  </a>
-              </Link>
+            <Link href={{
+                            pathname: "/Campaigns/[id]",
+                            query: {
+                                id: campaign.contract_address,
+                            }
+                        }}
+                        as={`/Campaigns/${campaign.contract_address}`}>
+                    <a>
+                        <img src={campaign.main_img} alt="image" />
+                    </a>
+                </Link>
               {cat()}
           </div>
           <div className="blog-post-content">
@@ -57,7 +63,13 @@ const SimpleCampaignPost = (props) => {
               <b>{campaign.raised} {campaign.currency}</b>
               <ProgressBar animated now={pct} />
               <p><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-clock"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>   {campaign.time_left}</p>
-              <Link href="/CampaignDetails">
+              <Link href={{
+                        pathname: "/Campaigns/[id]",
+                        query: {
+                            id: campaign.contract_address,
+                        }
+                    }}
+                    as={`/Campaigns/${campaign.contract_address}`}>
                   <a className="read-more-btn">
                       Support this campagin <Icon.ArrowRight />
                   </a>

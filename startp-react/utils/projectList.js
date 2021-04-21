@@ -164,7 +164,7 @@ var projectList = [
     }],
     long_desc:"<h4>Invest'easy, the new way of investing for young and dynamic people</h4><p>Hello, herre is a long description. <br>Bla bla bla</p> <h4>And now what ?</h4><p>I don't know but if you pay we will launch the project asap !</p><img src='https://www.w3schools.com/images/w3schools_green.jpg' alt='W3Schools.com'>"
 
-  }
+  },
 ]
 
 export default projectList;

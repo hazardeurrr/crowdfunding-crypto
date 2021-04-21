@@ -19,7 +19,12 @@ const CategoriesLight = () => {
                                 <i className='bx bx-paint'></i>
                             </div>
                             {CategoryList[0]}
-                            <Link href="/service-details">
+                            <Link href={{
+                                pathname: "SearchPage",
+                                query: {
+                                    id: CategoryList[0],
+                                }
+                            }}>
                                 <a className="link-btn"></a>
                             </Link>
                         </div>
@@ -31,7 +36,12 @@ const CategoriesLight = () => {
                                 <i className='bx bx-chip'></i>
                             </div>
                             {CategoryList[1]}
-                            <Link href="/service-details">
+                            <Link href={{
+                                pathname: "SearchPage",
+                                query: {
+                                    id: CategoryList[1],
+                                }
+                            }}>
                                 <a className="link-btn"></a>
                             </Link>
                         </div>
@@ -43,7 +53,12 @@ const CategoriesLight = () => {
                                 <i className='bx bx-donate-heart'></i>
                             </div>
                             {CategoryList[2]}
-                            <Link href="/service-details">
+                            <Link href={{
+                                pathname: "SearchPage",
+                                query: {
+                                    id: CategoryList[2],
+                                }
+                            }}>
                                 <a className="link-btn"></a>
                             </Link>
                         </div>
@@ -55,7 +70,12 @@ const CategoriesLight = () => {
                                 <i className='bx bx-star'></i>
                             </div>
                             {CategoryList[3]}
-                            <Link href="/service-details">
+                            <Link href={{
+                                pathname: "SearchPage",
+                                query: {
+                                    id: CategoryList[3],
+                                }
+                            }}>
                                 <a className="link-btn"></a>
                             </Link>
                         </div>
@@ -67,7 +87,12 @@ const CategoriesLight = () => {
                                 <i className='bx bx-game'></i>
                             </div>
                             {CategoryList[4]}
-                            <Link href="/service-details">
+                            <Link href={{
+                                pathname: "SearchPage",
+                                query: {
+                                    id: CategoryList[4],
+                                }
+                            }}>
                                 <a className="link-btn"></a>
                             </Link>
                         </div>
@@ -79,7 +104,12 @@ const CategoriesLight = () => {
                                 <i className='bx bx-bitcoin'></i>
                             </div>
                             {CategoryList[5]}
-                            <Link href="/service-details">
+                            <Link href={{
+                                pathname: "SearchPage",
+                                query: {
+                                    id: CategoryList[5],
+                                }
+                            }}>
                                 <a className="link-btn"></a>
                             </Link>
                         </div>
@@ -91,7 +121,12 @@ const CategoriesLight = () => {
                                 <i className='bx bx-bulb'></i>
                             </div>
                             {CategoryList[6]}
-                            <Link href="/service-details">
+                            <Link href={{
+                                pathname: "SearchPage",
+                                query: {
+                                    id: CategoryList[6],
+                                }
+                            }}>
                                 <a className="link-btn"></a>
                             </Link>
                         </div>
@@ -103,7 +138,12 @@ const CategoriesLight = () => {
                                 <i className='bx bx-world'></i>
                             </div>
                             {CategoryList[7]}
-                            <Link href="/service-details">
+                            <Link href={{
+                                pathname: "SearchPage",
+                                query: {
+                                    id: CategoryList[7],
+                                }
+                            }}>
                                 <a className="link-btn"></a>
                             </Link>
                         </div>

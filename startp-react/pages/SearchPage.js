@@ -12,19 +12,75 @@ import ListGroup from 'react-bootstrap/ListGroup';
 import CheckboxList from '@/components/Common/CheckboxList'
 import Checkbox from '@material-ui/core/Checkbox';
 import categoryList from '@/utils/CategoryList';
+import { withStyles } from '@material-ui/core/styles';
+import { green } from '@material-ui/core/colors';
+import FormGroup from '@material-ui/core/FormGroup';
+import FormControlLabel from '@material-ui/core/FormControlLabel';
 
+const GreenCheckbox = withStyles({
+    root: {
+      color: green[400],
+      '&$checked': {
+        color: green[600],
+      },
+    },
+    checked: {},
+  })((props) => <Checkbox color="default" {...props} />);
 
 class SearchPage extends React.Component {
 
     constructor(props){
         super(props);
+        this.props = props
         this.languagesSelected = ["EN"];
         this.categoriesSelected = [];
+        
+        
         this.state = {
-            projects: projectList
+            projects: projectList,
+            checked: this.populateCheckArray(),
         }
         this.addCategory = this.addCategory.bind(this);
         this.removeCategory = this.removeCategory.bind(this);
+    }
+
+    populateCheckArray(){
+        let arr = []
+        categoryList.forEach(e => arr.push(false))
+        return arr
+    }
+
+    handleChange = (event) => {
+        let e = event.target.name
+        if(this.state.checked[e])
+          this.removeCategory(e)
+        else
+          this.addCategory(e)
+        this.setState({checked: this.CheckedArrayChanged(e)})
+      };
+
+      CheckedArrayChanged(i){
+          let arr = this.state.checked
+          arr[i] = !arr[i]
+          return arr
+      }
+    
+    showCheckboxes = () => {
+        var rows = [];
+        for (var i = 0; i < CategoryList.length; i++) {
+            rows.push(<FormControlLabel key={i}
+              control={<Checkbox checked={this.state.checked[i]} onChange={this.handleChange} name={i} />}
+              label={CategoryList[i]}
+            />);
+        }
+        return <tbody>{rows}</tbody>;
+      }
+
+    componentDidMount(){
+         const s = this.props.cat
+         const i = categoryList.indexOf(s)
+         this.addCategory(i)
+         this.setState({checked: this.CheckedArrayChanged(i)})
     }
 
     dynamicSearch(){
@@ -63,9 +119,6 @@ class SearchPage extends React.Component {
       }
 
 
-
-    // change to add and remove tag
-
     render(){
         
         return (
@@ -77,7 +130,8 @@ class SearchPage extends React.Component {
                         <div className="section-title">
                             <h2>Discover the projects that need you !</h2>
                             <div className="bar"></div>
-                            <CheckboxList addCat = {this.addCategory} removeCat = {this.removeCategory} />
+                            {/* <CheckboxList alreadyChecked = {categoryList.indexOf(this.props.cat)} addCat = {this.addCategory} removeCat = {this.removeCategory} /> */}
+                            {this.showCheckboxes()}
                         </div>
                     </div>
                 </div>
@@ -116,3 +170,16 @@ class SearchPage extends React.Component {
 }
 
 export default SearchPage;
+
+export async function getServerSideProps (context) {
+    console.log(context.query) 
+    // returns { id: episode.itunes.episode, title: episode.title}
+    
+  
+    //you can make DB queries using the data in context.query
+    return {
+        props: { 
+           cat: context.query.id //pass it to the page props
+        }
+    }
+  }
