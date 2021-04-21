@@ -3,6 +3,7 @@ import Navbar from "@/components/_App/Navbar";
 import Footer from "@/components/_App/Footer";
 import PageBanner from '@/components/Common/PageBanner';
 import Link from 'next/link';
+import loadWeb3 from "@/components/ITStartup/MetaMaskConnection"
 import * as Icon from 'react-feather';
  
 const Login = () => {
@@ -14,6 +15,7 @@ const Login = () => {
 
             <div className="ptb-80">
                 <div className="container">
+                <button type="submit" className="btn btn-primary" onClick={() => loadWeb3()}>Login with Metamask</button>
                     <div className="auth-form">
                         <div className="auth-head">
                             <Link href="/it-startup">
