@@ -396,23 +396,34 @@ const Navbar = () => {
                                 </li>
 
                                 <li className="nav-item">
-                                    <Link href="/contact" activeClassName="active">
-                                        <a onClick={toggleNavbar} className="nav-link">Contact</a>
+                                <Link href={"/how-it-works"} activeClassName="active">
+                                        <a onClick={toggleNavbar} className="nav-link">How it works</a>
+                                    </Link>
+                                </li>
+
+                                <li className="nav-item">
+                                <Link href={{
+                                        pathname: "SearchPage",
+                                        query: {
+                                            id: "explore",
+                                        }
+                                    }} activeClassName="active">
+                                        <a onClick={toggleNavbar} className="nav-link">Explore</a>
                                     </Link>
                                 </li>
                             </ul>
                         </div>
 
                         <div className="others-option">
-                            <Link href="/cart">
+                            {/* <Link href="/cart">
                                 <a className="cart-wrapper-btn">
                                     <Icon.ShoppingCart /> 
                                     <span>{cart.length}</span>
                                 </a>
-                            </Link>
+                            </Link> */}
 
-                            <Link href="/contact">
-							    <a className="btn btn-light">Support</a>
+                            <Link href="/services-1">
+							    <a className="btn btn-light">Create a campaign</a>
                             </Link>
 
                             <Link href="/login">

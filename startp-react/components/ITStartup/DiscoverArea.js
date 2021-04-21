@@ -18,7 +18,7 @@ const DiscoverArea = () => {
                             <h2>Making use of the blockchain to connect creators and contributors</h2>
                             <p>Creators can easily create a campaign to raise funds in ETH or USDT. Contributors can then see it and finance the project in one click, thanks to the power of the Ethereum blockchain.</p>
 
-                            <Link href="#">
+                            <Link href="/how-it-works">
                                 <a className="btn btn-primary">Learn more about how it works</a>
                             </Link>
                         </div>

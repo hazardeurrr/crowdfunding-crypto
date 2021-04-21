@@ -77,10 +77,12 @@ class SearchPage extends React.Component {
       }
 
     componentDidMount(){
-         const s = this.props.cat
-         const i = categoryList.indexOf(s)
-         this.addCategory(i)
-         this.setState({checked: this.CheckedArrayChanged(i)})
+         if(this.props.cat != "explore"){
+            const s = this.props.cat
+            const i = categoryList.indexOf(s)
+            this.addCategory(i)
+            this.setState({checked: this.CheckedArrayChanged(i)})
+         }
     }
 
     dynamicSearch(){
