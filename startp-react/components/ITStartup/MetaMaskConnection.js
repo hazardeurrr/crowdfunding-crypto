@@ -9,4 +9,8 @@ export default async function loadWeb3() {
         'Metamask not detected! Install Metamask plugin to proceed: https://metamask.io/download.html'
       )
     }
+    
+    let isConnected = await window.ethereum.isConnected() 
+    if (isConnected) {return true}
+    else {return false}
   }

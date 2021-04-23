@@ -16,6 +16,9 @@ const MainBanner = () => {
 									<Link href="/services-1">
 										<a className="btn btn-primary">Create a campaign</a>
 									</Link>
+                                    <Link href="/SearchPage">
+										<a className="btn btn-light">Explore</a>
+									</Link>
 								</div>
 							</div>
 

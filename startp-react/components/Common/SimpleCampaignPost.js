@@ -12,7 +12,7 @@ const SimpleCampaignPost = (props) => {
         if(campaign.categories.length == 2){
             return (
                 <div className="date">
-                  <Icon.Bookmark /> {campaign.categories[0]}, {campaign.categories[1]}
+                  <Icon.Bookmark /> {campaign.categories[0]} | {campaign.categories[1]}
                 </div>
             )
         } else {
@@ -23,11 +23,6 @@ const SimpleCampaignPost = (props) => {
             )
         }
     }
-
-    const newTo = { 
-        pathname: campaign.contract_address, 
-        param1: campaign 
-      };
 
     return (
         <>

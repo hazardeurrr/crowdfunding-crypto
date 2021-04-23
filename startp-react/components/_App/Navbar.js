@@ -3,6 +3,9 @@ import Link from '@/utils/ActiveLink'
 import * as Icon from 'react-feather'
 import { useSelector } from 'react-redux'
 
+import loadWeb3 from "@/components/ITStartup/MetaMaskConnection"
+
+
 const Navbar = () => {
     const cart = useSelector((state) => state.cart)
     const [menu, setMenu] = React.useState(true)
@@ -22,6 +25,24 @@ const Navbar = () => {
         });
         window.scrollTo(0, 0); 
     })
+
+    const isConnected = () => {
+        let connected = false
+        if (connected) {
+            return (
+                <>
+                <button type="submit" className="btn btn-primary">Connected</button>
+                </>
+            )
+        }
+        else {
+            return (
+                <>
+                <button type="submit" className="btn btn-primary" onClick={() => loadWeb3()}>Connect with Metamask</button>
+                </>
+            )
+        }
+    }
  
     const classOne = menu ? 'collapse navbar-collapse' : 'collapse navbar-collapse show';
     const classTwo = menu ? 'navbar-toggler navbar-toggler-right collapsed' : 'navbar-toggler navbar-toggler-right';
@@ -426,9 +447,7 @@ const Navbar = () => {
 							    <a className="btn btn-light">Create a campaign</a>
                             </Link>
 
-                            <Link href="/login">
-							    <a className="btn btn-primary">Login</a>
-                            </Link>
+                            {isConnected()}
 						</div>
                     </nav>
                 </div>

@@ -8,11 +8,19 @@ const MainBanner = () => {
                 <div className="row">
                     <div className="col-lg-6 col-md-12">
                         <div className="ml-banner-content">
-                            <h1>World’s Leading AI & Machine Learning Company</h1>
+                            <h1>A new way to raise funds</h1>
                             <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Quis ipsum suspendisse ultrices gravida.</p>
 
-                            <Link href="/contact">
-                                <a className="btn btn-secondary">Get Started</a>
+                            <Link href="/services-1">
+								<a className="btn btn-primary">Create a campaign</a>
+							</Link>
+                            <Link href={{
+                                        pathname: "SearchPage",
+                                        query: {
+                                            id: "explore",
+                                            }
+                                        }} activeClassName="active">
+                                        <a className="btn btn-light">Explore</a>
                             </Link>
                         </div>
                     </div>

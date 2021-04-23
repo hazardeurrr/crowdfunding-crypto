@@ -7,7 +7,7 @@ const CategoriesLight = () => {
         <div className="industries-serve-area ptb-80">
             <div className="container">
                 <div className="section-title">
-                    <h2>Discover projects that inspire you</h2>
+                    <h2>Explore by category</h2>
 					<div className="bar"></div>
                     {/* <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p> */}
                 </div>

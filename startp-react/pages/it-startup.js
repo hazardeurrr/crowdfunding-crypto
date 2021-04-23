@@ -1,6 +1,6 @@
 import React from 'react';
 import Navbar from "@/components/_App/Navbar";
-import MainBanner from "@/components/ITStartup/MainBanner";
+import MainBanner from "@/components/MachineLearning/MainBanner";
 import Features from "@/components/ITStartup/Features";
 import OurFeatures from "@/components/ITStartup/OurFeatures";
 import ServicesArea from "@/components/ITStartup/ServicesArea";
@@ -16,6 +16,7 @@ import CategoriesMainPage from "@/components/ITStartup/CategoriesMainPage";
 import CategoriesLight from "@/components/ITStartup/CategoriesLight";
 import ProjectGridMain from "@/components/ITStartup/ProjectGridMain";
 import DiscoverArea from '@/components/ITStartup/DiscoverArea';
+import FeaturedProjectCarrousel from '@/components/ITStartup/FeaturedProjectCarrousel';
 
 
 const ITStartup = () => {
@@ -23,8 +24,8 @@ const ITStartup = () => {
         <>
             <Navbar />
             <MainBanner />
-            <Features />
-
+            {/* <Features /> */}
+            <FeaturedProjectCarrousel/>
             <CategoriesLight />
             <ProjectGridMain />
             <DiscoverArea />

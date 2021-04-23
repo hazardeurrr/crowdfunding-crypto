@@ -1,6 +1,9 @@
 import React from 'react';
 import Link from 'next/link';
 import dynamic from 'next/dynamic';
+import * as Icon from 'react-feather';
+import SingleCardCarrousel from '../Common/SingleCardCarrousel';
+import projectList from '@/utils/projectList';
 const OwlCarousel = dynamic(import('react-owl-carousel3'));
 
 const options = {
@@ -30,6 +33,18 @@ const options = {
     },
 }
 
+const len = projectList.length > 6 ? 6 : projectList.length
+
+const ShowProjects = () => {
+    var rows = [];
+    for (var i = 0; i < len; i++) {
+        rows.push(<div className="single-ml-projects-box">
+        <SingleCardCarrousel project={projectList[i]}
+        /></div>)
+    }
+    return rows;
+}
+
 const Projects = () => {
     const [display, setDisplay] = React.useState(false);
 
@@ -39,63 +54,12 @@ const Projects = () => {
     
     return (
         <div className="ml-projects-area pt-0 ptb-80">
-            <div className="container">
-                <div className="section-title st-fs-28">
-                    <h2>Proud Projects That Make Us Stand Out</h2>
-                    <div className="bar"></div>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-                </div>
-            </div>
-
             <div className="container-fluid">
                 {display ? <OwlCarousel 
                     className="ml-projects-slides owl-carousel owl-theme"
                     {...options}
                 >  
-                    <div className="single-ml-projects-box">
-                        <img src="/images/projects-img1.jpg" alt="image" />
-                        <div className="plus-icon">
-                            <Link href="/project-details">
-                                <a><span></span></a>
-                            </Link>
-                        </div>
-                    </div>
-
-                    <div className="single-ml-projects-box">
-                        <img src="/images/projects-img2.jpg" alt="image" />
-                        <div className="plus-icon">
-                            <Link href="/project-details">
-                                <a><span></span></a>
-                            </Link>
-                        </div>
-                    </div>
-
-                    <div className="single-ml-projects-box">
-                        <img src="/images/projects-img3.jpg" alt="image" />
-                        <div className="plus-icon">
-                            <Link href="/project-details">
-                                <a><span></span></a>
-                            </Link>
-                        </div>
-                    </div>
-
-                    <div className="single-ml-projects-box">
-                        <img src="/images/projects-img4.jpg" alt="image" />
-                        <div className="plus-icon">
-                            <Link href="/project-details">
-                                <a><span></span></a>
-                            </Link>
-                        </div>
-                    </div>
-
-                    <div className="single-ml-projects-box">
-                        <img src="/images/projects-img5.jpg" alt="image" />
-                        <div className="plus-icon">
-                            <Link href="/project-details">
-                                <a><span></span></a>
-                            </Link>
-                        </div>
-                    </div>
+                {ShowProjects()}
                 </OwlCarousel> : ''}
             </div>
 

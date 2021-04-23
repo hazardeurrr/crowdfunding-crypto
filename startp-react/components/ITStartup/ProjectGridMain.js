@@ -26,8 +26,28 @@ const ProjectGridMain = () => {
         <> 
             <div className="blog-area ptb-80">
                 <div className="container">
+                    <div className="section-title">
+                        <span className="sub-title">Featured campaigns</span>
+                        <h2>Discover projects that inspire you</h2>
+                        <div className="bar"></div>
+                    </div>
                     <div className="row justify-content-center">
                         {displayProjects()}
+                                    
+                                    <div className="col-lg-12 col-md-12">
+                                        <div className="pagination-area">
+                                            <nav aria-label="Page navigation">
+                                            <Link href={{
+                                                    pathname: "SearchPage",
+                                                    query: {
+                                                        id: "explore",
+                                                    }
+                                                }} activeClassName="active">
+                                                <a className="btn btn-primary">Explore more...</a>
+                                            </Link>
+                                            </nav>
+                                        </div>
+                                    </div>
                     </div>
                 </div>
 		    </div>
