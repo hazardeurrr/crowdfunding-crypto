@@ -41,12 +41,20 @@ const useStyles = makeStyles({
 const CampaignSidebar = (props) => {
     const campaign = props.project
     const classes = useStyles();
+
+    const Title = () => {
+        if(campaign.tiers.length != 0){
+            return <h3 className="widget-title">What you get with your contribution</h3>
+
+        }
+    }
+
     return (
         <div className="widget-area" id="secondary">
 
             <div className="widget widget_startp_posts_thumb">
-                <h3 className="widget-title">What you get with your contribution</h3>
                     <div className={classes.root}>
+                        {Title()}
                         <GridList spacing={15} cols={1}>
                             {campaign.tiers.map((tile) => (
                                 <GridListTile key={tile} cols={1}>

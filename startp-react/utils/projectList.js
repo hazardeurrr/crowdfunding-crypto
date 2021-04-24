@@ -37,20 +37,7 @@ var projectList = [
     time_left:'5 days',
     main_img: 'https://dl.img-news.com/dl/img/s3/dl/2020/09/should-you-buy-tesla-stock.jpg',
     contract_address:'0x56985475654az9e8z5f6az6',
-    tiers: [{threshold: 0.1,
-      title: 'Get a free stock',
-      description: "You will get a free stock when our app is up, thanks for being one of the first contributor !"
-    }, 
-    {
-      threshold: 0.2,
-      title: 'Get two free stocks',
-      description: "You will get two free stocks when our app is up, thanks for being one of the first contritbutor !"
-    },
-    {
-      threshold: 0.5,
-      title: 'Special thanks on our app',
-      description: "You will get two free stocks and a special thanks in our app !"
-    }],
+    tiers: [],
     long_desc:"<h4>Invest'easy, the new way of investing for young and dynamic people</h4><p>Hello, herre is a long description. <br>Bla bla bla</p> <h4>And now what ?</h4><p>I don't know but if you pay we will launch the project asap !</p><img src='https://www.w3schools.com/images/w3schools_green.jpg' alt='W3Schools.com'>"
   },
   {

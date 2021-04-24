@@ -37,6 +37,7 @@ class Services1 extends React.Component {
             tierChecked: false
         }
         this.handleChange = this.handleChange.bind(this);
+        this.tiers = [];
     }
 
     handleChange() {
@@ -62,9 +63,12 @@ class Services1 extends React.Component {
     //     state.tierChecked = !state.tierChecked
     //     // console.log(state.tierChecked)
     // };
-    
+
+
     render() {
         const hidden = this.state.tierChecked ? 'block' : 'none';
+
+        
         
         return (
             <>
@@ -219,8 +223,8 @@ class Services1 extends React.Component {
                                         <div className="form-group">
                                             <textarea name="message" cols="30" rows="6" placeholder="Description" className="form-control"></textarea>
                                         </div>
-                                    </div> */}
-                                    
+                                    </div>
+                                     */}
                                     <div className="col-lg-12 col-md-12">
                                         <button className="btn btn-primary" type="submit" >Create Fundraiser !</button>
                                     </div>

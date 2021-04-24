@@ -2,9 +2,7 @@ import React from 'react';
 import Navbar from "@/components/_App/Navbar";
 import Footer from "@/components/_App/Footer";
 import PageBanner from '@/components/Common/PageBanner';
-import PricingStyleOne from '@/components/PricingPlans/PricingStyleOne';
-import PricingStyleTwo from '@/components/PricingPlans/PricingStyleTwo';
-import PricingStyleFour from '@/components/PricingPlans/PricingStyleFour'; 
+import PricingTiers from '@/components/Common/PricingTiers';
 import projectList from '@/utils/projectList';
 
  
@@ -20,7 +18,7 @@ const DonationCheckout = (props) => {
 
             <PageBanner pageTitle = "You are supporting :"/>
 
-            <PricingStyleOne project = {campaign} />
+            <PricingTiers project = {campaign} />
 
             <Footer />
         </>
