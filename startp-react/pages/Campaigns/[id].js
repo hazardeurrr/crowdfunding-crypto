@@ -63,7 +63,13 @@ const Campaign = (props) => {
                                             </div>
                                         </div>
 
-                                            <Link href="/login">
+                                        <Link href={{
+                                            pathname: "/Checkout/[id]",
+                                            query: {
+                                                id: campaign.contract_address,
+                                            }
+                                        }}
+                                        as={`/Checkout/${campaign.contract_address}`}>
                                                 <a className="btn btn-primary">Back this campaign</a>
                                             </Link>
                                     </div>

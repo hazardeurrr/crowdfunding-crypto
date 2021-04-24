@@ -38,7 +38,7 @@ const len = projectList.length > 6 ? 6 : projectList.length
 const ShowProjects = () => {
     var rows = [];
     for (var i = 0; i < len; i++) {
-        rows.push(<div className="single-ml-projects-box">
+        rows.push(<div key={i} className="single-ml-projects-box">
         <SingleCardCarrousel project={projectList[i]}
         /></div>)
     }

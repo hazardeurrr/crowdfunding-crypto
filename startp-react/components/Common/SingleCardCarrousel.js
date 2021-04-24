@@ -27,12 +27,18 @@ const SingleCardCarrousel = (props) => {
     return (
       <div className="single-blog-post-item">
         <div className="post-image">
-            <Link href="/blog-details">
-                <a>
-                   <ProgressBar variant="success"  now={pct} label={`${pct}%`}/>
+            <Link href={{
+                        pathname: "/Campaigns/[id]",
+                        query: {
+                            id: campaign.contract_address,
+                        }
+                    }}
+                    as={`/Campaigns/${campaign.contract_address}`}>
+                    <a>
+                        <ProgressBar variant="success"  now={pct} label={`${pct}%`}/>
 
-                    <img src={campaign.main_img} alt="image" />
-                </a>
+                        <img src={campaign.main_img} alt="image" />
+                    </a>               
             </Link>
         </div>
 
@@ -44,14 +50,18 @@ const SingleCardCarrousel = (props) => {
  {campaign.raised} {campaign.currency}</li>
             </ul>
             <h3>
-                <Link href="/blog-details">
-                    <a>{campaign.title}</a>
-                </Link>
+                    <Link href={{
+                        pathname: "/Campaigns/[id]",
+                        query: {
+                            id: campaign.contract_address,
+                        }
+                    }}
+                    as={`/Campaigns/${campaign.contract_address}`}>
+                      <a>{campaign.title}</a>
+                  </Link>
             </h3>
 
-            <Link href="/blog-details">
                     {cat()}
-            </Link>
         </div>
       </div>
     );
