@@ -58,26 +58,58 @@ const CampaignSidebar = (props) => {
                         <GridList spacing={15} cols={1}>
                             {campaign.tiers.map((tile) => (
                                 <GridListTile key={tile} cols={1}>
-                                    
+
+                                <div className="single-works">
                                     <Card className={classes.root} variant="outlined">
-                                        <CardContent>
-                                            <Typography className={classes.title} color="textSecondary" gutterBottom>
-                                            {tile.threshold} {campaign.currency}
-                                            </Typography>
-                                            <Typography variant="h5" component="h2" gutterBottom>
-                                                {tile.title}
-                                            </Typography>
-                                            {/* <Typography className={classes.pos} color="textSecondary">
-                                            adjective
-                                            </Typography> */}
-                                            <Typography variant="body2" component="p">
-                                            {tile.description}
-                                            </Typography>
-                                        </CardContent>
-                                        <CardActions>
-                                            {/* <Button size="small">Learn More</Button> */}
-                                        </CardActions>
-                                    </Card>
+                                            <CardContent>
+                                                <Typography className={classes.title} color="textSecondary" gutterBottom>
+                                                {tile.threshold} {campaign.currency}
+                                                </Typography>
+                                                <Typography variant="h5" component="h2" gutterBottom>
+                                                    {tile.title}
+                                                </Typography>
+                                                {/* <Typography className={classes.pos} color="textSecondary">
+                                                adjective
+                                                </Typography> */}
+                                                <Typography variant="body2" component="p">
+                                                {tile.description}
+                                                </Typography>
+                                            </CardContent>
+                                            <CardActions>
+                                                {/* <Button size="small">Learn More</Button> */}
+                                            </CardActions>
+                                        </Card>
+
+                                        <Link href={{
+                                                pathname: "/Checkout/[id]",
+                                                query: {
+                                                    id: campaign.contract_address,
+                                                }
+                                            }}
+                                            as={`/Checkout/${campaign.contract_address}`}>
+                                           
+                                            <a className="icon">
+                                                <Icon.ArrowRight />
+                                            </a>
+                                        </Link>
+
+                                    <div className="works-content">
+                                        <h3>
+                                            <Link href={{
+                                                pathname: "/Checkout/[id]",
+                                                query: {
+                                                    id: campaign.contract_address,
+                                                }
+                                            }}
+                                            as={`/Checkout/${campaign.contract_address}`}>
+                                                    <a>Back this campaign !</a>
+                                            </Link>
+                                        </h3>
+                                        <p>Support the campaign with your contribution!</p>
+                                    </div>
+                                </div>
+                                    
+                                    
 
 
 
