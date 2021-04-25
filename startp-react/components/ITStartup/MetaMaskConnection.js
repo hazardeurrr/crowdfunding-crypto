@@ -1,4 +1,4 @@
-const Web3 = require('web3')
+const Web3 = require('web3');
 
 export default async function loadWeb3() {
     if (window.ethereum) {
@@ -10,7 +10,7 @@ export default async function loadWeb3() {
       )
     }
     
-    let isConnected = await window.ethereum.isConnected() 
-    if (isConnected) {return true}
-    else {return false}
+    let isConnected = await window.ethereum.isConnected();
+    
+    return isConnected;
   }

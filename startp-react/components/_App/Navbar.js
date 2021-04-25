@@ -2,6 +2,7 @@ import React from "react"
 import Link from '@/utils/ActiveLink'
 import * as Icon from 'react-feather'
 import { useSelector } from 'react-redux'
+const Web3 = require('web3');
 
 import loadWeb3 from "@/components/ITStartup/MetaMaskConnection"
 
@@ -9,6 +10,9 @@ import loadWeb3 from "@/components/ITStartup/MetaMaskConnection"
 const Navbar = () => {
     const cart = useSelector((state) => state.cart)
     const [menu, setMenu] = React.useState(true)
+    const [connected, setConnected] = React.useState(false)
+    const [address, setAddress] = React.useState(undefined)
+
  
     const toggleNavbar = () => {
         setMenu(!menu)
@@ -24,24 +28,35 @@ const Navbar = () => {
             }
         });
         window.scrollTo(0, 0); 
+        connectToMetamask()
     })
 
     const isConnected = () => {
-        let connected = false
         if (connected) {
             return (
                 <>
-                <button type="submit" className="btn btn-primary">Connected</button>
+                
+                <Link href="/setProfile">
+                    <a className="btn btn-light">Profile</a>
+                </Link>
+
                 </>
             )
         }
         else {
             return (
                 <>
-                <button type="submit" className="btn btn-primary" onClick={() => loadWeb3()}>Connect with Metamask</button>
+                <button type="submit" className="btn btn-primary" onClick={() => connectToMetamask()}>Connect with Metamask</button>
                 </>
             )
         }
+    }
+
+    async function connectToMetamask(){
+        let c = await loadWeb3();
+        setConnected(c);
+        const addr = await web3.eth.getAccounts()
+        setAddress(addr[0])
     }
  
     const classOne = menu ? 'collapse navbar-collapse' : 'collapse navbar-collapse show';
@@ -97,6 +112,11 @@ const Navbar = () => {
                                         <li className="nav-item">
                                             <Link href="/iot" activeClassName="active">
                                                 <a onClick={toggleNavbar} className="nav-link">IOT</a>
+                                            </Link>
+                                        </li>
+                                        <li className="nav-item">
+                                            <Link href="/form-campain" activeClassName="active">
+                                                <a onClick={toggleNavbar} className="nav-link">Create a campain</a>
                                             </Link>
                                         </li>
 
@@ -444,7 +464,7 @@ const Navbar = () => {
                             </Link> */}
 
                             <Link href="/services-1">
-							    <a className="btn btn-light">Create a campaign</a>
+							    <a className="btn btn-primary">Create a campaign</a>
                             </Link>
 
                             {isConnected()}

@@ -3,11 +3,13 @@ import Navbar from "@/components/_App/Navbar";
 import Footer from "@/components/_App/Footer";
 import PageBanner from '@/components/Common/PageBanner';
 import Link from 'next/link';
-import HTMLEditor from '@/components/Common/HTMLEditor';
+import HTMLEditor from './HTMLEditor';
 import * as Icon from 'react-feather';
 import "react-dates/initialize";
 // import { DateRangePicker } from "react-dates";
 import DatePicker from "./date-range";
+import Checkbox from '@material-ui/core/Checkbox';
+import FormControlLabel from '@material-ui/core/FormControlLabel';
 
 import "react-dates/lib/css/_datepicker.css";
 import CategoryList from '@/utils/CategoryList'
@@ -30,7 +32,7 @@ import 'suneditor/dist/css/suneditor.min.css'; // Import Sun Editor's CSS File
 
 
 
-class Services1 extends React.Component {
+class MainForm extends React.Component {
 
     constructor(props){
         super(props);
@@ -39,9 +41,12 @@ class Services1 extends React.Component {
             endDate: undefined, 
             focusedInput: undefined, 
             tierChecked: false,
-            htmlEditor: undefined
+            htmlEditor: undefined,
+            categoryPicked: undefined,
+            raisingMethod: undefined
         }
         this.tiers = [];
+        this.html = '';
     }
 
     displayCategories(){
@@ -53,21 +58,49 @@ class Services1 extends React.Component {
     }
 
     handleCampain = (event) => {
-        console.log('click on submit button')
         event.preventDefault()
+        console.log('click on submit button')
         console.log(event)
-        console.log(this.state.htmlEditor)
-    }
-
-    handleChange(content) {
-        console.log(content)
-        this.setState({htmlEditor : content})   
+        console.log(this.html)
+        console.log(event.target[0].value)
+        console.log(event.target[1].value)
+        console.log(event.target[2].value)
+        console.log(event.target[3].value)
+        console.log(event.target[5].value)
+        let partialGoal;
+        if(event.target[110].value === 'on') {
+            partialGoal = true
+        }
+        else {
+            partialGoal = false
+        }
+        const campainInfos = {
+            title: event.target[0].value,
+            startDate: event.target[1].value,
+            endDate: event.target[2].value,
+            description: event.target[3].value,
+            category: '',
+            goal: event.target[5].value,
+            presentation: this.html,
+            raisingMethod: '',
+            partialGoal,
+            tiers: this.state.tierChecked
+        }
+        console.log(campainInfos)
     }
     
-    handleKeyDown(content) {
-        console.log(content)
+    handleHTML(dataFromChild) {
+        console.log(dataFromChild)
+        this.html = dataFromChild
     }
 
+    handleTiers(event) {
+        this.setState({ tierChecked: event.target.checked })
+    }
+
+    handleMethod(event) {
+        this.setState({raisingMethod: event.target.selected})
+    }
     
 
     // const [startDate, setStartDate] = React.useState();
@@ -92,6 +125,8 @@ class Services1 extends React.Component {
     render() {
         const hidden = this.state.tierChecked ? 'block' : 'none';
 
+    
+        
         return (
             <>
                 <Navbar />
@@ -163,10 +198,7 @@ class Services1 extends React.Component {
                                     <p><strong> Page of the project </strong><br/>Give an aspect to your page to make it more visual for the users.</p>
                                     <div className="col-lg-12 col-md-12">
                                         <div className="form-group">
-                                        <SunEditor
-                                        onchange={this.handleChange}
-                                        onKeyDown={this.handleKeyDown}
-                                        />
+                                        <HTMLEditor onSelectHTML={this.handleHTML.bind(this)}/>
                                         </div>
                                     </div>
 
@@ -207,8 +239,12 @@ class Services1 extends React.Component {
                                     <p><strong>Do you want to add any tiers to contribute for your project ?</strong></p>
                                     <div className="col-lg-12 col-md-12">
                                         <div className="form-check">
-                                            <input type="checkbox" className="form-check-input" id="tier"/>
-                                            <label className="tier" htmlFor="tier">Any tiers?</label>
+                                        <FormControlLabel
+                                            value="end"
+                                            control={<Checkbox color="primary" onChange={this.handleTiers} />}
+                                            label="Any tiers ?"
+                                            labelPlacement="end"
+                                            />
                                         </div>
                                     </div>
 
@@ -250,4 +286,4 @@ class Services1 extends React.Component {
     }
 }
 
-export default Services1;
+export default MainForm;

@@ -1,17 +1,28 @@
-import React, { useRef, useEffect } from "react";
+import React, { useRef, useEffect, useState } from "react";
 import SunEditor,{buttonList} from 'suneditor-react';
 import 'suneditor/dist/css/suneditor.min.css'; // Import Sun Editor's CSS File
 
-const HTMLEditor = props => {
 
+function HTMLEditor() {
+    const [text, setText] = useState(null);
+    const editorRef = useRef();
+
+
+    const handleChange = (content) => {
+        console.log(content)
+        setText(content)    
+    }
+    const handleKeyDown = (content) => {
+        console.log(content)
+    }
     return (
         <div>
-            <SunEditor setOptions={{
-              height: 600,
-              buttonList: buttonList.complex
-              }}
-            />
-        </div>
+        <SunEditor
+          onchange={handleChange}
+          onKeyDown={handleKeyDown}
+        />
+    </div>
     );
-};
-export default HTMLEditor;
+  }
+  
+  export default HTMLEditor;
