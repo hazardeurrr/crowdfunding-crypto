@@ -4,7 +4,7 @@ import MainForm from "@/components/FormCampain/mainForm"
 import BlogPost from '@/components/Common/BlogPost';
 import Footer from "@/components/_App/Footer";
 
-const FormCampain = () => {
+const FormCampaign = () => {
     return (
         <>
             <Navbar />
@@ -15,4 +15,4 @@ const FormCampain = () => {
     )
 }
 
-export default FormCampain;
+export default FormCampaign;

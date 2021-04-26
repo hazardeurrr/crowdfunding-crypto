@@ -1,7 +1,8 @@
-import React from 'react';
+import React, { useRef } from 'react';
 import Link from 'next/link';
 import TextField from '@material-ui/core/TextField';
 import { makeStyles } from '@material-ui/core/styles';
+import loadWeb3 from "@/components/ITStartup/MetaMaskConnection"
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -12,16 +13,42 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
+
+
+
+async function selectPlan(amount){
+    let c = await loadWeb3();
+    if(c){
+        //interact with contract
+        console.log("plan selected of " + amount)
+    }
+}
+
 const PricingTiers = (props) => {
+
+    const valueRef = useRef('')
+
+    const handleClick = (amount) => e => {    
+        if(amount > 0){
+            selectPlan(amount)
+        }
+    }
+
+    const handleClickFree = e => {    
+        let amount = valueRef.current.value
+        if(amount > 0){
+            selectPlan(amount)
+        }
+    }
 
     const campaign = props.project
 
     const displayTiers = () => {
         var rows = [];
         for (var i = 0; i < campaign.tiers.length; i++) {
-            var tier = campaign.tiers[i]
+            var tier = campaign.tiers[i];
             rows.push( 
-                <div className="col-lg-4 col-md-6">
+                <div key={i} className="col-lg-4 col-md-6">
                         <div className="pricing-table active-plan">
                             <div className="pricing-header">
                                 <h3>{tier.title}</h3>
@@ -38,9 +65,8 @@ const PricingTiers = (props) => {
                             </div>
                             
                             <div className="pricing-footer">
-                                <Link href="#">
-                                    <a className="btn btn-primary">Select Plan</a>
-                                </Link>
+                                
+                                    <button onClick={handleClick(tier.threshold)} className="btn btn-primary">Select Plan</button>
                             </div>
                         </div>
                     </div>
@@ -48,6 +74,8 @@ const PricingTiers = (props) => {
         }
         return rows;
       }
+
+      
 
     return (
         <div className="pricing-area pt-80 pb-50 bg-f9f6f6">
@@ -74,9 +102,12 @@ const PricingTiers = (props) => {
                                 id="standard-number"
                                 type="number"
                                 size="small"
+                                inputRef={valueRef}   //connecting inputRef property of TextField to the valueRef
+
                                 InputLabelProps={{
                                     shrink: true,
                                 }}
+                                inputProps={{ min: 0}}
                                 /></span>
                             </div>
                             
@@ -87,9 +118,7 @@ const PricingTiers = (props) => {
                             </div>
                             
                             <div className="pricing-footer">
-                                <Link href="#">
-                                    <a className="btn btn-primary">Select Plan</a>
-                                </Link>
+                                <button onClick={handleClickFree} className="btn btn-primary">Select Plan</button>
                             </div>
                         </div>
                     </div>   

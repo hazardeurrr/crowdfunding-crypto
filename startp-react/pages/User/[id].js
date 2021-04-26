@@ -45,6 +45,30 @@ const User = (props) => {
     const user = usersListJson.users.find(e => e.eth_address == props.address)
     console.log("User : " + user)
 
+    const showTwitter = () => {
+      if(user.twitter != ""){
+          return  <li>
+          <a href={`https://twitter.com/${user.twitter}`} target="_blank"><Icon.Twitter />   @{user.twitter}</a>  <VerifTooltip toBeChecked={user.verif_twitter} media={"Twitter"}/>
+        </li>
+      }
+  }
+
+  const showWebsite = () => {
+      if(user.website != ""){
+          return<li>
+          <Icon.MousePointer /> <a href={user.website} target="_blank">{user.website}</a>
+        </li>
+      }
+  }
+
+  const showBio = () => {
+    if(user.bio != ""){
+      return <div><div className="bar"></div>
+      <p>{user.bio}</p></div>
+    }
+  }
+
+
     return (
         <>
             <Navbar />
@@ -62,20 +86,15 @@ const User = (props) => {
 
                       <h2>{user.username}</h2>
                       <a href={`https://etherscan.io/address/${user.eth_address}`} target="_blank"><h5>{user.eth_address}</h5></a>
-                      <div className="bar"></div>
-                      <p>{user.bio}</p>
+                      {showBio()}
                       <div className="bar"></div>
 
                       <div className="blog-details-desc">
                         <div className="article-content">
                            <div className="entry-meta">
                               <ul>
-                                 <li>
-                                    <a href={`https://twitter.com/${user.twitter}`} target="_blank"><Icon.Twitter />   @{user.twitter}</a>  <VerifTooltip toBeChecked={user.verif_twitter} media={"Twitter"}/>
-                                  </li>
-                                  <li>
-                                    <Icon.MousePointer /> <a href={user.website} target="_blank">{user.website}</a>
-                                  </li>
+                                  {showTwitter()}
+                                  {showWebsite()}
                               </ul>
                            </div>              
                          </div>

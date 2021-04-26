@@ -4,6 +4,7 @@ import Footer from "@/components/_App/Footer";
 import PageBanner from '@/components/Common/PageBanner';
 import Link from 'next/link';
 import HTMLEditor from './HTMLEditor';
+import Tiers from './tiers'
 import * as Icon from 'react-feather';
 import "react-dates/initialize";
 // import { DateRangePicker } from "react-dates";
@@ -42,11 +43,12 @@ class MainForm extends React.Component {
             focusedInput: undefined, 
             htmlEditor: undefined,
             categoryPicked: undefined,
-            raisingMethod: undefined
+            raisingMethod: undefined,
+            tiersNumber: 0,
+            tiers: []
         }
         this.tiers = [];
         this.html = '';
-        this.tiersChecked = false;
     }
 
     displayCategories(){
@@ -86,32 +88,9 @@ class MainForm extends React.Component {
         this.html = dataFromChild
     }
 
-    handleTiers(event) {
-        this.tiersChecked = event.target.checked
-        this.inputTiers()
-    }
 
-    inputTiers() {
-        if(this.tiersChecked) {
-            return (
-                <>
-                </>
-            )
-        } else {
-            return (
-                <>
-                    <div >
-                        <p><strong> Number of tiers </strong><br/> Indicate how many tiers do you want to add to your fundraising project.</p>
-                        <div className="col-lg-2 col-md-1">
-                            <div className="form-group">
-                            <input type="number" placeholder="Tiers" className="form-control" />
-                            </div>
-                        </div>
-                    </div>
-                </>
-            )
-        }
-    }
+
+
 
     render() {
 
@@ -213,18 +192,10 @@ class MainForm extends React.Component {
                                     
                                     <h4 style={{marginTop: "15px", marginBottom: "20px"}}>Optionnal</h4>
 
-                                    <p><strong>Do you want to add any tiers to contribute for your project ?</strong></p>
-                                    <div className="col-lg-12 col-md-12">
-                                        <div className="form-check">
-                                        <FormControlLabel
-                                            value="end"
-                                            control={<Checkbox color="primary" onChange={this.handleTiers.bind(this)} />}
-                                            label="Any tiers ?"
-                                            labelPlacement="end"
-                                            />
-                                        </div>
-                                    </div>
-                                        {this.inputTiers}
+                                    <p><strong> Rewards tiers </strong><br/> Add reward tiers depending on the value of contributions.</p>
+
+                                    <Tiers/>
+                                    
                                     <div className="col-lg-12 col-md-12">
                                         <button className="btn btn-primary" type="submit" >Create my campain !</button>
                                     </div>
@@ -235,8 +206,7 @@ class MainForm extends React.Component {
                 </div>
 
                 <Footer />
-            </>
-        )
+            </>        )
     }
 }
 

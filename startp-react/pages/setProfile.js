@@ -5,23 +5,10 @@ import PageBanner from '@/components/Common/PageBanner';
 import Link from 'next/link';
 import HTMLEditor from '@/components/Common/HTMLEditor';
 import * as Icon from 'react-feather';
-import "react-dates/initialize";
-import DatePicker from "./date-range";
-import ImageUploading from 'react-images-uploading';
-
-import "react-dates/lib/css/_datepicker.css";
-
+import ProfilePic from "@/components/ITStartup/ProfilePic"
 
 
 const SetProfile = () => {
-    const [images, setImages] = React.useState([]);
-    const maxNumber = 1;
-    const onChange = (imageList, addUpdateIndex) => {
-        // data for submit
-        // console.log(imageList, addUpdateIndex);
-        setImages(imageList);
-    };
-
     return (
         <>
             <Navbar />
@@ -57,43 +44,7 @@ const SetProfile = () => {
                                 <p><strong> Profile Pic </strong><br/>Choose a profile picture to represent your account</p>
                                 <div className="col-lg-12 col-md-12">
                                     <div className="form-group">
-                                    <ImageUploading
-                                        multiple="false"
-                                        value={images}
-                                        onChange={onChange}
-                                        maxNumber={maxNumber}
-                                        dataURLKey="data_url"
-                                    >
-                                        {({
-                                        imageList,
-                                        onImageUpload,
-                                        onImageUpdate,
-                                        onImageRemove,
-                                        isDragging,
-                                        dragProps
-                                        }) => (
-                                        // write your building UI
-                                        <div className="upload__image-wrapper">
-                                            <button className="btn btn-light"
-                                            style={isDragging ? { color: "red" } : null}
-                                            onClick={onImageUpload}
-                                            {...dragProps}
-                                            >
-                                            Click or Drop here
-                                            </button>
-                                            {/* &nbsp; */}
-                                            {imageList.map((image, index) => (
-                                            <div key={index} className="image-item">
-                                                <img src={image.data_url} alt="" width="100" />
-                                                <div className="image-item__btn-wrapper">
-                                                <button className="btn btn-primary" onClick={() => onImageUpdate(index)}>Update</button>
-                                                <button className="btn btn-primary" onClick={() => onImageRemove(index)}>Remove</button>
-                                                </div>
-                                            </div>
-                                            ))}
-                                        </div>
-                                        )}
-                                    </ImageUploading>
+                                        <ProfilePic/>
                                     </div>
                                 </div>
 

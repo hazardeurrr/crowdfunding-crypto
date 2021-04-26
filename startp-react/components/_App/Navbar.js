@@ -115,7 +115,7 @@ const Navbar = () => {
                                             </Link>
                                         </li>
                                         <li className="nav-item">
-                                            <Link href="/form-campain" activeClassName="active">
+                                            <Link href="/form-campaign" activeClassName="active">
                                                 <a onClick={toggleNavbar} className="nav-link">Create a campain</a>
                                             </Link>
                                         </li>
@@ -444,7 +444,7 @@ const Navbar = () => {
 
                                 <li className="nav-item">
                                 <Link href={{
-                                        pathname: "SearchPage",
+                                        pathname: "/SearchPage",
                                         query: {
                                             id: "explore",
                                         }
@@ -463,7 +463,7 @@ const Navbar = () => {
                                 </a>
                             </Link> */}
 
-                            <Link href="/services-1">
+                            <Link href="/form-campaign">
 							    <a className="btn btn-primary">Create a campaign</a>
                             </Link>
 

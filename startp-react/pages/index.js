@@ -12,23 +12,12 @@ import Feedback from "@/components/Common/Feedback";
 import Partner from "@/components/Common/Partner";
 import BlogPost from "@/components/Common/BlogPost";
 import Footer from "@/components/_App/Footer";
+import ITStartup from "./it-startup";
 
 const Index = () => {
     return (
         <>
-            <Navbar />
-            <MainBanner />
-            <Features />
-            <ServicesArea />
-            <OurFeatures />
-            <Team />
-            <FunFactsArea />
-            <RecentWorks />
-            <PricingStyleOne />
-            <Feedback />
-            <Partner />
-            <BlogPost />
-            <Footer />
+            <ITStartup/>
         </>
     )
 }

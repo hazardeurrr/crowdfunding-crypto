@@ -29,6 +29,26 @@
     "twitter": "ScottAzio",
     "verif_twitter": false,
     "website": "https://www.google.com/"
+  },
+  {
+    "username": "Charitiii",
+    "email": "",
+    "eth_address": "0x8996575533815723",
+    "image": "",
+    "bio": "",
+    "twitter": "",
+    "verif_twitter": false,
+    "website": ""
+  },
+  {
+    "username": "",
+    "email": "",
+    "eth_address": "0x899657553381574",
+    "image": "",
+    "bio": "",
+    "twitter": "",
+    "verif_twitter": false,
+    "website": ""
   }
 ]
 }

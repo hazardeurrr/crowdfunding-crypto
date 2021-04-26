@@ -42,7 +42,21 @@ const Campaign = (props) => {
     const desc = campaign.long_desc
     const pct = (campaign.raised / campaign.objective) * 100
 
+    const showTwitter = () => {
+        if(user.twitter != ""){
+            return <li>
+            <a href={`https://twitter.com/${user.twitter}`} target="_blank"><Icon.Twitter />   @{user.twitter}</a>  <VerifTooltip toBeChecked={user.verif_twitter} media={"Twitter"}/>
+        </li>
+        }
+    }
 
+    const showWebsite = () => {
+        if(user.website != ""){
+            return <li>
+            <Icon.MousePointer /> <a href={user.website} target="_blank">{user.website}</a>
+        </li>
+        }
+    }
 
     return (
         <>
@@ -80,12 +94,8 @@ const Campaign = (props) => {
                                                         </li>
                                                         
                                                   
-                                                    <li>
-                                                            <a href={`https://twitter.com/${user.twitter}`} target="_blank"><Icon.Twitter />   @{user.twitter}</a>  <VerifTooltip toBeChecked={user.verif_twitter} media={"Twitter"}/>
-                                                        </li>
-                                                        <li>
-                                                            <Icon.MousePointer /> <a href={user.website} target="_blank">{user.website}</a>
-                                                        </li>
+                                                        {showTwitter()}
+                                                        {showWebsite()}
                                                     </ul>
                                                 </div>              
                                             </div>
