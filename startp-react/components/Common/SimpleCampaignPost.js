@@ -2,11 +2,17 @@ import React from 'react';
 import * as Icon from 'react-feather';
 import Link from 'next/link';
 import ProgressBar from 'react-bootstrap/ProgressBar';
+import usersListJson from '@/utils/usersListJson';
+import ChipUser from '@/components/Common/ChipUser'
+
 
 
 const SimpleCampaignPost = (props) => {
     const campaign = props.project
     const pct = (campaign.raised / campaign.objective) * 100
+
+    const user = usersListJson.users.find(e => e.eth_address == campaign.creator)
+
 
     const cat = () => {
         if(campaign.categories.length == 2){
@@ -53,7 +59,7 @@ const SimpleCampaignPost = (props) => {
                       <a>{campaign.title}</a>
                   </Link>
               </h3>
-              <span>By <a href="#">{campaign.creator}</a></span>
+              <span>By <ChipUser user={user} /></span>
               <p>{campaign.small_description}</p>
               <b>{campaign.raised} {campaign.currency}</b>
               <ProgressBar animated now={pct} />

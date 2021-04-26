@@ -9,16 +9,40 @@ import Link from '@/utils/ActiveLink'
 import ProgressBar from 'react-bootstrap/ProgressBar';
 import CampaignSidebar from '@/components/Blog/CampaignSidebar';
 import categoryList from '@/utils/CategoryList';
+import usersListJson from '@/utils/usersListJson';
+import VerifTooltip from '@/components/Common/VerifTooltip';
+import { makeStyles } from '@material-ui/core/styles';
+import Avatar from '@material-ui/core/Avatar';
+import Chip from '@material-ui/core/Chip';
+import ChipUser from '@/components/Common/ChipUser';
 
 
+
+const useStyles = makeStyles((theme) => ({
+    root: {
+      display: 'flex',
+      '& > *': {
+        margin: theme.spacing(1),
+      },
+    },
+    small: {
+        width: theme.spacing(3),
+        height: theme.spacing(3),
+      }
+  }));
 
 const Campaign = (props) => {
 
+    const classes = useStyles();
 
     const campaign = projectList.find(e => e.contract_address == props.address)
+    const user = usersListJson.users.find(e => e.eth_address == campaign.creator)
+    console.log("User : " + user)
     console.log("Campaign : " + campaign)
     const desc = campaign.long_desc
     const pct = (campaign.raised / campaign.objective) * 100
+
+
 
     return (
         <>
@@ -42,9 +66,33 @@ const Campaign = (props) => {
                                 <div className="col-lg-6 col-md-12">
                                     <div className="ml-about-content">
                                         <span className="sub-title">{campaign.main_category}</span>
+                                        
                                         <h2>{campaign.title}</h2>
+                                         <div className="blog-details-desc">
+                                            <div className="article-content">
+                                                <div className="entry-meta">
+                                                    <ul>
+                                                        
+                                                        <li>     
+                                                            <Icon.User />
+                                                            <ChipUser user={user}/>
+                                                                                             
+                                                        </li>
+                                                        
+                                                  
+                                                    <li>
+                                                            <a href={`https://twitter.com/${user.twitter}`} target="_blank"><Icon.Twitter />   @{user.twitter}</a>  <VerifTooltip toBeChecked={user.verif_twitter} media={"Twitter"}/>
+                                                        </li>
+                                                        <li>
+                                                            <Icon.MousePointer /> <a href={user.website} target="_blank">{user.website}</a>
+                                                        </li>
+                                                    </ul>
+                                                </div>              
+                                            </div>
+                                        </div>
                                         <div className="bar"></div>
 
+                                    
                                         <p>{campaign.small_description}</p>
                                         <h5>{campaign.raised} {campaign.currency} raised / {campaign.objective} {campaign.currency}</h5> 
                                         <ProgressBar animated now={pct}/>
@@ -54,9 +102,6 @@ const Campaign = (props) => {
                                                     <ul>
                                                         <li>
                                                             <Icon.Clock /> {campaign.time_left} left
-                                                        </li>
-                                                        <li>
-                                                            <Icon.User /> <a href="#">by {campaign.creator}</a>
                                                         </li>
                                                     </ul>
                                                 </div>              
@@ -85,7 +130,9 @@ const Campaign = (props) => {
                         <div className="col-lg-8 col-md-12">
                             <div className="blog-details-desc">
 
-                                <div className="article-content">     
+                                <div className="article-content">  
+                                
+                                   
                                     {Parser(desc)}
                                 </div>
                             </div>

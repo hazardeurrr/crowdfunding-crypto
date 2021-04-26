@@ -11,9 +11,7 @@ import CampaignSidebar from '@/components/Blog/CampaignSidebar';
 import usersListJson from '@/utils/usersListJson';
 import { withStyles, makeStyles } from '@material-ui/core/styles';
 import Avatar from '@material-ui/core/Avatar';
-import Tooltip from '@material-ui/core/Tooltip';
-import Typography from '@material-ui/core/Typography';
-import Button from '@material-ui/core/Button';
+import VerifTooltip from '@/components/Common/VerifTooltip';
 
 
 
@@ -35,15 +33,6 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const HtmlTooltip = withStyles((theme) => ({
-  tooltip: {
-    backgroundColor: '#f5f5f9',
-    color: 'rgba(0, 0, 0, 0.87)',
-    maxWidth: 220,
-    fontSize: theme.typography.pxToRem(12),
-    border: '1px solid #dadde9',
-  },
-}))(Tooltip);
 
 
 
@@ -55,32 +44,6 @@ const User = (props) => {
 
     const user = usersListJson.users.find(e => e.eth_address == props.address)
     console.log("User : " + user)
-
-    const certifTwitter = () => {
-      if(user.verif_twitter){
-        return  <HtmlTooltip
-        title={
-          <React.Fragment>
-            <Typography gutterBottom color="inherit">This twitter account is verified</Typography>
-            <i>{"The owner of this address also owns this Twitter account"}</i>
-          </React.Fragment>
-        }
-      >
-        <Icon.CheckCircle />
-      </HtmlTooltip>
-      } else {
-        return  <HtmlTooltip
-        title={
-          <React.Fragment>
-            <Typography gutterBottom color="inherit">This twitter account is not yet verified</Typography>
-            <i>{"This Twitter account has not confirmed to be linked with this address. We can't ensure that the owner of this address also owns this Twitter account."}</i>
-          </React.Fragment>
-        }
-      >
-        <Icon.XCircle />
-      </HtmlTooltip>
-      }
-    }
 
     return (
         <>
@@ -98,17 +61,26 @@ const User = (props) => {
                     </div>
 
                       <h2>{user.username}</h2>
-                      <h5>{user.eth_address}</h5>
+                      <a href={`https://etherscan.io/address/${user.eth_address}`} target="_blank"><h5>{user.eth_address}</h5></a>
                       <div className="bar"></div>
                       <p>{user.bio}</p>
                       <div className="bar"></div>
-                      {/* <Link href={`https://twitter.com/${user.twitter}`} passHref> */}
-                        <p><a href={`https://twitter.com/${user.twitter}`} target="_blank"><Icon.Twitter />   @{user.twitter}</a>  {certifTwitter()}</p>
-                      {/* </Link> */}
-                      <div className="separator"></div>
-                      {/* <Link href={user.website} passHref> */}
-                        <p><a href={user.website} target="_blank"><Icon.MousePointer />   {user.website}</a></p>
-                      {/* </Link> */}
+
+                      <div className="blog-details-desc">
+                        <div className="article-content">
+                           <div className="entry-meta">
+                              <ul>
+                                 <li>
+                                    <a href={`https://twitter.com/${user.twitter}`} target="_blank"><Icon.Twitter />   @{user.twitter}</a>  <VerifTooltip toBeChecked={user.verif_twitter} media={"Twitter"}/>
+                                  </li>
+                                  <li>
+                                    <Icon.MousePointer /> <a href={user.website} target="_blank">{user.website}</a>
+                                  </li>
+                              </ul>
+                           </div>              
+                         </div>
+                       </div>    
+
 
                   </div>
                 </div>
