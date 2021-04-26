@@ -15,8 +15,8 @@ const Login = () => {
 
             <div className="ptb-80">
                 <div className="container">
-                    {/* <div className="auth-form"> */}
-                        {/* <div className="auth-head">
+                    {/* <div className="auth-form">
+                         <div className="auth-head">
                             <Link href="/it-startup">
                                 <a><img src="/images/logo.png" /></a>
                             </Link>
