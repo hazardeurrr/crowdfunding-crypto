@@ -6,9 +6,13 @@ import Link from 'next/link';
 import HTMLEditor from '@/components/Common/HTMLEditor';
 import * as Icon from 'react-feather';
 import ProfilePic from "@/components/ITStartup/ProfilePic"
+import { ContactSupportOutlined } from '@material-ui/icons';
+import profiles from '@/utils/usersListJson.json';
 
 
-const SetProfile = () => {
+const SetProfile = (props) => {
+    // const data = undefined;
+
     return (
         <>
             <Navbar />
@@ -70,7 +74,10 @@ const SetProfile = () => {
                                 </div>
 
                                 <div className="col-lg-12 col-md-12">
-                                    <button className="btn btn-primary" type="submit" >Update Profile</button>
+                                    <button className="btn btn-primary" type="submit" onClick={() => {
+                                        const user = profiles.users.find(e => e.eth_address == "0x899657553381574")
+                                        console.log(user.eth_address)
+                                    }}>Update Profile</button>
                                 </div>
                             </div>
                         </form>
