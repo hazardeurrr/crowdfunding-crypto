@@ -29,6 +29,8 @@ const SingleCardCarrousel = (props) => {
     var now = Date.now() / 1000;
     let timeLeft = end_date - now;
     let days = Math.floor(timeLeft / 86400); 
+    let hours = Math.floor((timeLeft - (days * 86400)) / 3600);
+    let minutes = Math.floor((timeLeft - (days * 86400) - (hours * 3600 )) / 60);
     if(start_date > now){
         let timeTilStart = start_date - now;
         let daysTilStart = Math.floor(timeTilStart / 86400);
@@ -36,6 +38,8 @@ const SingleCardCarrousel = (props) => {
     } else {
         if(days > 0){
             return days.toString() + " " + dayS(days)
+        }else if(minutes > 0 || hours > 0) {
+            return "Last day !"
         } else {
             return "Ended"
         }

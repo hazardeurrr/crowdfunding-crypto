@@ -18,24 +18,29 @@ const SimpleCampaignPost = (props) => {
         var now = Date.now() / 1000;
         let timeLeft = end_date - now;
         let days = Math.floor(timeLeft / 86400); 
+        let hours = Math.floor((timeLeft - (days * 86400)) / 3600);
+        let minutes = Math.floor((timeLeft - (days * 86400) - (hours * 3600 )) / 60);
         if(start_date > now){
             let timeTilStart = start_date - now;
             let daysTilStart = Math.floor(timeTilStart / 86400);
-            return "Starts in " + daysTilStart.toString() + " " + dayS(daysTilStart)
-        } else {
-            if(days > 0){
-                return days.toString() + " " + dayS(days) +" left"
+            return "Starts in " + daysTilStart.toString() + " day" + SorNot(daysTilStart)
+        } else if(days > 0){
+                return days.toString() + " day" + SorNot(days) +" left"
+            } else if(hours > 0){                
+                return hours.toString() + " hour" + SorNot(hours) + " left"
+            } else if(minutes > 0){
+                return minutes.toString() + " minute" + SorNot(minutes) + " left"
             } else {
-                return "Ended " + Math.abs(days.toString()) + " " + dayS(days) + " ago"
+                return "Ended " + Math.abs(days.toString()) + " day" + SorNot(days) + " ago"
             }
         }
-    }
 
-    const dayS = (nbDays) => {
-        if(nbDays == 0 || nbDays == -1 || nbDays == 1){
-            return "day"
+    const SorNot = (nb) => {
+        console.log(nb)
+        if(nb != 0 && nb != -1 && nb != 1){
+            return "s"
         } else {
-            return "days"
+            return ""
         }
     }
 

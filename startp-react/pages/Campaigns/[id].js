@@ -89,6 +89,8 @@ const Campaign = (props) => {
     const SorNot = (nb) => {
         if(nb != 0 && nb != -1 && nb != 1){
             return "s"
+        } else {
+            return ""
         }
     }
 
