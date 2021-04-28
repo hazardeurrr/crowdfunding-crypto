@@ -4,7 +4,8 @@ class Tiers extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
-            tiers: []
+            tiers: [],
+            tiersInfos: []
         }
     }
 
@@ -32,7 +33,17 @@ class Tiers extends React.Component {
                 {
                     this.state.tiers.map((elt, index) => {
                         return (
-                            <div><p><strong>Tier {index + 1}</strong>
+                            <div>
+                                <strong>Tier {index + 1}</strong>
+                                <p>Title for the tier<br/>
+                                Give us a description of the tier :
+                                </p>
+                                <div className="col-lg-12 col-md-12">
+                                    <div className="form-group">
+                                    <input type="text" id={`"tiersTitle${index + 1}`} placeholder="Title" className="form-control"/>
+                                </div>
+
+                                <p>
                                 <br/>
                                 Amount :
                                 </p>
@@ -41,7 +52,7 @@ class Tiers extends React.Component {
                                     <input type="number" id={`"tiersAmount${index + 1}`} placeholder="Amount" min="0" className="form-control"/>
                                     </div>
                                 </div>
-                                
+                                </div>
                                 <p>Advantage<br/>
                                 Give us a description of the tier :
                                 </p>

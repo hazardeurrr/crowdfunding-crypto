@@ -23,6 +23,32 @@ const SingleCardCarrousel = (props) => {
       }
   }
 
+  const timeLeft = () => {
+    var start_date = campaign.start_date;
+    var end_date = campaign.end_date;
+    var now = Date.now() / 1000;
+    let timeLeft = end_date - now;
+    let days = Math.floor(timeLeft / 86400); 
+    if(start_date > now){
+        let timeTilStart = start_date - now;
+        let daysTilStart = Math.floor(timeTilStart / 86400);
+        return "Starts soon "
+    } else {
+        if(days > 0){
+            return days.toString() + " " + dayS(days)
+        } else {
+            return "Ended"
+        }
+    }
+}
+
+const dayS = (nbDays) => {
+    if(nbDays == 0 || nbDays == -1 || nbDays == 1){
+        return "day"
+    } else {
+        return "days"
+    }
+}
     
     return (
       <div className="single-blog-post-item">
@@ -45,7 +71,7 @@ const SingleCardCarrousel = (props) => {
         <div className="post-content">
             
             <ul className="post-meta">
-                <li><p><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-clock"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg> {campaign.time_left}</p></li>
+                <li><p><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-clock"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg> {timeLeft()}</p></li>
                 <li><svg xmlns="http://www.w3.org/2000/svg" width="16" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-activity"><polyline points="17 11 12 6 7 11"></polyline><polyline points="17 18 12 13 7 18"></polyline></svg>
  {campaign.raised} {campaign.currency}</li>
             </ul>

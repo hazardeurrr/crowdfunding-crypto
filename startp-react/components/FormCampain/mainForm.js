@@ -48,6 +48,7 @@ class MainForm extends React.Component {
             tiers: []
         }
         this.tiers = [];
+        this.tiersArray = [];
         this.html = '';
     }
 
@@ -69,6 +70,15 @@ class MainForm extends React.Component {
         else if (event.target[109].checked === true) {
             raisingMethod = 'ETH'
         }
+        let tiersInfos = []
+        for (var i = 0; i < event.target[111].value; i++) {
+            tiersInfos.push({
+                title: event.target[112 + i].value,
+                amount: event.target[113 + i].value,
+                description: event.target[114 + i].value
+            })
+        }
+
         const campainInfos = {
             title: event.target[0].value,
             startDate: event.target[1].value,
@@ -79,13 +89,18 @@ class MainForm extends React.Component {
             presentation: this.html,
             raisingMethod: raisingMethod,
             partialGoal: event.target[110].checked,
-            tiers: event.target[111].checked
+            tiers: tiersInfos
         }
         console.log(campainInfos)
+        
     }
     
     handleHTML(dataFromChild) {
         this.html = dataFromChild
+    }
+
+    handleTiers(dataFromTiers) {
+        this.tiersArray = dataFromTiers;
     }
 
 
@@ -194,7 +209,7 @@ class MainForm extends React.Component {
 
                                     <p><strong> Rewards tiers </strong><br/> Add reward tiers depending on the value of contributions.</p>
 
-                                    <Tiers/>
+                                    <Tiers onTiersChange={this.handleTiers.bind(this)}/>
                                     
                                     <div className="col-lg-12 col-md-12">
                                         <button className="btn btn-primary" type="submit" >Create my campain !</button>

@@ -42,6 +42,9 @@ const Campaign = (props) => {
     const desc = campaign.long_desc
     const pct = (campaign.raised / campaign.objective) * 100
 
+  
+
+
     const showTwitter = () => {
         if(user.twitter != ""){
             return <li>
@@ -55,6 +58,37 @@ const Campaign = (props) => {
             return <li>
             <Icon.MousePointer /> <a href={user.website} target="_blank">{user.website}</a>
         </li>
+        }
+    }
+
+    const timeLeft = () => {
+        var start_date = campaign.start_date;
+        var end_date = campaign.end_date;
+        var now = Date.now() / 1000;
+        console.log(Date.now()/1000)
+        let timeLeft = end_date - now;
+        let days = Math.floor(timeLeft / 86400); 
+        let hours = Math.floor((timeLeft - (days * 86400)) / 3600);
+        let minutes = Math.floor((timeLeft - (days * 86400) - (hours * 3600 )) / 60);
+        console.log("Days : " + days + " / hours : " + hours + " / minutes : " + minutes)
+        if(start_date > now){
+            let timeTilStart = start_date - now;
+            let daysTilStart = Math.floor(timeTilStart / 86400);
+            return "Starts in " + daysTilStart.toString() + " day" + SorNot(daysTilStart)
+        } else if(days > 0){
+                return days.toString() + " day" + SorNot(days) +" left"
+            } else if(hours > 0){                
+                return hours.toString() + " hour" + SorNot(hours) + " left"
+            } else if(minutes > 0){
+                return minutes.toString() + " minute" + SorNot(minutes) + " left"
+            } else {
+                return "Ended " + Math.abs(days.toString()) + " day" + SorNot(days) + " ago"
+            }
+        }
+
+    const SorNot = (nb) => {
+        if(nb != 0 && nb != -1 && nb != 1){
+            return "s"
         }
     }
 
@@ -111,7 +145,7 @@ const Campaign = (props) => {
                                                 <div className="entry-meta">
                                                     <ul>
                                                         <li>
-                                                            <Icon.Clock /> {campaign.time_left} left
+                                                            <Icon.Clock /> {timeLeft()}
                                                         </li>
                                                     </ul>
                                                 </div>              
