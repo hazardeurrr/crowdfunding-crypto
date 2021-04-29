@@ -5,7 +5,7 @@ class Tiers extends React.Component {
         super(props)
         this.state = {
             tiers: [],
-            tiersInfos: []
+            tiersInfos: [],
         }
     }
 
@@ -16,7 +16,6 @@ class Tiers extends React.Component {
             listTiers.push({index: i, description: ''})
         }
         this.setState({tiers: listTiers})
-
     }
 
     render() {

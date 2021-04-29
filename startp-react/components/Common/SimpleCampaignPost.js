@@ -45,11 +45,18 @@ const SimpleCampaignPost = (props) => {
         }
 
     const SorNot = (nb) => {
-        console.log(nb)
         if(nb != 0 && nb != -1 && nb != 1){
             return "s"
         } else {
             return ""
+        }
+    }
+
+    const displayDesc = () => {
+        if(campaign.small_description.length > 130){
+            return campaign.small_description.substring(0, 130) + " [...]"
+        } else {
+            return campaign.small_description
         }
     }
 
@@ -117,7 +124,7 @@ const SimpleCampaignPost = (props) => {
                   </Link>
               </h3>
               <span>By <ChipUser user={user} /></span>
-              <p>{campaign.small_description}</p>
+              <p>{displayDesc()}</p>
               <b>{displayRaised()} {campaign.currency}</b>
               <ProgressBar animated now={pct} />
               <p><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="feather feather-clock"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>   {timeLeft()}</p>

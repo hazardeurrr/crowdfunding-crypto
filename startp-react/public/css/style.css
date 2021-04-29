@@ -4509,6 +4509,16 @@ Blog CSS
   margin-top: -30px;
 }
 
+
+.single-blog-post-item .post-content .carrousel-card-title-big{
+  font-size: 20px;
+}
+
+
+.single-blog-post-item .post-content .carrousel-card-title-small{
+  font-size: 16.5px;
+}
+
 .single-blog-post-item .post-content .post-meta {
   -webkit-transition: 0.5s;
   transition: 0.5s;
@@ -4519,7 +4529,7 @@ Blog CSS
 
 .single-blog-post-item .post-content .post-meta li {
   display: inline-block;
-  margin-right: 20px;
+  margin-right: 5px;
   position: relative;
   color: #6084a4;
 }
@@ -4533,7 +4543,6 @@ Blog CSS
 }
 
 .single-blog-post-item .post-content .post-meta li::before {
-  content: '';
   position: absolute;
   right: -10px;
   top: 4px;

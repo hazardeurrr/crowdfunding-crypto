@@ -63,6 +63,34 @@ const displayRaised = () => {
     else
         return Math.floor(raised)
 }
+
+const displayTitle = () => {
+    if(campaign.title.length < 30){
+        return <h5 className="carrousel-card-title-big">
+            <Link href={{
+                pathname: "/Campaigns/[id]",
+                query: {
+                    id: campaign.contract_address,
+                }
+            }}
+            as={`/Campaigns/${campaign.contract_address}`}>
+            <a>{campaign.title}</a>
+        </Link>
+    </h5>
+    } else {
+        return <h5 className="carrousel-card-title-small">
+            <Link href={{
+                pathname: "/Campaigns/[id]",
+                query: {
+                    id: campaign.contract_address,
+                }
+            }}
+            as={`/Campaigns/${campaign.contract_address}`}>
+            <a>{campaign.title}</a>
+        </Link>
+    </h5>
+    }
+}
     
     return (
       <div className="single-blog-post-item">
@@ -89,17 +117,7 @@ const displayRaised = () => {
                 <li><svg xmlns="http://www.w3.org/2000/svg" width="16" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="feather feather-activity"><polyline points="17 11 12 6 7 11"></polyline><polyline points="17 18 12 13 7 18"></polyline></svg>
  {displayRaised()} {campaign.currency}</li>
             </ul>
-            <h3>
-                    <Link href={{
-                        pathname: "/Campaigns/[id]",
-                        query: {
-                            id: campaign.contract_address,
-                        }
-                    }}
-                    as={`/Campaigns/${campaign.contract_address}`}>
-                      <a>{campaign.title}</a>
-                  </Link>
-            </h3>
+                    {displayTitle()}
 
                     {cat()}
         </div>

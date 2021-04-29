@@ -10,8 +10,11 @@ import { ContactSupportOutlined } from '@material-ui/icons';
 import profiles from '@/utils/usersListJson.json';
 
 
-const SetProfile = (props) => {
+const SetProfile = () => {
     // const data = undefined;
+
+    
+
     function getJson() {
         const user = profiles.users.find(e => e.eth_address == "0x899657553381574")
         console.log("user : " + user.eth_address)
