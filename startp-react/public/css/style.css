@@ -7387,6 +7387,7 @@ Coming Soon CSS
 =================================================*/
 .error-area {
   height: 100vh;
+  margin-top: 200px;
 }
 
 .error-content {

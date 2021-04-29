@@ -8,7 +8,10 @@ import ProgressBar from 'react-bootstrap/ProgressBar';
 const SingleCardCarrousel = (props) => {
 
     const campaign = props.project;
-    const pct = Math.round((campaign.raised / campaign.objective) * 100 * 10) / 10
+    const raised = campaign.raised;
+    const objective = campaign.objective;
+
+    const pct = Math.round((raised / objective) * 100 * 10) / 10;
     
 
     const cat = () => {
@@ -38,7 +41,7 @@ const SingleCardCarrousel = (props) => {
     } else {
         if(days > 0){
             return days.toString() + " " + dayS(days)
-        }else if(minutes > 0 || hours > 0) {
+        }else if((minutes > 0 && hours == 0 && days == 0) || (hours > 0 && days == 0)) {
             return "Last day !"
         } else {
             return "Ended"
@@ -52,6 +55,13 @@ const dayS = (nbDays) => {
     } else {
         return "days"
     }
+}
+
+const displayRaised = () => {
+    if(campaign.currency == 'ETH')
+        return raised.toFixed(3)
+    else
+        return Math.floor(raised)
 }
     
     return (
@@ -75,9 +85,9 @@ const dayS = (nbDays) => {
         <div className="post-content">
             
             <ul className="post-meta">
-                <li><p><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-clock"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg> {timeLeft()}</p></li>
-                <li><svg xmlns="http://www.w3.org/2000/svg" width="16" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-activity"><polyline points="17 11 12 6 7 11"></polyline><polyline points="17 18 12 13 7 18"></polyline></svg>
- {campaign.raised} {campaign.currency}</li>
+                <li><p><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="feather feather-clock"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg> {timeLeft()}</p></li>
+                <li><svg xmlns="http://www.w3.org/2000/svg" width="16" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="feather feather-activity"><polyline points="17 11 12 6 7 11"></polyline><polyline points="17 18 12 13 7 18"></polyline></svg>
+ {displayRaised()} {campaign.currency}</li>
             </ul>
             <h3>
                     <Link href={{

@@ -36,12 +36,16 @@ const Campaign = (props) => {
     const classes = useStyles();
 
     const campaign = projectList.find(e => e.contract_address == props.address)
+    const raised = campaign.raised
+    const objective = campaign.objective
     const user = usersListJson.users.find(e => e.eth_address == campaign.creator)
     console.log("User : " + user)
     console.log("Campaign : " + campaign)
     const desc = campaign.long_desc
-    const pct = (campaign.raised / campaign.objective) * 100
-
+    const pct = (raised / objective) * 100
+    var start_date = campaign.start_date;
+    var end_date = campaign.end_date;
+    var now = Date.now() / 1000;
   
 
 
@@ -61,25 +65,33 @@ const Campaign = (props) => {
         }
     }
 
+    const displayRaised = () => {
+        if(campaign.currency == 'USDT'){
+            return raised.toFixed(2)
+        } else {
+            return raised
+        }
+    }
+
     const timeLeft = () => {
-        var start_date = campaign.start_date;
-        var end_date = campaign.end_date;
-        var now = Date.now() / 1000;
-        console.log(Date.now()/1000)
-        let timeLeft = end_date - now;
-        let days = Math.floor(timeLeft / 86400); 
-        let hours = Math.floor((timeLeft - (days * 86400)) / 3600);
-        let minutes = Math.floor((timeLeft - (days * 86400) - (hours * 3600 )) / 60);
-        console.log("Days : " + days + " / hours : " + hours + " / minutes : " + minutes)
+
+        var timeLeft = end_date - now;
+        var days = Math.floor(timeLeft / 86400); 
+        var hours = Math.floor((timeLeft - (days * 86400)) / 3600);
+        var minutes = Math.floor((timeLeft - (days * 86400) - (hours * 3600 )) / 60);
+        // console.log(campaign.title + " => Now : " + now + " / end : " + end_date + " / timeLeft : " + timeLeft + " / days : " + days + " / hours : " + hours + " / minutes : " + minutes)
         if(start_date > now){
             let timeTilStart = start_date - now;
             let daysTilStart = Math.floor(timeTilStart / 86400);
-            return "Starts in " + daysTilStart.toString() + " day" + SorNot(daysTilStart)
+            if(daysTilStart > 0)
+                return "Starts in " + daysTilStart.toString() + " day" + SorNot(daysTilStart)
+            else
+                return "Starts tomorrow !"
         } else if(days > 0){
                 return days.toString() + " day" + SorNot(days) +" left"
-            } else if(hours > 0){                
+            } else if(days == 0 && hours > 0){                
                 return hours.toString() + " hour" + SorNot(hours) + " left"
-            } else if(minutes > 0){
+            } else if(days == 0 && hours == 0 && minutes > 0){
                 return minutes.toString() + " minute" + SorNot(minutes) + " left"
             } else {
                 return "Ended " + Math.abs(days.toString()) + " day" + SorNot(days) + " ago"
@@ -91,6 +103,20 @@ const Campaign = (props) => {
             return "s"
         } else {
             return ""
+        }
+    }
+
+    const BackButton = () => {
+        if(end_date > now && start_date < now){
+            return <Link href={{
+                        pathname: "/Checkout/[id]",
+                        query: {
+                            id: campaign.contract_address,
+                            }
+                        }}
+                            as={`/Checkout/${campaign.contract_address}`}>
+                    <a className="btn btn-primary">Back this campaign</a>
+                    </Link>
         }
     }
 
@@ -140,7 +166,7 @@ const Campaign = (props) => {
 
                                     
                                         <p>{campaign.small_description}</p>
-                                        <h5>{campaign.raised} {campaign.currency} raised / {campaign.objective} {campaign.currency}</h5> 
+                                        <h5>{displayRaised()} {campaign.currency} raised / {objective} {campaign.currency}</h5> 
                                         <ProgressBar animated now={pct}/>
                                         <div className="blog-details-desc">
                                             <div className="article-content">
@@ -153,16 +179,8 @@ const Campaign = (props) => {
                                                 </div>              
                                             </div>
                                         </div>
-
-                                        <Link href={{
-                                            pathname: "/Checkout/[id]",
-                                            query: {
-                                                id: campaign.contract_address,
-                                            }
-                                        }}
-                                        as={`/Checkout/${campaign.contract_address}`}>
-                                                <a className="btn btn-primary">Back this campaign</a>
-                                            </Link>
+                                        {BackButton()}
+                                        
                                     </div>
                                 </div>
                             </div>

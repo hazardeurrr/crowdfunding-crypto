@@ -4,6 +4,7 @@ import Footer from "@/components/_App/Footer";
 import PageBanner from '@/components/Common/PageBanner';
 import PricingTiers from '@/components/Common/PricingTiers';
 import projectList from '@/utils/projectList';
+import Custom404 from 'pages/404';
 
  
 const DonationCheckout = (props) => {
@@ -11,17 +12,34 @@ const DonationCheckout = (props) => {
     const campaign = projectList.find(e => e.contract_address == props.address)
     console.log("Campaign : " + campaign)
 
+    var now = Date.now() / 1000
 
-    return (
-        <>
+    const displayElements = () => {
+        if(now > campaign.end_date || now < campaign.start_date){
+            return  <>
             <Navbar />
 
-            <PageBanner pageTitle = "You are supporting :"/>
-
-            <PricingTiers project = {campaign} />
+            <Custom404 />
 
             <Footer />
         </>
+        } else {
+            return (
+                <>
+                    <Navbar />
+        
+                    <PageBanner pageTitle = "You are supporting :"/>
+        
+                    <PricingTiers project = {campaign} />
+        
+                    <Footer />
+                </>
+            )
+        }
+    }
+
+    return (
+        displayElements()
     )
 }
 

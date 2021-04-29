@@ -49,6 +49,54 @@ const CampaignSidebar = (props) => {
         }
     }
 
+    const BackText = () => {
+        var now = Date.now() / 1000
+        if(now < campaign.start_date){
+            return <div className="works-content">
+            <h3>
+                This campaign is starting soon ! Stay tuned !
+            </h3>
+        </div>
+        } else if(now > campaign.end_date){
+            return <div className="works-content">
+            <h3>
+                This campaign has ended ! Thanks to all the contributors <Icon.Heart />
+            </h3>
+        </div>
+
+        } else {
+            return <div>
+                <Link href={{
+                pathname: "/Checkout/[id]",
+                query: {
+                    id: campaign.contract_address,
+                }
+            }}
+            as={`/Checkout/${campaign.contract_address}`}>
+            
+                <a className="icon">
+                    <Icon.ArrowRight />
+                </a>
+            </Link>
+
+            <div className="works-content">
+                <h3>
+                    <Link href={{
+                        pathname: "/Checkout/[id]",
+                        query: {
+                            id: campaign.contract_address,
+                        }
+                    }}
+                    as={`/Checkout/${campaign.contract_address}`}>
+                            <a>Back this campaign !</a>
+                    </Link>
+                </h3>
+                <p>Support the campaign with your contribution!</p>
+            </div>
+        </div>
+        }
+    }
+
     return (
         <div className="widget-area" id="secondary">
 
@@ -57,7 +105,7 @@ const CampaignSidebar = (props) => {
                         {Title()}
                         <GridList spacing={15} cols={1}>
                             {campaign.tiers.map((tile) => (
-                                <GridListTile key={tile} cols={1}>
+                                <GridListTile key={tile.threshold} cols={1}>
 
                                 <div className="single-works">
                                     <Card className={classes.root} variant="outlined">
@@ -80,33 +128,7 @@ const CampaignSidebar = (props) => {
                                             </CardActions>
                                         </Card>
 
-                                        <Link href={{
-                                                pathname: "/Checkout/[id]",
-                                                query: {
-                                                    id: campaign.contract_address,
-                                                }
-                                            }}
-                                            as={`/Checkout/${campaign.contract_address}`}>
-                                           
-                                            <a className="icon">
-                                                <Icon.ArrowRight />
-                                            </a>
-                                        </Link>
-
-                                    <div className="works-content">
-                                        <h3>
-                                            <Link href={{
-                                                pathname: "/Checkout/[id]",
-                                                query: {
-                                                    id: campaign.contract_address,
-                                                }
-                                            }}
-                                            as={`/Checkout/${campaign.contract_address}`}>
-                                                    <a>Back this campaign !</a>
-                                            </Link>
-                                        </h3>
-                                        <p>Support the campaign with your contribution!</p>
-                                    </div>
+                                        {BackText()}
                                 </div>
                                     
                                     

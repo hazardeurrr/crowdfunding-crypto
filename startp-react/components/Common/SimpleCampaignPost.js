@@ -9,13 +9,19 @@ import ChipUser from '@/components/Common/ChipUser'
 
 const SimpleCampaignPost = (props) => {
     const campaign = props.project
-    const pct = (campaign.raised / campaign.objective) * 100
+    const raised = campaign.raised
+    const objective = campaign.objective
+    const pct = (raised / objective) * 100
+    
+    var start_date = campaign.start_date;
+    var end_date = campaign.end_date;
+    var now = Date.now() / 1000;
 
-    //Changer pour mettre les heures et minutes si jamais days = 0...
+    const user = usersListJson.users.find(e => e.eth_address == campaign.creator)
+
+
     const timeLeft = () => {
-        var start_date = campaign.start_date;
-        var end_date = campaign.end_date;
-        var now = Date.now() / 1000;
+        
         let timeLeft = end_date - now;
         let days = Math.floor(timeLeft / 86400); 
         let hours = Math.floor((timeLeft - (days * 86400)) / 3600);
@@ -23,12 +29,15 @@ const SimpleCampaignPost = (props) => {
         if(start_date > now){
             let timeTilStart = start_date - now;
             let daysTilStart = Math.floor(timeTilStart / 86400);
-            return "Starts in " + daysTilStart.toString() + " day" + SorNot(daysTilStart)
+            if(daysTilStart > 0)
+                return "Starts in " + daysTilStart.toString() + " day" + SorNot(daysTilStart)
+            else
+                return "Starts tomorrow !"
         } else if(days > 0){
                 return days.toString() + " day" + SorNot(days) +" left"
-            } else if(hours > 0){                
+            } else if(days == 0 && hours > 0){                
                 return hours.toString() + " hour" + SorNot(hours) + " left"
-            } else if(minutes > 0){
+            } else if(days == 0 && hours == 0 && minutes > 0){
                 return minutes.toString() + " minute" + SorNot(minutes) + " left"
             } else {
                 return "Ended " + Math.abs(days.toString()) + " day" + SorNot(days) + " ago"
@@ -44,7 +53,14 @@ const SimpleCampaignPost = (props) => {
         }
     }
 
-    const user = usersListJson.users.find(e => e.eth_address == campaign.creator)
+    const SupportOrSee = () => {
+        if(end_date < now || start_date > now){
+            return "See this campaign"
+        } else {
+            return "Support this campaign"
+        }
+    }
+
 
 
     const cat = () => {
@@ -60,6 +76,14 @@ const SimpleCampaignPost = (props) => {
                   <Icon.Bookmark /> {campaign.categories[0]}
                 </div>
             )
+        }
+    }
+
+    const displayRaised = () => {
+        if(campaign.currency == 'USDT'){
+            return raised.toFixed(2)
+        } else {
+            return raised
         }
     }
 
@@ -94,9 +118,9 @@ const SimpleCampaignPost = (props) => {
               </h3>
               <span>By <ChipUser user={user} /></span>
               <p>{campaign.small_description}</p>
-              <b>{campaign.raised} {campaign.currency}</b>
+              <b>{displayRaised()} {campaign.currency}</b>
               <ProgressBar animated now={pct} />
-              <p><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-clock"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>   {timeLeft()}</p>
+              <p><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="feather feather-clock"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>   {timeLeft()}</p>
               <Link href={{
                         pathname: "/Campaigns/[id]",
                         query: {
@@ -105,7 +129,7 @@ const SimpleCampaignPost = (props) => {
                     }}
                     as={`/Campaigns/${campaign.contract_address}`}>
                   <a className="read-more-btn">
-                      Support this campagin <Icon.ArrowRight />
+                      {SupportOrSee()} <Icon.ArrowRight />
                   </a>
               </Link>
           </div>
