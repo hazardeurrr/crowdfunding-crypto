@@ -36,7 +36,12 @@ const Navbar = () => {
             return (
                 <>
                 
-                <Link href="/setProfile">
+                <Link href={{
+                    pathname: "/setProfile",
+                    query: {
+                        id: address
+                    }
+                }}>
                     <a className="btn btn-light">Profile</a>
                 </Link>
 

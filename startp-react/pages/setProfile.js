@@ -3,17 +3,14 @@ import Navbar from "@/components/_App/Navbar";
 import Footer from "@/components/_App/Footer";
 import PageBanner from '@/components/Common/PageBanner';
 import Link from 'next/link';
-import HTMLEditor from '@/components/Common/HTMLEditor';
-import * as Icon from 'react-feather';
-import ProfilePic from "@/components/ITStartup/ProfilePic"
-import { ContactSupportOutlined } from '@material-ui/icons';
+import ProfilePic from "@/components/ITStartup/ProfilePic";
 import profiles from '@/utils/usersListJson.json';
 
 
-const SetProfile = () => {
+const SetProfile = (props) => {
     // const data = undefined;
 
-    
+    const userAddr = props.location.address
 
     function getJson() {
         const user = profiles.users.find(e => e.eth_address == "0x899657553381574")
@@ -34,6 +31,10 @@ const SetProfile = () => {
     const handleChangeTwitter = (event) => setTwitter(event.target.value);
     const handleChangeSite = (event) => setSite(event.target.value);
 
+    function showAddress() {
+        console.log(userAddr)
+    }
+
     return (
         <>
             <Navbar />
@@ -47,6 +48,8 @@ const SetProfile = () => {
                         <div className="bar"></div>
                         <p>Customize your profile here.</p>
                     </div>
+
+                    <button className="btn btn-primary" onClick={showAddress()}>Show address</button>
 
                     <div className="faq-contact">
                         <h3>Complete the information about your profile</h3>
@@ -71,7 +74,7 @@ const SetProfile = () => {
                                 <p><strong> Profile Pic </strong><br/>Choose a profile picture to represent your account</p>
                                 <div className="col-lg-12 col-md-12">
                                     <div className="form-group">
-                                        <ProfilePic/>
+                                        <ProfilePic />
                                     </div>
                                 </div>
 
@@ -123,3 +126,18 @@ const SetProfile = () => {
 }
 
 export default SetProfile;
+
+
+
+export async function getServerSideProps(context) {
+    console.log(context.query) 
+    // returns { id: episode.itunes.episode, title: episode.title}
+    
+  
+    //you can make DB queries using the data in context.query
+    return {
+        props: { 
+           address: context.query.id //pass it to the page props
+        }
+    }
+}
