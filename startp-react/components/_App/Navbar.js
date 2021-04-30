@@ -1,7 +1,7 @@
 import React from "react"
 import Link from '@/utils/ActiveLink'
 import * as Icon from 'react-feather'
-import { useSelector } from 'react-redux'
+import { useSelector, useDispatch } from 'react-redux'
 const Web3 = require('web3');
 
 import loadWeb3 from "@/components/ITStartup/MetaMaskConnection"
@@ -12,6 +12,7 @@ const Navbar = () => {
     const [menu, setMenu] = React.useState(true)
     const [connected, setConnected] = React.useState(false)
     const [address, setAddress] = React.useState(undefined)
+    const dispatch = useDispatch()
 
  
     const toggleNavbar = () => {
@@ -36,12 +37,7 @@ const Navbar = () => {
             return (
                 <>
                 
-                <Link href={{
-                    pathname: "/setProfile",
-                    query: {
-                        id: address
-                    }
-                }}>
+                <Link href="/setProfile">
                     <a className="btn btn-light">Profile</a>
                 </Link>
 
@@ -62,6 +58,11 @@ const Navbar = () => {
         setConnected(c);
         const addr = await web3.eth.getAccounts()
         setAddress(addr[0])
+
+        dispatch({
+            type: 'SET_ADDRESS',
+            id: addr[0]
+        })
     }
  
     const classOne = menu ? 'collapse navbar-collapse' : 'collapse navbar-collapse show';

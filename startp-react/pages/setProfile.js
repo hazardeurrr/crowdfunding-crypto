@@ -5,17 +5,14 @@ import PageBanner from '@/components/Common/PageBanner';
 import Link from 'next/link';
 import ProfilePic from "@/components/ITStartup/ProfilePic";
 import profiles from '@/utils/usersListJson.json';
+import { useSelector, useDispatch } from 'react-redux'
+
 
 
 const SetProfile = (props) => {
     // const data = undefined;
 
-    const userAddr = props.location.address
-
-    function getJson() {
-        const user = profiles.users.find(e => e.eth_address == "0x899657553381574")
-        console.log("user : " + user.eth_address)
-    }
+    const userAddr = useSelector((state) => state.address)
 
     // console.log(JSON.stringify(profiles))
 
@@ -24,6 +21,7 @@ const SetProfile = (props) => {
     const [bio, setBio] = useState('');
     const [twitter, setTwitter] = useState('');
     const [site, setSite] = useState('');
+    const[image, setImage] = useState('');
 
     const handleChangeName = (event) => setName(event.target.value);
     const handleChangeEmail = (event) => setEmail(event.target.value);
@@ -33,6 +31,10 @@ const SetProfile = (props) => {
 
     function showAddress() {
         console.log(userAddr)
+    }
+
+    const handleChangeImage = (image) => {
+        setImage(image);
     }
 
     return (
@@ -49,7 +51,7 @@ const SetProfile = (props) => {
                         <p>Customize your profile here.</p>
                     </div>
 
-                    <button className="btn btn-primary" onClick={showAddress()}>Show address</button>
+                    <button onClick={showAddress}>Show address</button>
 
                     <div className="faq-contact">
                         <h3>Complete the information about your profile</h3>
@@ -74,7 +76,7 @@ const SetProfile = (props) => {
                                 <p><strong> Profile Pic </strong><br/>Choose a profile picture to represent your account</p>
                                 <div className="col-lg-12 col-md-12">
                                     <div className="form-group">
-                                        <ProfilePic />
+                                        <ProfilePic onImageChange={handleChangeImage}/>
                                     </div>
                                 </div>
 
@@ -92,6 +94,8 @@ const SetProfile = (props) => {
                                     </div>
                                 </div>
 
+                                
+
                                 <p><strong> Website </strong></p>
                                 <div className="col-lg-12 col-md-12">
                                     <div className="form-group">
@@ -104,6 +108,7 @@ const SetProfile = (props) => {
                                         const user = profiles.users.find(e => e.eth_address == "0x899657553381574");
                                         user.username = name;
                                         user.email = email;
+                                        user.image = image;
                                         user.bio = bio;
                                         user.twitter = twitter;
                                         user.website = site;
@@ -126,18 +131,3 @@ const SetProfile = (props) => {
 }
 
 export default SetProfile;
-
-
-
-export async function getServerSideProps(context) {
-    console.log(context.query) 
-    // returns { id: episode.itunes.episode, title: episode.title}
-    
-  
-    //you can make DB queries using the data in context.query
-    return {
-        props: { 
-           address: context.query.id //pass it to the page props
-        }
-    }
-}

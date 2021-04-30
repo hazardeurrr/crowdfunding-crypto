@@ -1,13 +1,12 @@
 import React from 'react';
 import ImageUploading from 'react-images-uploading';
 
-function ProfilePic() {
+const ProfilePic = (props) => {
     const [images, setImages] = React.useState([]);
     const maxNumber = 1;
     const onChange = (imageList, addUpdateIndex) => {
-        // data for submit
-        console.log(imageList, addUpdateIndex);
         setImages(imageList);
+        props.onImageChange(imageList[0].data_url)
     };
 
     return (

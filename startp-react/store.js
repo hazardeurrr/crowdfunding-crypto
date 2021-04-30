@@ -9,10 +9,18 @@ const initialState = {
   products: productsData,
   cart: [],
   total: 0,
+  address: undefined
 }
 
 const reducer = (state = initialState, action) => {
   switch (action.type) {
+
+    case 'SET_ADDRESS':
+      return {
+        ...state,
+        address: action.id
+      }
+
     case 'ADD_TO_CART':
       let addedItem = state.products.find(item => item.id === action.id)
       let existed_item = state.cart.find(item => action.id === item.id)
