@@ -56,7 +56,7 @@ const User = (props) => {
   const showWebsite = () => {
       if(user.website != ""){
           return<li>
-          <Icon.MousePointer /> <a href={user.website} target="_blank">{user.website}</a>
+          <Icon.Globe /> <a href={user.website} target="_blank">{user.website}</a>
         </li>
       }
   }

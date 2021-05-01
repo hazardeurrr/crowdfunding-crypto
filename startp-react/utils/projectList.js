@@ -1,6 +1,6 @@
 import {getAll} from '../firebase-crowdfund/queries'
 
-export function getCampain() {
+export function getCampaigns() {
   let campaigns = []
   getAll('campain', docs => {
     docs.forEach(element => {
@@ -9,6 +9,7 @@ export function getCampain() {
   })
   return campaigns
 }
+
 var projectList = [
   {
     categories:['Technology', 'Innovation'],
@@ -19,6 +20,7 @@ var projectList = [
     objective:5,
     currency:'ETH',
     start_date:1619641611,
+    flexible: true,
     end_date:1622233612,
     main_img: 'https://dl.img-news.com/dl/img/s3/dl/2020/09/should-you-buy-tesla-stock.jpg',
     contract_address:'0x56985475654az9e8z5f6az5',
@@ -45,6 +47,7 @@ var projectList = [
     creator:"0x8138347572947404",
     raised:0.52,
     objective:10,
+    flexible: true,
     currency:'ETH',
     start_date:1619741611,
     end_date: 1625233612,
@@ -74,6 +77,7 @@ var projectList = [
     raised:41023.2654565,
     objective:20000,
     currency:'USDT',
+    flexible: true,
     start_date: 1619641611,
     end_date: 1622233612,
     main_img: 'https://dl.img-news.com/dl/img/s3/dl/2020/09/should-you-buy-tesla-stock.jpg',
@@ -103,6 +107,7 @@ var projectList = [
     raised:0.52,
     objective:10,
     currency:'ETH',
+    flexible: false,
     start_date: 1619641611,
     end_date: 1622233612,
     main_img: 'https://dl.img-news.com/dl/img/s3/dl/2020/09/should-you-buy-tesla-stock.jpg',
@@ -129,9 +134,10 @@ var projectList = [
     title : "Save children",
     small_description:"Help us saving the children",
     creator:"0x8996575533815722",
-    raised:4,
+    raised:1,
     objective:2,
     currency:'ETH',
+    flexible: false,
     start_date:1619641611,
     end_date:1619649152,
     main_img: 'https://dl.img-news.com/dl/img/s3/dl/2020/09/should-you-buy-tesla-stock.jpg',
@@ -161,6 +167,7 @@ var projectList = [
     raised:4,
     objective:2,
     currency:'ETH',
+    flexible: false,
     start_date: 1619641611,
     end_date: 1619690885,
     main_img: 'https://dl.img-news.com/dl/img/s3/dl/2020/09/should-you-buy-tesla-stock.jpg',

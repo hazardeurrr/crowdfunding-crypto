@@ -4,7 +4,7 @@ import Footer from "@/components/_App/Footer";
 import PageBanner from '@/components/Common/PageBanner';
 import OurFeatures from '@/components/Features/OurFeatures';
 import SingleFeatures from '@/components/Features/SingleFeatures';
-import projectList, { getCampain } from '@/utils/projectList'
+import projectList, { getCampaigns } from '@/utils/projectList'
 import SimpleCampaignPost from '@/components/Common/SimpleCampaignPost';
 import Chip from '@material-ui/core/Button';
 import CategoryList from '@/utils/CategoryList';
@@ -34,10 +34,10 @@ class SearchPage extends React.Component {
         this.props = props
         this.languagesSelected = ["EN"];
         this.categoriesSelected = [];
-        
+        this.allCampaigns = [];
         
         this.state = {
-            projects: projectList,
+            projects: [],
             checked: this.populateCheckArray(),
         }
         this.addCategory = this.addCategory.bind(this);
@@ -77,6 +77,8 @@ class SearchPage extends React.Component {
       }
 
     componentDidMount(){
+         this.allCampaigns = getCampaigns()
+         this.setState({projects: this.allCampaigns})
          if(this.props.cat != "explore"){
             const s = this.props.cat
             const i = categoryList.indexOf(s)
@@ -92,7 +94,7 @@ class SearchPage extends React.Component {
     
     loadProjects(){
         if(this.categoriesSelected.length == 0)
-          this.setState({projects: projectList})
+          this.setState({projects: this.allCampaigns})
         else
           this.setState({projects: this.dynamicSearch()})
 
@@ -120,10 +122,6 @@ class SearchPage extends React.Component {
         return rows;
       }
 
-      componentDidMount() {
-          const listCampaigns = getCampain()
-          console.log(listCampaigns)
-      }
 
 
     render(){

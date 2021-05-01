@@ -15,6 +15,14 @@ import { makeStyles } from '@material-ui/core/styles';
 import Avatar from '@material-ui/core/Avatar';
 import Chip from '@material-ui/core/Chip';
 import ChipUser from '@/components/Common/ChipUser';
+import Dialog from '@material-ui/core/Dialog';
+import DialogActions from '@material-ui/core/DialogActions';
+import DialogContent from '@material-ui/core/DialogContent';
+import DialogContentText from '@material-ui/core/DialogContentText';
+import DialogTitle from '@material-ui/core/DialogTitle';
+import { useSelector, useDispatch } from 'react-redux';
+import Button from '@material-ui/core/Button';
+import FlexibleTooltip from '@/components/Common/FlexibleTooltip'
 
 
 
@@ -30,6 +38,8 @@ const useStyles = makeStyles((theme) => ({
         height: theme.spacing(3),
       }
   }));
+
+
 
 const Campaign = (props) => {
 
@@ -47,6 +57,20 @@ const Campaign = (props) => {
     var end_date = campaign.end_date;
     var now = Date.now() / 1000;
   
+    const connected = useSelector((state) => state.metamask_connected)
+    const chainID = useSelector((state) => state.chainID)
+
+    const [open, setOpen] = React.useState(false);
+
+
+    const handleDialogOpen = () => {
+        setOpen(true);
+    };
+
+    const handleClose = () => {
+        setOpen(false);
+    };
+
 
 
     const showTwitter = () => {
@@ -60,10 +84,15 @@ const Campaign = (props) => {
     const showWebsite = () => {
         if(user.website != ""){
             return <li>
-            <Icon.MousePointer /> <a href={user.website} target="_blank">{user.website}</a>
+            <Icon.Globe /> <a href={user.website} target="_blank">{user.website}</a>
         </li>
         }
     }
+
+
+
+    
+
 
     const displayRaised = () => {
         if(campaign.currency == 'USDT'){
@@ -106,6 +135,8 @@ const Campaign = (props) => {
         }
     }
 
+    
+
     const BackButton = () => {
         if(end_date > now && start_date < now){
             return <Link href={{
@@ -118,6 +149,32 @@ const Campaign = (props) => {
                     <a className="btn btn-primary">Back this campaign</a>
                     </Link>
         }
+    }
+
+    const RefundButton = () => {
+        if(end_date < now && raised < objective && !campaign.flexible){
+            return  <div>
+                        <h6>Unfortunately, the goal of this campaign has not been reached. If you contributed to the campaign, you can ask for your refund below.</h6>
+                        <a className="btn btn-primary" onClick={handleRefund}>Get your refund</a>
+                    </div>
+        }
+    }
+
+    const displayProgressBar = () => {
+        if(end_date > now && start_date < now){
+            return <ProgressBar animated now={pct}/>
+        } else {
+            return <ProgressBar variant="down" now={pct}/>
+        }
+    }
+
+    const handleRefund = () => {
+        if(connected == true && chainID == '0x1'){
+            //connect to Metamask and check for a refund
+            console.log("refund logic here")        
+        } else {
+                handleDialogOpen()
+            }
     }
 
     return (
@@ -167,7 +224,7 @@ const Campaign = (props) => {
                                     
                                         <p>{campaign.small_description}</p>
                                         <h5>{displayRaised()} {campaign.currency} raised / {objective} {campaign.currency}</h5> 
-                                        <ProgressBar animated now={pct}/>
+                                        {displayProgressBar()}
                                         <div className="blog-details-desc">
                                             <div className="article-content">
                                                 <div className="entry-meta">
@@ -175,17 +232,37 @@ const Campaign = (props) => {
                                                         <li>
                                                             <Icon.Clock /> {timeLeft()}
                                                         </li>
+                                                        <li><FlexibleTooltip campaign={campaign}/></li>
                                                     </ul>
                                                 </div>              
                                             </div>
                                         </div>
                                         {BackButton()}
-                                        
+                                        {RefundButton()}
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
+
+                    <Dialog
+                        open={open}
+                        onClose={handleClose}
+                        aria-labelledby="alert-dialog-title"
+                        aria-describedby="alert-dialog-description"
+                    >
+                        <DialogTitle id="alert-dialog-title">{"You are not connected to the Ethereum Network with Metamask"}</DialogTitle>
+                        <DialogContent>
+                        <DialogContentText id="alert-dialog-description">
+                            Please connect to Metamask. If you are already connected, be sure to select Ethereum Mainnet as network on the Metamask tab.
+                        </DialogContentText>
+                        </DialogContent>
+                        <DialogActions>
+                        <Button onClick={handleClose} color="primary">
+                            Close
+                        </Button>
+                        </DialogActions>
+                    </Dialog>
 
 
 

@@ -4582,7 +4582,7 @@ Blog CSS
   bottom: -22px;
   opacity: 0;
   visibility: hidden;
-  font-size: 14px;
+  font-size: 13px;
   font-weight: 500;
 }
 
@@ -6074,7 +6074,6 @@ Blog Details CSS
 }
 
 .blog-details-desc .article-content .entry-meta ul li::before {
-  content: '';
   position: absolute;
   top: 12px;
   right: -15px;
@@ -10678,4 +10677,8 @@ Go Top CSS
 
 .search-page-title {
   margin-top: 30px;
+}
+
+.bg-down {
+  background-color: grey;
 }

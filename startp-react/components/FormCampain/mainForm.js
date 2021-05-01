@@ -89,14 +89,14 @@ class MainForm extends React.Component {
         }
         const campainInfos = {
             title: event.target[0].value,
-            startDate: event.target[1].value,
-            endDate: event.target[2].value,
-            description: event.target[3].value,
-            category: cats,
-            goal: event.target[8].value,
-            presentation: this.html,
-            raisingMethod: raisingMethod,
-            partialGoal: event.target[111].checked,
+            start_date: event.target[1].value,
+            end_date: event.target[2].value,
+            small_description: event.target[3].value,
+            categories: cats,
+            objective: event.target[8].value,
+            long_desc: this.html,
+            currency: raisingMethod,
+            flexible: event.target[111].checked,
             tiers: tiersInfos
         }
         console.log(campainInfos)

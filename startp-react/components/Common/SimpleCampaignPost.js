@@ -94,6 +94,15 @@ const SimpleCampaignPost = (props) => {
         }
     }
 
+    const displayProgressBar = () => {
+        if(end_date > now && start_date < now){
+            return <ProgressBar animated now={pct}/>
+        } else {
+            return <ProgressBar variant="down" now={pct}/>
+        }
+    }
+
+
     return (
         <>
         <div className="single-blog-post">
@@ -126,7 +135,7 @@ const SimpleCampaignPost = (props) => {
               <span>By <ChipUser user={user} /></span>
               <p>{displayDesc()}</p>
               <b>{displayRaised()} {campaign.currency}</b>
-              <ProgressBar animated now={pct} />
+              {displayProgressBar()}
               <p><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="feather feather-clock"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>   {timeLeft()}</p>
               <Link href={{
                         pathname: "/Campaigns/[id]",
