@@ -54,9 +54,11 @@ class MainForm extends React.Component {
     }
     displayCategories(){
         var rows = [];
+        rows.push(<option key={0} value="---" >---</option>)
         for (var i = 0; i < categoryList.length; i++) {
-            rows.push(<option key={i} value={categoryList[i]} >{categoryList[i]}</option>)
+            rows.push(<option key={i + 1} value={categoryList[i]} >{categoryList[i]}</option>)
         }
+        console.log(rows)
         return rows;
     }
 
@@ -64,31 +66,37 @@ class MainForm extends React.Component {
         event.preventDefault()
         console.log(event)
         let raisingMethod;
-        if (event.target[5].checked === true) {
+        if (event.target[6].checked === true) {
             raisingMethod = 'USDT'
         }
-        else if (event.target[6].checked === true) {
+        else if (event.target[7].checked === true) {
             raisingMethod = 'ETH'
         }
         let tiersInfos = []
-        for (var i = 0; i < event.target[111].value; i++) {
+        for (var i = 0; i < event.target[112].value; i++) {
             tiersInfos.push({
-                title: event.target[112 + i].value,
-                amount: event.target[113 + i].value,
-                description: event.target[114 + i].value
+                title: event.target[113 + i].value,
+                amount: event.target[114 + i].value,
+                description: event.target[115 + i].value
             })
         }
-
+        let cats = []
+        if (event.target[5].value !== '---') {
+            cats.push(event.target[5].value)
+        }
+        if (event.target[4].value !== '---') {
+            cats.push(event.target[4].value)
+        }
         const campainInfos = {
             title: event.target[0].value,
             startDate: event.target[1].value,
             endDate: event.target[2].value,
             description: event.target[3].value,
-            category: event.target[4].value,
-            goal: event.target[7].value,
+            category: cats,
+            goal: event.target[8].value,
             presentation: this.html,
             raisingMethod: raisingMethod,
-            partialGoal: event.target[110].checked,
+            partialGoal: event.target[111].checked,
             tiers: tiersInfos
         }
         console.log(campainInfos)
@@ -142,6 +150,17 @@ class MainForm extends React.Component {
 
                                     <Description/>
 
+                                    <p><strong> Project Category </strong><br/> Choose a category that describes your project.</p>
+                                    <div className="col-lg-12 col-md-12">
+                                        <div className="form-group">
+                                        
+                                            <div className="select-box">
+                                                <select className="form-select" id='categorySelected'>
+                                                    {this.displayCategories()}
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
                                     <p><strong> Project Category </strong><br/> Choose a category that describes your project.</p>
                                     <div className="col-lg-12 col-md-12">
                                         <div className="form-group">

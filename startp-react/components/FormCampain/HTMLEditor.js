@@ -8,15 +8,9 @@ function HTMLEditor(props) {
     const [text, setText] = useState(null);
     const editorRef = useRef()
 
-    const handleChange = ({onSelectHTML}) => {
-        console.log(content)
-        setText(content)    
-    }
 
-    const handleKeyDown = (content) => {
-        console.log(editorRef.current.editor.getContents())
-        console.log(editorRef.current.editor.getFilesInfo())
-        console.log(editorRef.current.editor.getImagesInfo())
+
+    const handleChange = (content) => {
         props.onSelectHTML(editorRef.current.editor.getContents())
         
 
@@ -25,12 +19,11 @@ function HTMLEditor(props) {
         <div>
         <SunEditor
           autoFocus={true}
-          onchange={handleChange}
-          onKeyUp={handleKeyDown}
+          onKeyUp={handleChange}
           ref={editorRef}
           setOptions={{
             height: 600,
-            buttonList: buttonList.complex
+            buttonList: buttonList.complex,
             }}      
           />
 
