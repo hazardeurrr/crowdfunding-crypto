@@ -10,7 +10,9 @@ const SingleCardCarrousel = (props) => {
     const campaign = props.project;
     const raised = campaign.raised;
     const objective = campaign.objective;
-
+    var start_date = campaign.start_date;
+    var end_date = campaign.end_date;
+    var now = Date.now() / 1000;
     const pct = Math.round((raised / objective) * 100 * 10) / 10;
     
 
@@ -27,9 +29,7 @@ const SingleCardCarrousel = (props) => {
   }
 
   const timeLeft = () => {
-    var start_date = campaign.start_date;
-    var end_date = campaign.end_date;
-    var now = Date.now() / 1000;
+  
     let timeLeft = end_date - now;
     let days = Math.floor(timeLeft / 86400); 
     let hours = Math.floor((timeLeft - (days * 86400)) / 3600);
@@ -91,6 +91,15 @@ const displayTitle = () => {
     </h5>
     }
 }
+
+const displayProgressBar = () => {
+    if(end_date > now && start_date < now){
+        return <ProgressBar animated variant="success"  now={pct} label={`${pct}%`}/>
+    } else {
+        return <ProgressBar  variant="down"  now={pct} label={`${pct}%`}/>
+    }
+
+}
     
     return (
       <div className="single-blog-post-item">
@@ -103,8 +112,7 @@ const displayTitle = () => {
                     }}
                     as={`/Campaigns/${campaign.contract_address}`}>
                     <a>
-                        <ProgressBar variant="success"  now={pct} label={`${pct}%`}/>
-
+                        {displayProgressBar()}
                         <img src={campaign.main_img} alt="image" />
                     </a>               
             </Link>
