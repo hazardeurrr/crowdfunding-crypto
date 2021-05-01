@@ -5,6 +5,8 @@ import { useSelector, useDispatch } from 'react-redux'
 const Web3 = require('web3');
 
 import loadWeb3 from "@/components/ITStartup/MetaMaskConnection"
+import detectEthereumProvider from '@metamask/detect-provider';
+
 
 
 const Navbar = () => {
@@ -19,6 +21,111 @@ const Navbar = () => {
         setMenu(!menu)
     }
 
+    async function initProvider(){
+        const provider = await detectEthereumProvider();
+
+        if (provider) {
+            startApp(provider); // Initialize your app
+        } else {
+            console.log('Please install MetaMask!');
+        }
+    }
+
+    async function startApp(provider) {
+        // If the provider returned by detectEthereumProvider is not the same as
+        // window.ethereum, something is overwriting it, perhaps another wallet.
+        if (provider !== window.ethereum) {
+            console.error('Do you have multiple wallets installed?');
+        }
+        // Access the decentralized web!
+        const chainId = await ethereum.request({ method: 'eth_chainId' });
+        dispatch({
+            type: 'SET_CHAINID',
+            id: chainId
+        })
+        if(chainId !== '0x1'){
+            console.log("Please change your network to Ethereum Mainnet on Metamask")
+        }
+''
+        ethereum.on('chainChanged', handleChainChanged);
+
+        ethereum
+        .request({ method: 'eth_accounts' })
+        .then((value) => {
+            handleAccountsChanged(value)
+        })
+        .catch((err) => {
+            // Some unexpected error.
+            // For backwards compatibility reasons, if no accounts are available,
+            // eth_accounts will return an empty array.
+            console.error(err);
+        });
+
+        // Note that this event is emitted on page load.
+        // If the array of accounts is non-empty, you're already
+        // connected.
+        ethereum.on('accountsChanged', handleAccountsChanged);
+
+    }
+
+    // For now, 'eth_accounts' will continue to always return an array
+    const handleAccountsChanged = (accounts) => {
+        if (accounts.length === 0) {
+        // MetaMask is locked or the user has not connected any accounts
+        console.log('Please connect to MetaMask.');
+        dispatch({
+            type: 'SET_CONNECTED',
+            id: false
+        })
+        } else {
+            dispatch({
+                type: 'SET_CONNECTED',
+                id: true
+            })
+            dispatch({
+                type: 'SET_ADDRESS',
+                id: accounts[0]
+            })
+        }
+    }
+
+    const connect = () => {
+        ethereum
+          .request({ method: 'eth_requestAccounts' })
+          .then((value) => {
+              handleAccountsChanged(value);
+        })
+          .catch((err) => {
+            if (err.code === 4001) {
+              // EIP-1193 userRejectedRequest error
+              // If this happens, the user rejected the connection request.
+              console.log('Please connect to MetaMask.');
+            } else {
+              console.error(err);
+            }
+          });
+      }
+
+
+
+
+
+
+
+
+    const handleChainChanged = (_chainId) => {
+        // We recommend reloading the page, unless you must do otherwise
+        dispatch({
+            type: 'SET_CHAINID',
+            id: _chainId
+        })
+        // prompt CHANGE TO MAINNET ?!
+        window.location.reload();
+    }
+
+
+    
+
     React.useEffect(() => {
         let elementId = document.getElementById("header");
         document.addEventListener("scroll", () => {
@@ -29,11 +136,12 @@ const Navbar = () => {
             }
         });
         window.scrollTo(0, 0); 
-        connectToMetamask()
+        initProvider();
+        //connectToMetamask()
     })
 
     const isConnected = () => {
-        if (connected) {
+        if (useSelector((state) => state.metamask_connected)) {
             return (
                 <>
                 
@@ -47,23 +155,23 @@ const Navbar = () => {
         else {
             return (
                 <>
-                <button type="submit" className="btn btn-primary" onClick={() => connectToMetamask()}>Connect with Metamask</button>
+                <button type="submit" className="btn btn-primary" onClick={() => connect()}>Connect with Metamask</button>
                 </>
             )
         }
     }
 
-    async function connectToMetamask(){
-        let c = await loadWeb3();
-        setConnected(c);
-        const addr = await web3.eth.getAccounts()
-        setAddress(addr[0])
+    // async function connectToMetamask(){
+    //     let c = await loadWeb3();
+    //     setConnected(c);
+    //     const addr = await web3.eth.getAccounts()
+    //     setAddress(addr[0])
 
-        dispatch({
-            type: 'SET_ADDRESS',
-            id: addr[0]
-        })
-    }
+    //     dispatch({
+    //         type: 'SET_ADDRESS',
+    //         id: addr[0]
+    //     })
+    // }
  
     const classOne = menu ? 'collapse navbar-collapse' : 'collapse navbar-collapse show';
     const classTwo = menu ? 'navbar-toggler navbar-toggler-right collapsed' : 'navbar-toggler navbar-toggler-right';
@@ -368,79 +476,7 @@ const Navbar = () => {
                                     </ul>
                                 </li>
 
-                                <li className="nav-item">
-                                    <Link href="/#" activeClassName="active">
-                                        <a onClick={e => e.preventDefault()} className="nav-link">
-                                            Shop <Icon.ChevronDown />
-                                        </a>
-                                    </Link>
-
-                                    <ul className="dropdown-menu">
-                                        <li className="nav-item">
-                                            <Link href="/shop" activeClassName="active">
-                                                <a onClick={toggleNavbar} className="nav-link">Shop</a>
-                                            </Link>
-                                        </li>
-
-                                        <li className="nav-item">
-                                            <Link href="/checkout" activeClassName="active">
-                                                <a onClick={toggleNavbar} className="nav-link">Checkout</a>
-                                            </Link>
-                                        </li>
-                                    </ul>
-                                </li>
-
-                                <li className="nav-item">
-                                    <Link href="/#">
-                                        <a onClick={e => e.preventDefault()} className="nav-link">
-                                            Blog <Icon.ChevronDown />
-                                        </a>
-                                    </Link>
-
-                                    <ul className="dropdown-menu">
-                                        <li className="nav-item">
-                                            <Link href="/blog-1" activeClassName="active">
-                                                <a onClick={toggleNavbar} className="nav-link">Blog Grid</a>
-                                            </Link>
-                                        </li>
-
-                                        <li className="nav-item">
-                                            <Link href="/blog-2" activeClassName="active">
-                                                <a onClick={toggleNavbar} className="nav-link">Blog Right Sidebar</a>
-                                            </Link>
-                                        </li>
-
-                                        <li className="nav-item">
-                                            <Link href="/blog-3" activeClassName="active">
-                                                <a onClick={toggleNavbar} className="nav-link">Blog Grid 2</a>
-                                            </Link>
-                                        </li>
-
-                                        <li className="nav-item">
-                                            <Link href="/blog-4" activeClassName="active">
-                                                <a onClick={toggleNavbar} className="nav-link">Blog Right Sidebar 2</a>
-                                            </Link>
-                                        </li>
-
-                                        <li className="nav-item">
-                                            <Link href="/blog-5" activeClassName="active">
-                                                <a onClick={toggleNavbar} className="nav-link">Blog Grid 3</a>
-                                            </Link>
-                                        </li>
-
-                                        <li className="nav-item">
-                                            <Link href="/blog-6" activeClassName="active">
-                                                <a onClick={toggleNavbar} className="nav-link">Blog Right Sidebar 3</a>
-                                            </Link>
-                                        </li>
-
-                                        <li className="nav-item">
-                                            <Link href="/blog-details" activeClassName="active">
-                                                <a onClick={toggleNavbar} className="nav-link">Blog Details</a>
-                                            </Link>
-                                        </li>
-                                    </ul>
-                                </li>
+                                
 
                                 <li className="nav-item">
                                 <Link href={"/how-it-works"} activeClassName="active">
@@ -450,7 +486,7 @@ const Navbar = () => {
 
                                 <li className="nav-item">
                                 <Link href={{
-                                        pathname: "/SearchPage",
+                                        pathname: "/SearchPage/",
                                         query: {
                                             id: "explore",
                                         }
@@ -470,7 +506,7 @@ const Navbar = () => {
                             </Link> */}
 
                             <Link href="/form-campaign">
-							    <a className="btn btn-primary">Create a campaign</a>
+							    <a className="btn btn-secondary">Create a campaign</a>
                             </Link>
 
                             {isConnected()}

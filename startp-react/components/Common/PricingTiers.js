@@ -1,30 +1,54 @@
-import React, { useRef } from 'react';
+import React, { useEffect, useRef } from 'react';
 import Link from 'next/link';
 import TextField from '@material-ui/core/TextField';
 import { makeStyles } from '@material-ui/core/styles';
-import loadWeb3 from "@/components/ITStartup/MetaMaskConnection"
-
-const useStyles = makeStyles((theme) => ({
-  root: {
-    '& .MuiTextField-root': {
-      margin: theme.spacing(1),
-      width: '25ch',
-    },
-  },
-}));
+import loadWeb3 from "@/components/ITStartup/MetaMaskConnection";
+import Dialog from '@material-ui/core/Dialog';
+import DialogActions from '@material-ui/core/DialogActions';
+import DialogContent from '@material-ui/core/DialogContent';
+import DialogContentText from '@material-ui/core/DialogContentText';
+import DialogTitle from '@material-ui/core/DialogTitle';
+import { useSelector, useDispatch } from 'react-redux';
+import Button from '@material-ui/core/Button';
 
 
 
 
-async function selectPlan(amount){
-    let c = await loadWeb3();
-    if(c){
-        //interact with contract
-        console.log("plan selected of " + amount)
-    }
-}
+// async function selectPlan(amount){
+//     let c = await loadWeb3();
+//     if(c){
+//         //interact with contract
+//         console.log("plan selected of " + amount)
+//     }
+// }
+
+
 
 const PricingTiers = (props) => {
+
+    const connected = useSelector((state) => state.metamask_connected)
+    const chainID = useSelector((state) => state.chainID)
+
+    const [open, setOpen] = React.useState(false);
+
+    const handleDialogOpen = () => {
+        setOpen(true);
+    };
+
+    const handleClose = () => {
+        setOpen(false);
+    };
+
+    const selectPlan = (amount) => {
+       
+
+        if(connected == true && chainID == '0x1'){
+            console.log("plan selected of " + amount)
+        } else {
+            handleDialogOpen()
+        }
+    }
+
 
     const valueRef = useRef('')
 
@@ -127,6 +151,24 @@ const PricingTiers = (props) => {
 
 
                 </div>
+                <Dialog
+                    open={open}
+                    onClose={handleClose}
+                    aria-labelledby="alert-dialog-title"
+                    aria-describedby="alert-dialog-description"
+                >
+                    <DialogTitle id="alert-dialog-title">{"You are not connected to the Ethereum Network with Metamask"}</DialogTitle>
+                    <DialogContent>
+                    <DialogContentText id="alert-dialog-description">
+                        Please connect to Metamask. If you are already connected, be sure to select Ethereum Mainnet as network on the Metamask tab.
+                    </DialogContentText>
+                    </DialogContent>
+                    <DialogActions>
+                    <Button onClick={handleClose} color="primary">
+                        Close
+                    </Button>
+                    </DialogActions>
+                </Dialog>
             </div>
 
             {/* Shape Images */}

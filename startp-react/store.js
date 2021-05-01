@@ -9,7 +9,9 @@ const initialState = {
   products: productsData,
   cart: [],
   total: 0,
-  address: undefined
+  address: undefined,
+  metamask_connected: false,
+  chainID: '0x1'
 }
 
 const reducer = (state = initialState, action) => {
@@ -19,6 +21,18 @@ const reducer = (state = initialState, action) => {
       return {
         ...state,
         address: action.id
+      }
+
+    case 'SET_CONNECTED':
+      return {
+        ...state,
+        metamask_connected: action.id
+      }
+
+    case 'SET_CHAINID':
+      return {
+        ...state,
+        chainID: action.id
       }
 
     case 'ADD_TO_CART':
