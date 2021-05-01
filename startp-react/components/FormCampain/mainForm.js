@@ -14,14 +14,12 @@ import "react-dates/initialize";
 import DatePicker from "./date-range";
 import Checkbox from '@material-ui/core/Checkbox';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
-
+import {db, storage} from '../../firebase-crowdfund/index';
 import "react-dates/lib/css/_datepicker.css";
-import CategoryList from '@/utils/CategoryList'
 import categoryList from '@/utils/CategoryList';
 // import FormControlLabel from '@material-ui/core/FormControlLabel';
 // import Checkbox from '@material-ui/core/Checkbox';
 // import { withStyles } from '@material-ui/core/styles';
-import SunEditor from 'suneditor-react';
 import 'suneditor/dist/css/suneditor.min.css'; // Import Sun Editor's CSS File
 
 // const GreenCheckbox = withStyles({
@@ -54,7 +52,6 @@ class MainForm extends React.Component {
         this.tiersArray = [];
         this.html = '';
     }
-
     displayCategories(){
         var rows = [];
         for (var i = 0; i < categoryList.length; i++) {
@@ -67,10 +64,10 @@ class MainForm extends React.Component {
         event.preventDefault()
         console.log(event)
         let raisingMethod;
-        if (event.target[108].checked === true) {
+        if (event.target[5].checked === true) {
             raisingMethod = 'USDT'
         }
-        else if (event.target[109].checked === true) {
+        else if (event.target[6].checked === true) {
             raisingMethod = 'ETH'
         }
         let tiersInfos = []
@@ -88,7 +85,7 @@ class MainForm extends React.Component {
             endDate: event.target[2].value,
             description: event.target[3].value,
             category: event.target[4].value,
-            goal: event.target[5].value,
+            goal: event.target[7].value,
             presentation: this.html,
             raisingMethod: raisingMethod,
             partialGoal: event.target[110].checked,
@@ -96,6 +93,11 @@ class MainForm extends React.Component {
         }
         console.log(campainInfos)
         
+        db.collection('campain').doc(campainInfos.title).set(campainInfos).then(x => {
+            console.log('document written with : ' + campainInfos.title)
+        }).catch(err => {
+            console.error(err)
+        })
     }
     
     handleHTML(dataFromChild) {
