@@ -4,7 +4,7 @@ import Footer from "@/components/_App/Footer";
 import PageBanner from '@/components/Common/PageBanner';
 import OurFeatures from '@/components/Features/OurFeatures';
 import SingleFeatures from '@/components/Features/SingleFeatures';
-import projectList from '@/utils/projectList'
+import projectList, { getCampain } from '@/utils/projectList'
 import SimpleCampaignPost from '@/components/Common/SimpleCampaignPost';
 import Chip from '@material-ui/core/Button';
 import CategoryList from '@/utils/CategoryList';
@@ -69,7 +69,7 @@ class SearchPage extends React.Component {
         var rows = [];
         for (var i = 0; i < CategoryList.length; i++) {
             rows.push(<FormControlLabel key={i}
-              control={<Checkbox checked={this.state.checked[i]} onChange={this.handleChange} name={i} />}
+              control={<GreenCheckbox checked={this.state.checked[i]} onChange={this.handleChange} name={i} />}
               label={CategoryList[i]}
             />);
         }
@@ -120,17 +120,21 @@ class SearchPage extends React.Component {
         return rows;
       }
 
+      componentDidMount() {
+          const listCampaigns = getCampain()
+          console.log(listCampaigns)
+      }
+
 
     render(){
         
         return (
             <>
                 <Navbar />
-                <PageBanner />
-                <div className="features-area pt-80 pb-50 bg-f7fafd">
+                <div className="features-area pt-80 bg-f7fafd">
                     <div className="container">
                         <div className="section-title">
-                            <h2>Discover the projects that need you !</h2>
+                            <h2 className="search-page-title">Discover the projects that need you !</h2>
                             <div className="bar"></div>
                             {/* <CheckboxList alreadyChecked = {categoryList.indexOf(this.props.cat)} addCat = {this.addCategory} removeCat = {this.removeCategory} /> */}
                             {this.showCheckboxes()}
@@ -138,7 +142,7 @@ class SearchPage extends React.Component {
                     </div>
                 </div>
 
-                <div className="blog-area ptb-80">
+                <div className="blog-area ">
                             <div className="container">
                                 <div className="row justify-content-center">
                                    {this.displayProjects()}

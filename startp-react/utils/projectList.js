@@ -1,3 +1,14 @@
+import {getAll} from '../firebase-crowdfund/queries'
+
+export function getCampain() {
+  let campaigns = []
+  getAll('campain', docs => {
+    docs.forEach(element => {
+      campaigns.push(element)
+    });
+  })
+  return campaigns
+}
 var projectList = [
   {
     categories:['Technology', 'Innovation'],

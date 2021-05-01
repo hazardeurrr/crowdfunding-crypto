@@ -5,7 +5,6 @@ import 'suneditor/dist/css/suneditor.min.css'; // Import Sun Editor's CSS File
 
 function HTMLEditor(props) {
     
-    const [text, setText] = useState(null);
     const editorRef = useRef()
 
 
