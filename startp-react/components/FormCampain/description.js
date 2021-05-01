@@ -26,7 +26,7 @@ class Description extends React.Component {
         if (remainingChar < 0) {
             this.setState({charLeft: "Too many characters, cannot exceed 150 characters"})
         } else {
-            this.setState({charLeft: str(remainingChar) + " characters left"})
+            this.setState({charLeft: remainingChar.toString() + " characters left"})
         }
     }
     
