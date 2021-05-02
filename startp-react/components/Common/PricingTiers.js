@@ -40,8 +40,6 @@ const PricingTiers = (props) => {
     };
 
     const selectPlan = (amount) => {
-       
-
         if(connected == true && chainID == '0x1'){
             console.log("plan selected of " + amount)
         } else {

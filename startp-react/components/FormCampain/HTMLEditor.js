@@ -17,7 +17,6 @@ function HTMLEditor(props) {
     return (
         <div>
         <SunEditor
-          autoFocus={true}
           onKeyUp={handleChange}
           ref={editorRef}
           setOptions={{

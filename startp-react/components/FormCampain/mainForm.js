@@ -61,6 +61,7 @@ class MainForm extends React.Component {
         console.log(rows)
         return rows;
     }
+    
 
     handleCampain = (event) => {
         event.preventDefault()
@@ -119,13 +120,11 @@ class MainForm extends React.Component {
 
 
 
-
     render() {
 
         return (
             <>
-                <Navbar />
-
+                {/* <Navbar /> */}
                 <PageBanner pageTitle="Create your campaign !" />
 
                 <div className="services-area-two pt-80 pb-50 bg-f9f6f6">
@@ -206,7 +205,8 @@ class MainForm extends React.Component {
 
                                     
 
-                                    <p><strong> Flexibilty </strong><br/>Indicate how flexible can you be about your fundraising and the amount you want to gather.</p>
+                                    <p><strong> Flexibilty </strong><br/>Indicate how flexible can you be about your fundraising and the amount you want to gather. If you check this box, the campaign will need to reach its goal before its deadline for you to get the funds, 
+                                    otherwise the funds will be locked and contributors will be able to get a refund. If you don't check this, you will get all funds raised even though the goal of the campaign is not reached by its deadline.</p>
                                     <div className="col-lg-12 col-md-12">
                                         <div className="form-check">
                                         <FormControlLabel
@@ -234,7 +234,7 @@ class MainForm extends React.Component {
                     </div>
                 </div>
 
-                <Footer />
+                {/* <Footer /> */}
             </>        )
     }
 }

@@ -69,16 +69,18 @@ class SearchPage extends React.Component {
         var rows = [];
         for (var i = 0; i < CategoryList.length; i++) {
             rows.push(<FormControlLabel key={i}
-              control={<GreenCheckbox checked={this.state.checked[i]} onChange={this.handleChange} name={i} />}
+              control={<GreenCheckbox checked={this.state.checked[i]} onChange={this.handleChange} name={i.toString()} />}
               label={CategoryList[i]}
             />);
         }
-        return <tbody>{rows}</tbody>;
+        return rows;
       }
 
     componentDidMount(){
-         this.allCampaigns = getCampaigns()
-         this.setState({projects: this.allCampaigns})
+        //  this.allCampaigns = getCampaigns()
+        //  this.setState({projects: this.allCampaigns})
+        this.setState({projects: projectList})
+
          if(this.props.cat != "explore"){
             const s = this.props.cat
             const i = categoryList.indexOf(s)
@@ -89,12 +91,15 @@ class SearchPage extends React.Component {
 
     dynamicSearch(){
         console.log(this.categoriesSelected)
+        //return this.allCampaigns.filter(p => p.categories.some(r=> this.categoriesSelected.includes(r)))
+
         return projectList.filter(p => p.categories.some(r=> this.categoriesSelected.includes(r)))
       }
     
     loadProjects(){
         if(this.categoriesSelected.length == 0)
-          this.setState({projects: this.allCampaigns})
+        //   this.setState({projects: this.allCampaigns})
+            this.setState({projects: projectList})
         else
           this.setState({projects: this.dynamicSearch()})
 
