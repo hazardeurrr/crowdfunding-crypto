@@ -12,6 +12,8 @@ import usersListJson from '@/utils/usersListJson';
 import { withStyles, makeStyles } from '@material-ui/core/styles';
 import Avatar from '@material-ui/core/Avatar';
 import VerifTooltip from '@/components/Common/VerifTooltip';
+import { getOne } from 'firebase-crowdfund/queries'
+import { useSelector, useDispatch } from 'react-redux'
 
 
 
@@ -39,18 +41,33 @@ const useStyles = makeStyles((theme) => ({
 const User = (props) => {
 
   const classes = useStyles();
+  
+  // *************************************
+  // PARTIE AVEC LA BDD FIREBASE
+  // *************************************
+  // const userAddr = useSelector((state) => state.address)
+  // const [user, setUser] = React.useState('')
 
-    // const jsonUsers = JSON.parse(usersListJson)
+  // getOne('profile', props.address, function(doc) {
+  //   if (doc.exists) {
+  //       setUser(doc.data())
+  //   } else {
+  //       console.log("Document not found")
+  //   }
+  // })
+  // *************************************
+  // FIN DE LA PARTIE AVEC LA BDD FIREBASE
+  // *************************************
 
     const user = usersListJson.users.find(e => e.eth_address == props.address)
-    console.log("User : " + user)
+    // console.log("User : " + user)
 
-    const showTwitter = () => {
-      if(user.twitter != ""){
-          return  <li>
-          <a href={`https://twitter.com/${user.twitter}`} target="_blank"><Icon.Twitter />   @{user.twitter}</a>  <VerifTooltip toBeChecked={user.verif_twitter} media={"Twitter"}/>
-        </li>
-      }
+  const showTwitter = () => {
+    if(user.twitter != ""){
+        return  <li>
+        <a href={`https://twitter.com/${user.twitter}`} target="_blank"><Icon.Twitter />   @{user.twitter}</a>  <VerifTooltip toBeChecked={user.verif_twitter} media={"Twitter"}/>
+      </li>
+    }
   }
 
   const showWebsite = () => {

@@ -6,15 +6,15 @@ const Web3 = require('web3');
 
 import loadWeb3 from "@/components/ITStartup/MetaMaskConnection"
 import detectEthereumProvider from '@metamask/detect-provider';
-
+import { postDoc, getOne } from 'firebase-crowdfund/queries'
 
 
 const Navbar = () => {
     const cart = useSelector((state) => state.cart)
     const [menu, setMenu] = React.useState(true)
     const [connected, setConnected] = React.useState(false)
-    const [address, setAddress] = React.useState(undefined)
     const dispatch = useDispatch()
+    const userAddr = useSelector((state) => state.address)
 
  
     const toggleNavbar = () => {
@@ -104,6 +104,18 @@ const Navbar = () => {
               console.error(err);
             }
           });
+
+        getOne('profile', userAddr, function(doc) {
+            if (doc.exists) {
+                console.log("Connected");
+            } else {
+                const user = { username: "", email: "", eth_address: userAddr, image: "", bio: "", twitter: "", verif_twitter: false, website: "" }
+                postDoc(user.eth_address, 'profile', user,
+                    console.log(user.username + " has been uploaded")
+                )
+            }
+        })
+
       }
 
 

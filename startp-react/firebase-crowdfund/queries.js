@@ -8,10 +8,23 @@ export function getAll(collection, callback) {
     .catch((error) => {
         console.log("Error getting document:", error);
     });
-} 
+}
+
+export function getOne(collection, address, callback) {
+    db.collection(collection).doc(address)
+    .get()
+    .then(callback)
+    .catch((error) => {
+        console.log("Error getting document:", error);
+    });
+}
 
 export function postDoc(id, collection, doc, callback) {
     db.collection(collection).doc(id).set(doc).then(callback)
+}
+
+export function updateDoc(id, collection, doc, callback) {
+    db.collection(collection).doc(id).update(doc).then(callback)
 }
 
 export function postImage(folder, image, progress) {

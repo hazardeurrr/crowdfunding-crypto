@@ -6,7 +6,7 @@ import Link from 'next/link';
 import ProfilePic from "@/components/ITStartup/ProfilePic";
 import profiles from '@/utils/usersListJson.json';
 import { useSelector, useDispatch } from 'react-redux'
-import {postDoc, postImage} from 'firebase-crowdfund/queries'
+import { updateDoc, getOne } from 'firebase-crowdfund/queries'
 
 
 const ProfileForm = (props) => {
@@ -28,7 +28,9 @@ const ProfileForm = (props) => {
     const handleChangeSite = (event) => setSite(event.target.value);
 
     function showAddress() {
-        console.log(userAddr)
+        // console.log(userAddr)
+        const user = { username: "", email: "", eth_address: userAddr, image: "", bio: "", twitter: "", verif_twitter: false, website: "" }
+        console.log(user)
     }
 
     const handleChangeImage = (image) => {
@@ -99,22 +101,28 @@ const ProfileForm = (props) => {
                                 </div>
 
                                 <div className="col-lg-12 col-md-12">
-                                    <button className="btn btn-primary" onClick={(event) => {
-                                        event.preventDefault()
-                                        const user = profiles.users.find(e => e.eth_address == "0x899657553381574");
-                                        user.username = name;
-                                        user.email = email;
-                                        user.image = image;
-                                        user.bio = bio;
-                                        user.twitter = twitter;
-                                        user.website = site;
+                                    <button className="btn btn-primary" onClick={() => {
+                                        // event.preventDefault()
+                                        let user = undefined
+                                        getOne('profile', userAddr, function(doc) {
+                                            if (doc.exists) {
+                                                user = doc.data()
+                                                user.username = name;
+                                                user.email = email;
+                                                user.image = image;
+                                                user.bio = bio;
+                                                user.twitter = twitter;
+                                                user.website = site;
 
-                                        // const newData = JSON.stringify(profiles);
-                                        console.log(user)
-                                        postDoc(user.eth_address, 'profile', user, (doc) => {
-                                            console.log(user.username + " has been uploaded")
+                                                //console.log(user)
+
+                                                updateDoc(user.eth_address, 'profile', user, function() {
+                                                    console.log("Updated")
+                                                })
+                                            } else {
+                                                Console.log("Document not found")
+                                            }
                                         })
-                                        // alert(newData)
 
                                     }}>Update Profile</button>
                                 </div>
