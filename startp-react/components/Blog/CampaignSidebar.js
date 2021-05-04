@@ -16,7 +16,7 @@ import CardContent from '@material-ui/core/CardContent';
 import CardMedia from '@material-ui/core/CardMedia';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
-
+import ShareIcons from '@/components/Common/ShareIcons'
 
 
 const useStyles = makeStyles({
@@ -100,8 +100,11 @@ const CampaignSidebar = (props) => {
     return (
         <div className="widget-area" id="secondary">
 
+
+
             <div className="widget widget_startp_posts_thumb">
                     <div className={classes.root}>
+
                         {Title()}
                         <GridList spacing={15} cols={1}>
                             {campaign.tiers.map((tile) => (

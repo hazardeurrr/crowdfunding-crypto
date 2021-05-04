@@ -16,6 +16,8 @@ import { withStyles } from '@material-ui/core/styles';
 import { green } from '@material-ui/core/colors';
 import FormGroup from '@material-ui/core/FormGroup';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
+import Pagination from '@material-ui/lab/Pagination';
+
 
 const GreenCheckbox = withStyles({
     root: {
@@ -35,10 +37,12 @@ class SearchPage extends React.Component {
         this.languagesSelected = ["EN"];
         this.categoriesSelected = [];
         this.allCampaigns = [];
-        
+        this.nbByPage = 2;
+
         this.state = {
             projects: [],
             checked: this.populateCheckArray(),
+            page: 1
         }
         this.addCategory = this.addCategory.bind(this);
         this.removeCategory = this.removeCategory.bind(this);
@@ -97,6 +101,7 @@ class SearchPage extends React.Component {
       }
     
     loadProjects(){
+        this.setState({page: 1})
         if(this.categoriesSelected.length == 0)
         //   this.setState({projects: this.allCampaigns})
             this.setState({projects: projectList})
@@ -116,9 +121,16 @@ class SearchPage extends React.Component {
         this.loadProjects();
     }
 
+    handlePaginationChange = (event, value) => {
+        this.setState({page: value});
+      };
+
     displayProjects = () => {
         var rows = [];
-        for (var i = 0; i < this.state.projects.length; i++) {
+        //[0 ... 20[ [20 ... 40[
+        var len = this.state.projects.length < (this.state.page) * this.nbByPage ? this.state.projects.length : (this.state.page) * this.nbByPage;
+        console.log("len : " + len + " / print page : " + this.state.page)
+        for (var i = (this.state.page - 1) * this.nbByPage; i < len; i++) {
             rows.push( <div key={i} className="col-lg-4 col-md-6">
             <SimpleCampaignPost project={this.state.projects[i]}
             />
@@ -169,6 +181,11 @@ class SearchPage extends React.Component {
                                             </nav>
                                         </div>
                                     </div> */}
+
+                                    <Pagination count={Math.ceil(this.state.projects.length / this.nbByPage)} page={this.state.page} onChange={this.handlePaginationChange.bind(this)} color="primary" />
+
+
+
                                 </div>
                             </div>
                         </div>

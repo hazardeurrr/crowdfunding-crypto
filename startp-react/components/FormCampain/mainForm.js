@@ -180,7 +180,7 @@ class MainForm extends React.Component {
                                                         <input type="radio" id="usdt" name="radio-group" defaultChecked/>
                                                         <label htmlFor="usdt">USDT (Tether)</label>
                                                     </p>
-                                                    <p>
+                                                    <p>n
                                                         <input type="radio" id="eth" name="radio-group" />
                                                         <label htmlFor="eth">ETH (Ether)</label>
                                                     </p>

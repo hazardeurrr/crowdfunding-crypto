@@ -36,8 +36,11 @@ const FormCampaign = () => {
             return <div><PageBanner pageTitle="You are not connected"/>
              <div className="container">
                 <div className="section-title">
+                    <br/><br/>
                     <h2>Please connect to Metamask</h2>
+                    <br/>
                     <div className="bar"></div>
+                    <br/>
                     <p>To access this feature, please connect to Metamask and ensure you are connected to Ethereum Mainnet network on the Metamask tab.</p>
                 </div>
             </div>

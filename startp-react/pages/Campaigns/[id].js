@@ -22,8 +22,8 @@ import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import { useSelector, useDispatch } from 'react-redux';
 import Button from '@material-ui/core/Button';
-import FlexibleTooltip from '@/components/Common/FlexibleTooltip'
-
+import FlexibleTooltip from '@/components/Common/FlexibleTooltip';
+import ShareIcons from '@/components/Common/ShareIcons'
 
 
 const useStyles = makeStyles((theme) => ({
@@ -193,14 +193,17 @@ const Campaign = (props) => {
                                 <div className="col-lg-6 col-md-12">
                                     <div className="ml-about-img">
                                         <img src={campaign.main_img} alt="image" />
+                                        
                                     </div>
                                 </div>
 
                                 <div className="col-lg-6 col-md-12">
                                     <div className="ml-about-content">
+
                                         <span className="sub-title">{campaign.main_category}</span>
-                                        
-                                        <h2>{campaign.title}</h2>
+                                        <ShareIcons campaign={campaign}/>
+
+                                        <h2 style={{marginTop: 10, marginBottom: 10}}>{campaign.title}</h2>
                                          <div className="blog-details-desc">
                                             <div className="article-content">
                                                 <div className="entry-meta">
@@ -222,7 +225,7 @@ const Campaign = (props) => {
                                         <div className="bar"></div>
 
                                     
-                                        <p>{campaign.small_description}</p>
+                                        {/* <p>{campaign.small_description}</p> */}
                                         <h5>{displayRaised()} {campaign.currency} raised / {objective} {campaign.currency}</h5> 
                                         {displayProgressBar()}
                                         <div className="blog-details-desc">
@@ -237,6 +240,7 @@ const Campaign = (props) => {
                                                 </div>              
                                             </div>
                                         </div>
+
                                         {BackButton()}
                                         {RefundButton()}
                                     </div>
@@ -273,7 +277,7 @@ const Campaign = (props) => {
 
                                 <div className="article-content">  
                                 
-                                   
+                                <div className="separator"></div>
                                     {Parser(desc)}
                                 </div>
                             </div>

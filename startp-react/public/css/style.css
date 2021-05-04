@@ -10682,3 +10682,7 @@ Go Top CSS
 .bg-down {
   background-color: grey;
 }
+
+.share-icon {
+  margin-right: 3px;
+}
