@@ -32,19 +32,21 @@ const useStyles = makeStyles((theme) => ({
       whiteSpace: 'nowrap',
       overflow: 'hidden',
       textOverflow: 'ellipsis',
-      fontSize : "14px"
+      fontSize : "14px",
+      fontWeight: 550
   },
   pchip2: {
       whiteSpace: 'nowrap',
       overflow: 'hidden',
       textOverflow: 'ellipsis',
-      fontSize : "10px",
+      fontSize : "11px",
       fontStyle : "italic"
   },
   sec:{
       lineHeight : '14.5px',
       marginTop: '2.4px'
-  }
+  },
+
 }));
 
 

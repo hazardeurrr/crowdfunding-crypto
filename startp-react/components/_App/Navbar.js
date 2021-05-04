@@ -7,6 +7,8 @@ const Web3 = require('web3');
 import loadWeb3 from "@/components/ITStartup/MetaMaskConnection"
 import detectEthereumProvider from '@metamask/detect-provider';
 import { postDoc, getOne } from 'firebase-crowdfund/queries'
+import AutoCompleteSearchBar from "../Common/AutoCompleteSearchBar";
+import SearchIcon from '@material-ui/icons/Search';
 
 
 const Navbar = () => {
@@ -167,7 +169,7 @@ const Navbar = () => {
         else {
             return (
                 <>
-                <button type="submit" className="btn btn-primary" onClick={() => connect()}>Connect with Metamask</button>
+                <button type="submit" className="btn btn-primary" onClick={() => connect()}>Connect Wallet</button>
                 </>
             )
         }
@@ -213,9 +215,14 @@ const Navbar = () => {
                             <span className="icon-bar bottom-bar"></span>
                         </button>
 
+
+                        
+                                        
+
                         <div className={classOne} id="navbarSupportedContent">
+                        <div style={{display: 'flex'}}><SearchIcon style={{marginTop: 10, marginLeft: 5, marginRight: 5}}/><AutoCompleteSearchBar/></div>
                             <ul className="navbar-nav ms-auto">
-                                <li className="nav-item">
+                                {/* <li className="nav-item">
                                     <Link href="/#" activeClassName="active">
                                         <a onClick={e => e.preventDefault()} className="nav-link">
                                             Home <Icon.ChevronDown />
@@ -486,9 +493,9 @@ const Navbar = () => {
                                             </Link>
                                         </li>
                                     </ul>
-                                </li>
+                                </li> */}
 
-                                
+                              
 
                                 <li className="nav-item">
                                 <Link href={"/how-it-works"} activeClassName="active">
@@ -510,6 +517,7 @@ const Navbar = () => {
                         </div>
 
                         <div className="others-option">
+
                             {/* <Link href="/cart">
                                 <a className="cart-wrapper-btn">
                                     <Icon.ShoppingCart /> 
@@ -518,7 +526,7 @@ const Navbar = () => {
                             </Link> */}
 
                             <Link href="/form-campaign">
-							    <a className="btn btn-secondary">Create a campaign</a>
+							    <a className="btn btn-secondary">Create</a>
                             </Link>
 
                             {isConnected()}
