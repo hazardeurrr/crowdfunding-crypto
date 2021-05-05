@@ -3,12 +3,13 @@
   {
     "username": "Hazardeur4ever",
     "email": "adriennecohen@ewaves.com",
-    "eth_address": "0xcd4528Edc220b5a7c7DDd7873FA692f486636E31",
+    "eth_address": "0xcd4528edc220b5a7c7ddd7873fa692f486636e31",
     "image": "https://static.currency.com/img/media/bitcoin.dd8a16.png",
     "bio": "I'm intersted in crypto and a blockchain lover",
     "twitter": "CainFR",
     "verif_twitter": true,
-    "website": "https://www.google.com/"
+    "website": "https://www.google.com/",
+    "liked" : ["0x56985475654az9e8z5f6az5", "0x56985475654az9e8z5f6az6"]
   },
   {
     "username": "Hazardeur4ever HazardeurinhoGod1",
@@ -18,7 +19,8 @@
     "bio": "Hi, I'm Leach, I love food and pets.",
     "twitter": "BoydEN",
     "verif_twitter": false,
-    "website": "https://www.google.com/"
+    "website": "https://www.google.com/",
+    "liked" : []
   },
   {
     "username": "Childhelp",
@@ -28,7 +30,9 @@
     "bio": "This is the account of Childhelp charity.",
     "twitter": "ScottAzio",
     "verif_twitter": false,
-    "website": "https://www.google.com/"
+    "website": "https://www.google.com/",
+    "liked" : ["0x56985475654az9e8z5f6az5", "0x56985475654az9e8z5f6az6", "0x569854865654az9e8z5f6az6"]
+
   },
   {
     "username": "Charitiii",
@@ -38,7 +42,9 @@
     "bio": "",
     "twitter": "",
     "verif_twitter": false,
-    "website": ""
+    "website": "",
+    "liked" : []
+
   },
   {
     "username": "",
@@ -48,7 +54,9 @@
     "bio": "",
     "twitter": "",
     "verif_twitter": false,
-    "website": ""
+    "website": "",
+    "liked" : []
+
   }
 ]
 }

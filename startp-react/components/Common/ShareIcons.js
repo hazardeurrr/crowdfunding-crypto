@@ -124,9 +124,6 @@ const ShareIcons = (props) => {
         message="Link copied in the clipboard !"
         action={
           <React.Fragment>
-            <Button color="secondary" size="small" onClick={handleClose}>
-              Close
-            </Button>
             <IconButton size="small" aria-label="close" color="inherit" onClick={handleClose}>
               <CloseIcon fontSize="small" />
             </IconButton>

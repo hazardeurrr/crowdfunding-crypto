@@ -23,7 +23,13 @@ import DialogTitle from '@material-ui/core/DialogTitle';
 import { useSelector, useDispatch } from 'react-redux';
 import Button from '@material-ui/core/Button';
 import FlexibleTooltip from '@/components/Common/FlexibleTooltip';
-import ShareIcons from '@/components/Common/ShareIcons'
+import ShareIcons from '@/components/Common/ShareIcons';
+import UseAnimations from 'react-useanimations';
+import heart from 'react-useanimations/lib/heart'
+import Snackbar from '@material-ui/core/Snackbar';
+import IconButton from '@material-ui/core/IconButton';
+import CloseIcon from '@material-ui/icons/Close';
+import HeartAnim from '@/components/Common/HeartAnim';
 
 
 const useStyles = makeStyles((theme) => ({
@@ -49,8 +55,7 @@ const Campaign = (props) => {
     const raised = campaign.raised
     const objective = campaign.objective
     const user = usersListJson.users.find(e => e.eth_address == campaign.creator)
-    console.log("User : " + user)
-    console.log("Campaign : " + campaign)
+
     const desc = campaign.long_desc
     const pct = (raised / objective) * 100
     var start_date = campaign.start_date;
@@ -60,7 +65,10 @@ const Campaign = (props) => {
     const connected = useSelector((state) => state.metamask_connected)
     const chainID = useSelector((state) => state.chainID)
 
+
+
     const [open, setOpen] = React.useState(false);
+
 
 
     const handleDialogOpen = () => {
@@ -177,6 +185,9 @@ const Campaign = (props) => {
             }
     }
 
+
+
+
     return (
         <>
             <Navbar />
@@ -203,7 +214,7 @@ const Campaign = (props) => {
                                         <span className="sub-title">{campaign.main_category}</span>
                                         <ShareIcons campaign={campaign}/>
 
-                                        <h2 style={{marginTop: 10, marginBottom: 10}}>{campaign.title}</h2>
+                                        <h2 style={{marginTop: 20, marginBottom: 10}}>{campaign.title}</h2>
                                          <div className="blog-details-desc">
                                             <div className="article-content">
                                                 <div className="entry-meta">
@@ -225,7 +236,7 @@ const Campaign = (props) => {
                                         <div className="bar"></div>
 
                                     
-                                        {/* <p>{campaign.small_description}</p> */}
+                                        <p style={{fontSize: 15, marginBottom: 30}}>{campaign.small_description}</p>
                                         <h5>{displayRaised()} {campaign.currency} raised / {objective} {campaign.currency}</h5> 
                                         {displayProgressBar()}
                                         <div className="blog-details-desc">
@@ -241,8 +252,15 @@ const Campaign = (props) => {
                                             </div>
                                         </div>
 
-                                        {BackButton()}
-                                        {RefundButton()}
+                                        <div style={{display: "flex"}}>
+                                            {BackButton()}
+                                            {RefundButton()}
+
+                                         
+                                                <HeartAnim campaign={campaign}/>
+                                            
+
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -268,8 +286,7 @@ const Campaign = (props) => {
                         </DialogActions>
                     </Dialog>
 
-
-
+                   
 
                     <div className="row">
                         <div className="col-lg-8 col-md-12">

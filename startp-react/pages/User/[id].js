@@ -14,7 +14,7 @@ import Avatar from '@material-ui/core/Avatar';
 import VerifTooltip from '@/components/Common/VerifTooltip';
 import { getOne } from 'firebase-crowdfund/queries'
 import { useSelector, useDispatch } from 'react-redux'
-
+import CreatedAndLiked from '@/components/Common/CreatedAndLiked'
 
 
 const useStyles = makeStyles((theme) => ({
@@ -103,9 +103,6 @@ const User = (props) => {
 
                       <h2>{user.username}</h2>
                       <a href={`https://etherscan.io/address/${user.eth_address}`} target="_blank"><h5>{user.eth_address}</h5></a>
-                      {showBio()}
-                      <div className="bar"></div>
-
                       <div className="blog-details-desc">
                         <div className="article-content">
                            <div className="entry-meta">
@@ -116,6 +113,11 @@ const User = (props) => {
                            </div>              
                          </div>
                        </div>    
+                      {showBio()}
+
+                     
+
+                       <CreatedAndLiked user = {user}/>
 
 
                   </div>
