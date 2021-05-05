@@ -12,7 +12,7 @@ import { updateDoc, getOne } from 'firebase-crowdfund/queries'
 const ProfileForm = (props) => {
     // const data = undefined;
 
-    const userAddr = useSelector((state) => state.address)
+    let userAddr = useSelector((state) => state.address)
 
     const [name, setName] = useState('');
     const [email, setEmail] = useState('');
@@ -28,9 +28,7 @@ const ProfileForm = (props) => {
     const handleChangeSite = (event) => setSite(event.target.value);
 
     function showAddress() {
-        // console.log(userAddr)
-        const user = { username: "", email: "", eth_address: userAddr, image: "", bio: "", twitter: "", verif_twitter: false, website: "" }
-        console.log(user)
+        console.log(userAddr)
     }
 
     const handleChangeImage = (image) => {
@@ -39,6 +37,8 @@ const ProfileForm = (props) => {
 
     function loadData() {
         let user = undefined
+        // let userAddr = useSelector((state) => state.address)
+        // console.log('Adresse: ' + userAddr)
         getOne('profile', userAddr, function(doc) {
             if (doc.exists) {
                 user = doc.data()
@@ -57,8 +57,7 @@ const ProfileForm = (props) => {
     function formIsValid() {
         let valid = true
 
-        if (name.replace(/\s/g, '') === "" || email === "" || image === "" || bio === "" || twitter === "" ||
-        site === "") {
+        if (name.replace(/\s/g, '') === "" || email === "" || twitter === "") {
             valid = false
         }
 
@@ -83,23 +82,41 @@ const ProfileForm = (props) => {
 
                     <div className="faq-contact">
                         <h3>Complete the information about your profile</h3>
-                        <form onSubmit={() => {
-                           alert("Profile updated !")
+                        <form action={`/User/${userAddr}`} onSubmit={() => {
+                            let user = undefined
+                            getOne('profile', userAddr, function(doc) {
+                                if (doc.exists) {
+                                    user = doc.data()
+                                    user.username = name;
+                                    user.email = email;
+                                    user.image = image;
+                                    user.bio = bio;
+                                    user.twitter = twitter;
+                                    user.website = site;
+
+                                    //console.log(user)
+
+                                    updateDoc(user.eth_address, 'profile', user, function() {
+                                        console.log("Updated")
+                                    })
+                                } else {
+                                    Console.log("Document not found")
+                                }
+                            })
+                            alert("Profile updated !")
                         }}>
                             <div className="row">
                                 <p><strong> Displayed name </strong><br/>Choose a name that will be displayed to the other users</p>
                                 <div className="col-lg-12 col-md-12">
                                     <div className="form-group">
-                                        <input type="text" placeholder="Name" className="form-control" value={name} onChange={handleChangeName}
-                                        maxLength="32" required/>
+                                        <input type="text" placeholder="Name" className="form-control" value={name} onChange={handleChangeName} maxLength="32"/>
                                     </div>
                                 </div>
 
                                 <p><strong> Email </strong><br/>Enter your email address</p>
                                 <div className="col-lg-12 col-md-12">
                                     <div className="form-group">
-                                        <input type="email" placeholder="Email" className="form-control" value={email} onChange={handleChangeEmail}
-                                        required/>
+                                        <input type="email" placeholder="Email" className="form-control" value={email} onChange={handleChangeEmail}/>
                                     </div>
                                 </div>
 
@@ -113,59 +130,37 @@ const ProfileForm = (props) => {
                                 <p><strong> Bio </strong><br/> Make a short description of yourself.</p>
                                 <div className="col-lg-12 col-md-12">
                                     <div className="form-group">
-                                        <textarea name="bio" cols="30" rows="6" placeholder="Bio" className="form-control" value={bio} onChange={handleChangeBio}></textarea>
+                                        <textarea cols="30" rows="6" placeholder="Bio" className="form-control" value={bio} onChange={handleChangeBio}></textarea>
                                     </div>
                                 </div>
 
                                 <p><strong> Twitter account </strong><br/>Link your Twitter account to be certified</p>
                                 <div className="col-lg-12 col-md-12">
                                     <div className="form-group">
-                                        <input type="text" placeholder="@" className="form-control" value={twitter} onChange={handleChangeTwitter}
-                                        required/>
+                                        <input type="text" placeholder="@" className="form-control" value={twitter} onChange={handleChangeTwitter}/>
                                     </div>
                                 </div>
-
-                                
 
                                 <p><strong> Website </strong></p>
                                 <div className="col-lg-12 col-md-12">
                                     <div className="form-group">
-                                        <input type="url" name="url" id="url" pattern="https://.*" placeholder="https://your-site.com" className="form-control" 
+                                        <input type="url" id="url" pattern="https://.*" placeholder="https://your-site.com" className="form-control" 
                                         value={site} onChange={handleChangeSite}/>
                                     </div>
                                 </div>
 
                                 <div className="col-lg-12 col-md-12">
                                     <button className="btn btn-primary" type="submit" onClick={(event) => {
-                                        formIsValid = formIsValid()
+                                        // formIsValid = formIsValid()
 
-                                        if (formIsValid === false) {
-                                            event.preventDefault()
-                                            alert("The form is not valid. Check for the errors !")
-                                        }
+                                        // if (formIsValid === false) {
+                                        //     event.preventDefault()
+                                        //     alert("The form is not valid. Check for the errors !")
+                                        // }
 
-                                        else {
-                                            let user = undefined
-                                            getOne('profile', userAddr, function(doc) {
-                                                if (doc.exists) {
-                                                    user = doc.data()
-                                                    user.username = name;
-                                                    user.email = email;
-                                                    user.image = image;
-                                                    user.bio = bio;
-                                                    user.twitter = twitter;
-                                                    user.website = site;
-    
-                                                    //console.log(user)
-    
-                                                    updateDoc(user.eth_address, 'profile', user, function() {
-                                                        console.log("Updated")
-                                                    })
-                                                } else {
-                                                    Console.log("Document not found")
-                                                }
-                                            })
-                                        }
+                                        // else {
+                                        // }
+                                        // event.preventDefault()
 
 
                                     }}>Update Profile</button>

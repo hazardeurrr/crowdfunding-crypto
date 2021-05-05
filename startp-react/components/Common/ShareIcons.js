@@ -121,7 +121,7 @@ const ShareIcons = (props) => {
         open={open}
         autoHideDuration={2000}
         onClose={handleClose}
-        message="Link copied in the clipboard !"
+        message="Link copied to the clipboard !"
         action={
           <React.Fragment>
             <IconButton size="small" aria-label="close" color="inherit" onClick={handleClose}>

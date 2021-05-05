@@ -88,6 +88,16 @@ const Navbar = () => {
                 type: 'SET_ADDRESS',
                 id: accounts[0]
             })
+            getOne('profile', userAddr, function(doc) {
+                if (doc.exists) {
+                    console.log("Connected");
+                } else {
+                    const user = { username: "", email: "", eth_address: userAddr, image: "", bio: "", twitter: "", verif_twitter: false, website: "" }
+                    postDoc(user.eth_address, 'profile', user,
+                        console.log(user.username + " has been uploaded")
+                    )
+                }
+            })
         }
     }
 
@@ -106,17 +116,6 @@ const Navbar = () => {
               console.error(err);
             }
           });
-
-        getOne('profile', userAddr, function(doc) {
-            if (doc.exists) {
-                console.log("Connected");
-            } else {
-                const user = { username: "", email: "", eth_address: userAddr, image: "", bio: "", twitter: "", verif_twitter: false, website: "" }
-                postDoc(user.eth_address, 'profile', user,
-                    console.log(user.username + " has been uploaded")
-                )
-            }
-        })
 
       }
 

@@ -342,9 +342,9 @@ const ServiceDetails = () => {
                                         <TimelineContent>
                                         <Paper elevation={3} >
                                             <Typography variant="h6" component="h1">
-                                            Code
+                                                More Code !
                                             </Typography>
-                                            <Typography>Because it&apos;s awesome!</Typography>
+                                            <Typography>Upgrade the existing platform for better efficiency</Typography>
                                         </Paper>
                                         </TimelineContent>
                                     </TimelineItem>

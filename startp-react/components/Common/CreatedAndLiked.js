@@ -17,10 +17,6 @@ class CreatedAndLiked extends Component {
       }
     }
 
-    componentDidMount(){
-
-    }
-
     displayCreatedProjects = () => {
       var rows = [];
       for (var i = 0; i < this.created.length; i++) {
