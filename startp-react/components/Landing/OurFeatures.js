@@ -1,6 +1,10 @@
 import React from 'react';
 import Link from 'next/link';
 import * as Icon from 'react-feather';
+import { GiTwoCoins } from 'react-icons/gi';
+import { RiHandCoinLine, RiFundsFill } from 'react-icons/ri';
+import {MdMoneyOff} from 'react-icons/md';
+import {FaVoteYea, FaRegHandPointUp} from 'react-icons/fa'
 
 const OurFeatures = () => {
     return (
@@ -16,7 +20,7 @@ const OurFeatures = () => {
                     <div className="col-lg-6 col-md-6">
                         <div className="single-features">
                             <div className="icon">
-                                <Icon.Settings />
+                                    <GiTwoCoins size={30}/>
                             </div>
                             <h3>
                                 <Link href="/feature-details">
@@ -32,7 +36,7 @@ const OurFeatures = () => {
                     <div className="col-lg-6 col-md-6">
                         <div className="single-features">
                             <div className="icon">
-                                <Icon.Mail />
+                                <MdMoneyOff  size={30}/>
                             </div> 
                             <h3>
                                 <Link href="/feature-details">
@@ -40,42 +44,14 @@ const OurFeatures = () => {
                                 </Link>
                             </h3>
                             <p>No intermediate, no fee ! You only need to pay the gas fee of the Ethereum blockchain.<br></br>
-                            <i style={{fontSize: 13}}>Crowdfunding platforms usually charge a 3% payment fee for their payment provider on top of the platform fee.</i></p>
-                        </div>
-                    </div>
-
-                    <div className="col-lg-6 col-md-6">
-                        <div className="single-features">
-                            <div className="icon bg-c679e3">
-                                <Icon.Grid />
-                            </div>
-                            <h3>
-                                <Link href="/feature-details">
-                                    <a>Raise in crypto</a>
-                                </Link>
-                            </h3>
-                            <p>Choose to raise money in ETH, USDT or BBST.</p>
-                        </div>
-                    </div>
-
-                    <div className="col-lg-6 col-md-6">
-                        <div className="single-features">
-                            <div className="icon bg-c679e3">
-                                <Icon.Info />
-                            </div>
-                            <h3>
-                                <Link href="/feature-details">
-                                    <a>Easy to use</a>
-                                </Link>
-                            </h3>
-                            <p>Create a campaign in less than 2 minutes and start raising funds ! Share your campaign to your social media in 1 click !</p>
+                            <i style={{fontSize: 12}}>Crowdfunding platforms usually charge a 3% payment fee for their payment provider on top of the platform fee.</i></p>
                         </div>
                     </div>
 
                     <div className="col-lg-6 col-md-6">
                         <div className="single-features">
                             <div className="icon bg-eb6b3d">
-                                <Icon.Box />
+                                <RiHandCoinLine  size={30}/>
                             </div>
                             <h3>
                                 <Link href="/feature-details">
@@ -89,16 +65,46 @@ const OurFeatures = () => {
                     <div className="col-lg-6 col-md-6">
                         <div className="single-features">
                             <div className="icon bg-eb6b3d">
-                                <Icon.Bell />
+                                <FaVoteYea size={30} />
                             </div>
                             <h3>
                                 <Link href="/feature-details">
                                     <a>Governance for stakers</a>
                                 </Link>
                             </h3>
-                            <p>Power to the users ! BBST stakers can vote for majors changes on the platform.</p>
+                            <p>Power to the users ! BBST stakers can vote for majors changes on the platform as well as featured campaigns.</p>
                         </div>
                     </div>
+
+                    <div className="col-lg-6 col-md-6">
+                        <div className="single-features">
+                            <div className="icon bg-c679e3">
+                                <RiFundsFill size={45}/>
+                            </div>
+                            <h3>
+                                <Link href="/feature-details">
+                                    <a>Raise in crypto</a>
+                                </Link>
+                            </h3>
+                            <p>Choose to raise money in ETH, USDT or BBST.</p>
+                        </div>
+                    </div>
+
+                    <div className="col-lg-6 col-md-6">
+                        <div className="single-features">
+                            <div className="icon bg-c679e3">
+                                <FaRegHandPointUp size={30} />
+                            </div>
+                            <h3>
+                                <Link href="/feature-details">
+                                    <a>Easy to use</a>
+                                </Link>
+                            </h3>
+                            <p>Create a campaign in less than 2 minutes and start raising funds ! Share your campaign to your social media in 1 click !</p>
+                        </div>
+                    </div>
+
+                    
                 </div>
             </div>
         </div>

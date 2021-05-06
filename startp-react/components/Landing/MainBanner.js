@@ -1,5 +1,19 @@
 import React from 'react';
 import Link from 'next/link';
+import {db} from '../../firebase-crowdfund/index'
+
+const handleSubmit = (event) => {
+    event.preventDefault()
+    console.log('in submit function')
+    console.log(event.target[0].value)
+    console.log(event)
+    const email = event.target[0].value
+    db.collection('newsletter').doc(email).set({email: email}).then(x => {
+        console.log('document written with : ' + email)
+    }).catch(err => {
+        console.error(err)
+    })
+}
 
 const MainBanner = () => {
     return (
@@ -15,7 +29,7 @@ const MainBanner = () => {
 
                                 <br></br>
                                 <p>Subscribe to our newsletter for free to get the latest news on BlockBoosted and BBST Token Sale.</p>
-                                  <form className="newsletter-form">
+                                  <form className="newsletter-form" onSubmit={handleSubmit}>
                                       <input type="email" className="input-newsletter" placeholder="Enter your email here" />
                                       <button type="submit">Subscribe !</button>
                                   </form>

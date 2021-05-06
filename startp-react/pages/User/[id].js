@@ -15,6 +15,7 @@ import VerifTooltip from '@/components/Common/VerifTooltip';
 import { getOne } from 'firebase-crowdfund/queries'
 import { useSelector, useDispatch } from 'react-redux'
 import CreatedAndLiked from '@/components/Common/CreatedAndLiked'
+import CircularProgress from '@material-ui/core/CircularProgress';
 
 
 const useStyles = makeStyles((theme) => ({
@@ -38,28 +39,31 @@ const useStyles = makeStyles((theme) => ({
 
 
 
-const User = (props) => {
+const User = (props, {data}) => {
 
   const classes = useStyles();
   
   // *************************************
   // PARTIE AVEC LA BDD FIREBASE
   // *************************************
-  // const userAddr = useSelector((state) => state.address)
-  // const [user, setUser] = React.useState('')
+  const [user, setUser] = React.useState(undefined)
 
-  // getOne('profile', props.address, function(doc) {
-  //   if (doc.exists) {
-  //       setUser(doc.data())
-  //   } else {
-  //       console.log("Document not found")
-  //   }
-  // })
+
+  React.useEffect(() => {
+    getOne('profile', props.address, function(doc) {
+       console.log("into getOne")
+      if (doc.exists) {
+        setUser(doc.data())
+      } else {
+          console.log("Document not found")
+      }
+    })
+  }, [data] )
   // *************************************
   // FIN DE LA PARTIE AVEC LA BDD FIREBASE
   // *************************************
 
-    const user = usersListJson.users.find(e => e.eth_address == props.address)
+    // const user = usersListJson.users.find(e => e.eth_address == props.address)
     // console.log("User : " + user)
 
   const showTwitter = () => {
@@ -85,19 +89,10 @@ const User = (props) => {
     }
   }
 
-
-    return (
-        <>
-            <Navbar />
-            
-            {/* <PageBanner pageTitle={campaign.title}/> */}
-
-            
-
-            <div className="features-area pt-80 pb-50 bg-f9f6f6">
-              <div className="container">
-                  <div className="section-title">
-                    <div className={classes.root}>
+  const displayContent = () => {
+    if(user != undefined){
+      return <div>
+        <div className={classes.root}>
                       <Avatar alt="user_avatar" src={user.image} className={classes.large}/>
                     </div>
 
@@ -117,7 +112,28 @@ const User = (props) => {
 
                      
 
-                       <CreatedAndLiked user = {user}/>
+                      <CreatedAndLiked user = {user}/>
+      </div>
+    } else {
+      return <CircularProgress style={{marginTop: 100}}/>
+    }
+  }
+
+
+    return (
+        <>
+            <Navbar />
+            
+            {/* <PageBanner pageTitle={campaign.title}/> */}
+
+            
+
+            <div className="features-area pt-80 pb-50 bg-f9f6f6">
+              <div className="container">
+                  <div className="section-title">
+
+                    {displayContent()}
+                    
 
 
                   </div>

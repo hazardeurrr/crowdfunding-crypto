@@ -86,22 +86,22 @@ const NavbarStyleTwo = () => {
                                 <ul className="social-links">
                                     
                                     <li>
-                                        <Link href="#">
+                                        <Link href="https://twitter.com/blockboosted">
                                             <a className="twitter" target="_blank"><Icon.Twitter /></a>
                                         </Link>
                                     </li>
                                     <li>
-                                        <Link href="#">
+                                        <Link href="https://twitter.com/blockboosted">
                                             <a className="linkedin" target="_blank"><FaTelegramPlane /></a>
                                         </Link>
                                     </li>
                                     <li>
-                                        <Link href="#">
+                                        <Link href="https://medium.com/@blockboosted">
                                             <a className="instagram" target="_blank"><FaMediumM /></a>
                                         </Link>
                                     </li>
                                     <li>
-                                        <Link href="#">
+                                        <Link href="https://twitter.com/blockboosted">
                                             <a className="facebook" target="_blank"><Icon.Facebook /></a>
                                         </Link>
                                     </li>

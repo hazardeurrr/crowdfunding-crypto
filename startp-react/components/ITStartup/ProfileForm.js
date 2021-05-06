@@ -6,13 +6,13 @@ import Link from 'next/link';
 import ProfilePic from "@/components/ITStartup/ProfilePic";
 import profiles from '@/utils/usersListJson.json';
 import { useSelector, useDispatch } from 'react-redux'
-import { updateDoc, getOne } from 'firebase-crowdfund/queries'
+import { updateDoc, getOne, postDoc } from 'firebase-crowdfund/queries'
 
 
 const ProfileForm = (props) => {
     // const data = undefined;
 
-    let userAddr = useSelector((state) => state.address)
+    let userAddr = props.address
 
     const [name, setName] = useState('');
     const [email, setEmail] = useState('');
@@ -151,18 +151,6 @@ const ProfileForm = (props) => {
 
                                 <div className="col-lg-12 col-md-12">
                                     <button className="btn btn-primary" type="submit" onClick={(event) => {
-                                        // formIsValid = formIsValid()
-
-                                        // if (formIsValid === false) {
-                                        //     event.preventDefault()
-                                        //     alert("The form is not valid. Check for the errors !")
-                                        // }
-
-                                        // else {
-                                        // }
-                                        // event.preventDefault()
-
-
                                     }}>Update Profile</button>
                                 </div>
                             </div>

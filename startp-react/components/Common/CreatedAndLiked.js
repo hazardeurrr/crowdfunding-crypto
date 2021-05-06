@@ -13,7 +13,7 @@ class CreatedAndLiked extends Component {
       if(this.user != undefined){
         this.liked = this.user.liked
         this.created = projectList.filter(e => e.creator == this.user.eth_address)
-        console.log(this.liked)
+        // console.log(this.liked)
       }
     }
 
@@ -30,7 +30,7 @@ class CreatedAndLiked extends Component {
 
     displayLikedProjects = () => {
       var rows = [];
-      for (var i = 0; i < this.liked.length; i++) {
+      for (var i = 0; i < this.user.liked.length; i++) {
           rows.push( <div key={i} className="col-lg-4 col-md-6">
           <SimpleCampaignPost project={projectList.find(e => e.contract_address == this.liked[i])}
           />

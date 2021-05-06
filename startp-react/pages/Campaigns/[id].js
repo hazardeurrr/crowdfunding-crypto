@@ -30,7 +30,7 @@ import Snackbar from '@material-ui/core/Snackbar';
 import IconButton from '@material-ui/core/IconButton';
 import CloseIcon from '@material-ui/icons/Close';
 import HeartAnim from '@/components/Common/HeartAnim';
-
+import {getAll} from '../../firebase-crowdfund/queries';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -65,7 +65,12 @@ const Campaign = (props) => {
     const connected = useSelector((state) => state.metamask_connected)
     const chainID = useSelector((state) => state.chainID)
 
-
+    const getCampain =() => {
+        getAll('campain', (docs) => {
+            campaign = docs.find(doc => doc.contract_address == props.address)
+            return campaign
+        })
+    }
 
     const [open, setOpen] = React.useState(false);
 

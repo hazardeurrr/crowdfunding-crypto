@@ -19,7 +19,7 @@ import FeaturedProjectCarrousel from '@/components/ITStartup/FeaturedProjectCarr
 import NavbarStyleTwo from '@/components/_App/NavbarStyleTwo';
 import Partner from '@/components/Landing/Partner';
 import Newsletter from '@/components/Common/Newsletter';
-
+import Roadmap from '@/components/Common/Roadmap'
 
 const LandingPage = () => {
     return (
@@ -29,7 +29,7 @@ const LandingPage = () => {
             <Partner />
             <OurFeatures />
             <ServicesArea />
-
+            <Roadmap />
             <Team />
             <FunFactsArea />
             <RecentWorks />
