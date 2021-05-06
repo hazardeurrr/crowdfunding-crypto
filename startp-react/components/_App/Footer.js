@@ -134,7 +134,7 @@ const Footer = () => {
 
                     <div className="col-lg-12 col-md-12">
                         <div className="copyright-area">
-                            <p>Copyright &copy; {currentYear} StartP. Made with <Icon.Heart /> in France</p>
+                            <p>Copyright &copy; {currentYear} BlockBoosted. Made with <Icon.Heart /> by the BlockBoosted team</p>
                         </div>
                     </div>
                 </div>

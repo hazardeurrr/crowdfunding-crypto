@@ -3,21 +3,18 @@ import Link from 'next/link';
 
 const MainBanner = () => {
     return (
-		<div className="main-banner">
+		<div className="main-banner-updated">
 			<div className="d-table">
 				<div className="d-table-cell">
 					<div className="container">
 						<div className="row h-100 justify-content-center align-items-center">
 							<div className="col-lg-5">
 								<div className="hero-content">
-									<h1>A new way to raise funds</h1>
-									<p>Create a campaign and raise funds for your project or organization in ETH or USDT</p>
+									<h1>Secure IT Solutions for a more secure environment</h1>
+									<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Quis ipsum suspendisse ultrices gravida</p>
 									
-									<Link href="/services-1">
-										<a className="btn btn-primary">Create a campaign</a>
-									</Link>
-                                    <Link href="/SearchPage">
-										<a className="btn btn-light">Explore</a>
+									<Link href="/contact">
+										<a className="btn btn-primary">Get Started</a>
 									</Link>
 								</div>
 							</div>
