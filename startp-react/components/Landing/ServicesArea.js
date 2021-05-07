@@ -1,7 +1,36 @@
 import React from 'react';
 import * as Icon from 'react-feather';
+import { Doughnut } from 'react-chartjs-2';
 
 const ServicesArea = () => {
+
+    const chartData = {
+        labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
+        datasets: [
+          {
+            label: '# of Votes',
+            data: [12, 19, 3, 5, 2, 3],
+            backgroundColor: [
+              'rgba(255, 99, 132, 1)',
+              'rgba(54, 162, 235, 1)',
+              'rgba(255, 206, 86, 1)',
+              'rgba(75, 192, 192, 1)',
+              'rgba(153, 102, 255, 1)',
+              'rgba(255, 159, 64, 1)',
+            ],
+            borderColor: [
+              'rgba(255, 99, 132, 1)',
+              'rgba(54, 162, 235, 1)',
+              'rgba(255, 206, 86, 1)',
+              'rgba(75, 192, 192, 1)',
+              'rgba(153, 102, 255, 1)',
+              'rgba(255, 159, 64, 1)',
+            ],
+            borderWidth: 1,
+          },
+        ],
+      };
+
     return (
         <>
             <div className="services-area ptb-80 bg-f7fafd">
@@ -9,62 +38,65 @@ const ServicesArea = () => {
                     <div className="row justify-content-center align-items-center">
                         <div className="col-lg-6 col-md-12 services-content">
                             <div className="section-title">
-                                <h2>Fair crowdfunding</h2>
+                                <h2>BBST Token</h2>
                                 <div className="bar"></div>
-                                <p>With BlockBoosted, we want to make crowdfunding fairer for raisers and contributors.</p>
+                                <p>The BlockBoosted Token (BBST) is at the heart of the BlockBoosted ecosystem. We will launch our IDO in Q3 2021 and the token will then be available on Uniswap.
+                                    Here are some use cases and property of the token, many more coming with the expansion of the ecosystem.
+                                </p>
                             </div>
 
                             <div className="row">
                                 <div className="col-lg-6 col-md-6">
                                     <div className="box">
-                                        <h4><Icon.Database /> Less fees</h4>
-                                        Platforms like Kickstarter charge 5% fee. We charge 0*.<br></br>
-                                        Payment processing fees are usually 3% on top of these. On Blockboosted,<br></br> you only pay the blockchain fee.
-                                        <br></br>
-                                        <p style={{fontSize: 10}}>*0% for campaigns in BBST, 1.5% for campaigns in ETH and USDT</p>
+                                        <Icon.Database /> Governance right
                                     </div>
                                 </div>
 
                                 <div className="col-lg-6 col-md-6">
                                     <div className="box">
-                                        <h4><Icon.Globe /> Various currencies</h4>
-                                        Raise in ETH, USDT or BBST.
+                                        <Icon.Database /> 0% fee when raising in BBST
                                     </div>
                                 </div>
 
                                 <div className="col-lg-6 col-md-6">
                                     <div className="box">
-                                        <Icon.File /> File storage
+                                        <Icon.File /> Cashback for users
+                                        <p style={{fontSize : 12, fontStyle: 'italic'}}>Increased depending on your stake of BBST</p>
+
                                     </div>
                                 </div>
 
                                 <div className="col-lg-6 col-md-6">
                                     <div className="box">
-                                        <Icon.TrendingUp /> Forex trading
+                                        <Icon.TrendingUp /> Stakers can choose featured campaigns
                                     </div>
                                 </div>
 
                                 <div className="col-lg-6 col-md-6">
                                     <div className="box">
-                                        <Icon.Folder /> File backups
+                                        <Icon.Folder /> Deflation with burning process
+                                        <p style={{fontSize : 12, fontStyle: 'italic'}}>We'll use 15% of our profits to burn BBST tokens each quarter.</p>
+
                                     </div>
                                 </div>
 
                                 <div className="col-lg-6 col-md-6">
                                     <div className="box">
-                                        <Icon.Monitor /> Remote desktop
+                                        <Icon.Monitor /> Eligibility to airdrops for stakers
                                     </div>
                                 </div>
 
                                 <div className="col-lg-6 col-md-6">
                                     <div className="box">
-                                        <Icon.Mail /> Email servers
+                                        <Icon.Mail /> Tips in BBST
+                                        <p style={{fontSize : 12, fontStyle: 'italic'}}>Coming with tips.blockbooster</p>
                                     </div>
                                 </div>
 
                                 <div className="col-lg-6 col-md-6">
                                     <div className="box">
-                                        <Icon.Cloud /> Hybrid cloud
+                                        <Icon.Cloud /> Priority access to limited projects for stakers
+                                        <p style={{fontSize : 12, fontStyle: 'italic'}}>Coming with V2</p>
                                     </div>
                                 </div>
                             </div>
@@ -171,7 +203,7 @@ const ServicesArea = () => {
                 <div className="container">
                     <div className="row h-100 justify-content-center align-items-center">
                         <div className="col-lg-6 col-md-12 services-left-image">
-                            <img 
+                            {/* <img 
                                 src="/images/services-left-image/big-monitor.png"
                                 className="animate__animated animate__fadeInDown animate__delay-0.2s" 
                                 alt="big-monitor"
@@ -230,12 +262,16 @@ const ServicesArea = () => {
                                 src="/images/services-left-image/service-left-main-pic.png"
                                 className="animate__animated animate__fadeInUp animate__delay-0.2s" 
                                 alt="main-pic"
-                            />
+                            /> */}
+                            <div style={{marginTop: 150, marginBottom: 100, marginRight: 100, marginLeft: 100}}>         
+                                <Doughnut data={chartData} />
+                            </div>
+
                         </div>
 
                         <div className="col-lg-6 col-md-12 services-content">
                             <div className="section-title">
-                                <h2>Design & Development</h2>
+                                <h2>Tokenomics</h2>
                                 <div className="bar"></div>
                                 <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
                             </div>
