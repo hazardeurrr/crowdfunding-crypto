@@ -60,7 +60,7 @@ const Team = () => {
                             <span>Engineer and entrepreneur</span>
                         </div>
 
-                        <ul>
+                        {/* <ul>
                             <li>
                                 <Link href="#">
                                     <a target="_blank"><Icon.Facebook /></a>
@@ -84,7 +84,7 @@ const Team = () => {
                             </li>
                         </ul>
 
-                        <p>Risus commodo viverra maecenas accumsan lacus vel facilisis quis ipsum. </p>
+                        <p>Risus commodo viverra maecenas accumsan lacus vel facilisis quis ipsum. </p> */}
                     </div>
                 </div>
             
@@ -100,7 +100,7 @@ const Team = () => {
                             <span>Engineer</span>
                         </div>
 
-                        <ul>
+                        {/* <ul>
                             <li>
                                 <Link href="#">
                                     <a target="_blank"><Icon.Facebook /></a>
@@ -124,7 +124,7 @@ const Team = () => {
                             </li>
                         </ul>
 
-                        <p>Risus commodo viverra maecenas accumsan lacus vel facilisis quis ipsum. </p>
+                        <p>Risus commodo viverra maecenas accumsan lacus vel facilisis quis ipsum. </p> */}
                     </div>
                 </div>
     
@@ -140,7 +140,7 @@ const Team = () => {
                             <span>Engineer</span>
                         </div>
 
-                        <ul>
+                        {/* <ul>
                             <li>
                                 <Link href="#">
                                     <a target="_blank"><Icon.Facebook /></a>
@@ -164,7 +164,7 @@ const Team = () => {
                             </li>
                         </ul>
 
-                        <p>Risus commodo viverra maecenas accumsan lacus vel facilisis quis ipsum. </p>
+                        <p>Risus commodo viverra maecenas accumsan lacus vel facilisis quis ipsum. </p> */}
                     </div>
                 </div>
             

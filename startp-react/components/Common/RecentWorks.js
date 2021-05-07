@@ -38,9 +38,9 @@ const RecentWorks = () => {
         <div className="works-area pt-80 pb-50 bg-f7fafd">
             <div className="container">
                 <div className="section-title">
-                    <h2>Our Recent Works</h2>
+                    <h2>Some views of our platform</h2>
                     <div className="bar"></div>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+                    <p></p>
                 </div>
             </div>
 

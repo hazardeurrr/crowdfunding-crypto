@@ -21,6 +21,7 @@ import Partner from '@/components/Landing/Partner';
 import Newsletter from '@/components/Common/Newsletter';
 import Roadmap from '@/components/Common/Roadmap'
 
+
 const LandingPage = () => {
     return (
         <>
@@ -33,7 +34,7 @@ const LandingPage = () => {
             <Team />
             <FunFactsArea />
             <RecentWorks />
-            <Feedback />
+            {/* <Feedback /> */}
             <Newsletter />
             <Footer />
         </>

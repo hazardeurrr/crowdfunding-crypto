@@ -51,7 +51,6 @@ const User = (props, {data}) => {
 
   React.useEffect(() => {
     getOne('profile', props.address, function(doc) {
-       console.log("into getOne")
       if (doc.exists) {
         setUser(doc.data())
       } else {
@@ -150,7 +149,7 @@ export default User
 
 
 export async function getServerSideProps (context) {
-  console.log(context.query) 
+  // console.log(context.query) 
   // returns { id: episode.itunes.episode, title: episode.title}
   
 

@@ -29,7 +29,7 @@ const OurFeatures = () => {
                             </h3>
                             <p><b>We charge 0% fee.</b><em style={{fontSize: 10}}>*.</em><br></br>
                             <i style={{fontSize: 13}}>Crowdfunding platforms usually charge a 5% platform fee.</i></p>
-                            <p style={{fontSize: 10, marginTop: 20}}>*0% for campaigns in BBST, 1.75% for successfuls campaigns in ETH and USDT</p>
+                            <p style={{fontSize: 10, marginTop: 20}}>*0% for campaigns in BBST, 2.5% for successfuls campaigns in ETH and USDT</p>
                         </div>
                     </div>
 

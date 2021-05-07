@@ -159,10 +159,29 @@ const Navbar = () => {
         if (useSelector((state) => state.metamask_connected)) {
             return (
                 <>
-                
-                <Link href="/setProfile">
-                    <a className="btn btn-light">Profile</a>
-                </Link>
+                <ul className="navbar-nav ms-auto">
+                    <li className="nav-item">
+                    <Link href="#">
+                        <a onClick={e => e.preventDefault()} className="nav-link">
+                            Profile <Icon.ChevronDown />
+                        </a>
+                    </Link>
+
+                        <ul className="dropdown-menu">
+                            <li className="nav-item">
+                                <Link href={`/User/${userAddr}`} activeClassName="active">
+                                    <a onClick={toggleNavbar} className="nav-link">View Profile</a>
+                                </Link>
+                            </li>
+
+                            <li className="nav-item">
+                                <Link href="/setProfile" activeClassName="active">
+                                    <a onClick={toggleNavbar} className="nav-link">Edit Profile</a>
+                                </Link>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
 
                 </>
             )
@@ -198,7 +217,7 @@ const Navbar = () => {
                     <nav className="navbar navbar-expand-md navbar-light">
                         <Link href="/it-startup">
                             <a onClick={toggleNavbar} className="navbar-brand">
-                                <img src="/images/logo.png" alt="logo" />
+                                <img src="/images/bb_logo_full.png" alt="logo" />
                             </a>
                         </Link>
 
@@ -530,8 +549,10 @@ const Navbar = () => {
 							    <a className="btn btn-secondary">Create</a>
                             </Link>
 
-                            {isConnected()}
 						</div>
+                        <div className="others-option">
+                            {isConnected()}
+                        </div>
                     </nav>
                 </div>
             </div>

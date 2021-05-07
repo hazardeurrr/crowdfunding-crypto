@@ -21,7 +21,7 @@ const ProfileForm = (props) => {
     const [site, setSite] = useState('');
     const[image, setImage] = useState('');
 
-    const handleChangeName = (event) => setName(event.target.value);
+    const handleChangeName = (event) => {setName(event.target.value); console.log("changing");}
     const handleChangeEmail = (event) => setEmail(event.target.value);
     const handleChangeBio = (event) => setBio(event.target.value);
     const handleChangeTwitter = (event) => setTwitter(event.target.value);

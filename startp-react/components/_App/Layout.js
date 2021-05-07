@@ -8,7 +8,7 @@ const Layout = ({ children }) => {
             <Head>
                 <meta charSet="utf-8" />
                 <meta name="viewport" content="width=device-width, initial-scale=1" />
-                <title>StartP - React Next IT Startups & Digital Services Template</title>
+                <title>BlockBoosted - Boost your project with crypto</title>
             </Head>
             {children}
 

@@ -1,5 +1,20 @@
 import React from 'react';
 
+import {db} from '../../firebase-crowdfund/index'
+
+const handleSubmit = (event) => {
+    event.preventDefault()
+    console.log('in submit function')
+    console.log(event.target[0].value)
+    console.log(event)
+    const email = event.target[0].value
+    db.collection('newsletter').doc(email).set({email: email}).then(x => {
+        console.log('document written with : ' + email)
+    }).catch(err => {
+        console.error(err)
+    })
+}
+
 const Newsletter = () => {
     return (
         <div className="free-trial-area">
@@ -13,14 +28,13 @@ const Newsletter = () => {
 
                     <div className="col-lg-6 col-md-12">
                         <div className="free-trial-content">
-                            <h2>Start your free trial</h2>
+                            <h2>Subscribe to our newsletter</h2>
 
-                            <form className="newsletter-form">
-                                <input type="email" className="input-newsletter" placeholder="Enter your business email here" />
-                                <button type="submit">Sign Up Free</button>
-                            </form>
-
-                            <p>Test out the Machine Learning features for 14 days, no credit card required.</p>
+                            <form className="newsletter-form" onSubmit={handleSubmit}>
+                                      <input type="email" className="input-newsletter" placeholder="Enter your email here" />
+                                      <button type="submit">Subscribe !</button>
+                                  </form>
+                            <p>Get the latest news on the project and the BBST IDO.</p>
                         </div>
                     </div>
                 </div>

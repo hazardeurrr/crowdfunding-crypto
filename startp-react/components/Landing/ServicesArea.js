@@ -5,26 +5,26 @@ import { Doughnut } from 'react-chartjs-2';
 const ServicesArea = () => {
 
     const chartData = {
-        labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
+        labels: ['Cashback for users', 'IDO', 'Strategic Development', 'Team', 'Liquidity Providing'],
         datasets: [
           {
-            label: '# of Votes',
-            data: [12, 19, 3, 5, 2, 3],
+            label: '%',
+            data: [30, 40, 16, 9, 5],
             backgroundColor: [
-              'rgba(255, 99, 132, 1)',
-              'rgba(54, 162, 235, 1)',
-              'rgba(255, 206, 86, 1)',
-              'rgba(75, 192, 192, 1)',
-              'rgba(153, 102, 255, 1)',
-              'rgba(255, 159, 64, 1)',
+              '#c679e3',
+              '#44ce6f',
+              '#DDC0E8',
+              '#87D7A0',
+              '#573563',
+              '#1A4F2B',
             ],
             borderColor: [
-              'rgba(255, 99, 132, 1)',
-              'rgba(54, 162, 235, 1)',
-              'rgba(255, 206, 86, 1)',
-              'rgba(75, 192, 192, 1)',
-              'rgba(153, 102, 255, 1)',
-              'rgba(255, 159, 64, 1)',
+              '#c679e3',
+              '#44ce6f',
+              '#DDC0E8',
+              '#87D7A0',
+              '#573563',
+              '#1A4F2B',
             ],
             borderWidth: 1,
           },
@@ -273,57 +273,31 @@ const ServicesArea = () => {
                             <div className="section-title">
                                 <h2>Tokenomics</h2>
                                 <div className="bar"></div>
-                                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
                             </div>
 
                             <div className="row">
-                                <div className="col-lg-6 col-md-6">
                                     <div className="box">
-                                        <Icon.Layout /> Responsive design
+                                        <Icon.Layout /> Total supply : 10 000 000 BBST
                                     </div>
-                                </div>
+                                    <div className="box">
+                                        <Icon.Layout /> Public sale token (IDO) : 4 000 000 BBST
+                                    </div>
+                                    <div className="box">
+                                        <Icon.Layout /> Platform mining : 3 000 000 BBST
+                                        <p style={{fontSize: 12, fontStyle: 'italic'}}>Users participating on the platform will earn BBST as cashback</p>
+                                    </div>
+                                    <div className="box">
+                                        <Icon.Layout /> Strategic Development : 1 600 000 BST
+                                        <p style={{fontSize: 12, fontStyle: 'italic'}}>Half locked for 1 year, half locked for 2 years.</p>
+                                    </div>
+                                    <div className="box">
+                                        <Icon.Layout /> Team : 900 000 BST
+                                        <p style={{fontSize: 12, fontStyle: 'italic'}}>Locked for 2 years</p>
+                                    </div>
+                                    <div className="box">
+                                        <Icon.Layout /> Liquidity Providing : 500 000 BST
+                                    </div>
 
-                                <div className="col-lg-6 col-md-6">
-                                    <div className="box">
-                                        <Icon.Code /> React web development
-                                    </div>
-                                </div>
-
-                                <div className="col-lg-6 col-md-6">
-                                    <div className="box">
-                                        <Icon.Smartphone /> Android apps development
-                                    </div>
-                                </div>
-
-                                <div className="col-lg-6 col-md-6">
-                                    <div className="box">
-                                        <Icon.Code /> Laravel web development
-                                    </div>
-                                </div>
-
-                                <div className="col-lg-6 col-md-6">
-                                    <div className="box">
-                                        <Icon.Smartphone /> iOS apps development
-                                    </div>
-                                </div>
-
-                                <div className="col-lg-6 col-md-6">
-                                    <div className="box">
-                                        <Icon.Percent /> UX/UI design
-                                    </div>
-                                </div>
-
-                                <div className="col-lg-6 col-md-6">
-                                    <div className="box">
-                                        <Icon.ShoppingCart /> E-commerce development
-                                    </div>
-                                </div>
-
-                                <div className="col-lg-6 col-md-6">
-                                    <div className="box">
-                                        <Icon.CheckCircle /> Print ready design
-                                    </div>
-                                </div>
                             </div>
                         </div>
                     </div>

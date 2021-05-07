@@ -44,7 +44,7 @@ const Roadmap = () => {
             <TimelineConnector />
             </TimelineSeparator>
             <TimelineContent>
-            <Paper elevation={3}>
+            <Paper elevation={3} style={{padding: '10px', width: 'fit-content'}}>
                 <Typography variant="h6" component="h1">
                 Project Initialization
                 </Typography>
@@ -54,18 +54,18 @@ const Roadmap = () => {
         </TimelineItem>
         <TimelineItem>
             <TimelineOppositeContent>
-            <Typography variant="body2" color="textSecondary">
+            <Typography variant="body2" color="textSecondary" >
                 Q4 2021
             </Typography>
             </TimelineOppositeContent>
             <TimelineSeparator>
-            <TimelineDot color="primary">
+            <TimelineDot>
         
             </TimelineDot>
             <TimelineConnector />
             </TimelineSeparator>
             <TimelineContent>
-            <Paper elevation={3}>
+            <Paper elevation={3} style={{padding: '10px', width: 'fit-content',display: 'inline-block'}}>
                 <Typography variant="h6" component="h1">
                     Launch
                 </Typography>
@@ -80,13 +80,13 @@ const Roadmap = () => {
             </Typography>
             </TimelineOppositeContent>
             <TimelineSeparator>
-            <TimelineDot color="primary" variant="outlined">
+            <TimelineDot >
         
             </TimelineDot>
             <TimelineConnector  />
             </TimelineSeparator>
             <TimelineContent>
-            <Paper elevation={3} >
+            <Paper elevation={3} style={{padding: '10px', width: 'fit-content'}}>
                 <Typography variant="h6" component="h1">
                 Tip platform
                 </Typography>
@@ -103,12 +103,12 @@ const Roadmap = () => {
             </Typography>
             </TimelineOppositeContent>
             <TimelineSeparator>
-            <TimelineDot color="secondary">
+            <TimelineDot >
         
             </TimelineDot>
             </TimelineSeparator>
             <TimelineContent>
-            <Paper elevation={3} >
+            <Paper elevation={3} style={{padding: '10px', width: 'fit-content',display: 'inline-block'}}>
                 <Typography variant="h6" component="h1">
                 Release of the tip platform
                 </Typography>
