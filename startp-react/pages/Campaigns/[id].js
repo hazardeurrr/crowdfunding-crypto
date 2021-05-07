@@ -30,7 +30,8 @@ import Snackbar from '@material-ui/core/Snackbar';
 import IconButton from '@material-ui/core/IconButton';
 import CloseIcon from '@material-ui/icons/Close';
 import HeartAnim from '@/components/Common/HeartAnim';
-import {getAll} from '../../firebase-crowdfund/queries';
+import {getOne} from '../../firebase-crowdfund/queries';
+import CircularProgress from '@material-ui/core/CircularProgress';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -47,32 +48,47 @@ const useStyles = makeStyles((theme) => ({
 
 
 
-const Campaign = (props) => {
+const Campaign = (props, {c, u}) => {
 
     const classes = useStyles();
 
-    const campaign = projectList.find(e => e.contract_address == props.address)
-    const raised = campaign.raised
-    const objective = campaign.objective
-    const user = usersListJson.users.find(e => e.eth_address == campaign.creator)
+    const [open, setOpen] = React.useState(false);
+    const [campaign, setCampaign] = React.useState(undefined)
+    const [user, setUser] = React.useState(undefined)
 
-    const desc = campaign.long_desc
-    const pct = (raised / objective) * 100
-    var start_date = campaign.start_date;
-    var end_date = campaign.end_date;
+
+    // const campaign = projectList.find(e => e.contract_address == props.address)
+    // const raised = Math.random()*100
+    // const user = usersListJson.users.find(e => e.eth_address == campaign.creator)
+
+
     var now = Date.now() / 1000;
   
     const connected = useSelector((state) => state.metamask_connected)
     const chainID = useSelector((state) => state.chainID)
 
-    const getCampain =() => {
-        getAll('campain', (docs) => {
-            campaign = docs.find(doc => doc.contract_address == props.address)
-            return campaign
-        })
-    }
 
-    const [open, setOpen] = React.useState(false);
+    React.useEffect(() => {
+        getOne('campaign', props.address, function(doc) {
+          if (doc.exists) {
+            setCampaign(doc.data())
+          } else {
+              console.log("Document not found")
+          }
+        })
+
+        if(campaign != undefined){
+            var addr = campaign.creator
+            getOne('profile', addr.toLowerCase(), function(doc) {
+                if (doc.exists) {
+                    setUser(doc.data())
+                } else {
+                    console.log("Document not found")
+                }
+            })
+        }
+      }, [c, u] )
+
 
 
 
@@ -109,21 +125,21 @@ const Campaign = (props) => {
 
     const displayRaised = () => {
         if(campaign.currency == 'USDT'){
-            return raised.toFixed(2)
+            return campaign.raised.toFixed(2)
         } else {
-            return raised
+            return campaign.raised
         }
     }
 
     const timeLeft = () => {
 
-        var timeLeft = end_date - now;
+        var timeLeft = campaign.end_date - now;
         var days = Math.floor(timeLeft / 86400); 
         var hours = Math.floor((timeLeft - (days * 86400)) / 3600);
         var minutes = Math.floor((timeLeft - (days * 86400) - (hours * 3600 )) / 60);
-        // console.log(campaign.title + " => Now : " + now + " / end : " + end_date + " / timeLeft : " + timeLeft + " / days : " + days + " / hours : " + hours + " / minutes : " + minutes)
-        if(start_date > now){
-            let timeTilStart = start_date - now;
+        // console.log(campaign.title + " => Now : " + now + " / end : " + campaign.end_date + " / timeLeft : " + timeLeft + " / days : " + days + " / hours : " + hours + " / minutes : " + minutes)
+        if(campaign.start_date > now){
+            let timeTilStart = campaign.start_date - now;
             let daysTilStart = Math.floor(timeTilStart / 86400);
             if(daysTilStart > 0)
                 return "Starts in " + daysTilStart.toString() + " day" + SorNot(daysTilStart)
@@ -151,7 +167,7 @@ const Campaign = (props) => {
     
 
     const BackButton = () => {
-        if(end_date > now && start_date < now){
+        if(campaign.end_date > now && campaign.start_date < now){
             return <Link href={{
                         pathname: "/Checkout/[id]",
                         query: {
@@ -165,7 +181,7 @@ const Campaign = (props) => {
     }
 
     const RefundButton = () => {
-        if(end_date < now && raised < objective && !campaign.flexible){
+        if(campaign.end_date < now && campaign.raised < campaign.objective && !campaign.flexible){
             return  <div>
                         <h6>Unfortunately, the goal of this campaign has not been reached. If you contributed to the campaign, you can ask for your refund below.</h6>
                         <a className="btn btn-primary" onClick={handleRefund}>Get your refund</a>
@@ -174,10 +190,10 @@ const Campaign = (props) => {
     }
 
     const displayProgressBar = () => {
-        if(end_date > now && start_date < now){
-            return <ProgressBar animated now={pct}/>
+        if(campaign.end_date > now && campaign.start_date < now){
+            return <ProgressBar animated now={(campaign.raised / campaign.objective) * 100}/>
         } else {
-            return <ProgressBar variant="down" now={pct}/>
+            return <ProgressBar variant="down" now={(campaign.raised / campaign.objective) * 100}/>
         }
     }
 
@@ -190,17 +206,9 @@ const Campaign = (props) => {
             }
     }
 
-
-
-
-    return (
-        <>
-            <Navbar />
-            
-            {/* <PageBanner pageTitle={campaign.title}/> */}
-
-            
-
+    const displayContent = () => {
+        if(campaign != undefined && user != undefined){
+            return <div>
             <div className="blog-details-area ptb-80">
                 <div className="container">
                     <div className="about-area ptb-80">
@@ -242,7 +250,7 @@ const Campaign = (props) => {
 
                                     
                                         <p style={{fontSize: 15, marginBottom: 30}}>{campaign.small_description}</p>
-                                        <h5>{displayRaised()} {campaign.currency} raised / {objective} {campaign.currency}</h5> 
+                                        <h5>{displayRaised()} {campaign.currency} raised / {campaign.objective} {campaign.currency}</h5> 
                                         {displayProgressBar()}
                                         <div className="blog-details-desc">
                                             <div className="article-content">
@@ -300,7 +308,7 @@ const Campaign = (props) => {
                                 <div className="article-content">  
                                 
                                 <div className="separator"></div>
-                                    {Parser(desc)}
+                                    {Parser(campaign.long_desc)}
                                 </div>
                             </div>
                         </div>
@@ -311,6 +319,22 @@ const Campaign = (props) => {
                     </div>
                 </div>
             </div>
+        </div>
+        } else {
+                return <CircularProgress style={{marginTop: 100}}/>
+            }
+        }
+
+
+
+    return (
+        <>
+            <Navbar />
+            
+            {/* <PageBanner pageTitle={campaign.title}/> */}
+
+            
+            {displayContent()}
 
             <Footer />
         </>
@@ -322,7 +346,7 @@ export default Campaign
 
 
 export async function getServerSideProps (context) {
-  console.log(context.query) 
+//   console.log(context.query) 
   // returns { id: episode.itunes.episode, title: episode.title}
   
 

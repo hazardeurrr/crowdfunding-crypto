@@ -4,6 +4,7 @@ import dynamic from 'next/dynamic';
 import * as Icon from 'react-feather';
 import SingleCardCarrousel from '../Common/SingleCardCarrousel';
 import projectList from '@/utils/projectList';
+import {getAll} from '../../firebase-crowdfund/queries';
 const OwlCarousel = dynamic(import('react-owl-carousel3'));
 
 const options = {
@@ -33,24 +34,36 @@ const options = {
     },
 }
 
-const len = projectList.length > 6 ? 6 : projectList.length
 
-const ShowProjects = () => {
-    var rows = [];
-    for (var i = 0; i < len; i++) {
-        rows.push(<div key={i} className="single-ml-projects-box">
-        <SingleCardCarrousel project={projectList[i]}
-        /></div>)
-    }
-    return rows;
-}
 
-const Projects = () => {
+
+const Projects = ({p}) => {
     const [display, setDisplay] = React.useState(false);
+    const [projects, setProjects] = React.useState([])
 
     React.useEffect(() => {
         setDisplay(true);
-    }, [])
+        var campaigns = []
+        getAll('campaign', (docs) => {
+            docs.forEach(element => {
+                campaigns.push(element.data())
+            });
+            setProjects(campaigns)
+        })
+    }, [p])
+
+    const ShowProjects = () => {
+        const len = projects.length > 6 ? 6 : projects.length
+        var rows = [];
+        for (var i = 0; i < len; i++) {
+            rows.push(<div key={i} className="single-ml-projects-box">
+            <SingleCardCarrousel project={projects[i]}
+            /></div>)
+        }
+        return rows;
+    }
+
+    
     
     return (
         <div className="ml-projects-area pt-0 ptb-80">

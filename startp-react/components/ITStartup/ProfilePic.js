@@ -6,7 +6,9 @@ const ProfilePic = (props) => {
     const maxNumber = 1;
     const onChange = (imageList, addUpdateIndex) => {
         setImages(imageList);
-        props.onImageChange(imageList[0].data_url)
+        if (imageList[0] != undefined) {
+            props.onImageChange(imageList[0].data_url);
+        }
     };
 
     return (

@@ -51,51 +51,51 @@ const RecentWorks = () => {
                 <div className="single-works">
                     <img src="/images/works-image/works-image1.jpg" alt="image" />
 
-                    <Link href="/project-details">
+                    {/* <Link href="/project-details">
                         <a className="icon"><Icon.Settings /></a>
-                    </Link>
+                    </Link> */}
 
                     <div className="works-content">
                         <h3>
-                            <Link href="/project-details">
-                                <a>Incredible infrastructure</a>
-                            </Link>
+                            <a>Homepage</a>
+
                         </h3>
-                        <p>Lorem ipsum dolor amet, adipiscing, sed do eiusmod tempor incididunt ut labore dolore magna aliqua.</p>
+                        <p>Campaigns with the highest number of "like" are featured on our home page. The more BBST you stake, the more impact you have on this choice.
+                            You can also easily access campaigns depending on their categories.
+                        </p>
                     </div>
                 </div>
     
                 <div className="single-works">
                     <img src="/images/works-image/works-image2.jpg" alt="image" />
 
-                    <Link href="/project-details">
+                    {/* <Link href="/project-details">
                         <a className="icon"><Icon.Settings /></a>
-                    </Link>
+                    </Link> */}
 
                     <div className="works-content">
                         <h3>
-                            <Link href="/project-details">
-                                <a>Email Notifications</a>
-                            </Link>
+                            <a>Explore</a>
                         </h3>
-                        <p>Lorem ipsum dolor amet, adipiscing, sed do eiusmod tempor incididunt ut labore dolore magna aliqua.</p>
+                        <p>Sort campaigns by categories and see a complete overview of each one. <br></br>
+                        Looking for a specific campaign ? Or a specific creator ? Research is made easy thanks to our search module.</p>
                     </div>
                 </div>
     
                 <div className="single-works">
                     <img src="/images/works-image/works-image3.jpg" alt="image" />
 
-                    <Link href="/project-details">
+                    {/* <Link href="/project-details">
                         <a className="icon"><Icon.Settings /></a>
-                    </Link>
+                    </Link> */}
 
                     <div className="works-content">
                         <h3>
-                            <Link href="/project-details">
-                                <a>Best Analytics Audits</a>
-                            </Link>
+                            <a>Campaign page</a>
                         </h3>
-                        <p>Lorem ipsum dolor amet, adipiscing, sed do eiusmod tempor incididunt ut labore dolore magna aliqua.</p>
+                        <p>A clean campaign page with everything you need. As a creator, customize it as you want ! Links, images, videos, custom style and tier rewards...
+                            Contributors ? Get a clear overview of the creator and its campaign. Share it or back it in one click !
+                        </p>
                     </div>
                 </div>
         
@@ -109,27 +109,13 @@ const RecentWorks = () => {
                     <div className="works-content">
                         <h3>
                             <Link href="/project-details">
-                                <a>Simple Dashboard</a>
+                                <a>Profile page</a>
                             </Link>
                         </h3>
-                        <p>Lorem ipsum dolor amet, adipiscing, sed do eiusmod tempor incididunt ut labore dolore magna aliqua.</p>
+                        <p>Customize your profile as you wish ! Link your social media account to gain more trust. See all the projects you liked and created.</p>
                     </div>
                 </div>
     
-                <div className="single-works">
-                    <img src="/images/works-image/works-image5.jpg" alt="image" />
-
-                    <Link href="/project-details">
-                        <a className="icon"><Icon.Settings /></a>
-                    </Link>
-                    
-                    <div className="works-content">
-                        <h3>
-                            <Link href="/project-details"><a>Information Retrieval</a></Link>
-                        </h3>
-                        <p>Lorem ipsum dolor amet, adipiscing, sed do eiusmod tempor incididunt ut labore dolore magna aliqua.</p>
-                    </div>
-                </div>
             </OwlCarousel> : ''}
             
             {/* Shape Images */}
