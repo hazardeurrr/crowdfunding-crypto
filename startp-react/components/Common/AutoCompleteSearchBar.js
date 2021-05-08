@@ -1,7 +1,7 @@
 import React from 'react';
 import TextField from '@material-ui/core/TextField';
 import Autocomplete, { createFilterOptions } from '@material-ui/lab/Autocomplete';
-import projectList, { getCampaigns } from '@/utils/projectList';
+import { getCampaigns } from '@/utils/projectList';
 import SearchBarCard from '@/components/Common/SearchBarCard';
 import Link from 'next/link';
 import SearchField from './SearchField';
@@ -13,15 +13,14 @@ import { makeStyles } from '@material-ui/core/styles';
 import Popper from '@material-ui/core/Popper';
 import usersListJson from '@/utils/usersListJson';
 import { useSelector } from 'react-redux';
+import { updateDoc, getOne, postDoc } from 'firebase-crowdfund/queries'
 
 
 const AutoCompleteSearchBar = () => {
 
  // const campaigns = getCampaigns()
-  const campaigns = useSelector((state) => state.allCampaigns)
-
-  
-
+  const campaigns = useSelector((state) => state.allCampaigns);
+  const creators = useSelector((state) => state.allCreators);
 
   const styles = (theme) => ({
     popper: {
@@ -33,10 +32,12 @@ const AutoCompleteSearchBar = () => {
     return <Popper {...props} style={styles.popper} placement="bottom-start" disablePortal/>;
  };
 
-  const filterOptions = createFilterOptions({
+ const filterOptions = createFilterOptions({
     stringify: ({ title, creator }) => {
 
-      const user = usersListJson.users.find(e => e.eth_address == creator)
+      var crea = creator.toLowerCase()
+
+      const user = creators.find(e => e.eth_address.toLowerCase() == crea)
       return `${title} ${user.username}`
     },
     limit: 20
@@ -53,7 +54,9 @@ const AutoCompleteSearchBar = () => {
       getOptionLabel={({ title, creator }) => {
         // this is how our option will be displayed when selected
         // remove the `id` here
-        const user = usersListJson.users.find(e => e.eth_address == creator)
+        var crea = creator.toLowerCase()
+
+        const user = creators.find(e => e.eth_address.toLowerCase() == crea)
         return `${title} ${user.username}`;
       }}
       filterSelectedOptions
@@ -65,11 +68,10 @@ const AutoCompleteSearchBar = () => {
                                       }
                                   }}
                                   as={`/Campaigns/${option.contract_address}`}>
-                                    <a><SearchBarCard campaign={option}/></a>
+                                    <a><SearchBarCard campaign={option} user={creators.find(e => e.eth_address.toLowerCase() == option.creator.toLowerCase())}/></a>
                                 </Link>
                     }
-      renderInput={(params) =><TextField {...params} label="Search a campaign" margin="none" />
-      
+      renderInput={(params) =><TextField {...params} label="Search a campaign" margin="none" /> 
     }
     />
   );

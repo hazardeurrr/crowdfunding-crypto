@@ -1,13 +1,15 @@
-import React from 'react';
+import React, {useEffect, useRef} from 'react';
 import * as Icon from 'react-feather';
 import Link from 'next/link';
 import ProgressBar from 'react-bootstrap/ProgressBar';
 import usersListJson from '@/utils/usersListJson';
 import ChipUser from '@/components/Common/ChipUser'
+import { useSelector, useDispatch } from 'react-redux';
+import {getOne } from '../../firebase-crowdfund/queries' 
 
 
 
-const SimpleCampaignPost = (props) => {
+const SimpleCampaignPost = (props, {u}) => {
     const campaign = props.project
     const raised = campaign.raised
     const objective = campaign.objective
@@ -17,8 +19,29 @@ const SimpleCampaignPost = (props) => {
     var end_date = campaign.end_date;
     var now = Date.now() / 1000;
 
-    const user = usersListJson.users.find(e => e.eth_address == campaign.creator)
 
+  
+    // const creators = useSelector((state) => state.allCreators)
+
+    // const u = useSelector((state) => selectCreatorByAdd(state, campaign.creator)));
+
+    
+    // const [state, updateState] = React.useState();
+    // const forceUpdate = React.useCallback(() => updateState({state}), []);
+
+    const [user, setUser] = React.useState(undefined)
+
+
+    useEffect(() => {
+        getOne('profile', campaign.creator.toLowerCase(), function(docs) {
+            if (docs.exists) {
+                setUser(docs.data())
+            } else {
+                console.log("Document not found")
+            }
+        })
+      }, [u])
+    
 
     const timeLeft = () => {
         
@@ -102,55 +125,61 @@ const SimpleCampaignPost = (props) => {
         }
     }
 
+    const displayContent = () => {
+        if(user != undefined){
+            return <div className="single-blog-post">
+            <div className="blog-image">
+              <Link href={{
+                              pathname: "/Campaigns/[id]",
+                              query: {
+                                  id: campaign.contract_address,
+                              }
+                          }}
+                          as={`/Campaigns/${campaign.contract_address}`}>
+                      <a>
+                          <img src={campaign.main_img} alt="image" />
+                      </a>
+                  </Link>
+                {cat()}
+            </div>
+            <div className="blog-post-content">
+                <h3>
+                    <Link href={{
+                          pathname: "/Campaigns/[id]",
+                          query: {
+                              id: campaign.contract_address,
+                          }
+                      }}
+                      as={`/Campaigns/${campaign.contract_address}`}>
+                        <a>{campaign.title}</a>
+                    </Link>
+                </h3>
+                <span>By <ChipUser user={user} /></span>
+                <p>{displayDesc()}</p>
+                <b>{displayRaised()} {campaign.currency}</b>
+                {displayProgressBar()}
+                <p><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="feather feather-clock"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>   {timeLeft()}</p>
+                <Link href={{
+                          pathname: "/Campaigns/[id]",
+                          query: {
+                              id: campaign.contract_address,
+                          }
+                      }}
+                      as={`/Campaigns/${campaign.contract_address}`}>
+                    <a className="read-more-btn">
+                        {SupportOrSee()} <Icon.ArrowRight />
+                    </a>
+                </Link>
+            </div>
+          </div>            
+  
+        } 
+    }
+
 
     return (
         <>
-        <div className="single-blog-post">
-          <div className="blog-image">
-            <Link href={{
-                            pathname: "/Campaigns/[id]",
-                            query: {
-                                id: campaign.contract_address,
-                            }
-                        }}
-                        as={`/Campaigns/${campaign.contract_address}`}>
-                    <a>
-                        <img src={campaign.main_img} alt="image" />
-                    </a>
-                </Link>
-              {cat()}
-          </div>
-          <div className="blog-post-content">
-              <h3>
-                  <Link href={{
-                        pathname: "/Campaigns/[id]",
-                        query: {
-                            id: campaign.contract_address,
-                        }
-                    }}
-                    as={`/Campaigns/${campaign.contract_address}`}>
-                      <a>{campaign.title}</a>
-                  </Link>
-              </h3>
-              <span>By <ChipUser user={user} /></span>
-              <p>{displayDesc()}</p>
-              <b>{displayRaised()} {campaign.currency}</b>
-              {displayProgressBar()}
-              <p><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="feather feather-clock"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>   {timeLeft()}</p>
-              <Link href={{
-                        pathname: "/Campaigns/[id]",
-                        query: {
-                            id: campaign.contract_address,
-                        }
-                    }}
-                    as={`/Campaigns/${campaign.contract_address}`}>
-                  <a className="read-more-btn">
-                      {SupportOrSee()} <Icon.ArrowRight />
-                  </a>
-              </Link>
-          </div>
-        </div>            
-
+        {displayContent()}
         </>
     )
 }

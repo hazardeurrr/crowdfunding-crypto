@@ -3,43 +3,68 @@ import Navbar from "@/components/_App/Navbar";
 import Footer from "@/components/_App/Footer";
 import PageBanner from '@/components/Common/PageBanner';
 import PricingTiers from '@/components/Common/PricingTiers';
-import projectList from '@/utils/projectList';
 import Custom404 from 'pages/404';
-
+import {getOne} from 'firebase-crowdfund/queries';
+import CircularProgress from '@material-ui/core/CircularProgress';
  
-const DonationCheckout = (props) => {
+const DonationCheckout = (props, {c}) => {
+   
+    const [campaign, setCampaign] = React.useState(undefined)
 
-    const campaign = projectList.find(e => e.contract_address == props.address)
-    console.log("Campaign : " + campaign)
 
-    var now = Date.now() / 1000
+    React.useEffect(() => {
+        getOne('campaign', props.address.toLowerCase(), function(docs) {
+            if (docs.exists) {
+                setCampaign(docs.data())
+            } else {
+                console.log("Document not found")
+            }
+        })
+      }, [c])
+    
 
-    const displayElements = () => {
-        if(now > campaign.end_date || now < campaign.start_date){
-            return  <>
-            <Navbar />
+    // const campaign = projectList.find(e => e.contract_address == props.address)
 
-            <Custom404 />
+    var now = Date.now() / 1000            
 
-            <Footer />
-        </>
-        } else {
-            return (
-                <>
-                    <Navbar />
+        const displayContent = () => {
+            if(campaign == undefined){
+                return <>
+                <Navbar />
+    
+                <CircularProgress/>
+    
+    
+                <Footer />
+            </>
+            } else {
+                if(now > campaign.end_date || now < campaign.start_date){
+                    return  <>
+                        <Navbar />
         
-                    <PageBanner pageTitle = "You are supporting :"/>
+                        <Custom404 />
         
-                    <PricingTiers project = {campaign} />
+                        <Footer />
+                    </>
+                    } else {
+                        return (
+                            <>
+                                <Navbar />
+                    
+                                <PageBanner pageTitle = "You are supporting :"/>
+                    
+                                <PricingTiers project = {campaign} />
+                    
+                                <Footer />
+                            </>
+                        )
+                    }
+                }
+            }
         
-                    <Footer />
-                </>
-            )
-        }
-    }
 
     return (
-        displayElements()
+        displayContent()
     )
 }
 

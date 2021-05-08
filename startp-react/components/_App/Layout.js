@@ -2,9 +2,9 @@ import React from 'react'
 import Head from "next/head"
 import GoTop from './GoTop'
 import { useSelector, useDispatch } from 'react-redux'
-import {getAll} from '../../firebase-crowdfund/queries';
+import {getAll, getOne} from '../../firebase-crowdfund/queries';
  
-const Layout = ({ children }, {c}) => {
+const Layout = ({ children }, {c, crea}) => {
 
     
     const dispatch = useDispatch()
@@ -12,6 +12,8 @@ const Layout = ({ children }, {c}) => {
 
     React.useEffect(() => {
         var campaigns = []
+        var creators = []
+
         getAll('campaign', (docs) => {
             docs.forEach(element => {
                 campaigns.push(element.data())
@@ -19,7 +21,22 @@ const Layout = ({ children }, {c}) => {
             changeState(campaigns)
             console.log("useEffect on layout and load all camp")
         })
-    }, [c])
+
+        getAll('campaign', (docs) => {
+            docs.forEach(element => {
+                getOne('profile', element.data().creator.toLowerCase(), function(doc) {
+                    if (doc.exists) {
+                        creators.push(doc.data())
+                    } else {
+                        console.log("Document not found")
+                    }
+                })
+            });
+            changeUserState(creators)
+            console.log("useEffect on layout and load all creators")
+        })
+
+    }, [c, crea])
     
     const changeState = (campaigns) => {
         dispatch({
@@ -27,6 +44,14 @@ const Layout = ({ children }, {c}) => {
             id: campaigns
         })
     }
+
+    const changeUserState = (creators) => {
+        dispatch({
+            type: 'SET_ALL_CREATORS',
+            id: creators
+        })
+    }
+
     return(
         <>
             <Head>

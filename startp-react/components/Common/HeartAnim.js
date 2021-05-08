@@ -3,7 +3,6 @@ import Navbar from "@/components/_App/Navbar";
 import Footer from "@/components/_App/Footer";
 import PageBanner from '@/components/Common/PageBanner'; 
 import * as Icon from 'react-feather';
-import projectList from '@/utils/projectList'
 import Parser from 'html-react-parser';
 import Link from '@/utils/ActiveLink'
 import ProgressBar from 'react-bootstrap/ProgressBar';

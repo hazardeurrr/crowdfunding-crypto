@@ -12,6 +12,7 @@ import usersListJson from '@/utils/usersListJson';
 import Avatar from '@material-ui/core/Avatar';
 
 
+
 const useStyles = makeStyles({
   root: {
     width: 400,
@@ -36,8 +37,8 @@ const useStyles = makeStyles({
     marginBottom: 12,
   },
   media: {
-    height: 60,
-    width: 85,
+    height: '100%',
+    width: '100%',
     flex : 1,
   },
   creator_wrapper: {
@@ -60,7 +61,7 @@ const useStyles = makeStyles({
 const SearchBarCard = (props) => {
 
   const campaign = props.campaign
-  const user = usersListJson.users.find(e => e.eth_address == campaign.creator)
+  const user = props.user
   const classes = useStyles();
 
   const displayCreator = () => {

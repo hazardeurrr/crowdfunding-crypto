@@ -100,7 +100,7 @@ const ServiceDetails = () => {
                                             </AccordionItemHeading>
                                             <AccordionItemPanel>
                                                 <p>
-                                                    Yes you can ! Set up your rewards tier when you create your campaign, and you'll be able to get the list of each contributor with its contribution at the end of the campaign!
+                                                    Yes you can ! Set up to 5 reward tiers when you create your campaign, and you'll be able to get the list of each contributor with its contribution at the end of the campaign!
                                                 </p>
                                             </AccordionItemPanel>
                                         </AccordionItem>

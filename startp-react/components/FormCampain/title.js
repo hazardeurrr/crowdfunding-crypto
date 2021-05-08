@@ -41,7 +41,7 @@ class Title extends React.Component {
             <div className="col-lg-12 col-md-12">
                 <div className="form-group">
                     <input type="text" placeholder="Title" className="form-control" maxLength="50" onChange={this.wordCount.bind(this)}/>
-                    <p>{this.state.charLeft} characters left</p>
+                    {this.state.charLeft !== 50 ? <p>{this.state.charLeft} characters left</p> : null}
                 </div>
             </div>
             </>

@@ -1,9 +1,11 @@
 import React, { Component } from 'react';
 import Link from 'next/link';
 import * as Icon from 'react-feather';
-import projectList, { getCampaigns } from '@/utils/projectList'
+import { getCampaigns } from '@/utils/projectList'
 import usersListJson from '@/utils/usersListJson';
 import SimpleCampaignPost from '@/components/Common/SimpleCampaignPost'
+import {connect} from 'react-redux'
+
 
 class CreatedAndLiked extends Component {
 
@@ -12,7 +14,7 @@ class CreatedAndLiked extends Component {
       this.user = props.user
       if(this.user != undefined){
         this.liked = this.user.liked
-        this.created = projectList.filter(e => e.creator == this.user.eth_address)
+        this.created = this.props.allCampaigns.filter(e => e.creator == this.user.eth_address)
         // console.log(this.liked)
       }
     }
@@ -32,13 +34,13 @@ class CreatedAndLiked extends Component {
       var rows = [];
       for (var i = 0; i < this.user.liked.length; i++) {
           rows.push( <div key={i} className="col-lg-4 col-md-6">
-          <SimpleCampaignPost project={projectList.find(e => e.contract_address == this.liked[i])}
+          <SimpleCampaignPost project={this.props.allCampaigns.find(e => e.contract_address == this.liked[i])}
           />
       </div>);
       }
       return rows;
     }
-
+ 
     openTabSection = (evt, tabNmae) => {
         let i, tabcontent, tablinks;
         tabcontent = document.getElementsByClassName("tabs_item");
@@ -131,4 +133,13 @@ class CreatedAndLiked extends Component {
     }
 }
 
-export default CreatedAndLiked;
+const mapStateToProps = state => {
+    return {
+        allCampaigns: state.allCampaigns
+    }
+}
+
+
+export default connect(
+    mapStateToProps   
+  )(CreatedAndLiked);

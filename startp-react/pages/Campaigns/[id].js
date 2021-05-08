@@ -3,7 +3,6 @@ import Navbar from "@/components/_App/Navbar";
 import Footer from "@/components/_App/Footer";
 import PageBanner from '@/components/Common/PageBanner'; 
 import * as Icon from 'react-feather';
-import projectList from '@/utils/projectList'
 import Parser from 'html-react-parser';
 import Link from '@/utils/ActiveLink'
 import ProgressBar from 'react-bootstrap/ProgressBar';
@@ -70,26 +69,26 @@ const Campaign = (props, {c, u}) => {
     
 
     React.useEffect(() => {
+
+        console.log(props.address)
+
         getOne('campaign', props.address, function(doc) {
           if (doc.exists) {
             setCampaign(doc.data())
-          } else {
-              console.log("Document not found")
-          }
-        })
-
-        if(campaign != undefined){
-            console.log(campaign)
-            var addr = campaign.creator
-            getOne('profile', addr.toLowerCase(), function(doc) {
-                if (doc.exists) {
-                    setUser(doc.data())
+            // console.log(campaign)
+            var addr = doc.data().creator
+            getOne('profile', addr.toLowerCase(), function(docs) {
+                if (docs.exists) {
+                    setUser(docs.data())
                 } else {
                     console.log("Document not found")
                 }
             })
-        }
-      }, [c, u] )
+          } else {
+              console.log("Document not found")
+          }
+        })
+    }, [c, u] )
 
 
 

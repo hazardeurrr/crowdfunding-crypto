@@ -3,7 +3,6 @@ import * as Icon from 'react-feather';
 import Link from 'next/link';
 import SimpleCampaignPost from '@/components/Common/SimpleCampaignPost';
 import { useSelector } from 'react-redux';
-// import projectList from '@/utils/projectList'
 
 
  

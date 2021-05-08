@@ -17,6 +17,7 @@ import FormControlLabel from '@material-ui/core/FormControlLabel';
 import {db, storage} from '../../firebase-crowdfund/index';
 import "react-dates/lib/css/_datepicker.css";
 import categoryList from '@/utils/CategoryList';
+import { useSelector, useDispatch } from 'react-redux'
 // import FormControlLabel from '@material-ui/core/FormControlLabel';
 // import Checkbox from '@material-ui/core/Checkbox';
 // import { withStyles } from '@material-ui/core/styles';
@@ -38,20 +39,26 @@ class MainForm extends React.Component {
 
     constructor(props){
         super(props);
-        this.state = { 
+        this.state = {
+            title: '',
             startDate: undefined, 
             endDate: undefined, 
+            small_description: '',
             focusedInput: undefined, 
             htmlEditor: undefined,
             categoryPicked: undefined,
             raisingMethod: undefined,
             tiersNumber: 0,
             tiers: [],
-            image: undefined
+            image: undefined,
+            titleError: '',
+            objective: null,
+            objectiveError: ''
         }
         this.tiers = [];
         this.tiersArray = [];
         this.html = '';
+        this.image = undefined;
     }
     displayCategories(){
         var rows = [];
@@ -67,44 +74,62 @@ class MainForm extends React.Component {
     handleCampain = (event) => {
         event.preventDefault()
         console.log(event)
+        let offset = 2
+        if (this.image === undefined) {
+            this.image = null
+        } else {
+            offset = 2
+        }
         let raisingMethod;
-        if (event.target[6].checked === true) {
+        if (event.target[8 + offset].checked === true) {
             raisingMethod = 'USDT'
         }
-        else if (event.target[7].checked === true) {
+        else if (event.target[9 + offset].checked === true) {
             raisingMethod = 'ETH'
         }
         let tiersInfos = []
-        for (var i = 0; i < event.target[112].value; i++) {
-            tiersInfos.push({
-                title: event.target[113 + i].value,
-                amount: event.target[114 + i].value,
-                description: event.target[115 + i].value
-            })
+        if (event.target[116].value > 0) {
+            for (var i = 0; i < event.target[116].value; i++) {
+                tiersInfos.push({
+                    title: event.target[117 + i].value,
+                    threshold: event.target[118 + i].value,
+                    description: event.target[119 + i].value
+                })
+            }
         }
+
         let cats = []
-        if (event.target[5].value !== '---') {
-            cats.push(event.target[5].value)
+        if (event.target[8].value !== '---') {
+            cats.push(event.target[8].value)
         }
-        if (event.target[4].value !== '---') {
-            cats.push(event.target[4].value)
+        if (event.target[9].value !== '---') {
+            cats.push(event.target[9].value)
         }
+        let flexibleChecked = null
+        if(event.target[114].checked !== undefined) {
+            flexibleChecked = event.target[114].checked
+        }
+        
         const campainInfos = {
             title: event.target[0].value,
-            start_date: event.target[1].value,
-            end_date: event.target[2].value,
-            small_description: event.target[3].value,
+            start_date: Math.floor(new Date(event.target[3 + offset].value).getTime() / 1000),
+            end_date: Math.floor(new Date(event.target[4 + offset].value).getTime()/1000),
+            small_description: event.target[5 + offset].value,
             categories: cats,
-            objective: event.target[8].value,
+            objective: event.target[10 + offset].value,
             long_desc: this.html,
             currency: raisingMethod,
-            flexible: event.target[111].checked,
+            flexible: flexibleChecked,
             tiers: tiersInfos,
             main_img: this.image,
+            raised: 0,
         }
         console.log(campainInfos)
-        
-        db.collection('campain').doc(campainInfos.title).set(campainInfos).then(x => {
+        // campaign address to be retrieved from the solidity smart contract
+        const creator_address = localStorage.getItem('current_address')
+        campainInfos['creator'] = creator_address
+        if (cats.length < 1) {return}
+        db.collection('campaign').doc('0x569854865654az9e8z5f6az6').set(campainInfos).then(x => {
             console.log('document written with : ' + campainInfos.title)
         }).catch(err => {
             console.error(err)
@@ -120,7 +145,7 @@ class MainForm extends React.Component {
     }
 
     handleChangeImage(dataFromImage) {
-        this.setState({image: dataFromImage})
+        this.image = dataFromImage
     }
 
 
@@ -145,6 +170,7 @@ class MainForm extends React.Component {
                             <form id="formCampaign" onSubmit={this.handleCampain}>
                                 <div className="row">
                                     <Title/>
+                                    {this.state.titleError !== '' ? <p style={{color: 'red'}}>{this.state.titleError}</p>: null}
                                     <p><strong> Image Banner </strong><br/> Insert the best image for your project</p>
                                     <ProfilePic onImageChange={this.handleChangeImage.bind(this)}/>
                                     <p><strong> Fudraising Duration </strong><br/> Projects with shorter durations have higher success rates. You won’t be able to adjust your duration after you launch.</p>
@@ -161,7 +187,7 @@ class MainForm extends React.Component {
                                         <div className="form-group">
                                         
                                             <div className="select-box">
-                                                <select className="form-select" id='categorySelected'>
+                                                <select className="form-select" required>
                                                     {this.displayCategories()}
                                                 </select>
                                             </div>
@@ -172,7 +198,7 @@ class MainForm extends React.Component {
                                         <div className="form-group">
                                         
                                             <div className="select-box">
-                                                <select className="form-select" id='categorySelected'>
+                                                <select className="form-select" >
                                                     {this.displayCategories()}
                                                 </select>
                                             </div>
@@ -200,6 +226,7 @@ class MainForm extends React.Component {
                                     <div className="col-lg-12 col-md-12">
                                         <div className="form-group">
                                         <input type="number" placeholder="Goal" min="0" className="form-control" />
+                                        {this.state.objectiveError !== '' ? <p style={{color: 'red'}}>{this.state.objectiveError}</p>: null}
                                         </div>
                                     </div>
                                     
@@ -221,6 +248,7 @@ class MainForm extends React.Component {
                                             control={<Checkbox color="primary" />}
                                             label="Goal has to be reached ?"
                                             labelPlacement="end"
+                                            id='goal'
                                             />
                                             
                                         </div>

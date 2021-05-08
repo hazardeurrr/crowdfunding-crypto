@@ -55,6 +55,7 @@ const Navbar = () => {
         .request({ method: 'eth_accounts' })
         .then((value) => {
             handleAccountsChanged(value)
+            localStorage.setItem('current_address', value[0])
         })
         .catch((err) => {
             // Some unexpected error.

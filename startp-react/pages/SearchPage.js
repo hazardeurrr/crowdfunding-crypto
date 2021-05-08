@@ -4,7 +4,7 @@ import Footer from "@/components/_App/Footer";
 import PageBanner from '@/components/Common/PageBanner';
 import OurFeatures from '@/components/Features/OurFeatures';
 import SingleFeatures from '@/components/Features/SingleFeatures';
-import projectList, { getCampaigns } from '@/utils/projectList'
+import { getCampaigns } from '@/utils/projectList'
 import SimpleCampaignPost from '@/components/Common/SimpleCampaignPost';
 import Chip from '@material-ui/core/Button';
 import CategoryList from '@/utils/CategoryList';
@@ -17,7 +17,7 @@ import { green } from '@material-ui/core/colors';
 import FormGroup from '@material-ui/core/FormGroup';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Pagination from '@material-ui/lab/Pagination';
-
+import {connect} from 'react-redux'
 
 const GreenCheckbox = withStyles({
     root: {
@@ -33,20 +33,22 @@ class SearchPage extends React.Component {
 
     constructor(props){
         super(props);
+        console.log(this.props.allCampaigns)
         this.props = props
         this.languagesSelected = ["EN"];
         this.categoriesSelected = [];
-        this.allCampaigns = [];
         this.nbByPage = 2;
 
         this.state = {
-            projects: [],
+            projects: this.props.allCampaigns,
             checked: this.populateCheckArray(),
             page: 1
         }
         this.addCategory = this.addCategory.bind(this);
         this.removeCategory = this.removeCategory.bind(this);
     }
+
+    
 
     populateCheckArray(){
         let arr = []
@@ -83,8 +85,6 @@ class SearchPage extends React.Component {
     componentDidMount(){
         //  this.allCampaigns = getCampaigns()
         //  this.setState({projects: this.allCampaigns})
-        this.setState({projects: projectList})
-
          if(this.props.cat != "explore"){
             const s = this.props.cat
             const i = categoryList.indexOf(s)
@@ -93,22 +93,25 @@ class SearchPage extends React.Component {
          }
     }
 
+
     dynamicSearch(){
         console.log(this.categoriesSelected)
         //return this.allCampaigns.filter(p => p.categories.some(r=> this.categoriesSelected.includes(r)))
 
-        return projectList.filter(p => p.categories.some(r=> this.categoriesSelected.includes(r)))
+        return this.props.allCampaigns.filter(p => p.categories.some(r=> this.categoriesSelected.includes(r)))
       }
     
     loadProjects(){
         this.setState({page: 1})
         if(this.categoriesSelected.length == 0)
         //   this.setState({projects: this.allCampaigns})
-            this.setState({projects: projectList})
+            this.setState({projects: this.props.allCampaigns})
         else
           this.setState({projects: this.dynamicSearch()})
 
       }
+
+      
     
 
     addCategory(i){
@@ -195,7 +198,15 @@ class SearchPage extends React.Component {
     }
 }
 
-export default SearchPage;
+const mapStateToProps = state => {
+    return {
+        allCampaigns: state.allCampaigns
+    }
+}
+
+export default connect(
+    mapStateToProps   
+  )(SearchPage);
 
 export async function getServerSideProps (context) {
     console.log(context.query) 

@@ -4,7 +4,6 @@ import dynamic from 'next/dynamic';
 import * as Icon from 'react-feather';
 import SingleCardCarrousel from '../Common/SingleCardCarrousel';
 import { useSelector, useDispatch } from 'react-redux'
-import projectList from '@/utils/projectList';
 import {getAll} from '../../firebase-crowdfund/queries';
 const OwlCarousel = dynamic(import('react-owl-carousel3'));
 

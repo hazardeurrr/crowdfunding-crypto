@@ -12,8 +12,11 @@ const initialState = {
   address: undefined,
   metamask_connected: false,
   chainID: '0x1',
-  allCampaigns: []
+  allCampaigns: [],
+  allCreators: []
 }
+
+
 
 const reducer = (state = initialState, action) => {
   switch (action.type) {
@@ -23,6 +26,12 @@ const reducer = (state = initialState, action) => {
         ...state,
         allCampaigns: action.id
       }
+
+      case 'SET_ALL_CREATORS':
+        return {
+          ...state,
+          allCreators: action.id
+        }
 
     case 'SET_ADDRESS':
       return {
