@@ -13,8 +13,14 @@ import Partner from "@/components/Common/Partner";
 import BlogPost from "@/components/Common/BlogPost";
 import Footer from "@/components/_App/Footer";
 import ITStartup from "./it-startup";
+import { useSelector, useDispatch } from 'react-redux'
+import {getAll} from '../firebase-crowdfund/queries';
 
-const Index = () => {
+
+const Index = ({c}) => {
+
+
+
     return (
         <>
             <ITStartup/>

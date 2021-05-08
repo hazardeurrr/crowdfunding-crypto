@@ -62,7 +62,6 @@ const ChipUser = (props) => {
   const classes = useStyles();
 
     const user = props.user
-    console.log("User : " + user)
 
     return (
         <>

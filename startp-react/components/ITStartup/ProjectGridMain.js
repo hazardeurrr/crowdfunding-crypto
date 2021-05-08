@@ -2,15 +2,19 @@ import React from 'react';
 import * as Icon from 'react-feather';
 import Link from 'next/link';
 import SimpleCampaignPost from '@/components/Common/SimpleCampaignPost';
-import projectList from '@/utils/projectList'
+import { useSelector } from 'react-redux';
+// import projectList from '@/utils/projectList'
 
 
  
 const ProjectGridMain = () => {
+    
 
-    const len = projectList.length > 6 ? 6 : projectList.length
+    const projectList = useSelector((state) => state.allCampaigns)
 
     const displayProjects = () => {
+        const len = projectList.length > 6 ? 6 : projectList.length
+
         var rows = [];
         for (var i = 0; i < len; i++) {
             rows.push( <div key={i} className="col-lg-4 col-md-6">

@@ -12,12 +12,13 @@ import PropTypes from 'prop-types';
 import { makeStyles } from '@material-ui/core/styles';
 import Popper from '@material-ui/core/Popper';
 import usersListJson from '@/utils/usersListJson';
+import { useSelector } from 'react-redux';
 
 
 const AutoCompleteSearchBar = () => {
 
  // const campaigns = getCampaigns()
-  const campaigns = projectList
+  const campaigns = useSelector((state) => state.allCampaigns)
 
   
 

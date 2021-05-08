@@ -11,11 +11,18 @@ const initialState = {
   total: 0,
   address: undefined,
   metamask_connected: false,
-  chainID: '0x1'
+  chainID: '0x1',
+  allCampaigns: []
 }
 
 const reducer = (state = initialState, action) => {
   switch (action.type) {
+
+    case 'SET_ALL_CAMPAIGNS':
+      return {
+        ...state,
+        allCampaigns: action.id
+      }
 
     case 'SET_ADDRESS':
       return {

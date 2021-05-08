@@ -3,6 +3,7 @@ import Link from 'next/link';
 import dynamic from 'next/dynamic';
 import * as Icon from 'react-feather';
 import SingleCardCarrousel from '../Common/SingleCardCarrousel';
+import { useSelector, useDispatch } from 'react-redux'
 import projectList from '@/utils/projectList';
 import {getAll} from '../../firebase-crowdfund/queries';
 const OwlCarousel = dynamic(import('react-owl-carousel3'));
@@ -39,9 +40,11 @@ const options = {
 
 const Projects = ({p}) => {
     const [display, setDisplay] = React.useState(false);
-    const [projects, setProjects] = React.useState([])
+    // const [projects, setProjects] = React.useState(undefined)
 
-    React.useEffect(() => {
+    const projects = useSelector((state) => state.allCampaigns)
+
+   {/* React.useEffect(() => {
         setDisplay(true);
         var campaigns = []
         getAll('campaign', (docs) => {
@@ -50,7 +53,13 @@ const Projects = ({p}) => {
             });
             setProjects(campaigns)
         })
-    }, [p])
+    }, [p])*/}
+
+    React.useEffect(() => {
+        setDisplay(true);
+
+      
+    }, [])
 
     const ShowProjects = () => {
         const len = projects.length > 6 ? 6 : projects.length
@@ -63,19 +72,25 @@ const Projects = ({p}) => {
         return rows;
     }
 
+    const displayContent = () => {
+        if(projects != undefined){
+            return <div className="container-fluid">
+            {display ? <OwlCarousel 
+                className="ml-projects-slides owl-carousel owl-theme"
+                {...options}
+            >  
+            {ShowProjects()}
+            </OwlCarousel> : ''}
+        </div>
+
+        }
+    }
+
     
     
     return (
         <div className="ml-projects-area pt-0 ptb-80">
-            <div className="container-fluid">
-                {display ? <OwlCarousel 
-                    className="ml-projects-slides owl-carousel owl-theme"
-                    {...options}
-                >  
-                {ShowProjects()}
-                </OwlCarousel> : ''}
-            </div>
-
+            {displayContent()}
             {/* Shape Images */}
             <div className="shape1">
                 <img src="/images/shape1.png" alt="shape" />

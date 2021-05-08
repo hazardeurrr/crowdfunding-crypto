@@ -67,6 +67,7 @@ const Campaign = (props, {c, u}) => {
     const connected = useSelector((state) => state.metamask_connected)
     const chainID = useSelector((state) => state.chainID)
 
+    
 
     React.useEffect(() => {
         getOne('campaign', props.address, function(doc) {
@@ -78,6 +79,7 @@ const Campaign = (props, {c, u}) => {
         })
 
         if(campaign != undefined){
+            console.log(campaign)
             var addr = campaign.creator
             getOne('profile', addr.toLowerCase(), function(doc) {
                 if (doc.exists) {

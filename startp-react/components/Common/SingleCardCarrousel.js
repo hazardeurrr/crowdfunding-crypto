@@ -70,7 +70,7 @@ const displayTitle = () => {
             <Link href={{
                 pathname: "/Campaigns/[id]",
                 query: {
-                    id: campaign.contract_address,
+                    id: campaign.contract_address
                 }
             }}
             as={`/Campaigns/${campaign.contract_address}`}>
@@ -82,7 +82,7 @@ const displayTitle = () => {
             <Link href={{
                 pathname: "/Campaigns/[id]",
                 query: {
-                    id: campaign.contract_address,
+                    id: campaign.contract_address
                 }
             }}
             as={`/Campaigns/${campaign.contract_address}`}>
