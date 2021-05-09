@@ -20,7 +20,7 @@ function HTMLEditor(props) {
           onKeyUp={handleChange}
           ref={editorRef}
           setOptions={{
-            height: 600,
+            height: 1000,
             buttonList: buttonList.complex,
             }}      
           />

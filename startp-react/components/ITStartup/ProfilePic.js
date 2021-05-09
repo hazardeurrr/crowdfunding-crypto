@@ -1,5 +1,8 @@
 import React from 'react';
 import ImageUploading from 'react-images-uploading';
+import Alert from '@material-ui/lab/Alert';
+import Snackbar from '@material-ui/core/Snackbar';
+
 
 const ProfilePic = (props) => {
     const [images, setImages] = React.useState([]);
@@ -13,8 +16,14 @@ const ProfilePic = (props) => {
         }
     };
 
-    const onError = (errors, files) => {
-        setSnackText(errors.toString())
+    const onError = (errors, files) => {   
+        if(errors.resolution){
+            setSnackText("Wrong resolution. 16:9 expected")
+        } else if(errors.maxFileSize){
+            setSnackText("File size exceeded the limit")
+        } else {
+            setSnackText("Undefined error : please check all the requirements to upload an image")
+        }
         setOpenSnack(true)
     }
 
@@ -23,7 +32,7 @@ const ProfilePic = (props) => {
        return;
      }
  
-   //  setOpenSnack(false);
+     setOpenSnack(false);
      };
    
 
@@ -39,14 +48,14 @@ const ProfilePic = (props) => {
                 open={openSnack}
                 autoHideDuration={2000}
                 onClose={handleCloseSnack}
-                message={snackText}
-            ><Alert onClose={handleClose} severity="success">
-            This is a success message!
-          </Alert>
-          </Snackbar>
+            >
+                <Alert onClose={handleCloseSnack} severity="error">
+                    {snackText}
+                </Alert>
+            </Snackbar>
             <ImageUploading
                 acceptType={['jpg', 'gif', 'png']}
-                maxFileSize={200e6}
+                maxFileSize={800e3}
                 resolutionType='ratio'
                 resolutionWidth={1280}
                 resolutionHeight={720}
