@@ -16,9 +16,12 @@ import Layout from '@/components/_App/Layout'
 import { Provider } from 'react-redux'
 import { ToastProvider } from 'react-toast-notifications'
 import { useStore } from '../store'
+import {useRouter} from 'next/router'
 
 export default function App({ Component, pageProps }) {
     const store = useStore(pageProps.initialReduxState)
+
+    const router = useRouter()
 
     return (
         <ToastProvider 
@@ -28,7 +31,7 @@ export default function App({ Component, pageProps }) {
         >
             <Provider store={store}>
                 <Layout />
-                <Component {...pageProps} />
+                <Component {...pageProps} key={router.asPath}/>
             </Provider>
         </ToastProvider>
     )

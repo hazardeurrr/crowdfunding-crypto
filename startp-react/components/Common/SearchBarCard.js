@@ -89,7 +89,7 @@ const SearchBarCard = (props) => {
   }
 
   return (
-    <Card className={classes.root}>
+    <Card elevation={0} className={classes.root}>
        <CardMedia
         className={classes.media}
         image={campaign.main_img}
