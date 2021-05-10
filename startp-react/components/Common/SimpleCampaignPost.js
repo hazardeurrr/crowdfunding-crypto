@@ -94,13 +94,13 @@ const SimpleCampaignPost = (props, {u}) => {
 
 
     const cat = () => {
-        if(campaign.categories.length == 2){
+        if(campaign.categories.length > 1){
             return (
                 <div className="date">
                   <Icon.Bookmark /> {campaign.categories[0]} | {campaign.categories[1]}
                 </div>
             )
-        } else {
+        } else if(campaign.categories.length != 0){
             return (
                 <div className="date">
                   <Icon.Bookmark /> {campaign.categories[0]}

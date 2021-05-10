@@ -207,6 +207,14 @@ const Campaign = (props, {c, u}) => {
             }
     }
 
+    const showCats = () => {
+        if(campaign.categories.length == 1){
+            return campaign.categories[0]
+        } else if(campaign.categories.length != 0){
+            return `${campaign.categories[0]} & ${campaign.categories[1]}`
+        }
+    }
+
     const displayContent = () => {
         if(campaign != undefined && user != undefined){
             return <div>
@@ -225,7 +233,7 @@ const Campaign = (props, {c, u}) => {
                                 <div className="col-lg-6 col-md-12">
                                     <div className="ml-about-content">
 
-                                        <span className="sub-title">{campaign.main_category}</span>
+                                        <span className="sub-title">{showCats()}</span>
                                         <ShareIcons campaign={campaign}/>
 
                                         <h2 style={{marginTop: 20, marginBottom: 10}}>{campaign.title}</h2>

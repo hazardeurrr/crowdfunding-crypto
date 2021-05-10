@@ -17,11 +17,11 @@ const SingleCardCarrousel = (props) => {
     
 
     const cat = () => {
-      if(campaign.categories.length == 2){
+      if(campaign.categories.length > 1){
           return (
             <p className="read-more-btn">{campaign.categories[0]} | {campaign.categories[1]}</p>
           )
-      } else {
+      } else if(campaign.categories != 0) {
           return (
           <p className="read-more-btn">{campaign.categories[0]}</p>
           )

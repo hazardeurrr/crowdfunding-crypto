@@ -23,6 +23,9 @@ import { useSelector, useDispatch } from 'react-redux'
 // import { withStyles } from '@material-ui/core/styles';
 import 'suneditor/dist/css/suneditor.min.css'; // Import Sun Editor's CSS File
 import ProfilePic from '@/components/ITStartup/ProfilePic.js'
+import Modal from '@material-ui/core/Modal';
+import PreviewCampaign from 'pages/PreviewCampaign';
+
 // const GreenCheckbox = withStyles({
 //     root: {
 //       color: '#44ce6f',
@@ -53,7 +56,9 @@ class MainForm extends React.Component {
             image: undefined,
             titleError: '',
             objective: null,
-            objectiveError: ''
+            objectiveError: '',
+            modal: false,
+            html:''
         }
         this.tiers = [];
         this.tiersArray = [];
@@ -138,6 +143,8 @@ class MainForm extends React.Component {
     
     handleHTML(dataFromChild) {
         this.html = dataFromChild
+         this.setState({html: dataFromChild})
+        // console.log(this.html)
     }
 
     handleTiers(dataFromTiers) {
@@ -149,6 +156,13 @@ class MainForm extends React.Component {
     }
 
 
+    handleOpenModal = () => {
+        this.setState({modal: true});
+      };
+    
+    handleCloseModal = () => {
+        this.setState({modal: false});
+      };
 
     render() {
 
@@ -238,10 +252,37 @@ class MainForm extends React.Component {
                                         <HTMLEditor onSelectHTML={this.handleHTML.bind(this)}/>
                                         </div>
                                     </div>
+                                    {/* <Link
+                                        href={{
+                                            pathname: "PreviewCampaign",
+                                            query: {
+                                                id: this.html,
+                                            }
+                                        }}>
+                                            <a target="_blank" className="btn btn-secondary">Preview your page</a>
+                                    </Link> */}
+
+
+
+
+                                    <a target="_blank" onClick={this.handleOpenModal} className="btn btn-secondary">Preview your page</a>
+
+                                    <Modal
+                                        open={this.state.modal}
+                                        onClose={this.handleCloseModal}
+                                        style={{ overflow: 'scroll' }}
+                                    >
+                                        <div style={{margin: "auto", width : "90%", backgroundColor:'white'}}
+>                                        <PreviewCampaign content={this.state.html}/>
+
+                
+                                        </div>
+                                    </Modal>
+
+
 
                                     
-
-                                    <p><strong> Flexibilty </strong><br/>Indicate how flexible can you be about your fundraising and the amount you want to gather. If you check this box, the campaign will need to reach its goal before its deadline for you to get the funds, 
+                                    <p style={{marginTop: 30}}><strong> Flexibilty </strong><br/>Indicate how flexible can you be about your fundraising and the amount you want to gather. <br></br>If you check this box, the campaign will need to reach its goal before its deadline for you to get the funds, 
                                     otherwise the funds will be locked and contributors will be able to get a refund. If you don't check this, you will get all funds raised even though the goal of the campaign is not reached by its deadline.</p>
                                     <div className="col-lg-12 col-md-12">
                                         <div className="form-check">
