@@ -36,3 +36,13 @@ export function postImage(folder, image, progress) {
         .then(url => { return url })
     })
 }
+
+export function postHTMLPage(folder, doc, id) {
+    let uploadTask = storage.ref(folder + `/${id}`).put(doc)
+    uploadTask.on('state_changed', console.log, console.error, () => {
+        storage.ref(folder)
+        .child(id)
+        .getDownloadURL()
+        .then(url => { return url })
+    })
+}

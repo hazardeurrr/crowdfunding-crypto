@@ -7,6 +7,8 @@ import ProfilePic from "@/components/ITStartup/ProfilePic";
 import profiles from '@/utils/usersListJson.json';
 import { useSelector, useDispatch } from 'react-redux'
 import { updateDoc, getOne, postDoc } from 'firebase-crowdfund/queries'
+import TwitterLogin from "react-twitter-login";
+import secrets from "secrets.json";
 
 
 const ProfileForm = (props) => {
@@ -35,6 +37,10 @@ const ProfileForm = (props) => {
         console.log("image changed")
         setImage(image);
     }
+
+    const authHandler = (err, data) => {
+        console.log(err, data);
+    };
 
     function loadData() {
         let user = undefined
@@ -139,6 +145,11 @@ const ProfileForm = (props) => {
                                 <div className="col-lg-12 col-md-12">
                                     <div className="form-group">
                                         <input type="text" placeholder="@" className="form-control" value={twitter} onChange={handleChangeTwitter}/>
+                                        <TwitterLogin
+                                        authCallback={authHandler}
+                                        consumerKey={secrets.consumer_key}
+                                        consumerSecret={secrets.consumer_secret}
+                                        />
                                     </div>
                                 </div>
 

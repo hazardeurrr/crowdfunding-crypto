@@ -2,6 +2,8 @@ import { useMemo } from 'react'
 import { createStore, applyMiddleware } from 'redux'
 import { composeWithDevTools } from 'redux-devtools-extension'
 import { productsData } from './products'
+import {getOne, updateDoc} from 'firebase-crowdfund/queries';
+
 
 let store
 
@@ -13,7 +15,8 @@ const initialState = {
   metamask_connected: false,
   chainID: '0x1',
   allCampaigns: [],
-  allCreators: []
+  allCreators: [],
+  currentUser: undefined
 }
 
 
@@ -34,6 +37,12 @@ const reducer = (state = initialState, action) => {
         }
 
     case 'SET_ADDRESS':
+      return {
+        ...state,
+        address: action.id
+      }
+
+    case 'SET_CURRENT_USER':
       return {
         ...state,
         address: action.id

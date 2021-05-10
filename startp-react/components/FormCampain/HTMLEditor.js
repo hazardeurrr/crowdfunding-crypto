@@ -38,7 +38,7 @@ function HTMLEditor(props) {
               ['fontColor', 'hiliteColor', 'textStyle'],
               ['outdent', 'indent'],
               ['align', 'horizontalRule', 'list', 'lineHeight'],
-              ['table', 'link', 'image', 'video', 'audio'],
+              ['table', 'link', 'image', 'video'],
               // (min-width:992px)
               ['%992', [
                   ['undo', 'redo'],
@@ -47,7 +47,7 @@ function HTMLEditor(props) {
                   [':t-More Text-default.more_text', 'subscript', 'superscript', 'fontColor', 'hiliteColor', 'textStyle'],
                   ['outdent', 'indent'],
                   ['align', 'horizontalRule', 'list', 'lineHeight'],
-                  ['-right', ':r-More Insert-default.more_plus', 'table', 'link', 'image', 'video', 'audio']
+                  ['-right', ':r-More Insert-default.more_plus', 'table', 'link', 'image', 'video']
               ]],
               // (min-width:768px)
               ['%768', [
@@ -55,7 +55,7 @@ function HTMLEditor(props) {
                   [':p-More Paragraph-default.more_paragraph', 'font', 'fontSize', 'formatBlock', 'paragraphStyle', 'blockquote'],
                   [':t-More Text-default.more_text', 'bold', 'underline', 'italic', 'strike', 'subscript', 'superscript', 'fontColor', 'hiliteColor', 'textStyle'],
                   [':e-More Line-default.more_horizontal', 'outdent', 'indent', 'align', 'horizontalRule', 'list', 'lineHeight'],
-                  [':r-More Insert-default.more_plus', 'table', 'link', 'image', 'video', 'audio'],
+                  [':r-More Insert-default.more_plus', 'table', 'link', 'image', 'video'],
               ]]
             ],
             }}      

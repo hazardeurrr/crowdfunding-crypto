@@ -70,18 +70,14 @@ const ProfilePic = (props) => {
                 imageList,
                 onImageUpload,
                 onImageUpdate,
-                onImageRemove,
-                isDragging,
-                dragProps
+                onImageRemove
                 }) => (
                 // write your building UI
                 <div className="upload__image-wrapper">
                     <button className="btn btn-light" type="button"
-                    style={isDragging ? { color: "red" } : null}
                     onClick={onImageUpload}
-                    {...dragProps}
                     >
-                    Click or Drop here
+                    Click here
                     </button>
                     {/* &nbsp; */}
                     {imageList.map((image, index) => (

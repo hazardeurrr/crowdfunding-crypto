@@ -11,7 +11,7 @@ const MainBanner = () => {
                             <h1>A new way to raise funds</h1>
                             <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Quis ipsum suspendisse ultrices gravida.</p>
 
-                            <Link href="/services-1">
+                            <Link href="/form-campaign">
 								<a className="btn btn-primary">Create a campaign</a>
 							</Link>
                             <Link href={{

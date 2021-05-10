@@ -15,6 +15,7 @@ import DatePicker from "./date-range";
 import Checkbox from '@material-ui/core/Checkbox';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import {db, storage} from '../../firebase-crowdfund/index';
+import {postHTMLPage} from '../../firebase-crowdfund/queries';
 import "react-dates/lib/css/_datepicker.css";
 import categoryList from '@/utils/CategoryList';
 import { useSelector, useDispatch } from 'react-redux'
@@ -78,6 +79,8 @@ class MainForm extends React.Component {
 
     handleCampain = (event) => {
         event.preventDefault()
+        contract_address = '0x569854865654az9e8z5f6az6'
+        postHTMLImage('campaigns', this.html, contract_address)
         console.log(event)
         let offset = 2
         if (this.image === undefined) {
@@ -130,15 +133,14 @@ class MainForm extends React.Component {
             raised: 0,
         }
         console.log(campainInfos)
+        
         // campaign address to be retrieved from the solidity smart contract
         const creator_address = localStorage.getItem('current_address')
         campainInfos['creator'] = creator_address
         if (cats.length < 1) {return}
-        db.collection('campaign').doc('0x569854865654az9e8z5f6az6').set(campainInfos).then(x => {
+        db.collection('campaign').doc(contract_address).set(campainInfos).then(x => {
             console.log('document written with : ' + campainInfos.title)
-        }).catch(err => {
-            console.error(err)
-        })
+        }).catch(console.error)
     }
     
     handleHTML(dataFromChild) {
@@ -209,7 +211,7 @@ class MainForm extends React.Component {
                                             </div>
                                         </div>
                                     </div>
-                                    <p><strong> Project Category </strong><br/> Choose a category that describes your project.</p>
+                                    {/* <p><strong> Project Category </strong><br/> Choose a category that describes your project.</p>
                                     <div className="col-lg-12 col-md-12">
                                         <div className="form-group">
                                         
@@ -219,7 +221,7 @@ class MainForm extends React.Component {
                                                 </select>
                                             </div>
                                         </div>
-                                    </div>
+                                    </div> */}
                                     <p><strong> Raising Method </strong><br/>Give a raising currency for your crowdfunding project.</p>
                                     <div className="col-lg-12 col-md-12">
                                         <div className="form-group">

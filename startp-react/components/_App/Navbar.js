@@ -17,6 +17,7 @@ const Navbar = () => {
     const [connected, setConnected] = React.useState(false)
     const dispatch = useDispatch()
     const userAddr = useSelector((state) => state.address)
+    const currentUser = useSelector((state) => state.currentUser)
 
  
     const toggleNavbar = () => {
@@ -81,6 +82,7 @@ const Navbar = () => {
             id: false
         })
         } else {
+            console.log("in accounts changed")
             dispatch({
                 type: 'SET_CONNECTED',
                 id: true
@@ -90,18 +92,39 @@ const Navbar = () => {
                 id: accounts[0]
             })
             if (userAddr != undefined) {
+                console.log('user address',userAddr)
                 getOne('profile', userAddr, function(doc) {
                     if (doc.exists) {
+                        console.log('data', doc.data())     // afiche bien l'objet avec le bon user
                         // console.log("Connected");
+                        if(currentUser == undefined){
+
+                            // dispatch({
+                            //     type: 'SET_CURRENT_USER',
+                            //     id: doc.data()
+                            // })
+                            // setCurrUser(doc.data())
+                        }
                     } else {
                         const user = { username: "", email: "", eth_address: userAddr, image: "", bio: "", twitter: "", verif_twitter: false, website: "", liked: new Array() }
                         postDoc(user.eth_address, 'profile', user,
                             console.log(user.username + " has been uploaded")
                         )
+                        // dispatch({
+                        //     type: 'SET_CURRENT_USER',
+                        //     id: user
+                        // })
                     }
                 })
             }
         }
+    }
+
+    const setCurrUser = (data) => {
+        dispatch({
+            type: 'SET_CURRENT_USER',
+            id: data
+        })
     }
 
     const connect = () => {
