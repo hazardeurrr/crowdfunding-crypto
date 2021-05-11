@@ -60,6 +60,7 @@ const AutoCompleteSearchBar = () => {
         return `${title} ${user.username}`;
       }}
       filterSelectedOptions
+      noOptionsText = 'No campaign or creator found'
       className="autocomplete"
       renderOption={(option) => <Link href={{
                                       pathname: "/Campaigns/[id]",

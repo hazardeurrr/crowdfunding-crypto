@@ -1,7 +1,7 @@
 import React from 'react';
 import * as Icon from 'react-feather';
 import { Doughnut } from 'react-chartjs-2';
-import { RiGovernmentLine, RiHandCoinLine, RiTeamLine } from 'react-icons/ri';
+import { RiExchangeDollarLine, RiGovernmentLine, RiHandCoinLine, RiTeamLine } from 'react-icons/ri';
 import {MdFavorite, MdMoneyOff, MdPriorityHigh, MdPublic} from 'react-icons/md';
 import {GiReceiveMoney, GiPayMoney, GiMining} from 'react-icons/gi'
 import {FiTrendingDown, FiTrendingUp, FiUserCheck} from 'react-icons/fi'
@@ -12,7 +12,7 @@ import { FaExchangeAlt } from 'react-icons/fa';
 const ServicesArea = () => {
 
     const chartData = {
-        labels: ['Liquidity mining (cashback)', 'IDO', 'Strategic Development', 'Team & Advisors', 'Liquidity Providing'],
+        labels: ['Liquidity mining (cashback)', 'IDO', 'Strategic Development', 'Team & Advisors', 'Platform Liquidity Providing'],
         datasets: [
           {
             label: '%',
@@ -61,7 +61,7 @@ const ServicesArea = () => {
 
                                 <div className="col-lg-6 col-md-6">
                                     <div className="box">
-                                        <FaExchangeAlt size={25}/> Contribute & Raise in BBST
+                                        <RiExchangeDollarLine size={25}/> Contribute & Raise in BBST
                                     </div>
                                 </div>
 
@@ -298,11 +298,11 @@ const ServicesArea = () => {
                                        Total supply : 10 000 000 BBST
                                     </div>
                                     <div className="box">
-                                        <GiMining size={27} /> Liquidity mining : 3 500 000 BBST
+                                        <GiMining size={27} /> Platform Liquidity Mining : 3 500 000 BBST
                                         <p style={{fontSize: 12, fontStyle: 'italic'}}>Users participating on the platform will earn BBST as cashback</p>
                                     </div>
                                     <div className="box">
-                                        <MdPublic size={27}/> Public sale (IDO) : 3 000 000 BBST
+                                        <MdPublic size={27}/> Public Sale (IDO) : 3 000 000 BBST
                                     </div>
                                     <div className="box">
                                         <FiTrendingUp size={27} /> Strategic Development : 1 700 000 BBST

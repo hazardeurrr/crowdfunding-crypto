@@ -63,6 +63,7 @@ const Projects = ({p}) => {
     const ShowProjects = () => {
         const len = projects.length > 6 ? 6 : projects.length
         var rows = [];
+        console.log(projects)
         for (var i = 0; i < len; i++) {
             rows.push(<div key={i} className="single-ml-projects-box">
             <SingleCardCarrousel project={projects[i]}
@@ -72,7 +73,7 @@ const Projects = ({p}) => {
     }
 
     const displayContent = () => {
-        if(projects != undefined){
+        if(projects != undefined && projects.length != 0){
             return <div className="container-fluid">
             {display ? <OwlCarousel 
                 className="ml-projects-slides owl-carousel owl-theme"
