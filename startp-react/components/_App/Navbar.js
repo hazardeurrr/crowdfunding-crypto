@@ -95,7 +95,7 @@ const Navbar = () => {
                 console.log('user address',userAddr)
                 getOne('profile', userAddr, function(doc) {
                     if (doc.exists) {
-                        console.log('data', doc.data())     // afiche bien l'objet avec le bon user
+                        // console.log('data', doc.data())     // afiche bien l'objet avec le bon user
                         // console.log("Connected");
                         if(currentUser == undefined){
 

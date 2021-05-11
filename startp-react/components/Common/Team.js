@@ -50,7 +50,7 @@ const Team = () => {
             > 
                 <div className="single-team">
                     <div className="team-image">
-                        <img src="/images/team-image/team1.jpg" alt="image" />
+                        <img src="/images/team-image/tibo.jpg" alt="image" />
                     </div>
 
                     <div className="team-content">
@@ -90,7 +90,7 @@ const Team = () => {
             
                 <div className="single-team">
                     <div className="team-image">
-                        <img src="/images/team-image/team2.jpg" alt="image" />
+                        <img src="/images/team-image/hugo.jpg" alt="image" />
                     </div>
 
                     <div className="team-content">
@@ -130,7 +130,7 @@ const Team = () => {
     
                 <div className="single-team">
                     <div className="team-image">
-                        <img src="/images/team-image/team3.jpg" alt="image" />
+                        <img src="/images/team-image/malc.jpg" alt="image" />
                     </div>
 
                     <div className="team-content">

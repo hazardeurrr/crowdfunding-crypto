@@ -107,7 +107,7 @@ const ServicesArea = () => {
                                 <div className="col-lg-6 col-md-6">
                                     <div className="box">
                                         <GiPayMoney size={25}/> Tip in BBST
-                                        <p style={{fontSize : 12, fontStyle: 'italic'}}>Coming with tips.blockbooster</p>
+                                        <p style={{fontSize : 12, fontStyle: 'italic'}}>Coming with tip.blockboosted</p>
                                     </div>
                                 </div>
 

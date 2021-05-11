@@ -8,7 +8,7 @@ import profiles from '@/utils/usersListJson.json';
 import { useSelector, useDispatch } from 'react-redux'
 import { updateDoc, getOne, postDoc } from 'firebase-crowdfund/queries'
 import TwitterLogin from "react-twitter-login";
-//import secrets from "secrets.json";
+import secrets from "@/components/ITStartup/secrets.json";
 
 
 const ProfileForm = (props) => {
@@ -145,11 +145,12 @@ const ProfileForm = (props) => {
                                 <div className="col-lg-12 col-md-12">
                                     <div className="form-group">
                                         <input type="text" placeholder="@" className="form-control" value={twitter} onChange={handleChangeTwitter}/>
-                                        {/* <TwitterLogin
-                                        authCallback={authHandler}
-                                        consumerKey={secrets.consumer_key}
-                                        consumerSecret={secrets.consumer_secret}
-                                        /> */}
+                                        <TwitterLogin
+                                            authCallback={authHandler}
+                                            consumerKey={secrets.consumer_key}
+                                            consumerSecret={secrets.consumer_secret}
+                                            buttonTheme="light_short"
+                                        />
                                     </div>
                                 </div>
 

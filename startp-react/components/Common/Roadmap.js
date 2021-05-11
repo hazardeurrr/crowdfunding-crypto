@@ -44,12 +44,12 @@ const Roadmap = () => {
             <TimelineConnector />
             </TimelineSeparator>
             <TimelineContent>
-            <Paper elevation={3} style={{padding: '10px', width: 'fit-content'}}>
+            <div  style={{padding: '10px', width: 'fit-content', boxShadow: '0 2px 48px 0 rgb(0 0 0 / 8%)'}}>
                 <Typography variant="h6" component="h1">
                 Project Initialization
                 </Typography>
                 <Typography>Beta-test of the platform V1 and IDO of our token BBST</Typography>
-            </Paper>
+            </div>
             </TimelineContent>
         </TimelineItem>
         <TimelineItem>
@@ -65,12 +65,12 @@ const Roadmap = () => {
             <TimelineConnector />
             </TimelineSeparator>
             <TimelineContent>
-            <Paper elevation={3} style={{padding: '10px', width: 'fit-content',display: 'inline-block'}}>
+            <div style={{padding: '10px', width: 'fit-content',display: 'inline-block', boxShadow: '0 2px 48px 0 rgb(0 0 0 / 8%)'}}>
                 <Typography variant="h6" component="h1">
                     Launch
                 </Typography>
                 <Typography>Launch of the platform !</Typography>
-            </Paper>
+            </div>
             </TimelineContent>
         </TimelineItem>
         <TimelineItem>
@@ -86,14 +86,14 @@ const Roadmap = () => {
             <TimelineConnector  />
             </TimelineSeparator>
             <TimelineContent>
-            <Paper elevation={3} style={{padding: '10px', width: 'fit-content'}}>
+            <div  style={{padding: '10px', width: 'fit-content', boxShadow: '0 2px 48px 0 rgb(0 0 0 / 8%)'}}>
                 <Typography variant="h6" component="h1">
                 Tip platform
                 </Typography>
                 <Typography>Beta version of tips.blockboosted.com : a 2nd platform on the Blockboosted ecosystem</Typography>
                 <Typography>Permanent tip pages (with or without rewards) for content creators and charity organizations.</Typography>
 
-            </Paper>
+            </div>
             </TimelineContent>
         </TimelineItem>
         <TimelineItem>
@@ -108,12 +108,12 @@ const Roadmap = () => {
             </TimelineDot>
             </TimelineSeparator>
             <TimelineContent>
-            <Paper elevation={3} style={{padding: '10px', width: 'fit-content',display: 'inline-block'}}>
+            <div  style={{padding: '10px', width: 'fit-content',display: 'inline-block', boxShadow: '0 2px 48px 0 rgb(0 0 0 / 8%)'}}>
                 <Typography variant="h6" component="h1">
                 Release of the tip platform
                 </Typography>
                 <Typography>Official launch of tips.blockboosted.com !</Typography>
-            </Paper>
+            </div>
             </TimelineContent>
         </TimelineItem>
         </Timeline>

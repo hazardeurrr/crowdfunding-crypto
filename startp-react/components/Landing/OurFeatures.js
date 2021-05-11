@@ -23,9 +23,7 @@ const OurFeatures = () => {
                                     <GiTwoCoins size={30}/>
                             </div>
                             <h3>
-                                <Link href="/feature-details">
-                                    <a>Less platform fees</a>
-                                </Link>
+                                    Less platform fees
                             </h3>
                             <p><b>We charge 1% fee.</b><em style={{fontSize: 10}}>*</em> And for good reasons.<em style={{fontSize: 10}}>**</em><br></br>
                             <i style={{fontSize: 13}}>Crowdfunding platforms usually charge a 5% platform fee.</i></p>
@@ -56,9 +54,7 @@ const OurFeatures = () => {
                                 <RiHandCoinLine  size={30}/>
                             </div>
                             <h3>
-                                <Link href="/feature-details">
-                                    <a>Cashback for contributors</a>
-                                </Link>
+                                    Cashback for contributors
                             </h3>
                             <p>Contributors that boost projects on BlockBoosted are given BBST tokens, depending on their stake and contribution !</p>
                         </div>
@@ -70,9 +66,7 @@ const OurFeatures = () => {
                                 <FaVoteYea size={30} />
                             </div>
                             <h3>
-                                <Link href="/feature-details">
-                                    <a>Governance for stakers</a>
-                                </Link>
+                                    Governance for stakers
                             </h3>
                             <p>Power to the users ! BBST stakers can vote for majors changes on the platform, airdrops and featured campaigns.</p>
                         </div>
@@ -84,9 +78,7 @@ const OurFeatures = () => {
                                 <RiFundsFill size={45}/>
                             </div>
                             <h3>
-                                <Link href="/feature-details">
-                                    <a>Raise in crypto</a>
-                                </Link>
+                                    Raise in crypto
                             </h3>
                             <p>Choose to raise money in ETH, USDT or BBST.</p>
                         </div>
@@ -98,9 +90,7 @@ const OurFeatures = () => {
                                 <FaRegHandPointUp size={30} />
                             </div>
                             <h3>
-                                <Link href="/feature-details">
-                                    <a>Easy to use</a>
-                                </Link>
+                                    Easy to use
                             </h3>
                             <p>Create a campaign in less than 2 minutes and start raising funds ! Share your campaign to your social media in 1 click !</p>
                         </div>

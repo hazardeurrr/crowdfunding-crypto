@@ -102,9 +102,9 @@ const RecentWorks = () => {
                 <div className="single-works">
                     <img src="/images/works-image/works-image4.jpg" alt="image" />
 
-                    <Link href="/project-details">
+                    {/* <Link href="/project-details">
                         <a className="icon"><Icon.Settings /></a>
-                    </Link>
+                    </Link> */}
 
                     <div className="works-content">
                         <h3>

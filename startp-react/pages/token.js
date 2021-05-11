@@ -2,6 +2,8 @@ import React from 'react';
 import Navbar from "@/components/_App/Navbar";
 import Footer from "@/components/_App/Footer";
 import PageBanner from '@/components/Common/PageBanner';
+import ServicesArea from "@/components/Landing/ServicesArea";
+
 import {
     Accordion,
     AccordionItem,
@@ -22,10 +24,9 @@ const TokenDetails = () => {
             
             <div style={{margin: '0 auto', textAlign: 'center'}}>
                 <form>
-                    <div style={{width: '20%', margin: '0 auto', display: 'inline-block'}}>
-                        <input type="text" placeholder="ETH Address" className="form-control" id="eth_address" style={{ margin: "10px"}}/>
-                        <button className="btn btn-primary" type="submit" >Claim Airdrop!</button>
-
+                    <div style={{margin: '0 auto', display: 'inline-flex'}}>
+                        <input type="text" placeholder="ETH Address" className="form-control" id="eth_address" style={{ margin: "10px", width: "30%"}}/>
+                        <button className="btn btn-primary" type="submit" style={{width: "inherit", padding: 0}}>Claim Airdrop!</button>
                     </div>
                 </form>
             </div>
@@ -50,6 +51,7 @@ const TokenDetails = () => {
                             />
                         </div>
                     </div>
+                    <ServicesArea />
 
                     <div className="separate"></div>
 
@@ -303,41 +305,6 @@ const TokenDetails = () => {
                                     </Accordion>
                                 </div>
 
-
-                                <div style={{}}>
-                                    <h3>Ask Your Question</h3>
-                                    <form>
-                                        <div className="row">
-                                            <div className="col-lg-6 col-md-6">
-                                                <div className="form-group">
-                                                    <input type="text" placeholder="Name" className="form-control" />
-                                                </div>
-                                            </div>
-                                            
-                                            <div className="col-lg-6 col-md-6">
-                                                <div className="form-group">
-                                                    <input type="email" placeholder="Email" className="form-control" />
-                                                </div>
-                                            </div>
-                                            
-                                            <div className="col-lg-12 col-md-12">
-                                                <div className="form-group">
-                                                    <input type="text" placeholder="Subject" className="form-control" />
-                                                </div>
-                                            </div>
-                                            
-                                            <div className="col-lg-12 col-md-12">
-                                                <div className="form-group">
-                                                    <textarea name="message" cols="30" rows="6" placeholder="Message" className="form-control"></textarea>
-                                                </div>
-                                            </div>
-                                            
-                                            <div className="col-lg-12 col-md-12">
-                                                <button className="btn btn-primary" type="submit">Submit Now!</button>
-                                            </div>
-                                        </div>
-                                    </form>
-                                </div>
                             </div>
                         </div>
  

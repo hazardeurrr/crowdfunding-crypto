@@ -93,6 +93,13 @@ class SearchPage extends React.Component {
          }
     }
 
+    componentDidUpdate(prevProps) {
+        // Utilisation classique (pensez bien à comparer les props) :
+        if (this.props.allCampaigns !== prevProps.allCampaigns) {
+          this.loadProjects();
+        }
+      }
+
 
     dynamicSearch(){
         console.log(this.categoriesSelected)
