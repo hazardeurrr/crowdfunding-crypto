@@ -1,6 +1,9 @@
 import React from 'react';
 import Link from 'next/link';
 import {db} from '../../firebase-crowdfund/index'
+import * as Icon from 'react-feather';
+import { FaTelegramPlane, FaMediumM } from 'react-icons/fa';
+
 
 const handleSubmit = (event) => {
     event.preventDefault()
@@ -26,14 +29,38 @@ const MainBanner = () => {
                             <p>BlockBoosted is an innovative crodfunding ecosystem using the Ethereum Blockchain ! Less fees, more trust, better user experience and cashback for contributors.</p>
 
                               <div className="free-trial-content">
-
+                                <div className="single-footer-widget">
+                                    <ul className="social-links">
+                                        
+                                        <li>
+                                            <Link href="https://twitter.com/blockboosted">
+                                                <a className="twitter" target="_blank"><Icon.Twitter /></a>
+                                            </Link>
+                                        </li>
+                                        <li>
+                                            <Link href="https://twitter.com/blockboosted">
+                                                <a className="linkedin" target="_blank"><FaTelegramPlane /></a>
+                                            </Link>
+                                        </li>
+                                        <li>
+                                            <Link href="https://medium.com/@blockboosted">
+                                                <a className="instagram" target="_blank"><FaMediumM /></a>
+                                            </Link>
+                                        </li>
+                                        <li>
+                                            <Link href="https://twitter.com/blockboosted">
+                                                <a className="facebook" target="_blank"><Icon.Facebook /></a>
+                                            </Link>
+                                        </li>
+                                    </ul>
+                                  </div>
                                 <br></br>
                                 <p>Subscribe to our newsletter for free to get the latest news on BlockBoosted and BBST Token Sale.</p>
                                   <form className="newsletter-form" onSubmit={handleSubmit}>
                                       <input type="email" className="input-newsletter" placeholder="Enter your email here" />
                                       <button type="submit">Subscribe !</button>
                                   </form>
-
+                                 
                               </div>
                         </div>
                     </div>

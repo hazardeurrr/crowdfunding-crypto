@@ -5,11 +5,11 @@ import { Doughnut } from 'react-chartjs-2';
 const ServicesArea = () => {
 
     const chartData = {
-        labels: ['Cashback for users', 'IDO', 'Strategic Development', 'Team', 'Liquidity Providing'],
+        labels: ['Liquidity mining (cashback)', 'IDO', 'Strategic Development', 'Team & Advisors', 'Liquidity Providing'],
         datasets: [
           {
             label: '%',
-            data: [30, 40, 16, 9, 5],
+            data: [35, 30, 17, 12, 6],
             backgroundColor: [
               '#c679e3',
               '#44ce6f',
@@ -54,7 +54,7 @@ const ServicesArea = () => {
 
                                 <div className="col-lg-6 col-md-6">
                                     <div className="box">
-                                        <Icon.Database /> 0% fee when raising in BBST
+                                        <Icon.Database /> Reduced fees when raising in BBST
                                     </div>
                                 </div>
 
@@ -75,7 +75,7 @@ const ServicesArea = () => {
                                 <div className="col-lg-6 col-md-6">
                                     <div className="box">
                                         <Icon.Folder /> Deflation with burning process
-                                        <p style={{fontSize : 12, fontStyle: 'italic'}}>We'll use 15% of our profits to burn BBST tokens each quarter.</p>
+                                        <p style={{fontSize : 12, fontStyle: 'italic'}}>A part of each fee collected will be used to burn BBST.</p>
 
                                     </div>
                                 </div>
@@ -96,7 +96,7 @@ const ServicesArea = () => {
                                 <div className="col-lg-6 col-md-6">
                                     <div className="box">
                                         <Icon.Cloud /> Priority access to limited projects for stakers
-                                        <p style={{fontSize : 12, fontStyle: 'italic'}}>Coming with V2</p>
+                                        <p style={{fontSize : 12, fontStyle: 'italic'}}>Coming in the future</p>
                                     </div>
                                 </div>
                             </div>
@@ -280,22 +280,22 @@ const ServicesArea = () => {
                                         <Icon.Layout /> Total supply : 10 000 000 BBST
                                     </div>
                                     <div className="box">
-                                        <Icon.Layout /> Public sale token (IDO) : 4 000 000 BBST
-                                    </div>
-                                    <div className="box">
-                                        <Icon.Layout /> Platform mining : 3 000 000 BBST
+                                        <Icon.Layout /> Liquidity mining : 3 500 000 BBST
                                         <p style={{fontSize: 12, fontStyle: 'italic'}}>Users participating on the platform will earn BBST as cashback</p>
                                     </div>
                                     <div className="box">
-                                        <Icon.Layout /> Strategic Development : 1 600 000 BST
+                                        <Icon.Layout /> Public sale token (IDO) : 3 000 000 BBST
+                                    </div>
+                                    <div className="box">
+                                        <Icon.Layout /> Strategic Development : 1 700 000 BBST
                                         <p style={{fontSize: 12, fontStyle: 'italic'}}>Half locked for 1 year, half locked for 2 years.</p>
                                     </div>
                                     <div className="box">
-                                        <Icon.Layout /> Team : 900 000 BST
+                                        <Icon.Layout /> Team : 1 200 000 BBST
                                         <p style={{fontSize: 12, fontStyle: 'italic'}}>Locked for 2 years</p>
                                     </div>
                                     <div className="box">
-                                        <Icon.Layout /> Liquidity Providing : 500 000 BST
+                                        <Icon.Layout /> Liquidity Providing : 600 000 BBST
                                     </div>
 
                             </div>

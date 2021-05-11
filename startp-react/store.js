@@ -45,7 +45,7 @@ const reducer = (state = initialState, action) => {
     case 'SET_CURRENT_USER':
       return {
         ...state,
-        address: action.id
+        currentUser: action.id
       }
 
     case 'SET_CONNECTED':

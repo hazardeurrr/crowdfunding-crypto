@@ -23,6 +23,8 @@ import Snackbar from '@material-ui/core/Snackbar';
 import IconButton from '@material-ui/core/IconButton';
 import CloseIcon from '@material-ui/icons/Close';
 import {getOne, updateDoc} from '../../firebase-crowdfund/queries';
+import Rodal from 'rodal';
+import 'rodal/lib/rodal.css';
 
 
 
@@ -31,6 +33,7 @@ const HeartAnim = (props) => {
   const campaign = props.campaign
 
   const [checked, setChecked] = React.useState(false);
+  const [showModal, setShowModal] = React.useState(false);
 
     // const currentAdd = useSelector((state) => state.address)
     const currentUser = useSelector((state) => state.currentUser)
@@ -40,7 +43,6 @@ const HeartAnim = (props) => {
 
 
     useEffect(() => {
-      console.log(currentUser)
       if(currentUser != undefined){
         arrayLiked = currentUser.liked
         console.log(arrayLiked)
@@ -52,9 +54,11 @@ const HeartAnim = (props) => {
 
 
   const handleHeartClicked = () => {
-    console.log('clicked in heart')
+    arrayLiked = currentUser.liked
+
     if(checked){
        setChecked(false)
+       setShowModal(true)
        arrayLiked = arrayLiked.filter(e => e != campaign.contract_address)
        if(currentUser == undefined || currentUser == null){return}
         let u = currentUser;
@@ -62,6 +66,7 @@ const HeartAnim = (props) => {
         updateDoc(currentUser.eth_address, 'profile', u, console.log)
     } else {
       setChecked(true)
+      setShowModal(true)
       arrayLiked.push(campaign.contract_address)
       if(currentUser == undefined || currentUser == null){return}
         let u = currentUser;
@@ -70,6 +75,16 @@ const HeartAnim = (props) => {
     }
   }
 
+  const showTextModal = () => {
+    if(checked){
+      return <div style={{marginTop: 20}}><h5>The campaign : <i><b>{campaign.title}</b></i> has been added to your favorites ! <Icon.Heart /></h5>
+        <br></br><p>You can see your followed campaigns on your profile page.</p>
+      </div>
+    } else {
+      return <div style={{marginTop:50}}><h5>The campaign : <i><b>{campaign.title}</b></i> has been withdrawn from your favorites. <Icon.Frown/></h5>
+      </div>
+    }
+  }
 
     return (
         <>
@@ -80,7 +95,10 @@ const HeartAnim = (props) => {
               wrapperStyle={{ marginTop: '15px', marginLeft: '20px' }}
               animation={heart}
             />
-
+                
+                <Rodal visible={showModal} onClose={() => setShowModal(false)}>
+                  {showTextModal()}
+                </Rodal>
         </>
     )
 }

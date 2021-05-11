@@ -215,6 +215,11 @@ const Campaign = (props, {c, u}) => {
         }
     }
 
+    const showHeart = () => {
+        if(connected && chainID == '0x1')
+            return <HeartAnim campaign={campaign}/>
+    }
+
     const displayContent = () => {
         if(campaign != undefined && user != undefined){
             return <div>
@@ -278,9 +283,8 @@ const Campaign = (props, {c, u}) => {
                                             {BackButton()}
                                             {RefundButton()}
 
-                                         
-                                                <HeartAnim campaign={campaign}/>
                                             
+                                            {showHeart()}                                            
 
                                         </div>
                                     </div>

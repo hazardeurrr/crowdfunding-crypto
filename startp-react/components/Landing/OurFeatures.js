@@ -27,9 +27,11 @@ const OurFeatures = () => {
                                     <a>Less platform fees</a>
                                 </Link>
                             </h3>
-                            <p><b>We charge 0% fee.</b><em style={{fontSize: 10}}>*.</em><br></br>
+                            <p><b>We charge 1% fee.</b><em style={{fontSize: 10}}>*</em> And for good reasons.<em style={{fontSize: 10}}>**</em><br></br>
                             <i style={{fontSize: 13}}>Crowdfunding platforms usually charge a 5% platform fee.</i></p>
-                            <p style={{fontSize: 10, marginTop: 20}}>*0% for campaigns in BBST, 2.5% for successfuls campaigns in ETH and USDT</p>
+                            <p style={{fontSize: 10, marginTop: 20}}>*1% for campaigns in BBST, 2.5% for successfuls campaigns in ETH and USDT</p>
+                            <p style={{fontSize: 10, marginTop: -15}}>**How do we split the fee : 20% for insurance / airdrops fund, 15% for BBST burning, 65% to pay our fixed costs.</p>
+
                         </div>
                     </div>
 
@@ -72,7 +74,7 @@ const OurFeatures = () => {
                                     <a>Governance for stakers</a>
                                 </Link>
                             </h3>
-                            <p>Power to the users ! BBST stakers can vote for majors changes on the platform as well as featured campaigns.</p>
+                            <p>Power to the users ! BBST stakers can vote for majors changes on the platform, airdrops and featured campaigns.</p>
                         </div>
                     </div>
 

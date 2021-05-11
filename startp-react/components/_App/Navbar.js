@@ -99,32 +99,24 @@ const Navbar = () => {
                         // console.log("Connected");
                         if(currentUser == undefined){
 
-                            // dispatch({
-                            //     type: 'SET_CURRENT_USER',
-                            //     id: doc.data()
-                            // })
-                            // setCurrUser(doc.data())
+                            dispatch({
+                                type: 'SET_CURRENT_USER',
+                                id: doc.data()
+                            })
                         }
                     } else {
                         const user = { username: "", email: "", eth_address: userAddr, image: "", bio: "", twitter: "", verif_twitter: false, website: "", liked: new Array() }
                         postDoc(user.eth_address, 'profile', user,
                             console.log(user.username + " has been uploaded")
                         )
-                        // dispatch({
-                        //     type: 'SET_CURRENT_USER',
-                        //     id: user
-                        // })
+                         dispatch({
+                             type: 'SET_CURRENT_USER',
+                             id: user
+                         })
                     }
                 })
             }
         }
-    }
-
-    const setCurrUser = (data) => {
-        dispatch({
-            type: 'SET_CURRENT_USER',
-            id: data
-        })
     }
 
     const connect = () => {
