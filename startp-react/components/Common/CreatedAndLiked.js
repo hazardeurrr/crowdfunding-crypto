@@ -14,7 +14,7 @@ class CreatedAndLiked extends Component {
       this.user = props.user
       if(this.user != undefined){
         this.liked = this.user.liked
-        this.created = this.props.allCampaigns.filter(e => e.creator == this.user.eth_address)
+        this.created = this.props.allCampaigns.filter(e => e.creator.toLowerCase() == this.user.eth_address.toLowerCase())
         // console.log(this.liked)
       }
     }

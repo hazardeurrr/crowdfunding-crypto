@@ -10686,3 +10686,9 @@ Go Top CSS
 .share-icon {
   margin-right: 3px;
 }
+
+.autocomplete {
+  width : 200px;
+  margin-top: -12px;
+  padding: 0
+}

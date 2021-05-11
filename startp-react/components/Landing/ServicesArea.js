@@ -1,6 +1,13 @@
 import React from 'react';
 import * as Icon from 'react-feather';
 import { Doughnut } from 'react-chartjs-2';
+import { RiGovernmentLine, RiHandCoinLine, RiTeamLine } from 'react-icons/ri';
+import {MdFavorite, MdMoneyOff, MdPriorityHigh, MdPublic} from 'react-icons/md';
+import {GiReceiveMoney, GiPayMoney, GiMining} from 'react-icons/gi'
+import {FiTrendingDown, FiTrendingUp, FiUserCheck} from 'react-icons/fi'
+import {ImFire} from 'react-icons/im'
+import { FaExchangeAlt } from 'react-icons/fa';
+
 
 const ServicesArea = () => {
 
@@ -48,54 +55,65 @@ const ServicesArea = () => {
                             <div className="row">
                                 <div className="col-lg-6 col-md-6">
                                     <div className="box">
-                                        <Icon.Database /> Governance right
+                                        <RiGovernmentLine size={25}/> Governance right
                                     </div>
                                 </div>
 
                                 <div className="col-lg-6 col-md-6">
                                     <div className="box">
-                                        <Icon.Database /> Reduced fees when raising in BBST
+                                        <FaExchangeAlt size={25}/> Contribute & Raise in BBST
                                     </div>
                                 </div>
 
                                 <div className="col-lg-6 col-md-6">
                                     <div className="box">
-                                        <Icon.File /> Cashback for users
+                                        <RiHandCoinLine size={25}/> Cashback for users
                                         <p style={{fontSize : 12, fontStyle: 'italic'}}>Increased depending on your stake of BBST</p>
 
                                     </div>
                                 </div>
+                              
 
                                 <div className="col-lg-6 col-md-6">
                                     <div className="box">
-                                        <Icon.TrendingUp /> Stakers can choose featured campaigns
-                                    </div>
-                                </div>
-
-                                <div className="col-lg-6 col-md-6">
-                                    <div className="box">
-                                        <Icon.Folder /> Deflation with burning process
+                                        <ImFire size={25}/> Deflation with burning process
                                         <p style={{fontSize : 12, fontStyle: 'italic'}}>A part of each fee collected will be used to burn BBST.</p>
 
                                     </div>
                                 </div>
 
+
                                 <div className="col-lg-6 col-md-6">
                                     <div className="box">
-                                        <Icon.Monitor /> Eligibility to airdrops for stakers
+                                        <FiTrendingDown size={25}/> Reduced fees when raising in BBST
                                     </div>
                                 </div>
 
                                 <div className="col-lg-6 col-md-6">
                                     <div className="box">
-                                        <Icon.Mail /> Tips in BBST
+                                        <MdFavorite size={25}/> Stakers can choose featured campaigns
+                                    </div>
+                                </div>
+
+                              
+                                <div className="col-lg-6 col-md-6">
+                                    <div className="box">
+                                        <FiUserCheck size={25}/> Eligibility for airdrops (depending on your stake)
+                                    </div>
+                                </div>
+
+                           
+
+                                <div className="col-lg-6 col-md-6">
+                                    <div className="box">
+                                        <GiPayMoney size={25}/> Tip in BBST
                                         <p style={{fontSize : 12, fontStyle: 'italic'}}>Coming with tips.blockbooster</p>
                                     </div>
                                 </div>
 
                                 <div className="col-lg-6 col-md-6">
                                     <div className="box">
-                                        <Icon.Cloud /> Priority access to limited projects for stakers
+                                        <MdPriorityHigh size={25}/> Priority access to limited projects for stakers
                                         <p style={{fontSize : 12, fontStyle: 'italic'}}>Coming in the future</p>
                                     </div>
                                 </div>
@@ -277,25 +295,25 @@ const ServicesArea = () => {
 
                             <div className="row">
                                     <div className="box">
-                                        <Icon.Layout /> Total supply : 10 000 000 BBST
+                                       Total supply : 10 000 000 BBST
                                     </div>
                                     <div className="box">
-                                        <Icon.Layout /> Liquidity mining : 3 500 000 BBST
+                                        <GiMining size={27} /> Liquidity mining : 3 500 000 BBST
                                         <p style={{fontSize: 12, fontStyle: 'italic'}}>Users participating on the platform will earn BBST as cashback</p>
                                     </div>
                                     <div className="box">
-                                        <Icon.Layout /> Public sale token (IDO) : 3 000 000 BBST
+                                        <MdPublic size={27}/> Public sale (IDO) : 3 000 000 BBST
                                     </div>
                                     <div className="box">
-                                        <Icon.Layout /> Strategic Development : 1 700 000 BBST
+                                        <FiTrendingUp size={27} /> Strategic Development : 1 700 000 BBST
                                         <p style={{fontSize: 12, fontStyle: 'italic'}}>Half locked for 1 year, half locked for 2 years.</p>
                                     </div>
                                     <div className="box">
-                                        <Icon.Layout /> Team : 1 200 000 BBST
+                                        <RiTeamLine size={27} /> Team & Advisors: 1 200 000 BBST
                                         <p style={{fontSize: 12, fontStyle: 'italic'}}>Locked for 2 years</p>
                                     </div>
                                     <div className="box">
-                                        <Icon.Layout /> Liquidity Providing : 600 000 BBST
+                                        <FaExchangeAlt size={27}/> Liquidity Providing : 600 000 BBST
                                     </div>
 
                             </div>

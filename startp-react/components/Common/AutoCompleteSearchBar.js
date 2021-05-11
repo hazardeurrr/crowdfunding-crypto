@@ -60,7 +60,7 @@ const AutoCompleteSearchBar = () => {
         return `${title} ${user.username}`;
       }}
       filterSelectedOptions
-      style={{ width: 200, marginTop : -12, padding: 0}}
+      className="autocomplete"
       renderOption={(option) => <Link href={{
                                       pathname: "/Campaigns/[id]",
                                       query: {
