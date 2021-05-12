@@ -18,7 +18,7 @@ const ProfilePic = (props) => {
 
     const onError = (errors, files) => {   
         if(errors.resolution){
-            setSnackText("Wrong resolution. 16:9 expected")
+            setSnackText("Wrong resolution")
         } else if(errors.maxFileSize){
             setSnackText("File size exceeded the limit")
         } else {
@@ -56,9 +56,9 @@ const ProfilePic = (props) => {
             <ImageUploading
                 acceptType={['jpg', 'gif', 'png']}
                 maxFileSize={800e3}
-                resolutionType='ratio'
-                resolutionWidth={1280}
-                resolutionHeight={720}
+                resolutionType={props.ratio}
+                resolutionWidth={props.resolutionWidth}
+                resolutionHeight={props.resolutionHeight}
                 multiple="false"
                 value={images}
                 onChange={onChange}

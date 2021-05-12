@@ -15,7 +15,7 @@ import DatePicker from "./date-range";
 import Checkbox from '@material-ui/core/Checkbox';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import {db, storage} from '../../firebase-crowdfund/index';
-import {postHTMLPage} from '../../firebase-crowdfund/queries';
+import {postHTMLPage, postImage} from '../../firebase-crowdfund/queries';
 import "react-dates/lib/css/_datepicker.css";
 import categoryList from '@/utils/CategoryList';
 import { useSelector, useDispatch } from 'react-redux'
@@ -66,6 +66,7 @@ class MainForm extends React.Component {
         this.html = '';
         this.image = undefined;
     }
+
     displayCategories(){
         var rows = [];
         rows.push(<option key={0} value="---" >---</option>)
@@ -79,8 +80,8 @@ class MainForm extends React.Component {
 
     handleCampain = (event) => {
         event.preventDefault()
-        contract_address = '0x569854865654az9e8z5f6az6'
-        postHTMLImage('campaigns', this.html, contract_address)
+        let contract_address = '0x569854865654az9e8z5f6az7'
+        postHTMLPage('campaigns', this.html, contract_address)
         console.log(event)
         let offset = 2
         if (this.image === undefined) {
@@ -189,7 +190,7 @@ class MainForm extends React.Component {
                                     {this.state.titleError !== '' ? <p style={{color: 'red'}}>{this.state.titleError}</p>: null}
                                     <p><strong> Image Banner </strong><br/> Insert the best image for your project</p>
                                     <p>Size : max 800kb / Format : JPG, PNG or GIF / Resolution : 16:9 (ex: 1920x1080, 1280x720, 1024x576)</p>
-                                    <ProfilePic onImageChange={this.handleChangeImage.bind(this)}/>
+                                    <ProfilePic onImageChange={this.handleChangeImage.bind(this)} ratio="ratio" resolutionWidth={1920} resolutionHeight={1080} />
                                     <br></br>
                                     <p><strong> Fudraising Duration </strong><br/> Projects with shorter durations have higher success rates. You won’t be able to adjust your duration after you launch.</p>
                                     <div className="col-lg-12 col-md-12">

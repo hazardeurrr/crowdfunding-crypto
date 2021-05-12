@@ -1,131 +1,138 @@
 import React from 'react';
 import Link from 'next/link';
 import * as Icon from 'react-feather';
+import {db} from '../../firebase-crowdfund/index'
+import { FaTelegramPlane, FaMediumM } from 'react-icons/fa';
 
 const Footer = () => {
 
     const currentYear = new Date().getFullYear();
 
+    const handleSubmit = (event) => {
+        event.preventDefault()
+        console.log('in submit function')
+        console.log(event.target[0].value)
+        console.log(event)
+        const email = event.target[0].value
+        db.collection('newsletter').doc(firebase.database().ref().push().key).set({email: email}).then(x => {
+            console.log('document written with : ' + email)
+        }).catch(err => {
+            console.error(err)
+        })
+    }
+
     return (
         <footer className="footer-area bg-f7fafd">
             <div className="container">
-                <div className="row">
-                    <div className="col-lg-3 col-md-6">
+                <div className="row" style={{display: 'flex'}}>
+                    <div style={{flex: 2}}>
                         <div className="single-footer-widget">
-                            <div className="logo">
-                                <Link href="/it-startup">
-                                    <a>
-                                        <img src="/images/bb_logo_full.png" alt="logo" />
-                                    </a>
-                                </Link>
+                           
+                                <div className="free-trial-content" style={{marginRight: '20%'}}>
+                                                                             
+
+                                    <div className="logo">
+                                            <img src="/images/bb_logo_full.png" alt="logo" />
+                                        </div>
+
+                                
+                                <h5 >Get our latest news</h5>
+
+                                <form className="newsletter-form" onSubmit={handleSubmit} style={{marginTop: -3}}>
+                                    <input type="email" className="input-newsletter" placeholder="Email" />
+                                    <button type="submit">GO !</button>
+                                </form>
+
+                                <ul className="social-links" style={{marginTop: 15}}>
+                                            <li>
+                                                <Link href="https://twitter.com/blockboosted">
+                                                    <a className="twitter" target="_blank"><Icon.Twitter /></a>
+                                                </Link>
+                                            </li>
+                                            <li>
+                                                <Link href="https://twitter.com/blockboosted">
+                                                    <a className="linkedin" target="_blank"><FaTelegramPlane /></a>
+                                                </Link>
+                                            </li>
+                                            <li>
+                                                <Link href="https://medium.com/@blockboosted">
+                                                    <a className="instagram" target="_blank"><FaMediumM /></a>
+                                                </Link>
+                                            </li>
+                                            <li>
+                                                <Link href="https://twitter.com/blockboosted">
+                                                    <a className="facebook" target="_blank"><Icon.Facebook /></a>
+                                                </Link>
+                                            </li>
+                                        </ul>
+
                             </div>
-                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi.</p>
                         </div>
                     </div>
 
-                    <div className="col-lg-3 col-md-6">
+                    <div style={{flex: 1}}>
                         <div className="single-footer-widget pl-5">
-                            <h3>Company</h3>
+                            <h3>BlockBoosted</h3>
                             <ul className="list">
                                 <li>
-                                    <Link href="/about-1">
-                                        <a>About Us</a>
+                                    <Link href={{
+                                        pathname: "/SearchPage/",
+                                        query: {
+                                            id: "explore",
+                                        }
+                                    }}>
+                                        <a>Explore</a>
                                     </Link>
                                 </li>
                                 <li>
-                                    <Link href="/services-1">
-                                        <a>Services</a>
+                                    <Link href="/form-campaign">
+                                        <a>Create</a>
                                     </Link>
                                 </li>
                                 <li>
-                                    <Link href="/features">
-                                        <a>Features</a>
+                                    <Link href="/how-it-works">
+                                        <a>How it works</a>
                                     </Link>
                                 </li>
                                 <li>
-                                    <Link href="/pricing">
-                                        <a>Our Pricing</a>
-                                    </Link>
-                                </li>
-                                <li>
-                                    <Link href="/blog-1">
-                                        <a>Latest News</a>
+                                    <Link href="/token">
+                                        <a>BBST Token</a>
                                     </Link>
                                 </li>
                             </ul>
                         </div>
                     </div>
 
-                    <div className="col-lg-3 col-md-6">
+                    <div style={{flex: 1}}>
                         <div className="single-footer-widget">
-                            <h3>Support</h3>
+                            <h3>Community</h3>
                             <ul className="list">
                                 <li>
                                     <Link href="/faq">
-                                        <a>FAQ's</a>
+                                        <a>Discussion</a>
                                     </Link>
                                 </li>
                                 <li>
                                     <Link href="/privacy-policy">
-                                        <a>Privacy Policy</a>
+                                        <a>Vote</a>
                                     </Link>
                                 </li>
+                            </ul>
+                            <h3>About</h3>
+                            <ul>
                                 <li>
                                     <Link href="/term-condition">
                                         <a>Terms & Condition</a>
                                     </Link>
                                 </li>
                                 <li>
-                                    <Link href="/team">
-                                        <a>Team</a>
+                                    <Link href="/contact">
+                                        <a>Privacy policy</a>
                                     </Link>
                                 </li>
                                 <li>
                                     <Link href="/contact">
                                         <a>Contact Us</a>
-                                    </Link>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-
-                    <div className="col-lg-3 col-md-6">
-                        <div className="single-footer-widget">
-                            <h3>Address</h3>
-                            
-                            <ul className="footer-contact-info">
-                                <li> 
-                                    <Icon.MapPin />
-                                    27 Division St, New York, <br /> NY 10002, USA
-                                </li>
-                                <li>
-                                    <Icon.Mail />
-                                    Email: <a href="mailto:startp@gmail.com">startp@gmail.com</a>
-                                </li>
-                                <li> 
-                                    <Icon.PhoneCall />
-                                    Phone: <a href="tel:321984754">+ (321) 984 754</a>
-                                </li>
-                            </ul>
-                            <ul className="social-links">
-                                <li>
-                                    <Link href="#">
-                                        <a className="facebook" target="_blank"><Icon.Facebook /></a>
-                                    </Link>
-                                </li>
-                                <li>
-                                    <Link href="#">
-                                        <a className="twitter" target="_blank"><Icon.Twitter /></a>
-                                    </Link>
-                                </li>
-                                <li>
-                                    <Link href="#">
-                                        <a className="instagram" target="_blank"><Icon.Instagram /></a>
-                                    </Link>
-                                </li>
-                                <li>
-                                    <Link href="#">
-                                        <a className="linkedin" target="_blank"><Icon.Linkedin /></a>
                                     </Link>
                                 </li>
                             </ul>

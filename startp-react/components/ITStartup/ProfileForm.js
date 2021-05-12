@@ -130,7 +130,7 @@ const ProfileForm = (props) => {
                                 <p><strong> Profile Pic </strong><br/>Choose a profile picture to represent your account</p>
                                 <div className="col-lg-12 col-md-12">
                                     <div className="form-group">
-                                        <ProfilePic onImageChange={handleChangeImage}/>
+                                        <ProfilePic onImageChange={handleChangeImage} ratio="less" resolutionWidth={1920} resolutionHeight={1080} />
                                     </div>
                                 </div>
 
