@@ -9,6 +9,12 @@ import detectEthereumProvider from '@metamask/detect-provider';
 import { postDoc, getOne } from 'firebase-crowdfund/queries'
 import AutoCompleteSearchBar from "../Common/AutoCompleteSearchBar";
 import SearchIcon from '@material-ui/icons/Search';
+import Button from '@material-ui/core/Button';
+import Dialog from '@material-ui/core/Dialog';
+import DialogActions from '@material-ui/core/DialogActions';
+import DialogContent from '@material-ui/core/DialogContent';
+import DialogContentText from '@material-ui/core/DialogContentText';
+import DialogTitle from '@material-ui/core/DialogTitle';
 
 
 const Navbar = () => {
@@ -18,7 +24,18 @@ const Navbar = () => {
     const dispatch = useDispatch()
     const userAddr = useSelector((state) => state.address)
     const currentUser = useSelector((state) => state.currentUser)
+    const [providerDetected, setProviderDetected] = React.useState(false)
 
+    const [open, setOpen] = React.useState(false);
+
+    const handleClickOpen = () => {
+      setOpen(true);
+    };
+  
+    const handleClose = () => {
+      setOpen(false);
+    };
+  
  
     const toggleNavbar = () => {
         setMenu(!menu)
@@ -28,8 +45,11 @@ const Navbar = () => {
         const provider = await detectEthereumProvider();
 
         if (provider) {
+            setProviderDetected(true)
             startApp(provider); // Initialize your app
+            console.log('Provider found')
         } else {
+            setProviderDetected(false)
             console.log('Please install MetaMask!');
         }
     }
@@ -120,20 +140,25 @@ const Navbar = () => {
     }
 
     const connect = () => {
-        ethereum
-          .request({ method: 'eth_requestAccounts' })
-          .then((value) => {
-              handleAccountsChanged(value);
-        })
-          .catch((err) => {
-            if (err.code === 4001) {
-              // EIP-1193 userRejectedRequest error
-              // If this happens, the user rejected the connection request.
-              console.log('Please connect to MetaMask.');
-            } else {
-              console.error(err);
-            }
-          });
+        if(providerDetected){
+            ethereum
+            .request({ method: 'eth_requestAccounts' })
+            .then((value) => {
+                handleAccountsChanged(value);
+            })
+            .catch((err) => {
+                if (err.code === 4001) {
+                // EIP-1193 userRejectedRequest error
+                // If this happens, the user rejected the connection request.
+                console.log('Please connect to MetaMask.');
+                } else {
+                console.error(err);
+                }
+            });
+        } else {
+            console.log("Install Metamask.io")
+            handleClickOpen()
+        }
 
       }
 
@@ -227,6 +252,7 @@ const Navbar = () => {
     const classTwo = menu ? 'navbar-toggler navbar-toggler-right collapsed' : 'navbar-toggler navbar-toggler-right';
 
     return (
+        
         <header id="header" className="headroom">
             <div className="startp-nav">
                 <div className="container">
@@ -531,7 +557,20 @@ const Navbar = () => {
                                     </ul>
                                 </li> */}
 
-                              
+                                <Dialog
+                                    open={open}
+                                    onClose={handleClose}
+                                    aria-labelledby="alert-dialog-title"
+                                    aria-describedby="alert-dialog-description"
+                                >
+                                    <DialogTitle id="alert-dialog-title">{"You don't have Metamask !"}</DialogTitle>
+                                    <DialogContent>
+                                    <DialogContentText id="alert-dialog-description">
+                                        You need to have Metamask installed to access this feature. Metamask is a browser plugin that serves as an Ethereum Wallet.
+                                        <br></br><br></br>Please install it at <b><a target="_blank" href="https://metamask.io/download.html">metamask.io</a></b>.
+                                    </DialogContentText>
+                                    </DialogContent>
+                                </Dialog>
 
                                 <li className="nav-item">
                                 <Link href={"/how-it-works"} activeClassName="active">

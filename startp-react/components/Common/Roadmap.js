@@ -90,7 +90,7 @@ const Roadmap = () => {
                 <Typography variant="h6" component="h1">
                 Tip platform
                 </Typography>
-                <Typography>Beta version of tips.blockboosted.com : a 2nd platform on the Blockboosted ecosystem</Typography>
+                <Typography>Beta version of tip.blockboosted.com : a 2nd platform on the Blockboosted ecosystem</Typography>
                 <Typography>Permanent tip pages (with or without rewards) for content creators and charity organizations.</Typography>
 
             </div>
@@ -112,7 +112,7 @@ const Roadmap = () => {
                 <Typography variant="h6" component="h1">
                 Release of the tip platform
                 </Typography>
-                <Typography>Official launch of tips.blockboosted.com !</Typography>
+                <Typography>Official launch of tip.blockboosted.com !</Typography>
             </div>
             </TimelineContent>
         </TimelineItem>

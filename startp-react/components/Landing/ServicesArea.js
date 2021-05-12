@@ -12,7 +12,7 @@ import { FaExchangeAlt } from 'react-icons/fa';
 const ServicesArea = () => {
 
     const chartData = {
-        labels: ['Liquidity mining (cashback)', 'IDO', 'Strategic Development', 'Team & Advisors', 'Platform Liquidity Providing'],
+        labels: ['Platform Liquidity mining (cashback)', 'IDO', 'Strategic Development', 'Team & Advisors', 'Liquidity Providing'],
         datasets: [
           {
             label: '%',

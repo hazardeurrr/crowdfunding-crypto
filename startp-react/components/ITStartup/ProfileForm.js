@@ -73,7 +73,7 @@ const ProfileForm = (props) => {
 
     useEffect(() => {
         loadData()
-    }, [] )
+    }, [props.address] )
 
     return (
         <>
