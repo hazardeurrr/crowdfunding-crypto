@@ -26,22 +26,20 @@ const Footer = () => {
             <div className="container">
                 <div className="row" style={{display: 'flex'}}>
                     <div style={{flex: 2}}>
-                        <div className="single-footer-widget">
+                        <div className="single-footer-widget" style={{marginRight : '5%'}}>
                            
-                                <div className="free-trial-content" style={{marginRight: '20%'}}>
                                                                              
 
                                     <div className="logo">
-                                            <img src="/images/bb_logo_full.png" alt="logo" />
-                                        </div>
+                                <Link href="/it-startup">
+                                    <a>
+                                        <img src="/images/bb_logo_full.png" alt="logo" />
+                                    </a>
+                                </Link>
+                            </div>
+                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi.</p>
+                        
 
-                                
-                                <h5 >Get our latest news</h5>
-
-                                <form className="newsletter-form" onSubmit={handleSubmit} style={{marginTop: -3}}>
-                                    <input type="email" className="input-newsletter" placeholder="Email" />
-                                    <button type="submit">GO !</button>
-                                </form>
 
                                 <ul className="social-links" style={{marginTop: 15}}>
                                             <li>
@@ -66,7 +64,6 @@ const Footer = () => {
                                             </li>
                                         </ul>
 
-                            </div>
                         </div>
                     </div>
 
@@ -118,8 +115,10 @@ const Footer = () => {
                                     </Link>
                                 </li>
                             </ul>
+                        </div>
+                        <div className="single-footer-widget" style={{marginTop: 25}}>
                             <h3>About</h3>
-                            <ul>
+                            <ul className="list">
                                 <li>
                                     <Link href="/term-condition">
                                         <a>Terms & Condition</a>
@@ -140,6 +139,15 @@ const Footer = () => {
                     </div>
 
                     <div className="col-lg-12 col-md-12">
+                        <div className="free-trial-content">
+
+                            <h5 >Get our latest news</h5>
+
+                            <form className="newsletter-form" onSubmit={handleSubmit} style={{marginTop: -3}}>
+                                <input type="email" className="input-newsletter" placeholder="Email" />
+                                <button type="submit">GO !</button>
+                            </form>
+                        </div>
                         <div className="copyright-area">
                             <p>Copyright &copy; {currentYear} BlockBoosted. Made with <Icon.Heart /> by the BlockBoosted team</p>
                         </div>

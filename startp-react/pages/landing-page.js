@@ -10,7 +10,7 @@ import RecentWorks from "@/components/Common/RecentWorks";
 import PricingStyleOne from "@/components/PricingPlans/PricingStyleOne";
 import Feedback from "@/components/Common/Feedback";
 import BlogPost from "@/components/Common/BlogPost";
-import Footer from "@/components/_App/Footer";
+import Footer from "@/components/Landing/Footer";
 import CategoriesMainPage from "@/components/ITStartup/CategoriesMainPage";
 import CategoriesLight from "@/components/ITStartup/CategoriesLight";
 import ProjectGridMain from "@/components/ITStartup/ProjectGridMain";

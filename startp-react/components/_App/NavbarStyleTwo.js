@@ -70,11 +70,9 @@ const NavbarStyleTwo = () => {
                                     </Link>
                                 </li>
                                 <li className="nav-item">
-                                    <Link href="#">
-                                        <a onClick={e => e.preventDefault()} className="nav-link">
+                                        <a href="#roadmap"onClick={e => e.preventDefault()} className="nav-link">
                                             Roadmap
                                         </a>
-                                    </Link>
                                 </li>
                             </ul>
                         </div>
