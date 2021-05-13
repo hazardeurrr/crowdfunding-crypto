@@ -39,11 +39,6 @@ const Footer = () => {
                                                    <a className="instagram" target="_blank"><FaMediumM /></a>
                                                </Link>
                                            </li>
-                                           <li>
-                                               <Link href="https://twitter.com/blockboosted">
-                                                   <a className="facebook" target="_blank"><Icon.Facebook /></a>
-                                               </Link>
-                                           </li>
                            </ul>
                             
                             <p style={{marginTop: 15}}>Copyright &copy; {currentYear} BlockBoosted. Made with <Icon.Heart /> by the BlockBoosted team</p>

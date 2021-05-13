@@ -34,7 +34,7 @@ const Roadmap = () => {
         <TimelineItem>
             <TimelineOppositeContent>
             <Typography variant="body2" color="textSecondary">
-                Q3 2021
+                Q4 2020
             </Typography>
             </TimelineOppositeContent>
             <TimelineSeparator>
@@ -48,14 +48,14 @@ const Roadmap = () => {
                 <Typography variant="h6" component="h1">
                 Project Initialization
                 </Typography>
-                <Typography>Beta-test of the platform V1 and IDO of our token BBST</Typography>
+                <Typography>Conceptualisation and early development</Typography>
             </div>
             </TimelineContent>
         </TimelineItem>
         <TimelineItem>
             <TimelineOppositeContent>
             <Typography variant="body2" color="textSecondary" >
-                Q4 2021
+                Q1 2021
             </Typography>
             </TimelineOppositeContent>
             <TimelineSeparator>
@@ -67,17 +67,109 @@ const Roadmap = () => {
             <TimelineContent>
             <div style={{padding: '10px', width: 'fit-content',display: 'inline-block', boxShadow: '0 2px 48px 0 rgb(0 0 0 / 8%)'}}>
                 <Typography variant="h6" component="h1">
-                    Launch
+                    Development
                 </Typography>
-                <Typography>Launch of the platform !</Typography>
+                <Typography>Development of the platform and smart contracts</Typography>
+            </div>
+            </TimelineContent>
+        </TimelineItem>
+
+        <TimelineItem>
+        <TimelineOppositeContent>
+            <Typography variant="body2" color="textSecondary">
+                Q2 2021
+            </Typography>
+            
+            </TimelineOppositeContent>
+            <TimelineSeparator>
+            <TimelineDot >
+        
+            </TimelineDot>
+            <TimelineConnector  />
+            </TimelineSeparator>
+            <TimelineContent>
+            <div style={{padding: '10px', width: 'fit-content',display: 'inline-block', boxShadow: '0 2px 48px 0 rgb(0 0 0 / 8%)'}}>
+                <Typography variant="h6" component="h1">
+                    
+                </Typography>
+                <Typography></Typography>
+            </div>
+            </TimelineContent>
+        </TimelineItem>
+
+        <TimelineItem>
+            <TimelineOppositeContent>
+            <Typography variant="body2" color="textSecondary" >
+                Q3 2021
+            </Typography>
+            </TimelineOppositeContent>
+            <TimelineSeparator>
+            <TimelineDot>
+        
+            </TimelineDot>
+            <TimelineConnector />
+            </TimelineSeparator>
+            <TimelineContent>
+            <div style={{padding: '10px', width: 'fit-content',display: 'inline-block', boxShadow: '0 2px 48px 0 rgb(0 0 0 / 8%)'}}>
+                <Typography variant="h6" component="h1">
+                    IDO
+                </Typography>
+                <Typography>BBST Token Sale</Typography>
+            </div>
+            </TimelineContent>
+        </TimelineItem>
+
+        <TimelineItem>
+        <TimelineOppositeContent>
+            <Typography variant="body2" color="textSecondary">
+                Q4 2021
+            </Typography>
+            
+            </TimelineOppositeContent>
+            <TimelineSeparator>
+            <TimelineDot >
+        
+            </TimelineDot>
+            <TimelineConnector  />
+            </TimelineSeparator>
+            <TimelineContent>
+            <div  style={{padding: '10px', width: 'fit-content', boxShadow: '0 2px 48px 0 rgb(0 0 0 / 8%)'}}>
+                <Typography variant="h6" component="h1">
+                Alpha
+                </Typography>
+                <Typography>Alpha of the platform on Testnet</Typography>
+
             </div>
             </TimelineContent>
         </TimelineItem>
         <TimelineItem>
-        <TimelineOppositeContent>
-            <Typography variant="body2" color="textSecondary">
+            <TimelineOppositeContent>
+            <Typography variant="body2" color="textSecondary" >
                 Q1 2022
             </Typography>
+            </TimelineOppositeContent>
+            <TimelineSeparator>
+            <TimelineDot>
+        
+            </TimelineDot>
+            <TimelineConnector />
+            </TimelineSeparator>
+            <TimelineContent>
+            <div style={{padding: '10px', width: 'fit-content',display: 'inline-block', boxShadow: '0 2px 48px 0 rgb(0 0 0 / 8%)'}}>
+                <Typography variant="h6" component="h1">
+                    V1
+                </Typography>
+                <Typography>Release of V1 on Mainnet</Typography>
+            </div>
+            </TimelineContent>
+        </TimelineItem>
+
+        <TimelineItem>
+        <TimelineOppositeContent>
+            <Typography variant="body2" color="textSecondary">
+                Q2 2022 & More
+            </Typography>
+            
             </TimelineOppositeContent>
             <TimelineSeparator>
             <TimelineDot >
@@ -90,32 +182,15 @@ const Roadmap = () => {
                 <Typography variant="h6" component="h1">
                 Tip platform
                 </Typography>
-                <Typography>Beta version of tip.blockboosted.com : a 2nd platform on the Blockboosted ecosystem</Typography>
-                <Typography>Permanent tip pages (with or without rewards) for content creators and charity organizations.</Typography>
+                <Typography>A 2nd platform powered by BBST on the BlockBoosted ecosystem.</Typography>
+                <Typography variant ='subtitle1'>Permanent tip pages for content creators and organizations.</Typography>
 
             </div>
             </TimelineContent>
         </TimelineItem>
-        <TimelineItem>
-        <TimelineOppositeContent>
-            <Typography variant="body2" color="textSecondary">
-                Q2 2022
-            </Typography>
-            </TimelineOppositeContent>
-            <TimelineSeparator>
-            <TimelineDot >
+       
+           
         
-            </TimelineDot>
-            </TimelineSeparator>
-            <TimelineContent>
-            <div  style={{padding: '10px', width: 'fit-content',display: 'inline-block', boxShadow: '0 2px 48px 0 rgb(0 0 0 / 8%)'}}>
-                <Typography variant="h6" component="h1">
-                Release of the tip platform
-                </Typography>
-                <Typography>Official launch of tip.blockboosted.com !</Typography>
-            </div>
-            </TimelineContent>
-        </TimelineItem>
         </Timeline>
       </div>
     )

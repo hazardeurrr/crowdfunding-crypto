@@ -27,7 +27,7 @@ const LandingPage = () => {
         <>
             <NavbarStyleTwo />
             <MainBanner />
-            <Partner />
+            {/* <Partner /> */}
             <OurFeatures />
             <ServicesArea />
             <Roadmap />

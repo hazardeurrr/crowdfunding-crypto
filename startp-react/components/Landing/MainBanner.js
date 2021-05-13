@@ -47,11 +47,7 @@ const MainBanner = () => {
                                                 <a className="instagram" target="_blank"><FaMediumM /></a>
                                             </Link>
                                         </li>
-                                        <li>
-                                            <Link href="https://twitter.com/blockboosted">
-                                                <a className="facebook" target="_blank"><Icon.Facebook /></a>
-                                            </Link>
-                                        </li>
+                                      
                                     </ul>
                                   </div>
                                 <br></br>

@@ -54,7 +54,7 @@ const NavbarStyleTwo = () => {
                         </button>
 
                         <div className={classOne} id="navbarSupportedContent">
-                            <ul className="navbar-nav ms-auto">
+                            {/* <ul className="navbar-nav ms-auto">
                                 <li className="nav-item">
                                     <Link href="#">
                                         <a onClick={e => e.preventDefault()} className="nav-link">
@@ -74,7 +74,7 @@ const NavbarStyleTwo = () => {
                                             Roadmap
                                         </a>
                                 </li>
-                            </ul>
+                            </ul> */}
                         </div>
 
 
@@ -98,11 +98,7 @@ const NavbarStyleTwo = () => {
                                             <a className="instagram" target="_blank"><FaMediumM /></a>
                                         </Link>
                                     </li>
-                                    <li>
-                                        <Link href="https://twitter.com/blockboosted">
-                                            <a className="facebook" target="_blank"><Icon.Facebook /></a>
-                                        </Link>
-                                    </li>
+                                  
                                 </ul>
                             </div>
 						</div>

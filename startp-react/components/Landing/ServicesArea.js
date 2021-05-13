@@ -47,7 +47,7 @@ const ServicesArea = () => {
                             <div className="section-title">
                                 <h2>BBST Token</h2>
                                 <div className="bar"></div>
-                                <p>The BlockBoosted Token (BBST) is at the heart of the BlockBoosted ecosystem. We will launch our IDO in Q3 2021 and the token will then be available on Uniswap.
+                                <p>The BlockBoosted Token (BBST) is at the heart of the BlockBoosted ecosystem. The token is an ERC20 on the Ethereum blockchain.<br></br>We will launch our IDO in Q3 2021 and the token will then be available on Uniswap.
                                     Here are some use cases and property of the token, many more coming with the expansion of the ecosystem.
                                 </p>
                             </div>
@@ -281,8 +281,8 @@ const ServicesArea = () => {
                                 className="animate__animated animate__fadeInUp animate__delay-0.2s" 
                                 alt="main-pic"
                             /> */}
-                            <div style={{marginTop: 150, marginBottom: 100, marginRight: 100, marginLeft: 100}}>         
-                                <Doughnut data={chartData} />
+                            <div style={{marginTop: '5%', marginBottom: '5%', marginRight: '5%', marginLeft: '5%'}}>         
+                                <Doughnut options={{ responsive: true }} data={chartData} />
                             </div>
 
                         </div>
@@ -295,25 +295,25 @@ const ServicesArea = () => {
 
                             <div className="row">
                                     <div className="box">
-                                       Total supply : 10 000 000 BBST
+                                       Total supply : 20 000 000 BBST
                                     </div>
                                     <div className="box">
-                                        <GiMining size={27} /> Platform Liquidity Mining : 3 500 000 BBST
+                                        <GiMining size={27} /> Platform Liquidity Mining : 7 000 000 BBST
                                         <p style={{fontSize: 12, fontStyle: 'italic'}}>Users participating on the platform will earn BBST as cashback</p>
                                     </div>
                                     <div className="box">
-                                        <MdPublic size={27}/> Public Sale (IDO) : 3 000 000 BBST
+                                        <MdPublic size={27}/> Public Sale (IDO) : 6 000 000 BBST
                                     </div>
                                     <div className="box">
-                                        <FiTrendingUp size={27} /> Strategic Development : 1 700 000 BBST
+                                        <FiTrendingUp size={27} /> Strategic Development : 3 400 000 BBST
                                         <p style={{fontSize: 12, fontStyle: 'italic'}}>Half locked for 1 year, half locked for 2 years.</p>
                                     </div>
                                     <div className="box">
-                                        <RiTeamLine size={27} /> Team & Advisors: 1 200 000 BBST
+                                        <RiTeamLine size={27} /> Team & Advisors: 2 400 000 BBST
                                         <p style={{fontSize: 12, fontStyle: 'italic'}}>Locked for 2 years</p>
                                     </div>
                                     <div className="box">
-                                        <FaExchangeAlt size={27}/> Liquidity Providing : 600 000 BBST
+                                        <FaExchangeAlt size={27}/> Liquidity Providing : 1 200 000 BBST
                                     </div>
 
                             </div>

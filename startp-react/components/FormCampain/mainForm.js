@@ -97,14 +97,15 @@ class MainForm extends React.Component {
             raisingMethod = 'ETH'
         }
         let tiersInfos = []
-        if (event.target[116].value > 0) {
-            for (var i = 0; i < event.target[116].value; i++) {
+        if (event.target[16].value > 0) {
+            for (var i = 0; i < event.target[16].value; i++) {
                 tiersInfos.push({
-                    title: event.target[117 + i].value,
-                    threshold: event.target[118 + i].value,
-                    description: event.target[119 + i].value
+                    title: event.target[17 + i].value,
+                    threshold: event.target[18 + i].value,
+                    description: event.target[19 + i].value
                 })
             }
+            console.log(tierInfos)
         }
 
         let cats = []
@@ -115,8 +116,8 @@ class MainForm extends React.Component {
             cats.push(event.target[9].value)
         }
         let flexibleChecked = null
-        if(event.target[114].checked !== undefined) {
-            flexibleChecked = event.target[114].checked
+        if(event.target[14].checked !== undefined) {
+            flexibleChecked = event.target[14].checked
         }
         
         const campainInfos = {
