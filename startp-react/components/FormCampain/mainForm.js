@@ -40,6 +40,7 @@ import PreviewCampaign from 'pages/PreviewCampaign';
 
 
 class MainForm extends React.Component {
+    
 
     constructor(props){
         super(props);
