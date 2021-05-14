@@ -11,6 +11,7 @@ import {
     AccordionItemPanel,
     AccordionItemButton
 } from 'react-accessible-accordion';
+import CardToken from '@/components/Common/CardToken';
 
 
 
@@ -20,16 +21,26 @@ const TokenDetails = () => {
         <>
             <Navbar />
 
-            <PageBanner pageTitle="Our Token" />
+            <PageBanner pageTitle="BBST Token" />
             
-            <div style={{margin: '0 auto', textAlign: 'center'}}>
+            {/* <div style={{margin: '0 auto', textAlign: 'center'}}>
                 <form>
                     <div style={{margin: '0 auto', display: 'inline-flex'}}>
                         <input type="text" placeholder="ETH Address" className="form-control" id="eth_address" style={{ margin: "10px", width: "30%"}}/>
                         <button className="btn btn-primary" type="submit" style={{width: "inherit", padding: 0}}>Claim Airdrop!</button>
                     </div>
                 </form>
-            </div>
+            </div> */}
+           <div className="features-area pt-80 bg-f7fafd">
+                    <div className="container">
+                        <div className="section-title">
+                            <h2 className="search-page-title">Claim your tokens</h2>
+                            <div className="bar"></div>
+                            <p>Contribute to campaigns to earn BBST</p>
+                            <CardToken style={{marginTop: 80}}/>
+                        </div>
+                    </div>
+                </div>
 
             <div className="services-details-area ptb-80">
                 <div className="container">

@@ -94,7 +94,7 @@ const displayTitle = () => {
 
 const displayProgressBar = () => {
     if(end_date > now && start_date < now){
-        return <ProgressBar animated variant="success"  now={pct} label={`${pct}%`}/>
+        return <ProgressBar animated variant="green"  now={pct} label={`${pct}%`}/>
     } else {
         return <ProgressBar  variant="down"  now={pct} label={`${pct}%`}/>
     }

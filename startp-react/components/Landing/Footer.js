@@ -21,7 +21,7 @@ const Footer = () => {
                            
                         <div className="copyright-area">
                         <div className="logo">
-                                        <img src="/images/bb_logo_full.png" alt="logo" />
+                                        <img src="/images/bb_logo_full_2.png" alt="logo" />
                             </div>
                            <ul className="social-links">
                                             <li>

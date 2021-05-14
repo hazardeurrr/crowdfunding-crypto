@@ -10683,6 +10683,10 @@ Go Top CSS
   background-color: grey;
 }
 
+.bg-green {
+  background-color: #42BC62;
+}
+
 .share-icon {
   margin-right: 3px;
 }

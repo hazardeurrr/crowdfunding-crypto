@@ -259,7 +259,7 @@ const Navbar = () => {
                     <nav className="navbar navbar-expand-md navbar-light">
                         <Link href="/it-startup">
                             <a onClick={toggleNavbar} className="navbar-brand">
-                                <img src="/images/bb_logo_full.png" alt="logo" />
+                                <img src="/images/bb_logo_full_2.png" alt="logo" />
                             </a>
                         </Link>
 
