@@ -26,7 +26,7 @@ const MainBanner = () => {
                     <div className="col-lg-6 col-md-12">
                         <div className="ml-banner-content">
                             <h1>Crowdfunding reinvented with BlockBoosted !</h1>
-                            <p>BlockBoosted is an innovative crodfunding ecosystem using the Ethereum Blockchain ! Less fees, more trust, better user experience and cashback for contributors.</p>
+                            <p>BlockBoosted is an innovative crowdfunding ecosystem using the Ethereum Blockchain ! Less fees, more trust, better user experience and cashback for contributors.</p>
 
                               <div className="free-trial-content">
                                 <div className="single-footer-widget">
