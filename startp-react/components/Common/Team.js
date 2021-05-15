@@ -56,8 +56,8 @@ const Team = () => {
                     <div className="team-content">
                         <div className="team-info">
                             <h3>Thibault Drouot</h3>
-                            <span>CEO & Co-founder</span><br></br>
-                            <span>Engineer and entrepreneur</span>
+                            <span>CEO</span><br></br>
+                            <span>Engineer & Entrepreneur</span>
                         </div>
 
                         {/* <ul>
@@ -96,7 +96,7 @@ const Team = () => {
                     <div className="team-content">
                         <div className="team-info">
                             <h3>Hugo Deroche</h3>
-                            <span>Co-founder</span><br></br>
+                            {/* <span>Co-founder</span><br></br> */}
                             <span>Engineer</span>
                         </div>
 
@@ -136,7 +136,7 @@ const Team = () => {
                     <div className="team-content">
                         <div className="team-info">
                             <h3>Malcolm Etoundi</h3>
-                            <span>Co-founder</span><br></br>
+                            {/* <span>Co-founder</span><br></br> */}
                             <span>Engineer</span>
                         </div>
 
