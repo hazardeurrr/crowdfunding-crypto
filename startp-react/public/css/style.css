@@ -8634,6 +8634,17 @@ ML Main Banner CSS
   position: relative;
   width: 100%;
   height: 100%;
+  top: -170px;
+}
+
+.ml-banner-image img {
+  position: absolute;
+}
+
+/*.ml-banner-image {
+  position: relative;
+  width: 100%;
+  height: 100%;
   top: 140px;
 }
 
@@ -8705,7 +8716,7 @@ ML Main Banner CSS
 
 .ml-banner-image img:nth-child(12) {
   display: none;
-}
+} */
 
 /*================================================
 ML Partner CSS

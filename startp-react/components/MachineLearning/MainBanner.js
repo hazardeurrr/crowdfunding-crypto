@@ -27,7 +27,7 @@ const MainBanner = () => {
 
                     <div className="col-lg-6 col-md-12">
                         <div className="ml-banner-image">
-                            <img 
+                            {/* <img 
                                 src="/images/ml-banner-image/one.png" 
                                 className="animate__animated animate__fadeIn animate__delay-2s" 
                                 alt="image" 
@@ -94,10 +94,33 @@ const MainBanner = () => {
                             />
                     
                             <img 
-                                src="/images/ml-banner-image/ml-main-pic.png" 
+                                src="/images/ml-banner-image/ml-main-pic-2.png" 
                                 className="animate__animated animate__fadeInUp animate__delay-0.5s" 
                                 alt="image" 
+                            /> */}
+
+                            <img 
+                                src="/images/ml-banner-image/man.png" 
+                                className="animate__animated animate__fadeInDown animate__delay-0.3s" 
+                                alt="image" 
                             />
+                        
+                            <img 
+                                src="/images/ml-banner-image/blockchain.png" 
+                                className="animate__animated animate__fadeInUp animate__delay-0.6s" 
+                                alt="image" 
+                            />
+                    
+                            <img 
+                                src="/images/ml-banner-image/piggyandgraph.png" 
+                                className="animate__animated animate__fadeInDown animate__delay-1s" 
+                                alt="image" 
+                            />
+                    
+                        
+                        
+
+                           
                         </div>
                     </div>
                 </div>
