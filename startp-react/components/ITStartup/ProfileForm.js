@@ -85,7 +85,8 @@ const ProfileForm = (props) => {
                         <p>Customize your profile here.</p>
                     </div>
 
-                    <button onClick={showAddress}>Show address</button>
+                    {/* <button onClick={showAddress}>Show address</button>
+                     */}
 
                     <div className="faq-contact">
                         <h3>Complete the information about your profile</h3>

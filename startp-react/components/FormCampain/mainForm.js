@@ -81,7 +81,7 @@ class MainForm extends React.Component {
 
     handleCampain = (event) => {
         event.preventDefault()
-        let contract_address = '0x569854865654az9e8z5f6az7'
+        let contract_address = '0x569854865654az9e8z5f6az9azioje'
         postHTMLPage('campaigns', this.html, contract_address)
         console.log(event)
         let offset = 2

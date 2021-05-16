@@ -10,7 +10,7 @@ const MainBanner = () => {
                         <div className="ml-banner-content">
                             <h1>A new way to raise funds</h1>
                            
-                                <p><h5>Crowdfunding reinvented.</h5>Less fees, more trust, cashback for contributors in BBST, community based.
+                                <p><h5>Crowdfunding reinvented.</h5>Less fees, more trust, community based.<br></br>Earn <Link href="/token"><a>BBST</a></Link> while supporting great projects !
                                 <br></br>Raise and contribute easily in crypto thanks to the Ethereum blockchain.</p>
 
                             <Link href="/form-campaign">

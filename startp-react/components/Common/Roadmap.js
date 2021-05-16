@@ -180,10 +180,9 @@ const Roadmap = () => {
             <TimelineContent>
             <div  style={{padding: '10px', width: 'fit-content', boxShadow: '0 2px 48px 0 rgb(0 0 0 / 8%)'}}>
                 <Typography variant="h6" component="h1">
-                Tip platform
+                Improvement and expansion
                 </Typography>
-                <Typography>A 2nd platform powered by BBST on the BlockBoosted ecosystem.</Typography>
-                <Typography variant ='subtitle1'>Permanent tip pages for content creators and organizations.</Typography>
+                <Typography>Improvement of the platform and expansion of the BlockBoosted ecosystem with another one powered by BBST...</Typography>
 
             </div>
             </TimelineContent>

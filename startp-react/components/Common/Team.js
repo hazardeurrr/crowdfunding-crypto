@@ -56,8 +56,7 @@ const Team = () => {
                     <div className="team-content">
                         <div className="team-info">
                             <h3>Thibault Drouot</h3>
-                            <span>CEO</span><br></br>
-                            <span>Engineer & Entrepreneur</span>
+                            <span>Engineer</span>
                         </div>
 
                         {/* <ul>

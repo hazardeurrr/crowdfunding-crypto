@@ -104,12 +104,12 @@ const ServicesArea = () => {
 
                            
 
-                                <div className="col-lg-6 col-md-6">
+                                {/* <div className="col-lg-6 col-md-6">
                                     <div className="box">
                                         <GiPayMoney size={25}/> Tip in BBST
                                         <p style={{fontSize : 12, fontStyle: 'italic'}}>Coming with tip.blockboosted</p>
                                     </div>
-                                </div>
+                                </div> */}
 
                                 <div className="col-lg-6 col-md-6">
                                     <div className="box">
@@ -117,6 +117,8 @@ const ServicesArea = () => {
                                         <p style={{fontSize : 12, fontStyle: 'italic'}}>Coming in the future</p>
                                     </div>
                                 </div>
+
+                    
                             </div>
                         </div>
 
@@ -208,7 +210,7 @@ const ServicesArea = () => {
                             />
                          
                             <img 
-                                src="/images/services-right-image/service-right-main-pic.png"
+                                src="/images/bbst_img.png"
                                 className="animate__animated animate__fadeInUp animate__delay-0.2s" 
                                 alt="main-pic"
                             />

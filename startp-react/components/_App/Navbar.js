@@ -573,6 +573,12 @@ const Navbar = () => {
                                 </Dialog>
 
                                 <li className="nav-item">
+                                <Link href={"/token"} activeClassName="active">
+                                        <a onClick={toggleNavbar} className="nav-link">BBST Token</a>
+                                    </Link>
+                                </li>
+
+                                <li className="nav-item">
                                 <Link href={"/how-it-works"} activeClassName="active">
                                         <a onClick={toggleNavbar} className="nav-link">How it works</a>
                                     </Link>

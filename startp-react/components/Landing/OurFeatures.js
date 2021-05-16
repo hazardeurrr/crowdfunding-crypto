@@ -28,7 +28,7 @@ const OurFeatures = () => {
                             <p><b>We charge 1% fee.</b><em style={{fontSize: 10}}>*</em> And for good reasons.<em style={{fontSize: 10}}>**</em><br></br>
                             <i style={{fontSize: 13}}>Crowdfunding platforms usually charge a 5% platform fee.</i></p>
                             <p style={{fontSize: 10, marginTop: 20}}>*1% for campaigns in BBST, 2.5% for successfuls campaigns in ETH and USDT</p>
-                            <p style={{fontSize: 10, marginTop: -15}}>**How do we split the fee : 20% for community fund (insurance & airdrops), 15% for BBST burning, 65% to pay our fixed costs.</p>
+                            <p style={{fontSize: 10, marginTop: -15}}>**How do we split the fee : 20% going into community fund (insurance & airdrops), 15% for BBST burning, 65% to pay our fixed costs.</p>
 
                         </div>
                     </div>
@@ -92,7 +92,7 @@ const OurFeatures = () => {
                             <h3>
                                     Easy to use
                             </h3>
-                            <p>Create a campaign in less than 2 minutes and start raising funds ! Share your campaign to your social media in 1 click !</p>
+                            <p>Create a campaign in less than 5 minutes and start raising funds ! Contribute to any project in 2-clicks.</p>
                         </div>
                     </div>
 

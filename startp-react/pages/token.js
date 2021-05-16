@@ -31,12 +31,12 @@ const TokenDetails = () => {
                     </div>
                 </form>
             </div> */}
-           <div className="features-area pt-80 bg-f7fafd">
+           <div className="features-area pt-80 bg-f7fafd" style={{marginTop: -100}}>
                     <div className="container">
                         <div className="section-title">
                             <h2 className="search-page-title">Claim your tokens</h2>
                             <div className="bar"></div>
-                            <p>Contribute to campaigns to earn BBST</p>
+                            <p>Contribute to campaigns to earn BBST.</p>
                             <CardToken style={{marginTop: 80}}/>
                         </div>
                     </div>
