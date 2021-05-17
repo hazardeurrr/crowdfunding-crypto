@@ -119,9 +119,11 @@ class MainForm extends React.Component {
             cats.push(event.target[9].value)
         }
         let flexibleChecked = null
-        if(event.target[14].checked !== undefined) {
-            flexibleChecked = event.target[14].checked
-        }
+        // if(event.target[14].checked != undefined) {
+        //     flexibleChecked = event.target[14].checked
+        // }
+
+        
         
         const campainInfos = {
             title: event.target[0].value,
@@ -295,7 +297,7 @@ class MainForm extends React.Component {
                                         <div className="form-check">
                                         <FormControlLabel
                                             value="end"
-                                            control={<Checkbox color="primary" />}
+                                            control={<Checkbox color="primary" onChange={(event) => console.log(event.target[14][0].value)}/>}
                                             label="Goal has to be reached ?"
                                             labelPlacement="end"
                                             id='goal'
