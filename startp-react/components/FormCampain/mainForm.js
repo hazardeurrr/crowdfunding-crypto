@@ -81,7 +81,7 @@ class MainForm extends React.Component {
 
     handleCampain = (event) => {
         event.preventDefault()
-        let contract_address = '0x569854865654az9e8z5f6az9azioje'
+        let contract_address = '0x569854865654az9e8z5f6az9azior'
         postHTMLPage('campaigns', this.html, contract_address)
         console.log(event)
         let offset = 2
@@ -93,9 +93,11 @@ class MainForm extends React.Component {
         let raisingMethod;
         if (event.target[8 + offset].checked === true) {
             raisingMethod = 'USDT'
+            console.log(raisingMethod)
         }
         else if (event.target[9 + offset].checked === true) {
             raisingMethod = 'ETH'
+            console.log(raisingMethod)
         }
         let tiersInfos = []
         if (event.target[16].value > 0) {
