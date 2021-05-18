@@ -1753,6 +1753,18 @@ Services CSS
   color: #ffffff;
 }
 
+.services-right-image-re {
+  position: relative;
+
+}
+
+.services-right-image-re img{
+  position: absolute;
+  top: -150px;
+}
+
+
+
 .services-right-image {
   position: relative;
 }
@@ -1762,8 +1774,8 @@ Services CSS
 }
 
 .services-right-image img:nth-child(1) {
-  left: 22%;
-  top: -85px;
+  left: 2%;
+  top: -160px;
   z-index: 1;
 }
 

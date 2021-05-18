@@ -60,12 +60,14 @@ class MainForm extends React.Component {
             objective: null,
             objectiveError: '',
             modal: false,
-            html:''
+            html:'',
+            open: false
         }
         this.tiers = [];
         this.tiersArray = [];
         this.html = '';
         this.image = undefined;
+        this.objective = false;
     }
 
     displayCategories(){
@@ -99,7 +101,9 @@ class MainForm extends React.Component {
             raisingMethod = 'ETH'
             console.log(raisingMethod)
         }
+
         let tiersInfos = []
+        console.log(event.target[16].value)
         if (event.target[16].value > 0) {
             for (var i = 0; i < event.target[16].value; i++) {
                 tiersInfos.push({
@@ -118,7 +122,8 @@ class MainForm extends React.Component {
         if (event.target[9].value !== '---') {
             cats.push(event.target[9].value)
         }
-        let flexibleChecked = null
+
+        let flexibleChecked = this.objective
         // if(event.target[14].checked != undefined) {
         //     flexibleChecked = event.target[14].checked
         // }
@@ -297,7 +302,7 @@ class MainForm extends React.Component {
                                         <div className="form-check">
                                         <FormControlLabel
                                             value="end"
-                                            control={<Checkbox color="primary" onChange={(event) => console.log(event.target[14][0].value)}/>}
+                                            control={<Checkbox color="primary" onChange={(event) => this.objective = event.target.checked }/>}
                                             label="Goal has to be reached ?"
                                             labelPlacement="end"
                                             id='goal'

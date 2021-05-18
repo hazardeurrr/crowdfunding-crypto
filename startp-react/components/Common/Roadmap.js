@@ -182,7 +182,7 @@ const Roadmap = () => {
                 <Typography variant="h6" component="h1">
                 Improvement and expansion
                 </Typography>
-                <Typography>Improvement of the platform and expansion of the BlockBoosted ecosystem with another one powered by BBST...</Typography>
+                <Typography>Improvement of the platform and expansion of the BlockBoosted ecosystem...</Typography>
 
             </div>
             </TimelineContent>

@@ -43,7 +43,6 @@ class Tiers extends React.Component {
                                 </div>
 
                                 <p>
-                                <br/>
                                 Amount :
                                 </p>
                                 <div className="col-lg-12 col-md-12">
