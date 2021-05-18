@@ -67,7 +67,8 @@ class MainForm extends React.Component {
         this.tiersArray = [];
         this.html = '';
         this.image = undefined;
-        this.objective = false;
+        this.flexible = false;
+        this.title = undefined;
     }
 
     displayCategories(){
@@ -81,54 +82,52 @@ class MainForm extends React.Component {
     }
     
 
-    handleCampain = (event) => {
+    handleCampaign = (event) => {
         event.preventDefault()
-        let contract_address = '0x569854865654az9e8z5f6az9azior'
+        let contract_address = '0x569854865654az9e8z5f6azziotr'
         postHTMLPage('campaigns', this.html, contract_address)
         console.log(event)
-        let offset = 2
+        let offset = 0
         if (this.image === undefined) {
             this.image = null
         } else {
             offset = 2
         }
+        console.log(event.target.getAttribute('usdt'))    
+
         let raisingMethod;
         if (event.target[8 + offset].checked === true) {
             raisingMethod = 'USDT'
-            console.log(raisingMethod)
         }
         else if (event.target[9 + offset].checked === true) {
             raisingMethod = 'ETH'
-            console.log(raisingMethod)
         }
 
         let tiersInfos = []
-        console.log(event.target[16].value)
-        if (event.target[16].value > 0) {
-            for (var i = 0; i < event.target[16].value; i++) {
+        if (event.target[110 + offset].value > 0) {
+            for (var i = 0; i < event.target[110 + offset].value; i++) {
                 tiersInfos.push({
-                    title: event.target[17 + i].value,
-                    threshold: event.target[18 + i].value,
-                    description: event.target[19 + i].value
+                    title: event.target[111 + i + offset].value,
+                    threshold: parseInt(event.target[112 + i + offset].value),
+                    description: event.target[113 + i + offset].value
                 })
             }
-            console.log(tierInfos)
         }
 
         let cats = []
-        if (event.target[8].value !== '---') {
-            cats.push(event.target[8].value)
+        if (event.target[6+offset].value !== '---') {
+            console.log(event.target[6+offset].value)
+            cats.push(event.target[6+offset].value)
         }
-        if (event.target[9].value !== '---') {
-            cats.push(event.target[9].value)
+        if (event.target[7 + offset].value !== '---') {
+            cats.push(event.target[7 + offset].value)
         }
 
-        let flexibleChecked = this.objective
+        let flexibleChecked = this.flexible
         // if(event.target[14].checked != undefined) {
         //     flexibleChecked = event.target[14].checked
         // }
 
-        
         
         const campainInfos = {
             title: event.target[0].value,
@@ -136,7 +135,7 @@ class MainForm extends React.Component {
             end_date: Math.floor(new Date(event.target[4 + offset].value).getTime()/1000),
             small_description: event.target[5 + offset].value,
             categories: cats,
-            objective: event.target[10 + offset].value,
+            objective: parseInt(event.target[10 + offset].value),
             long_desc: this.html,
             currency: raisingMethod,
             flexible: flexibleChecked,
@@ -195,7 +194,7 @@ class MainForm extends React.Component {
 
                         <div className="faq-contact">
                             <h3>Complete the information for your campaign</h3>
-                            <form id="formCampaign" onSubmit={this.handleCampain}>
+                            <form id="formCampaign" onSubmit={this.handleCampaign}>
                                 <div className="row">
                                     <Title/>
                                     {this.state.titleError !== '' ? <p style={{color: 'red'}}>{this.state.titleError}</p>: null}
@@ -223,7 +222,7 @@ class MainForm extends React.Component {
                                             </div>
                                         </div>
                                     </div>
-                                    {/* <p><strong> Project Category </strong><br/> Choose a category that describes your project.</p>
+                                     <p><strong> Second Project Category </strong><br/> Choose a second category to describe your project.</p>
                                     <div className="col-lg-12 col-md-12">
                                         <div className="form-group">
                                         
@@ -233,7 +232,7 @@ class MainForm extends React.Component {
                                                 </select>
                                             </div>
                                         </div>
-                                    </div> */}
+                                    </div>
                                     <p><strong> Raising Method </strong><br/>Give a raising currency for your crowdfunding project.</p>
                                     <div className="col-lg-12 col-md-12">
                                         <div className="form-group">
@@ -302,7 +301,9 @@ class MainForm extends React.Component {
                                         <div className="form-check">
                                         <FormControlLabel
                                             value="end"
-                                            control={<Checkbox color="primary" onChange={(event) => this.objective = event.target.checked }/>}
+                                            control={<Checkbox color="primary" onChange={(event) => {
+                                                this.flexible = event.target.checked;
+                                            }}/>}
                                             label="Goal has to be reached ?"
                                             labelPlacement="end"
                                             id='goal'

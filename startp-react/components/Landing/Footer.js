@@ -11,7 +11,7 @@ const Footer = () => {
     
 
     return (
-        <footer className="footer-area bg-f7fafd">
+        <footer className="footer-area bg-f7fafd" style={{overflowY: 'hidden'}}>
             <div className="container">
                 <div className="row">
                     
@@ -30,7 +30,7 @@ const Footer = () => {
                                                </Link>
                                            </li>
                                            <li>
-                                               <Link href="https://twitter.com/blockboosted">
+                                               <Link href="https://linkedin.com/blockboosted">
                                                    <a className="linkedin" target="_blank"><FaTelegramPlane /></a>
                                                </Link>
                                            </li>

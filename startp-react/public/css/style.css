@@ -1779,78 +1779,6 @@ Services CSS
   z-index: 1;
 }
 
-.services-right-image img:nth-child(2) {
-  left: 0;
-  right: 0;
-  text-align: center;
-  margin: 0 auto;
-  top: -52px;
-}
-
-.services-right-image img:nth-child(3) {
-  left: 44%;
-  top: -33px;
-  z-index: 1;
-}
-
-.services-right-image img:nth-child(4) {
-  right: 38%;
-  z-index: 1;
-  top: -220px;
-}
-
-.services-right-image img:nth-child(5) {
-  z-index: 1;
-  right: 24%;
-  top: 8px;
-}
-
-.services-right-image img:nth-child(6) {
-  left: 29%;
-  top: 0;
-  z-index: 1;
-}
-
-.services-right-image img:nth-child(7) {
-  right: 44%;
-  top: -78px;
-  z-index: 1;
-}
-
-.services-right-image img:nth-child(8) {
-  right: 30%;
-  top: -134px;
-  z-index: 1;
-}
-
-.services-right-image img:nth-child(9) {
-  right: 31%;
-  top: -21px;
-  z-index: 1;
-}
-
-.services-right-image img:nth-child(10) {
-  right: 24%;
-  top: -80px;
-}
-
-.services-right-image img:nth-child(11) {
-  left: 27%;
-  top: -60px;
-  z-index: 2;
-}
-
-.services-right-image img:nth-child(12) {
-  right: 28%;
-  z-index: 1;
-  top: -54px;
-}
-
-.services-right-image img:nth-child(13) {
-  left: 31%;
-  top: -105px;
-  z-index: 1;
-}
 
 .services-right-image img.bg-image {
   top: -262px;
@@ -8653,6 +8581,10 @@ ML Main Banner CSS
   position: absolute;
 }
 
+.ml-banner-image img:nth-child(6) {
+  display: none;
+}
+
 /*.ml-banner-image {
   position: relative;
   width: 100%;
@@ -8729,6 +8661,8 @@ ML Main Banner CSS
 .ml-banner-image img:nth-child(12) {
   display: none;
 } */
+
+
 
 /*================================================
 ML Partner CSS

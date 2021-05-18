@@ -11,7 +11,7 @@ const MainBanner = () => {
                             <h1>A new way to raise funds</h1>
                            
                                 <p><h5>Crowdfunding reinvented.</h5>Less fees, more trust, community based.<br></br>Earn <Link href="/token"><a>BBST</a></Link> while supporting great projects !
-                                <br></br>Raise and contribute easily in crypto thanks to the Ethereum blockchain.</p>
+                                <br></br>Raise and contribute in crypto thanks to the Ethereum blockchain.</p>
 
                             <Link href="/form-campaign">
 								<a className="btn btn-primary">Create a campaign</a>
@@ -128,7 +128,11 @@ const MainBanner = () => {
                                 className="animate__animated animate__fadeIn animate__delay-2s" 
                                 alt="image" 
                             />
-                    
+                             <img 
+                                src="/images/ml-banner-image/ml-main-pic-2.png" 
+                                className="animate__animated animate__fadeIn animate__delay-2s" 
+                                alt="image" 
+                            />
                         
                         
 

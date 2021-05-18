@@ -31,7 +31,7 @@ const LandingPage = () => {
             <OurFeatures />
             <ServicesArea />
             <Roadmap />
-            <RecentWorks />
+            {/* <RecentWorks /> */}
             <Team />
             {/* <FunFactsArea /> */}
             {/* <Feedback /> */}

@@ -3,6 +3,7 @@ import Link from 'next/link';
 import {db} from '../../firebase-crowdfund/index'
 import * as Icon from 'react-feather';
 import { FaTelegramPlane, FaMediumM } from 'react-icons/fa';
+import firebase from '../../firebase-crowdfund/index'
 
 
 const handleSubmit = (event) => {
@@ -90,6 +91,12 @@ const MainBanner = () => {
                                 className="animate__animated animate__fadeIn animate__delay-2s" 
                                 alt="image" 
                             />
+                             <img 
+                                src="/images/ml-banner-image/ml-main-pic-2.png" 
+                                className="animate__animated animate__fadeIn animate__delay-2s" 
+                                alt="image" 
+                            />
+
                         </div>
                     </div>
                 </div>

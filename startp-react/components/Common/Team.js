@@ -56,7 +56,7 @@ const Team = () => {
                     <div className="team-content">
                         <div className="team-info">
                             <h3>Thibault Drouot</h3>
-                            <span>Engineer</span>
+                            <span>CEO - Blockchain Entrepreneur</span>
                         </div>
 
                         {/* <ul>
@@ -96,7 +96,7 @@ const Team = () => {
                         <div className="team-info">
                             <h3>Hugo Deroche</h3>
                             {/* <span>Co-founder</span><br></br> */}
-                            <span>Engineer</span>
+                            <span>Blockchain Engineer | Co-Founder</span>
                         </div>
 
                         {/* <ul>
@@ -136,7 +136,7 @@ const Team = () => {
                         <div className="team-info">
                             <h3>Malcolm Etoundi</h3>
                             {/* <span>Co-founder</span><br></br> */}
-                            <span>Engineer</span>
+                            <span>Blockchain Engineer | Co-Founder</span>
                         </div>
 
                         {/* <ul>

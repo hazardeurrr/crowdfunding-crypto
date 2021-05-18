@@ -86,7 +86,6 @@ const PreviewCampaign = (props) => {
                                 
                                 <div className="separator"></div>
                                  {Parser(content)}
-                                 
                                 </div>
                             </div>
                         </div>

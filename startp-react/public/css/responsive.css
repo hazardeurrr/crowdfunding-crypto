@@ -995,7 +995,7 @@
     display: none;
     position: relative;
   }
-  .ml-banner-image img:nth-child(12) {
+  .ml-banner-image img:nth-child(6) {
     display: inline-block;
   }
   .ml-partner-area.mt-minus-top {
@@ -2106,7 +2106,7 @@
     display: none;
     position: relative;
   }
-  .ml-banner-image img:nth-child(12) {
+  .ml-banner-image img:nth-child(6) {
     display: inline-block;
   }
   .ml-partner-area.mt-minus-top {
@@ -2515,7 +2515,7 @@
     display: none;
     position: relative;
   }
-  .ml-banner-image img:nth-child(12) {
+  .ml-banner-image img:nth-child(6) {
     display: inline-block;
   }
   .agency-banner-content {

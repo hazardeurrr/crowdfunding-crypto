@@ -1,6 +1,7 @@
 import React from 'react';
 
-import {db} from '../../firebase-crowdfund/index'
+import {db, storage} from '../../firebase-crowdfund/index'
+import firebase from '../../firebase-crowdfund/index'
 
 const handleSubmit = (event) => {
     event.preventDefault()
@@ -8,7 +9,7 @@ const handleSubmit = (event) => {
     console.log(event.target[0].value)
     console.log(event)
     const email = event.target[0].value
-    db.collection('newsletter').doc(email).set({email: email}).then(x => {
+    db.collection('newsletter').doc(firebase.database().ref().push().key).set({email: email}).then(x => {
         console.log('document written with : ' + email)
     }).catch(err => {
         console.error(err)

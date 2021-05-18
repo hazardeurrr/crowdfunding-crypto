@@ -7,6 +7,8 @@ import {GiReceiveMoney, GiPayMoney, GiMining} from 'react-icons/gi'
 import {FiTrendingDown, FiTrendingUp, FiUserCheck} from 'react-icons/fi'
 import {ImFire} from 'react-icons/im'
 import { FaExchangeAlt } from 'react-icons/fa';
+import {GrMoney} from 'react-icons/gr'
+import {BiCoinStack} from 'react-icons/bi'
 
 
 const ServicesArea = () => {
@@ -138,7 +140,7 @@ const ServicesArea = () => {
                             />
                          
                             <img 
-                                src="/images/bbst_sa.png"
+                                src="/images/bbst_sa2.png"
                                 className="animate__animated animate__fadeInUp animate__delay-0.2s" 
                                 alt="main-pic"
                             />
@@ -225,7 +227,7 @@ const ServicesArea = () => {
 
                             <div className="row">
                                     <div className="box">
-                                       Total supply : 20 000 000 BBST
+                                       <BiCoinStack size={27}/> Total supply : 20 000 000 BBST
                                     </div>
                                     <div className="box">
                                         <GiMining size={27} /> Platform Liquidity Mining : 7 000 000 BBST
