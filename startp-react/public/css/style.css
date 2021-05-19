@@ -5980,8 +5980,13 @@ Blog Details CSS
 }
 
 .blog-details-desc .article-content iframe{
-  width: 500px;
-  height: 300px;
+  width: 691.2px !important;
+  height: 388.8px !important;
+}
+
+
+.blog-details-desc .article-content figure{
+  padding-bottom: 0px !important;
 }
 
 
