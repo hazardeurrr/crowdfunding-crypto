@@ -25,7 +25,10 @@ class Description extends React.Component {
             <p><strong> Project Description </strong><br/> Make a short description of your project to make it more attractive.</p>
             <div className="col-lg-12 col-md-12">
                 <div className="form-group">
-                    <textarea name="message" cols="30" rows="6" placeholder="Description" className="form-control" maxLength="150" onChange={this.wordCount.bind(this)}></textarea>
+                    <textarea name="message" cols="30" rows="6" placeholder="Description" className="form-control" maxLength="150" onChange={e => {
+                        this.wordCount.bind(this)
+                        this.props.onChange(e.target.value)
+                        }}></textarea>
                     {this.state.charLeft !== 150 ? <p>{this.state.charLeft} </p> : null}
                 </div>
             </div>

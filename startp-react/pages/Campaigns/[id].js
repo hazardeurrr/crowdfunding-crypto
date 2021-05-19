@@ -70,7 +70,7 @@ const Campaign = (props, {c, u}) => {
 
     React.useEffect(() => {
 
-        console.log(props.address)
+       // console.log(props.address)
 
         getOne('campaign', props.address, function(doc) {
           if (doc.exists) {

@@ -58,7 +58,7 @@ const dayS = (nbDays) => {
 }
 
 const displayRaised = () => {
-    if(campaign.currency == 'ETH')
+    if(campaign.currency == 'ETH' || campaign.currency == 'BBST')
         return raised.toFixed(3)
     else
         return Math.floor(raised)

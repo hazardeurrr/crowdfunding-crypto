@@ -34,7 +34,7 @@ const ProfileForm = (props) => {
     }
 
     const handleChangeImage = (image) => {
-        console.log("image changed")
+        // console.log("image changed")
         setImage(image);
     }
 

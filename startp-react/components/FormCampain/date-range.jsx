@@ -3,7 +3,7 @@ import "react-dates/initialize";
 import { DateRangePicker } from "react-dates";
 import "react-dates/lib/css/_datepicker.css";
 
-function DatePicker() {
+function DatePicker(props) {
   const [startDate, setStartDate] = useState(null);
   const [endDate, setEndDate] = useState(null);
   const [focusedInput, setFocusedInput] = useState(null);
@@ -15,10 +15,14 @@ function DatePicker() {
     <div className="App">
       <DateRangePicker
         startDate={startDate}
-        startDateId="tata-start-date"
+        startDateId="start-date"
         endDate={endDate}
-        endDateId="tata-end-date"
-        onDatesChange={handleDatesChange}
+        endDateId="end-date"
+        onDatesChange={e => {
+          props.onChange(e)
+          handleDatesChange(e)
+        }}
+        onchange={e => onChange(e)}
         focusedInput={focusedInput}
         onFocusChange={focusedInput => setFocusedInput(focusedInput)}
       />

@@ -72,7 +72,7 @@ const AutoCompleteSearchBar = () => {
                                     <a><SearchBarCard campaign={option} user={creators.find(e => e.eth_address.toLowerCase() == option.creator.toLowerCase())}/></a>
                                 </Link>
                     }
-      renderInput={(params) =><TextField {...params} label="Search a campaign" margin="none" /> 
+      renderInput={(params) =><TextField {...params} label="Search" margin="none" /> 
     }
     />
   );

@@ -40,7 +40,10 @@ class Title extends React.Component {
             <p><strong> Fundraiser Name </strong><br/>Give a name to your project to make it searchable for the users.</p>
             <div className="col-lg-12 col-md-12">
                 <div className="form-group">
-                    <input type="text" placeholder="Title" className="form-control" maxLength="50" onChange={this.wordCount.bind(this)}/>
+                    <input type="text" placeholder="Title" className="form-control" maxLength="50" onChange={e => {
+                        this.wordCount.bind(this)
+                        this.props.onChange(e.target.value)
+                        }}/>
                     {this.state.charLeft !== 50 ? <p>{this.state.charLeft} characters left</p> : null}
                 </div>
             </div>

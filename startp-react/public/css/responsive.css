@@ -1,8 +1,19 @@
 /* Max width 767px */
 @media only screen and (max-width: 767px) {
   .blog-details-desc .article-content iframe{
-    width: 426px !important;
-    height: 240px !important;
+    width: 404.7px !important;
+    height: 228px !important;
+  }
+
+  .user-address {
+    font-size: 13px;
+  }
+  
+  .autocomplete-container{
+    display: flex;
+    width: 350px;
+    margin-top: 10px;
+    margin-bottom: 10px;
   }
 
   .btn {

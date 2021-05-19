@@ -197,10 +197,19 @@ const Navbar = () => {
     })
 
     const isConnected = () => {
-        if (useSelector((state) => state.metamask_connected)) {
+        if (!useSelector((state) => state.metamask_connected)) {
             return (
                 <>
-                <ul className="navbar-nav ms-auto">
+                <button type="submit" className="btn btn-primary" onClick={() => connect()}>Connect Wallet</button>
+                </>
+            )
+        }
+    }
+
+    const showProfile = () => {
+        if(useSelector((state) => state.metamask_connected)){
+            return (
+                <>
                     <li className="nav-item">
                     <Link href="#">
                         <a onClick={e => e.preventDefault()} className="nav-link">
@@ -222,15 +231,7 @@ const Navbar = () => {
                             </li>
                         </ul>
                     </li>
-                </ul>
 
-                </>
-            )
-        }
-        else {
-            return (
-                <>
-                <button type="submit" className="btn btn-primary" onClick={() => connect()}>Connect Wallet</button>
                 </>
             )
         }
@@ -282,280 +283,10 @@ const Navbar = () => {
                                         
 
                         <div className={classOne} id="navbarSupportedContent">
-                        <div style={{display: 'flex'}}><SearchIcon style={{marginTop: 10, marginLeft: 5, marginRight: 5}}/><AutoCompleteSearchBar/></div>
+                        <div className="autocomplete-container"><SearchIcon style={{marginTop: 10, marginLeft: 5, marginRight: 5}}/><AutoCompleteSearchBar/></div>
+
                             <ul className="navbar-nav ms-auto">
-                                {/* <li className="nav-item">
-                                    <Link href="/#" activeClassName="active">
-                                        <a onClick={e => e.preventDefault()} className="nav-link">
-                                            Home <Icon.ChevronDown />
-                                        </a>
-                                    </Link>
-
-                                    <ul className="dropdown-menu">
-                                        <li className="nav-item">
-                                            <Link href="/it-startup" activeClassName="active">
-                                                <a onClick={toggleNavbar} className="nav-link">IT Startup</a>
-                                            </Link>
-                                        </li>
-
-                                        <li className="nav-item">
-                                            <Link href="/it-startup-2" activeClassName="active">
-                                                <a onClick={toggleNavbar} className="nav-link">IT Startup Two</a>
-                                            </Link>
-                                        </li>
- 
-                                        <li className="nav-item">
-                                            <Link href="/iot" activeClassName="active">
-                                                <a onClick={toggleNavbar} className="nav-link">IOT</a>
-                                            </Link>
-                                        </li>
-                                        <li className="nav-item">
-                                            <Link href="/form-campaign" activeClassName="active">
-                                                <a onClick={toggleNavbar} className="nav-link">Create a campain</a>
-                                            </Link>
-                                        </li>
-
-                                        <li className="nav-item">
-                                            <Link href="/hosting" activeClassName="active">
-                                                <a onClick={toggleNavbar} className="nav-link">Hosting</a>
-                                            </Link>
-                                        </li>
-
-                                        <li className="nav-item">
-                                            <Link href="/machine-learning" activeClassName="active">
-                                                <a onClick={toggleNavbar} className="nav-link">Machine Learning</a>
-                                            </Link>
-                                        </li>
-
-                                        <li className="nav-item">
-                                            <Link href="/machine-learning-2" activeClassName="active">
-                                                <a onClick={toggleNavbar} className="nav-link">Machine Learning 2</a>
-                                            </Link>
-                                        </li> 
-
-                                        <li className="nav-item">
-                                            <Link href="/bigdata-analytics" activeClassName="active">
-                                                <a onClick={toggleNavbar} className="nav-link">Bigdata Analytics</a>
-                                            </Link>
-                                        </li>
-
-                                        <li className="nav-item">
-                                            <Link href="/digital-agency" activeClassName="active">
-                                                <a onClick={toggleNavbar} className="nav-link">Digital Agency</a>
-                                            </Link>
-                                        </li>
-
-                                        <li className="nav-item">
-                                            <Link href="/digital-agency-portfolio" activeClassName="active">
-                                                <a onClick={toggleNavbar} className="nav-link">Digital Agency Portfolio</a>
-                                            </Link>
-                                        </li>
-  
-                                        <li className="nav-item">
-                                            <Link href="/pc-repair" activeClassName="active">
-                                                <a onClick={toggleNavbar} className="nav-link">PC Repair</a>
-                                            </Link>
-                                        </li>
-                                    </ul>
-                                </li>
-
-                                <li className="nav-item">
-                                    <Link href="/#">
-                                        <a onClick={e => e.preventDefault()} className="nav-link">
-                                            About <Icon.ChevronDown />
-                                        </a>
-                                    </Link> 
-
-                                    <ul className="dropdown-menu">
-                                        <li className="nav-item">
-                                            <Link href="/about-1" activeClassName="active">
-                                                <a onClick={toggleNavbar} className="nav-link">About Style 1</a>
-                                            </Link>
-                                        </li>
-
-                                        <li className="nav-item">
-                                            <Link href="/about-2" activeClassName="active">
-                                                <a onClick={toggleNavbar} className="nav-link">About Style 2</a>
-                                            </Link>
-                                        </li>
-
-                                        <li className="nav-item">
-                                            <Link href="/about-3" activeClassName="active">
-                                                <a onClick={toggleNavbar} className="nav-link">About Style 3</a>
-                                            </Link>
-                                        </li>
-                                    </ul>
-                                </li>
-
-                                <li className="nav-item">
-                                    <Link href="/#">
-                                        <a onClick={e => e.preventDefault()} className="nav-link">
-                                            Pages <Icon.ChevronDown />
-                                        </a>
-                                    </Link>
-
-                                    <ul className="dropdown-menu">
-                                        <li className="nav-item">
-                                            <Link href="/#" activeClassName="active">
-                                                <a onClick={e => e.preventDefault()} className="nav-link">
-                                                    Features <Icon.ChevronDown />
-                                                </a>
-                                            </Link>
-
-                                            <ul className="dropdown-menu">
-                                                <li className="nav-item">
-                                                    <Link href="/features" activeClassName="active">
-                                                        <a onClick={toggleNavbar} className="nav-link">Features</a>
-                                                    </Link>
-                                                </li>
-
-                                                <li className="nav-item">
-                                                    <Link href="/feature-details" activeClassName="active">
-                                                        <a onClick={toggleNavbar} className="nav-link">Features Details</a>
-                                                    </Link>
-                                                </li>
-                                            </ul>
-                                        </li>
-
-                                        <li className="nav-item">
-                                            <Link href="/#" activeClassName="active">
-                                                <a onClick={e => e.preventDefault()} className="nav-link">
-                                                    Services <Icon.ChevronDown />
-                                                </a>
-                                            </Link>
-
-                                            <ul className="dropdown-menu">
-                                                <li className="nav-item">
-                                                    <Link href="/services-1" activeClassName="active">
-                                                        <a onClick={toggleNavbar} className="nav-link">Services Style 1</a>
-                                                    </Link>
-                                                </li>
-
-                                                <li className="nav-item">
-                                                    <Link href="/services-2" activeClassName="active">
-                                                        <a onClick={toggleNavbar} className="nav-link">Services Style 2</a>
-                                                    </Link>
-                                                </li>
-
-                                                <li className="nav-item">
-                                                    <Link href="/services-3" activeClassName="active">
-                                                        <a onClick={toggleNavbar} className="nav-link">Services Style 3</a>
-                                                    </Link>
-                                                </li>
-
-                                                <li className="nav-item">
-                                                    <Link href="/services-4" activeClassName="active">
-                                                        <a onClick={toggleNavbar} className="nav-link">Services Style 4</a>
-                                                    </Link>
-                                                </li>
-
-                                                <li className="nav-item">
-                                                    <Link href="/services-5" activeClassName="active">
-                                                        <a onClick={toggleNavbar} className="nav-link">Services Style 5</a>
-                                                    </Link>
-                                                </li>
-
-                                                <li className="nav-item">
-                                                    <Link href="/service-details" activeClassName="active">
-                                                        <a onClick={toggleNavbar} className="nav-link">Services Details</a>
-                                                    </Link>
-                                                </li>
-                                            </ul>
-                                        </li>
-
-                                        <li className="nav-item">
-                                            <Link href="/feedback" activeClassName="active">
-                                                <a onClick={toggleNavbar} className="nav-link">Feedback</a>
-                                            </Link>
-                                        </li>
-
-                                        <li className="nav-item">
-                                            <Link href="/#" activeClassName="active">
-                                                <a onClick={e => e.preventDefault()} className="nav-link">
-                                                    Projects <Icon.ChevronDown />
-                                                </a>
-                                            </Link>
-
-                                            <ul className="dropdown-menu">
-                                                <li className="nav-item">
-                                                    <Link href="/projects-1" activeClassName="active">
-                                                        <a onClick={toggleNavbar} className="nav-link">Project Style 1</a>
-                                                    </Link>
-                                                </li>
-
-                                                <li className="nav-item">
-                                                    <Link href="/projects-2" activeClassName="active">
-                                                        <a onClick={toggleNavbar} className="nav-link">Project Style 1</a>
-                                                    </Link>
-                                                </li>
-
-                                                <li className="nav-item">
-                                                    <Link href="/project-details" activeClassName="active">
-                                                        <a onClick={toggleNavbar} className="nav-link">Project Details</a>
-                                                    </Link>
-                                                </li>
-                                            </ul>
-                                        </li>
-
-                                        <li className="nav-item">
-                                            <Link href="/team" activeClassName="active">
-                                                <a onClick={toggleNavbar} className="nav-link">Team</a>
-                                            </Link>
-                                        </li>
-
-                                        <li className="nav-item">
-                                            <Link href="/pricing" activeClassName="active">
-                                                <a onClick={toggleNavbar} className="nav-link">Pricing</a>
-                                            </Link>
-                                        </li>
-
-                                        <li className="nav-item">
-                                            <Link href="/#" activeClassName="active">
-                                                <a onClick={e => e.preventDefault()} className="nav-link">
-                                                    User <Icon.ChevronDown />
-                                                </a>
-                                            </Link>
-
-                                            <ul className="dropdown-menu">
-                                                <li className="nav-item">
-                                                    <Link href="/login" activeClassName="active">
-                                                        <a onClick={toggleNavbar} className="nav-link">Login</a>
-                                                    </Link>
-                                                </li>
-
-                                                <li className="nav-item">
-                                                    <Link href="/sign-up" activeClassName="active">
-                                                        <a onClick={toggleNavbar} className="nav-link">Sign Up</a>
-                                                    </Link>
-                                                </li>
-
-                                                <li className="nav-item">
-                                                    <Link href="/forgot-password" activeClassName="active">
-                                                        <a onClick={toggleNavbar} className="nav-link">Forgot Password</a>
-                                                    </Link>
-                                                </li>
-                                            </ul>
-                                        </li>
-                                    
-                                        <li className="nav-item">
-                                            <Link href="/faq" activeClassName="active">
-                                                <a onClick={toggleNavbar} className="nav-link">FAQ's</a>
-                                            </Link>
-                                        </li>
-
-                                        <li className="nav-item">
-                                            <Link href="/coming-soon" activeClassName="active">
-                                                <a onClick={toggleNavbar} className="nav-link">Coming Soon</a>
-                                            </Link>
-                                        </li>
-
-                                        <li className="nav-item">
-                                            <Link href="/404" activeClassName="active">
-                                                <a onClick={toggleNavbar} className="nav-link">404 Error Page</a>
-                                            </Link>
-                                        </li>
-                                    </ul>
-                                </li> */}
+                               
 
                                 <Dialog
                                     open={open}
@@ -594,6 +325,8 @@ const Navbar = () => {
                                         <a onClick={toggleNavbar} className="nav-link">Explore</a>
                                     </Link>
                                 </li>
+
+                                {showProfile()}
                             </ul>
                         </div>
 
@@ -610,8 +343,6 @@ const Navbar = () => {
 							    <a className="btn btn-secondary">Create</a>
                             </Link>
 
-						</div>
-                        <div className="others-option">
                             {isConnected()}
                         </div>
                     </nav>

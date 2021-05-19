@@ -7,13 +7,21 @@ class Tiers extends React.Component {
             tiers: [],
             tiersInfos: [],
         }
+        this.tiers = []
     }
 
     handleTiers(event) {
         event.preventDefault()
         const listTiers = []
-        for (var i = 0; i < event.target.value; i++) {
+        this.tiers = []
+        let index_tiers = 0
+        for (var i = 1; i <= event.target.value; i++) {
             listTiers.push({index: i, description: ''})
+            this.tiers.push({
+                title: "",
+                threshold: 0,
+                description: ""
+            })
         }
         this.setState({tiers: listTiers})
     }
@@ -39,7 +47,10 @@ class Tiers extends React.Component {
                                 </p>
                                 <div className="col-lg-12 col-md-12">
                                     <div className="form-group">
-                                    <input type="text" id={`"tiersTitle${index + 1}`} placeholder="Title" className="form-control"/>
+                                    <input type="text" id={`"tiersTitle${index + 1}`} placeholder="Title" className="form-control" onChange={e => {
+                                        this.tiers[index]["title"] = e.target.value
+                                        this.props.onTiersChange(this.tiers)
+                                    }}/>
                                 </div>
 
                                 <p>
@@ -47,7 +58,11 @@ class Tiers extends React.Component {
                                 </p>
                                 <div className="col-lg-12 col-md-12">
                                     <div className="form-group">
-                                    <input type="number" id={`"tiersAmount${index + 1}`} placeholder="Amount" min="0" className="form-control"/>
+                                    <input type="number" id={`"tiersAmount${index + 1}`} placeholder="Amount" min="0" className="form-control"
+                                    onChange={e => {
+                                        this.tiers[index]["threshold"] = parseInt(e.target.value)
+                                        this.props.onTiersChange(this.tiers)
+                                    }}/>
                                     </div>
                                 </div>
                                 </div>
@@ -56,7 +71,11 @@ class Tiers extends React.Component {
                                 </p>
                                 <div className="col-lg-12 col-md-12">
                                     <div className="form-group">
-                                    <input type="textarea" id={`"tiersDescription${index + 1}`} placeholder="Description" className="form-control"/>
+                                    <input type="textarea" id={`"tiersDescription${index + 1}`} placeholder="Description" className="form-control"
+                                    onChange={e => {
+                                        this.tiers[index]["description"] = e.target.value
+                                        this.props.onTiersChange(this.tiers)
+                                    }}/>
                                     </div>
                                 </div>
                             </div>

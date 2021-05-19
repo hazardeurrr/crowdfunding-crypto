@@ -699,6 +699,7 @@ Navbar CSS
 
 .startp-nav nav .others-option {
   margin-left: 20px;
+  display: flex;
 }
 
 .startp-nav nav .others-option .cart-wrapper-btn {
@@ -10667,4 +10668,9 @@ Go Top CSS
 
 .embed-s{
   border: 2px solid red; height: 56%; width: 100%
+}
+
+.autocomplete-container{
+  display: flex;
+  width: 30%;
 }
