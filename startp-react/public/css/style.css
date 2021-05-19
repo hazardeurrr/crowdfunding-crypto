@@ -5979,6 +5979,12 @@ Blog Details CSS
   margin-top: 5px;
 }
 
+.blog-details-desc .article-content iframe{
+  width: 500px;
+  height: 300px;
+}
+
+
 .blog-details-desc .article-content .entry-meta {
   margin-bottom: 10px;
 }
@@ -10652,4 +10658,8 @@ Go Top CSS
   width : 200px;
   margin-top: -12px;
   padding: 0
+}
+
+.embed-s{
+  border: 2px solid red; height: 56%; width: 100%
 }

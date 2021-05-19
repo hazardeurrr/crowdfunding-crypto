@@ -135,7 +135,7 @@ const CategoriesLight = () => {
                     <div className="col-lg-3 col-6 col-sm-6 col-md-4">
                         <div className="single-industries-serve-box">
                             <div className="icon">
-                                <i className='bx bx-world'></i>
+                                <i className='bx bx-health'></i>
                             </div>
                             {CategoryList[7]}
                             <Link href={{
@@ -148,6 +148,41 @@ const CategoriesLight = () => {
                             </Link>
                         </div>
                     </div>
+
+                    <div className="col-lg-3 col-6 col-sm-6 col-md-4">
+                        <div className="single-industries-serve-box">
+                            <div className="icon">
+                                <i className='bx bx-world'></i>
+                            </div>
+                            {CategoryList[8]}
+                            <Link href={{
+                                pathname: "SearchPage",
+                                query: {
+                                    id: CategoryList[8],
+                                }
+                            }}>
+                                <a className="link-btn"></a>
+                            </Link>
+                        </div>
+                    </div>
+
+                    <div className="col-lg-3 col-6 col-sm-6 col-md-4">
+                        <div className="single-industries-serve-box">
+                            <div className="icon">
+                                <i className='bx bx-unite'></i>
+                            </div>
+                            {CategoryList[9]}
+                            <Link href={{
+                                pathname: "SearchPage",
+                                query: {
+                                    id: CategoryList[9],
+                                }
+                            }}>
+                                <a className="link-btn"></a>
+                            </Link>
+                        </div>
+                    </div>
+
                 </div>
             </div>
 
