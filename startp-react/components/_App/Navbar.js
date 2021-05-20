@@ -15,7 +15,7 @@ import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
-
+import bbstabi from '@/utils/bbstabi'
 
 const Navbar = () => {
     const cart = useSelector((state) => state.cart)
@@ -111,6 +111,19 @@ const Navbar = () => {
                 type: 'SET_ADDRESS',
                 id: accounts[0]
             })
+
+            var web3 = new Web3(window.ethereum)
+            const bbst_contract = new web3.eth.Contract(bbstabi.abi, '0xDd1Ad9A21Ce722C151A836373baBe42c868cE9a4');
+            bbst_contract.methods.balanceOf(accounts[0]).call().then(response => {
+                console.log('response', response)
+                dispatch({
+                    type: 'SET_BBST_BALANCE',
+                    id: response
+                })
+            }).catch(console.error)
+
+
+
             if (userAddr != undefined) {
                 console.log('user address',userAddr)
                 getOne('profile', userAddr, function(doc) {

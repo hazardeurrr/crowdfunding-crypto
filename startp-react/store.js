@@ -16,13 +16,21 @@ const initialState = {
   chainID: '0x1',
   allCampaigns: [],
   allCreators: [],
-  currentUser: undefined
+  currentUser: undefined,
+  bbstBalance: 0
 }
 
 
 
 const reducer = (state = initialState, action) => {
   switch (action.type) {
+
+    case 'SET_BBST_BALANCE':
+      return {
+        ...state,
+        bbstBalance: action.id
+      }
+
 
     case 'SET_ALL_CAMPAIGNS':
       return {

@@ -19,6 +19,7 @@ const CardToken = () => {
 
   const connected = useSelector((state) => state.metamask_connected)
   const address = useSelector((state) => state.address)
+  const bbstbal = useSelector((state) => state.bbstBalance)
 
   const claimTokens = () => {
     console.log("tokens claimed")
@@ -26,7 +27,7 @@ const CardToken = () => {
   }
 
   const showBalance = () => {
-    return "53.26"
+    return bbstbal
   }
 
   const showToBeClaimed = () => {
