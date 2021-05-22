@@ -3,7 +3,9 @@ import dynamic from 'next/dynamic';
 const OwlCarousel = dynamic(import('react-owl-carousel3'));
 import * as Icon from 'react-feather';
 import Link from 'next/link'
-
+import {useRouter} from 'next/router'
+import fr from '../../public/locales/fr/translation'
+import en from '../../public/locales/en/translation'
 const options = {
     items: 5,
     loop: true,
@@ -29,6 +31,10 @@ const options = {
 }
 
 const Team = () => {
+    const router = useRouter()
+    const  {locale} = router
+    console.log('locale',locale)
+    const t = locale === 'en' ? en : fr
     const [display, setDisplay] = React.useState(false);
 
     React.useEffect(() => {
@@ -39,7 +45,7 @@ const Team = () => {
         <div className="team-area ptb-80 bg-f9f6f6">
             <div className="container">
                 <div className="section-title">
-                    <h2>Our Awesome Team</h2>
+                    <h2>{t.team}</h2>
                     <div className="bar"></div>
                 </div>
             </div>

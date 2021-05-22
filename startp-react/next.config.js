@@ -6,7 +6,7 @@ module.exports = {
     },
     trailingSlash: true,
     i18n: {
-        locales: ['en', 'ar'],
+        locales: ['en', 'fr'],
         defaultLocale: 'en',
     },
 }
