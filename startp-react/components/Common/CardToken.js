@@ -18,6 +18,7 @@ import { useSelector, useDispatch } from 'react-redux'
 const CardToken = () => {
 
   const connected = useSelector((state) => state.metamask_connected)
+  const chainID = useSelector((state) => state.chainID)
   const address = useSelector((state) => state.address)
   const bbstbal = useSelector((state) => state.bbstBalance)
 
@@ -35,7 +36,7 @@ const CardToken = () => {
   }
 
   const displayCardContent = () => {
-    if(connected && address != undefined){
+    if(connected && address != undefined && chainID == '0x1'){
       return     <Card elevation={3} style={{marginTop: 50, borderRadius: 10}}>
       <div style={{display:'flex', alignItems:'center'}}>
         <div style={{flex : 2}}>

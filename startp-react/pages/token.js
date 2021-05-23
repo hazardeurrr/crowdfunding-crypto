@@ -50,7 +50,6 @@ const TokenDetails = () => {
                                 <h3>Our vision with the BBST token</h3>
                                 <p>We think of this token as a way to support both the campaign creators and the protocol itself, we want to give governance to the hodler</p>
                                 <p>The token will reflect the team's effort to ensure that everyone can become a campaign creator and that everyone can invest in any project they want</p>
-                                <p></p>
                             </div>
                         </div>
 

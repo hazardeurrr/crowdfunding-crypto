@@ -22,8 +22,7 @@ const ServicesArea = () => {
         labels: [`${t.liquidity}`, `${t.IDO}`, `${t.strategic}`, `${t.advisors}`, `${t.provide}`],
         datasets: [
           {
-            label: '%',
-            data: [35, 30, 17, 12, 6],
+            data: [7000000, 6000000, 3400000, 2400000, 1200000],
             backgroundColor: [
               '#c679e3',
               '#44ce6f',
@@ -47,7 +46,7 @@ const ServicesArea = () => {
 
     return (
         <>
-         m   <div className="services-area ptb-80 bg-f7fafd">
+           <div className="services-area ptb-80 bg-f7fafd">
                 <div className="container">
                     <div className="row justify-content-center align-items-center">
                         <div className="col-lg-6 col-md-12 services-content">
@@ -231,25 +230,25 @@ const ServicesArea = () => {
 
                             <div className="row">
                                     <div className="box">
-                                       <BiCoinStack size={27}/> {t.totalSupply}
+                                       <BiCoinStack size={27}/> {t.totalSupply}: 20 000 000 BBST
                                     </div>
                                     <div className="box">
-                                        <GiMining size={27} /> {t.liquidity}
+                                        <GiMining size={27} /> {t.liquidity}: 7 000 000 BBST
                                         <p style={{fontSize: 12, fontStyle: 'italic'}}>{t.earnBBST}</p>
                                     </div>
                                     <div className="box">
-                                        <MdPublic size={27}/> {t.IDO}
+                                        <MdPublic size={27}/> {t.IDO}: 6 000 000 BBST
                                     </div>
                                     <div className="box">
-                                        <FiTrendingUp size={27} /> {t.strategic}
+                                        <FiTrendingUp size={27} /> {t.strategic}: 3 400 000 BBST
                                         <p style={{fontSize: 12, fontStyle: 'italic'}}>{t.strategicExplained}</p>
                                     </div>
                                     <div className="box">
-                                        <RiTeamLine size={27} /> {t.advisors}
+                                        <RiTeamLine size={27} /> {t.advisors}: 2 400 000 BBST
                                         <p style={{fontSize: 12, fontStyle: 'italic'}}>{t.lock}</p>
                                     </div>
                                     <div className="box">
-                                        <FaExchangeAlt size={27}/> {t.provide}
+                                        <FaExchangeAlt size={27}/> {t.provide}: 1 200 000 BBST
                                     </div>
 
                             </div>

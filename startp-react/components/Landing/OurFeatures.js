@@ -60,7 +60,7 @@ const OurFeatures = () => {
                                 <RiHandCoinLine  size={30}/>
                             </div>
                             <h3>
-                                    {t.cashbac}
+                                    {t.cashback}
                             </h3>
                             <p>{t.boostCampaign}</p>
                         </div>
