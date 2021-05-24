@@ -1,14 +1,13 @@
 import { useMemo } from 'react'
 import { createStore, applyMiddleware } from 'redux'
 import { composeWithDevTools } from 'redux-devtools-extension'
-import { productsData } from './products'
 import {getOne, updateDoc} from 'firebase-crowdfund/queries';
 
 
 let store
 
 const initialState = {
-  products: productsData,
+  products: [],
   cart: [],
   total: 0,
   address: undefined,
