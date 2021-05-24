@@ -361,7 +361,7 @@ const ServiceDetails = () => {
                             </div>
                         </div>
 
-                        <div className="faq-area ptb-80">
+                        {/* <div className="faq-area ptb-80">
                             <div className="container">
                                 <div className="faq-accordion">
                                     <h2>Frequently Asked Questions</h2>
@@ -495,7 +495,7 @@ const ServiceDetails = () => {
                                     </form>
                                 </div>
                             </div>
-                        </div>
+                        </div> */}
  
                     </div>
                 </div>
