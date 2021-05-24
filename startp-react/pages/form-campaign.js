@@ -1,7 +1,6 @@
 import React, { useEffect } from 'react';
 import Navbar from "@/components/_App/Navbar";
 import MainForm from "@/components/FormCampain/mainForm"
-import BlogPost from '@/components/Common/BlogPost';
 import Footer from "@/components/_App/Footer";
 import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
