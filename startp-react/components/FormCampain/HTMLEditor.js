@@ -1,13 +1,7 @@
 import React, { useRef, useEffect, useState } from "react";
 import SunEditor,{buttonList} from 'suneditor-react';
 import 'suneditor/dist/css/suneditor.min.css'; // Import Sun Editor's CSS File
-import ReactDOM from "react-dom";
-import ReactDOMServer from "react-dom/server";
-import Skeleton from '@material-ui/lab/Skeleton';
-import UseAnimations from 'react-useanimations';
-import heart from 'react-useanimations/lib/heart'
-import ProgressBar from 'react-bootstrap/ProgressBar';
-import Parser from 'html-react-parser';
+
 
 
 function HTMLEditor(props) {

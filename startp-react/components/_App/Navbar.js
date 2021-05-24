@@ -4,14 +4,11 @@ import * as Icon from 'react-feather'
 import { useSelector, useDispatch } from 'react-redux'
 const Web3 = require('web3');
 
-import loadWeb3 from "@/components/ITStartup/MetaMaskConnection"
 import detectEthereumProvider from '@metamask/detect-provider';
 import { postDoc, getOne } from 'firebase-crowdfund/queries'
 import AutoCompleteSearchBar from "../Common/AutoCompleteSearchBar";
 import SearchIcon from '@material-ui/icons/Search';
-import Button from '@material-ui/core/Button';
 import Dialog from '@material-ui/core/Dialog';
-import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';

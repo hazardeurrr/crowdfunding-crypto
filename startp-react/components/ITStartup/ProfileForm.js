@@ -1,11 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import Navbar from "@/components/_App/Navbar";
-import Footer from "@/components/_App/Footer";
-import PageBanner from '@/components/Common/PageBanner';
-import Link from 'next/link';
 import ProfilePic from "@/components/ITStartup/ProfilePic";
-import profiles from '@/utils/usersListJson.json';
-import { useSelector, useDispatch } from 'react-redux'
 import { updateDoc, getOne, postDoc } from 'firebase-crowdfund/queries'
 import TwitterLogin from "react-twitter-login";
 import secrets from "@/components/ITStartup/secrets.json";

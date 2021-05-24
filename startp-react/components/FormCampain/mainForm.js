@@ -1,6 +1,4 @@
 import React from 'react';
-import Navbar from "@/components/_App/Navbar";
-import Footer from "@/components/_App/Footer";
 import PageBanner from '@/components/Common/PageBanner';
 import Link from 'next/link';
 import HTMLEditor from './HTMLEditor';
@@ -10,7 +8,6 @@ import Title from './title'
 import Tiers from './tiers'
 import * as Icon from 'react-feather';
 import "react-dates/initialize";
-// import { DateRangePicker } from "react-dates";
 import DatePicker from "./date-range";
 import Checkbox from '@material-ui/core/Checkbox';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
@@ -18,25 +15,10 @@ import {db, storage} from '../../firebase-crowdfund/index';
 import {postHTMLPage, postImage} from '../../firebase-crowdfund/queries';
 import "react-dates/lib/css/_datepicker.css";
 import categoryList from '@/utils/CategoryList';
-import { useSelector, useDispatch } from 'react-redux'
-// import FormControlLabel from '@material-ui/core/FormControlLabel';
-// import Checkbox from '@material-ui/core/Checkbox';
-// import { withStyles } from '@material-ui/core/styles';
 import 'suneditor/dist/css/suneditor.min.css'; // Import Sun Editor's CSS File
 import ProfilePic from '@/components/ITStartup/ProfilePic.js'
 import Modal from '@material-ui/core/Modal';
 import PreviewCampaign from 'pages/PreviewCampaign';
-
-// const GreenCheckbox = withStyles({
-//     root: {
-//       color: '#44ce6f',
-//       '&$checked': {
-//         color: '#44ce6f',
-//       },
-//     },
-//     checked: {},
-//   })((props) => <Checkbox color="default" {...props} />);
-
 
 
 class MainForm extends React.Component {

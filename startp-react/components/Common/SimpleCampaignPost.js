@@ -2,9 +2,7 @@ import React, {useEffect, useRef} from 'react';
 import * as Icon from 'react-feather';
 import Link from 'next/link';
 import ProgressBar from 'react-bootstrap/ProgressBar';
-import usersListJson from '@/utils/usersListJson';
 import ChipUser from '@/components/Common/ChipUser'
-import { useSelector, useDispatch } from 'react-redux';
 import {getOne } from '../../firebase-crowdfund/queries' 
 
 
