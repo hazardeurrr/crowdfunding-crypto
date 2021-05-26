@@ -1,7 +1,7 @@
 import React from 'react';
 import * as Icon from 'react-feather';
 import { Doughnut } from 'react-chartjs-2';
-import { RiExchangeDollarLine, RiGovernmentLine, RiHandCoinLine, RiTeamLine } from 'react-icons/ri';
+import { RiExchangeDollarLine, RiGitRepositoryPrivateFill, RiGovernmentLine, RiHandCoinLine, RiTeamLine } from 'react-icons/ri';
 import {MdFavorite, MdMoneyOff, MdPriorityHigh, MdPublic} from 'react-icons/md';
 import {GiReceiveMoney, GiPayMoney, GiMining} from 'react-icons/gi'
 import {FiTrendingDown, FiTrendingUp, FiUserCheck} from 'react-icons/fi'
@@ -19,10 +19,10 @@ const ServicesArea = () => {
     console.log('locale',locale)
     const t = locale === 'en' ? en : fr
     const chartData = {
-        labels: [`${t.liquidity}`, `${t.IDO}`, `${t.strategic}`, `${t.advisors}`, `${t.provide}`],
+        labels: [`${t.liquidity}`, `${t.IDO}`, `${t.privateSale}`, `${t.strategic}`, `${t.advisors}`, `${t.provide}`],
         datasets: [
           {
-            data: [7000000, 6000000, 3400000, 2400000, 1200000],
+            data: [7000000, 2200000, 4000000, 3000000, 2400000, 1400000],
             backgroundColor: [
               '#c679e3',
               '#44ce6f',
@@ -237,10 +237,14 @@ const ServicesArea = () => {
                                         <p style={{fontSize: 12, fontStyle: 'italic'}}>{t.earnBBST}</p>
                                     </div>
                                     <div className="box">
-                                        <MdPublic size={27}/> {t.IDO}: 6 000 000 BBST
+                                        <MdPublic size={27}/> {t.IDO}: 2 200 000 BBST
                                     </div>
                                     <div className="box">
-                                        <FiTrendingUp size={27} /> {t.strategic}: 3 400 000 BBST
+                                        <RiGitRepositoryPrivateFill size={27}/> {t.privateSale}: 4 000 000 BBST
+                                        <p style={{fontSize: 12, fontStyle: 'italic'}}>{t.privateLocked}</p>
+                                    </div>
+                                    <div className="box">
+                                        <FiTrendingUp size={27} /> {t.strategic}: 3 000 000 BBST
                                         <p style={{fontSize: 12, fontStyle: 'italic'}}>{t.strategicExplained}</p>
                                     </div>
                                     <div className="box">
@@ -248,7 +252,7 @@ const ServicesArea = () => {
                                         <p style={{fontSize: 12, fontStyle: 'italic'}}>{t.lock}</p>
                                     </div>
                                     <div className="box">
-                                        <FaExchangeAlt size={27}/> {t.provide}: 1 200 000 BBST
+                                        <FaExchangeAlt size={27}/> {t.provide}: 1 400 000 BBST
                                     </div>
 
                             </div>
