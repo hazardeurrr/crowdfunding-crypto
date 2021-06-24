@@ -7,8 +7,8 @@ import {useRouter} from 'next/router'
 import fr from '../../public/locales/fr/translation'
 import en from '../../public/locales/en/translation'
 const options = {
-    items: 5,
-    loop: true,
+    items: 3,
+    loop: false,
     nav: false,
     dots: true,
     margin: 30,
