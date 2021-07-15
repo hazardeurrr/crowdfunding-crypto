@@ -1,16 +1,15 @@
 import firebase from 'firebase';
 import "firebase/storage";
 
-var firebaseConfig = {
-    apiKey: "AIzaSyAxLDH4sjj2Cdtf-ylbdwAcqoQwKnViACM",
-    authDomain: "crowdfunding-dev-5f802.firebaseapp.com",
-    databaseURL: "https://crowdfunding-dev-5f802-default-rtdb.europe-west1.firebasedatabase.app",
-    projectId: "crowdfunding-dev-5f802",
-    storageBucket: "crowdfunding-dev-5f802.appspot.com",
-    messagingSenderId: "410127192023",
-    appId: "1:410127192023:web:e68a5eaa7a14d930190592",
-    measurementId: "G-MPJJH1SDCT"
-  };
+const firebaseConfig = {
+  apiKey: "AIzaSyAmds6uELgPyIQErl-R6LeZjzywaliDmtw",
+  authDomain: "blockboosted-357c8.firebaseapp.com",
+  projectId: "blockboosted-357c8",
+  storageBucket: "blockboosted-357c8.appspot.com",
+  messagingSenderId: "687439735221",
+  appId: "1:687439735221:web:8c69fc42ef959d0fe011fc",
+  measurementId: "G-E3850LFWP2"
+};
   // Initialize Firebase
   if (!firebase.apps.length) {
     firebase.initializeApp(firebaseConfig);
