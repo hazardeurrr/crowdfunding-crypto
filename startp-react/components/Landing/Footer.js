@@ -3,10 +3,22 @@ import Link from 'next/link';
 import * as Icon from 'react-feather';
 import {db} from '../../firebase-crowdfund/index'
 import { FaTelegramPlane, FaMediumM } from 'react-icons/fa';
+import {useRouter} from 'next/router'
+import fr from '../../public/locales/fr/translation'
+import en from '../../public/locales/en/translation'
+
 const Footer = () => {
 
+    const router = useRouter()
+    const  {locale} = router
     const currentYear = new Date().getFullYear();
+    let t = locale === 'en' ? en : fr
 
+    const handleLanguage = (e) => {
+        const locale = e.target.value
+        router.push('/landing-page', '/landing-page', {locale})
+        let t = locale === 'en' ? en : fr
+    }
   
     
 
@@ -39,9 +51,18 @@ const Footer = () => {
                                                    <a className="instagram" target="_blank"><FaMediumM /></a>
                                                </Link>
                                            </li>
+                                           <li>
+                                           <div className="form-group">
+                                                <select className="form-select" id='languageSelected' onChange={handleLanguage} defaultValue={locale}>
+                                                    <option value={'en'}>EN</option>
+                                                    <option value={'fr'}>FR</option> 
+                                                </select>
+                                            </div>
+                                           </li>
+                                           
                            </ul>
                             
-                            <p style={{marginTop: 15}}>Copyright &copy; {currentYear} BlockBoosted. Made with <Icon.Heart /> by the BlockBoosted team</p>
+                            <p style={{marginTop: 15}}>Copyright &copy; {currentYear} BlockBoosted. Made with <Icon.Heart /> by the BBST Team</p>
                             </div>
 
                         </div>

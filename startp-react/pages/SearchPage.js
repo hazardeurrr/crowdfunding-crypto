@@ -1,20 +1,12 @@
 import React from 'react';
 import Navbar from "@/components/_App/Navbar";
 import Footer from "@/components/_App/Footer";
-import PageBanner from '@/components/Common/PageBanner';
-import OurFeatures from '@/components/Features/OurFeatures';
-import SingleFeatures from '@/components/Features/SingleFeatures';
-import { getCampaigns } from '@/utils/projectList'
 import SimpleCampaignPost from '@/components/Common/SimpleCampaignPost';
-import Chip from '@material-ui/core/Button';
 import CategoryList from '@/utils/CategoryList';
-import ListGroup from 'react-bootstrap/ListGroup';
-import CheckboxList from '@/components/Common/CheckboxList'
 import Checkbox from '@material-ui/core/Checkbox';
 import categoryList from '@/utils/CategoryList';
 import { withStyles } from '@material-ui/core/styles';
 import { green } from '@material-ui/core/colors';
-import FormGroup from '@material-ui/core/FormGroup';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Pagination from '@material-ui/lab/Pagination';
 import {connect} from 'react-redux'

@@ -33,7 +33,7 @@ const CategoriesLight = () => {
                     <div className="col-lg-3 col-6 col-sm-6 col-md-4">
                         <div className="single-industries-serve-box">
                             <div className="icon">
-                                <i className='bx bx-chip'></i>
+                                <i className='bx bx-donate-heart'></i>
                             </div>
                             {CategoryList[1]}
                             <Link href={{
@@ -50,7 +50,7 @@ const CategoriesLight = () => {
                     <div className="col-lg-3 col-6 col-sm-6 col-md-4">
                         <div className="single-industries-serve-box">
                             <div className="icon">
-                                <i className='bx bx-donate-heart'></i>
+                                <i className='bx bx-health'></i>
                             </div>
                             {CategoryList[2]}
                             <Link href={{
@@ -67,7 +67,7 @@ const CategoriesLight = () => {
                     <div className="col-lg-3 col-6 col-sm-6 col-md-4">
                         <div className="single-industries-serve-box">
                             <div className="icon">
-                                <i className='bx bx-star'></i>
+                                <i className='bx bx-world'></i>
                             </div>
                             {CategoryList[3]}
                             <Link href={{
@@ -84,7 +84,7 @@ const CategoriesLight = () => {
                     <div className="col-lg-3 col-6 col-sm-6 col-md-4">
                         <div className="single-industries-serve-box">
                             <div className="icon">
-                                <i className='bx bx-game'></i>
+                                <i className='bx bx-bitcoin'></i>
                             </div>
                             {CategoryList[4]}
                             <Link href={{
@@ -101,7 +101,7 @@ const CategoriesLight = () => {
                     <div className="col-lg-3 col-6 col-sm-6 col-md-4">
                         <div className="single-industries-serve-box">
                             <div className="icon">
-                                <i className='bx bx-bitcoin'></i>
+                                <i className='bx bx-game'></i>
                             </div>
                             {CategoryList[5]}
                             <Link href={{
@@ -118,7 +118,7 @@ const CategoriesLight = () => {
                     <div className="col-lg-3 col-6 col-sm-6 col-md-4">
                         <div className="single-industries-serve-box">
                             <div className="icon">
-                                <i className='bx bx-bulb'></i>
+                                <i className='bx bx-chip'></i>
                             </div>
                             {CategoryList[6]}
                             <Link href={{
@@ -135,7 +135,7 @@ const CategoriesLight = () => {
                     <div className="col-lg-3 col-6 col-sm-6 col-md-4">
                         <div className="single-industries-serve-box">
                             <div className="icon">
-                                <i className='bx bx-health'></i>
+                                <i className='bx bx-bulb'></i>
                             </div>
                             {CategoryList[7]}
                             <Link href={{
@@ -152,7 +152,7 @@ const CategoriesLight = () => {
                     <div className="col-lg-3 col-6 col-sm-6 col-md-4">
                         <div className="single-industries-serve-box">
                             <div className="icon">
-                                <i className='bx bx-world'></i>
+                                <i className='bx bx-star'></i>
                             </div>
                             {CategoryList[8]}
                             <Link href={{

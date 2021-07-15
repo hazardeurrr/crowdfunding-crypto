@@ -2164,6 +2164,17 @@ Services Details CSS
   text-align: center;
 }
 
+.serv-iframe-wrapper{
+  text-align: center;
+}
+
+.services-details-image iframe{
+  text-align: center;
+  height: 400px !important;
+  width: 700px !important;
+
+}
+
 /*================================================
 Features CSS
 =================================================*/

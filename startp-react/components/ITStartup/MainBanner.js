@@ -28,7 +28,7 @@ const MainBanner = () => {
                                     />
                         
                                     <img 
-                                        src="/images/banner-image/code.png" 
+                                        src="/images/banner-image/code.png"
                                         className="animate__animated animate__fadeInUp animate__delay-0.1s" 
                                         alt="code"
                                     />

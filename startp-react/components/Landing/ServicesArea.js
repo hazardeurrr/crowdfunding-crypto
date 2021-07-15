@@ -1,7 +1,7 @@
 import React from 'react';
 import * as Icon from 'react-feather';
 import { Doughnut } from 'react-chartjs-2';
-import { RiExchangeDollarLine, RiGovernmentLine, RiHandCoinLine, RiTeamLine } from 'react-icons/ri';
+import { RiExchangeDollarLine, RiGitRepositoryPrivateFill, RiGovernmentLine, RiHandCoinLine, RiTeamLine } from 'react-icons/ri';
 import {MdFavorite, MdMoneyOff, MdPriorityHigh, MdPublic} from 'react-icons/md';
 import {GiReceiveMoney, GiPayMoney, GiMining} from 'react-icons/gi'
 import {FiTrendingDown, FiTrendingUp, FiUserCheck} from 'react-icons/fi'
@@ -9,16 +9,20 @@ import {ImFire} from 'react-icons/im'
 import { FaExchangeAlt } from 'react-icons/fa';
 import {GrMoney} from 'react-icons/gr'
 import {BiCoinStack} from 'react-icons/bi'
+import {useRouter} from 'next/router'
 
-
+import fr from '../../public/locales/fr/translation'
+import en from '../../public/locales/en/translation'
 const ServicesArea = () => {
-
+    const router = useRouter()
+    const  {locale} = router
+    console.log('locale',locale)
+    const t = locale === 'en' ? en : fr
     const chartData = {
-        labels: ['Platform Liquidity mining (cashback)', 'IDO', 'Strategic Development', 'Team & Advisors', 'Liquidity Providing'],
+        labels: [`${t.liquidity}`, `${t.IDO}`, `${t.privateSale}`, `${t.strategic}`, `${t.advisors}`, `${t.provide}`],
         datasets: [
           {
-            label: '%',
-            data: [35, 30, 17, 12, 6],
+            data: [7000000, 2200000, 4000000, 3000000, 2400000, 1400000],
             backgroundColor: [
               '#c679e3',
               '#44ce6f',
@@ -42,35 +46,34 @@ const ServicesArea = () => {
 
     return (
         <>
-            <div className="services-area ptb-80 bg-f7fafd">
+           <div className="services-area ptb-80 bg-f7fafd">
                 <div className="container">
                     <div className="row justify-content-center align-items-center">
                         <div className="col-lg-6 col-md-12 services-content">
                             <div className="section-title">
-                                <h2>BBST Token</h2>
+                                <h2>{t.bbstoken}</h2>
                                 <div className="bar"></div>
-                                <p>The BlockBoosted Token (BBST) is at the heart of the BlockBoosted ecosystem. The token is an ERC20 on the Ethereum blockchain.<br></br>We will launch our IDO in Q3 2021 and the token will then be available on Uniswap.
-                                    Here are some use cases and property of the token, many more coming with the expansion of the ecosystem.
+                                <p>{t.descToken}<br></br>{t.partners}
                                 </p>
                             </div>
 
                             <div className="row">
                                 <div className="col-lg-6 col-md-6">
                                     <div className="box">
-                                        <RiGovernmentLine size={25}/> Governance right
+                                        <RiGovernmentLine size={25}/> {t.governanceRight}
                                     </div>
                                 </div>
 
                                 <div className="col-lg-6 col-md-6">
                                     <div className="box">
-                                        <RiExchangeDollarLine size={25}/> Contribute & Raise in BBST
+                                        <RiExchangeDollarLine size={25}/> {t.contribute}
                                     </div>
                                 </div>
 
                                 <div className="col-lg-6 col-md-6">
                                     <div className="box">
-                                        <RiHandCoinLine size={25}/> Cashback for users
-                                        <p style={{fontSize : 12, fontStyle: 'italic'}}>Increased depending on your stake of BBST</p>
+                                        <RiHandCoinLine size={25}/> {t.cashbackUsers}
+                                        <p style={{fontSize : 12, fontStyle: 'italic'}}>{t.stake}</p>
 
                                     </div>
                                 </div>
@@ -78,8 +81,8 @@ const ServicesArea = () => {
 
                                 <div className="col-lg-6 col-md-6">
                                     <div className="box">
-                                        <ImFire size={25}/> Deflation with burning process
-                                        <p style={{fontSize : 12, fontStyle: 'italic'}}>A part of each fee collected will be used to burn BBST.</p>
+                                        <ImFire size={25}/> {t.deflation}
+                                        <p style={{fontSize : 12, fontStyle: 'italic'}}>{t.deflationExplained}</p>
 
                                     </div>
                                 </div>
@@ -87,20 +90,20 @@ const ServicesArea = () => {
 
                                 <div className="col-lg-6 col-md-6">
                                     <div className="box">
-                                        <FiTrendingDown size={25}/> Reduced fees when raising in BBST
+                                        <FiTrendingDown size={25}/> {t.reduceFees}
                                     </div>
                                 </div>
 
                                 <div className="col-lg-6 col-md-6">
                                     <div className="box">
-                                        <MdFavorite size={25}/> Stakers can choose featured campaigns
+                                        <MdFavorite size={25}/> {t.stakers}
                                     </div>
                                 </div>
 
                               
                                 <div className="col-lg-6 col-md-6">
                                     <div className="box">
-                                        <FiUserCheck size={25}/> Eligibility for airdrops (depending on your stake)
+                                        <FiUserCheck size={25}/> {t.eligible}
                                     </div>
                                 </div>
 
@@ -115,8 +118,8 @@ const ServicesArea = () => {
 
                                 <div className="col-lg-6 col-md-6">
                                     <div className="box">
-                                        <MdPriorityHigh size={25}/> Priority access to limited projects for stakers
-                                        <p style={{fontSize : 12, fontStyle: 'italic'}}>Coming in the future</p>
+                                        <MdPriorityHigh size={25}/> {t.priority}
+                                        <p style={{fontSize : 12, fontStyle: 'italic'}}>{t.future}</p>
                                     </div>
                                 </div>
 
@@ -221,31 +224,35 @@ const ServicesArea = () => {
 
                         <div className="col-lg-6 col-md-12 services-content">
                             <div className="section-title">
-                                <h2>Tokenomics</h2>
+                                <h2>{t.tokenomics}</h2>
                                 <div className="bar"></div>
                             </div>
 
                             <div className="row">
                                     <div className="box">
-                                       <BiCoinStack size={27}/> Total supply : 20 000 000 BBST
+                                       <BiCoinStack size={27}/> {t.totalSupply}: 20 000 000 BBST
                                     </div>
                                     <div className="box">
-                                        <GiMining size={27} /> Platform Liquidity Mining : 7 000 000 BBST
-                                        <p style={{fontSize: 12, fontStyle: 'italic'}}>Users participating on the platform will earn BBST as cashback</p>
+                                        <GiMining size={27} /> {t.liquidity}: 7 000 000 BBST
+                                        <p style={{fontSize: 12, fontStyle: 'italic'}}>{t.earnBBST}</p>
                                     </div>
                                     <div className="box">
-                                        <MdPublic size={27}/> Public Sale (IDO) : 6 000 000 BBST
+                                        <MdPublic size={27}/> {t.IDO}: 2 200 000 BBST
                                     </div>
                                     <div className="box">
-                                        <FiTrendingUp size={27} /> Strategic Development : 3 400 000 BBST
-                                        <p style={{fontSize: 12, fontStyle: 'italic'}}>Half locked for 1 year, half locked for 2 years.</p>
+                                        <RiGitRepositoryPrivateFill size={27}/> {t.privateSale}: 4 000 000 BBST
+                                        <p style={{fontSize: 12, fontStyle: 'italic'}}>{t.privateLocked}</p>
                                     </div>
                                     <div className="box">
-                                        <RiTeamLine size={27} /> Team & Advisors: 2 400 000 BBST
-                                        <p style={{fontSize: 12, fontStyle: 'italic'}}>Locked for 2 years</p>
+                                        <FiTrendingUp size={27} /> {t.strategic}: 3 000 000 BBST
+                                        <p style={{fontSize: 12, fontStyle: 'italic'}}>{t.strategicExplained}</p>
                                     </div>
                                     <div className="box">
-                                        <FaExchangeAlt size={27}/> Liquidity Providing : 1 200 000 BBST
+                                        <RiTeamLine size={27} /> {t.advisors}: 2 400 000 BBST
+                                        <p style={{fontSize: 12, fontStyle: 'italic'}}>{t.lock}</p>
+                                    </div>
+                                    <div className="box">
+                                        <FaExchangeAlt size={27}/> {t.provide}: 1 400 000 BBST
                                     </div>
 
                             </div>

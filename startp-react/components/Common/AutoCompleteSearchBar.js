@@ -1,19 +1,10 @@
 import React from 'react';
 import TextField from '@material-ui/core/TextField';
 import Autocomplete, { createFilterOptions } from '@material-ui/lab/Autocomplete';
-import { getCampaigns } from '@/utils/projectList';
 import SearchBarCard from '@/components/Common/SearchBarCard';
 import Link from 'next/link';
-import SearchField from './SearchField';
-import { Icon } from 'carbon-components-react';
-import SearchIcon from '@material-ui/icons/Search';
-import Typography from '@material-ui/core/Typography';
-import PropTypes from 'prop-types';
-import { makeStyles } from '@material-ui/core/styles';
 import Popper from '@material-ui/core/Popper';
-import usersListJson from '@/utils/usersListJson';
 import { useSelector } from 'react-redux';
-import { updateDoc, getOne, postDoc } from 'firebase-crowdfund/queries'
 
 
 const AutoCompleteSearchBar = () => {

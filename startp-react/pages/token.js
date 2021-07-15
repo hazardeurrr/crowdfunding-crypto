@@ -44,13 +44,12 @@ const TokenDetails = () => {
 
             <div className="services-details-area ptb-80">
                 <div className="container">
-                    <div className="row align-items-center">
+                    {/* <div className="row align-items-center">
                         <div className="col-lg-6 services-details">
                             <div className="services-details-desc">
                                 <h3>Our vision with the BBST token</h3>
-                                <p>We think of this token as a way to support both the campaign creators and the protocol itself, we want to give governance to the hodler</p>
+                                <p>The BBST Token is </p>
                                 <p>The token will reflect the team's effort to ensure that everyone can become a campaign creator and that everyone can invest in any project they want</p>
-                                <p></p>
                             </div>
                         </div>
 
@@ -61,7 +60,7 @@ const TokenDetails = () => {
                                 alt="image" 
                             />
                         </div>
-                    </div>
+                    </div> */}
                     <ServicesArea />
 
                     <div className="separate"></div>

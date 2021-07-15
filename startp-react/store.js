@@ -1,14 +1,13 @@
 import { useMemo } from 'react'
 import { createStore, applyMiddleware } from 'redux'
 import { composeWithDevTools } from 'redux-devtools-extension'
-import { productsData } from './products'
 import {getOne, updateDoc} from 'firebase-crowdfund/queries';
 
 
 let store
 
 const initialState = {
-  products: productsData,
+  products: [],
   cart: [],
   total: 0,
   address: undefined,
@@ -16,13 +15,21 @@ const initialState = {
   chainID: '0x1',
   allCampaigns: [],
   allCreators: [],
-  currentUser: undefined
+  currentUser: undefined,
+  bbstBalance: 0
 }
 
 
 
 const reducer = (state = initialState, action) => {
   switch (action.type) {
+
+    case 'SET_BBST_BALANCE':
+      return {
+        ...state,
+        bbstBalance: action.id
+      }
+
 
     case 'SET_ALL_CAMPAIGNS':
       return {

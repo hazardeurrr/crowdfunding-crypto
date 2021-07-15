@@ -1,15 +1,5 @@
 import React from 'react';
-import Navbar from "@/components/_App/Navbar";
-import Footer from "@/components/_App/Footer";
-import PageBanner from '@/components/Common/PageBanner'; 
-import * as Icon from 'react-feather';
-import Parser from 'html-react-parser';
 import Link from '@/utils/ActiveLink'
-import ProgressBar from 'react-bootstrap/ProgressBar';
-import CampaignSidebar from '@/components/Blog/CampaignSidebar';
-import categoryList from '@/utils/CategoryList';
-import usersListJson from '@/utils/usersListJson';
-import VerifTooltip from '@/components/Common/VerifTooltip';
 import { makeStyles } from '@material-ui/core/styles';
 import Avatar from '@material-ui/core/Avatar';
 import Chip from '@material-ui/core/Chip';

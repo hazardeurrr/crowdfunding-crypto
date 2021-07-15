@@ -9,12 +9,18 @@ import TimelineSeparator from '@material-ui/lab/TimelineSeparator';
 import TimelineConnector from '@material-ui/lab/TimelineConnector';
 import TimelineContent from '@material-ui/lab/TimelineContent';
 import TimelineDot from '@material-ui/lab/TimelineDot';
-import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
 import TimelineOppositeContent from '@material-ui/lab/TimelineOppositeContent';
-
+import fr from '../../public/locales/fr/translation'
+import en from '../../public/locales/en/translation'
+import {useRouter} from 'next/router'
 
 const Roadmap = () => {
+
+    const router = useRouter()
+    const  {locale} = router
+    console.log('locale',locale)
+    const t = locale === 'en' ? en : fr
 
     const currentYear = new Date().getFullYear();
 
@@ -23,7 +29,7 @@ const Roadmap = () => {
         <div className="features-area pt-80 pb-50 bg-f7fafd">
           <div className="container">
             <div className="section-title">
-                <h2>Our roadmap</h2>
+                <h2>{t.roadmapTitle}</h2>
                 <div className="bar"></div>
             </div>
           </div>
@@ -46,9 +52,9 @@ const Roadmap = () => {
             <TimelineContent>
             <div  style={{padding: '10px', width: 'fit-content', boxShadow: '0 2px 48px 0 rgb(0 0 0 / 8%)'}}>
                 <Typography variant="h6" component="h1">
-                Project Initialization
+                {t.project}
                 </Typography>
-                <Typography>Conceptualisation and early development</Typography>
+                <Typography>{t.projectConcept}</Typography>
             </div>
             </TimelineContent>
         </TimelineItem>
@@ -67,9 +73,9 @@ const Roadmap = () => {
             <TimelineContent>
             <div style={{padding: '10px', width: 'fit-content',display: 'inline-block', boxShadow: '0 2px 48px 0 rgb(0 0 0 / 8%)'}}>
                 <Typography variant="h6" component="h1">
-                    Development
+                    {t.dvpt}
                 </Typography>
-                <Typography>Development of the platform and smart contracts</Typography>
+                <Typography>{t.dvpt2}</Typography>
             </div>
             </TimelineContent>
         </TimelineItem>
@@ -114,7 +120,7 @@ const Roadmap = () => {
                 <Typography variant="h6" component="h1">
                     IDO
                 </Typography>
-                <Typography>BBST Token Sale</Typography>
+                <Typography>{t.sale}</Typography>
             </div>
             </TimelineContent>
         </TimelineItem>
@@ -137,7 +143,7 @@ const Roadmap = () => {
                 <Typography variant="h6" component="h1">
                 Alpha
                 </Typography>
-                <Typography>Alpha of the platform on Testnet</Typography>
+                <Typography>{t.alpha}</Typography>
 
             </div>
             </TimelineContent>
@@ -159,7 +165,7 @@ const Roadmap = () => {
                 <Typography variant="h6" component="h1">
                     V1
                 </Typography>
-                <Typography>Release of V1 on Mainnet</Typography>
+                <Typography>{t.mainnet}</Typography>
             </div>
             </TimelineContent>
         </TimelineItem>
@@ -167,7 +173,7 @@ const Roadmap = () => {
         <TimelineItem>
         <TimelineOppositeContent>
             <Typography variant="body2" color="textSecondary">
-                Q2 2022 & More
+                {t.q22}
             </Typography>
             
             </TimelineOppositeContent>
@@ -180,9 +186,9 @@ const Roadmap = () => {
             <TimelineContent>
             <div  style={{padding: '10px', width: 'fit-content', boxShadow: '0 2px 48px 0 rgb(0 0 0 / 8%)'}}>
                 <Typography variant="h6" component="h1">
-                Improvement and expansion
+                {t.improvment}
                 </Typography>
-                <Typography>Improvement of the platform and expansion of the BlockBoosted ecosystem...</Typography>
+                <Typography>{t.improvment2}</Typography>
 
             </div>
             </TimelineContent>

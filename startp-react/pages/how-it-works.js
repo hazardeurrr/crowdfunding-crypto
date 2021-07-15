@@ -2,6 +2,9 @@ import React from 'react';
 import Navbar from "@/components/_App/Navbar";
 import Footer from "@/components/_App/Footer";
 import PageBanner from '@/components/Common/PageBanner';
+import * as Icon from 'react-feather';
+import Link from 'next/link';
+
 import {
     Accordion,
     AccordionItem,
@@ -22,42 +25,21 @@ const ServiceDetails = () => {
  
             <div className="services-details-area ptb-80">
                 <div className="container">
-                    <div className="row align-items-center">
-                        <div className="col-lg-6 services-details">
-                            <div className="services-details-desc">
-                                <h3>Connecting creators, organizations and entrepreneurs to their public</h3>
-                                <p>Everyone can create a campaign to raise funds for its project. Once all the information about the campaign is given, a smart contract working on the Ethereum blockchain will create the campaign's own contract.</p>
-                                <p>Taking advantage of the Ethereum blockchain, everyone can back a campaign, interacting with the contract and sending either ETH or USDT depending on the creator's choice.</p>
-                                <p>Once the end date is reached, the funds on the contract are unlocked and transfered to the creator's address. If the creator has set up a "All or nothing" type of campaign, there is two options : either the goal is reached and the funds are unlocked, or the goal isn't reached and contributors can ask for a refund on the campaign's page.</p>
-                                <p>Note that everything is run by smart contracts and that we never touch your cryptocurrencies</p>
-                            </div>
-                        </div>
-
-                        <div className="col-lg-6 services-details-image">
-                            <img 
-                                src="/images/services-details-image/services-details1.png" 
-                                className="animate__animated animate__fadeInUp" 
-                                alt="image" 
-                            />
-                        </div>
-                    </div>
-
-                    <div className="separate"></div>
+                        
 
                     <div className="row align-items-center">
                         <div className="col-lg-6 services-details-image">
-                            <img 
-                                src="/images/services-details-image/services-details2.png" 
-                                className="animate__animated animate__fadeInUp" 
-                                alt="image" 
-                            />
+                            
+                           <iframe src="https://www.youtube.com/embed/-2gl53Dnd38" title="YouTube video player" frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                           
                         </div>
+                        
 
                         <div className="col-lg-6 services-details">
                             <div className="services-details-desc">
-                                <h3>I want to create a campaign</h3>
+                                <h3>I want to contribute to a campaign</h3>
                                 <div className="services-details-accordion">
-                                    <Accordion allowZeroExpanded preExpanded={['a']}>
+                                    <Accordion allowZeroExpanded>
                                         <AccordionItem uuid="a">
                                             <AccordionItemHeading>
                                                 <AccordionItemButton>
@@ -68,9 +50,9 @@ const ServiceDetails = () => {
                                             </AccordionItemHeading>
                                             <AccordionItemPanel>
                                                 <p>
-                                                    You need Metamask to use our features. If you don't have it, you can download this browser wallet extension at  
-                                                    <a href="https://metamask.io/"> metamask.io</a>. Once you have the extension installed, click on the Login button on the navigation bar of our site.
-                                                    Click "Connect to Metamask", enter your credentials and confirm on the Metamask pop up. You're now connected with your wallet, congratulations !
+                                                    You need the Ethereum browser wallet Metamask to use our features. If you don't have it, you can download this browser wallet extension at 
+                                                    <a href="https://metamask.io/"> metamask.io</a>. Once you have the extension installed, click on the Conect Wallet button on the navigation bar of our site.
+                                                    Enter your credentials and confirm on the Metamask popup. You're now connected with your Metamask wallet, congratulations !
                                                 </p>
                                             </AccordionItemPanel>
                                         </AccordionItem>
@@ -79,13 +61,14 @@ const ServiceDetails = () => {
                                             <AccordionItemHeading>
                                                 <AccordionItemButton>
                                                     <span>
-                                                        How do I create a campaign ?
+                                                        How can I find a specific campaign ?
                                                     </span>
                                                 </AccordionItemButton>
                                             </AccordionItemHeading>
                                             <AccordionItemPanel>
                                                 <p>
-                                                    You can create a campaign easily on our main page or using the link to do so in the navigation bar.
+                                                    The easiest way to access a campaign is by searching for its name on the searchbar. You can also search its creator there by its username.
+                                                    Otherwise, you can explore all the campaigns sorted by categories in our "Explore" tab.
                                                 </p>
                                             </AccordionItemPanel>
                                         </AccordionItem>
@@ -94,13 +77,14 @@ const ServiceDetails = () => {
                                             <AccordionItemHeading>
                                                 <AccordionItemButton>
                                                     <span>
-                                                        Can I set rewards tiers for my contributors ?
+                                                        How do I contribute to a campaign ?
                                                     </span>
                                                 </AccordionItemButton>
                                             </AccordionItemHeading>
                                             <AccordionItemPanel>
                                                 <p>
-                                                    Yes you can ! Set up to 5 reward tiers when you create your campaign, and you'll be able to get the list of each contributor with its contribution at the end of the campaign!
+                                                    Once you are on the page of an active campaign, press the button "Back this campaign" to access the checkout page.<br></br>
+                                                    Select your plan and confirm the transaction on the Metamask pop-up. Once the transaction is confirmed by the blockchain, it means that your donation is done !
                                                 </p>
                                             </AccordionItemPanel>
                                         </AccordionItem>
@@ -115,9 +99,91 @@ const ServiceDetails = () => {
                                             </AccordionItemHeading>
                                             <AccordionItemPanel>
                                                 <p>
-                                                    We do not charge any fee for premium creators, i.e. creators staking 50000CWD or more.
-                                                    Otherwise, we will take only a 1% cut on the total amount raised at the end of the campaign.
-                                                    Note that there is no processing fees. Since we use the Ethereum blockchain, there will only be a small gas cost paid in ETH when creating and interacting with the contract.
+                                                    As a contributor, you aren't charged any fee by the platform. But you will have to pay the gas fee of the Ethereum blockchain when confirming the transaction. Note that this is
+                                                    the only fee you'll pay.
+                                                </p>
+                                            </AccordionItemPanel>
+                                        </AccordionItem>
+
+                                        <AccordionItem uuid="e">
+                                            <AccordionItemHeading>
+                                                <AccordionItemButton>
+                                                    <span>
+                                                        How do I get my rewards ?
+                                                    </span>
+                                                </AccordionItemButton>
+                                            </AccordionItemHeading>
+                                            <AccordionItemPanel>
+                                                <p>
+                                                    If you contributed to a campaign chosing a plan with a reward, you will soon be contacted by the campaign's creator.
+                                                    When the campaign ends, we transfer all the needed information of your profile to the creator so he can send you the relevant reward. <br></br>
+                                                    <Icon.AlertTriangle/> Be sure to fill your profile (at least your email address) so the creator will be able to contact you. 
+                                                </p>
+                                            </AccordionItemPanel>
+                                        </AccordionItem>
+
+                                        <AccordionItem uuid="f">
+                                            <AccordionItemHeading>
+                                                <AccordionItemButton>
+                                                    <span>
+                                                        What is BBST cashback and how do I get it ?
+                                                    </span>
+                                                </AccordionItemButton>
+                                            </AccordionItemHeading>
+                                            <AccordionItemPanel>
+                                                <p>
+                                                    When you contribute to a campaign, you will earn BBST as cashback. BBST is the token powering our ecosystem. It has value and give you power on the platform. Learn more about it and claim your due on the dedicated page <Link href="/token"><a>BBST Token</a></Link>. The amount
+                                                    of cashback in BBST you'll get for your contribution depends on the value of it as well as the amount of BBST you own on your wallet at that time.
+                                                </p>
+                                            </AccordionItemPanel>
+                                        </AccordionItem>
+
+                                        <AccordionItem uuid="g">
+                                            <AccordionItemHeading>
+                                                <AccordionItemButton>
+                                                    <span>
+                                                        How do I get a refund ?
+                                                    </span>
+                                                </AccordionItemButton>
+                                            </AccordionItemHeading>
+                                            <AccordionItemPanel>
+                                                <p>
+                                                    If the campaign set up an "All or nothing" goal and didn't reach it, you will be able to get a refund of your contribution on the relevant campaign page.
+                                                    Just click the "Get your refund" button and confirm on the Metamask pop-up to get your contribution back on your wallet. You have 1 year from the end of the campaign
+                                                    to get a refund, otherwise the funds will be transfered to the community fund.
+                                                    <br></br>In any other case, you can't get a refund of your contribution.
+                                                </p>
+                                            </AccordionItemPanel>
+                                        </AccordionItem>
+
+                                        <AccordionItem uuid="h">
+                                            <AccordionItemHeading>
+                                                <AccordionItemButton>
+                                                    <span>
+                                                        I can't access some features
+                                                    </span>
+                                                </AccordionItemButton>
+                                            </AccordionItemHeading>
+                                            <AccordionItemPanel>
+                                                <p>
+                                                    . If some features are missing, be sure to be connected to Metamask and be sure that it is your only browser extension that serve as an Ethereum wallet.
+                                                    <br></br>. If you are connected to Metamask, be sure you have "Ethereum Mainnet" selected as network on the Metamask tab.
+                                                    <br></br>. If none of these work, try to reload the page or open it with another browser.
+                                                </p>
+                                            </AccordionItemPanel>
+                                        </AccordionItem>
+
+                                        <AccordionItem uuid="i">
+                                            <AccordionItemHeading>
+                                                <AccordionItemButton>
+                                                    <span>
+                                                        I can't confirm my transaction
+                                                    </span>
+                                                </AccordionItemButton>
+                                            </AccordionItemHeading>
+                                            <AccordionItemPanel>
+                                                <p>
+                                                Be sure you have enough money in the needed currency in your Metamask wallet, as well as enough ETH to pay the gas fee of the transaction. Transaction on the Ethereum blockchain can take quite a long time. The less fee you want to pay, the longer it will take to get confirmed. 
                                                 </p>
                                             </AccordionItemPanel>
                                         </AccordionItem>
@@ -133,10 +199,9 @@ const ServiceDetails = () => {
                         <div className="row align-items-center">
                             <div className="col-lg-6 services-details">
                                 <div className="services-details-desc">
-                                    <h3>I want to contribute to a campaign</h3>
-                                    <p>Thanks for supporting creators and entrepreneurs in their project !</p>
+                                    <h3>I want to create a campaign</h3>
                                     <div className="services-details-accordion">
-                                        <Accordion allowZeroExpanded preExpanded={['a']}>
+                                        <Accordion allowZeroExpanded>
                                             <AccordionItem uuid="a">
                                                 <AccordionItemHeading>
                                                     <AccordionItemButton>
@@ -147,9 +212,9 @@ const ServiceDetails = () => {
                                                 </AccordionItemHeading>
                                                 <AccordionItemPanel>
                                                     <p>
-                                                        You need Metamask to use our features. If you don't have it, you can download this browser wallet extension at  
-                                                        <a href="https://metamask.io/">metamask.io</a>. Once you have the extension installed, click on the Login button on the navigation bar of our site.
-                                                        Click "Connect to Metamask", enter your credentials and confirm on the Metamask pop up. You're now connected with your wallet, congratulations !
+                                                        You need the Ethereum browser wallet Metamask to use our features. If you don't have it, you can download this browser wallet extension at 
+                                                        <a href="https://metamask.io/"> metamask.io</a>. Once you have the extension installed, click on the Conect Wallet button on the navigation bar of our site.
+                                                        Enter your credentials and confirm on the Metamask popup. You're now connected with your Metamask wallet, congratulations !
                                                     </p>
                                                 </AccordionItemPanel>
                                             </AccordionItem>
@@ -158,13 +223,15 @@ const ServiceDetails = () => {
                                                 <AccordionItemHeading>
                                                     <AccordionItemButton>
                                                         <span>
-                                                            How can I see the campaigns ?
+                                                            How can I create a campaign ?
                                                         </span>
                                                     </AccordionItemButton>
                                                 </AccordionItemHeading>
                                                 <AccordionItemPanel>
                                                     <p>
-                                                        You can see all the campaigns on the "Explore" tab on the navigation bar. You can then filter them depending on their domain.
+                                                        You can create a campaign in a few steps clicking on the "Create" button on the navigation bar. You will need to be connected to Metamask to access this feature.
+                                                        Firstly, you'll need to get a certified account. This is a legal need because of AML policy. This step usually takes few minutes.
+                                                        <br></br>Once it's done, you can finally access the creation page and fill the form as you wish to customize your campaign.
                                                     </p>
                                                 </AccordionItemPanel>
                                             </AccordionItem>
@@ -173,17 +240,111 @@ const ServiceDetails = () => {
                                                 <AccordionItemHeading>
                                                     <AccordionItemButton>
                                                         <span>
-                                                            How to make a contribution ?
+                                                            How can I customize my campaign ?
                                                         </span>
                                                     </AccordionItemButton>
                                                 </AccordionItemHeading>
                                                 <AccordionItemPanel>
                                                     <p>
-                                                        Once you are on a campaign's page, just click the "Back a campaign" button to make your contribution. A metamask pop up will open, confirm the amount you wish to give and adjust the gas costs to your convenience, then confirm.
-                                                        It's done !
+                                                        Customize your campaign page as you wish with our editor. Add title, style, images, link and videos easily to make an appealing page. You can preview your page in our editor. Note that you won't be able to change it once the campain is created.
                                                     </p>
                                                 </AccordionItemPanel>
                                             </AccordionItem>
+
+                                            <AccordionItem uuid="d">
+                                                <AccordionItemHeading>
+                                                    <AccordionItemButton>
+                                                        <span>
+                                                            Can I set rewards for my contributors ?
+                                                        </span>
+                                                    </AccordionItemButton>
+                                                </AccordionItemHeading>
+                                                <AccordionItemPanel>
+                                                    <p>
+                                                       Yes you can ! Just check the corresponding checkbox on the campaign creation form. You can have as much as 5 different rewards tiers, with a different price for each one.
+                                                    </p>
+                                                </AccordionItemPanel>
+                                            </AccordionItem>
+
+                                            <AccordionItem uuid="e">
+                                                <AccordionItemHeading>
+                                                    <AccordionItemButton>
+                                                        <span>
+                                                            Which currency can I raise money in ?
+                                                        </span>
+                                                    </AccordionItemButton>
+                                                </AccordionItemHeading>
+                                                <AccordionItemPanel>
+                                                    <p>
+                                                        At the moment, you have to choose a currency for your campaign between ETH (Ether), USDT (Tether) and BBST (our native token : BlockBoosted).
+                                                    </p>
+                                                </AccordionItemPanel>
+                                            </AccordionItem>
+
+                                            <AccordionItem uuid="f">
+                                                <AccordionItemHeading>
+                                                    <AccordionItemButton>
+                                                        <span>
+                                                            Will I get the funds even though the goal is not reached ?
+                                                        </span>
+                                                    </AccordionItemButton>
+                                                </AccordionItemHeading>
+                                                <AccordionItemPanel>
+                                                    <p>
+                                                        You choose ! By default, yes, the goal is flexible. It means that you will have all the funds raised in your campaign at the end of it. But you can also
+                                                        set it to "All or nothing", so if the goal is not reached by the deadline, contributors will be able to get a refund.
+                                                    </p>
+                                                </AccordionItemPanel>
+                                            </AccordionItem>
+
+                                            <AccordionItem uuid="g">
+                                                <AccordionItemHeading>
+                                                    <AccordionItemButton>
+                                                        <span>
+                                                            How do I get the funds raised ?
+                                                        </span>
+                                                    </AccordionItemButton>
+                                                </AccordionItemHeading>
+                                                <AccordionItemPanel>
+                                                    <p>
+                                                        Once your campaign is finished, you'll see a new button on your campaign page to do so. Just click it and confirm the transaction to get the funds unlocked to your wallet.
+                                                    </p>
+                                                </AccordionItemPanel>
+                                            </AccordionItem>
+
+                                            <AccordionItem uuid="h">
+                                                <AccordionItemHeading>
+                                                    <AccordionItemButton>
+                                                        <span>
+                                                            How can I contact my contributors ?
+                                                        </span>
+                                                    </AccordionItemButton>
+                                                </AccordionItemHeading>
+                                                <AccordionItemPanel>
+                                                    <p>
+                                                        Once your campaign is finished, you'll be able to download a CSV file which contains all the information needed on your contributors and their associated donation.
+                                                    </p>
+                                                </AccordionItemPanel>
+                                            </AccordionItem>
+
+                                            <AccordionItem uuid="i">
+                                                <AccordionItemHeading>
+                                                    <AccordionItemButton>
+                                                        <span>
+                                                            How can my campaign be featured on the main page ?
+                                                        </span>
+                                                    </AccordionItemButton>
+                                                </AccordionItemHeading>
+                                                <AccordionItemPanel>
+                                                    <p>
+                                                        Featured campaigns are determined by BBST stakers and platforms users. When a user like a campaign, he increases its "like score". The more BBST the user stake, the more this score increased.
+                                                        The calculus is made everyday to see which campaign do BBST stakers love the most. <br></br>So if you want your campaign to be featured on the main page and seen as first results, you need to
+                                                        get likes from the biggest BBST stakers. Note that you can like your own campaign.
+                                                    </p>
+                                                </AccordionItemPanel>
+                                            </AccordionItem>
+
+                                            
                                         </Accordion>
                                     </div>
                                 </div>
@@ -194,14 +355,18 @@ const ServiceDetails = () => {
                                     src="/images/services-details-image/services-details2.png" 
                                     className="animate__animated animate__fadeInUp" 
                                     alt="image" 
-                                />
+                                />  
+                                <iframe src="https://www.youtube.com/embed/-2gl53Dnd38" title="YouTube video player" frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
                             </div>
                         </div>
 
-                        <div className="faq-area ptb-80">
+                        {/* <div className="faq-area ptb-80">
                             <div className="container">
                                 <div className="faq-accordion">
-                                    <Accordion allowZeroExpanded preExpanded={['a']}>
+                                    <h2>Frequently Asked Questions</h2>
+
+                                    <Accordion allowZeroExpanded>
                                         <AccordionItem uuid="a">
                                             <AccordionItemHeading>
                                                 <AccordionItemButton>
@@ -330,7 +495,7 @@ const ServiceDetails = () => {
                                     </form>
                                 </div>
                             </div>
-                        </div>
+                        </div> */}
  
                     </div>
                 </div>

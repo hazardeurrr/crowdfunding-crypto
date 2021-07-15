@@ -5,6 +5,13 @@
     height: 228px !important;
   }
 
+  .services-details-image iframe{
+    text-align: center;
+    width: 404.7px !important;
+    height: 228px !important;
+  
+  }
+
   .user-address {
     font-size: 13px;
   }
@@ -1775,6 +1782,9 @@
 
 /* Min width 768px to Max width 991px */
 @media only screen and (min-width: 768px) and (max-width: 991px) {
+
+
+  
   .main-banner {
     height: 100%;
     padding-top: 185px;
@@ -2372,6 +2382,12 @@
     height: 331.2px !important;
   }
 
+  .services-details-image iframe{
+    text-align: center;
+    width: 426px !important;
+    height: 240px !important;
+  }
+
   .main-banner .hero-content h1 {
     font-size: 35px;
   }
@@ -2630,6 +2646,13 @@
   .blog-details-desc .article-content iframe{
     width: 768px !important;
     height: 432px !important;
+  }
+
+  .services-details-image iframe{
+    text-align: center;
+    width: 595.2px !important;
+    height: 334.8px !important;
+  
   }
 }
 /*# sourceMappingURL=responsive.css.map */

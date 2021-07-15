@@ -5,15 +5,21 @@ import { GiTwoCoins } from 'react-icons/gi';
 import { RiHandCoinLine, RiFundsFill } from 'react-icons/ri';
 import {MdMoneyOff} from 'react-icons/md';
 import {FaVoteYea, FaRegHandPointUp} from 'react-icons/fa'
-
+import {useRouter} from 'next/router'
+import fr from '../../public/locales/fr/translation'
+import en from '../../public/locales/en/translation'
 const OurFeatures = () => {
+    const router = useRouter()
+    const  {locale} = router
+    console.log('locale',locale)
+    const t = locale === 'en' ? en : fr
     return (
         <div className="features-area pt-80 pb-50 bg-f7fafd">
             <div className="container">
                 <div className="section-title">
-                    <h2>Fair crowdfunding</h2>
+                    <h2>{t.title}</h2>
                     <div className="bar"></div>
-                    <p>With BlockBoosted, we want to make crowdfunding fairer for raisers and contributors.</p>
+                    <p>{t.subtitle}</p>
                 </div>
 
                 <div className="row">
@@ -23,12 +29,12 @@ const OurFeatures = () => {
                                     <GiTwoCoins size={30}/>
                             </div>
                             <h3>
-                                    Less platform fees
+                                    {t.fees}
                             </h3>
-                            <p><b>We charge 1% fee.</b><em style={{fontSize: 10}}>*</em> And for good reasons.<em style={{fontSize: 10}}>**</em><br></br>
-                            <i style={{fontSize: 13}}>Crowdfunding platforms usually charge a 5% platform fee.</i></p>
-                            <p style={{fontSize: 10, marginTop: 20}}>*1% for campaigns in BBST, 2.5% for successfuls campaigns in ETH and USDT</p>
-                            <p style={{fontSize: 10, marginTop: -15}}>**How do we split the fee : 20% going into community fund (insurance & airdrops), 15% for BBST burning, 65% to pay our fixed costs.</p>
+                            <p><b>{t.chargedFees}</b><em style={{fontSize: 10}}>*</em> {t.fees2}<em style={{fontSize: 10}}>**</em><br></br>
+                            <i style={{fontSize: 13}}></i>{t.fees3}</p>
+                            <p style={{fontSize: 10, marginTop: 20}}>*{t.repartition}</p>
+                            <p style={{fontSize: 10, marginTop: -15}}>**{t.fees4}</p>
 
                         </div>
                     </div>
@@ -40,11 +46,11 @@ const OurFeatures = () => {
                             </div> 
                             <h3>
                                 <Link href="/feature-details">
-                                    <a>No payment or processing fee</a>
+                                    <a>{t.noPayment}</a>
                                 </Link>
                             </h3>
-                            <p>No intermediate, no fee ! You only need to pay the gas fee of the Ethereum blockchain.<br></br>
-                            <i style={{fontSize: 12}}>Crowdfunding platforms usually charge a 3% payment fee for their payment provider on top of the platform fee.</i></p>
+                            <p>{t.noFees}<br></br>
+                            <i style={{fontSize: 12}}>{t.charges}</i></p>
                         </div>
                     </div>
 
@@ -54,9 +60,9 @@ const OurFeatures = () => {
                                 <RiHandCoinLine  size={30}/>
                             </div>
                             <h3>
-                                    Cashback for contributors
+                                    {t.cashback}
                             </h3>
-                            <p>Contributors that boost projects on BlockBoosted are given BBST tokens, depending on their stake and contribution !</p>
+                            <p>{t.boostCampaign}</p>
                         </div>
                     </div>
 
@@ -66,9 +72,9 @@ const OurFeatures = () => {
                                 <FaVoteYea size={30} />
                             </div>
                             <h3>
-                                    Governance for stakers
+                                  {t.governance}  
                             </h3>
-                            <p>Power to the users ! BBST stakers can vote for majors changes on the platform, airdrops and featured campaigns.</p>
+                            <p>{t.power}</p>
                         </div>
                     </div>
 
@@ -78,9 +84,9 @@ const OurFeatures = () => {
                                 <RiFundsFill size={45}/>
                             </div>
                             <h3>
-                                    Raise in crypto
+                                    {t.raise}{t.raiseCrypto}
                             </h3>
-                            <p>Choose to raise money in ETH, USDT or BBST.</p>
+                            <p>{t.raising}</p>
                         </div>
                     </div>
 
@@ -90,9 +96,9 @@ const OurFeatures = () => {
                                 <FaRegHandPointUp size={30} />
                             </div>
                             <h3>
-                                    Easy to use
+                                    {t.easy2use}
                             </h3>
-                            <p>Create a campaign in less than 5 minutes and start raising funds ! Contribute to any project in 2-clicks.</p>
+                            <p>{t.fast}</p>
                         </div>
                     </div>
 

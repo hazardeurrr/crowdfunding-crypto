@@ -1,8 +1,4 @@
 import React, { Component } from 'react';
-import Link from 'next/link';
-import * as Icon from 'react-feather';
-import { getCampaigns } from '@/utils/projectList'
-import usersListJson from '@/utils/usersListJson';
 import SimpleCampaignPost from '@/components/Common/SimpleCampaignPost'
 import {connect} from 'react-redux'
 

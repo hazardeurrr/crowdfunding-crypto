@@ -2,7 +2,9 @@ import React from 'react';
 
 import {db, storage} from '../../firebase-crowdfund/index'
 import firebase from '../../firebase-crowdfund/index'
-
+import {useRouter} from 'next/router'
+import fr from '../../public/locales/fr/translation'
+import en from '../../public/locales/en/translation'
 const handleSubmit = (event) => {
     event.preventDefault()
     console.log('in submit function')
@@ -17,6 +19,10 @@ const handleSubmit = (event) => {
 }
 
 const Newsletter = () => {
+    const router = useRouter()
+    const  {locale} = router
+    console.log('locale',locale)
+    const t = locale === 'en' ? en : fr
     return (
         <div className="free-trial-area">
             <div className="container-fluid">
@@ -29,13 +35,13 @@ const Newsletter = () => {
 
                     <div className="col-lg-6 col-md-12">
                         <div className="free-trial-content">
-                            <h2>Subscribe to our newsletter</h2>
+                            <h2>{t.newsletter}</h2>
 
                             <form className="newsletter-form" onSubmit={handleSubmit}>
-                                      <input type="email" className="input-newsletter" placeholder="Enter your email here" />
-                                      <button type="submit">Subscribe !</button>
+                                      <input type="email" className="input-newsletter" placeholder={t.emailAddress} />
+                                      <button type="submit">{t.subscribeBtn}</button>
                                   </form>
-                            <p>Get the latest news on the project and the BBST IDO.</p>
+                            <p>{t.news}</p>
                         </div>
                     </div>
                 </div>

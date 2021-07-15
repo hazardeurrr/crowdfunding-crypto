@@ -4,7 +4,10 @@ import {db} from '../../firebase-crowdfund/index'
 import * as Icon from 'react-feather';
 import { FaTelegramPlane, FaMediumM } from 'react-icons/fa';
 import firebase from '../../firebase-crowdfund/index'
+import {useRouter} from 'next/router'
 
+import fr from '../../public/locales/fr/translation'
+import en from '../../public/locales/en/translation'
 
 const handleSubmit = (event) => {
     event.preventDefault()
@@ -20,14 +23,21 @@ const handleSubmit = (event) => {
 }
 
 const MainBanner = () => {
+
+
+    const router = useRouter()
+    const  {locale} = router
+    console.log('locale',locale)
+    const t = locale === 'en' ? en : fr
+
     return (
         <div className="ml-main-section">
             <div className="container">
                 <div className="row">
                     <div className="col-lg-6 col-md-12">
                         <div className="ml-banner-content">
-                            <h1>Crowdfunding reinvented with BlockBoosted !</h1>
-                            <p>BlockBoosted is an innovative crowdfunding ecosystem using the Ethereum Blockchain ! Less fees, more trust, better user experience and cashback for contributors.</p>
+                            <h1>{t.hero}</h1>
+                            <p>{t.heroDesc}</p>
 
                               <div className="free-trial-content">
                                 <div className="single-footer-widget">
@@ -52,10 +62,10 @@ const MainBanner = () => {
                                     </ul>
                                   </div>
                                 <br></br>
-                                <p>Subscribe to our newsletter for free to get the latest news on BlockBoosted and BBST Token Sale.</p>
+                                <p>{t.subscribe}</p>
                                   <form className="newsletter-form" onSubmit={handleSubmit}>
-                                      <input type="email" className="input-newsletter" placeholder="Enter your email here" />
-                                      <button type="submit">Subscribe !</button>
+                                      <input type="email" className="input-newsletter" placeholder={t.emailAddress} />
+                                      <button type="submit">{t.subscribeBtn}</button>
                                   </form>
                                  
                               </div>
