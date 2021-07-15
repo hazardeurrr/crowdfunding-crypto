@@ -25,8 +25,8 @@ const Roadmap = () => {
     const currentYear = new Date().getFullYear();
 
     return (
-      <div id="roadmap">
-        <div className="features-area pt-80 pb-50 bg-f7fafd">
+      <div id="roadmap bg-f7fafd">
+        <div className="features-area pt-80 pb-30">
           <div className="container">
             <div className="section-title">
                 <h2>{t.roadmapTitle}</h2>
@@ -50,7 +50,7 @@ const Roadmap = () => {
             <TimelineConnector />
             </TimelineSeparator>
             <TimelineContent>
-            <div  style={{padding: '10px', width: 'fit-content', boxShadow: '0 2px 48px 0 rgb(0 0 0 / 8%)'}}>
+            <div  style={{padding: '10px', width: '-moz-fit-content', boxShadow: '0 2px 48px 0 rgb(0 0 0 / 8%)'}}>
                 <Typography variant="h6" component="h1">
                 {t.project}
                 </Typography>
@@ -71,7 +71,7 @@ const Roadmap = () => {
             <TimelineConnector />
             </TimelineSeparator>
             <TimelineContent>
-            <div style={{padding: '10px', width: 'fit-content',display: 'inline-block', boxShadow: '0 2px 48px 0 rgb(0 0 0 / 8%)'}}>
+            <div style={{padding: '10px', width: '-moz-fit-content',display: 'inline-block', boxShadow: '0 2px 48px 0 rgb(0 0 0 / 8%)'}}>
                 <Typography variant="h6" component="h1">
                     {t.dvpt}
                 </Typography>
@@ -94,7 +94,7 @@ const Roadmap = () => {
             <TimelineConnector  />
             </TimelineSeparator>
             <TimelineContent>
-            <div style={{padding: '10px', width: 'fit-content',display: 'inline-block', boxShadow: '0 2px 48px 0 rgb(0 0 0 / 8%)'}}>
+            <div style={{padding: '10px', width: '-moz-fit-content',display: 'inline-block', boxShadow: '0 2px 48px 0 rgb(0 0 0 / 8%)'}}>
                 <Typography variant="h6" component="h1">
                     
                 </Typography>
@@ -116,7 +116,7 @@ const Roadmap = () => {
             <TimelineConnector />
             </TimelineSeparator>
             <TimelineContent>
-            <div style={{padding: '10px', width: 'fit-content',display: 'inline-block', boxShadow: '0 2px 48px 0 rgb(0 0 0 / 8%)'}}>
+            <div style={{padding: '10px', width: '-moz-fit-content',display: 'inline-block', boxShadow: '0 2px 48px 0 rgb(0 0 0 / 8%)'}}>
                 <Typography variant="h6" component="h1">
                     IDO
                 </Typography>
@@ -139,7 +139,7 @@ const Roadmap = () => {
             <TimelineConnector  />
             </TimelineSeparator>
             <TimelineContent>
-            <div  style={{padding: '10px', width: 'fit-content', boxShadow: '0 2px 48px 0 rgb(0 0 0 / 8%)'}}>
+            <div  style={{padding: '10px', width: '-moz-fit-content', boxShadow: '0 2px 48px 0 rgb(0 0 0 / 8%)'}}>
                 <Typography variant="h6" component="h1">
                 Alpha
                 </Typography>
@@ -161,7 +161,7 @@ const Roadmap = () => {
             <TimelineConnector />
             </TimelineSeparator>
             <TimelineContent>
-            <div style={{padding: '10px', width: 'fit-content',display: 'inline-block', boxShadow: '0 2px 48px 0 rgb(0 0 0 / 8%)'}}>
+            <div style={{padding: '10px', width: '-moz-fit-content',display: 'inline-block', boxShadow: '0 2px 48px 0 rgb(0 0 0 / 8%)'}}>
                 <Typography variant="h6" component="h1">
                     V1
                 </Typography>
@@ -184,7 +184,7 @@ const Roadmap = () => {
             <TimelineConnector  />
             </TimelineSeparator>
             <TimelineContent>
-            <div  style={{padding: '10px', width: 'fit-content', boxShadow: '0 2px 48px 0 rgb(0 0 0 / 8%)'}}>
+            <div  style={{padding: '10px', width: '-moz-fit-content', boxShadow: '0 2px 48px 0 rgb(0 0 0 / 8%)'}}>
                 <Typography variant="h6" component="h1">
                 {t.improvment}
                 </Typography>

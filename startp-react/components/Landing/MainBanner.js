@@ -5,26 +5,41 @@ import * as Icon from 'react-feather';
 import { FaTelegramPlane, FaMediumM } from 'react-icons/fa';
 import firebase from '../../firebase-crowdfund/index'
 import {useRouter} from 'next/router'
+import Dialog from '@material-ui/core/Dialog';
+import DialogContent from '@material-ui/core/DialogContent';
+import DialogContentText from '@material-ui/core/DialogContentText';
+import DialogTitle from '@material-ui/core/DialogTitle';
 
 import fr from '../../public/locales/fr/translation'
 import en from '../../public/locales/en/translation'
 
-const handleSubmit = (event) => {
-    event.preventDefault()
-    console.log('in submit function')
-    console.log(event.target[0].value)
-    console.log(event)
-    const email = event.target[0].value
-    db.collection('newsletter').doc(firebase.database().ref().push().key).set({email: email}).then(x => {
-        console.log('document written with : ' + email)
-    }).catch(err => {
-        console.error(err)
-    })
-}
 
 const MainBanner = () => {
+    
+    const [open, setOpen] = React.useState(false);
+      
+    const handleClose = () => {
+        setOpen(false);
+    };
 
-
+    const handleClickOpen = () => {
+        setOpen(true);
+      };
+    
+    const handleSubmit = (event) => {
+        event.preventDefault()
+        // console.log('in submit function')
+        // console.log(event.target[0].value)
+        // console.log(event)
+        
+        const email = event.target[0].value
+        db.collection('newsletter').doc(firebase.database().ref().push().key).set({email: email}).then(x => {
+            console.log('document written with : ' + email)
+        }).catch(err => {
+            console.error(err)
+        })
+    }
+    
     const router = useRouter()
     const  {locale} = router
     console.log('locale',locale)
@@ -48,11 +63,11 @@ const MainBanner = () => {
                                                 <a className="twitter" target="_blank"><Icon.Twitter /></a>
                                             </Link>
                                         </li>
-                                        <li>
+                                        {/* <li>
                                             <Link href="https://twitter.com/blockboosted">
                                                 <a className="linkedin" target="_blank"><FaTelegramPlane /></a>
                                             </Link>
-                                        </li>
+                                        </li> */}
                                         <li>
                                             <Link href="https://medium.com/@blockboosted">
                                                 <a className="instagram" target="_blank"><FaMediumM /></a>
@@ -63,6 +78,19 @@ const MainBanner = () => {
                                   </div>
                                 <br></br>
                                 <p>{t.subscribe}</p>
+                                <Dialog
+                                    open={open}
+                                    onClose={handleClose}
+                                    aria-labelledby="alert-dialog-title"
+                                    aria-describedby="alert-dialog-description"
+                                >
+                                    <DialogTitle id="alert-dialog-title">{"Subscription to the newsletter"}</DialogTitle>
+                                    <DialogContent>
+                                    <DialogContentText id="alert-dialog-description">
+                                        You successfully subscribed to our newsletter. See you soon on Blockboosted.com !
+                                    </DialogContentText>
+                                    </DialogContent>
+                                </Dialog>
                                   <form className="newsletter-form" onSubmit={handleSubmit}>
                                       <input type="email" className="input-newsletter" placeholder={t.emailAddress} />
                                       <button type="submit">{t.subscribeBtn}</button>

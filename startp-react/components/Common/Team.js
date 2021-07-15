@@ -8,7 +8,7 @@ import fr from '../../public/locales/fr/translation'
 import en from '../../public/locales/en/translation'
 const options = {
     items: 3,
-    loop: false,
+    loop: true,
     nav: false,
     dots: true,
     margin: 30,

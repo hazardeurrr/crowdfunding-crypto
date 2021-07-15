@@ -152,10 +152,10 @@ const ServicesArea = () => {
                 </div>
             </div>
 
-            <div className="services-area ptb-80">
+            {/* <div className="services-area ptb-80">
                 <div className="container">
                     <div className="row h-100 justify-content-center align-items-center">
-                        <div className="col-lg-6 col-md-12 services-left-image">
+                        <div className="col-lg-6 col-md-12 services-left-image"> */}
                             {/* <img 
                                 src="/images/services-left-image/big-monitor.png"
                                 className="animate__animated animate__fadeInDown animate__delay-0.2s" 
@@ -216,7 +216,7 @@ const ServicesArea = () => {
                                 className="animate__animated animate__fadeInUp animate__delay-0.2s" 
                                 alt="main-pic"
                             /> */}
-                            <div style={{marginTop: '5%', marginBottom: '5%', marginRight: '5%', marginLeft: '5%'}}>         
+                            {/* <div style={{marginTop: '5%', marginBottom: '5%', marginRight: '5%', marginLeft: '5%'}}>         
                                 <Doughnut options={{ responsive: true }} data={chartData} />
                             </div>
 
@@ -259,7 +259,7 @@ const ServicesArea = () => {
                         </div>
                     </div>
                 </div>
-            </div>
+            </div> */}
         </>
     )
 }
