@@ -17,14 +17,11 @@ import en from '../../public/locales/en/translation'
 const MainBanner = () => {
     
     const [open, setOpen] = React.useState(false);
+    const [inBase, setTrue] = React.useState(false);
       
     const handleClose = () => {
         setOpen(false);
     };
-
-    const handleClickOpen = () => {
-        setOpen(true);
-      };
     
     const handleSubmit = (event) => {
         event.preventDefault()
@@ -33,11 +30,32 @@ const MainBanner = () => {
         // console.log(event)
         
         const email = event.target[0].value
-        db.collection('newsletter').doc(firebase.database().ref().push().key).set({email: email}).then(x => {
-            console.log('document written with : ' + email)
-        }).catch(err => {
-            console.error(err)
-        })
+
+        db.collection('newsletter').where("email", "==", email).get().then(function(querySnapshot) {
+            querySnapshot.forEach(function(doc) {
+                if (doc.exists) {
+                    setTrue(true);
+                    console.log("document found")
+                } else {
+                    console.log("document not found")
+                }
+            })
+        }).catch((error) => {
+            console.log("Error getting document:", error);
+        });
+
+        console.log(inBase)
+
+        if (inBase == false) {
+            db.collection('newsletter').doc(firebase.database().ref().push().key).set({email: email}).then(x => {
+                setOpen(true);
+                console.log('document written with : ' + email)
+            }).catch(err => {
+                console.error(err)
+            })
+        } else {
+            alert("Adress already added to newsletter !")
+        }
     }
     
     const router = useRouter()
