@@ -17,10 +17,14 @@ import en from '../../public/locales/en/translation'
 const MainBanner = () => {
     
     const [open, setOpen] = React.useState(false);
-    // const [inBase, setTrue] = React.useState(false);
+    const [inBase, setTrue] = React.useState(false);
       
     const handleClose = () => {
         setOpen(false);
+    };
+
+    const handleClosed = () => {
+        setTrue(false);
     };
     
     const handleSubmit = (event) => {
@@ -32,28 +36,27 @@ const MainBanner = () => {
         const email = event.target[0].value
 
         db.collection('newsletter').where("email", "==", email).get().then(function(querySnapshot) {
-            // if (querySnapshot.length > 0) {
-                querySnapshot.forEach(function(doc) {
-                    console.log(doc.data())
-                    if (doc.exists) {
-                        // setTrue(true);
-                        console.log("document found")
-                        alert("Adress already added to newsletter !")
-                    } else {
-                        console.log("document not found")
-                    }
-                })
-            // }
-            
-            // else {
-            //     db.collection('newsletter').doc(firebase.database().ref().push().key).set({email: email}).then(x => {
-            //         setOpen(true);
-            //         console.log('document written with : ' + email)
-            //     }).catch(err => {
-            //         console.error(err)
-            //     })
-            // }
+            var res = false
 
+            querySnapshot.forEach(function(doc) {
+                // console.log(doc.data())
+                if (doc.exists) {
+                    res = true
+                    setTrue(true);
+                    // console.log("document found")
+                } else {
+                    // console.log("document not found")
+                }
+            })
+
+            if (res == false) {
+                db.collection('newsletter').doc(firebase.database().ref().push().key).set({email: email}).then(x => {
+                    setOpen(true);
+                    console.log('document written with : ' + email)
+                }).catch(err => {
+                    console.error(err)
+                })
+            }
         }).catch((error) => {
             console.log("Error getting document:", error);
         });
@@ -98,6 +101,20 @@ const MainBanner = () => {
                                   </div>
                                 <br></br>
                                 <p>{t.subscribe}</p>
+                                <Dialog
+                                    open={inBase}
+                                    onClose={handleClosed}
+                                    aria-labelledby="alert-dialog-title"
+                                    aria-describedby="alert-dialog-description"
+                                >
+                                    <DialogTitle id="alert-dialog-title">{"Subscription to the newsletter"}</DialogTitle>
+                                    <DialogContent>
+                                    <DialogContentText id="alert-dialog-description">
+                                        You already subscribed to our newsletter !
+                                    </DialogContentText>
+                                    </DialogContent>
+                                </Dialog>
+
                                 <Dialog
                                     open={open}
                                     onClose={handleClose}
