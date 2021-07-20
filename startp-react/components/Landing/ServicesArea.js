@@ -58,11 +58,13 @@ const ServicesArea = () => {
                             </div>
 
                             <div className="row">
+
                                 <div className="col-lg-6 col-md-6">
                                     <div className="box">
-                                        <RiGovernmentLine size={25}/> {t.governanceRight}
+                                        <BiCoinStack size={25}/> {t.staking}
                                     </div>
                                 </div>
+                                
 
                                 <div className="col-lg-6 col-md-6">
                                     <div className="box">
@@ -115,6 +117,14 @@ const ServicesArea = () => {
                                         <p style={{fontSize : 12, fontStyle: 'italic'}}>Coming with tip.blockboosted</p>
                                     </div>
                                 </div> */}
+
+                               
+                                <div className="col-lg-6 col-md-6">
+                                    <div className="box">
+                                        <RiGovernmentLine size={25}/> {t.governanceRight}
+                                    </div>
+                                </div>
+                              
 
                                 <div className="col-lg-6 col-md-6">
                                     <div className="box">
