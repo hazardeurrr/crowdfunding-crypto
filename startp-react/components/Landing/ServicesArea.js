@@ -59,16 +59,23 @@ const ServicesArea = () => {
 
                             <div className="row">
 
-                                <div className="col-lg-6 col-md-6">
+                                {/* <div className="col-lg-6 col-md-6">
                                     <div className="box">
                                         <BiCoinStack size={25}/> {t.staking}
                                     </div>
-                                </div>
+                                </div> */}
+                                
                                 
 
                                 <div className="col-lg-6 col-md-6">
                                     <div className="box">
                                         <RiExchangeDollarLine size={25}/> {t.contribute}
+                                    </div>
+                                </div>
+
+                                <div className="col-lg-6 col-md-6">
+                                    <div className="box">
+                                        <RiGovernmentLine size={25}/> {t.governanceRight}
                                     </div>
                                 </div>
 
@@ -119,11 +126,7 @@ const ServicesArea = () => {
                                 </div> */}
 
                                
-                                <div className="col-lg-6 col-md-6">
-                                    <div className="box">
-                                        <RiGovernmentLine size={25}/> {t.governanceRight}
-                                    </div>
-                                </div>
+                                
                               
 
                                 <div className="col-lg-6 col-md-6">
