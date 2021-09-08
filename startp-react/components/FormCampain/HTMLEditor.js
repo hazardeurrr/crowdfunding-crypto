@@ -30,7 +30,7 @@ function HTMLEditor(props) {
               // Default
               ['undo', 'redo'],
               ['font', 'fontSize', 'formatBlock'],
-              ['paragraphStyle', 'blockquote'],
+              ['blockquote'],
               ['bold', 'underline', 'italic', 'strike', 'subscript', 'superscript'],
               ['fontColor', 'hiliteColor', 'textStyle'],
               ['outdent', 'indent'],
@@ -39,7 +39,7 @@ function HTMLEditor(props) {
               // (min-width:992px)
               ['%992', [
                   ['undo', 'redo'],
-                  [':p-More Paragraph-default.more_paragraph', 'font', 'fontSize', 'formatBlock', 'paragraphStyle', 'blockquote'],
+                  [':p-More Paragraph-default.more_paragraph', 'font', 'fontSize', 'formatBlock', 'blockquote'],
                   ['bold', 'underline', 'italic', 'strike'],
                   [':t-More Text-default.more_text', 'subscript', 'superscript', 'fontColor', 'hiliteColor', 'textStyle'],
                   ['outdent', 'indent'],
@@ -49,7 +49,7 @@ function HTMLEditor(props) {
               // (min-width:768px)
               ['%768', [
                   ['undo', 'redo'],
-                  [':p-More Paragraph-default.more_paragraph', 'font', 'fontSize', 'formatBlock', 'paragraphStyle', 'blockquote'],
+                  [':p-More Paragraph-default.more_paragraph', 'font', 'fontSize', 'formatBlock', 'blockquote'],
                   [':t-More Text-default.more_text', 'bold', 'underline', 'italic', 'strike', 'subscript', 'superscript', 'fontColor', 'hiliteColor', 'textStyle'],
                   [':e-More Line-default.more_horizontal', 'outdent', 'indent', 'align', 'horizontalRule', 'list', 'lineHeight'],
                   [':r-More Insert-default.more_plus', 'table', 'link', 'image', 'video'],

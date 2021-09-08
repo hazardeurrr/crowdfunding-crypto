@@ -29,7 +29,7 @@ class SearchPage extends React.Component {
         this.props = props
         this.languagesSelected = ["EN"];
         this.categoriesSelected = [];
-        this.nbByPage = 2;
+        this.nbByPage = 9;
 
         this.state = {
             projects: this.props.allCampaigns,

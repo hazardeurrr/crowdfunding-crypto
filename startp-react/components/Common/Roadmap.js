@@ -104,9 +104,32 @@ const Roadmap = () => {
         </TimelineItem>
 
         <TimelineItem>
+        <TimelineOppositeContent>
+            <Typography variant="body2" color="textSecondary">
+                Q3 2021
+            </Typography>
+            
+            </TimelineOppositeContent>
+            <TimelineSeparator>
+            <TimelineDot >
+        
+            </TimelineDot>
+            <TimelineConnector  />
+            </TimelineSeparator>
+            <TimelineContent>
+            <div style={{padding: '10px', width: '-moz-fit-content',display: 'inline-block', boxShadow: '0 2px 48px 0 rgb(0 0 0 / 8%)'}}>
+                <Typography variant="h6" component="h1">
+                    
+                </Typography>
+                <Typography></Typography>
+            </div>
+            </TimelineContent>
+        </TimelineItem>
+
+        <TimelineItem>
             <TimelineOppositeContent>
             <Typography variant="body2" color="textSecondary" >
-                Q3 2021
+                Q4 2021
             </Typography>
             </TimelineOppositeContent>
             <TimelineSeparator>
@@ -122,23 +145,6 @@ const Roadmap = () => {
                 </Typography>
                 <Typography>{t.sale}</Typography>
             </div>
-            </TimelineContent>
-        </TimelineItem>
-
-        <TimelineItem>
-        <TimelineOppositeContent>
-            <Typography variant="body2" color="textSecondary">
-                Q4 2021
-            </Typography>
-            
-            </TimelineOppositeContent>
-            <TimelineSeparator>
-            <TimelineDot >
-        
-            </TimelineDot>
-            <TimelineConnector  />
-            </TimelineSeparator>
-            <TimelineContent>
             <div  style={{padding: '10px', width: '-moz-fit-content', boxShadow: '0 2px 48px 0 rgb(0 0 0 / 8%)'}}>
                 <Typography variant="h6" component="h1">
                 Alpha
@@ -148,6 +154,8 @@ const Roadmap = () => {
             </div>
             </TimelineContent>
         </TimelineItem>
+
+       
         <TimelineItem>
             <TimelineOppositeContent>
             <Typography variant="body2" color="textSecondary" >

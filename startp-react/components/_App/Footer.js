@@ -85,11 +85,11 @@ const Footer = () => {
                                                     <a className="twitter" target="_blank"><Icon.Twitter /></a>
                                                 </Link>
                                             </li>
-                                            <li>
+                                            {/* <li>
                                                 <Link href="https://twitter.com/blockboosted">
                                                     <a className="linkedin" target="_blank"><FaTelegramPlane /></a>
                                                 </Link>
-                                            </li>
+                                            </li> */}
                                             <li>
                                                 <Link href="https://medium.com/@blockboosted">
                                                     <a className="instagram" target="_blank"><FaMediumM /></a>

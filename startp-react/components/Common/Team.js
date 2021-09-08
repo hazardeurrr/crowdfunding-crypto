@@ -7,7 +7,7 @@ import {useRouter} from 'next/router'
 import fr from '../../public/locales/fr/translation'
 import en from '../../public/locales/en/translation'
 const options = {
-    items: 3,
+    items: 4,
     loop: true,
     nav: false,
     dots: true,
@@ -25,7 +25,7 @@ const options = {
             items: 4
         },
         1500: {
-            items: 5
+            items: 4
         }
     }
 }
@@ -143,6 +143,46 @@ const Team = () => {
                             <h3>Malcolm Etoundi</h3>
                             {/* <span>Co-founder</span><br></br> */}
                             <span>Blockchain Engineer | Co-Founder</span>
+                        </div>
+
+                        {/* <ul>
+                            <li>
+                                <Link href="#">
+                                    <a target="_blank"><Icon.Facebook /></a>
+                                </Link>
+                                
+                            </li>
+                            <li>
+                                <Link href="#">
+                                    <a target="_blank"><Icon.Twitter /></a>
+                                </Link>
+                            </li>
+                            <li>
+                                <Link href="#">
+                                    <a target="_blank"><Icon.Linkedin /></a>
+                                </Link>
+                            </li>
+                            <li>
+                                <Link href="#">
+                                    <a target="_blank"><Icon.Gitlab /></a>
+                                </Link>
+                            </li>
+                        </ul>
+
+                        <p>Risus commodo viverra maecenas accumsan lacus vel facilisis quis ipsum. </p> */}
+                    </div>
+                </div>
+
+                <div className="single-team">
+                    <div className="team-image">
+                        <img src="/images/team-image/malc.jpg" alt="image" />
+                    </div>
+
+                    <div className="team-content">
+                        <div className="team-info">
+                            <h3>Another one</h3>
+                            {/* <span>Co-founder</span><br></br> */}
+                            <span>Engineer</span>
                         </div>
 
                         {/* <ul>
