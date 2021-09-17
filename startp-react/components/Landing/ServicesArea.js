@@ -22,7 +22,7 @@ const ServicesArea = () => {
         labels: [`${t.liquidity}`, `${t.IDO}`, `${t.privateSale}`, `${t.strategic}`, `${t.advisors}`, `${t.provide}`],
         datasets: [
           {
-            data: [7000000, 2200000, 4000000, 3000000, 2400000, 1400000],
+            data: [8500000, 500000, 3800000, 3000000, 2700000, 1500000],
             backgroundColor: [
               '#c679e3',
               '#44ce6f',
@@ -53,8 +53,8 @@ const ServicesArea = () => {
                             <div className="section-title">
                                 <h2>{t.bbstoken}</h2>
                                 <div className="bar"></div>
-                                <p>{t.descToken}<br></br>{t.partners}
-                                </p>
+                                <h5>{t.partners}</h5><br></br><p>{t.descToken}</p>
+                                
                             </div>
 
                             <div className="row">
@@ -165,71 +165,12 @@ const ServicesArea = () => {
                 </div>
             </div>
 
-            {/* <div className="services-area ptb-80">
+             {/* <div className="services-area ptb-80">
                 <div className="container">
                     <div className="row h-100 justify-content-center align-items-center">
-                        <div className="col-lg-6 col-md-12 services-left-image"> */}
-                            {/* <img 
-                                src="/images/services-left-image/big-monitor.png"
-                                className="animate__animated animate__fadeInDown animate__delay-0.2s" 
-                                alt="big-monitor"
-                            />
-            
-                            <img 
-                                src="/images/services-left-image/creative.png"
-                                className="animate__animated animate__fadeInUp animate__delay-0.2s" 
-                                alt="creative"
-                            />
-    
-                            <img 
-                                src="/images/services-left-image/developer.png"
-                                className="animate__animated animate__fadeInLeft animate__delay-0.2s" 
-                                alt="developer"
-                            />
-                    
-                            <img 
-                                src="/images/services-left-image/flower-top.png"
-                                className="animate__animated animate__fadeInLeft animate__delay-0.2s" 
-                                data-wow-delay="0.6s" 
-                                alt="flower-top"
-                            />
-        
-                            <img 
-                                src="/images/services-left-image/small-monitor.png"
-                                className="animate__animated animate__bounceIn animate__delay-0.2s" 
-                                alt="small-monitor"
-                            />
-                        
-                            <img 
-                                src="/images/services-left-image/small-top.png"
-                                className="animate__animated animate__fadeInDown animate__delay-0.2s" 
-                                alt="small-top"
-                            />
-                
-                            <img 
-                                src="/images/services-left-image/table.png"
-                                className="animate__animated animate__zoomIn animate__delay-0.2s" 
-                                alt="table"
-                            />
-            
-                            <img 
-                                src="/images/services-left-image/target.png"
-                                className="animate__animated animate__fadeInUp animate__delay-0.2s" 
-                                alt="target"
-                            />
-                        
-                            <img 
-                                src="/images/services-left-image/cercle-shape.png"
-                                className="bg-image rotateme" 
-                                alt="shape"
-                            />
-           
-                            <img 
-                                src="/images/services-left-image/service-left-main-pic.png"
-                                className="animate__animated animate__fadeInUp animate__delay-0.2s" 
-                                alt="main-pic"
-                            /> */}
-                            {/* <div style={{marginTop: '5%', marginBottom: '5%', marginRight: '5%', marginLeft: '5%'}}>         
+                        <div className="col-lg-6 col-md-12 services-left-image">
+                            
+                            <div style={{marginTop: '5%', marginBottom: '5%', marginRight: '5%', marginLeft: '5%'}}>         
                                 <Doughnut options={{ responsive: true }} data={chartData} />
                             </div>
 
@@ -246,14 +187,14 @@ const ServicesArea = () => {
                                        <BiCoinStack size={27}/> {t.totalSupply}: 20 000 000 BBST
                                     </div>
                                     <div className="box">
-                                        <GiMining size={27} /> {t.liquidity}: 7 000 000 BBST
+                                        <GiMining size={27} /> {t.liquidity}: 8 500 000 BBST
                                         <p style={{fontSize: 12, fontStyle: 'italic'}}>{t.earnBBST}</p>
                                     </div>
                                     <div className="box">
-                                        <MdPublic size={27}/> {t.IDO}: 2 200 000 BBST
+                                        <MdPublic size={27}/> {t.IDO}: 500 000 BBST
                                     </div>
                                     <div className="box">
-                                        <RiGitRepositoryPrivateFill size={27}/> {t.privateSale}: 4 000 000 BBST
+                                        <RiGitRepositoryPrivateFill size={27}/> {t.privateSale}: 3 800 000 BBST
                                         <p style={{fontSize: 12, fontStyle: 'italic'}}>{t.privateLocked}</p>
                                     </div>
                                     <div className="box">
@@ -261,15 +202,15 @@ const ServicesArea = () => {
                                         <p style={{fontSize: 12, fontStyle: 'italic'}}>{t.strategicExplained}</p>
                                     </div>
                                     <div className="box">
-                                        <RiTeamLine size={27} /> {t.advisors}: 2 400 000 BBST
+                                        <RiTeamLine size={27} /> {t.advisors}: 2 700 000 BBST
                                         <p style={{fontSize: 12, fontStyle: 'italic'}}>{t.lock}</p>
                                     </div>
                                     <div className="box">
-                                        <FaExchangeAlt size={27}/> {t.provide}: 1 400 000 BBST
+                                        <FaExchangeAlt size={27}/> {t.provide}: 1 500 000 BBST
                                     </div>
 
                             </div>
-                        </div>
+                        </div> 
                     </div>
                 </div>
             </div> */}

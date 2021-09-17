@@ -7,7 +7,7 @@ import {useRouter} from 'next/router'
 import fr from '../../public/locales/fr/translation'
 import en from '../../public/locales/en/translation'
 const options = {
-    items: 4,
+    items: 3,
     loop: true,
     nav: false,
     dots: true,
@@ -22,10 +22,10 @@ const options = {
             items: 2
         },
         1200: {
-            items: 4
+            items: 3
         },
         1500: {
-            items: 4
+            items: 3
         }
     }
 }
@@ -173,45 +173,7 @@ const Team = () => {
                     </div>
                 </div>
 
-                <div className="single-team">
-                    <div className="team-image">
-                        <img src="/images/team-image/malc.jpg" alt="image" />
-                    </div>
-
-                    <div className="team-content">
-                        <div className="team-info">
-                            <h3>Another one</h3>
-                            {/* <span>Co-founder</span><br></br> */}
-                            <span>Engineer</span>
-                        </div>
-
-                        {/* <ul>
-                            <li>
-                                <Link href="#">
-                                    <a target="_blank"><Icon.Facebook /></a>
-                                </Link>
-                                
-                            </li>
-                            <li>
-                                <Link href="#">
-                                    <a target="_blank"><Icon.Twitter /></a>
-                                </Link>
-                            </li>
-                            <li>
-                                <Link href="#">
-                                    <a target="_blank"><Icon.Linkedin /></a>
-                                </Link>
-                            </li>
-                            <li>
-                                <Link href="#">
-                                    <a target="_blank"><Icon.Gitlab /></a>
-                                </Link>
-                            </li>
-                        </ul>
-
-                        <p>Risus commodo viverra maecenas accumsan lacus vel facilisis quis ipsum. </p> */}
-                    </div>
-                </div>
+               
             
                 {/* <div className="single-team">
                     <div className="team-image">

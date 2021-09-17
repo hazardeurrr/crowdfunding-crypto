@@ -19,7 +19,7 @@ const OurFeatures = () => {
                 <div className="section-title">
                     <h2>{t.title}</h2>
                     <div className="bar"></div>
-                    <p>{t.subtitle}</p>
+                    <h5>{t.subtitle}</h5>
                 </div>
 
                 <div className="row">
@@ -31,10 +31,10 @@ const OurFeatures = () => {
                             <h3>
                                     {t.fees}
                             </h3>
-                            <p><b>{t.chargedFees}</b><em style={{fontSize: 10}}>*</em> {t.fees2}<em style={{fontSize: 10}}>**</em><br></br>
+                            <p><b style={{fontSize: 17}}>{t.chargedFees}</b><br></br> {t.fees2}<em style={{fontSize: 10, marginTop: -1}}>*</em><br></br>
                             <i style={{fontSize: 13}}></i>{t.fees3}</p>
-                            <p style={{fontSize: 10, marginTop: 20}}>*{t.repartition}</p>
-                            <p style={{fontSize: 10, marginTop: -15}}>**{t.fees4}</p>
+                            {/* <p style={{fontSize: 10, marginTop: 20}}>*{t.repartition}</p> */}
+                            <p style={{fontSize: 10, marginTop: 10}}>*{t.fees4}</p>
 
                         </div>
                     </div>
@@ -65,6 +65,7 @@ const OurFeatures = () => {
                             <p>{t.boostCampaign}</p>
                         </div>
                     </div>
+                
 
                     <div className="col-lg-6 col-md-6">
                         <div className="single-features">

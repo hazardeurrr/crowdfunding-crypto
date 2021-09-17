@@ -7,6 +7,7 @@ import Footer from "@/components/Landing/Footer";
 import NavbarStyleTwo from '@/components/_App/NavbarStyleTwo';
 import Newsletter from '@/components/Common/Newsletter';
 import Roadmap from '@/components/Common/Roadmap'
+import FunFactsArea from '@/components/Common/FunFactsArea';
 
 
 const LandingPage = () => {
@@ -15,11 +16,13 @@ const LandingPage = () => {
             <NavbarStyleTwo />
             <MainBanner />
             {/* <Partner /> */}
+            <FunFactsArea />
+
             <OurFeatures />
             <ServicesArea />
             <Roadmap />
             {/* <RecentWorks /> */}
-            <Team />
+            {/* <Team /> */}
             {/* <FunFactsArea /> */}
             <Newsletter />
             <Footer />
