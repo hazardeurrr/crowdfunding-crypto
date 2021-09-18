@@ -22,7 +22,7 @@ const ServicesArea = () => {
         labels: [`${t.liquidity}`, `${t.IDO}`, `${t.privateSale}`, `${t.strategic}`, `${t.advisors}`, `${t.provide}`],
         datasets: [
           {
-            data: [8500000, 500000, 3800000, 3000000, 2700000, 1500000],
+            data: [8000000, 400000, 4500000, 3000000, 2600000, 1500000],
             backgroundColor: [
               '#c679e3',
               '#44ce6f',
@@ -165,7 +165,7 @@ const ServicesArea = () => {
                 </div>
             </div>
 
-             {/* <div className="services-area ptb-80">
+              {/* <div className="services-area ptb-80">
                 <div className="container">
                     <div className="row h-100 justify-content-center align-items-center">
                         <div className="col-lg-6 col-md-12 services-left-image">
@@ -187,14 +187,14 @@ const ServicesArea = () => {
                                        <BiCoinStack size={27}/> {t.totalSupply}: 20 000 000 BBST
                                     </div>
                                     <div className="box">
-                                        <GiMining size={27} /> {t.liquidity}: 8 500 000 BBST
+                                        <GiMining size={27} /> {t.liquidity}: 8 000 000 BBST
                                         <p style={{fontSize: 12, fontStyle: 'italic'}}>{t.earnBBST}</p>
                                     </div>
                                     <div className="box">
-                                        <MdPublic size={27}/> {t.IDO}: 500 000 BBST
+                                        <MdPublic size={27}/> {t.IDO}: 400 000 BBST
                                     </div>
                                     <div className="box">
-                                        <RiGitRepositoryPrivateFill size={27}/> {t.privateSale}: 3 800 000 BBST
+                                        <RiGitRepositoryPrivateFill size={27}/> {t.privateSale}: 4 500 000 BBST
                                         <p style={{fontSize: 12, fontStyle: 'italic'}}>{t.privateLocked}</p>
                                     </div>
                                     <div className="box">
@@ -202,7 +202,7 @@ const ServicesArea = () => {
                                         <p style={{fontSize: 12, fontStyle: 'italic'}}>{t.strategicExplained}</p>
                                     </div>
                                     <div className="box">
-                                        <RiTeamLine size={27} /> {t.advisors}: 2 700 000 BBST
+                                        <RiTeamLine size={27} /> {t.advisors}: 2 600 000 BBST
                                         <p style={{fontSize: 12, fontStyle: 'italic'}}>{t.lock}</p>
                                     </div>
                                     <div className="box">
@@ -212,7 +212,7 @@ const ServicesArea = () => {
                             </div>
                         </div> 
                     </div>
-                </div>
+                </div> 
             </div> */}
         </>
     )
