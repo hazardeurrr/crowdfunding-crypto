@@ -1,6 +1,6 @@
 import React from 'react';
 import ITStartup from "./it-startup";
-import LandingPage from "./landing-page.page"
+import LandingPage from "./landing-page"
 
 const Index = ({c}) => {
 
