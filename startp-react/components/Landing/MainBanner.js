@@ -75,7 +75,7 @@ const MainBanner = () => {
                 <div className="row">
                     <div className="col-lg-6 col-md-12">
                         <div className="ml-banner-content">
-                            <h1 style={{marginTop : -70, marginBottom : 20}}>{t.hero}</h1>
+                            <h1 style={{marginBottom : 20}}>{t.hero}</h1>
                             
 
                               <div className="free-trial-content">

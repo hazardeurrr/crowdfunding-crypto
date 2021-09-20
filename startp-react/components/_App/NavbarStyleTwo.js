@@ -39,20 +39,7 @@ const NavbarStyleTwo = () => {
                             </a>
                         </Link>
 
-                        <button 
-                            onClick={toggleNavbar} 
-                            className={classTwo}
-                            type="button" 
-                            data-toggle="collapse" 
-                            data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" 
-                            aria-expanded="false" 
-                            aria-label="Toggle navigation"
-                        >
-                            <span className="icon-bar top-bar"></span>
-                            <span className="icon-bar middle-bar"></span>
-                            <span className="icon-bar bottom-bar"></span>
-                        </button>
-
+                        
                         <div className={classOne} id="navbarSupportedContent">
                             {/* <ul className="navbar-nav ms-auto">
                                 <li className="nav-item">
