@@ -9,4 +9,6 @@ module.exports = {
         locales: ['en', 'fr'],
         defaultLocale: 'en',
     },
+    pageExtensions: ["landing-page.js"],
+
 }
