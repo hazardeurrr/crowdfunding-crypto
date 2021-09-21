@@ -108,7 +108,7 @@ const FunFactsArea = () => {
                 </div>
                 
 
-                <div style={{display:"flex", marginRight: '15%', marginLeft : '15%', marginTop: 50}}>
+                <div className="landing-email">
                     <div style={{flex: 1, marginTop: 23, marginRight: 10}}>
                         <h3 style={{fontSize: 20}}>{t.keep}</h3>
                         <p>{t.getnews}</p>

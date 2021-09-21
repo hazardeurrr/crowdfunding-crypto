@@ -1,5 +1,11 @@
 /* Max width 767px */
 @media only screen and (max-width: 767px) {
+
+  .landing-email{
+    display: inline;
+  }
+
+
   .blog-details-desc .article-content iframe{
     width: 404.7px !important;
     height: 228px !important;
@@ -1697,6 +1703,10 @@
 
 /* Min width 576px to Max width 767px */
 @media only screen and (min-width: 576px) and (max-width: 767px) {
+  .landing-email{
+   display: inline;
+  }
+
   .blog-details-desc .article-content iframe{
     width: 511.2px !important;
     height: 288px !important;
@@ -1783,8 +1793,11 @@
 /* Min width 768px to Max width 991px */
 @media only screen and (min-width: 768px) and (max-width: 991px) {
 
+  .landing-email{
+    margin-left: 3%;
+    margin-right: 3%
+  }
 
-  
   .main-banner {
     height: 100%;
     padding-top: 185px;
@@ -2377,6 +2390,12 @@
 
 /* Min width 992px to Max width 1199px */
 @media only screen and (min-width: 992px) and (max-width: 1199px) {
+
+  .landing-email{
+    margin-left: 8%;
+    margin-right: 8%
+  }
+
   .blog-details-desc .article-content iframe{
     width: 588.8px !important;
     height: 331.2px !important;
@@ -2608,7 +2627,7 @@
 /* Min width 1550px */
 @media only screen and (min-width: 1550px) {
 
- 
+
 
   .iot-banner-image {
     right: 90px;
@@ -2639,6 +2658,8 @@
 
 /* Min width 1200px */
 @media only screen and (min-width: 1350px) {
+
+
   .container {
     max-width: 1250px;
   }

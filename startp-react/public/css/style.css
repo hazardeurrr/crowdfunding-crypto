@@ -10685,3 +10685,10 @@ Go Top CSS
   display: flex;
   width: 30%;
 }
+
+.landing-email{
+  display: flex;
+  margin-top: 50px;
+  margin-left: 15%;
+  margin-right: 15%;
+}
