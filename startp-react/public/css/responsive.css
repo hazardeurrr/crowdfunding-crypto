@@ -1,6 +1,11 @@
 /* Max width 767px */
 @media only screen and (max-width: 767px) {
 
+  
+  .landing-btns{
+    justify-content: center;
+  }
+
   .landing-email{
     display: inline;
   }
@@ -1703,6 +1708,11 @@
 
 /* Min width 576px to Max width 767px */
 @media only screen and (min-width: 576px) and (max-width: 767px) {
+  
+  .landing-btns{
+    justify-content: center;
+  }
+
   .landing-email{
    display: inline;
   }

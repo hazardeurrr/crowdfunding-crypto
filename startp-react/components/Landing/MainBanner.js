@@ -81,14 +81,14 @@ const MainBanner = () => {
                               <div className="free-trial-content">
                                 <div className="single-footer-widget">
                                    
-                                        <div style={{display:'flex'}}>
-                                            <a target="_blank" href="https://twitter.com/intent/user?screen_name=blockboosted">
+                                        <div className="landing-btns">
+                                            <a target="_blank" href="https://twitter.com/intent/user?screen_name=blockboosted" >
                                                 <Button variant="contained" style={{color:'white', backgroundColor:'#1d9bf0', marginRight : 20}} size="large" startIcon={<FaTwitter />}>
                                                     Twitter
                                                 </Button>
                                             </a>
                                         
-                                            <a target="_blank" href="https://medium.com/@blockboosted">
+                                            <a target="_blank" href="https://medium.com/@blockboosted" >
                                                 <Button variant="contained" style={{color:'white', backgroundColor:'black'}} size="large" endIcon={<FaMediumM />}>
                                                     Medium
                                                 </Button>

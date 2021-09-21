@@ -10692,3 +10692,7 @@ Go Top CSS
   margin-left: 15%;
   margin-right: 15%;
 }
+
+.landing-btns{
+  display:'flex';
+}
