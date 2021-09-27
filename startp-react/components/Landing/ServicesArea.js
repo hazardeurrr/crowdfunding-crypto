@@ -22,7 +22,7 @@ const ServicesArea = () => {
         labels: [`${t.liquidity}`, `${t.IDO}`, `${t.privateSale}`, `${t.strategic}`, `${t.advisors}`, `${t.provide}`],
         datasets: [
           {
-            data: [8000000, 400000, 4500000, 3000000, 2600000, 1500000],
+            data: [8000000, 400000, 4500000, 3200000, 2500000, 1400000],
             backgroundColor: [
               '#c679e3',
               '#44ce6f',
@@ -165,7 +165,7 @@ const ServicesArea = () => {
                 </div>
             </div>
 
-              {/* <div className="services-area ptb-80">
+             <div className="services-area ptb-80">
                 <div className="container">
                     <div className="row h-100 justify-content-center align-items-center">
                         <div className="col-lg-6 col-md-12 services-left-image">
@@ -198,22 +198,22 @@ const ServicesArea = () => {
                                         <p style={{fontSize: 12, fontStyle: 'italic'}}>{t.privateLocked}</p>
                                     </div>
                                     <div className="box">
-                                        <FiTrendingUp size={27} /> {t.strategic}: 3 000 000 BBST
+                                        <FiTrendingUp size={27} /> {t.strategic}: 3 200 000 BBST
                                         <p style={{fontSize: 12, fontStyle: 'italic'}}>{t.strategicExplained}</p>
                                     </div>
                                     <div className="box">
-                                        <RiTeamLine size={27} /> {t.advisors}: 2 600 000 BBST
+                                        <RiTeamLine size={27} /> {t.advisors}: 2 500 000 BBST
                                         <p style={{fontSize: 12, fontStyle: 'italic'}}>{t.lock}</p>
                                     </div>
                                     <div className="box">
-                                        <FaExchangeAlt size={27}/> {t.provide}: 1 500 000 BBST
+                                        <FaExchangeAlt size={27}/> {t.provide}: 1 400 000 BBST
                                     </div>
 
                             </div>
                         </div> 
                     </div>
                 </div> 
-            </div> */}
+            </div>
         </>
     )
 }
