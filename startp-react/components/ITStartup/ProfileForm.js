@@ -136,7 +136,7 @@ const ProfileForm = (props) => {
                                     </div>
                                 </div>
 
-                                <p><strong> Twitter account </strong><br/>Link your Twitter account to be certified</p>
+                                {/* <p><strong> Twitter account </strong><br/>Link your Twitter account to be certified</p>
                                 <div className="col-lg-12 col-md-12">
                                     <div className="form-group">
                                         <input type="text" placeholder="@" className="form-control" value={twitter} onChange={handleChangeTwitter}/>
@@ -146,6 +146,13 @@ const ProfileForm = (props) => {
                                             consumerSecret={secrets.consumer_secret}
                                             buttonTheme="light_short"
                                         />
+                                    </div>
+                                </div> */}
+
+                                <p><strong> Twitter account </strong><br/>Enter your twitter username</p>
+                                <div className="col-lg-12 col-md-12">
+                                    <div className="form-group">
+                                        <input type="text" placeholder="@" className="form-control" value={twitter} onChange={handleChangeTwitter}/>
                                     </div>
                                 </div>
 
