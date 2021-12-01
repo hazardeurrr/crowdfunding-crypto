@@ -184,26 +184,26 @@ class MainForm extends React.Component {
                                                         <input type="radio" id="usdt" name="radio-group" defaultChecked value="USDT" onChange={(event) => {
                                                             this.raisingMethod = event.target.value
                                                         }}/>
-                                                        <label htmlFor="usdt">USDT (Tether - 2.5% fee)</label>
+                                                        <label htmlFor="usdt">USDT (2.5% fee)</label>
                                                     </p>
                                                     <p>
                                                         <input type="radio" id="eth" name="radio-group" value="ETH" onChange={(event) => {
                                                             this.raisingMethod = event.target.value
                                                         }}/>
-                                                        <label htmlFor="eth">ETH (Ether - 2.5% fee)</label>
+                                                        <label htmlFor="eth">ETH (2.5% fee)</label>
                                                     </p>
                                                     <p>
                                                         <input type="radio" id="bbst" name="radio-group" value="BBST" onChange={(event) => {
                                                             this.raisingMethod = event.target.value
                                                         }}/>
-                                                        <label htmlFor="bbst">BBST (BlockBoosted - 0% fee)</label>
+                                                        <label htmlFor="bbst">BBST (0% fee)</label>
                                                     </p>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
 
-                                    <p><strong> Project Goal </strong><br/> Your goal should reflect the minimum amount of funds you need to complete your project and send out rewards, and include a buffer for payments processing fees.<br></br><i>⚠ Amount should be in the currency chosen above</i></p>
+                                    <p><strong> Project Goal </strong><br/> Your goal should reflect the minimum amount of funds you need to complete your project and send out rewards, and include a buffer for payments processing fees.<br></br><i>⚠ Amount should be specified in the currency chosen above</i></p>
                                     <div className="col-lg-12 col-md-12" >
                                         <div className="form-group">
                                         <input type="number" placeholder="Goal" min="0" className="form-control" onChange={(event) => {
