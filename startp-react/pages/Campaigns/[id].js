@@ -44,6 +44,7 @@ const Campaign = (props, {c, u}) => {
     const [open, setOpen] = React.useState(false);
     const [campaign, setCampaign] = React.useState(undefined)
     const [user, setUser] = React.useState(undefined)
+    const [htmlTxt, setHTMLTxt] = React.useState("")
 
 
     // const campaign = projectList.find(e => e.contract_address == props.address)
@@ -65,6 +66,7 @@ const Campaign = (props, {c, u}) => {
         getOne('campaign', props.address, function(doc) {
           if (doc.exists) {
             setCampaign(doc.data())
+            displayHTMLTxt(doc.data().long_desc)
             // console.log(campaign)
             var addr = doc.data().creator
             getOne('profile', addr.toLowerCase(), function(docs) {
@@ -210,6 +212,12 @@ const Campaign = (props, {c, u}) => {
             return <HeartAnim campaign={campaign}/>
     }
 
+    async function displayHTMLTxt(data){
+        let txt = await fetch('https://cors-serv.herokuapp.com/'+data).then(r => {
+            let b = r.blob().then((a) => a.text().then(h => setHTMLTxt(h)))
+    });
+    }
+
     const displayContent = () => {
         if(campaign != undefined && user != undefined){
             return <div>
@@ -312,6 +320,7 @@ const Campaign = (props, {c, u}) => {
                                 
                                 <div className="separator"></div>
                                     {Parser(campaign.long_desc)}
+                                    {Parser(htmlTxt)}
                                 </div>
                             </div>
                         </div>

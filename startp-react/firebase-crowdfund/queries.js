@@ -37,12 +37,20 @@ export function postImage(folder, image, progress) {
     })
 }
 
-export function postHTMLPage(folder, doc, id) {
-    let uploadTask = storage.ref(folder + `/${id}`).put(doc)
-    uploadTask.on('state_changed', console.log, console.error, () => {
-        storage.ref(folder)
-        .child(id)
-        .getDownloadURL()
-        .then(url => { return url })
-    })
+// export function postHTMLPage(folder, doc, id) {
+//     let uploadTask = storage.ref(folder + `/${id}`).put(doc)
+//     uploadTask.on('state_changed', console.log, console.error, () => {
+//         storage.ref(folder)
+//         .child(id)
+//         .getDownloadURL()
+//         .then(url => { console.log(url); return url })
+//     })
+// }
+
+export function postHTMLPage(blob, id) {
+    let uploadTask = storage.ref('campaigns/'+id).put(blob);
+
+    // 'file' comes from the Blob or File API
+    
+    return uploadTask
 }

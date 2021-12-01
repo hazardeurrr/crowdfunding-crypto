@@ -19,6 +19,7 @@ import 'suneditor/dist/css/suneditor.min.css'; // Import Sun Editor's CSS File
 import ProfilePic from '@/components/ITStartup/ProfilePic.js'
 import Modal from '@material-ui/core/Modal';
 import PreviewCampaign from 'pages/PreviewCampaign';
+import { ref } from "firebase/storage";
 
 
 class MainForm extends React.Component {
@@ -44,7 +45,7 @@ class MainForm extends React.Component {
         this.endDate = undefined, 
         this.small_description = '',
         this.categoryPicked = undefined,
-        this.raisingMethod = undefined,
+        this.raisingMethod = "USDT",
         this.tiersNumber = 0,
         this.objective = null,
         this.objectiveError = ''
@@ -62,33 +63,74 @@ class MainForm extends React.Component {
 
     handleCampaign = (event) => {
         event.preventDefault()
-        let contract_address = '0x569854865654az9e8z5f6azziotr'
-        postHTMLPage('campaigns', this.html, contract_address)
+        let contract_address = '0x98569854865654az9e8z5f6ajhbzziotr'
+        var blob = new Blob([this.html], {
+            type: "text/plain",
+          });
+        let uploadTask = postHTMLPage(blob, contract_address)
+            // Register three observers:
+    // 1. 'state_changed' observer, called any time the state changes
+    // 2. Error observer, called on failure
+    // 3. Completion observer, called on successful completion
+        uploadTask.on('state_changed', 
+        (snapshot) => {
+            // Observe state change events such as progress, pause, and resume
+            // Get task progress, including the number of bytes uploaded and the total number of bytes to be uploaded
+            const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+            console.log('Upload is ' + progress + '% done');
+            switch (snapshot.state) {
+            case 'paused':
+                console.log('Upload is paused');
+                break;
+            case 'running':
+                console.log('Upload is running');
+                break;
+            }
+        }, 
+        (error) => {
+            // Handle unsuccessful uploads
+            console.log(error)
+        }, 
+        () => {
+            // Handle successful uploads on complete
+            // For instance, get the download URL: https://firebasestorage.googleapis.com/...
+            storage.ref('campaigns')
+             .child(contract_address)
+             .getDownloadURL().then((downloadURL) => {
+                console.log('File available at', downloadURL);
+    
+                const campainInfos = {
+                    title: this.title,
+                    start_date: this.startDate,
+                    end_date: this.endDate,
+                    contract_address: contract_address,
+                    small_description: this.small_description,
+                    categories: this.cats,
+                    objective: parseInt(this.objective),
+                    long_desc: downloadURL,
+                    currency: this.raisingMethod,
+                    flexible: this.flexible,
+                    tiers: this.tiersArray,
+                    main_img: this.image,
+                    raised: 0,
+                }
+                console.log(campainInfos)
         
-        const campainInfos = {
-            title: this.title,
-            start_date: this.startDate,
-            end_date: this.endDate,
-            contract_address: '0x569854865654az9e8z5f6azziotr',
-            small_description: this.small_description,
-            categories: this.cats,
-            objective: parseInt(this.objective),
-            long_desc: this.html,
-            currency: this.raisingMethod,
-            flexible: this.flexible,
-            tiers: this.tiersArray,
-            main_img: this.image,
-            raised: 0,
-        }
-        console.log(campainInfos)
+                // campaign address to be retrieved from the solidity smart contract
+                const creator_address = localStorage.getItem('current_address')
+                campainInfos['creator'] = creator_address
+                if (this.cats.length < 1) {return}
+                db.collection('campaign').doc(contract_address).set(campainInfos).then(x => {
+                    console.log('document written with : ' + campainInfos.title)
+                }).catch(console.error)
+    
+    
+                });
+            }
+            );
+    
 
-        // campaign address to be retrieved from the solidity smart contract
-        const creator_address = localStorage.getItem('current_address')
-        campainInfos['creator'] = creator_address
-        if (this.cats.length < 1) {return}
-        db.collection('campaign').doc(contract_address).set(campainInfos).then(x => {
-            console.log('document written with : ' + campainInfos.title)
-        }).catch(console.error)
+        
     }
     
     handleHTML(dataFromChild) {
@@ -183,6 +225,7 @@ class MainForm extends React.Component {
                                                     <p>
                                                         <input type="radio" id="usdt" name="radio-group" defaultChecked value="USDT" onChange={(event) => {
                                                             this.raisingMethod = event.target.value
+
                                                         }}/>
                                                         <label htmlFor="usdt">USDT (2.5% fee)</label>
                                                     </p>
