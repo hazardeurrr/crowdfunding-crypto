@@ -43,7 +43,7 @@ const Campaign = (props, {c, u}) => {
 
     const [open, setOpen] = React.useState(false);
     const [campaign, setCampaign] = React.useState(undefined)
-    const [user, setUser] = React.useState(undefined)
+    const [user, setUser] = React.useState(undefined)   // ATTENTION : USER = USER PROFILE OF THE CREATOR OF THE CAMPAIGN
     const [htmlTxt, setHTMLTxt] = React.useState("")
 
 
@@ -56,7 +56,7 @@ const Campaign = (props, {c, u}) => {
   
     const connected = useSelector((state) => state.metamask_connected)
     const chainID = useSelector((state) => state.chainID)
-
+    const currentUser = useSelector((state) => state.currentUser)
     
 
     React.useEffect(() => {
@@ -213,9 +213,37 @@ const Campaign = (props, {c, u}) => {
     }
 
     async function displayHTMLTxt(data){
+        console.log(data)
         let txt = await fetch('https://cors-serv.herokuapp.com/'+data).then(r => {
             let b = r.blob().then((a) => a.text().then(h => setHTMLTxt(h)))
     });
+    }
+
+    const displayOwnerButtons = () => {
+        if(currentUser !== undefined && campaign !== undefined){
+            if(currentUser.eth_address.toLowerCase() === campaign.creator.toLowerCase()){
+                if(campaign.end_date < now && (campaign.flexible || (campaign.raised > campaign.objective))){
+                    return <div>
+                        <h4>Your campaign has ended successfully!</h4>
+                        <button className="btn btn-primary" onClick={withdrawMoney}>Withdraw</button>
+                        <button className="btn btn-light" onClick={downloadData}>Download data</button>
+                    </div>
+                } else if(campaign.end_date < now) {
+                    return <div>
+                    <h4>Unfortunately, your campaign hasn't reached its goal.</h4>
+                    {/* <button className="btn btn-light" onClick={downloadData}>Download data</button> */}
+                    </div>
+                } 
+            }
+        }
+    }
+
+    const withdrawMoney = () => {
+        console.log("money withdrawn from the contract")
+    }
+
+    const downloadData = () => {
+        console.log("download data")
     }
 
     const displayContent = () => {
@@ -226,6 +254,8 @@ const Campaign = (props, {c, u}) => {
                     <div className="about-area ptb-80">
                         <div className="container-fluid">
                             <div className="row align-items-center">
+                            {displayOwnerButtons()}                                   
+
                                 <div className="col-lg-6 col-md-12">
                                     <div className="ml-about-img">
                                         <img src={campaign.main_img} alt="image" />
@@ -282,7 +312,7 @@ const Campaign = (props, {c, u}) => {
                                             {RefundButton()}
 
                                             
-                                            {showHeart()}                                            
+                                            {showHeart()}         
 
                                         </div>
                                     </div>
@@ -317,9 +347,10 @@ const Campaign = (props, {c, u}) => {
                             <div className="blog-details-desc">
 
                                 <div className="article-content">  
+
                                 
                                 <div className="separator"></div>
-                                    {Parser(campaign.long_desc)}
+                                    {/* {Parser(campaign.long_desc)} */}
                                     {Parser(htmlTxt)}
                                 </div>
                             </div>
