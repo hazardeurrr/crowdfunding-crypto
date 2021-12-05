@@ -21,6 +21,7 @@ import ShareIcons from '@/components/Common/ShareIcons';
 import HeartAnim from '@/components/Common/HeartAnim';
 import {getOne} from '../../firebase-crowdfund/queries';
 import CircularProgress from '@material-ui/core/CircularProgress';
+import Skeleton from '@material-ui/lab/Skeleton';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -246,6 +247,16 @@ const Campaign = (props, {c, u}) => {
         console.log("download data")
     }
 
+    const ShowTxt = () => {
+        if(htmlTxt === "" || htmlTxt === undefined){
+            return <div>
+                    <Skeleton variant="rect" animation='pulse' height={550}/>
+                </div>
+        } else {
+            return Parser(htmlTxt)
+        }
+    }
+
     const displayContent = () => {
         if(campaign != undefined && user != undefined){
             return <div>
@@ -350,8 +361,7 @@ const Campaign = (props, {c, u}) => {
 
                                 
                                 <div className="separator"></div>
-                                    {/* {Parser(campaign.long_desc)} */}
-                                    {Parser(htmlTxt)}
+                                    {ShowTxt()}
                                 </div>
                             </div>
                         </div>
@@ -364,9 +374,114 @@ const Campaign = (props, {c, u}) => {
             </div>
         </div>
         } else {
-                return <CircularProgress style={{marginTop: 100}}/>
-            }
+                // return <CircularProgress style={{marginTop: 100}}/>
+                return <div>
+            <div className="blog-details-area ptb-80">
+                <div className="container">
+                    <div className="about-area ptb-80">
+                        <div className="container-fluid">
+                            <div className="row align-items-center">
+                                <div className="col-lg-6 col-md-12">
+                                    <div className="ml-about-img">
+                                        <Skeleton animation='pulse' variant="rect" height={350} />
+
+                                        
+                                    </div>
+                                </div>
+
+                                <div className="col-lg-6 col-md-12">
+                                    <div className="ml-about-content">
+
+                                        <span className="sub-title">
+                                            <Skeleton animation='pulse' variant="text" width={100}/>
+                                        </span>
+                                        {/* <ShareIcons campaign={campaign}/> */}
+
+                                        <h2 style={{marginTop: 20, marginBottom: 10}}><Skeleton animation='pulse' variant="h1"/></h2>
+                                         <div className="blog-details-desc">
+                                            <div className="article-content">
+                                                <div className="entry-meta">
+                                                    <ul>
+                                                        
+                                                        {/* <li>     
+                                                            <Icon.User />
+                                                            <ChipUser user={user}/>
+                                                                                             
+                                                        </li> */}
+                                                        
+                                                  
+                                                        <Skeleton animation='pulse' variant="text" />
+                                                        <Skeleton animation='pulse' variant="text" />
+                                                    </ul>
+                                                </div>              
+                                            </div>
+                                        </div>
+                                        <div className="bar"></div>
+
+                                    
+                                        <p style={{fontSize: 15, marginBottom: 30}}><Skeleton animation='pulse' variant="text" /><Skeleton animation='pulse' variant="text" /><Skeleton animation='pulse' variant="text" /></p>
+                                        <h5><Skeleton animation='pulse' variant="text" /></h5> 
+                                        <ProgressBar animated now={0}/>
+                                        <div className="blog-details-desc">
+                                            <div className="article-content">
+                                                <div className="entry-meta">
+                                                    <ul>
+                                                        <li>
+                                                            <Skeleton animation='pulse' variant="text" width={50}/>
+                                                        </li>
+                                                    </ul>
+                                                </div>              
+                                            </div>
+                                        </div>
+
+                                        <div style={{display: "flex"}}>
+                                            {/* {BackButton()}
+                                            {RefundButton()}
+
+                                            
+                                            {showHeart()}          */}
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>                   
+
+                    <div className="row">
+                        <div className="col-lg-8 col-md-12">
+                            <div className="blog-details-desc">
+
+                                <div className="article-content">  
+
+                                
+                                <div className="separator"></div>
+                                    <Skeleton variant="rect" animation='pulse' height={550}/>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div className="col-lg-4 col-md-12">
+                            <div className="widget-area" id="secondary">
+                                <div className="widget widget_startp_posts_thumb">
+                                    <div style={{minWidth: 270}}>
+
+                                        <h3 className="widget-title"><Skeleton variant="h3" animation='pulse'/></h3>
+                                        <Skeleton variant="rect" animation='pulse' height={150}/>
+                                        <br></br>
+                                        <Skeleton variant="rect" animation='pulse' height={150}/>
+                                        <br></br>
+                                        <Skeleton variant="rect" animation='pulse' height={150}/>
+                                    </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         }
+    }
 
 
 

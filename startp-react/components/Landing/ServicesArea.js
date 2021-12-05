@@ -22,7 +22,7 @@ const ServicesArea = () => {
         labels: [`${t.liquidity}`, `${t.IDO}`, `${t.privateSale}`, `${t.strategic}`, `${t.advisors}`, `${t.provide}`],
         datasets: [
           {
-            data: [8000000, 400000, 4500000, 3000000, 2600000, 1500000],
+            data: [8500000, 3500000, 0, 4000000, 3000000, 1000000],
             backgroundColor: [
               '#c679e3',
               '#44ce6f',
@@ -187,26 +187,26 @@ const ServicesArea = () => {
                                        <BiCoinStack size={27}/> {t.totalSupply}: 20 000 000 BBST
                                     </div>
                                     <div className="box">
-                                        <GiMining size={27} /> {t.liquidity}: 8 000 000 BBST
+                                        <GiMining size={27} /> {t.liquidity}: 8 500 000 BBST
                                         <p style={{fontSize: 12, fontStyle: 'italic'}}>{t.earnBBST}</p>
                                     </div>
                                     <div className="box">
-                                        <MdPublic size={27}/> {t.IDO}: 400 000 BBST
+                                        <MdPublic size={27}/> {t.IDO}: 3 500 000 BBST
                                     </div>
-                                    <div className="box">
+                                    {/* <div className="box">
                                         <RiGitRepositoryPrivateFill size={27}/> {t.privateSale}: 4 500 000 BBST
                                         <p style={{fontSize: 12, fontStyle: 'italic'}}>{t.privateLocked}</p>
+                                    </div> */}
+                                    <div className="box">
+                                        <FiTrendingUp size={27} /> {t.strategic}: 4 000 000 BBST
+                                        {/* <p style={{fontSize: 12, fontStyle: 'italic'}}>{t.strategicExplained}</p> */}
                                     </div>
                                     <div className="box">
-                                        <FiTrendingUp size={27} /> {t.strategic}: 3 000 000 BBST
-                                        <p style={{fontSize: 12, fontStyle: 'italic'}}>{t.strategicExplained}</p>
-                                    </div>
-                                    <div className="box">
-                                        <RiTeamLine size={27} /> {t.advisors}: 2 600 000 BBST
+                                        <RiTeamLine size={27} /> {t.advisors}: 3 000 000 BBST
                                         <p style={{fontSize: 12, fontStyle: 'italic'}}>{t.lock}</p>
                                     </div>
                                     <div className="box">
-                                        <FaExchangeAlt size={27}/> {t.provide}: 1 500 000 BBST
+                                        <FaExchangeAlt size={27}/> {t.provide}: 1 000 000 BBST
                                     </div>
 
                             </div>
