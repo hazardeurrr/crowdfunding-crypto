@@ -19,6 +19,45 @@ const initialState = {
   bbstBalance: 0
 }
 
+// const reducerComp = (previous, current) => previous[1] + current[1];
+// const compare = (x, y) => {
+//   console.log("comparing" + x.title + y.title)
+//   if(x.likedTupleArray.length === 0 && y.likedTupleArray.length > 0){
+//     return -1
+//   }
+//   if(x.likedTupleArray.length > 0 && y.likedTupleArray.length === 0){
+//     return 1
+//   }
+//   if(x.likedTupleArray.length === 0 && y.likedTupleArray.length === 0){
+//     return 0
+//   }
+//   if(y.likedTupleArray.reduce(reducerComp) > x.likedTupleArray.reduce(reducerComp)){
+//     return -1
+//   }
+//   return 1
+  
+// }
+
+ const compare = (x, y) => {
+   let xvalues = Object.values(x.likedTupleMap)
+   let yvalues = Object.values(y.likedTupleMap)
+
+   if(xvalues.length === 0 && yvalues.size > 0){
+     return -1
+   }
+   if(xvalues.length> 0 && yvalues.length === 0){
+     return 1
+   }
+   if(xvalues.length === 0 && yvalues.length === 0){
+     return 0
+   }
+
+   if(yvalues.reduce((acc, val) => acc + val, 0) > xvalues.reduce((acc, val) => acc + val, 0)){
+     return -1
+   }
+   return 1
+  
+ }
 
 
 const reducer = (state = initialState, action) => {
@@ -32,9 +71,35 @@ const reducer = (state = initialState, action) => {
 
 
     case 'SET_ALL_CAMPAIGNS':
+      let campaigns = action.id
+      var now = Date.now() / 1000
+
+      campaigns.sort((x, y) => {
+        if(x.start_date <= now){
+          if(x.end_date < now){
+            if(y.start_date >= now) return -1
+            if(y.end_date < now) return compare(x, y)
+            return -1
+          }
+          else {
+            if(y.start_date > now) return 1
+            if(y.end_date <= now) return 1
+            return compare(x,y)
+          }
+        } else {
+          if(y.start_date < now){
+            if(y.end_date <= now) return 1
+            else return -1
+          } else {
+            return compare(x,y)
+          }
+        }
+        // return (compare(x,y))
+      })
+      console.log(campaigns)
       return {
         ...state,
-        allCampaigns: action.id
+        allCampaigns: campaigns
       }
 
       case 'SET_ALL_CREATORS':

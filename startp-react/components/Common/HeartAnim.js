@@ -18,6 +18,7 @@ const HeartAnim = (props) => {
 
     // const currentAdd = useSelector((state) => state.address)
     const currentUser = useSelector((state) => state.currentUser)
+    const bbstbal = useSelector((state) => state.bbstBalance)
 
 
     var arrayLiked = []
@@ -40,11 +41,17 @@ const HeartAnim = (props) => {
     if(checked){
        setChecked(false)
        setShowModal(true)
-       arrayLiked = arrayLiked.filter(e => e != campaign.contract_address)
+       arrayLiked = arrayLiked.filter((e => e != campaign.contract_address))
        if(currentUser == undefined || currentUser == null){return}
         let u = currentUser;
         u.liked = arrayLiked;
         updateDoc(currentUser.eth_address, 'profile', u, console.log)
+
+          // Change weight depending on BBST balance. Retrieve BBST balance.
+          let c = campaign;
+          delete c.likedTupleMap[currentUser.eth_address]
+          updateDoc(campaign.contract_address, 'campaign', c, console.log)
+  
     } else {
       setChecked(true)
       setShowModal(true)
@@ -53,6 +60,16 @@ const HeartAnim = (props) => {
         let u = currentUser;
         u.liked = arrayLiked;
         updateDoc(currentUser.eth_address, 'profile', u, console.log)
+
+        // Change weight depending on BBST balance. Retrieve BBST balance.
+        let c = campaign;
+        let bbstamount = bbstbal === undefined ? 0 : bbstbal
+        let baseLikeAmount = 10;
+        let totalLikeAmount = baseLikeAmount + bbstamount / 10;
+        c.likedTupleMap[currentUser.eth_address] = totalLikeAmount
+        updateDoc(campaign.contract_address, 'campaign', c, console.log(c))
+
+        // CHANGER ARRAY PAR UNE MAP
     }
   }
 

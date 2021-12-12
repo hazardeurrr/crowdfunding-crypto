@@ -13,7 +13,6 @@ const ProjectGridMain = () => {
 
     const displayProjects = () => {
         const len = projectList.length > 6 ? 6 : projectList.length
-        console.log(projectList[0])
         var rows = [];
         for (var i = 0; i < len; i++) {
             rows.push( <div key={i} className="col-lg-4 col-md-6">

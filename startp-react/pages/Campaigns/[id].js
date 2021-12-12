@@ -397,7 +397,7 @@ const Campaign = (props, {c, u}) => {
                                         </span>
                                         {/* <ShareIcons campaign={campaign}/> */}
 
-                                        <h2 style={{marginTop: 20, marginBottom: 10}}><Skeleton animation='pulse' variant="h1"/></h2>
+                                        <h2 style={{marginTop: 20, marginBottom: 10}}><Skeleton animation='pulse' variant="text"/></h2>
                                          <div className="blog-details-desc">
                                             <div className="article-content">
                                                 <div className="entry-meta">
@@ -466,7 +466,7 @@ const Campaign = (props, {c, u}) => {
                                 <div className="widget widget_startp_posts_thumb">
                                     <div style={{minWidth: 270}}>
 
-                                        <h3 className="widget-title"><Skeleton variant="h3" animation='pulse'/></h3>
+                                        <h3 className="widget-title"><Skeleton variant="text" animation='pulse'/></h3>
                                         <Skeleton variant="rect" animation='pulse' height={150}/>
                                         <br></br>
                                         <Skeleton variant="rect" animation='pulse' height={150}/>

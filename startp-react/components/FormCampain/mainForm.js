@@ -113,6 +113,7 @@ class MainForm extends React.Component {
                     tiers: this.tiersArray,
                     main_img: this.image,
                     raised: 0,
+                    likedTupleMap: {}
                 }
                 console.log(campainInfos)
         
