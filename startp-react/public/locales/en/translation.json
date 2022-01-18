@@ -78,8 +78,10 @@
     "alpha": "Alpha of the platform on Testnet",
     "mainnet": "Release of V1 on Mainnet",
     "q22": "Q2 2022 & More",
-    "improvment": "Improvement and expansion",
-    "improvment2": "Improvement of the platform and expansion of the BlockBoosted ecosystem...",
+    "improvment": "Expansion",
+    "exp1": "New features",
+    "exp3": "Dedicated service for content creators",
+    "exp2": "Dedicated service for charities",
 
     "team": "Our awesome Team",
     "t.doneWith": "Made with",

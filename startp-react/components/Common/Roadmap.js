@@ -40,7 +40,7 @@ const Roadmap = () => {
         <TimelineItem>
             <TimelineOppositeContent>
             <Typography variant="body2" color="textSecondary">
-                Q4 2020
+                Q1 2021
             </Typography>
             </TimelineOppositeContent>
             <TimelineSeparator>
@@ -61,7 +61,7 @@ const Roadmap = () => {
         <TimelineItem>
             <TimelineOppositeContent>
             <Typography variant="body2" color="textSecondary" >
-                Q1 2021
+                Q2 2021
             </Typography>
             </TimelineOppositeContent>
             <TimelineSeparator>
@@ -80,33 +80,12 @@ const Roadmap = () => {
             </TimelineContent>
         </TimelineItem>
 
-        <TimelineItem>
-        <TimelineOppositeContent>
-            <Typography variant="body2" color="textSecondary">
-                Q2 2021
-            </Typography>
-            
-            </TimelineOppositeContent>
-            <TimelineSeparator>
-            <TimelineDot >
-        
-            </TimelineDot>
-            <TimelineConnector  />
-            </TimelineSeparator>
-            <TimelineContent>
-            <div style={{padding: '10px', width: '-moz-fit-content',display: 'inline-block', boxShadow: '0 2px 48px 0 rgb(0 0 0 / 8%)'}}>
-                <Typography variant="h6" component="h1">
-                    
-                </Typography>
-                <Typography></Typography>
-            </div>
-            </TimelineContent>
-        </TimelineItem>
+
 
         <TimelineItem>
         <TimelineOppositeContent>
             <Typography variant="body2" color="textSecondary">
-                Q3 2021
+                Q1 2022
             </Typography>
             
             </TimelineOppositeContent>
@@ -117,11 +96,12 @@ const Roadmap = () => {
             <TimelineConnector  />
             </TimelineSeparator>
             <TimelineContent>
-            <div style={{padding: '10px', width: '-moz-fit-content',display: 'inline-block', boxShadow: '0 2px 48px 0 rgb(0 0 0 / 8%)'}}>
+            <div  style={{padding: '10px', width: '-moz-fit-content', boxShadow: '0 2px 48px 0 rgb(0 0 0 / 8%)'}}>
                 <Typography variant="h6" component="h1">
-                    
+                Alpha
                 </Typography>
-                <Typography></Typography>
+                <Typography>{t.alpha}</Typography>
+
             </div>
             </TimelineContent>
         </TimelineItem>
@@ -129,7 +109,7 @@ const Roadmap = () => {
         <TimelineItem>
             <TimelineOppositeContent>
             <Typography variant="body2" color="textSecondary" >
-                Q4 2021
+                Q1/Q2 2022
             </Typography>
             </TimelineOppositeContent>
             <TimelineSeparator>
@@ -145,13 +125,7 @@ const Roadmap = () => {
                 </Typography>
                 <Typography>{t.sale}</Typography>
             </div>
-            <div  style={{padding: '10px', width: '-moz-fit-content', boxShadow: '0 2px 48px 0 rgb(0 0 0 / 8%)'}}>
-                <Typography variant="h6" component="h1">
-                Alpha
-                </Typography>
-                <Typography>{t.alpha}</Typography>
-
-            </div>
+            
             </TimelineContent>
         </TimelineItem>
 
@@ -159,7 +133,7 @@ const Roadmap = () => {
         <TimelineItem>
             <TimelineOppositeContent>
             <Typography variant="body2" color="textSecondary" >
-                Q1 2022
+                Q2/Q3 2022
             </Typography>
             </TimelineOppositeContent>
             <TimelineSeparator>
@@ -196,7 +170,9 @@ const Roadmap = () => {
                 <Typography variant="h6" component="h1">
                 {t.improvment}
                 </Typography>
-                <Typography>{t.improvment2}</Typography>
+                <Typography>{t.exp1}</Typography>
+                <Typography>{t.exp2}</Typography>
+                <Typography>{t.exp3}</Typography>
 
             </div>
             </TimelineContent>
