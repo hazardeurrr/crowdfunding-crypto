@@ -5,6 +5,7 @@ import CardActionArea from '@material-ui/core/CardActionArea';
 
 import Typography from '@material-ui/core/Typography';
 import { useSelector, useDispatch } from 'react-redux'
+import {chain} from '@/utils/chain'
 
 
 
@@ -30,7 +31,7 @@ const CardToken = () => {
   }
 
   const displayCardContent = () => {
-    if(connected && address != undefined && chainID == '0x1'){
+    if(connected && address != undefined && chainID == chain){
       return     <Card elevation={3} style={{marginTop: 50, borderRadius: 10}}>
       <div style={{display:'flex', alignItems:'center'}}>
         <div style={{flex : 2}}>

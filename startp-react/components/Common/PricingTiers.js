@@ -7,6 +7,7 @@ import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import { useSelector, useDispatch } from 'react-redux';
 import Button from '@material-ui/core/Button';
+import {chain} from '@/utils/chain'
 
 
 
@@ -37,7 +38,7 @@ const PricingTiers = (props) => {
     };
 
     const selectPlan = (amount) => {
-        if(connected == true && chainID == '0x1'){
+        if(connected == true && chainID == chain){
             console.log("plan selected of " + amount)
             // add to Followed projects
         } else {

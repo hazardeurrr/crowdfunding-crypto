@@ -22,6 +22,7 @@ import HeartAnim from '@/components/Common/HeartAnim';
 import {getOne} from '../../firebase-crowdfund/queries';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import Skeleton from '@material-ui/lab/Skeleton';
+import {chain} from '@/utils/chain'
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -192,7 +193,7 @@ const Campaign = (props, {c, u}) => {
     }
 
     const handleRefund = () => {
-        if(connected == true && chainID == '0x1'){
+        if(connected == true && chainID == chain){
             //connect to Metamask and check for a refund
             console.log("refund logic here")        
         } else {
@@ -209,7 +210,7 @@ const Campaign = (props, {c, u}) => {
     }
 
     const showHeart = () => {
-        if(connected && chainID == '0x1')
+        if(connected && chainID == chain)
             return <HeartAnim campaign={campaign}/>
     }
 

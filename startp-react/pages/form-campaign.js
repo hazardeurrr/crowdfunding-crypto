@@ -10,6 +10,7 @@ import DialogTitle from '@material-ui/core/DialogTitle';
 import { useSelector, useDispatch } from 'react-redux';
 import Button from '@material-ui/core/Button';
 import PageBanner from '@/components/Common/PageBanner';
+import {chain} from '@/utils/chain'
 
 const FormCampaign = () => {
 
@@ -29,7 +30,7 @@ const FormCampaign = () => {
     const ethadress = useSelector((state) => state.address)
 
     const showForm = (amount) => {
-        if(connected == true && chainID == '0x1'){
+        if(connected == true && chainID == chain){
             return <MainForm address = {ethadress}/>
         } else {
             return <div><PageBanner pageTitle="You are not connected"/>

@@ -4,7 +4,7 @@ import Link from 'next/link';
 import HTMLEditor from './HTMLEditor';
 import Description from './description'
 import Title from './title'
-
+import {connect} from 'react-redux'
 import Tiers from './tiers'
 import * as Icon from 'react-feather';
 import "react-dates/initialize";
@@ -21,6 +21,15 @@ import Modal from '@material-ui/core/Modal';
 import PreviewCampaign from 'pages/PreviewCampaign';
 import { ref } from "firebase/storage";
 
+import campaignFactoryAbi from '@/components/ContractRelated/CampaignFactoryAbi';
+import campaignFactoryAddr from '@/components/ContractRelated/CampaignFactoryAddr';
+const Web3 = require('web3');
+
+const mapStateToProps = state => {
+    return {
+        web3Instance: state.web3Instance
+    }
+}
 
 class MainForm extends React.Component {
     
@@ -31,7 +40,9 @@ class MainForm extends React.Component {
             titleError: '',
             objectiveError: '',
             modal: false,
-            html:''
+            html:'',
+            factoryInstance:undefined
+            
         }
 
         this.tiers = [];
@@ -51,6 +62,13 @@ class MainForm extends React.Component {
         this.objectiveError = ''
     }
 
+    
+    async componentWillMount() {
+        //web3 à gérer (init dans le header, récup via le store)
+        const factInstance = await new this.props.web3Instance.eth.Contract(campaignFactoryAbi.campaignFactoryAbi, campaignFactoryAddr.campaignFactoryAddr)
+        this.setState({factoryInstance: factInstance})
+    }
+
     displayCategories(){
         var rows = [];
         rows.push(<option key={0} value="---" >---</option>)
@@ -59,11 +77,40 @@ class MainForm extends React.Component {
         }
         return rows;
     }
-    
 
-    handleCampaign = (event) => {
-        event.preventDefault()
-        let contract_address = '0x98569854865654az9e8z5f6ajhbzziotr'
+    tokenIndex(currency){
+        if(currency == "USDT")
+            return 0
+        if(currency == "ETH")
+            return 1
+        if(currency == "BBST")
+            return 2
+    }
+
+    async createContract(){
+        console.log(this.state.factoryInstance)
+        return await this.state.factoryInstance.methods.createCampaign(parseInt(this.objective), 
+        parseInt(this.start_date), 
+        parseInt(this.end_date), 
+        this.flexible, 
+        parseInt(this.tokenIndex(this.raisingMethod)), 
+        parseInt(this.tiersNumber), 
+        [])
+        .send()
+        .on('transactionHash', function(hash){
+            console.log("hash :" + hash)
+          })
+          .on("receipt", function(receipt) {
+            console.log(receipt)
+            createFirebaseObject()
+          })
+          .on("error", function(error) {
+            console.log(error);
+          })
+    }
+
+    createFirebaseObject(contract_addr){
+        let contract_address = contract_addr
         var blob = new Blob([this.html], {
             type: "text/plain",
           });
@@ -129,9 +176,14 @@ class MainForm extends React.Component {
                 });
             }
             );
+    }
+
     
 
-        
+    handleCampaign = (event) => {
+        event.preventDefault()
+
+        this.createContract()
     }
     
     handleHTML(dataFromChild) {
@@ -324,4 +376,8 @@ class MainForm extends React.Component {
     }
 }
 
-export default MainForm;
+
+
+export default connect(
+    mapStateToProps
+)(MainForm);

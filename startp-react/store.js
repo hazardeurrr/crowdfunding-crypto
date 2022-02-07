@@ -2,7 +2,7 @@ import { useMemo } from 'react'
 import { createStore, applyMiddleware } from 'redux'
 import { composeWithDevTools } from 'redux-devtools-extension'
 import {getOne, updateDoc} from 'firebase-crowdfund/queries';
-
+import {chain} from '@/utils/chain'
 
 let store
 
@@ -12,11 +12,12 @@ const initialState = {
   total: 0,
   address: undefined,
   metamask_connected: false,
-  chainID: '0x1',
+  chainID: chain,
   allCampaigns: [],
   allCreators: [],
   currentUser: undefined,
-  bbstBalance: 0
+  bbstBalance: 0,
+  web3Instance: undefined
 }
 
 // const reducerComp = (previous, current) => previous[1] + current[1];
@@ -67,6 +68,12 @@ const reducer = (state = initialState, action) => {
         ...state,
         bbstBalance: action.id
       }
+
+    case 'SET_WEB3':
+      return {
+        ...state,
+        web3Instance: action.id
+    }
 
 
     case 'SET_ALL_CAMPAIGNS':
