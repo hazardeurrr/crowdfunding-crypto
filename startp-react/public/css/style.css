@@ -2171,7 +2171,7 @@ Services Details CSS
 .services-details-image iframe{
   text-align: center;
   height: 400px !important;
-  width: 700px !important;
+  width: 100% !important;
 
 }
 
@@ -4524,14 +4524,14 @@ Blog CSS
 .single-blog-post-item .post-content .read-more-btn {
   display: inline-block;
   border-radius: 30px;
-  padding: 9px 25px;
+  padding: 5px 25px;
   border: 1px solid #e6e6e6;
   background-color: #ffffff;
   position: absolute;
   -webkit-transition: 0.5s;
   transition: 0.5s;
   left: 25px;
-  bottom: -22px;
+  bottom: -27px;
   opacity: 0;
   visibility: hidden;
   font-size: 13px;

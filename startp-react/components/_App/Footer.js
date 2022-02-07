@@ -183,7 +183,7 @@ const Footer = () => {
                             <ul className="list">
                                 <li>
                                     <Link href="/term-condition">
-                                        <a>Terms & Condition</a>
+                                        <a>Terms & Conditions</a>
                                     </Link>
                                 </li>
                                 <li>
