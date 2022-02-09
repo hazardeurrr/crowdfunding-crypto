@@ -216,7 +216,7 @@ const Navbar = () => {
         if (!useSelector((state) => state.metamask_connected)) {
             return (
                 <>
-                <button type="submit" className="btn btn-primary" onClick={() => connect()}>Connect Wallet</button>
+                <button type="submit" className="btn btn-secondary" onClick={() => connect()}>Connect Wallet</button>
                 </>
             )
         }

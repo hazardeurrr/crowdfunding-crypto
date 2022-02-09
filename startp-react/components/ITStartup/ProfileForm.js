@@ -43,6 +43,7 @@ const ProfileForm = (props) => {
         getOne('profile', userAddr, function(doc) {
             if (doc.exists) {
                 user = doc.data()
+                console.log("user info : " + JSON.stringify(user))
                 setName(user.username);
                 setEmail(user.email);
                 setImage(user.image);
@@ -53,6 +54,33 @@ const ProfileForm = (props) => {
                 console.log("Document not found")
             }
         })
+    }
+
+    function handleSubmit(event) {
+        event.preventDefault();
+
+        let user = undefined
+        getOne('profile', userAddr, function(doc) {
+            if (doc.exists) {
+                user = doc.data()
+                user.username = name;
+                user.email = email;
+                user.image = image;
+                user.bio = bio;
+                user.twitter = twitter;
+                user.website = site;
+
+                updateDoc(user.eth_address, 'profile', user, function() {
+                    alert("Profile updated !")
+                    window.location.replace("/User/"+userAddr)
+                })
+            } else {
+                console.log("Document not found")
+            }
+
+
+        })
+
     }
 
     function formIsValid() {
@@ -84,29 +112,10 @@ const ProfileForm = (props) => {
 
                     <div className="faq-contact">
                         <h3>Complete the information about your profile</h3>
-                        <form action={`/User/${userAddr}`} onSubmit={() => {
-                            let user = undefined
-                            getOne('profile', userAddr, function(doc) {
-                                if (doc.exists) {
-                                    user = doc.data()
-                                    user.username = name;
-                                    user.email = email;
-                                    user.image = image;
-                                    user.bio = bio;
-                                    user.twitter = twitter;
-                                    user.website = site;
-
-                                    //console.log(user)
-
-                                    updateDoc(user.eth_address, 'profile', user, function() {
-                                        console.log("Updated")
-                                    })
-                                } else {
-                                    Console.log("Document not found")
-                                }
-                            })
-                            alert("Profile updated !")
-                        }}>
+                        <form action={`/User/${userAddr}`} onSubmit={(event) => {
+                            handleSubmit(event)
+                        }
+                        }>
                             <div className="row">
                                 <p><strong> Displayed name </strong><br/>Choose a name that will be displayed to the other users</p>
                                 <div className="col-lg-12 col-md-12">
@@ -166,7 +175,7 @@ const ProfileForm = (props) => {
 
                                 <div className="col-lg-12 col-md-12">
                                     <button className="btn btn-primary" type="submit" onClick={(event) => {
-                                    }}>Update Profile</button>
+                                    handleSubmit(event)}}>Update Profile</button>
                                 </div>
                             </div>
                         </form>
