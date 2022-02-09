@@ -24,10 +24,12 @@ import { ref } from "firebase/storage";
 import campaignFactoryAbi from '@/components/ContractRelated/CampaignFactoryAbi';
 import campaignFactoryAddr from '@/components/ContractRelated/CampaignFactoryAddr';
 const Web3 = require('web3');
+const BN = require('bn.js');
 
 const mapStateToProps = state => {
     return {
-        web3Instance: state.web3Instance
+        web3Instance: state.web3Instance,
+        userAddr: state.address
     }
 }
 
@@ -88,28 +90,35 @@ class MainForm extends React.Component {
     }
 
     async createContract(){
-        console.log(this.state.factoryInstance)
-        return await this.state.factoryInstance.methods.createCampaign(parseInt(this.objective), 
-        parseInt(this.start_date), 
-        parseInt(this.end_date), 
+        const bigMultiplier = new BN('1000000000000000000')
+        
+        return await this.state.factoryInstance.methods.createCampaign(
+        this.props.web3Instance.utils.toWei(this.objective.toString()), // changer le objective pour mettre en wei
+        parseInt(this.startDate), // erreur sur le format des timestamps ?
+        parseInt(this.endDate), 
         this.flexible, 
         parseInt(this.tokenIndex(this.raisingMethod)), 
-        parseInt(this.tiersNumber), 
+        0, 
         [])
-        .send()
+        .send({from : this.props.userAddr, value: 1})
         .on('transactionHash', function(hash){
             console.log("hash :" + hash)
-          })
-          .on("receipt", function(receipt) {
-            console.log(receipt)
-            createFirebaseObject()
-          })
-          .on("error", function(error) {
+        })
+        .on('confirmation', function(confirmationNumber, receipt){ 
+            console.log("Confirmation number:" + confirmationNumber)
+        })
+        .on("error", function(error) {
             console.log(error);
-          })
+        })
+        .then(a => {
+            this.createFirebaseObject(a.events.CampaignCreated.returnValues[0])
+
+            }
+        )
     }
 
     createFirebaseObject(contract_addr){
+        console.log("CreatingFirebaseObject")
         let contract_address = contract_addr
         var blob = new Blob([this.html], {
             type: "text/plain",
@@ -152,7 +161,7 @@ class MainForm extends React.Component {
                     end_date: this.endDate,
                     contract_address: contract_address,
                     small_description: this.small_description,
-                    categories: this.cats,
+                    categories: this.cats.filter(a => a !== "---"),
                     objective: parseInt(this.objective),
                     long_desc: downloadURL,
                     currency: this.raisingMethod,
@@ -202,6 +211,15 @@ class MainForm extends React.Component {
     handleCloseModal = () => {
         this.setState({modal: false});
       };
+
+    getNbrStep = () => {                    // marche pas (pas de state)
+        if(this.raisingMethod == "USDT")
+            return 0.000001
+        if(this.raisingMethod == "ETH")
+            return 0.000000000000000001
+        if(this.raisingMethod == "BBST")
+            return 0.000000000000000001
+    }
 
     render() {
 
@@ -302,7 +320,7 @@ class MainForm extends React.Component {
                                     <p><strong> Project Goal </strong><br/> Your goal should reflect the minimum amount of funds you need to complete your project and send out rewards, and include a buffer for payments processing fees.<br></br><i>⚠ Amount should be specified in the currency chosen above</i></p>
                                     <div className="col-lg-12 col-md-12" >
                                         <div className="form-group">
-                                        <input type="number" placeholder="Goal" min="0" className="form-control" onChange={(event) => {
+                                        <input type="number" placeholder="Goal" min="0" step={this.getNbrStep()} className="form-control" onChange={(event) => {
                                             this.objective = event.target.value
                                         }}/>
                                         {this.state.objectiveError !== '' ? <p style={{color: 'red'}}>{this.state.objectiveError}</p>: null}
@@ -358,7 +376,7 @@ class MainForm extends React.Component {
 
                                     <p><strong> Rewards tiers </strong><br/> Add reward tiers depending on the value of contributions.</p>
 
-                                    <Tiers onTiersChange={e => {
+                                    <Tiers step={this.getNbrStep()} onTiersChange={e => {
                                         this.tiersArray = e
                                     }}/>
                                     

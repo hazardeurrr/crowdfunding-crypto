@@ -19,6 +19,7 @@
         "@metamask/detect-provider": "^1.2.0",
         "animate.css": "^4.1.1",
         "axios": "^0.21.1",
+        "bn.js": "^5.2.0",
         "bootstrap": "^4.6.0",
         "carbon-components": "^10.32.1",
         "carbon-components-react": "^7.32.1",
