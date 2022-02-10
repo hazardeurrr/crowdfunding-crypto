@@ -20,9 +20,18 @@ import ProfilePic from '@/components/ITStartup/ProfilePic.js'
 import Modal from '@material-ui/core/Modal';
 import PreviewCampaign from 'pages/PreviewCampaign';
 import { ref } from "firebase/storage";
-
+import Dialog from '@material-ui/core/Dialog';
+import DialogContent from '@material-ui/core/DialogContent';
+import DialogContentText from '@material-ui/core/DialogContentText';
+import DialogTitle from '@material-ui/core/DialogTitle';
 import campaignFactoryAbi from '@/components/ContractRelated/CampaignFactoryAbi';
 import campaignFactoryAddr from '@/components/ContractRelated/CampaignFactoryAddr';
+import DialogActions from '@material-ui/core/DialogActions';
+import Button from '@material-ui/core/Button';
+import CircularProgress from '@material-ui/core/CircularProgress';
+import Snackbar from '@material-ui/core/Snackbar';
+import MuiAlert from "@material-ui/lab/Alert";
+
 const Web3 = require('web3');
 const BN = require('bn.js');
 
@@ -32,6 +41,10 @@ const mapStateToProps = state => {
         userAddr: state.address
     }
 }
+
+function Alert(props) {
+    return <MuiAlert elevation={6} variant="filled" {...props} />;
+  }
 
 class MainForm extends React.Component {
     
@@ -43,9 +56,19 @@ class MainForm extends React.Component {
             objectiveError: '',
             modal: false,
             html:'',
-            factoryInstance:undefined
+            factoryInstance:undefined,
+            Tx: "",
+            errorMsg: "",
+            snackbarOpen: false,
+            dialogOpen : false,
+            creationState: 0,
+            new_contract_address: '',
+            initializationProgress: 0
             
         }
+
+        this.handleCloseSnackbar.bind(this);
+        this.closeDialog.bind(this);
 
         this.tiers = [];
         this.tiersArray = [];
@@ -57,10 +80,9 @@ class MainForm extends React.Component {
         this.startDate = undefined, 
         this.endDate = undefined, 
         this.small_description = '',
-        this.categoryPicked = undefined,
         this.raisingMethod = "USDT",
         this.tiersNumber = 0,
-        this.objective = null,
+        this.objective = 0,
         this.objectiveError = ''
     }
 
@@ -89,12 +111,31 @@ class MainForm extends React.Component {
             return 2
     }
 
+    openDialog(){
+        this.setState({dialogOpen: true})
+    }
+
+    closeDialog(){
+        this.setState({dialogOpen: false})
+    }
+
+    openSnackbar() {
+        this.closeDialog()
+        this.setState({snackbarOpen: true})
+    }
+
+    handleCloseSnackbar() {
+        this.setState({snackbarOpen: false})
+    }
+
     async createContract(){
         const bigMultiplier = new BN('1000000000000000000')
+
+        let context = this
         
         return await this.state.factoryInstance.methods.createCampaign(
-        this.props.web3Instance.utils.toWei(this.objective.toString()), // changer le objective pour mettre en wei
-        parseInt(this.startDate), // erreur sur le format des timestamps ?
+        this.props.web3Instance.utils.toWei(this.objective.toString()), // WEI FOR ALL CURRENCIES ???
+        parseInt(this.startDate), 
         parseInt(this.endDate), 
         this.flexible, 
         parseInt(this.tokenIndex(this.raisingMethod)), 
@@ -102,22 +143,32 @@ class MainForm extends React.Component {
         [])
         .send({from : this.props.userAddr, value: 1})
         .on('transactionHash', function(hash){
+            context.openDialog()
             console.log("hash :" + hash)
+            context.setState({ Tx: hash });
+
         })
         .on('confirmation', function(confirmationNumber, receipt){ 
+
             console.log("Confirmation number:" + confirmationNumber)
         })
         .on("error", function(error) {
+            context.setState({ errorMsg: error.code + " : " + error.message})
+            context.openSnackbar()
             console.log(error);
         })
         .then(a => {
+            this.setState({new_contract_address: a.events.CampaignCreated.returnValues[0]})
             this.createFirebaseObject(a.events.CampaignCreated.returnValues[0])
-
             }
         )
     }
 
     createFirebaseObject(contract_addr){
+        this.setState({ creationState: 1 });    // etat "push to bdd"
+        if(!this.state.dialogOpen){
+            this.openDialog()
+        }
         console.log("CreatingFirebaseObject")
         let contract_address = contract_addr
         var blob = new Blob([this.html], {
@@ -134,6 +185,7 @@ class MainForm extends React.Component {
             // Get task progress, including the number of bytes uploaded and the total number of bytes to be uploaded
             const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
             console.log('Upload is ' + progress + '% done');
+            this.setState({initializationProgress: progress})
             switch (snapshot.state) {
             case 'paused':
                 console.log('Upload is paused');
@@ -161,8 +213,10 @@ class MainForm extends React.Component {
                     end_date: this.endDate,
                     contract_address: contract_address,
                     small_description: this.small_description,
-                    categories: this.cats.filter(a => a !== "---"),
-                    objective: parseInt(this.objective),
+                    categories: this.cats.filter(a => a !== "---").filter(function (value, index, array) { 
+                        return array.indexOf(value) === index;
+                    }), // remove '---' and then remove double
+                    objective: this.objective,
                     long_desc: downloadURL,
                     currency: this.raisingMethod,
                     flexible: this.flexible,
@@ -179,6 +233,10 @@ class MainForm extends React.Component {
                 if (this.cats.length < 1) {return}
                 db.collection('campaign').doc(contract_address).set(campainInfos).then(x => {
                     console.log('document written with : ' + campainInfos.title)
+                    this.setState({ creationState: 2 }); // etat fini
+                    if(!this.state.dialogOpen){
+                        this.openDialog()
+                    }
                 }).catch(console.error)
     
     
@@ -187,12 +245,23 @@ class MainForm extends React.Component {
             );
     }
 
-    
+    checkCampaignIsValid = () => {
+        if(this.image != undefined && this.title != undefined && this.startDate != undefined && this.endDate != undefined && this.objective > 0){
+            return true
+        }
+        return false
+    }
 
     handleCampaign = (event) => {
         event.preventDefault()
 
-        this.createContract()
+        if(this.checkCampaignIsValid()){
+            this.createContract()
+        } else {
+            this.setState({errorMsg: "Invalid input, please check you filled everything correctly."})
+            this.openSnackbar()
+        }
+
     }
     
     handleHTML(dataFromChild) {
@@ -221,12 +290,97 @@ class MainForm extends React.Component {
             return 0.000000000000000001
     }
 
+    displayConfirmModal = (x) => {
+        switch(x) {
+            case 0:
+                return <div style={{justifyContent:'center'}}>
+                <DialogTitle id="alert-dialog-title">Waiting for confirmation...</DialogTitle>
+                <DialogContent>
+
+                    <CircularProgress style={{marginTop: 20, marginBottom: 20}}/>
+
+                <DialogContentText id="alert-dialog-description">
+                Transaction Hash : </DialogContentText>
+                <DialogContentText id="alert-dialog-description"><a href={`https://etherscan.io/tx/${this.state.Tx}`} target="_blank">{this.state.Tx}</a></DialogContentText>
+                </DialogContent></div>
+            case 1:
+                return <div style={{justifyContent:'center'}}>
+                <DialogTitle id="alert-dialog-title">Campaign initialization {this.state.initializationProgress}%</DialogTitle>
+                <DialogContent>    
+                    <CircularProgress style={{marginTop: 20, marginBottom: 20}}/>
+                    <DialogContentText id="alert-dialog-description">
+                Transaction confirmed : </DialogContentText>
+                <DialogContentText id="alert-dialog-description"><a href={`https://etherscan.io/tx/${this.state.Tx}`} target="_blank">{this.state.Tx}</a></DialogContentText>
+                </DialogContent></div>
+            case 2:
+                 return <div style={{justifyContent:'center'}}>
+                <DialogTitle id="alert-dialog-title">Your campaign is online !</DialogTitle>
+                <DialogContent>
+                
+                <div style={{display: 'flex', justifyContent:'center', alignItems:'center', flexDirection:'column'}}>
+                    <h5 style={{marginBottom: 5}}>{this.title}</h5>
+                    <img src={this.image} alt='campaign image'/>
+                    <div style={{justifyContent:'center'}}>
+                        <Link href={{
+                            pathname: "/Campaigns/[id]",
+                            query: {
+                                id: this.state.new_contract_address,
+                                }
+                            }}
+                            >
+                        <a style={{marginTop: 15}} className="btn btn-primary">See it here</a>
+                        </Link>  
+                    </div>
+                </div>    
+              
+                </DialogContent></div>
+            default:
+                return <div style={{justifyContent:'center'}}>
+                <DialogTitle id="alert-dialog-title">Waiting for confirmation...</DialogTitle>
+                <DialogContent>
+                
+                <CircularProgress style={{marginTop: 20, marginBottom: 20}}/>
+                </DialogContent></div>
+
+        }
+    }
+
     render() {
 
         return (
             <>
                 {/* <Navbar /> */}
                 <PageBanner pageTitle="Create your campaign !" />
+
+                <Snackbar
+                    open={this.state.snackbarOpen}
+                    onClose={() => this.handleCloseSnackbar()}
+                    autoHideDuration={9000}
+                >
+                <Alert onClose={() => this.handleCloseSnackbar()} severity="error" >
+                    Error : {this.state.errorMsg}
+                </Alert>
+                </Snackbar>
+
+                <Dialog
+                    open={this.state.dialogOpen}
+                    onClose={(_, reason) => {
+                        if (reason !== "backdropClick") {
+                          this.closeDialog();
+                        }
+                      }}
+                    
+                    aria-labelledby="alert-dialog-title"
+                    aria-describedby="alert-dialog-description"
+                >
+                    {this.displayConfirmModal(this.state.creationState)}
+                    {/* <DialogActions>
+                    <Button onClick={this.closeDialog} color="primary">
+                        Close
+                    </Button>
+                    </DialogActions> */}
+                </Dialog>
+
 
                 <div className="services-area-two pt-80 pb-50 bg-f9f6f6">
                     <div className="container">
