@@ -83,16 +83,6 @@ const ProfileForm = (props) => {
 
     }
 
-    function formIsValid() {
-        let valid = true
-
-        if (name.replace(/\s/g, '') === "" || email === "" || twitter === "") {
-            valid = false
-        }
-
-        return valid
-    }
-
     useEffect(() => {
         loadData()
     }, [props.address] )

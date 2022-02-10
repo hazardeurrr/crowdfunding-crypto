@@ -242,7 +242,7 @@ class MainForm extends React.Component {
     
                 });
             }
-            );
+        );
     }
 
     checkCampaignIsValid = () => {
