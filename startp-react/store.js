@@ -50,7 +50,7 @@ const initialState = {
      return -1
    }
    if(xvalues.length === 0 && yvalues.length === 0){
-     return 0
+     return 1
    }
    if(yvalues.reduce((acc, val) => acc + val, 0) > xvalues.reduce((acc, val) => acc + val, 0)){
      return 1
@@ -80,29 +80,29 @@ const reducer = (state = initialState, action) => {
       let campaigns = action.id
       var now = Date.now() / 1000
 
-      campaigns.sort((x, y) => {
-        if(x.start_date <= now){
-          if(x.end_date < now){
-            if(y.start_date >= now) return 1
-            if(y.end_date < now) return compare(x, y)
-            return -1
-          }
-          else {
-            if(y.start_date > now) return -1
-            if(y.end_date <= now) return -1
-            return compare(x,y)
-          }
-        } else {
-          if(y.start_date < now){
-            if(y.end_date <= now) return -1
-            else return 1
-          } else {
-            return compare(x,y)
-          }
+      let current = [];
+      let ended = [];
+      let future = [];
+
+      for (let elem of campaigns) {
+        if (elem.end_date < now) {
+          ended.push(elem)
         }
-        // return (compare(x,y))
-      })
-      console.log(campaigns)
+        else if (elem.start_date > now) {
+          future.push(elem)
+        }
+        else current.push(elem)
+      }
+
+      current.sort((x, y) => compare(x,y))
+      future.sort((x, y) => compare(x,y))
+      ended.sort((x, y) => compare(x,y))
+
+      let tmp = current.concat(future)
+
+      campaigns =  tmp.concat(ended);
+
+      // console.log(campaigns)
       return {
         ...state,
         allCampaigns: campaigns
