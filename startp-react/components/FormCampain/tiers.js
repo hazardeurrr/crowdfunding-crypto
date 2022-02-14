@@ -1,4 +1,5 @@
 import React from 'react';
+import Claimers from './claimers';
 
 class Tiers extends React.Component {
     constructor(props) {
@@ -80,6 +81,15 @@ class Tiers extends React.Component {
                                     }}/>
                                     </div>
                                 </div>
+                                <p>Quantity<br/>
+                                Do you want to restreint the number of claimers for this plan ? :
+                                </p>
+
+                                <Claimers index={index} onClaimersChange={e => {
+                                        this.tiers[index]["maxClaimers"] = parseInt(e)
+                                    }} />
+
+                                
                             </div>
                         )
                     })
