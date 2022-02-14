@@ -8,7 +8,7 @@ import DialogTitle from '@material-ui/core/DialogTitle';
 import { useSelector, useDispatch } from 'react-redux';
 import Button from '@material-ui/core/Button';
 import {chain} from '@/utils/chain'
-
+import { updateDoc } from 'firebase-crowdfund/queries'
 
 
 
@@ -26,6 +26,9 @@ const PricingTiers = (props) => {
 
     const connected = useSelector((state) => state.metamask_connected)
     const chainID = useSelector((state) => state.chainID)
+    const userAddr = useSelector((state) => state.address)
+
+    const campaign = props.project
 
     const [open, setOpen] = React.useState(false);
 
@@ -37,21 +40,27 @@ const PricingTiers = (props) => {
         setOpen(false);
     };
 
-    const selectPlan = (amount) => {
+    const selectPlan = (tier) => {
         if(connected == true && chainID == chain){
-            console.log("plan selected of " + amount)
+            tier.subscribers.push(userAddr);
+            // console.log("content tier : " + JSON.stringify(tier))
+            console.log("plan selected of " + tier.threshold);
+
+            updateDoc(campaign.contract_address, 'campaign', campaign, function() {
+                console.log("Campaign updated !")
+            })
+
             // add to Followed projects
         } else {
             handleDialogOpen()
         }
     }
 
-
     const valueRef = useRef('')
 
-    const handleClick = (amount) => e => {    
-        if(amount > 0){
-            selectPlan(amount)
+    const handleClick = (tier) => e => {    
+        if(tier.threshold > 0){
+            selectPlan(tier)
         }
     }
 
@@ -61,8 +70,6 @@ const PricingTiers = (props) => {
             selectPlan(amount)
         }
     }
-
-    const campaign = props.project
 
     const displayTiers = () => {
         var rows = [];
@@ -87,7 +94,7 @@ const PricingTiers = (props) => {
                             
                             <div className="pricing-footer">
                                 
-                                    <button onClick={handleClick(tier.threshold)} className="btn btn-primary">Select Plan</button>
+                                    <button onClick={handleClick(tier)} className="btn btn-primary">Select Plan</button>
                             </div>
                         </div>
                     </div>

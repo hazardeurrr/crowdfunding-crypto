@@ -20,7 +20,9 @@ class Tiers extends React.Component {
             this.tiers.push({
                 title: "",
                 threshold: 0,
-                description: ""
+                description: "",
+                subscribers: new Array(),
+                maxClaimers: -1
             })
         }
         this.setState({tiers: listTiers})
@@ -60,7 +62,7 @@ class Tiers extends React.Component {
                                     <div className="form-group">
                                     <input type="number" id={`"tiersAmount${index + 1}`} placeholder="Amount" min="0" step={this.props.step} className="form-control"
                                     onChange={e => {
-                                        this.tiers[index]["threshold"] = parseInt(e.target.value)
+                                        this.tiers[index]["threshold"] = e.target.value
                                         this.props.onTiersChange(this.tiers)
                                     }}/>
                                     </div>
