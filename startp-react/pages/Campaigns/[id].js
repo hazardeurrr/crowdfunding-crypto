@@ -512,7 +512,7 @@ export async function getServerSideProps (context) {
   //you can make DB queries using the data in context.query
   return {
       props: { 
-         address: context.query.id //pass it to the page props
+         address: context.query.id.toLowerCase() //pass it to the page props
       }
   }
 }
