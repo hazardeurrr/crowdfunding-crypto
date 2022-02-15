@@ -41,11 +41,6 @@ const CampaignSidebar = (props) => {
         }
     }
 
-    const getTierLeft = (tile) => {
-        let n = tile.maxClaimers - (tile.subscribers.length + tile.pending.length)
-        return n < 0 ? 0 : n
-    }
-
     const BackText = () => {
         var now = Date.now() / 1000
         if(now < campaign.start_date){
@@ -62,43 +57,35 @@ const CampaignSidebar = (props) => {
         </div>
 
         } else {
-            if(getTierLeft() <= 0){
-                return <div className="works-content">
-                    <h3>
-                        This plan is sold out <Icon.Meh />
-                    </h3>
-                </div>
-            } else {
-                return <div>
-                    <Link href={{
-                    pathname: "/Checkout/[id]",
-                    query: {
-                        id: campaign.contract_address,
-                    }
-                }}
-                as={`/Checkout/${campaign.contract_address}`}>
-                
-                    <a className="icon">
-                        <Icon.ArrowRight />
-                    </a>
-                </Link>
+            return <div>
+                <Link href={{
+                pathname: "/Checkout/[id]",
+                query: {
+                    id: campaign.contract_address,
+                }
+            }}
+            as={`/Checkout/${campaign.contract_address}`}>
+            
+                <a className="icon">
+                    <Icon.ArrowRight />
+                </a>
+            </Link>
 
-                <div className="works-content">
-                    <h3>
-                        <Link href={{
-                            pathname: "/Checkout/[id]",
-                            query: {
-                                id: campaign.contract_address,
-                            }
-                        }}
-                        as={`/Checkout/${campaign.contract_address}`}>
-                                <a>Back this campaign !</a>
-                        </Link>
-                    </h3>
-                    <p>Support the campaign with your contribution!</p>
-                </div>
+            <div className="works-content">
+                <h3>
+                    <Link href={{
+                        pathname: "/Checkout/[id]",
+                        query: {
+                            id: campaign.contract_address,
+                        }
+                    }}
+                    as={`/Checkout/${campaign.contract_address}`}>
+                            <a>Back this campaign !</a>
+                    </Link>
+                </h3>
+                <p>Support the campaign with your contribution!</p>
             </div>
-            }
+        </div>
         }
     }
 
@@ -129,9 +116,6 @@ const CampaignSidebar = (props) => {
                                                 </Typography> */}
                                                 <Typography variant="body2" component="p">
                                                 {tile.description}
-                                                </Typography>
-                                                <Typography variant="body2" component="p" align="right">
-                                                {getTierLeft(tile)} left
                                                 </Typography>
                                             </CardContent>
                                             <CardActions>
