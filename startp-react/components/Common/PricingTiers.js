@@ -95,14 +95,17 @@ const PricingTiers = (props) => {
 
     const selectPlan = (tier, index) => {
         if(connected == true && chainID == chain){
-            tier.pending.push(userAddr);
-            // console.log("content tier : " + JSON.stringify(tier))
-            console.log("plan selected of " + tier.threshold);
 
-            updateDoc(campaign.contract_address, 'campaign', campaign, function() {
-                console.log("Pending updated !")
-                isAvaiblable(index)
-            })
+            if (tier.maxClaimers < tier.subscribers.length) {
+                tier.pending.push(userAddr);
+                // console.log("content tier : " + JSON.stringify(tier))
+                console.log("plan selected of " + tier.threshold);
+
+                updateDoc(campaign.contract_address, 'campaign', campaign, function() {
+                    console.log("Pending updated !")
+                    isAvaiblable(index)
+                })
+            } else alert("Plan épuisé !")
 
             // add to Followed projects
         } else {
