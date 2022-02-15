@@ -23,7 +23,8 @@ class Tiers extends React.Component {
                 threshold: 0,
                 description: "",
                 subscribers: new Array(),
-                maxClaimers: -1
+                maxClaimers: -1,
+                pending: new Array()
             })
         }
         this.setState({tiers: listTiers})
