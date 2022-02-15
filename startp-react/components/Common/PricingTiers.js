@@ -82,13 +82,13 @@ const PricingTiers = (props) => {
         getOne('campaign', campaign.contract_address, function(doc) {
 
             const camp = doc.data()
-            // console.log(camp)
+            console.log(camp.tiers)
             // console.log(index)
             tier = camp.tiers[index]
 
             total = tier.subscribers.length + tier.pending.length
 
-            testTransac(total, tier, index);
+            // testTransac(total, tier, index);
 
         })
     }
@@ -96,10 +96,11 @@ const PricingTiers = (props) => {
     const selectPlan = (tier, index) => {
         if(connected == true && chainID == chain){
 
-            if (tier.maxClaimers < tier.subscribers.length) {
-                tier.pending.push(userAddr);
+            if (tier.maxClaimers > tier.subscribers.length) {
+                // tier.pending.push(userAddr);
                 // console.log("content tier : " + JSON.stringify(tier))
                 console.log("plan selected of " + tier.threshold);
+                campaign.tiers[index].pending.push(userAddr);
 
                 updateDoc(campaign.contract_address, 'campaign', campaign, function() {
                     console.log("Pending updated !")
