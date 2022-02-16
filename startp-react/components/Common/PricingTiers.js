@@ -63,7 +63,9 @@ const PricingTiers = (props) => {
                 //     alert("Your transaction is already pending !")
                 // }
 
-                if (total < camp.data().tiers[index].maxClaimers && !camp.data().tiers[index].pending.includes(userAddr)) {
+                // checker si maxClaimers == -1 <=> unlimited
+                
+                if (camp.data().tiers[index].maxClaimers == -1 || total < camp.data().tiers[index].maxClaimers && !camp.data().tiers[index].pending.includes(userAddr)) {
                     var newTiers = camp.data().tiers
                     newTiers[index].pending.push(userAddr)
                     transaction.update(tierCamp, { tiers: newTiers });
@@ -76,17 +78,15 @@ const PricingTiers = (props) => {
             // TX Metamask
             // onSuccess => retire du [] pending et on le met dans [] subscribers
             // onFailure => retire du [] pending
-            const campCtrInstance = await new web3Instance.eth.Contract(campaignAbi, campaign.contract_address)
-            .then(async function(ctr) {
+            const campCtrInstance = new web3Instance.eth.Contract(campaignAbi.campaignAbi, campaign.contract_address)
                 if(campaign.currency == "ETH")
-                    await participateInETH(ctr, campaign.tiers[index].threshold)
+                    await participateInETH(campCtrInstance, campaign.tiers[index].threshold)
                 else
-                    await participateInERC20(ctr, campaign.tiers[index].threshold)
+                    await participateInERC20(campCtrInstance, campaign.tiers[index].threshold)
                
+                
             })
-
-            console.log("Population increased to ", newPopulation);
-        }).catch((err) => {
+        .catch((err) => {
             // This will be an "population is too big" error.
             console.error(err);
         });
