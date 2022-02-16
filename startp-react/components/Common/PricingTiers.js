@@ -9,8 +9,9 @@ import { useSelector, useDispatch } from 'react-redux';
 import Button from '@material-ui/core/Button';
 import {chain} from '@/utils/chain'
 import { updateDoc, getOne } from 'firebase-crowdfund/queries'
-
-
+import {db, storage} from '../../firebase-crowdfund/index'
+import campaignAbi from '@/components/ContractRelated/CampaignAbi';
+const Web3 = require('web3');
 
 // async function selectPlan(amount){
 //     let c = await loadWeb3();
@@ -27,6 +28,7 @@ const PricingTiers = (props) => {
     const connected = useSelector((state) => state.metamask_connected)
     const chainID = useSelector((state) => state.chainID)
     const userAddr = useSelector((state) => state.address)
+    const web3Instance = useSelector((state) => state.web3Instance)
 
     const campaign = props.project
 
@@ -40,63 +42,111 @@ const PricingTiers = (props) => {
         setOpen(false);
     };
 
-    // const acceptTransac = (tier, index) => {
-    //     tier.subscribers.push(userAddr);
-    //     console.log("content tier : " + JSON.stringify(tier))
+    React.useEffect(() => {
 
-    //     campaign.tiers[index] = tier;
-        
-    //     updateDoc(campaign.contract_address, 'campaign', campaign, function() {
-    //         console.log("Subscribers updated !")
-    //     })
-        
-    //     console.log("Transac réalisée avec succès !")
-    // }
+    }, [web3Instance])
 
-    // const testTransac = (total, tier, index) => {
-    //     if (total > tier.maxClaimers) {
 
-    //         var x = tier.maxClaimers - tier.subscribers.length
 
-    //         console.log("nb selected addresses : " + x);
+    const monitortransacDB = (index) => {
+        var tierCamp = db.collection("campaign").doc(campaign.contract_address);
 
-    //         var limit = tier.pending.length > x ? x : tier.pending.length
+        db.runTransaction((transaction) => {
+            return transaction.get(tierCamp).then((camp) => {
+                if (!camp.exists) {
+                    throw "Document does not exist!";
+                }
 
-    //         console.log(tier.subscribers);
+                var total = camp.data().tiers[index].pending.length + camp.data().tiers[index].subscribers.length
 
-    //         var addresses = tier.pending.slice(0, limit)
+                // if (!camp.data().tiers[index].pending.includes(userAddr)) {
+                //     alert("Your transaction is already pending !")
+                // }
+
+                if (total < camp.data().tiers[index].maxClaimers && !camp.data().tiers[index].pending.includes(userAddr)) {
+                    var newTiers = camp.data().tiers
+                    newTiers[index].pending.push(userAddr)
+                    transaction.update(tierCamp, { tiers: newTiers });
+                    return newTiers;
+                } else {
+                    return Promise.reject("Sorry ! This plan is no longer available.");
+                }
+            });
+        }).then(async function(newTiers) {
+            // TX Metamask
+            // onSuccess => retire du [] pending et on le met dans [] subscribers
+            // onFailure => retire du [] pending
+            const campCtrInstance = await new web3Instance.eth.Contract(campaignAbi, campaign.contract_address)
+            .then(async function(ctr) {
+                if(campaign.currency == "ETH")
+                    await participateInETH(ctr, campaign.tiers[index].threshold)
+                else
+                    await participateInERC20(ctr, campaign.tiers[index].threshold)
+               
+            })
+
+            console.log("Population increased to ", newPopulation);
+        }).catch((err) => {
+            // This will be an "population is too big" error.
+            console.error(err);
+        });
+    }
+
+
+    async function participateInETH(contractInstance, v) {
+       contractInstance.methods.participateInETH()
+            .send({from : userAddr, value: web3Instance.utils.toWei(v)})
+            .on('transactionHash', function(hash){
+              //  context.openDialog()
+                console.log("hash :" + hash)
+             //   context.setState({ Tx: hash });
+     
+            })
+            .on('confirmation', function(confirmationNumber, receipt){ 
+    
+                console.log("Confirmation number:" + confirmationNumber)
+            })
+            .on("error", function(error) {
+           //     context.setState({ errorMsg: error.code + " : " + error.message})
+           //     context.openSnackbar()
+                console.log(error);
+            })
+            .then(a => {
             
-    //         if (addresses.includes(userAddr)) {
-    //             acceptTransac(tier, index)
-    //         } else console.log("Echec de la participation au tier !")
+                }
+            )
+        }
 
-    //     } else {
-    //         acceptTransac(tier, index)
-    //     }
-    // }
+    async function participateInERC20(contractInstance, v){
+        contractInstance.methods.participateInERC20(v)
+            .send({from : userAddr, value: 0})
+            .on('transactionHash', function(hash){
+              //  context.openDialog()
+                console.log("hash :" + hash)
+             //   context.setState({ Tx: hash });
+    
+            })
+            .on('confirmation', function(confirmationNumber, receipt){ 
+    
+                console.log("Confirmation number:" + confirmationNumber)
+            })
+            .on("error", function(error) {
+           //     context.setState({ errorMsg: error.code + " : " + error.message})
+           //     context.openSnackbar()
+                console.log(error);
+            })
+            .then(a => {
+              
+                }
+            )
+    }
 
-    // const isAvaiblable = (index) => {
-    //     var total = 0
-    //     var tier = undefined
-
-    //     getOne('campaign', campaign.contract_address, function(doc) {
-
-    //         const camp = doc.data()
-    //         console.log(camp.tiers)
-    //         // console.log(index)
-    //         tier = camp.tiers[index]
-
-    //         total = tier.subscribers.length + tier.pending.length
-
-    //         // testTransac(total, tier, index);
-
-    //     })
-    // }
-
-    const selectPlan = (tier) => {
+    const selectPlan = (tier, index) => {
         if(connected == true && chainID == chain){
             // console.log("content tier : " + JSON.stringify(tier))
             console.log("plan selected of " + tier.threshold);
+
+            monitortransacDB(index);
 
             // add to Followed projects
         } else {
@@ -142,7 +192,7 @@ const PricingTiers = (props) => {
                             
                             <div className="pricing-footer">
                                 
-                                    <button onClick={handleClick(tier)} className="btn btn-primary">Select Plan</button>
+                                    <button onClick={handleClick(tier, i)} className="btn btn-primary">Select Plan</button>
                             </div>
                         </div>
                     </div>
