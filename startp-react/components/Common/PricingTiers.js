@@ -40,73 +40,63 @@ const PricingTiers = (props) => {
         setOpen(false);
     };
 
-    const acceptTransac = (tier, index) => {
-        tier.subscribers.push(userAddr);
-        console.log("content tier : " + JSON.stringify(tier))
+    // const acceptTransac = (tier, index) => {
+    //     tier.subscribers.push(userAddr);
+    //     console.log("content tier : " + JSON.stringify(tier))
 
-        campaign.tiers[index] = tier;
+    //     campaign.tiers[index] = tier;
         
-        updateDoc(campaign.contract_address, 'campaign', campaign, function() {
-            console.log("Subscribers updated !")
-        })
+    //     updateDoc(campaign.contract_address, 'campaign', campaign, function() {
+    //         console.log("Subscribers updated !")
+    //     })
         
-        console.log("Transac réalisée avec succès !")
-    }
+    //     console.log("Transac réalisée avec succès !")
+    // }
 
-    const testTransac = (total, tier, index) => {
-        if (total > tier.maxClaimers) {
+    // const testTransac = (total, tier, index) => {
+    //     if (total > tier.maxClaimers) {
 
-            var x = tier.maxClaimers - tier.subscribers.length
+    //         var x = tier.maxClaimers - tier.subscribers.length
 
-            console.log("nb selected addresses : " + x);
+    //         console.log("nb selected addresses : " + x);
 
-            var limit = tier.pending.length > x ? x : tier.pending.length
+    //         var limit = tier.pending.length > x ? x : tier.pending.length
 
-            console.log(tier.subscribers);
+    //         console.log(tier.subscribers);
 
-            var addresses = tier.pending.slice(0, limit)
+    //         var addresses = tier.pending.slice(0, limit)
             
-            if (addresses.includes(userAddr)) {
-                acceptTransac(tier, index)
-            } else console.log("Echec de la participation au tier !")
+    //         if (addresses.includes(userAddr)) {
+    //             acceptTransac(tier, index)
+    //         } else console.log("Echec de la participation au tier !")
 
-        } else {
-            acceptTransac(tier, index)
-        }
-    }
+    //     } else {
+    //         acceptTransac(tier, index)
+    //     }
+    // }
 
-    const isAvaiblable = (index) => {
-        var total = 0
-        var tier = undefined
+    // const isAvaiblable = (index) => {
+    //     var total = 0
+    //     var tier = undefined
 
-        getOne('campaign', campaign.contract_address, function(doc) {
+    //     getOne('campaign', campaign.contract_address, function(doc) {
 
-            const camp = doc.data()
-            console.log(camp.tiers)
-            // console.log(index)
-            tier = camp.tiers[index]
+    //         const camp = doc.data()
+    //         console.log(camp.tiers)
+    //         // console.log(index)
+    //         tier = camp.tiers[index]
 
-            total = tier.subscribers.length + tier.pending.length
+    //         total = tier.subscribers.length + tier.pending.length
 
-            // testTransac(total, tier, index);
+    //         // testTransac(total, tier, index);
 
-        })
-    }
+    //     })
+    // }
 
-    const selectPlan = (tier, index) => {
+    const selectPlan = (tier) => {
         if(connected == true && chainID == chain){
-
-            if (tier.maxClaimers > tier.subscribers.length) {
-                // tier.pending.push(userAddr);
-                // console.log("content tier : " + JSON.stringify(tier))
-                console.log("plan selected of " + tier.threshold);
-                campaign.tiers[index].pending.push(userAddr);
-
-                updateDoc(campaign.contract_address, 'campaign', campaign, function() {
-                    console.log("Pending updated !")
-                    isAvaiblable(index)
-                })
-            } else alert("Plan épuisé !")
+            // console.log("content tier : " + JSON.stringify(tier))
+            console.log("plan selected of " + tier.threshold);
 
             // add to Followed projects
         } else {
@@ -152,7 +142,7 @@ const PricingTiers = (props) => {
                             
                             <div className="pricing-footer">
                                 
-                                    <button onClick={handleClick(tier, i)} className="btn btn-primary">Select Plan</button>
+                                    <button onClick={handleClick(tier)} className="btn btn-primary">Select Plan</button>
                             </div>
                         </div>
                     </div>
