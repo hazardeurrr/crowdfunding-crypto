@@ -224,6 +224,13 @@ textarea.form-control {
           box-shadow: 0 13px 27px 0 rgba(68, 206, 111, 0.25);
 }
 
+.btn-primary-disabled {
+  color: #ffffff;
+  background-color: #b3b3b3;
+  -webkit-box-shadow: 0 13px 27px 0 rgba(68, 206, 111, 0.25);
+          box-shadow: 0 13px 27px 0 rgba(68, 206, 111, 0.25);
+}
+
 .btn-primary:hover, .btn-primary:focus, .btn-primary:active {
   color: #ffffff;
   background: #0e314c;

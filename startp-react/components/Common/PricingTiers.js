@@ -46,10 +46,80 @@ const PricingTiers = (props) => {
 
     }, [web3Instance])
 
+    const removeFromPending = (indexTier) => {
 
+        var tierCamp = db.collection("campaign").doc(campaign.contract_address);
+
+        db.runTransaction((transaction) => {
+            return transaction.get(tierCamp).then((camp) => {
+                if (!camp.exists) {
+                    throw "Document does not exist!";
+                }
+
+                var newTiers = camp.data().tiers
+                var filtered = newTiers[indexTier].pending.filter(function(value){
+                    return value != userAddr;
+                })
+
+                newTiers[indexTier].pending = filtered;
+
+                transaction.update(tierCamp, { tiers: newTiers });
+
+            });
+        }).then(function () {
+            console.log("Removed from pending because of failure of tx")   
+                
+        }).catch((err) => {
+            console.error(err);
+        });
+    }
+
+    const removePendAddSubs = (indexTier) => {
+        var tierCamp = db.collection("campaign").doc(campaign.contract_address);
+
+        db.runTransaction((transaction) => {
+            return transaction.get(tierCamp).then((camp) => {
+                if (!camp.exists) {
+                    throw "Document does not exist!";
+                }
+
+                var newTiers = camp.data().tiers
+                var filtered = newTiers[indexTier].pending.filter(function(value){
+                    return value != userAddr;
+                })
+
+                newTiers[indexTier].pending = filtered;
+                newTiers[indexTier].subscribers.push(userAddr);
+
+                transaction.update(tierCamp, { tiers: newTiers });
+
+            });
+        }).then(function() {
+            console.log("Removed from pending and added to subsribers")   
+                
+        }).catch((err) => {
+            console.error(err);
+        });
+    }
 
     const monitortransacDB = (index) => {
+
         var tierCamp = db.collection("campaign").doc(campaign.contract_address);
+
+        window.onbeforeunload = function (e) {
+            e.preventDefault();
+
+            if(campaign.tiers[index].pending.includes(userAddr)) {
+                removeFromPending(index);
+            }
+            
+            if (performance.navigation.type == performance.navigation.TYPE_RELOAD) {
+                removeFromPending(index);
+            }
+
+            e.returnValue = '';
+        };
+
 
         db.runTransaction((transaction) => {
             return transaction.get(tierCamp).then((camp) => {
@@ -59,41 +129,42 @@ const PricingTiers = (props) => {
 
                 var total = camp.data().tiers[index].pending.length + camp.data().tiers[index].subscribers.length
 
-                // if (!camp.data().tiers[index].pending.includes(userAddr)) {
-                //     alert("Your transaction is already pending !")
-                // }
-
-                // checker si maxClaimers == -1 <=> unlimited
-                
-                if (camp.data().tiers[index].maxClaimers == -1 || total < camp.data().tiers[index].maxClaimers && !camp.data().tiers[index].pending.includes(userAddr)) {
-                    var newTiers = camp.data().tiers
-                    newTiers[index].pending.push(userAddr)
-                    transaction.update(tierCamp, { tiers: newTiers });
-                    return newTiers;
+                if (camp.data().tiers[index].maxClaimers === camp.data().tiers[index].subscribers.length) {
+                    alert("Sorry, this plan is not available anymore !")
+                    throw "Plan not available anymore"
                 } else {
-                    return Promise.reject("Sorry ! This plan is no longer available.");
+                    // checker si maxClaimers == -1 <=> unlimited
+                    console.log("entering in the case where its availbale")
+                    if ((camp.data().tiers[index].maxClaimers == -1 && !camp.data().tiers[index].pending.includes(userAddr)) || (total < camp.data().tiers[index].maxClaimers && !camp.data().tiers[index].pending.includes(userAddr))) {
+                        var newTiers = camp.data().tiers
+                        newTiers[index].pending.push(userAddr)
+                        transaction.update(tierCamp, { tiers: newTiers });
+                        return newTiers;
+                    } else {
+                        return Promise.reject("You already are in a transaction !");
+                    }
                 }
             });
-        }).then(async function(newTiers) {
+        }).then(async function() {
             // TX Metamask
             // onSuccess => retire du [] pending et on le met dans [] subscribers
             // onFailure => retire du [] pending
+                
             const campCtrInstance = new web3Instance.eth.Contract(campaignAbi.campaignAbi, campaign.contract_address)
                 if(campaign.currency == "ETH")
-                    await participateInETH(campCtrInstance, campaign.tiers[index].threshold)
+                    await participateInETH(campCtrInstance, campaign.tiers[index].threshold, index)
                 else
-                    await participateInERC20(campCtrInstance, campaign.tiers[index].threshold)
+                    await participateInERC20(campCtrInstance, campaign.tiers[index].threshold, index)
                
                 
             })
         .catch((err) => {
-            // This will be an "population is too big" error.
             console.error(err);
         });
     }
 
 
-    async function participateInETH(contractInstance, v) {
+    async function participateInETH(contractInstance, v, indexTier) {
        contractInstance.methods.participateInETH()
             .send({from : userAddr, value: web3Instance.utils.toWei(v)})
             .on('transactionHash', function(hash){
@@ -109,15 +180,18 @@ const PricingTiers = (props) => {
             .on("error", function(error) {
            //     context.setState({ errorMsg: error.code + " : " + error.message})
            //     context.openSnackbar()
+            if(campaign.tiers[indexTier].pending.includes(userAddr)) {
+                removeFromPending(indexTier);
+            }
+
                 console.log(error);
             })
-            .then(a => {
-            
-                }
-            )
-        }
+            .then(() => {
+                removePendAddSubs(indexTier);
+            })
+    }
 
-    async function participateInERC20(contractInstance, v){
+    async function participateInERC20(contractInstance, v, indexTier){
         contractInstance.methods.participateInERC20(v)
             .send({from : userAddr, value: 0})
             .on('transactionHash', function(hash){
@@ -126,19 +200,20 @@ const PricingTiers = (props) => {
              //   context.setState({ Tx: hash });
     
             })
-            .on('confirmation', function(confirmationNumber, receipt){ 
+            .on('confirmation', function(confirmationNumber, receipt){
     
                 console.log("Confirmation number:" + confirmationNumber)
             })
             .on("error", function(error) {
            //     context.setState({ errorMsg: error.code + " : " + error.message})
            //     context.openSnackbar()
+                removeFromPending(indexTier);
+
                 console.log(error);
             })
-            .then(a => {
-              
-                }
-            )
+            .then(() => {
+                removePendAddSubs(indexTier);
+            })
     }
 
     const selectPlan = (tier, index) => {
@@ -173,6 +248,9 @@ const PricingTiers = (props) => {
         var rows = [];
         for (var i = 0; i < campaign.tiers.length; i++) {
             var tier = campaign.tiers[i];
+            var disable = tier.maxClaimers === tier.subscribers.length ? "disabled" : "";
+            var text = tier.maxClaimers === tier.subscribers.length ? "Out of stock" : "Select Plan";
+            var classe = tier.maxClaimers === tier.subscribers.length ? "btn btn-primary-disabled" : "btn btn-primary"; 
             rows.push( 
                 <div key={i} className="col-lg-4 col-md-6">
                         <div className="pricing-table active-plan">
@@ -192,7 +270,7 @@ const PricingTiers = (props) => {
                             
                             <div className="pricing-footer">
                                 
-                                    <button onClick={handleClick(tier, i)} className="btn btn-primary">Select Plan</button>
+                                    <button onClick={handleClick(tier, i)} className={classe} disabled={disable}>{text}</button>
                             </div>
                         </div>
                     </div>
