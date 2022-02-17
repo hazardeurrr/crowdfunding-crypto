@@ -102,6 +102,8 @@ const reducer = (state = initialState, action) => {
 
       campaigns =  tmp.concat(ended);
 
+
+
       // console.log(campaigns)
       return {
         ...state,

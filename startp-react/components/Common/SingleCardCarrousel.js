@@ -3,18 +3,18 @@ import Link from 'next/link';
 import dynamic from 'next/dynamic';
 import * as Icon from 'react-feather';
 import ProgressBar from 'react-bootstrap/ProgressBar';
+import RaisedChecker from './RaisedChecker';
 
 
 const SingleCardCarrousel = (props) => {
 
     const campaign = props.project;
-    const raised = campaign.raised;
     const objective = campaign.objective;
     var start_date = campaign.start_date;
     var end_date = campaign.end_date;
     var now = Date.now() / 1000;
-    const pct = Math.round((raised / objective) * 100 * 10) / 10;
-    
+    const [raised, setRaised] = React.useState(0)
+
 
     const cat = () => {
       if(campaign.categories.length > 1){
@@ -58,10 +58,16 @@ const dayS = (nbDays) => {
 }
 
 const displayRaised = () => {
-    if(campaign.currency == 'ETH' || campaign.currency == 'BBST')
-        return raised.toFixed(3)
-    else
-        return Math.floor(raised)
+    // if(campaign.currency == 'ETH' || campaign.currency == 'BBST')
+    //     return raised.toFixed(3)
+    // else
+    //     return Math.floor(raised)
+    return <RaisedChecker address={campaign.contract_address} currency={campaign.currency} callback={setRaisedCallback}/>
+
+}
+
+const setRaisedCallback = (r) => {
+    setRaised(r)
 }
 
 const displayTitle = () => {
@@ -93,6 +99,7 @@ const displayTitle = () => {
 }
 
 const displayProgressBar = () => {
+    let pct = Math.round((raised / objective) * 100 * 10) / 10;
     if(end_date > now && start_date < now){
         return <ProgressBar animated variant="green"  now={pct} label={`${pct}%`}/>
     } else {

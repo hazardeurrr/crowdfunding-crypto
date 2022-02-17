@@ -23,6 +23,8 @@ import {getOne} from '../../firebase-crowdfund/queries';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import Skeleton from '@material-ui/lab/Skeleton';
 import {chain} from '@/utils/chain'
+import RaisedChecker from '@/components/Common/RaisedChecker';
+import { MdSentimentVerySatisfied } from 'react-icons/md';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -47,7 +49,7 @@ const Campaign = (props, {c, u}) => {
     const [campaign, setCampaign] = React.useState(undefined)
     const [user, setUser] = React.useState(undefined)   // ATTENTION : USER = USER PROFILE OF THE CREATOR OF THE CAMPAIGN
     const [htmlTxt, setHTMLTxt] = React.useState("")
-
+    
 
     // const campaign = projectList.find(e => e.contract_address == props.address)
     // const raised = Math.random()*100
@@ -59,7 +61,7 @@ const Campaign = (props, {c, u}) => {
     const connected = useSelector((state) => state.metamask_connected)
     const chainID = useSelector((state) => state.chainID)
     const currentUser = useSelector((state) => state.currentUser)
-    
+
 
     React.useEffect(() => {
 
@@ -85,6 +87,7 @@ const Campaign = (props, {c, u}) => {
     }, [c, u] )
 
 
+    
 
 
     const handleDialogOpen = () => {
@@ -114,16 +117,18 @@ const Campaign = (props, {c, u}) => {
     }
 
 
-
+    const setRaised = (r) => {
+        let c = campaign
+        c.raised = r
+        setCampaign(c)
+    }
     
-
+// reste les progress bar à update
 
     const displayRaised = () => {
-        if(campaign.currency == 'USDT'){
-            return campaign.raised.toFixed(2)
-        } else {
-            return campaign.raised
-        }
+
+        return <RaisedChecker address={campaign.contract_address} currency={campaign.currency} callback={setRaised}/>
+
     }
 
     const timeLeft = () => {

@@ -27,6 +27,12 @@ const useStyles = makeStyles({
     pos: {
       marginBottom: 12,
     },
+    qty: {
+        marginTop: 5,
+        marginBottom: 10,
+        fontSize: 13,
+        fontStyle: 'italic'
+    }
   });
   
   
@@ -41,7 +47,7 @@ const CampaignSidebar = (props) => {
         }
     }
 
-    const BackText = () => {
+    const BackText = (tier) => {
         var now = Date.now() / 1000
         if(now < campaign.start_date){
             return <div className="works-content">
@@ -57,7 +63,14 @@ const CampaignSidebar = (props) => {
         </div>
 
         } else {
-            return <div>
+            if(tier.maxClaimers != -1 && tier.pending.length + tier.subscribers.length >= tier.maxClaimers){
+                return <div className="works-content">
+            <h3>
+                Sorry, this plan is no longer available <Icon.Meh />
+            </h3>
+            </div>
+            } else {
+                return <div>
                 <Link href={{
                 pathname: "/Checkout/[id]",
                 query: {
@@ -86,6 +99,65 @@ const CampaignSidebar = (props) => {
                 <p>Support the campaign with your contribution!</p>
             </div>
         </div>
+            }
+        }
+    }
+
+    const BackTextFreeDonation = () => {
+        var now = Date.now() / 1000
+        if(now < campaign.start_date){
+            return <div className="works-content">
+            <h3>
+                This campaign is starting soon ! Stay tuned !
+            </h3>
+        </div>
+        } else if(now > campaign.end_date){
+            return <div className="works-content">
+            <h3>
+                This campaign has ended ! Thanks to all the contributors <Icon.Heart />
+            </h3>
+        </div>
+        }
+         else {
+            return <div>
+                <Link href={{
+                pathname: "/Checkout/[id]",
+                query: {
+                    id: campaign.contract_address,
+                }
+            }}
+            as={`/Checkout/${campaign.contract_address}`}>
+            
+                <a className="icon">
+                    <Icon.ArrowRight />
+                </a>
+            </Link>
+
+            <div className="works-content">
+                <h3>
+                    <Link href={{
+                        pathname: "/Checkout/[id]",
+                        query: {
+                            id: campaign.contract_address,
+                        }
+                    }}
+                    as={`/Checkout/${campaign.contract_address}`}>
+                            <a>Back this campaign !</a>
+                    </Link>
+                </h3>
+                {/* <p>Support the campaign with your contribution!</p> */}
+            </div>
+        </div>
+        }
+    }
+
+    const showQtyLeft = (tier) => {
+        if(tier.maxClaimers != -1){
+            let total = tier.maxClaimers - (tier.pending.length + tier.subscribers.length)
+            let x = total >= 0 ? total : 0
+            return <Typography className={classes.qty} align='right'>
+            {x} left
+            </Typography>
         }
     }
 
@@ -99,6 +171,27 @@ const CampaignSidebar = (props) => {
 
                         {Title()}
                         <GridList spacing={15} cols={1}>
+                            <GridListTile style={{height:'auto'}} key={-1} cols={1}>
+
+                                <div className="single-works">
+                                    <Card className={classes.root} variant="outlined">
+                                        <CardContent>
+                                            <Typography variant="h5" component="h2" gutterBottom>
+                                                Free donation
+                                            </Typography>
+                                            {/* <Typography className={classes.pos} color="textSecondary">
+                                            adjective
+                                            </Typography> */}
+                                            <Typography variant="body2" component="p">
+                                            Give what you want to support this campaign
+                                            </Typography>
+                                        </CardContent>
+                                    </Card>
+                                    {BackTextFreeDonation()}    
+                            </div>
+                            </GridListTile>
+
+
                             {campaign.tiers.map((tile) => (
                                 <GridListTile key={tile.threshold} cols={1}>
 
@@ -117,13 +210,14 @@ const CampaignSidebar = (props) => {
                                                 <Typography variant="body2" component="p">
                                                 {tile.description}
                                                 </Typography>
+                                                {showQtyLeft(tile)}
                                             </CardContent>
-                                            <CardActions>
-                                                {/* <Button size="small">Learn More</Button> */}
-                                            </CardActions>
+                                            {/* <CardActions>
+                                                 <Button size="small">Learn More</Button>
+                                            </CardActions> */}
                                         </Card>
 
-                                        {BackText()}
+                                        {BackText(tile)}
                                 </div>
                                     
                                     

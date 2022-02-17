@@ -4,19 +4,18 @@ import Link from 'next/link';
 import ProgressBar from 'react-bootstrap/ProgressBar';
 import ChipUser from '@/components/Common/ChipUser'
 import {getOne } from '../../firebase-crowdfund/queries' 
+import RaisedChecker from './RaisedChecker';
 
 
 
 const SimpleCampaignPost = (props, {u}) => {
     const campaign = props.project
-    const raised = campaign.raised
     const objective = campaign.objective
-    const pct = (raised / objective) * 100
     
     var start_date = campaign.start_date;
     var end_date = campaign.end_date;
     var now = Date.now() / 1000;
-
+    const [raised, setRaised] = React.useState(0)
 
   
     // const creators = useSelector((state) => state.allCreators)
@@ -108,18 +107,18 @@ const SimpleCampaignPost = (props, {u}) => {
     }
 
     const displayRaised = () => {
-        if(campaign.currency == 'USDT'){
-            return raised.toFixed(2)
-        } else {
-            return raised
-        }
+        return <RaisedChecker address={campaign.contract_address} currency={campaign.currency} callback={setRaisedCallback}/>
+    }
+
+    const setRaisedCallback = (r) => {
+        setRaised(r)
     }
 
     const displayProgressBar = () => {
         if(end_date > now && start_date < now){
-            return <ProgressBar animated now={pct}/>
+            return <ProgressBar animated now={(raised / objective) * 100}/>
         } else {
-            return <ProgressBar variant="down" now={pct}/>
+            return <ProgressBar variant="down" now={(raised / objective) * 100}/>
         }
     }
 
