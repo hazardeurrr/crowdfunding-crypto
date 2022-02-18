@@ -56,18 +56,24 @@ const PricingTiers = (props) => {
                     throw "Document does not exist!";
                 }
 
-                var newTiers = camp.data().tiers
-                var filtered = newTiers[indexTier].pending.filter(function(value){
-                    return value != userAddr;
-                })
+                if(camp.data().tiers[indexTier].pending.includes(userAddr)) {
 
-                newTiers[indexTier].pending = filtered;
+                    var newTiers = camp.data().tiers
+                    var filtered = newTiers[indexTier].pending.filter(function(value){
+                        return value != userAddr;
+                    })
 
-                transaction.update(tierCamp, { tiers: newTiers });
+                    newTiers[indexTier].pending = filtered;
 
+                    transaction.update(tierCamp, { tiers: newTiers });
+                } else {
+                    throw "Address not found in pending"
+                }
+                
             });
-        }).then(function () {
-            console.log("Removed from pending because of failure of tx")   
+        }).then(function (camp) {
+            if(!camp.data().tiers[indexTier].pending.includes(userAddr))
+                console.log("Removed from pending because of failure of tx")  
                 
         }).catch((err) => {
             console.error(err);
@@ -104,22 +110,30 @@ const PricingTiers = (props) => {
 
     const monitortransacDB = (index) => {
 
-        var tierCamp = db.collection("campaign").doc(campaign.contract_address);
-
-        window.onbeforeunload = function (e) {
+        window.addEventListener('beforeunload', (e) => {
             e.preventDefault();
-
-            if(campaign.tiers[index].pending.includes(userAddr)) {
-                removeFromPending(index);
-            }
             
-            if (performance.navigation.type == performance.navigation.TYPE_RELOAD) {
-                removeFromPending(index);
-            }
+            removeFromPending(index);
+                
+            window.onbeforeunload = false;
 
-            e.returnValue = '';
-        };
+            // return null;
+            
+        });
 
+        // window.addEventListener('unload', (e) => {
+        //     // e.preventDefault();
+    
+        //     if(campaign.tiers[index].pending.includes(userAddr)) {
+        //         removeFromPending(index);
+        //     }
+            
+        //     // if (performance.navigation.type == performance.navigation.TYPE_RELOAD) {
+        //     //     removeFromPending(index);
+        //     // }
+        // });
+
+        var tierCamp = db.collection("campaign").doc(campaign.contract_address);
 
         db.runTransaction((transaction) => {
             return transaction.get(tierCamp).then((camp) => {
@@ -180,14 +194,20 @@ const PricingTiers = (props) => {
             .on("error", function(error) {
            //     context.setState({ errorMsg: error.code + " : " + error.message})
            //     context.openSnackbar()
-            if(campaign.tiers[indexTier].pending.includes(userAddr)) {
-                removeFromPending(indexTier);
-            }
+                if (indexTier !== undefined) {
+                    removeFromPending(indexTier);
+                    console.log(error);
+                } else {
+                    console.log(error)
+                }
 
-                console.log(error);
             })
             .then(() => {
-                removePendAddSubs(indexTier);
+                if(indexTier !== undefined) {
+                    removePendAddSubs(indexTier);
+                } else {
+                    alert("Thanks for helping the campaign !")
+                }
             })
     }
 
@@ -205,16 +225,24 @@ const PricingTiers = (props) => {
                 console.log("Confirmation number:" + confirmationNumber)
             })
             .on("error", function(error) {
-           //     context.setState({ errorMsg: error.code + " : " + error.message})
-           //     context.openSnackbar()
-                removeFromPending(indexTier);
+                //     context.setState({ errorMsg: error.code + " : " + error.message})
+                //     context.openSnackbar()
+                if (indexTier !== undefined) {
+                    removeFromPending(indexTier);
+                    console.log(error);
+                } else {
+                    console.log(error)
+                }
 
-                console.log(error);
             })
             .then(() => {
-                removePendAddSubs(indexTier);
+                if(indexTier !== undefined) {
+                    removePendAddSubs(indexTier);
+                } else {
+                    alert("Thanks for helping the campaign !")
+                }
             })
-    }
+        }
 
     const selectPlan = (tier, index) => {
         if(connected == true && chainID == chain){
@@ -237,14 +265,19 @@ const PricingTiers = (props) => {
         }
     }
 
-    const handleClickFree = e => {    
+    async function handleClickFree(e) {    
         let amount = valueRef.current.value
         if(amount > 0){
-            selectPlan(amount)
+            const campCtrInstance = new web3Instance.eth.Contract(campaignAbi.campaignAbi, campaign.contract_address)
+                if(campaign.currency == "ETH")
+                    await participateInETH(campCtrInstance, amount, undefined)
+                else
+                    await participateInERC20(campCtrInstance, amount, undefined)
         }
     }
 
     const displayTiers = () => {
+
         var rows = [];
         for (var i = 0; i < campaign.tiers.length; i++) {
             var tier = campaign.tiers[i];
