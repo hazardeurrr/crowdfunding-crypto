@@ -25,6 +25,8 @@ import Skeleton from '@material-ui/lab/Skeleton';
 import {chain} from '@/utils/chain'
 import RaisedChecker from '@/components/Common/RaisedChecker';
 import { MdSentimentVerySatisfied } from 'react-icons/md';
+import campaignAbi from '@/components/ContractRelated/CampaignAbi';
+import Withdraw from './withdraw';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -237,11 +239,7 @@ const Campaign = (props, {c, u}) => {
         if(currentUser !== undefined && campaign !== undefined){
             if(currentUser.eth_address.toLowerCase() === campaign.creator.toLowerCase()){
                 if(campaign.end_date < now && (campaign.flexible || (campaign.raised > campaign.objective))){
-                    return <div>
-                        <h4>Your campaign has ended successfully!</h4>
-                        <button className="btn btn-primary" onClick={withdrawMoney}>Withdraw</button>
-                        <button className="btn btn-light" onClick={downloadData}>Download data</button>
-                    </div>
+                    return <Withdraw campaign={campaign}/>
                 } else if(campaign.end_date < now) {
                     return <div>
                     <h4>Unfortunately, your campaign hasn't reached its goal.</h4>
@@ -250,14 +248,6 @@ const Campaign = (props, {c, u}) => {
                 } 
             }
         }
-    }
-
-    const withdrawMoney = () => {
-        console.log("money withdrawn from the contract")
-    }
-
-    const downloadData = () => {
-        console.log("download data")
     }
 
     const ShowTxt = () => {
@@ -341,7 +331,7 @@ const Campaign = (props, {c, u}) => {
                                             {RefundButton()}
 
                                             
-                                            {showHeart()}         
+                                            {showHeart()}
 
                                         </div>
                                     </div>

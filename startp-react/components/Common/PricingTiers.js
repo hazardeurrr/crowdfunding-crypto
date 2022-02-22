@@ -71,9 +71,8 @@ const PricingTiers = (props) => {
                 }
                 
             });
-        }).then(function (camp) {
-            if(!camp.data().tiers[indexTier].pending.includes(userAddr))
-                console.log("Removed from pending because of failure of tx")  
+        }).then(function () {
+            console.log("Removed from pending because of failure of tx")  
                 
         }).catch((err) => {
             console.error(err);
@@ -143,7 +142,7 @@ const PricingTiers = (props) => {
 
                 var total = camp.data().tiers[index].pending.length + camp.data().tiers[index].subscribers.length
 
-                if ((camp.data().tiers[index].maxClaimers === camp.data().tiers[index].subscribers.length) || (total >= camp.data().tiers[index].maxClaimers)) {
+                if ((camp.data().tiers[index].maxClaimers === camp.data().tiers[index].subscribers.length)) {
                     alert("Sorry, this plan is not available anymore !")
                     throw "Plan not available anymore"
                 } else {
@@ -212,7 +211,7 @@ const PricingTiers = (props) => {
     }
 
     async function participateInERC20(contractInstance, v, indexTier){
-        contractInstance.methods.participateInERC20(v)
+        contractInstance.methods.participateInERC20(parseInt(v))
             .send({from : userAddr, value: 0})
             .on('transactionHash', function(hash){
               //  context.openDialog()
@@ -269,10 +268,10 @@ const PricingTiers = (props) => {
         let amount = valueRef.current.value
         if(amount > 0){
             const campCtrInstance = new web3Instance.eth.Contract(campaignAbi.campaignAbi, campaign.contract_address)
-                if(campaign.currency == "ETH")
-                    await participateInETH(campCtrInstance, amount, undefined)
-                else
-                    await participateInERC20(campCtrInstance, amount, undefined)
+            if(campaign.currency == "ETH")
+                await participateInETH(campCtrInstance, amount, undefined)
+            else
+                await participateInERC20(campCtrInstance, amount, undefined)
         }
     }
 
