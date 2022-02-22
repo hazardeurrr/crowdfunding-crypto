@@ -147,16 +147,15 @@ class MainForm extends React.Component {
         const bigMultiplier = new BN('1000000000000000000')
 
         let context = this
+        let amt = this.raisingMethod == "ETH" ? this.props.web3Instance.utils.toWei(this.objective.toString()) : this.raisingMethod
 
         return await this.state.factoryInstance.methods.createCampaign(
-        this.props.web3Instance.utils.toWei(this.objective.toString()), // WEI FOR ALL CURRENCIES ???
+        amt, // WEI for ETH, no conversion for the ERC20
         parseInt(this.startDate), 
         parseInt(this.endDate), 
         this.flexible, 
-        parseInt(this.tokenIndex(this.raisingMethod)), 
-        0, 
-        [])
-        .send({from : this.props.userAddr, value: 1})
+        parseInt(this.tokenIndex(this.raisingMethod)))
+        .send({from : this.props.userAddr, value: 0})
         .on('transactionHash', function(hash){
             context.openDialog()
             console.log("hash :" + hash)

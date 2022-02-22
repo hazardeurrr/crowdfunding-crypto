@@ -22,7 +22,7 @@ const ServicesArea = () => {
         labels: [`${t.liquidity}`, `${t.IDO}`, `${t.privateSale}`, `${t.strategic}`, `${t.advisors}`, `${t.provide}`],
         datasets: [
           {
-            data: [8500000, 3500000, 0, 4000000, 3000000, 1000000],
+            data: [9000000, 1500000, 3000000, 2800000, 2200000, 0],
             backgroundColor: [
               '#c679e3',
               '#44ce6f',

@@ -30,7 +30,7 @@ const ServiceDetails = () => {
                     <div className="row align-items-center">
                         <div className="col-lg-6 services-details-image">
                             
-                           <iframe src="https://www.youtube.com/embed/-2gl53Dnd38" title="YouTube video player" frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                           <iframe src="https://www.youtube.com/embed/-2gl53Dnd38" title="YouTube video player" frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowFullScreen></iframe>
                            
                         </div>
                         
@@ -356,7 +356,7 @@ const ServiceDetails = () => {
                                     className="animate__animated animate__fadeInUp" 
                                     alt="image" 
                                 />  
-                                <iframe src="https://www.youtube.com/embed/-2gl53Dnd38" title="YouTube video player" frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                                <iframe src="https://www.youtube.com/embed/-2gl53Dnd38" title="YouTube video player" frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowFullScreen></iframe>
 
                             </div>
                         </div>
