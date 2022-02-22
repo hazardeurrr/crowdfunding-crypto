@@ -4,6 +4,7 @@ import dynamic from 'next/dynamic';
 import * as Icon from 'react-feather';
 import ProgressBar from 'react-bootstrap/ProgressBar';
 import RaisedChecker from './RaisedChecker';
+import { useSelector, useDispatch } from 'react-redux';
 
 
 const SingleCardCarrousel = (props) => {
@@ -14,7 +15,7 @@ const SingleCardCarrousel = (props) => {
     var end_date = campaign.end_date;
     var now = Date.now() / 1000;
     const [raised, setRaised] = React.useState(0)
-
+    const metamask_connected = useSelector((state) => state.metamask_connected)
 
     const cat = () => {
       if(campaign.categories.length > 1){
@@ -62,7 +63,8 @@ const displayRaised = () => {
     //     return raised.toFixed(3)
     // else
     //     return Math.floor(raised)
-    return <RaisedChecker address={campaign.contract_address} currency={campaign.currency} callback={setRaisedCallback}/>
+    if(metamask_connected)
+        return <RaisedChecker address={campaign.contract_address} currency={campaign.currency} callback={setRaisedCallback}/>
 
 }
 
@@ -98,14 +100,25 @@ const displayTitle = () => {
     }
 }
 
-const displayProgressBar = () => {
-    let pct = Math.round((raised / objective) * 100 * 10) / 10;
-    if(end_date > now && start_date < now){
-        return <ProgressBar animated variant="green"  now={pct} label={`${pct}%`}/>
-    } else {
-        return <ProgressBar  variant="down"  now={pct} label={`${pct}%`}/>
-    }
+const displayCurrency = () => {
+    if(metamask_connected)
+        return campaign.currency
+}
 
+const displayProgressBar = () => {
+    if(metamask_connected){
+        let pct = Math.round((raised / objective) * 100 * 10) / 10;
+        if(end_date > now && start_date < now){
+            return <ProgressBar animated variant="green"  now={pct} label={`${pct}%`}/>
+        } else {
+            return <ProgressBar  variant="down"  now={pct} label={`${pct}%`}/>
+        }
+    }
+}
+
+const displayRaisedIcon = () => {
+    if(metamask_connected)
+        return <svg xmlns="http://www.w3.org/2000/svg" width="16" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="feather feather-activity"><polyline points="17 11 12 6 7 11"></polyline><polyline points="17 18 12 13 7 18"></polyline></svg>
 }
     
     return (
@@ -129,8 +142,8 @@ const displayProgressBar = () => {
             
             <ul className="post-meta">
                 <li><p><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="feather feather-clock"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg> {timeLeft()}</p></li>
-                <li><svg xmlns="http://www.w3.org/2000/svg" width="16" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="feather feather-activity"><polyline points="17 11 12 6 7 11"></polyline><polyline points="17 18 12 13 7 18"></polyline></svg>
- {displayRaised()} {campaign.currency}</li>
+                <li>{displayRaisedIcon()}
+ {displayRaised()} {displayCurrency()}</li>
             </ul>
                     {displayTitle()}
 

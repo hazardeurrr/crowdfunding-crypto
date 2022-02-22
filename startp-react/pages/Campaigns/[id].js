@@ -61,6 +61,7 @@ const Campaign = (props, {c, u}) => {
     const connected = useSelector((state) => state.metamask_connected)
     const chainID = useSelector((state) => state.chainID)
     const currentUser = useSelector((state) => state.currentUser)
+    const metamask_connected = useSelector((state) => state.metamask_connected)
 
 
     React.useEffect(() => {
@@ -126,9 +127,10 @@ const Campaign = (props, {c, u}) => {
 // reste les progress bar à update
 
     const displayRaised = () => {
-
-        return <RaisedChecker address={campaign.contract_address} currency={campaign.currency} callback={setRaised}/>
-
+        if(metamask_connected)
+            return <RaisedChecker address={campaign.contract_address} currency={campaign.currency} callback={setRaised}/>
+        else
+            return "Connect to see more"
     }
 
     const timeLeft = () => {
@@ -167,16 +169,18 @@ const Campaign = (props, {c, u}) => {
     
 
     const BackButton = () => {
-        if(campaign.end_date > now && campaign.start_date < now){
-            return <Link href={{
-                        pathname: "/Checkout/[id]",
-                        query: {
-                            id: campaign.contract_address,
-                            }
-                        }}
-                            as={`/Checkout/${campaign.contract_address}`}>
-                    <a className="btn btn-primary">Back this campaign</a>
-                    </Link>
+        if(metamask_connected){
+            if(campaign.end_date > now && campaign.start_date < now){
+                return <Link href={{
+                            pathname: "/Checkout/[id]",
+                            query: {
+                                id: campaign.contract_address,
+                                }
+                            }}
+                                as={`/Checkout/${campaign.contract_address}`}>
+                        <a className="btn btn-primary">Back this campaign</a>
+                        </Link>
+            }
         }
     }
 
@@ -190,11 +194,14 @@ const Campaign = (props, {c, u}) => {
     }
 
     const displayProgressBar = () => {
-        if(campaign.end_date > now && campaign.start_date < now){
-            return <ProgressBar animated now={(campaign.raised / campaign.objective) * 100}/>
-        } else {
-            return <ProgressBar variant="down" now={(campaign.raised / campaign.objective) * 100}/>
+        if(metamask_connected){
+            if(campaign.end_date > now && campaign.start_date < now){
+                return <ProgressBar animated now={(campaign.raised / campaign.objective) * 100}/>
+            } else {
+                return <ProgressBar variant="down" now={(campaign.raised / campaign.objective) * 100}/>
+            }
         }
+        
     }
 
     const handleRefund = () => {
@@ -263,6 +270,11 @@ const Campaign = (props, {c, u}) => {
         }
     }
 
+    const displayCurrency = () => {
+        if(metamask_connected)
+            return <>{campaign.currency} raised / {campaign.objective} {campaign.currency}</>
+    }
+
     const displayContent = () => {
         if(campaign != undefined && user != undefined){
             return <div>
@@ -309,7 +321,7 @@ const Campaign = (props, {c, u}) => {
 
                                     
                                         <p style={{fontSize: 15, marginBottom: 30}}>{campaign.small_description}</p>
-                                        <h5>{displayRaised()} {campaign.currency} raised / {campaign.objective} {campaign.currency}</h5> 
+                                        <h5>{displayRaised()} {displayCurrency()}</h5> 
                                         {displayProgressBar()}
                                         <div className="blog-details-desc">
                                             <div className="article-content">
