@@ -143,7 +143,7 @@ const PricingTiers = (props) => {
 
                 var total = camp.data().tiers[index].pending.length + camp.data().tiers[index].subscribers.length
 
-                if (camp.data().tiers[index].maxClaimers === camp.data().tiers[index].subscribers.length) {
+                if ((camp.data().tiers[index].maxClaimers === camp.data().tiers[index].subscribers.length) || (total >= camp.data().tiers[index].maxClaimers)) {
                     alert("Sorry, this plan is not available anymore !")
                     throw "Plan not available anymore"
                 } else {
