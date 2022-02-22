@@ -144,10 +144,10 @@ class MainForm extends React.Component {
     }
 
     async createContract(){
-        const bigMultiplier = new BN('1000000000000000000')
+   //     const bigMultiplier = new BN('1000000000000000000')
 
         let context = this
-        let amt = this.raisingMethod == "ETH" ? this.props.web3Instance.utils.toWei(this.objective.toString()) : this.raisingMethod
+        let amt = this.raisingMethod == "ETH" ? this.props.web3Instance.utils.toWei(this.objective.toString()) : this.objective
 
         return await this.state.factoryInstance.methods.createCampaign(
         amt, // WEI for ETH, no conversion for the ERC20
