@@ -144,7 +144,7 @@ class MainForm extends React.Component {
     }
 
     async createContract(){
-        const bigMultiplier = new BN('1000000000000000000')
+   //     const bigMultiplier = new BN('1000000000000000000')
 
         let context = this
         let amt = this.raisingMethod == "ETH" ? this.props.web3Instance.utils.toWei(this.objective.toString()) : this.objective
