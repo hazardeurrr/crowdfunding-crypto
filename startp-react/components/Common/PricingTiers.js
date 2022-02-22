@@ -11,6 +11,13 @@ import {chain} from '@/utils/chain'
 import { updateDoc, getOne } from 'firebase-crowdfund/queries'
 import {db, storage} from '../../firebase-crowdfund/index'
 import campaignAbi from '@/components/ContractRelated/CampaignAbi';
+import CircularProgress from '@material-ui/core/CircularProgress';
+import Snackbar from '@material-ui/core/Snackbar';
+import MuiAlert from "@material-ui/lab/Alert";
+import { Icon } from '@material-ui/core';
+import * as IconFeather from 'react-feather';
+import Link from 'next/link';
+
 const Web3 = require('web3');
 
 // async function selectPlan(amount){
@@ -21,7 +28,9 @@ const Web3 = require('web3');
 //     }
 // }
 
-
+function Alert(props) {
+    return <MuiAlert elevation={6} variant="filled" {...props} />;
+  }
 
 const PricingTiers = (props) => {
 
@@ -33,6 +42,12 @@ const PricingTiers = (props) => {
     const campaign = props.project
 
     const [open, setOpen] = React.useState(false);
+    const [errorMsg, setErrorMsg] = React.useState("");
+    const [dialogOpen, setDialogOpen] = React.useState(false);
+    const [snackbarOpen, setSnackbarOpen] = React.useState(false);
+    const [creationState, setCreationState] = React.useState(0);
+    const [Tx, setTx] = React.useState("");
+
 
     const handleDialogOpen = () => {
         setOpen(true);
@@ -45,6 +60,23 @@ const PricingTiers = (props) => {
     React.useEffect(() => {
 
     }, [web3Instance])
+
+    const openDialog = () => {
+        setDialogOpen(true)
+    }
+
+    const closeDialog = () => {
+        setDialogOpen(false)
+    }
+
+    const openSnackbar = () => {
+        closeDialog()
+        setSnackbarOpen(true)
+    }
+
+    const handleCloseSnackbar = () => {
+        setSnackbarOpen(false)
+    }
 
     const removeFromPending = (indexTier) => {
 
@@ -143,8 +175,10 @@ const PricingTiers = (props) => {
 
                 var total = camp.data().tiers[index].pending.length + camp.data().tiers[index].subscribers.length
 
-                if ((camp.data().tiers[index].maxClaimers === camp.data().tiers[index].subscribers.length) || (total >= camp.data().tiers[index].maxClaimers)) {
-                    alert("Sorry, this plan is not available anymore !")
+                if (camp.data().tiers[index].maxClaimers != -1 && ((camp.data().tiers[index].maxClaimers === camp.data().tiers[index].subscribers.length) || (total >= camp.data().tiers[index].maxClaimers))) {
+                    setErrorMsg("Sorry, this plan is not available anymore !")
+                    openSnackbar()
+                    //alert("Sorry, this plan is not available anymore !")
                     throw "Plan not available anymore"
                 } else {
                     // checker si maxClaimers == -1 <=> unlimited
@@ -155,6 +189,8 @@ const PricingTiers = (props) => {
                         transaction.update(tierCamp, { tiers: newTiers });
                         return newTiers;
                     } else {
+                        setErrorMsg("You already are in a transaction")
+                        openSnackbar()
                         return Promise.reject("You already are in a transaction !");
                     }
                 }
@@ -182,9 +218,9 @@ const PricingTiers = (props) => {
        contractInstance.methods.participateInETH()
             .send({from : userAddr, value: web3Instance.utils.toWei(v)})
             .on('transactionHash', function(hash){
-              //  context.openDialog()
+                openDialog()
                 console.log("hash :" + hash)
-             //   context.setState({ Tx: hash });
+                setTx(hash);
      
             })
             .on('confirmation', function(confirmationNumber, receipt){ 
@@ -192,8 +228,8 @@ const PricingTiers = (props) => {
                 console.log("Confirmation number:" + confirmationNumber)
             })
             .on("error", function(error) {
-           //     context.setState({ errorMsg: error.code + " : " + error.message})
-           //     context.openSnackbar()
+                setErrorMsg(error.code + " : " + error.message)
+                openSnackbar()
                 if (indexTier !== undefined) {
                     removeFromPending(indexTier);
                     console.log(error);
@@ -203,10 +239,11 @@ const PricingTiers = (props) => {
 
             })
             .then(() => {
+                setCreationState(1)
                 if(indexTier !== undefined) {
                     removePendAddSubs(indexTier);
                 } else {
-                    alert("Thanks for helping the campaign !")
+                    //alert("Thanks for helping the campaign !")
                 }
             })
     }
@@ -215,18 +252,17 @@ const PricingTiers = (props) => {
         contractInstance.methods.participateInERC20(v)
             .send({from : userAddr, value: 0})
             .on('transactionHash', function(hash){
-              //  context.openDialog()
+                openDialog()
                 console.log("hash :" + hash)
-             //   context.setState({ Tx: hash });
-    
+                setTx(hash);
             })
             .on('confirmation', function(confirmationNumber, receipt){
     
                 console.log("Confirmation number:" + confirmationNumber)
             })
             .on("error", function(error) {
-                //     context.setState({ errorMsg: error.code + " : " + error.message})
-                //     context.openSnackbar()
+                setErrorMsg(error.code + " : " + error.message)
+                openSnackbar()
                 if (indexTier !== undefined) {
                     removeFromPending(indexTier);
                     console.log(error);
@@ -236,10 +272,11 @@ const PricingTiers = (props) => {
 
             })
             .then(() => {
+                setCreationState(1)
                 if(indexTier !== undefined) {
                     removePendAddSubs(indexTier);
                 } else {
-                    alert("Thanks for helping the campaign !")
+                    //alert("Thanks for helping the campaign !")
                 }
             })
         }
@@ -312,10 +349,83 @@ const PricingTiers = (props) => {
         return rows;
       }
 
-      
+     const displayConfirmModal = (x) => {
+        switch(x) {
+            case 0:
+                return <div style={{justifyContent:'center'}}>
+                <DialogTitle id="alert-dialog-title">Waiting for confirmation...</DialogTitle>
+                <DialogContent>
 
-    return (
-        <div className="pricing-area pt-80 pb-50 bg-f9f6f6">
+                    <CircularProgress style={{marginTop: 20, marginBottom: 20}}/>
+
+                <DialogContentText id="alert-dialog-description">
+                Transaction Hash : </DialogContentText>
+                <DialogContentText id="alert-dialog-description"><a href={`https://etherscan.io/tx/${Tx}`} target="_blank">{Tx}</a></DialogContentText>
+                </DialogContent></div>
+            case 1:
+                return <div style={{justifyContent:'center'}}>
+                <DialogTitle id="alert-dialog-title">Thanks for your participation ! <IconFeather.Heart/></DialogTitle>
+                <DialogContent>    
+                <div style={{display: 'flex', justifyContent:'center', alignItems:'center', flexDirection:'column'}}>
+                    <h5>You supported succesfully :</h5>
+                    <h4 style={{marginBottom: 5}}>{campaign.title}</h4>
+                    <img width={320} height={180} src={campaign.main_img} alt='campaign image'/>
+                    <DialogContentText id="alert-dialog-description">
+                    <Link href={{
+                                pathname: "/"
+                                }}
+                                >
+                            <a style={{marginTop: 15}} className="btn btn-primary">Discover other projects </a>
+                            </Link>  </DialogContentText>
+                </div>
+                <DialogContentText id="alert-dialog-description" style={{marginTop: 15}}>
+                Transaction confirmed : </DialogContentText>
+                <DialogContentText id="alert-dialog-description"><a href={`https://etherscan.io/tx/${Tx}`} target="_blank">{Tx}</a></DialogContentText>
+                </DialogContent></div>
+            default:
+                return <div style={{justifyContent:'center'}}>
+                <DialogTitle id="alert-dialog-title">Waiting for confirmation...</DialogTitle>
+                <DialogContent>
+                
+                <CircularProgress style={{marginTop: 20, marginBottom: 20}}/>
+                </DialogContent></div>
+
+        }
+    }
+
+    const displayContent = () => {
+        if(userAddr != campaign.creator){
+            return <div className="pricing-area pt-80 pb-50 bg-f9f6f6">
+
+            <Snackbar
+                open={snackbarOpen}
+                onClose={() => handleCloseSnackbar()}
+                autoHideDuration={9000}
+            >
+            <Alert onClose={() => handleCloseSnackbar()} severity="error" >
+                Error : {errorMsg}
+            </Alert>
+            </Snackbar>
+
+            <Dialog
+                open={dialogOpen}
+                onClose={(_, reason) => {
+                    if (reason !== "backdropClick") {
+                        closeDialog();
+                    }
+                    }}
+                
+                aria-labelledby="alert-dialog-title"
+                aria-describedby="alert-dialog-description"
+            >
+                {displayConfirmModal(creationState)}
+                {/* <DialogActions>
+                <Button onClick={this.closeDialog} color="primary">
+                    Close
+                </Button>
+                </DialogActions> */}
+            </Dialog>
+
             <div className="container">
                 <div className="section-title">
                     <h2>{campaign.title}</h2>
@@ -398,6 +508,48 @@ const PricingTiers = (props) => {
                 <img src="/images/shape4.svg" alt="shape" />
             </div>
         </div>
+        } else {
+            return <>
+                <div className="pricing-area pt-80 pb-50 bg-f9f6f6">
+                    <div className="container">
+                        <div className="section-title">
+                            <h2>Access forbidden</h2>
+                            <div className="bar"></div>
+
+                            <h3>You can't donate to your own campaign !</h3>
+                            <Link href={{
+                            pathname: "/Campaigns/[id]",
+                            query: {
+                                id: campaign.contract_address,
+                                }
+                            }}
+                            >
+                            <a style={{marginTop: 15}} className="btn btn-primary">Back to your campaign</a>
+                            </Link>  
+                        </div>
+                    </div>
+
+                    {/* Shape Images */}
+                    <div className="shape8 rotateme">
+                        <img src="/images/shape2.svg" alt="shape" />
+                    </div>
+                    <div className="shape2 rotateme">
+                        <img src="/images/shape2.svg" alt="shape" />
+                    </div>
+                    <div className="shape7">
+                        <img src="/images/shape4.svg" alt="shape" />
+                    </div>
+                    <div className="shape4">
+                        <img src="/images/shape4.svg" alt="shape" />
+                    </div>
+                    </div>
+            </>
+        }
+    }
+
+    return (
+
+        displayContent()
     );
     
 }
