@@ -5,15 +5,53 @@ import {chain} from '@/utils/chain'
 import { updateDoc, getOne } from 'firebase-crowdfund/queries';
 import {db, storage} from '../../firebase-crowdfund/index'
 
+import CircularProgress from '@material-ui/core/CircularProgress';
+import Snackbar from '@material-ui/core/Snackbar';
+import MuiAlert from "@material-ui/lab/Alert";
+import Dialog from '@material-ui/core/Dialog';
+import DialogActions from '@material-ui/core/DialogActions';
+import DialogContent from '@material-ui/core/DialogContent';
+import DialogContentText from '@material-ui/core/DialogContentText';
+import DialogTitle from '@material-ui/core/DialogTitle';
+import Button from '@material-ui/core/Button';
+import * as IconFeather from 'react-feather';
+
+
+function Alert(props) {
+    return <MuiAlert elevation={6} variant="filled" {...props} />;
+  }
 
 const Withdraw = (props) => {
 
   const web3Instance = useSelector((state) => state.web3Instance)
   const connected = useSelector((state) => state.metamask_connected)
   const chainID = useSelector((state) => state.chainID)
-  const currentUser = useSelector((state) => state.currentUser)
+  const userAddr = useSelector((state) => state.address)
   
   const campaign = props.campaign
+
+  const [errorMsg, setErrorMsg] = React.useState("");
+  const [dialogOpen, setDialogOpen] = React.useState(false);
+  const [snackbarOpen, setSnackbarOpen] = React.useState(false);
+  const [creationState, setCreationState] = React.useState(0);
+  const [Tx, setTx] = React.useState("");
+
+    const openDialog = () => {
+        setDialogOpen(true)
+    }
+
+    const closeDialog = () => {
+        setDialogOpen(false)
+    }
+
+    const openSnackbar = () => {
+        closeDialog()
+        setSnackbarOpen(true)
+    }
+
+    const handleCloseSnackbar = () => {
+        setSnackbarOpen(false)
+    }
 
   const withdrawMoney = async() => {
     if(connected == true && chainID == chain){
@@ -22,15 +60,17 @@ const Withdraw = (props) => {
         
         await payCreator(campCtrInstance);
     } else {
-            handleDialogOpen()
+            setErrorMsg("Error : You're not connected. Please connect to Metamask on the right network")
+            openSnackbar()
         }
   }
 
   const downloadData = () => {
 
-    if(camapign.tiers.length == 0) {
-        alert ("You didn't put any tiers in your campaign !")
-
+    if(campaign.tiers.length == 0) {
+        //alert ("You didn't put any tiers in your campaign !")
+        setErrorMsg("Error : You didn't put any tiers in your campaigns ! Can't retrieve data.")
+        openSnackbar()
     } else {
 
         const result = getTiers();
@@ -60,6 +100,8 @@ const Withdraw = (props) => {
                 }
             }).catch((error) => {
                 console.log("Error getting document:", error);
+                setErrorMsg("Error : " + error)
+                openSnackbar()
             });
         }
 
@@ -75,11 +117,11 @@ const Withdraw = (props) => {
 
   const payCreator = async(contractInstance) => {
     contractInstance.methods.payCreator()
-        .send({from : currentUser.eth_address, value: 0})
+        .send({from : userAddr, value: 0})
         .on('transactionHash', function(hash){
-          //  context.openDialog()
+            openDialog()
             console.log("hash :" + hash)
-         //   context.setState({ Tx: hash });
+            setTx(hash);
 
         })
         .on('confirmation', function(confirmationNumber, receipt){
@@ -87,23 +129,89 @@ const Withdraw = (props) => {
             console.log("Confirmation number:" + confirmationNumber)
         })
         .on("error", function(error) {
-            //     context.setState({ errorMsg: error.code + " : " + error.message})
-            //     context.openSnackbar()
-            console.log(error);
+            setErrorMsg(error.code + " : " + error.message)
+            openSnackbar()
 
         })
         .then(() => {
-            alert("Funds succesfully claimed! Thanks for using BlockBoosted!");
+            setCreationState(1)
+            //alert("Funds succesfully claimed! Thanks for using BlockBoosted!");
         })
   }
 
 
+  const displayConfirmModal = (x) => {
+    switch(x) {
+        case 0:
+            return <div style={{justifyContent:'center'}}>
+            <DialogTitle id="alert-dialog-title">Waiting for confirmation...</DialogTitle>
+            <DialogContent>
+
+                <CircularProgress style={{marginTop: 20, marginBottom: 20}}/>
+
+            <DialogContentText id="alert-dialog-description">
+            Transaction Hash : </DialogContentText>
+            <DialogContentText id="alert-dialog-description"><a href={`https://etherscan.io/tx/${Tx}`} target="_blank">{Tx}</a></DialogContentText>
+            </DialogContent></div>
+        case 1:
+            return <div style={{justifyContent:'center'}}>
+            <DialogTitle id="alert-dialog-title">Withdrawal successful ! <IconFeather.Smile/></DialogTitle>
+            <DialogContent>    
+                <DialogContentText id="alert-dialog-description">
+                <Link href={{
+                            pathname: "/Campaigns/[id]",
+                            query: {
+                                id: campaign.contract_address,
+                                }
+                            }}
+                                as={`/Campaigns/${campaign.contract_address}`}>
+                        <a className="btn btn-primary">Back to your campaign</a>
+                </Link>  </DialogContentText>
+            <DialogContentText id="alert-dialog-description" style={{marginTop: 15}}>
+            Transaction confirmed : </DialogContentText>
+            <DialogContentText id="alert-dialog-description"><a href={`https://etherscan.io/tx/${Tx}`} target="_blank">{Tx}</a></DialogContentText>
+            </DialogContent></div>
+        default:
+            return <div style={{justifyContent:'center'}}>
+            <DialogTitle id="alert-dialog-title">Waiting for confirmation...</DialogTitle>
+            <DialogContent>
+            
+            <CircularProgress style={{marginTop: 20, marginBottom: 20}}/>
+            </DialogContent></div>
+
+    }
+}
 
 
   React.useEffect(() => {
   }, [web3Instance])
 
   return <div>
+
+            <Snackbar
+                open={snackbarOpen}
+                onClose={() => handleCloseSnackbar()}
+                autoHideDuration={9000}
+            >
+            <Alert onClose={() => handleCloseSnackbar()} severity="error" >
+                Error : {errorMsg}
+            </Alert>
+            </Snackbar>
+
+            <Dialog
+                open={dialogOpen}
+                onClose={(_, reason) => {
+                    if (reason !== "backdropClick") {
+                        closeDialog();
+                    }
+                    }}
+                
+                aria-labelledby="alert-dialog-title"
+                aria-describedby="alert-dialog-description"
+            >
+                {displayConfirmModal(creationState)}
+            </Dialog>
+
             <h4>Your campaign has ended successfully!</h4>
             <button className="btn btn-primary" onClick={withdrawMoney}>Withdraw</button>
             <button className="btn btn-light" onClick={downloadData}>Download data</button>

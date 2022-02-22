@@ -27,6 +27,7 @@ import RaisedChecker from '@/components/Common/RaisedChecker';
 import { MdSentimentVerySatisfied } from 'react-icons/md';
 import campaignAbi from '@/components/ContractRelated/CampaignAbi';
 import Withdraw from './withdraw';
+import Refund from './refund';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -64,6 +65,7 @@ const Campaign = (props, {c, u}) => {
     const chainID = useSelector((state) => state.chainID)
     const currentUser = useSelector((state) => state.currentUser)
     const metamask_connected = useSelector((state) => state.metamask_connected)
+    const userAddr = useSelector((state) => state.address)
 
 
     React.useEffect(() => {
@@ -187,11 +189,9 @@ const Campaign = (props, {c, u}) => {
     }
 
     const RefundButton = () => {
-        if(campaign.end_date < now && campaign.raised < campaign.objective && !campaign.flexible){
-            return  <div>
-                        <h6>Unfortunately, the goal of this campaign has not been reached. If you contributed to the campaign, you can ask for your refund below.</h6>
-                        <a className="btn btn-primary" onClick={handleRefund}>Get your refund</a>
-                    </div>
+        //on n'affiche pas les boutons de refund au createur de la campagne
+        if(campaign.end_date < now && campaign.raised < campaign.objective && !campaign.flexible && userAddr != campaign.creator){
+            return <Refund campaign={campaign}/>
         }
     }
 
@@ -206,14 +206,14 @@ const Campaign = (props, {c, u}) => {
         
     }
 
-    const handleRefund = () => {
-        if(connected == true && chainID == chain){
-            //connect to Metamask and check for a refund
-            console.log("refund logic here")        
-        } else {
-                handleDialogOpen()
-            }
-    }
+    // const handleRefund = () => {
+    //     if(connected == true && chainID == chain){
+    //         //connect to Metamask and check for a refund
+    //         console.log("refund logic here")        
+    //     } else {
+    //             handleDialogOpen()
+    //         }
+    // }
 
     const showCats = () => {
         if(campaign.categories.length == 1){
