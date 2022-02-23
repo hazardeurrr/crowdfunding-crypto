@@ -270,13 +270,13 @@ const campaignAbi = [
 		"type": "function"
 	},
 	{
+		"stateMutability": "payable",
+		"type": "receive"
+	},
+	{
 		"inputs": [],
 		"stateMutability": "nonpayable",
 		"type": "constructor"
-	},
-	{
-		"stateMutability": "payable",
-		"type": "receive"
 	},
 	{
 		"inputs": [],
@@ -364,6 +364,19 @@ const campaignAbi = [
 	},
 	{
 		"inputs": [],
+		"name": "isCreator",
+		"outputs": [
+			{
+				"internalType": "bool",
+				"name": "",
+				"type": "bool"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [],
 		"name": "partialGoal",
 		"outputs": [
 			{
@@ -396,35 +409,6 @@ const campaignAbi = [
 				"internalType": "enum Campaign.State",
 				"name": "",
 				"type": "uint8"
-			}
-		],
-		"stateMutability": "view",
-		"type": "function"
-	},
-	{
-		"inputs": [
-			{
-				"internalType": "uint256",
-				"name": "",
-				"type": "uint256"
-			}
-		],
-		"name": "tiersList",
-		"outputs": [
-			{
-				"internalType": "uint256",
-				"name": "index",
-				"type": "uint256"
-			},
-			{
-				"internalType": "uint256",
-				"name": "price",
-				"type": "uint256"
-			},
-			{
-				"internalType": "uint256",
-				"name": "quantity",
-				"type": "uint256"
 			}
 		],
 		"stateMutability": "view",

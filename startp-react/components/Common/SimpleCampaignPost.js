@@ -128,7 +128,7 @@ const SimpleCampaignPost = (props, {u}) => {
     const displayProgressBar = () => {
         if(metamask_connected){
             if(end_date > now && start_date < now){
-                return <ProgressBar animated now={(raised / objective) * 100}/>
+                return <ProgressBar variant="green" animated now={(raised / objective) * 100}/>
             } else {
                 return <ProgressBar variant="down" now={(raised / objective) * 100}/>
             }

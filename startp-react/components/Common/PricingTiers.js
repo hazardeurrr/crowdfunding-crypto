@@ -377,6 +377,7 @@ const PricingTiers = (props) => {
                                 >
                             <a style={{marginTop: 15}} className="btn btn-primary">Discover other projects </a>
                             </Link>  </DialogContentText>
+                    <i>Make sure to fill your profile if you are waiting for a counterpart. The creator will contact you by email if needed.</i>
                 </div>
                 <DialogContentText id="alert-dialog-description" style={{marginTop: 15}}>
                 Transaction confirmed : </DialogContentText>

@@ -428,6 +428,8 @@ class MainForm extends React.Component {
                                         <div className="form-group">
                                             <DatePicker onChange={e => {
                                                 if (e.endDate !== null){
+                                                    console.log(new Date(e.startDate._d))
+                                                    
                                                     this.startDate = Math.floor(new Date(e.startDate._d).getTime() / 1000)
                                                     this.endDate = Math.floor(new Date(e.endDate._d).getTime() / 1000)
                                                 }
