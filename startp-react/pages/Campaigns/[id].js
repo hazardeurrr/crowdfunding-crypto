@@ -52,7 +52,8 @@ const Campaign = (props, {c, u}) => {
     const [campaign, setCampaign] = React.useState(undefined)
     const [user, setUser] = React.useState(undefined)   // ATTENTION : USER = USER PROFILE OF THE CREATOR OF THE CAMPAIGN
     const [htmlTxt, setHTMLTxt] = React.useState("")
-    
+    const [raisedRetrieve, setRaisedRetrieve] = React.useState(false)
+
 
     // const campaign = projectList.find(e => e.contract_address == props.address)
     // const raised = Math.random()*100
@@ -125,7 +126,9 @@ const Campaign = (props, {c, u}) => {
     const setRaised = (r) => {
         let c = campaign
         c.raised = r
+        console.log("changed raised")
         setCampaign(c)
+        setRaisedRetrieve(true)
     }
     
 // reste les progress bar à update
@@ -190,17 +193,22 @@ const Campaign = (props, {c, u}) => {
 
     const RefundButton = () => {
         //on n'affiche pas les boutons de refund au createur de la campagne
-        if(campaign.end_date < now && campaign.raised < campaign.objective && !campaign.flexible && userAddr != campaign.creator){
-            return <Refund campaign={campaign}/>
+        if(raisedRetrieve){
+            if(campaign.end_date < now && campaign.raised < campaign.objective && !campaign.flexible && userAddr != campaign.creator){
+                return <Refund campaign={campaign}/>
+            }
         }
+        
     }
 
     const displayProgressBar = () => {
         if(metamask_connected){
-            if(campaign.end_date > now && campaign.start_date < now){
-                return <ProgressBar animated now={(campaign.raised / campaign.objective) * 100}/>
-            } else {
-                return <ProgressBar variant="down" now={(campaign.raised / campaign.objective) * 100}/>
+            if(raisedRetrieve){
+                if(campaign.end_date > now && campaign.start_date < now){
+                    return <ProgressBar animated now={(campaign.raised / campaign.objective) * 100}/>
+                } else {
+                    return <ProgressBar variant="down" now={(campaign.raised / campaign.objective) * 100}/>
+                }
             }
         }
         
@@ -238,14 +246,17 @@ const Campaign = (props, {c, u}) => {
     const displayOwnerButtons = () => {
         if(currentUser !== undefined && campaign !== undefined){
             if(currentUser.eth_address.toLowerCase() === campaign.creator.toLowerCase()){
-                if(campaign.end_date < now && (campaign.flexible || (campaign.raised >= campaign.objective))){
-                    return <Withdraw campaign={campaign}/>
-                } else if(campaign.end_date < now) {
-                    return <div>
-                    <h4>Unfortunately, your campaign hasn't reached its goal.</h4>
-                    {/* <button className="btn btn-light" onClick={downloadData}>Download data</button> */}
-                    </div>
-                } 
+                if(raisedRetrieve){
+                    if(campaign.end_date < now && (campaign.flexible || (campaign.raised >= campaign.objective))){
+                        return <Withdraw campaign={campaign}/>
+                    } else if(campaign.end_date < now) {
+                        return <div>
+                        <h4>Unfortunately, your campaign hasn't reached its goal.</h4>
+                        {/* <button className="btn btn-light" onClick={downloadData}>Download data</button> */}
+                        </div>
+                    } 
+                }
+                
             }
         }
     }
