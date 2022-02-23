@@ -54,7 +54,7 @@ const SimpleCampaignPost = (props, {u}) => {
             if(daysTilStart > 0)
                 return "Starts in " + daysTilStart.toString() + " day" + SorNot(daysTilStart)
             else
-                return "Starts tomorrow !"
+                return "Starts soon !"
         } else if(days > 0){
                 return days.toString() + " day" + SorNot(days) +" left"
             } else if(days == 0 && hours > 0){                

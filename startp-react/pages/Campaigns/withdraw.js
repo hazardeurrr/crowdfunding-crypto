@@ -61,7 +61,7 @@ const Withdraw = (props) => {
         
         await payCreator(campCtrInstance);
     } else {
-            setErrorMsg("Error : You're not connected. Please connect to Metamask on the right network")
+            setErrorMsg("You're not connected. Please connect to Metamask on the right network")
             openSnackbar()
         }
   }
@@ -70,7 +70,7 @@ const Withdraw = (props) => {
 
     if(campaign.tiers.length == 0) {
         //alert ("You didn't put any tiers in your campaign !")
-        setErrorMsg("Error : You didn't put any tiers in your campaigns ! Can't retrieve data.")
+        setErrorMsg("You didn't put any tiers in your campaign! Can't retrieve data.")
         openSnackbar()
     } else {
 
