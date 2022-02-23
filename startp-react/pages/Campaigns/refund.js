@@ -4,7 +4,21 @@ import { useSelector, useDispatch } from 'react-redux';
 import {chain} from '@/utils/chain'
 import { updateDoc, getOne } from 'firebase-crowdfund/queries';
 import {db, storage} from '../../firebase-crowdfund/index'
+import Link from 'next/link';
+import CircularProgress from '@material-ui/core/CircularProgress';
+import Snackbar from '@material-ui/core/Snackbar';
+import MuiAlert from "@material-ui/lab/Alert";
+import Dialog from '@material-ui/core/Dialog';
+import DialogActions from '@material-ui/core/DialogActions';
+import DialogContent from '@material-ui/core/DialogContent';
+import DialogContentText from '@material-ui/core/DialogContentText';
+import DialogTitle from '@material-ui/core/DialogTitle';
+import Button from '@material-ui/core/Button';
+import * as IconFeather from 'react-feather';
 
+function Alert(props) {
+    return <MuiAlert elevation={6} variant="filled" {...props} />;
+  }
 
 const Refund = (props) => {
 
@@ -71,7 +85,7 @@ const Refund = (props) => {
         })
         .then(() => {
             setCreationState(1)
-            alert("Refund successful");
+            //alert("Refund successful");
         })
   }
 
@@ -94,13 +108,11 @@ const Refund = (props) => {
               <DialogContent>    
                   <DialogContentText id="alert-dialog-description">
                   <Link href={{
-                              pathname: "/Campaigns/[id]",
-                              query: {
-                                  id: campaign.contract_address,
-                                  }
+                              pathname: "/",
+                              
                               }}
-                                  as={`/Campaigns/${campaign.contract_address}`}>
-                          <a className="btn btn-primary">Back to the campaign</a>
+                            >
+                          <a className="btn btn-primary">Back to main page</a>
                   </Link>  </DialogContentText>
               <DialogContentText id="alert-dialog-description" style={{marginTop: 15}}>
               Transaction confirmed : </DialogContentText>

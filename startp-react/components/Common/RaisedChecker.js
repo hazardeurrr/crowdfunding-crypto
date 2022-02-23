@@ -11,7 +11,7 @@ const RaisedChecker = (props) => {
   React.useEffect(() => {
     if(web3Instance != undefined){
       let ctr = new web3Instance.eth.Contract(campaignAbi, props.address)
-      let r = ctr.methods.totalBalance.call().call().then(res => {
+      let r = ctr.methods.raised.call().call().then(res => {        // anciennement totalBalance
         let raised = res
         if(props.currency == "ETH"){
           raised = web3Instance.utils.fromWei(res, 'ether')

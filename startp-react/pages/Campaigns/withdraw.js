@@ -15,6 +15,7 @@ import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import Button from '@material-ui/core/Button';
 import * as IconFeather from 'react-feather';
+import Link from 'next/link';
 
 
 function Alert(props) {
@@ -159,13 +160,10 @@ const Withdraw = (props) => {
             <DialogContent>    
                 <DialogContentText id="alert-dialog-description">
                 <Link href={{
-                            pathname: "/Campaigns/[id]",
-                            query: {
-                                id: campaign.contract_address,
-                                }
+                            pathname: "/",
                             }}
-                                as={`/Campaigns/${campaign.contract_address}`}>
-                        <a className="btn btn-primary">Back to your campaign</a>
+                            >
+                <a className="btn btn-primary">Back to main page</a>
                 </Link>  </DialogContentText>
             <DialogContentText id="alert-dialog-description" style={{marginTop: 15}}>
             Transaction confirmed : </DialogContentText>
