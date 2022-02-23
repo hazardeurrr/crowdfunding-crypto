@@ -238,7 +238,7 @@ const Campaign = (props, {c, u}) => {
     const displayOwnerButtons = () => {
         if(currentUser !== undefined && campaign !== undefined){
             if(currentUser.eth_address.toLowerCase() === campaign.creator.toLowerCase()){
-                if(campaign.end_date < now && (campaign.flexible || (campaign.raised > campaign.objective))){
+                if(campaign.end_date < now && (campaign.flexible || (campaign.raised >= campaign.objective))){
                     return <Withdraw campaign={campaign}/>
                 } else if(campaign.end_date < now) {
                     return <div>
