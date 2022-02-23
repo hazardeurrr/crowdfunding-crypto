@@ -15,6 +15,8 @@ const SingleCardCarrousel = (props) => {
     var end_date = campaign.end_date;
     var now = Date.now() / 1000;
     const [raised, setRaised] = React.useState(0)
+    const [raisedRetrieve, setRaisedRetrieve] = React.useState(false)
+
     const metamask_connected = useSelector((state) => state.metamask_connected)
 
     const cat = () => {
@@ -42,7 +44,7 @@ const SingleCardCarrousel = (props) => {
     } else {
         if(days > 0){
             return days.toString() + " " + dayS(days)
-        }else if((minutes > 0 && hours == 0 && days == 0) || (hours > 0 && days == 0)) {
+        }else if((minutes >= 0 && hours == 0 && days == 0) || (hours > 0 && days == 0)) {
             return "Last day !"
         } else {
             return "Ended"
@@ -69,6 +71,7 @@ const displayRaised = () => {
 }
 
 const setRaisedCallback = (r) => {
+    setRaisedRetrieve(true)
     setRaised(r)
 }
 
@@ -101,25 +104,28 @@ const displayTitle = () => {
 }
 
 const displayCurrency = () => {
-    if(metamask_connected)
-        return campaign.currency
-}
-
-const displayProgressBar = () => {
-    if(metamask_connected){
-        let pct = Math.round((raised / objective) * 100 * 10) / 10;
-        if(end_date > now && start_date < now){
-            return <ProgressBar animated variant="green"  now={pct} label={`${pct}%`}/>
-        } else {
-            return <ProgressBar  variant="down"  now={pct} label={`${pct}%`}/>
-        }
+    if(metamask_connected && raisedRetrieve){
+            return campaign.currency
     }
 }
 
-const displayRaisedIcon = () => {
-    if(metamask_connected)
-        return <svg xmlns="http://www.w3.org/2000/svg" width="16" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="feather feather-activity"><polyline points="17 11 12 6 7 11"></polyline><polyline points="17 18 12 13 7 18"></polyline></svg>
+const displayProgressBar = () => {
+    if(metamask_connected && raisedRetrieve){
+            let pct = Math.round((raised / objective) * 100 * 10) / 10;
+            if(end_date > now && start_date < now){
+                return <ProgressBar animated variant="green"  now={pct} label={`${pct}%`}/>
+            } else {
+                return <ProgressBar  variant="down"  now={pct} label={`${pct}%`}/>
+            }
+        }
 }
+
+const displayRaisedIcon = () => {
+    if(metamask_connected && raisedRetrieve){
+            return <svg xmlns="http://www.w3.org/2000/svg" width="16" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="feather feather-activity"><polyline points="17 11 12 6 7 11"></polyline><polyline points="17 18 12 13 7 18"></polyline></svg>
+        }
+    }
+
     
     return (
       <div className="single-blog-post-item">

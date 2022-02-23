@@ -29,10 +29,14 @@ const AutoCompleteSearchBar = () => {
       var crea = creator.toLowerCase()
 
       const user = creators.find(e => e.eth_address.toLowerCase() == crea)
-      return `${title} ${user.username}`
+      if(user == undefined)
+        return ""
+      else
+        return `${title} ${user.username}`
     },
     limit: 20
   });
+
 
   return (
     <Autocomplete
@@ -48,7 +52,10 @@ const AutoCompleteSearchBar = () => {
         var crea = creator.toLowerCase()
 
         const user = creators.find(e => e.eth_address.toLowerCase() == crea)
-        return `${title} ${user.username}`;
+        if(user == undefined)
+          return ""
+        else
+          return `${title} ${user.username}`;
       }}
       filterSelectedOptions
       noOptionsText = 'No campaign or creator found'

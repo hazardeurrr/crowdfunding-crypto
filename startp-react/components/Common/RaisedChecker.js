@@ -6,7 +6,7 @@ import { useSelector, useDispatch } from 'react-redux';
 const RaisedChecker = (props) => {
 
   const web3Instance = useSelector((state) => state.web3Instance)
-  const [raisedValue, setRaisedValue] = React.useState(0)
+  const [raisedValue, setRaisedValue] = React.useState(null)
 
   React.useEffect(() => {
     if(web3Instance != undefined){

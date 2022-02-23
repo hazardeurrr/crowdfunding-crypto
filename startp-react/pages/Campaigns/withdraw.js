@@ -36,6 +36,8 @@ const Withdraw = (props) => {
   const [snackbarOpen, setSnackbarOpen] = React.useState(false);
   const [creationState, setCreationState] = React.useState(0);
   const [Tx, setTx] = React.useState("");
+  const [totalBalance, setTotalBalance] = React.useState(0)
+  const [ctrInstance, setCtrInstance] = React.useState(undefined)
 
     const openDialog = () => {
         setDialogOpen(true)
@@ -55,11 +57,11 @@ const Withdraw = (props) => {
     }
 
   const withdrawMoney = async() => {
-    if(connected == true && chainID == chain){
+    if(connected == true && chainID == chain && ctrInstance != undefined){
         //connect to Metamask and check for a refund
-        const campCtrInstance = new web3Instance.eth.Contract(campaignAbi.campaignAbi, campaign.contract_address)
+        //const campCtrInstance = new web3Instance.eth.Contract(campaignAbi.campaignAbi, campaign.contract_address)
         
-        await payCreator(campCtrInstance);
+        await payCreator(ctrInstance);
     } else {
             setErrorMsg("You're not connected. Please connect to Metamask on the right network")
             openSnackbar()
@@ -182,7 +184,22 @@ const Withdraw = (props) => {
 
 
   React.useEffect(() => {
+      if(web3Instance != undefined){
+        if(connected == true && chainID == chain){
+            //connect to Metamask and check for a refund
+            const campCtrInstance = new web3Instance.eth.Contract(campaignAbi.campaignAbi, campaign.contract_address)
+            setCtrInstance(campCtrInstance)
+            campCtrInstance.methods.totalBalance.call().call().then(res => {setTotalBalance(res)})
+      }
+    }
   }, [web3Instance])
+
+
+  const displayWithdrawBtn = () => {
+    if(totalBalance > 0)
+        return <button className="btn btn-primary" onClick={withdrawMoney}>Withdraw</button>
+
+  }
 
   return <div>
 
@@ -211,7 +228,7 @@ const Withdraw = (props) => {
             </Dialog>
 
             <h4>Your campaign has ended successfully!</h4>
-            <button className="btn btn-primary" onClick={withdrawMoney}>Withdraw</button>
+            {displayWithdrawBtn()}
             <button className="btn btn-light" onClick={downloadData}>Download data</button>
         </div>
 }

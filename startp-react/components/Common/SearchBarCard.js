@@ -61,26 +61,32 @@ const SearchBarCard = (props) => {
   const classes = useStyles();
 
   const displayCreator = () => {
-    if(user.username.length > 0){
-      return  <div className={classes.creator_wrapper}>
-          <Typography display="inline" className={classes.creator} color="textSecondary">
-            by 
-          </Typography>
-          <Avatar display="inline" alt='avatar' className={classes.avatar} src={user.image} />
-          <Typography display="inline" className={classes.creator} color="textSecondary">
-            {user.username}
-          </Typography>
-      </div>
+    if(user == undefined){
+      return <Typography display="inline" className={classes.creator} color="textSecondary">
+      Loading creator...
+    </Typography>
     } else {
-      return <div className={classes.creator_wrapper}>
-          <Typography display="inline" className={classes.creator} color="textSecondary">
-            by 
-          </Typography>
-          <Avatar display="inline" alt='avatar' className={classes.avatar} src={user.image} />
-          <Typography display="inline" className={classes.creator2} color="textSecondary">
-            {user.eth_address}
-          </Typography>       
-      </div>
+      if(user.username.length > 0){
+        return  <div className={classes.creator_wrapper}>
+            <Typography display="inline" className={classes.creator} color="textSecondary">
+              by 
+            </Typography>
+            <Avatar display="inline" alt='avatar' className={classes.avatar} src={user.image} />
+            <Typography display="inline" className={classes.creator} color="textSecondary">
+              {user.username}
+            </Typography>
+        </div>
+      } else {
+        return <div className={classes.creator_wrapper}>
+            <Typography display="inline" className={classes.creator} color="textSecondary">
+              by 
+            </Typography>
+            <Avatar display="inline" alt='avatar' className={classes.avatar} src={user.image} />
+            <Typography display="inline" className={classes.creator2} color="textSecondary">
+              {user.eth_address}
+            </Typography>       
+        </div>
+      }
     }
   }
 

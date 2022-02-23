@@ -17,6 +17,7 @@ const SimpleCampaignPost = (props, {u}) => {
     var end_date = campaign.end_date;
     var now = Date.now() / 1000;
     const [raised, setRaised] = React.useState(0)
+    const [raisedRetrieve, setRaisedRetrieve] = React.useState(false)
     const metamask_connected = useSelector((state) => state.metamask_connected)
 
   
@@ -59,7 +60,7 @@ const SimpleCampaignPost = (props, {u}) => {
                 return days.toString() + " day" + SorNot(days) +" left"
             } else if(days == 0 && hours > 0){                
                 return hours.toString() + " hour" + SorNot(hours) + " left"
-            } else if(days == 0 && hours == 0 && minutes > 0){
+            } else if(days == 0 && hours == 0 && minutes >= 0){
                 return minutes.toString() + " minute" + SorNot(minutes) + " left"
             } else {
                 return "Ended " + Math.abs(days.toString()) + " day" + SorNot(days) + " ago"
@@ -116,17 +117,18 @@ const SimpleCampaignPost = (props, {u}) => {
     }
 
     const displayCurrency = () => {
-        if(metamask_connected)
-            return campaign.currency
-
+        if(raisedRetrieve && metamask_connected){
+                return campaign.currency
+        }
     }
 
     const setRaisedCallback = (r) => {
+        setRaisedRetrieve(true)
         setRaised(r)
     }
 
     const displayProgressBar = () => {
-        if(metamask_connected){
+        if(metamask_connected && raisedRetrieve){
             if(end_date > now && start_date < now){
                 return <ProgressBar variant="green" animated now={(raised / objective) * 100}/>
             } else {

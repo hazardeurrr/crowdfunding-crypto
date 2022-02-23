@@ -7,32 +7,7 @@ import { useSelector, useDispatch } from 'react-redux'
 import {getAll} from '../../firebase-crowdfund/queries';
 const OwlCarousel = dynamic(import('react-owl-carousel3'));
 
-const options = {
-    loop: true,
-    nav: false,
-    dots: true,
-    autoplay: true,
-    smartSpeed: 1000,
-    margin: 30,
-    autoplayTimeout: 5000,
-    responsive: {
-        0:{
-            items: 1,
-        },
-        576:{
-            items: 2,
-        },
-        768:{
-            items: 2,
-        },
-        1024:{
-            items: 3,
-        },
-        1200:{
-            items: 4,
-        }
-    },
-}
+
 
 
 
@@ -60,10 +35,36 @@ const Projects = ({p}) => {
       
     }, [])
 
+    const options = {
+        loop: false,
+        nav: false,
+        dots: true,
+        autoplay: true,
+        smartSpeed: 1000,
+        margin: 30,
+        autoplayTimeout: 5000,
+        responsive: {
+            0:{
+                items: 1,
+            },
+            576:{
+                items: 2,
+            },
+            768:{
+                items: 2,
+            },
+            1024:{
+                items: 3,
+            },
+            1200:{
+                items: 4,
+            }
+        },
+    }
+
     const ShowProjects = () => {
         const len = projects.length > 6 ? 6 : projects.length
         var rows = [];
-        console.log(projects)
         for (var i = 0; i < len; i++) {
             rows.push(<div key={i} className="single-ml-projects-box">
             <SingleCardCarrousel project={projects[i]}

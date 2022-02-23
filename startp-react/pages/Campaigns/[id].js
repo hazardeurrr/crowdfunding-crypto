@@ -158,7 +158,7 @@ const Campaign = (props, {c, u}) => {
                 return days.toString() + " day" + SorNot(days) +" left"
             } else if(days == 0 && hours > 0){                
                 return hours.toString() + " hour" + SorNot(hours) + " left"
-            } else if(days == 0 && hours == 0 && minutes > 0){
+            } else if(days == 0 && hours == 0 && minutes >= 0){
                 return minutes.toString() + " minute" + SorNot(minutes) + " left"
             } else {
                 return "Ended " + Math.abs(days.toString()) + " day" + SorNot(days) + " ago"
@@ -194,8 +194,10 @@ const Campaign = (props, {c, u}) => {
     const RefundButton = () => {
         //on n'affiche pas les boutons de refund au createur de la campagne
         if(raisedRetrieve){
-            if(campaign.end_date < now && campaign.raised < campaign.objective && !campaign.flexible && userAddr != campaign.creator){
-                return <Refund campaign={campaign}/>
+            if(userAddr.toLowerCase() != campaign.creator.toLowerCase()){
+                if(campaign.end_date < now && campaign.raised < campaign.objective && !campaign.flexible){
+                    return <Refund campaign={campaign}/>
+                }
             }
         }
         
@@ -245,7 +247,7 @@ const Campaign = (props, {c, u}) => {
 
     const displayOwnerButtons = () => {
         if(currentUser !== undefined && campaign !== undefined){
-            if(currentUser.eth_address.toLowerCase() === campaign.creator.toLowerCase()){
+            if(userAddr.toLowerCase() === campaign.creator.toLowerCase()){
                 if(raisedRetrieve){
                     if(campaign.end_date < now && (campaign.flexible || (campaign.raised >= campaign.objective))){
                         return <Withdraw campaign={campaign}/>
