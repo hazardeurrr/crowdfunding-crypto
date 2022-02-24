@@ -79,7 +79,7 @@ class MainForm extends React.Component {
         this.startDate = undefined, 
         this.endDate = undefined, 
         this.small_description = '',
-        this.raisingMethod = "USDT",
+        this.raisingMethod = "USDC",
         this.tiersNumber = 0,
         this.objective = 0,
         this.objectiveError = ''
@@ -118,7 +118,7 @@ class MainForm extends React.Component {
     }
 
     tokenIndex(currency){
-        if(currency == "USDT")
+        if(currency == "USDC")
             return 0
         if(currency == "ETH")
             return 1
@@ -305,7 +305,7 @@ class MainForm extends React.Component {
       };
 
     getNbrStep = () => {                    // marche pas (pas de state)
-        if(this.raisingMethod == "USDT")
+        if(this.raisingMethod == "USDC")
             return 0.000001
         if(this.raisingMethod == "ETH")
             return 0.000000000000000001
@@ -474,11 +474,11 @@ class MainForm extends React.Component {
                                             <div className="order-details">
                                                 <div className="payment-method">
                                                     <p>
-                                                        <input type="radio" id="usdt" name="radio-group" defaultChecked value="USDT" onChange={(event) => {
+                                                        <input type="radio" id="usdc" name="radio-group" defaultChecked value="USDC" onChange={(event) => {
                                                             this.raisingMethod = event.target.value
 
                                                         }}/>
-                                                        <label htmlFor="usdt">USDT (2.5% fee)</label>
+                                                        <label htmlFor="usdc">USDC (2.5% fee)</label>
                                                     </p>
                                                     <p>
                                                         <input type="radio" id="eth" name="radio-group" value="ETH" onChange={(event) => {

@@ -276,7 +276,7 @@ const ServiceDetails = () => {
                                                 </AccordionItemHeading>
                                                 <AccordionItemPanel>
                                                     <p>
-                                                        At the moment, you have to choose a currency for your campaign between ETH (Ether), USDT (Tether) and BBST (our native token : BlockBoosted).
+                                                        At the moment, you have to choose a currency for your campaign between ETH (Ether), USDC (USD Coin) and BBST (our native token : BlockBoosted).
                                                     </p>
                                                 </AccordionItemPanel>
                                             </AccordionItem>
