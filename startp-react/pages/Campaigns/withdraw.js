@@ -88,7 +88,7 @@ const Withdraw = (props) => {
                 if (campaign.tiers[nbTier].subscribers.length > 0) {
                     let tierLength = campaign.tiers[nbTier].subscribers.length
                     maxValue += tierLength
-                    finalString += "Tier" + nbTier + "\n\n"
+                    finalString += "Tier " + (nbTier+1) + " : " + campaign.tiers[nbTier].title + "\n"
                     for(let i = minValue ; i < maxValue ; ++i){
                     
                         finalString += res[i]

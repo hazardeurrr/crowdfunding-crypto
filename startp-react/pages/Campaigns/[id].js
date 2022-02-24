@@ -134,8 +134,12 @@ const Campaign = (props, {c, u}) => {
 // reste les progress bar à update
 
     const displayRaised = () => {
-        if(metamask_connected)
-            return <RaisedChecker address={campaign.contract_address} currency={campaign.currency} callback={setRaised}/>
+        if(metamask_connected){
+            if(chainID == chain)
+                return <RaisedChecker address={campaign.contract_address} currency={campaign.currency} callback={setRaised}/>
+            else
+                return "Connect to the right network to see more"
+        }
         else
             return "Connect to see more"
     }
@@ -176,7 +180,7 @@ const Campaign = (props, {c, u}) => {
     
 
     const BackButton = () => {
-        if(metamask_connected){
+        if(metamask_connected && chainID == chain){
             if(campaign.end_date > now && campaign.start_date < now){
                 return <Link href={{
                             pathname: "/Checkout/[id]",
@@ -193,7 +197,7 @@ const Campaign = (props, {c, u}) => {
 
     const RefundButton = () => {
         //on n'affiche pas les boutons de refund au createur de la campagne
-        if(raisedRetrieve){
+        if(raisedRetrieve && metamask_connected && chainID == chain){
             if(userAddr.toLowerCase() != campaign.creator.toLowerCase()){
                 if(campaign.end_date < now && campaign.raised < campaign.objective && !campaign.flexible){
                     return <Refund campaign={campaign}/>
@@ -204,7 +208,7 @@ const Campaign = (props, {c, u}) => {
     }
 
     const displayProgressBar = () => {
-        if(metamask_connected){
+        if(metamask_connected && chainID == chain){
             if(raisedRetrieve){
                 if(campaign.end_date > now && campaign.start_date < now){
                     return <ProgressBar animated now={(campaign.raised / campaign.objective) * 100}/>
@@ -246,7 +250,7 @@ const Campaign = (props, {c, u}) => {
     }
 
     const displayOwnerButtons = () => {
-        if(currentUser !== undefined && campaign !== undefined){
+        if(currentUser !== undefined && campaign !== undefined && metamask_connected && chainID == chain){
             if(userAddr.toLowerCase() === campaign.creator.toLowerCase()){
                 if(raisedRetrieve){
                     if(campaign.end_date < now && (campaign.flexible || (campaign.raised >= campaign.objective))){
@@ -274,7 +278,7 @@ const Campaign = (props, {c, u}) => {
     }
 
     const displayCurrency = () => {
-        if(metamask_connected)
+        if(metamask_connected && chainID == chain)
             return <>{campaign.currency} raised / {campaign.objective} {campaign.currency}</>
     }
 

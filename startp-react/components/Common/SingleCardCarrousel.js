@@ -5,6 +5,7 @@ import * as Icon from 'react-feather';
 import ProgressBar from 'react-bootstrap/ProgressBar';
 import RaisedChecker from './RaisedChecker';
 import { useSelector, useDispatch } from 'react-redux';
+import {chain} from '@/utils/chain'
 
 
 const SingleCardCarrousel = (props) => {
@@ -18,6 +19,7 @@ const SingleCardCarrousel = (props) => {
     const [raisedRetrieve, setRaisedRetrieve] = React.useState(false)
 
     const metamask_connected = useSelector((state) => state.metamask_connected)
+    const chainID = useSelector((state) => state.chainID)
 
     const cat = () => {
       if(campaign.categories.length > 1){
@@ -65,7 +67,7 @@ const displayRaised = () => {
     //     return raised.toFixed(3)
     // else
     //     return Math.floor(raised)
-    if(metamask_connected)
+    if(metamask_connected && chainID == chain)
         return <RaisedChecker address={campaign.contract_address} currency={campaign.currency} callback={setRaisedCallback}/>
 
 }
@@ -104,7 +106,7 @@ const displayTitle = () => {
 }
 
 const displayCurrency = () => {
-    if(metamask_connected && raisedRetrieve){
+    if(metamask_connected && raisedRetrieve && chainID == chain){
             return campaign.currency
     }
 }

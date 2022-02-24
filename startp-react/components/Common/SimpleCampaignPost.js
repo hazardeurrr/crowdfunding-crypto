@@ -6,6 +6,7 @@ import ChipUser from '@/components/Common/ChipUser'
 import {getOne } from '../../firebase-crowdfund/queries' 
 import RaisedChecker from './RaisedChecker';
 import { useSelector, useDispatch } from 'react-redux';
+import {chain} from '@/utils/chain'
 
 
 
@@ -19,6 +20,7 @@ const SimpleCampaignPost = (props, {u}) => {
     const [raised, setRaised] = React.useState(0)
     const [raisedRetrieve, setRaisedRetrieve] = React.useState(false)
     const metamask_connected = useSelector((state) => state.metamask_connected)
+    const chainID = useSelector((state) => state.chainID)
 
   
     // const creators = useSelector((state) => state.allCreators)
@@ -110,14 +112,17 @@ const SimpleCampaignPost = (props, {u}) => {
     }
 
     const displayRaised = () => {
-        if(metamask_connected)
-            return <RaisedChecker address={campaign.contract_address} currency={campaign.currency} callback={setRaisedCallback}/>
-        else
+        if(metamask_connected){
+            if(chainID == chain)
+                return <RaisedChecker address={campaign.contract_address} currency={campaign.currency} callback={setRaisedCallback}/>
+            else
+                return "Connect to the right network to see"
+        } else
             return "Connect to see"
     }
 
     const displayCurrency = () => {
-        if(raisedRetrieve && metamask_connected){
+        if(raisedRetrieve && metamask_connected && chainID == chain){
                 return campaign.currency
         }
     }
@@ -128,7 +133,7 @@ const SimpleCampaignPost = (props, {u}) => {
     }
 
     const displayProgressBar = () => {
-        if(metamask_connected && raisedRetrieve){
+        if(metamask_connected && raisedRetrieve && chainID == chain){
             if(end_date > now && start_date < now){
                 return <ProgressBar variant="green" animated now={(raised / objective) * 100}/>
             } else {
