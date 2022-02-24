@@ -261,7 +261,7 @@ const ServiceDetails = () => {
                                                 </AccordionItemHeading>
                                                 <AccordionItemPanel>
                                                     <p>
-                                                       Yes you can ! Just check the corresponding checkbox on the campaign creation form. You can have as much as 5 different rewards tiers, with a different price for each one.
+                                                       Yes you can ! Just check the corresponding checkbox on the campaign creation form. You can have as much rewards tiers as you want. For each tier, you can set its own price as well as its maximum amount if you want it to be limited in quantity.
                                                     </p>
                                                 </AccordionItemPanel>
                                             </AccordionItem>
