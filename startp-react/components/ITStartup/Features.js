@@ -63,11 +63,11 @@ const Features = () => {
 
 							<h3>
 								<Link href="/feature-details">
-									<a>ETH and USDT supported</a>
+									<a>ETH and USDC supported</a>
 								</Link>
 							</h3>
 
-							<p>Raise funds in Ether or USDT.</p>
+							<p>Raise funds in Ether or USDC.</p>
 						</div>
 					</div>
 				</div>

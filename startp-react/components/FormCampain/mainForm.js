@@ -181,10 +181,10 @@ class MainForm extends React.Component {
                                             <div className="order-details">
                                                 <div className="payment-method">
                                                     <p>
-                                                        <input type="radio" id="usdt" name="radio-group" defaultChecked value="USDT" onChange={(event) => {
+                                                        <input type="radio" id="usdc" name="radio-group" defaultChecked value="USDC" onChange={(event) => {
                                                             this.raisingMethod = event.target.value
                                                         }}/>
-                                                        <label htmlFor="usdt">USDT (Tether)</label>
+                                                        <label htmlFor="usdc">USDC (USD Coin)</label>
                                                     </p>
                                                     <p>
                                                         <input type="radio" id="eth" name="radio-group" value="ETH" onChange={(event) => {
