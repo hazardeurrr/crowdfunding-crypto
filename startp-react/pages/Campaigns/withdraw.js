@@ -84,15 +84,18 @@ const Withdraw = (props) => {
             let minValue = 0
             let maxValue = 0
             for(let nbTier = 0 ; nbTier < campaign.tiers.length ; ++nbTier){
-                let tierLength = campaign.tiers[nbTier].subscribers.length
-                maxValue += tierLength
-                finalString += "Tier " + nbTier + "\n\n"
-                for(let i = minValue ; i < maxValue ; ++i){
-                
-                    finalString += res[i]
+
+                if (campaign.tiers[nbTier].subscribers.length > 0) {
+                    let tierLength = campaign.tiers[nbTier].subscribers.length
+                    maxValue += tierLength
+                    finalString += "Tier" + nbTier + "\n\n"
+                    for(let i = minValue ; i < maxValue ; ++i){
+                    
+                        finalString += res[i]
+                    }
+                    finalString += "\n"
+                    minValue = maxValue
                 }
-                finalString += "\n"
-                minValue = maxValue
             }
 
             
@@ -102,14 +105,19 @@ const Withdraw = (props) => {
             //     finalString += res[i]
             // }
             console.log(finalString)
+
+            let csvContent = "data:text/csv;charset=utf-8," + finalString;
+    
+            var encodedUri = encodeURI(csvContent);
+
+            var link = document.createElement("a");
+            link.setAttribute("href", encodedUri);
+            link.setAttribute("download", "tiers_subscribers.csv");
+            document.body.appendChild(link); // Required for FF
+
+            link.click(); // This will download the data file named "my_data.csv".
+
         })
-
-        // let csvContent = "data:text/csv;charset=utf-8," + result;
-
-        // var encodedUri = encodeURI(csvContent);
-        // window.open(encodedUri);
-
-        // console.log("hola")
     }
   }
 
