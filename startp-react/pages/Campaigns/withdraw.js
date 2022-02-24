@@ -38,6 +38,7 @@ const Withdraw = (props) => {
   const [Tx, setTx] = React.useState("");
   const [totalBalance, setTotalBalance] = React.useState(0)
   const [ctrInstance, setCtrInstance] = React.useState(undefined)
+  const [contentTier, setContentTier] = React.useState("");
 
     const openDialog = () => {
         setDialogOpen(true)
@@ -76,47 +77,63 @@ const Withdraw = (props) => {
         openSnackbar()
     } else {
 
-        const result = getTiers();
+        // const result = getTiers();
 
-        let csvContent = "data:text/csv;charset=utf-8," + result.map(e => e.join(",")).join("\n");
+        getTokens().then(res => {
+            let finalString = ""
+            let minValue = 0
+            let maxValue = 0
+            for(let nbTier = 0 ; nbTier < campaign.tiers.length ; ++nbTier){
+                let tierLength = campaign.tiers[nbTier].subscribers.length
+                maxValue += tierLength
+                finalString += "Tier " + nbTier + "\n\n"
+                for(let i = minValue ; i < maxValue ; ++i){
+                
+                    finalString += res[i]
+                }
+                finalString += "\n"
+                minValue = maxValue
+            }
 
-        var encodedUri = encodeURI(csvContent);
-        window.open(encodedUri);
+            
+            // console.log(res)
+            // for(let i = 0 ; i < res.length ; ++i){
+                
+            //     finalString += res[i]
+            // }
+            console.log(finalString)
+        })
+
+        // let csvContent = "data:text/csv;charset=utf-8," + result;
+
+        // var encodedUri = encodeURI(csvContent);
+        // window.open(encodedUri);
+
+        // console.log("hola")
     }
   }
 
-  const getTiers = () => {
-    var tiers = new Array();
-
-    campaign.tiers.forEach(tier => {
-        var tabTier = new Array();
-
-        for (var sub of tier.subscribers) {
-            var docRef = db.collection("profile").doc(sub);
-
-            docRef.get().then((doc) => {
-                if (doc.exists) {
-                    tabTier.push([doc.data().address, doc.data().email]);
-                } else {
-                    // doc.data() will be undefined in this case
-                    console.log("No such document!");
-                }
-            }).catch((error) => {
-                console.log("Error getting document:", error);
-                setErrorMsg("Error : " + error)
-                openSnackbar()
-            });
-        }
-
-        tiers.push(tabTier);
-
-    });
-
-    console.log(tiers)
-    
-    return tiers;
+  async function getTokens() {
+    const getUser = subscriber => db.collection('profile').doc(subscriber).get();
+    let addressesArr = []
+    for(let i = 0 ; i < campaign.tiers.length ; ++i){
+        addressesArr = addressesArr.concat(campaign.tiers[i].subscribers)
+       // console.log(addressesArr)
+    }
+    const promises = addressesArr.map(getUser);
+    const users = await Promise.all(promises);
+    return users.map(user => user.data().eth_address + "," + nullOrMail(user.data().email) + "\n")
   }
 
+  const nullOrMail = (v) => {
+    if(v == undefined || v == null || v == ""){
+        return "undefined"
+    } else {
+        return v
+    }
+  }
+
+  
 
   const payCreator = async(contractInstance) => {
     contractInstance.methods.payCreator()
