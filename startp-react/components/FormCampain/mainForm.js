@@ -148,13 +148,18 @@ class MainForm extends React.Component {
 
         let context = this
         let amt = this.raisingMethod == "ETH" ? this.props.web3Instance.utils.toWei(this.objective.toString()) : this.objective
+        let amountArray = this.tiersArray.map(a => this.props.web3Instance.utils.toWei(a.threshold))        // ATTENTION CHECK POUR LES ERC20 le nb de décimales
+        let stockArray = this.tiersArray.map(a => a.maxClaimers)
 
         return await this.state.factoryInstance.methods.createCampaign(
         amt, // WEI for ETH, no conversion for the ERC20
         parseInt(this.startDate), 
         parseInt(this.endDate), 
         this.flexible, 
-        parseInt(this.tokenIndex(this.raisingMethod)))
+        parseInt(this.tokenIndex(this.raisingMethod)),
+        amountArray,
+        stockArray
+        )
         .send({from : this.props.userAddr, value: 0})
         .on('transactionHash', function(hash){
             context.openDialog()
@@ -430,10 +435,9 @@ class MainForm extends React.Component {
                                                 if (e.endDate !== null){
                                                     console.log(new Date(e.startDate._d))
                                                     
-                                                    // this.startDate = Math.floor(new Date(e.startDate._d).getTime() / 1000)
-                                                    this.startDate = 1646040900;
-                                                    this.endDate = Math.floor(new Date(e.endDate._d).getTime() / 1000)
-                                                    // this.endDate = 1645711451
+                                                    this.startDate = Math.floor(new Date(e.startDate._d).getTime() / 1000)
+                                                    //this.endDate = Math.floor(new Date(e.endDate._d).getTime() / 1000)
+                                                    this.endDate = 1645711451
                                                 }
                                             }}/>
                                         </div>
