@@ -92,7 +92,7 @@ const TokenDetails = () => {
                                                     $BBST is an ERC-20 token at the heart of the BlockBoosted ecosystem. <br></br>
                                                     Our goal is to make $BBST a cryptocurrency standard in the crowdfunding world.<br></br>
                                                     Holding and using $BBST on our platform provides you several advantages explained above.<br></br>
-                                                    We plan to give more and more power to the $BBST holders over time, with the ultimate goal of making BlockBoosted a fully Decentralized Autonomous Organization handled by the community.
+                                                    We plan to give more and more power to the $BBST holders over time.
                                                 </p>
                                             </AccordionItemPanel>
                                         </AccordionItem>
