@@ -430,9 +430,10 @@ class MainForm extends React.Component {
                                                 if (e.endDate !== null){
                                                     console.log(new Date(e.startDate._d))
                                                     
-                                                    this.startDate = Math.floor(new Date(e.startDate._d).getTime() / 1000)
-                                                    //this.endDate = Math.floor(new Date(e.endDate._d).getTime() / 1000)
-                                                    this.endDate = 1645711451
+                                                    // this.startDate = Math.floor(new Date(e.startDate._d).getTime() / 1000)
+                                                    this.startDate = 1646040900;
+                                                    this.endDate = Math.floor(new Date(e.endDate._d).getTime() / 1000)
+                                                    // this.endDate = 1645711451
                                                 }
                                             }}/>
                                         </div>

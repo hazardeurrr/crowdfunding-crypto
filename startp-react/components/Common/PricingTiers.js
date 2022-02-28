@@ -103,8 +103,8 @@ const PricingTiers = (props) => {
                 }
                 
             });
-        }).then(function (camp) {
-            if(!camp.data().tiers[indexTier].pending.includes(userAddr))
+        }).then(function () {
+            // if(!camp.data().tiers[indexTier].pending.includes(userAddr))
                 console.log("Removed from pending because of failure of tx")  
                 
         }).catch((err) => {
@@ -144,26 +144,18 @@ const PricingTiers = (props) => {
 
         window.addEventListener('beforeunload', (e) => {
             e.preventDefault();
-            
-            removeFromPending(index);
                 
-            window.onbeforeunload = false;
+            // window.onbeforeunload = false;
 
+            
             // return null;
             
         });
-
-        // window.addEventListener('unload', (e) => {
-        //     // e.preventDefault();
-    
-        //     if(campaign.tiers[index].pending.includes(userAddr)) {
-        //         removeFromPending(index);
-        //     }
-            
-        //     // if (performance.navigation.type == performance.navigation.TYPE_RELOAD) {
-        //     //     removeFromPending(index);
-        //     // }
-        // });
+        
+        window.onunload = () => {
+            e.preventDefault();
+            removeFromPending(index);
+        }
 
         var tierCamp = db.collection("campaign").doc(campaign.contract_address);
 
@@ -182,15 +174,16 @@ const PricingTiers = (props) => {
                     throw "Plan not available anymore"
                 } else {
                     // checker si maxClaimers == -1 <=> unlimited
-                    console.log("entering in the case where its availbale")
                     if ((camp.data().tiers[index].maxClaimers == -1 && !camp.data().tiers[index].pending.includes(userAddr)) || (total < camp.data().tiers[index].maxClaimers && !camp.data().tiers[index].pending.includes(userAddr))) {
+                        console.log("entering in the case where its availbale")
                         var newTiers = camp.data().tiers
                         newTiers[index].pending.push(userAddr)
                         transaction.update(tierCamp, { tiers: newTiers });
                         return newTiers;
                     } else {
-                        setErrorMsg("You already are in a transaction")
-                        openSnackbar()
+                        alert("There has been a problem : You already have a metamask transaction pending for this plan. Check your metamask pop up and cancel it to be sure to subscribe to the plan.")
+                        // setErrorMsg("You already are in a transaction")
+                        // openSnackbar()
                         return Promise.reject("You already are in a transaction !");
                     }
                 }
@@ -245,6 +238,8 @@ const PricingTiers = (props) => {
                 } else {
                     //alert("Thanks for helping the campaign !")
                 }
+            }).catch(() => {
+                console.log("error in the transac")
             })
     }
 
