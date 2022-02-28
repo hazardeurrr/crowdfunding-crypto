@@ -148,9 +148,13 @@ class MainForm extends React.Component {
 
         let context = this
         let amt = this.raisingMethod == "ETH" ? this.props.web3Instance.utils.toWei(this.objective.toString()) : this.objective
-        let amountArray = this.tiersArray.map(a => this.props.web3Instance.utils.toWei(a.threshold))        // ATTENTION CHECK POUR LES ERC20 le nb de décimales
-        let stockArray = this.tiersArray.map(a => a.maxClaimers)
-
+        let tierAmountArray = this.tiersArray.map(a => this.props.web3Instance.utils.toWei(a.threshold))        // ATTENTION CHECK POUR LES ERC20 le nb de décimales
+        let tierStockArray = this.tiersArray.map(a => a.maxClaimers)
+        let am0 = [0]
+        let st0 = [-1]
+        let amountArray = am0.concat(tierAmountArray)
+        let stockArray = st0.concat(tierStockArray)
+        // [0, tiersArray[0].threshold, tiersArray[1].threshold]
         return await this.state.factoryInstance.methods.createCampaign(
         amt, // WEI for ETH, no conversion for the ERC20
         parseInt(this.startDate), 
