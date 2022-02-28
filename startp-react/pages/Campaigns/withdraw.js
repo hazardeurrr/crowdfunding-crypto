@@ -38,7 +38,7 @@ const Withdraw = (props) => {
   const [Tx, setTx] = React.useState("");
   const [totalBalance, setTotalBalance] = React.useState(0)
   const [ctrInstance, setCtrInstance] = React.useState(undefined)
-  const [contentTier, setContentTier] = React.useState("");
+  const [subscribers, setSubscribers] = React.useState(undefined)
 
     const openDialog = () => {
         setDialogOpen(true)
@@ -80,31 +80,16 @@ const Withdraw = (props) => {
         // const result = getTiers();
 
         getTokens().then(res => {
-            let finalString = ""
-            let minValue = 0
-            let maxValue = 0
-            for(let nbTier = 0 ; nbTier < campaign.tiers.length ; ++nbTier){
-
-                if (campaign.tiers[nbTier].subscribers.length > 0) {
-                    let tierLength = campaign.tiers[nbTier].subscribers.length
-                    maxValue += tierLength
-                    finalString += "Tier " + (nbTier+1) + " : " + campaign.tiers[nbTier].title + "\n"
-                    for(let i = minValue ; i < maxValue ; ++i){
-                    
-                        finalString += res[i]
-                    }
-                    finalString += "\n"
-                    minValue = maxValue
-                }
-            }
+            
+            let finalString = "Address,Email,Participation\n"
 
             
             // console.log(res)
-            // for(let i = 0 ; i < res.length ; ++i){
+            for(let i = 0 ; i < res.length ; ++i){
                 
-            //     finalString += res[i]
-            // }
-            console.log(finalString)
+                finalString += res[i]
+            }
+            // console.log(finalString)
 
             let csvContent = "data:text/csv;charset=utf-8," + finalString;
     
@@ -112,25 +97,37 @@ const Withdraw = (props) => {
 
             var link = document.createElement("a");
             link.setAttribute("href", encodedUri);
-            link.setAttribute("download", "tiers_subscribers.csv");
+            link.setAttribute("download", campaign.title+"_subscribers.csv");
             document.body.appendChild(link); // Required for FF
 
-            link.click(); // This will download the data file named "my_data.csv".
+            link.click(); // This will download the data file named "tiers_subscribers.csv".
 
         })
     }
   }
 
   async function getTokens() {
+
     const getUser = subscriber => db.collection('profile').doc(subscriber).get();
     let addressesArr = []
-    for(let i = 0 ; i < campaign.tiers.length ; ++i){
-        addressesArr = addressesArr.concat(campaign.tiers[i].subscribers)
-       // console.log(addressesArr)
+    
+    let copySubs = [...subscribers];
+
+    let subSorted = copySubs.sort((a,b) => a[1].localeCompare(b[1]));
+
+    for(let i = 0 ; i < subSorted.length; ++i){
+        addressesArr = addressesArr.concat(subSorted[i][0].toLowerCase())
     }
+
+    console.log(addressesArr);
     const promises = addressesArr.map(getUser);
     const users = await Promise.all(promises);
-    return users.map(user => user.data().eth_address + "," + nullOrMail(user.data().email) + "\n")
+    return users.map((user, index) => user.data().eth_address + "," + nullOrMail(user.data().email) + "," + showTierExcel(subSorted[index][1]) + "\n")
+  }
+
+  const showTierExcel = (index) => {
+    if (index == 0) return "Free donation"
+    else return "Tier " + index + " : " + campaign.tiers[index-1].title
   }
 
   const nullOrMail = (v) => {
@@ -215,6 +212,7 @@ const Withdraw = (props) => {
             const campCtrInstance = new web3Instance.eth.Contract(campaignAbi.campaignAbi, campaign.contract_address)
             setCtrInstance(campCtrInstance)
             campCtrInstance.methods.totalBalance.call().call().then(res => {setTotalBalance(res)})
+            campCtrInstance.methods.getSubs().call().then(res => { setSubscribers(res) })
       }
     }
   }, [web3Instance])

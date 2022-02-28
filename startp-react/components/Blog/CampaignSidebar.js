@@ -10,6 +10,8 @@ import CardContent from '@material-ui/core/CardContent';
 import CardMedia from '@material-ui/core/CardMedia';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
+import { useSelector, useDispatch } from 'react-redux';
+import campaignAbi from '@/components/ContractRelated/CampaignAbi';
 
 
 const useStyles = makeStyles({
@@ -38,6 +40,27 @@ const useStyles = makeStyles({
   
 
 const CampaignSidebar = (props) => {
+
+    const web3Instance = useSelector((state) => state.web3Instance)
+    const connected = useSelector((state) => state.metamask_connected)
+    const chainID = useSelector((state) => state.chainID)
+    const [subsLength, setSubsLength] = React.useState(undefined);
+
+    React.useEffect(() => {
+        getSubsLength();
+    }, [web3Instance])
+    
+    const getSubsLength = async() => {
+        if(web3Instance != undefined){
+            const campCtrInstance = new web3Instance.eth.Contract(campaignAbi.campaignAbi, campaign.contract_address)
+            campCtrInstance.methods.getStock().call().then(res => {
+                // console.log(res)
+                setSubsLength(res);
+            })
+        }
+        
+    }
+
     const campaign = props.project
     const classes = useStyles();
 
@@ -151,10 +174,10 @@ const CampaignSidebar = (props) => {
         }
     }
 
-    const showQtyLeft = (tier) => {
+    const showQtyLeft = (tier, index) => {
         if(tier.maxClaimers != -1){
-            let total = tier.maxClaimers - (tier.pending.length + tier.subscribers.length)
-            let x = total >= 0 ? total : 0
+            
+            let x = subsLength == undefined ? "X" : subsLength[index+1]
             return <Typography className={classes.qty} align='right'>
             {x} left
             </Typography>
@@ -192,14 +215,14 @@ const CampaignSidebar = (props) => {
                             </GridListTile>
 
 
-                            {campaign.tiers.map((tile) => (
+                            {campaign.tiers.map((tile, index) => (
                                 <GridListTile key={tile.threshold+tile.title} cols={1}>
 
                                 <div className="single-works">
                                     <Card className={classes.root} variant="outlined">
                                             <CardContent>
                                                 <Typography className={classes.title} color="textSecondary" gutterBottom>
-                                                {tile.threshold} {campaign.currency}
+                                                {parseFloat(tile.threshold)} {campaign.currency}
                                                 </Typography>
                                                 <Typography variant="h5" component="h2" gutterBottom>
                                                     {tile.title}
@@ -210,7 +233,7 @@ const CampaignSidebar = (props) => {
                                                 <Typography variant="body2" component="p">
                                                 {tile.description}
                                                 </Typography>
-                                                {showQtyLeft(tile)}
+                                                {showQtyLeft(tile, index)}
                                             </CardContent>
                                             {/* <CardActions>
                                                  <Button size="small">Learn More</Button>

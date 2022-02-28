@@ -148,7 +148,7 @@ class MainForm extends React.Component {
 
         let context = this
         let amt = this.raisingMethod == "ETH" ? this.props.web3Instance.utils.toWei(this.objective.toString()) : this.objective
-        let tierAmountArray = this.tiersArray.map(a => this.props.web3Instance.utils.toWei(a.threshold))        // ATTENTION CHECK POUR LES ERC20 le nb de décimales
+        let tierAmountArray = this.tiersArray.map(a => this.props.web3Instance.utils.toWei(a.threshold.toString()))        // ATTENTION CHECK POUR LES ERC20 le nb de décimales
         let tierStockArray = this.tiersArray.map(a => a.maxClaimers)
         let am0 = [0]
         let st0 = [-1]
@@ -432,7 +432,7 @@ class MainForm extends React.Component {
                                     <p>Size : max 800kb / Format : JPG, PNG or GIF / Resolution : 16:9 (ex: 1920x1080, 1280x720, 1024x576)</p>
                                     <ProfilePic onImageChange={this.handleChangeImage.bind(this)} ratio="ratio" resolutionWidth={1920} resolutionHeight={1080} />
                                     <br></br>
-                                    <p><strong> Fudraising Duration </strong><br/> Projects with shorter durations have higher success rates. You won’t be able to adjust your duration after you launch.</p>
+                                    <p><strong> Fundraising Duration </strong><br/> Projects with shorter durations have higher success rates. You won’t be able to adjust your duration after you launch.</p>
                                     <div className="col-lg-12 col-md-12">
                                         <div className="form-group">
                                             <DatePicker onChange={e => {
@@ -440,8 +440,8 @@ class MainForm extends React.Component {
                                                     console.log(new Date(e.startDate._d))
                                                     
                                                     this.startDate = Math.floor(new Date(e.startDate._d).getTime() / 1000)
-                                                    //this.endDate = Math.floor(new Date(e.endDate._d).getTime() / 1000)
-                                                    this.endDate = 1645711451
+                                                    // this.endDate = Math.floor(new Date(e.endDate._d).getTime() / 1000)
+                                                    this.endDate = 1646063205
                                                 }
                                             }}/>
                                         </div>

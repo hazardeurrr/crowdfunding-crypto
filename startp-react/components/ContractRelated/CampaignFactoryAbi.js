@@ -69,6 +69,16 @@ const campaignFactoryAbi = [
 				"internalType": "uint256",
 				"name": "tokenChoice",
 				"type": "uint256"
+			},
+			{
+				"internalType": "uint256[]",
+				"name": "amounts_",
+				"type": "uint256[]"
+			},
+			{
+				"internalType": "int256[]",
+				"name": "stock_",
+				"type": "int256[]"
 			}
 		],
 		"name": "createCampaign",

@@ -210,6 +210,16 @@ const campaignAbi = [
 				"internalType": "address",
 				"name": "token_",
 				"type": "address"
+			},
+			{
+				"internalType": "uint256[]",
+				"name": "amounts_",
+				"type": "uint256[]"
+			},
+			{
+				"internalType": "int256[]",
+				"name": "stock_",
+				"type": "int256[]"
 			}
 		],
 		"name": "initialize",
@@ -237,7 +247,13 @@ const campaignAbi = [
 		"type": "function"
 	},
 	{
-		"inputs": [],
+		"inputs": [
+			{
+				"internalType": "uint256",
+				"name": "indexTier",
+				"type": "uint256"
+			}
+		],
 		"name": "participateInETH",
 		"outputs": [
 			{
@@ -277,6 +293,25 @@ const campaignAbi = [
 		"inputs": [],
 		"stateMutability": "nonpayable",
 		"type": "constructor"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "uint256",
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"name": "amounts",
+		"outputs": [
+			{
+				"internalType": "uint256",
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
 	},
 	{
 		"inputs": [],
@@ -344,6 +379,44 @@ const campaignAbi = [
 				"internalType": "uint256",
 				"name": "",
 				"type": "uint256"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [],
+		"name": "getStock",
+		"outputs": [
+			{
+				"internalType": "int256[]",
+				"name": "",
+				"type": "int256[]"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [],
+		"name": "getSubs",
+		"outputs": [
+			{
+				"components": [
+					{
+						"internalType": "address",
+						"name": "addr",
+						"type": "address"
+					},
+					{
+						"internalType": "uint256",
+						"name": "tier",
+						"type": "uint256"
+					}
+				],
+				"internalType": "struct Campaign.Subscriber[]",
+				"name": "",
+				"type": "tuple[]"
 			}
 		],
 		"stateMutability": "view",
@@ -428,6 +501,49 @@ const campaignAbi = [
 		"type": "function"
 	},
 	{
+		"inputs": [
+			{
+				"internalType": "uint256",
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"name": "stock",
+		"outputs": [
+			{
+				"internalType": "int256",
+				"name": "",
+				"type": "int256"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "uint256",
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"name": "subscribers",
+		"outputs": [
+			{
+				"internalType": "address",
+				"name": "addr",
+				"type": "address"
+			},
+			{
+				"internalType": "uint256",
+				"name": "tier",
+				"type": "uint256"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
 		"inputs": [],
 		"name": "totalBalance",
 		"outputs": [
@@ -441,7 +557,6 @@ const campaignAbi = [
 		"type": "function"
 	}
 ]
-
 module.exports = {
   campaignAbi
 }

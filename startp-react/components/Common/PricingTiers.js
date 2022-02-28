@@ -47,6 +47,7 @@ const PricingTiers = (props) => {
     const [snackbarOpen, setSnackbarOpen] = React.useState(false);
     const [creationState, setCreationState] = React.useState(0);
     const [Tx, setTx] = React.useState("");
+    const [subsLength, setSubsLength] = React.useState("");
 
 
     const handleDialogOpen = () => {
@@ -58,7 +59,7 @@ const PricingTiers = (props) => {
     };
 
     React.useEffect(() => {
-
+        getSubsLength();
     }, [web3Instance])
 
     const openDialog = () => {
@@ -78,137 +79,25 @@ const PricingTiers = (props) => {
         setSnackbarOpen(false)
     }
 
-    const removeFromPending = (indexTier) => {
+ 
+    const monitortransacDB = async(index) => {
 
-        var tierCamp = db.collection("campaign").doc(campaign.contract_address);
-
-        db.runTransaction((transaction) => {
-            return transaction.get(tierCamp).then((camp) => {
-                if (!camp.exists) {
-                    throw "Document does not exist!";
-                }
-
-                if(camp.data().tiers[indexTier].pending.includes(userAddr)) {
-
-                    var newTiers = camp.data().tiers
-                    var filtered = newTiers[indexTier].pending.filter(function(value){
-                        return value != userAddr;
-                    })
-
-                    newTiers[indexTier].pending = filtered;
-
-                    transaction.update(tierCamp, { tiers: newTiers });
-                } else {
-                    throw "Address not found in pending"
-                }
-                
-            });
-        }).then(function () {
-            // if(!camp.data().tiers[indexTier].pending.includes(userAddr))
-                console.log("Removed from pending because of failure of tx")  
-                
-        }).catch((err) => {
-            console.error(err);
-        });
-    }
-
-    const removePendAddSubs = (indexTier) => {
-        var tierCamp = db.collection("campaign").doc(campaign.contract_address);
-
-        db.runTransaction((transaction) => {
-            return transaction.get(tierCamp).then((camp) => {
-                if (!camp.exists) {
-                    throw "Document does not exist!";
-                }
-
-                var newTiers = camp.data().tiers
-                var filtered = newTiers[indexTier].pending.filter(function(value){
-                    return value != userAddr;
-                })
-
-                newTiers[indexTier].pending = filtered;
-                newTiers[indexTier].subscribers.push(userAddr);
-
-                transaction.update(tierCamp, { tiers: newTiers });
-
-            });
-        }).then(function() {
-            console.log("Removed from pending and added to subsribers")   
-                
-        }).catch((err) => {
-            console.error(err);
-        });
-    }
-
-    const monitortransacDB = (index) => {
-
-        window.addEventListener('beforeunload', (e) => {
-            e.preventDefault();
-                
-            // window.onbeforeunload = false;
-
-            
-            // return null;
-            
-        });
-        
-        window.onunload = () => {
-            e.preventDefault();
-            removeFromPending(index);
-        }
-
-        var tierCamp = db.collection("campaign").doc(campaign.contract_address);
-
-        db.runTransaction((transaction) => {
-            return transaction.get(tierCamp).then((camp) => {
-                if (!camp.exists) {
-                    throw "Document does not exist!";
-                }
-
-                var total = camp.data().tiers[index].pending.length + camp.data().tiers[index].subscribers.length
-
-                if (camp.data().tiers[index].maxClaimers != -1 && ((camp.data().tiers[index].maxClaimers === camp.data().tiers[index].subscribers.length) || (total >= camp.data().tiers[index].maxClaimers))) {
-                    setErrorMsg("Sorry, this plan is not available anymore !")
-                    openSnackbar()
-                    //alert("Sorry, this plan is not available anymore !")
-                    throw "Plan not available anymore"
-                } else {
-                    // checker si maxClaimers == -1 <=> unlimited
-                    if ((camp.data().tiers[index].maxClaimers == -1 && !camp.data().tiers[index].pending.includes(userAddr)) || (total < camp.data().tiers[index].maxClaimers && !camp.data().tiers[index].pending.includes(userAddr))) {
-                        console.log("entering in the case where its availbale")
-                        var newTiers = camp.data().tiers
-                        newTiers[index].pending.push(userAddr)
-                        transaction.update(tierCamp, { tiers: newTiers });
-                        return newTiers;
-                    } else {
-                        alert("There has been a problem : You already have a metamask transaction pending for this plan. Check your metamask pop up and cancel it to be sure to subscribe to the plan.")
-                        // setErrorMsg("You already are in a transaction")
-                        // openSnackbar()
-                        return Promise.reject("You already are in a transaction !");
-                    }
-                }
-            });
-        }).then(async function() {
+       
             // TX Metamask
             // onSuccess => retire du [] pending et on le met dans [] subscribers
             // onFailure => retire du [] pending
                 
             const campCtrInstance = new web3Instance.eth.Contract(campaignAbi.campaignAbi, campaign.contract_address)
                 if(campaign.currency == "ETH")
-                    await participateInETH(campCtrInstance, campaign.tiers[index].threshold, index)
+                    await participateInETH(false, campCtrInstance, campaign.tiers[index].threshold, index)
                 else
-                    await participateInERC20(campCtrInstance, campaign.tiers[index].threshold, index)
-               
-                
-            })
-        .catch((err) => {
-            console.error(err);
-        });
+                    await participateInERC20(false, campCtrInstance, campaign.tiers[index].threshold, index)
     }
 
 
-    async function participateInETH(contractInstance, v, indexTier) {
-       contractInstance.methods.participateInETH()
+    async function participateInETH(isFreeDonation, contractInstance, v, indexTier) {
+       let ind = isFreeDonation ? 0 : indexTier + 1
+       contractInstance.methods.participateInETH(ind)
             .send({from : userAddr, value: web3Instance.utils.toWei(v)})
             .on('transactionHash', function(hash){
                 openDialog()
@@ -223,28 +112,19 @@ const PricingTiers = (props) => {
             .on("error", function(error) {
                 setErrorMsg(error.code + " : " + error.message)
                 openSnackbar()
-                if (indexTier !== undefined) {
-                    removeFromPending(indexTier);
-                    console.log(error);
-                } else {
-                    console.log(error)
-                }
-
+                
             })
             .then(() => {
                 setCreationState(1)
-                if(indexTier !== undefined) {
-                    removePendAddSubs(indexTier);
-                } else {
-                    //alert("Thanks for helping the campaign !")
-                }
+                
             }).catch(() => {
                 console.log("error in the transac")
             })
     }
 
-    async function participateInERC20(contractInstance, v, indexTier){
-        contractInstance.methods.participateInERC20(v)
+    async function participateInERC20(isFreeDonation, contractInstance, v, indexTier){
+        let ind = isFreeDonation ? 0 : indexTier + 1;
+        contractInstance.methods.participateInERC20(ind, v)
             .send({from : userAddr, value: 0})
             .on('transactionHash', function(hash){
                 openDialog()
@@ -259,7 +139,6 @@ const PricingTiers = (props) => {
                 setErrorMsg(error.code + " : " + error.message)
                 openSnackbar()
                 if (indexTier !== undefined) {
-                    removeFromPending(indexTier);
                     console.log(error);
                 } else {
                     console.log(error)
@@ -281,7 +160,9 @@ const PricingTiers = (props) => {
             // console.log("content tier : " + JSON.stringify(tier))
             console.log("plan selected of " + tier.threshold);
 
-            monitortransacDB(index);
+            var ind = parseInt(index)
+
+            monitortransacDB(ind);
 
             // add to Followed projects
         } else {
@@ -302,10 +183,21 @@ const PricingTiers = (props) => {
         if(amount > 0){
             const campCtrInstance = new web3Instance.eth.Contract(campaignAbi.campaignAbi, campaign.contract_address)
                 if(campaign.currency == "ETH")
-                    await participateInETH(campCtrInstance, amount, undefined)
+                    await participateInETH(true, campCtrInstance, amount, 0)
                 else
-                    await participateInERC20(campCtrInstance, amount, undefined)
+                    await participateInERC20(true, campCtrInstance, amount, 0)
         }
+    }
+
+    const getSubsLength = async() => {
+        if(web3Instance != undefined){
+            const campCtrInstance = new web3Instance.eth.Contract(campaignAbi.campaignAbi, campaign.contract_address)
+            campCtrInstance.methods.getStock().call().then(res => {
+                // console.log(res)
+                setSubsLength(res);
+            })
+        }
+        
     }
 
     const displayTiers = () => {
@@ -313,9 +205,11 @@ const PricingTiers = (props) => {
         var rows = [];
         for (var i = 0; i < campaign.tiers.length; i++) {
             var tier = campaign.tiers[i];
-            var disable = tier.maxClaimers === tier.subscribers.length ? "disabled" : "";
-            var text = tier.maxClaimers === tier.subscribers.length ? "Out of stock" : "Select Plan";
-            var classe = tier.maxClaimers === tier.subscribers.length ? "btn btn-primary-disabled" : "btn btn-primary"; 
+            // var subsLength = subsLength;
+            var disable = parseInt(subsLength[i+1]) === 0 ? "disabled" : "";
+            var text = parseInt(subsLength[i+1]) === 0 ? "Out of stock" : "Select Plan";
+            var classe = parseInt(subsLength[i+1]) === 0 ? "btn btn-primary-disabled" : "btn btn-primary"; 
+            // console.log(subsLength)
             rows.push( 
                 <div key={i} className="col-lg-4 col-md-6">
                         <div className="pricing-table active-plan">
