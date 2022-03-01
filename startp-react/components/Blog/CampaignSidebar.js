@@ -86,7 +86,7 @@ const CampaignSidebar = (props) => {
         </div>
 
         } else {
-            if(tier.maxClaimers != -1 && tier.pending.length + tier.subscribers.length >= tier.maxClaimers){
+            if(tier.maxClaimers != -1 && tier.pending.length + tier.subscribers.length >= tier.maxClaimers){    // CHANGER CA
                 return <div className="works-content">
             <h3>
                 Sorry, this plan is no longer available <Icon.Meh />

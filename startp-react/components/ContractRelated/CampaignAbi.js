@@ -162,19 +162,6 @@ const campaignAbi = [
 		"type": "event"
 	},
 	{
-		"inputs": [],
-		"name": "approveCrowdfunding",
-		"outputs": [
-			{
-				"internalType": "bool",
-				"name": "",
-				"type": "bool"
-			}
-		],
-		"stateMutability": "nonpayable",
-		"type": "function"
-	},
-	{
 		"inputs": [
 			{
 				"internalType": "address payable",
@@ -229,6 +216,11 @@ const campaignAbi = [
 	},
 	{
 		"inputs": [
+			{
+				"internalType": "uint256",
+				"name": "indexTier",
+				"type": "uint256"
+			},
 			{
 				"internalType": "uint256",
 				"name": "amount",
@@ -557,6 +549,7 @@ const campaignAbi = [
 		"type": "function"
 	}
 ]
+
 module.exports = {
   campaignAbi
 }
