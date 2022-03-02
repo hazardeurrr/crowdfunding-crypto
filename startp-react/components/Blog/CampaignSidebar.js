@@ -12,6 +12,7 @@ import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import { useSelector, useDispatch } from 'react-redux';
 import campaignAbi from '@/components/ContractRelated/CampaignAbi';
+import {chain} from '@/utils/chain'
 
 
 const useStyles = makeStyles({
@@ -42,7 +43,7 @@ const useStyles = makeStyles({
 const CampaignSidebar = (props) => {
 
     const web3Instance = useSelector((state) => state.web3Instance)
-    const connected = useSelector((state) => state.metamask_connected)
+    const metamask_connected = useSelector((state) => state.metamask_connected)
     const chainID = useSelector((state) => state.chainID)
     const [subsLength, setSubsLength] = React.useState(undefined);
 
@@ -51,7 +52,7 @@ const CampaignSidebar = (props) => {
     }, [web3Instance])
     
     const getSubsLength = async() => {
-        if(web3Instance != undefined){
+        if(web3Instance != undefined && metamask_connected && chainID == chain){
             const campCtrInstance = new web3Instance.eth.Contract(campaignAbi.campaignAbi, campaign.contract_address)
             campCtrInstance.methods.getStock().call().then(res => {
                 // console.log(res)
@@ -70,7 +71,7 @@ const CampaignSidebar = (props) => {
         }
     }
 
-    const BackText = (tier) => {
+    const BackText = (tier, index) => {
         var now = Date.now() / 1000
         if(now < campaign.start_date){
             return <div className="works-content">
@@ -86,42 +87,51 @@ const CampaignSidebar = (props) => {
         </div>
 
         } else {
-            if(tier.maxClaimers != -1 && tier.pending.length + tier.subscribers.length >= tier.maxClaimers){    // CHANGER CA
+            let x = subsLength == undefined ? -1 : subsLength[index+1]
+            if(tier.maxClaimers != -1 && x == 0){    
                 return <div className="works-content">
             <h3>
                 Sorry, this plan is no longer available <Icon.Meh />
             </h3>
             </div>
             } else {
-                return <div>
-                <Link href={{
-                pathname: "/Checkout/[id]",
-                query: {
-                    id: campaign.contract_address,
-                }
-            }}
-            as={`/Checkout/${campaign.contract_address}`}>
-            
-                <a className="icon">
-                    <Icon.ArrowRight />
-                </a>
-            </Link>
-
-            <div className="works-content">
-                <h3>
-                    <Link href={{
-                        pathname: "/Checkout/[id]",
-                        query: {
-                            id: campaign.contract_address,
-                        }
-                    }}
-                    as={`/Checkout/${campaign.contract_address}`}>
-                            <a>Back this campaign !</a>
-                    </Link>
-                </h3>
-                <p>Support the campaign with your contribution!</p>
+                if(!metamask_connected || chainID != chain){
+                    return <div className="works-content">
+            <h3>
+                Please connect to participate <Icon.AlertOctagon />
+            </h3>
             </div>
-        </div>
+                } else {
+                    return <div>
+                    <Link href={{
+                    pathname: "/Checkout/[id]",
+                    query: {
+                        id: campaign.contract_address,
+                    }
+                }}
+                as={`/Checkout/${campaign.contract_address}`}>
+                
+                    <a className="icon">
+                        <Icon.ArrowRight />
+                    </a>
+                </Link>
+    
+                <div className="works-content">
+                    <h3>
+                        <Link href={{
+                            pathname: "/Checkout/[id]",
+                            query: {
+                                id: campaign.contract_address,
+                            }
+                        }}
+                        as={`/Checkout/${campaign.contract_address}`}>
+                                <a>Back this campaign !</a>
+                        </Link>
+                    </h3>
+                    <p>Support the campaign with your contribution!</p>
+                </div>
+            </div>
+                }
             }
         }
     }
@@ -142,6 +152,13 @@ const CampaignSidebar = (props) => {
         </div>
         }
          else {
+            if(!metamask_connected || chainID != chain){
+                return <div className="works-content">
+            <h3>
+                Please connect to participate <Icon.AlertOctagon />
+            </h3>
+            </div>
+            } else
             return <div>
                 <Link href={{
                 pathname: "/Checkout/[id]",
@@ -216,7 +233,7 @@ const CampaignSidebar = (props) => {
 
 
                             {campaign.tiers.map((tile, index) => (
-                                <GridListTile key={tile.threshold+tile.title} cols={1}>
+                                <GridListTile key={index} cols={1}>
 
                                 <div className="single-works">
                                     <Card className={classes.root} variant="outlined">
@@ -240,7 +257,7 @@ const CampaignSidebar = (props) => {
                                             </CardActions> */}
                                         </Card>
 
-                                        {BackText(tile)}
+                                        {BackText(tile, index)}
                                 </div>
                                     
                                     
