@@ -14,7 +14,7 @@ import campaignAbi from '@/components/ContractRelated/CampaignAbi';
 import {usdcAddr} from '@/components/ContractRelated/USDCAddr';
 import {erc20PaymentAddr} from '@/components/ContractRelated/ERC20PaymentAddr';
 import {erc20PaymentAbi} from '@/components/ContractRelated/ERC20PaymentABI';
-
+import { erc20standardAbi } from '../ContractRelated/ERC20standardABI';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import Snackbar from '@material-ui/core/Snackbar';
 import MuiAlert from "@material-ui/lab/Alert";
@@ -22,7 +22,7 @@ import { Icon } from '@material-ui/core';
 import * as IconFeather from 'react-feather';
 import Link from 'next/link';
 import { BN } from 'bn.js';
-
+import { toBaseUnit } from '@/utils/bnConverter';
 const Web3 = require('web3');
 
 // async function selectPlan(amount){
@@ -130,243 +130,18 @@ const PricingTiers = (props) => {
 
 
     async function checkAllowed(contractInstance){
-       return contractInstance.methods.allowance(userAddr, erc20PaymentAddr).call()
+       return await contractInstance.methods.allowance(userAddr, erc20PaymentAddr).call()
       
     }
-
-
 
     async function participateInERC20(isFreeDonation, contractInstance, v, indexTier){
 
         let erc20Ctr = undefined
-        
-        const abi = [
-            {
-                "constant": true,
-                "inputs": [],
-                "name": "name",
-                "outputs": [
-                    {
-                        "name": "",
-                        "type": "string"
-                    }
-                ],
-                "payable": false,
-                "stateMutability": "view",
-                "type": "function"
-            },
-            {
-                "constant": false,
-                "inputs": [
-                    {
-                        "name": "_spender",
-                        "type": "address"
-                    },
-                    {
-                        "name": "_value",
-                        "type": "uint256"
-                    }
-                ],
-                "name": "approve",
-                "outputs": [
-                    {
-                        "name": "",
-                        "type": "bool"
-                    }
-                ],
-                "payable": false,
-                "stateMutability": "nonpayable",
-                "type": "function"
-            },
-            {
-                "constant": true,
-                "inputs": [],
-                "name": "totalSupply",
-                "outputs": [
-                    {
-                        "name": "",
-                        "type": "uint256"
-                    }
-                ],
-                "payable": false,
-                "stateMutability": "view",
-                "type": "function"
-            },
-            {
-                "constant": false,
-                "inputs": [
-                    {
-                        "name": "_from",
-                        "type": "address"
-                    },
-                    {
-                        "name": "_to",
-                        "type": "address"
-                    },
-                    {
-                        "name": "_value",
-                        "type": "uint256"
-                    }
-                ],
-                "name": "transferFrom",
-                "outputs": [
-                    {
-                        "name": "",
-                        "type": "bool"
-                    }
-                ],
-                "payable": false,
-                "stateMutability": "nonpayable",
-                "type": "function"
-            },
-            {
-                "constant": true,
-                "inputs": [],
-                "name": "decimals",
-                "outputs": [
-                    {
-                        "name": "",
-                        "type": "uint8"
-                    }
-                ],
-                "payable": false,
-                "stateMutability": "view",
-                "type": "function"
-            },
-            {
-                "constant": true,
-                "inputs": [
-                    {
-                        "name": "_owner",
-                        "type": "address"
-                    }
-                ],
-                "name": "balanceOf",
-                "outputs": [
-                    {
-                        "name": "balance",
-                        "type": "uint256"
-                    }
-                ],
-                "payable": false,
-                "stateMutability": "view",
-                "type": "function"
-            },
-            {
-                "constant": true,
-                "inputs": [],
-                "name": "symbol",
-                "outputs": [
-                    {
-                        "name": "",
-                        "type": "string"
-                    }
-                ],
-                "payable": false,
-                "stateMutability": "view",
-                "type": "function"
-            },
-            {
-                "constant": false,
-                "inputs": [
-                    {
-                        "name": "_to",
-                        "type": "address"
-                    },
-                    {
-                        "name": "_value",
-                        "type": "uint256"
-                    }
-                ],
-                "name": "transfer",
-                "outputs": [
-                    {
-                        "name": "",
-                        "type": "bool"
-                    }
-                ],
-                "payable": false,
-                "stateMutability": "nonpayable",
-                "type": "function"
-            },
-            {
-                "constant": true,
-                "inputs": [
-                    {
-                        "name": "_owner",
-                        "type": "address"
-                    },
-                    {
-                        "name": "_spender",
-                        "type": "address"
-                    }
-                ],
-                "name": "allowance",
-                "outputs": [
-                    {
-                        "name": "",
-                        "type": "uint256"
-                    }
-                ],
-                "payable": false,
-                "stateMutability": "view",
-                "type": "function"
-            },
-            {
-                "payable": true,
-                "stateMutability": "payable",
-                "type": "fallback"
-            },
-            {
-                "anonymous": false,
-                "inputs": [
-                    {
-                        "indexed": true,
-                        "name": "owner",
-                        "type": "address"
-                    },
-                    {
-                        "indexed": true,
-                        "name": "spender",
-                        "type": "address"
-                    },
-                    {
-                        "indexed": false,
-                        "name": "value",
-                        "type": "uint256"
-                    }
-                ],
-                "name": "Approval",
-                "type": "event"
-            },
-            {
-                "anonymous": false,
-                "inputs": [
-                    {
-                        "indexed": true,
-                        "name": "from",
-                        "type": "address"
-                    },
-                    {
-                        "indexed": true,
-                        "name": "to",
-                        "type": "address"
-                    },
-                    {
-                        "indexed": false,
-                        "name": "value",
-                        "type": "uint256"
-                    }
-                ],
-                "name": "Transfer",
-                "type": "event"
-            }
-        ]
 
         const max = new BN("115792089237316195423570985008687907853269984665640564039457584007913129639935");
 
         if(campaign.currency == "USDC"){
-            erc20Ctr = new web3Instance.eth.Contract(abi, usdcAddr)
+            erc20Ctr = new web3Instance.eth.Contract(erc20standardAbi, usdcAddr)
         }
         else if(campaign.currency == "BBST"){
 
@@ -375,12 +150,13 @@ const PricingTiers = (props) => {
         if(erc20Ctr != undefined){
             erc20Ctr.methods.decimals().call().then((decimals) => {
 
-                const amt = v * 10**decimals
+                const amt = toBaseUnit(v, decimals, web3Instance.utils.BN)     
     
                 checkAllowed(erc20Ctr).then(res => {
+                    let bnres = new BN(res.toString())
                     console.log(res)
                     console.log(amt)
-                    if(res >= amt){
+                    if(bnres.gte(amt)){
                         console.log("allowance OK")
                         payInERC(isFreeDonation, contractInstance, amt, indexTier)
                     } else {
@@ -402,37 +178,40 @@ const PricingTiers = (props) => {
        
             let ind = isFreeDonation ? 0 : indexTier + 1;
 
-            let erc20Inst = await new web3Instance.eth.Contract(erc20PaymentAbi, erc20PaymentAddr)
+            // let erc20Inst = await new web3Instance.eth.Contract(erc20PaymentAbi, erc20PaymentAddr)
 
-            erc20Inst.methods.payInERC20Bis(v, userAddr, campaign.contract_address, usdcAddr).send({from : userAddr, value: 0})
-            .on("error", function(error) {
-                setErrorMsg(error.code + " : " + error.message)
-                openSnackbar()    
-            })
-            .then(res => console.log(res))
+            // erc20Inst.methods.payInERC20Bis(v, userAddr, campaign.contract_address, usdcAddr).send({from : userAddr, value: 0})
+            // .on("error", function(error) {
+            //     setErrorMsg(error.code + " : " + error.message)
+            //     openSnackbar()    
+            // })
+            // .then(res => console.log(res))
+
+            console.log(ind)
+            console.log(v)
 
 
-            // contractInstance.methods.participateInERC20(ind, v)
-            //     .send({from : userAddr, value: 0})
-            //     .on('transactionHash', function(hash){
-            //         openDialog()
-            //         console.log("hash :" + hash)
-            //         setTx(hash);
-            //     })
-            //     .on('confirmation', function(confirmationNumber, receipt){
+            contractInstance.methods.participateInERC20(ind, v)
+                .send({from : userAddr, value: 0})
+                .on('transactionHash', function(hash){
+                    openDialog()
+                    console.log("hash :" + hash)
+                    setTx(hash);
+                })
+                .on('confirmation', function(confirmationNumber, receipt){
         
-            //         console.log("Confirmation number:" + confirmationNumber)
-            //     })
-            //     .on("error", function(error) {
-            //         setErrorMsg(error.code + " : " + error.message)
-            //         openSnackbar()
-            //         console.log(error)
+                    console.log("Confirmation number:" + confirmationNumber)
+                })
+                .on("error", function(error) {
+                    setErrorMsg(error.code + " : " + error.message)
+                    openSnackbar()
+                    console.log(error)
     
-            //     })
-            //     .then((a) => {
-            //         setCreationState(1)
-            //         console.log(a.events)
-            //     })
+                })
+                .then((a) => {
+                    setCreationState(1)
+                    console.log(a.events)
+                })
     }
 
 
@@ -499,7 +278,7 @@ const PricingTiers = (props) => {
                             </div>
                             
                             <div className="price">
-                                <span><sup>{campaign.currency}</sup>{tier.threshold}</span>
+                                <span><sup>{campaign.currency}</sup>{parseFloat(tier.threshold)}</span>
                             </div>
                             
                             <div className="pricing-features">

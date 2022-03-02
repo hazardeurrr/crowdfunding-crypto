@@ -24,6 +24,7 @@ const Navbar = () => {
     const userAddr = useSelector((state) => state.address)
     const currentUser = useSelector((state) => state.currentUser)
     const [providerDetected, setProviderDetected] = React.useState(false)
+    const chainID = useSelector((state) => state.chainID)
 
     const [open, setOpen] = React.useState(false);
 
@@ -92,7 +93,7 @@ const Navbar = () => {
     }
 
     // For now, 'eth_accounts' will continue to always return an array
-    const handleAccountsChanged = (accounts) => {
+    const handleAccountsChanged = async(accounts) => {
         if (accounts.length === 0) {
         // MetaMask is locked or the user has not connected any accounts
         console.log('Please connect to MetaMask.');
@@ -116,14 +117,20 @@ const Navbar = () => {
                 type: 'SET_WEB3',
                 id: web3
             })
-            const bbst_contract = new web3.eth.Contract(bbstAbi.bbstAbi, bbstAddr.bbstAddr);
-            bbst_contract.methods.balanceOf(accounts[0]).call().then(response => {
-                console.log('response', response)
-                dispatch({
-                    type: 'SET_BBST_BALANCE',
-                    id: response
-                })
-            }).catch(console.error)
+
+            const chainId = await ethereum.request({ method: 'eth_chainId' });
+            if(chainId == chain){
+                console.log("cheching BBST balance...")
+                const bbst_contract = new web3.eth.Contract(bbstAbi.bbstAbi, bbstAddr.bbstAddr);
+                bbst_contract.methods.balanceOf(accounts[0]).call().then(response => {
+                    console.log('response', response)
+                    dispatch({
+                        type: 'SET_BBST_BALANCE',
+                        id: response
+                    })
+                }).catch(console.error)
+            }
+            
 
 
 

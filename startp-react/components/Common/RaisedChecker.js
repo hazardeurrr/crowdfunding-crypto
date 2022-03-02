@@ -17,7 +17,7 @@ const RaisedChecker = (props) => {
           raised = web3Instance.utils.fromWei(res, 'ether')
         } else if (props.currency == "USDC") {
           console.log(res)
-          raised = res * 10**6;
+          raised = res * 10**-6;
         }
         setRaisedValue(raised)
         if(props.callback != undefined){

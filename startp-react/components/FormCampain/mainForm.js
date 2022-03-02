@@ -26,12 +26,14 @@ import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import campaignFactoryAbi from '@/components/ContractRelated/CampaignFactoryAbi';
 import campaignFactoryAddr from '@/components/ContractRelated/CampaignFactoryAddr';
+import {usdcAddr} from '@/components/ContractRelated/USDCAddr';
+import { erc20standardAbi } from '../ContractRelated/ERC20standardABI';
 import DialogActions from '@material-ui/core/DialogActions';
 import Button from '@material-ui/core/Button';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import Snackbar from '@material-ui/core/Snackbar';
 import MuiAlert from "@material-ui/lab/Alert";
-
+import { toBaseUnit } from '@/utils/bnConverter';
 const Web3 = require('web3');
 const BN = require('bn.js');
 
@@ -147,8 +149,34 @@ class MainForm extends React.Component {
    //     const bigMultiplier = new BN('1000000000000000000')
 
         let context = this
-        let amt = this.raisingMethod == "ETH" ? this.props.web3Instance.utils.toWei(this.objective.toString()) : this.objective
-        let tierAmountArray = this.tiersArray.map(a => this.props.web3Instance.utils.toWei(a.threshold.toString()))        // ATTENTION CHECK POUR LES ERC20 le nb de décimales
+        let amt = 0
+        let tierAmountArray = []      
+
+        if(this.raisingMethod != "ETH"){
+            let erc20Ctr = undefined
+            if(this.raisingMethod == "USDC"){
+                erc20Ctr = new this.props.web3Instance.eth.Contract(erc20standardAbi, usdcAddr)
+            }
+            else if(this.raisingMethod == "BBST"){
+                //erc20Ctr = ...
+            }
+
+            if(erc20Ctr != undefined){
+                await erc20Ctr.methods.decimals().call().then((decimals) => {     
+                    amt = toBaseUnit(this.objective, decimals, this.props.web3Instance.utils.BN)               
+                    console.log("amount", amt)
+                  //  tierAmountArray = this.tiersArray.map(a => a.threshold * 10**decimals) 
+                    tierAmountArray = this.tiersArray.map(a => toBaseUnit(a.threshold, decimals, this.props.web3Instance.utils.BN))
+                    console.log(tierAmountArray)
+                })
+            } else {
+                throw "erc20 contract instance not define"
+            }
+        } else {        // <=> campagne en ETH
+            tierAmountArray = this.tiersArray.map(a => this.props.web3Instance.utils.toWei(a.threshold.toString()))
+            amt = this.props.web3Instance.utils.toWei(this.objective.toString())
+        }
+
         let tierStockArray = this.tiersArray.map(a => a.maxClaimers)
         let am0 = [0]
         let st0 = [-1]
@@ -156,7 +184,7 @@ class MainForm extends React.Component {
         let stockArray = st0.concat(tierStockArray)
         // [0, tiersArray[0].threshold, tiersArray[1].threshold]
         return await this.state.factoryInstance.methods.createCampaign(
-        amt, // WEI for ETH, no conversion for the ERC20
+        amt, // WEI for ETH, x 10^decimals
         parseInt(this.startDate), 
         parseInt(this.endDate), 
         this.flexible, 
@@ -439,9 +467,10 @@ class MainForm extends React.Component {
                                                 if (e.endDate !== null){
                                                     console.log(new Date(e.startDate._d))
                                                     
+                                                    // this.startDate = Math.floor(Date.now() / 1000);
                                                     this.startDate = Math.floor(new Date(e.startDate._d).getTime() / 1000)
                                                     // this.endDate = Math.floor(new Date(e.endDate._d).getTime() / 1000)
-                                                    this.endDate = 1646246597
+                                                    this.endDate = 1646233800
                                                 }
                                             }}/>
                                         </div>

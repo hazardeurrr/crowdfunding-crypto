@@ -71,11 +71,11 @@ const Withdraw = (props) => {
 
   const downloadData = () => {
 
-    if(campaign.tiers.length == 0) {
-        //alert ("You didn't put any tiers in your campaign !")
-        setErrorMsg("You didn't put any tiers in your campaign! Can't retrieve data.")
-        openSnackbar()
-    } else {
+    // if(campaign.tiers.length == 0) {
+    //     //alert ("You didn't put any tiers in your campaign !")
+    //     setErrorMsg("You didn't put any tiers in your campaign! Can't retrieve data.")
+    //     openSnackbar()
+    // } else {
 
         // const result = getTiers();
 
@@ -103,7 +103,7 @@ const Withdraw = (props) => {
             link.click(); // This will download the data file named "tiers_subscribers.csv".
 
         })
-    }
+    // }
   }
 
   async function getTokens() {
@@ -119,7 +119,7 @@ const Withdraw = (props) => {
         addressesArr = addressesArr.concat(subSorted[i][0].toLowerCase())
     }
 
-    console.log(addressesArr);
+    // console.log(addressesArr);
     const promises = addressesArr.map(getUser);
     const users = await Promise.all(promises);
     return users.map((user, index) => user.data().eth_address + "," + nullOrMail(user.data().email) + "," + showTierExcel(subSorted[index][1]) + "\n")
@@ -141,7 +141,9 @@ const Withdraw = (props) => {
   
 
   const payCreator = async(contractInstance) => {
-    contractInstance.methods.payCreator()
+
+    if(campaign.currency == "ETH"){
+        contractInstance.methods.payCreator()
         .send({from : userAddr, value: 0})
         .on('transactionHash', function(hash){
             openDialog()
@@ -162,6 +164,30 @@ const Withdraw = (props) => {
             setCreationState(1)
             //alert("Funds succesfully claimed! Thanks for using BlockBoosted!");
         })
+    } else {
+        contractInstance.methods.payCreatorERC20()
+        .send({from : userAddr, value: 0})
+        .on('transactionHash', function(hash){
+            openDialog()
+            console.log("hash :" + hash)
+            setTx(hash);
+
+        })
+        .on('confirmation', function(confirmationNumber, receipt){
+
+            console.log("Confirmation number:" + confirmationNumber)
+        })
+        .on("error", function(error) {
+            setErrorMsg(error.code + " : " + error.message)
+            openSnackbar()
+
+        })
+        .then(() => {
+            setCreationState(1)
+            //alert("Funds succesfully claimed! Thanks for using BlockBoosted!");
+        })
+    }
+
   }
 
 

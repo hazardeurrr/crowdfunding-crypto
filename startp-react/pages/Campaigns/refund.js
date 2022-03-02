@@ -56,8 +56,9 @@ const Refund = (props) => {
     if(connected == true && chainID == chain){
         //connect to Metamask and check for a refund
         const campCtrInstance = new web3Instance.eth.Contract(campaignAbi.campaignAbi, campaign.contract_address)
-        
-        await doRefund(campCtrInstance);
+            if(campaign.currency == "ETH") 
+                await doRefund(campCtrInstance);
+            else await doRefundERC20(campCtrInstance);
     } else {
         setErrorMsg("Error : You're not connected. Please connect to Metamask on the right network")
         openSnackbar()
@@ -66,6 +67,31 @@ const Refund = (props) => {
 
   const doRefund = async(contractInstance) => {
     contractInstance.methods.refund()
+        .send({from : userAddr, value: 0})
+        .on('transactionHash', function(hash){
+            openDialog()
+            console.log("hash :" + hash)
+            setTx(hash);
+
+        })
+        .on('confirmation', function(confirmationNumber, receipt){
+
+            console.log("Confirmation number:" + confirmationNumber)
+        })
+        .on("error", function(error) {
+            setErrorMsg(error.code + " : " + error.message)
+            openSnackbar()
+            console.log(error);
+
+        })
+        .then(() => {
+            setCreationState(1)
+            //alert("Refund successful");
+        })
+  }
+
+  const doRefundERC20 = async(contractInstance) => {
+    contractInstance.methods.refundERC20()
         .send({from : userAddr, value: 0})
         .on('transactionHash', function(hash){
             openDialog()
