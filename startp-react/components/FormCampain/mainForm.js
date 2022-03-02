@@ -9,6 +9,7 @@ import Tiers from './tiers'
 import * as Icon from 'react-feather';
 import "react-dates/initialize";
 import DatePicker from "./date-range";
+import DateValidPicker from "./dateTimePicker";
 import Checkbox from '@material-ui/core/Checkbox';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import {db, storage} from '../../firebase-crowdfund/index';
@@ -350,6 +351,18 @@ class MainForm extends React.Component {
             return 0.000000000000000001
     }
 
+    handleDateChange = (startDate, endDate) => {
+        if(startDate != null){
+            this.startDate = Math.floor(startDate.getTime() / 1000)
+            console.log(this.startDate)
+        }
+        // this.endDate = Math.floor(new Date(e.endDate._d).getTime() / 1000)
+        if(endDate != null){
+            this.endDate = Math.floor(endDate.getTime() / 1000)
+            console.log(this.endDate)
+        }
+    }
+
     displayConfirmModal = (x) => {
         switch(x) {
             case 0:
@@ -463,7 +476,7 @@ class MainForm extends React.Component {
                                     <p><strong> Fundraising Duration </strong><br/> Projects with shorter durations have higher success rates. You won’t be able to adjust your duration after you launch.</p>
                                     <div className="col-lg-12 col-md-12">
                                         <div className="form-group">
-                                            <DatePicker onChange={e => {
+                                            {/* <DatePicker onChange={e => {
                                                 if (e.endDate !== null){
                                                     console.log(new Date(e.startDate._d))
                                                     
@@ -472,7 +485,9 @@ class MainForm extends React.Component {
                                                     // this.endDate = Math.floor(new Date(e.endDate._d).getTime() / 1000)
                                                     this.endDate = 1646233800
                                                 }
-                                            }}/>
+                                            }}/> */}
+
+                                            <DateValidPicker handleDateChange={this.handleDateChange.bind(this)}/>
                                         </div>
                                     </div>
 
