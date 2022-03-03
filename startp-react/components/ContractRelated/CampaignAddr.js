@@ -1,4 +1,4 @@
-const campaignAddr = "0xF650c5ca5BfE7027221272b0831f0b07e50CB26d"
+const campaignAddr = "0x3DF3880949Bc8C458E7559f52A2808932ad12472"
 
 module.exports = {
   campaignAddr

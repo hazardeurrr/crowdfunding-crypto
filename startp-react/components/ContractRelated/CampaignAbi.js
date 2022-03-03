@@ -273,6 +273,13 @@ const campaignAbi = [
 	},
 	{
 		"inputs": [],
+		"name": "payCreatorERC20Bis",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"inputs": [],
 		"name": "refund",
 		"outputs": [
 			{
