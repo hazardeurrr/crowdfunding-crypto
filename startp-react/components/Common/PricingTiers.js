@@ -366,13 +366,12 @@ const PricingTiers = (props) => {
             case 3:
                 return <div style={{justifyContent:'center'}}>
                 <DialogTitle id="alert-dialog-title">Approval confirmed</DialogTitle>
-                <div style={{display: 'flex', justifyContent:'center', alignItems:'center', flexDirection:'column'}}>
-                    <i>Please confirm the transaction on Metamask to finalize your donation.</i>
-                </div>
 
                 <DialogContent>
 
                     <CircularProgress style={{marginTop: 20, marginBottom: 20}}/>
+                    <DialogContentText id="alert-dialog-description">
+                    Please confirm the transaction on Metamask to finalize your donation.</DialogContentText>
                 </DialogContent></div>
             default:
                 return <div style={{justifyContent:'center'}}>
