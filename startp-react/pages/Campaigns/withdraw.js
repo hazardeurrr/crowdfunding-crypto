@@ -142,6 +142,9 @@ const Withdraw = (props) => {
 
   const payCreator = async(contractInstance) => {
 
+
+    console.log()
+
     if(campaign.currency == "ETH"){
         contractInstance.methods.payCreator()
         .send({from : userAddr, value: 0})
@@ -165,6 +168,10 @@ const Withdraw = (props) => {
             //alert("Funds succesfully claimed! Thanks for using BlockBoosted!");
         })
     } else {
+        contractInstance.methods.totalBalance.call().call().then((res) => console.log(res))
+        contractInstance.methods.partialGoal.call().call().then((res) => console.log(res))
+        contractInstance.methods.creator.call().call().then((res) => console.log(res))
+
         contractInstance.methods.payCreatorERC20()
         .send({from : userAddr, value: 0})
         .on('transactionHash', function(hash){
