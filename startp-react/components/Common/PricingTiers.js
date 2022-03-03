@@ -162,6 +162,7 @@ const PricingTiers = (props) => {
                     } else {
                         erc20Ctr.methods.approve(erc20PaymentAddr, max).send({from : userAddr, value: 0})
                         .on('transactionHash', function(hash){
+                            setCreationState(2)
                             openDialog()
                             console.log("hash :" + hash)
                             setTx(hash);
@@ -170,7 +171,10 @@ const PricingTiers = (props) => {
                             setErrorMsg(error.code + " : " + error.message)
                             openSnackbar()    
                         })
-                        .then(() => payInERC(isFreeDonation, contractInstance, amt, indexTier))
+                        .then(() => {
+                            setCreationState(3)
+                            payInERC(isFreeDonation, contractInstance, amt, indexTier);
+                        })
                     }
                 })
             })
@@ -199,6 +203,7 @@ const PricingTiers = (props) => {
             contractInstance.methods.participateInERC20(ind, v)
                 .send({from : userAddr, value: 0})
                 .on('transactionHash', function(hash){
+                    setCreationState(0)
                     openDialog()
                     console.log("hash :" + hash)
                     setTx(hash);
@@ -336,6 +341,38 @@ const PricingTiers = (props) => {
                 <DialogContentText id="alert-dialog-description" style={{marginTop: 15}}>
                 Transaction confirmed : </DialogContentText>
                 <DialogContentText id="alert-dialog-description"><a href={`https://etherscan.io/tx/${Tx}`} target="_blank">{Tx}</a></DialogContentText>
+                </DialogContent></div>
+            case 2:
+                return <div style={{justifyContent:'center'}}>
+                <DialogTitle id="alert-dialog-title">Waiting for approval...</DialogTitle>
+                <div style={{display: 'flex', justifyContent:'center', alignItems:'center', flexDirection:'column'}}>
+                    <i>You only need to do this once in order to use this token on our platform.<br></br>
+                        <Link href={{
+                            pathname: "/how-it-works"
+                            }}
+                            >
+                        <a style={{marginTop: 15}}>More information about ERC20 allowance here</a>
+                        </Link>.</i>
+                </div>
+
+                <DialogContent>
+
+                    <CircularProgress style={{marginTop: 20, marginBottom: 20}}/>
+
+                <DialogContentText id="alert-dialog-description">
+                Transaction Hash : </DialogContentText>
+                <DialogContentText id="alert-dialog-description"><a href={`https://etherscan.io/tx/${Tx}`} target="_blank">{Tx}</a></DialogContentText>
+                </DialogContent></div>
+            case 3:
+                return <div style={{justifyContent:'center'}}>
+                <DialogTitle id="alert-dialog-title">Approval confirmed</DialogTitle>
+                <div style={{display: 'flex', justifyContent:'center', alignItems:'center', flexDirection:'column'}}>
+                    <i>Please confirm the transaction on Metamask to finalize your donation.</i>
+                </div>
+
+                <DialogContent>
+
+                    <CircularProgress style={{marginTop: 20, marginBottom: 20}}/>
                 </DialogContent></div>
             default:
                 return <div style={{justifyContent:'center'}}>
