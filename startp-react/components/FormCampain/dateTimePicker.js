@@ -17,7 +17,7 @@ export default function DateValidPicker(props) {
           value={valueStart}
           onChange={(newValue) => {
             setValueStart(newValue);
-            props.handleDateChange(valueStart, valueEnd)
+            props.handleDateChange(newValue, valueEnd)
           }}
           minDateTime={new Date()}
         />
@@ -28,7 +28,7 @@ export default function DateValidPicker(props) {
           value={valueEnd}
           onChange={(newValue) => {
             setValueEnd(newValue);
-            props.handleDateChange(valueStart, valueEnd)
+            props.handleDateChange(valueStart, newValue)
           }}
           minDateTime={valueStart}
         />

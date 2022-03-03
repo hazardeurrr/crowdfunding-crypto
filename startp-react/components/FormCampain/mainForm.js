@@ -165,7 +165,7 @@ class MainForm extends React.Component {
             if(erc20Ctr != undefined){
                 await erc20Ctr.methods.decimals().call().then((decimals) => {     
                     amt = toBaseUnit(this.objective, decimals, this.props.web3Instance.utils.BN)               
-                    console.log("amount", amt)
+                    // console.log("amount", amt)
                   //  tierAmountArray = this.tiersArray.map(a => a.threshold * 10**decimals) 
                     tierAmountArray = this.tiersArray.map(a => toBaseUnit(a.threshold, decimals, this.props.web3Instance.utils.BN))
                     console.log(tierAmountArray)
@@ -352,14 +352,14 @@ class MainForm extends React.Component {
     }
 
     handleDateChange = (startDate, endDate) => {
+        // console.log(this.startDate)
         if(startDate != null){
             this.startDate = Math.floor(startDate.getTime() / 1000)
-            console.log(this.startDate)
         }
-        // this.endDate = Math.floor(new Date(e.endDate._d).getTime() / 1000)
+
+        // console.log(this.endDate)
         if(endDate != null){
             this.endDate = Math.floor(endDate.getTime() / 1000)
-            console.log(this.endDate)
         }
     }
 

@@ -161,6 +161,11 @@ const PricingTiers = (props) => {
                         payInERC(isFreeDonation, contractInstance, amt, indexTier)
                     } else {
                         erc20Ctr.methods.approve(erc20PaymentAddr, max).send({from : userAddr, value: 0})
+                        .on('transactionHash', function(hash){
+                            openDialog()
+                            console.log("hash :" + hash)
+                            setTx(hash);
+                        })
                         .on("error", function(error) {
                             setErrorMsg(error.code + " : " + error.message)
                             openSnackbar()    
