@@ -278,7 +278,7 @@ const Campaign = (props, {c, u}) => {
     }
 
     const displayCurrency = () => {
-        if(metamask_connected && chainID == chain)
+        if(metamask_connected && chainID == chain && raisedRetrieve)
             return <>{campaign.currency} raised / {parseFloat(campaign.objective)} {campaign.currency}</>
     }
 
