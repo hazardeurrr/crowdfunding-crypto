@@ -151,7 +151,7 @@ class SearchPage extends React.Component {
                 <div className="features-area pt-80 bg-f7fafd">
                     <div className="container">
                         <div className="section-title">
-                            <h2 className="search-page-title">Discover the projects that need you !</h2>
+                            <h2 className="search-page-title">Discover projects that need you !</h2>
                             <div className="bar"></div>
                             {/* <CheckboxList alreadyChecked = {categoryList.indexOf(this.props.cat)} addCat = {this.addCategory} removeCat = {this.removeCategory} /> */}
                             {this.showCheckboxes()}
