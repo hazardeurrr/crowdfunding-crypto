@@ -49,7 +49,7 @@ class Tiers extends React.Component {
                                 </p>
                                 <div className="col-lg-12 col-md-12">
                                     <div className="form-group">
-                                    <input type="text" id={`"tiersTitle${index + 1}`} placeholder="Title" className="form-control" maxlength="25" onChange={e => {
+                                    <input type="text" id={`"tiersTitle${index + 1}`} placeholder="Title" className="form-control" maxlength="50" onChange={e => {
                                         this.tiers[index]["title"] = e.target.value
                                         this.props.onTiersChange(this.tiers)
                                     }}/>
@@ -73,7 +73,7 @@ class Tiers extends React.Component {
                                 </p>
                                 <div className="col-lg-12 col-md-12">
                                     <div className="form-group">
-                                    <input type="textarea" id={`"tiersDescription${index + 1}`} placeholder="Description" maxlength="75" className="form-control"
+                                    <input type="textarea" id={`"tiersDescription${index + 1}`} placeholder="Description" maxlength="350" className="form-control"
                                     onChange={e => {
                                         this.tiers[index]["description"] = e.target.value
                                         this.props.onTiersChange(this.tiers)

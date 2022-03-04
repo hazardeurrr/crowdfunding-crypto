@@ -233,7 +233,7 @@ const CampaignSidebar = (props) => {
 
 
                             {campaign.tiers.map((tile, index) => (
-                                <GridListTile key={index} cols={1}>
+                                <GridListTile style={{height:'auto'}} key={index} cols={1}>
 
                                 <div className="single-works">
                                     <Card className={classes.root} variant="outlined">
