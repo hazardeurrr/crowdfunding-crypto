@@ -28,6 +28,7 @@ import DialogTitle from '@material-ui/core/DialogTitle';
 import campaignFactoryAbi from '@/components/ContractRelated/CampaignFactoryAbi';
 import campaignFactoryAddr from '@/components/ContractRelated/CampaignFactoryAddr';
 import {usdcAddr} from '@/components/ContractRelated/USDCAddr';
+import {bbstAddr} from '@/components/ContractRelated/BbstAddr';
 import { erc20standardAbi } from '../ContractRelated/ERC20standardABI';
 import DialogActions from '@material-ui/core/DialogActions';
 import Button from '@material-ui/core/Button';
@@ -159,7 +160,7 @@ class MainForm extends React.Component {
                 erc20Ctr = new this.props.web3Instance.eth.Contract(erc20standardAbi, usdcAddr)
             }
             else if(this.raisingMethod == "BBST"){
-                //erc20Ctr = ...
+                new this.props.web3Instance.eth.Contract(erc20standardAbi, bbstAddr)
             }
 
             if(erc20Ctr != undefined){

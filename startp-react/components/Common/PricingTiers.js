@@ -12,6 +12,7 @@ import { updateDoc, getOne } from 'firebase-crowdfund/queries'
 import {db, storage} from '../../firebase-crowdfund/index'
 import campaignAbi from '@/components/ContractRelated/CampaignAbi';
 import {usdcAddr} from '@/components/ContractRelated/USDCAddr';
+import {bbstAddr} from '@/components/ContractRelated/BbstAddr';
 import {erc20PaymentAddr} from '@/components/ContractRelated/ERC20PaymentAddr';
 import {erc20PaymentAbi} from '@/components/ContractRelated/ERC20PaymentABI';
 import { erc20standardAbi } from '../ContractRelated/ERC20standardABI';
@@ -144,7 +145,7 @@ const PricingTiers = (props) => {
             erc20Ctr = new web3Instance.eth.Contract(erc20standardAbi, usdcAddr)
         }
         else if(campaign.currency == "BBST"){
-
+            erc20Ctr = new web3Instance.eth.Contract(erc20standardAbi, bbstAddr)
         }
 
         if(erc20Ctr != undefined){
