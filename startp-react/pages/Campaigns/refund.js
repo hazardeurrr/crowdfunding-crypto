@@ -126,7 +126,7 @@ const Refund = (props) => {
 
               <DialogContentText id="alert-dialog-description">
               Transaction Hash : </DialogContentText>
-              <DialogContentText id="alert-dialog-description"><a href={`https://etherscan.io/tx/${Tx}`} target="_blank">{Tx}</a></DialogContentText>
+              <DialogContentText id="alert-dialog-description"><a href={`https://rinkeby.etherscan.io/tx/${Tx}`} target="_blank">{Tx}</a></DialogContentText>
               </DialogContent></div>
           case 1:
               return <div style={{justifyContent:'center'}}>
@@ -142,7 +142,7 @@ const Refund = (props) => {
                   </Link>  </DialogContentText>
               <DialogContentText id="alert-dialog-description" style={{marginTop: 15}}>
               Transaction confirmed : </DialogContentText>
-              <DialogContentText id="alert-dialog-description"><a href={`https://etherscan.io/tx/${Tx}`} target="_blank">{Tx}</a></DialogContentText>
+              <DialogContentText id="alert-dialog-description"><a href={`https://rinkeby.etherscan.io/tx/${Tx}`} target="_blank">{Tx}</a></DialogContentText>
               </DialogContent></div>
           default:
               return <div style={{justifyContent:'center'}}>

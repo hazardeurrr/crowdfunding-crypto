@@ -375,7 +375,7 @@ class MainForm extends React.Component {
 
                 <DialogContentText id="alert-dialog-description">
                 Transaction Hash : </DialogContentText>
-                <DialogContentText id="alert-dialog-description"><a href={`https://etherscan.io/tx/${this.state.Tx}`} target="_blank">{this.state.Tx}</a></DialogContentText>
+                <DialogContentText id="alert-dialog-description"><a href={`https://rinkeby.etherscan.io/tx/${this.state.Tx}`} target="_blank">{this.state.Tx}</a></DialogContentText>
                 </DialogContent></div>
             case 1:
                 return <div style={{justifyContent:'center'}}>
@@ -384,7 +384,7 @@ class MainForm extends React.Component {
                     <CircularProgress style={{marginTop: 20, marginBottom: 20}}/>
                     <DialogContentText id="alert-dialog-description">
                 Transaction confirmed : </DialogContentText>
-                <DialogContentText id="alert-dialog-description"><a href={`https://etherscan.io/tx/${this.state.Tx}`} target="_blank">{this.state.Tx}</a></DialogContentText>
+                <DialogContentText id="alert-dialog-description"><a href={`https://rinkeby.etherscan.io/tx/${this.state.Tx}`} target="_blank">{this.state.Tx}</a></DialogContentText>
                 </DialogContent></div>
             case 2:
                  return <div style={{justifyContent:'center'}}>
