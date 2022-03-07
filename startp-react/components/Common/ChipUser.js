@@ -28,7 +28,7 @@ const useStyles = makeStyles((theme) => ({
       whiteSpace: 'nowrap',
       overflow: 'hidden',
       textOverflow: 'ellipsis',
-      fontSize : "11px",
+      fontSize : "9px",
       fontStyle : "italic"
   },
   sec:{
