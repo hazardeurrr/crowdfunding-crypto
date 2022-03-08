@@ -167,21 +167,21 @@ const Footer = () => {
                             <h3>Community</h3>
                             <ul className="list">
                                 <li>
-                                    <Link href="/faq">
+                                    {/* <Link href="/faq"> */}
                                         <a>Discussion</a>
-                                    </Link>
+                                    {/* </Link> */}
                                 </li>
                                 <li>
-                                    <Link href="/privacy-policy">
+                                    {/* <Link href="/privacy-policy"> */}
                                         <a>Vote</a>
-                                    </Link>
+                                    {/* </Link> */}
                                 </li>
                             </ul>
                         </div>
                         <div className="single-footer-widget" style={{marginTop: 25}}>
                             <h3>About</h3>
                             <ul className="list">
-                                <li>
+                                {/* <li>
                                     <Link href="/term-condition">
                                         <a>Terms & Conditions</a>
                                     </Link>
@@ -190,7 +190,7 @@ const Footer = () => {
                                     <Link href="/contact">
                                         <a>Privacy policy</a>
                                     </Link>
-                                </li>
+                                </li> */}
                                 <li>
                                     <Link href="/contact">
                                         <a>Contact Us</a>

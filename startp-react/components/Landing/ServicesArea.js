@@ -23,7 +23,7 @@ const ServicesArea = () => {
         labels: [`${t.liquidity}`, `${t.strategic}`, `${t.provide}`, `${t.privateSale}`,  `${t.advisors}`],
         datasets: [
           {
-            data: [9200000, 3000000, 1800000, 2600000, 3400000],
+            data: [9200000, 2600000, 1900000, 2700000, 3600000],
             backgroundColor: [
               '#c679e3',
               '#44ce6f',
@@ -195,19 +195,19 @@ const ServicesArea = () => {
                                         <MdPublic size={27}/> {t.IDO}: 3 500 000 BBST
                                     </div> */}
                                     <div className="box">
-                                        <RiGitRepositoryPrivateFill size={27}/> {t.privateSale}: 2 600 000 BBST
+                                        <RiGitRepositoryPrivateFill size={27}/> {t.privateSale}: 2 700 000 BBST
                                         <p style={{fontSize: 12, fontStyle: 'italic'}}>{t.privateLocked}</p>
                                     </div>
                                     <div className="box">
-                                        <FiTrendingUp size={27} /> {t.strategic}: 3 000 000 BBST
+                                        <FiTrendingUp size={27} /> {t.strategic}: 2 600 000 BBST
                                         {/* <p style={{fontSize: 12, fontStyle: 'italic'}}>{t.strategicExplained}</p> */}
                                     </div>
                                     <div className="box">
-                                        <RiTeamLine size={27} /> {t.advisors}: 3 400 000 BBST
+                                        <RiTeamLine size={27} /> {t.advisors}: 3 600 000 BBST
                                         <p style={{fontSize: 12, fontStyle: 'italic'}}>{t.lock}</p>
                                     </div>
                                     <div className="box">
-                                        <FaExchangeAlt size={27}/> {t.provide}: 1 800 000 BBST
+                                        <FaExchangeAlt size={27}/> {t.provide}: 1 900 000 BBST
                                     </div>
 
                             </div>
