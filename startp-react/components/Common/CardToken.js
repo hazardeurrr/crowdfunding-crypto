@@ -6,7 +6,8 @@ import CardActionArea from '@material-ui/core/CardActionArea';
 import Typography from '@material-ui/core/Typography';
 import { useSelector, useDispatch } from 'react-redux'
 import {chain} from '@/utils/chain'
-
+import {bbstAbi} from '@/components/ContractRelated/BbstAbi';
+import {bbstAddr} from '@/components/ContractRelated/BbstAddr';
 
 
 
@@ -16,14 +17,21 @@ const CardToken = () => {
   const chainID = useSelector((state) => state.chainID)
   const address = useSelector((state) => state.address)
   const bbstbal = useSelector((state) => state.bbstBalance)
+  const web3Instance = useSelector((state) => state.web3Instance)
+
+
+  React.useEffect(() => {
+      
+  }, [web3Instance])
 
   const claimTokens = () => {
     console.log("tokens claimed")
     // logic to claim the tokens
   }
 
-  const showBalance = () => {
-    return bbstbal
+const showBalance = () => {
+    if(web3Instance != undefined)
+      return web3Instance.utils.fromWei(bbstbal.toString())
   }
 
   const showToBeClaimed = () => {

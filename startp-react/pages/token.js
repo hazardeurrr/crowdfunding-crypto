@@ -12,8 +12,7 @@ import {
     AccordionItemButton
 } from 'react-accessible-accordion';
 import CardToken from '@/components/Common/CardToken';
-
-
+import MintToken from '@/components/Common/MintToken';
 
 
 const TokenDetails = () => {
@@ -31,7 +30,20 @@ const TokenDetails = () => {
                     </div>
                 </form>
             </div> */}
-           <div className="features-area pt-80 bg-f7fafd" style={{marginTop: -100}}>
+
+
+                <div className="features-area pt-80 bg-f7fafd" style={{marginTop: -100}}>
+                    <div className="container">
+                        <div className="section-title">
+                            <h2 className="search-page-title">Mint Test BBST (Rinkeby network)</h2>
+                            <div className="bar"></div>
+                            <p>Test BBST can be used on our test platform (Rinkeby network). Feel free to mint some to try our platform !</p>
+                            <MintToken style={{marginTop: 80}}/>
+                        </div>
+                    </div>
+                </div>
+
+           <div className="features-area pt-80 bg-f7fafd">
                     <div className="container">
                         <div className="section-title">
                             <h2 className="search-page-title">Claim your tokens</h2>

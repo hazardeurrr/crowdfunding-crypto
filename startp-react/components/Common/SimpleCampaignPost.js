@@ -171,7 +171,7 @@ const SimpleCampaignPost = (props, {u}) => {
                         <a>{campaign.title}</a>
                     </Link>
                 </h3>
-                <span>By <ChipUser user={user} /></span>
+                <span width="10">By <ChipUser user={user}/></span>
                 <p>{displayDesc()}</p>
                 <b>{displayRaised()} {displayCurrency()}</b>
                 {displayProgressBar()}

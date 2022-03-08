@@ -5,6 +5,8 @@ import { toBaseUnit } from '@/utils/bnConverter';
 import {usdcAddr} from '@/components/ContractRelated/USDCAddr';
 import {bbstAddr} from '@/components/ContractRelated/BbstAddr';
 import { erc20standardAbi } from '../ContractRelated/ERC20standardABI';
+import { bbstAbi } from '../ContractRelated/BbstAbi';
+const BN = require('bn.js');
 
 const RaisedChecker = (props) => {
 
@@ -21,10 +23,11 @@ const RaisedChecker = (props) => {
           let erc20Ctr = undefined
           if(props.currency == "USDC")
             erc20Ctr = new web3Instance.eth.Contract(erc20standardAbi, usdcAddr)
-          else if(props.currency = "BBST")
-            erc20Ctr = new web3Instance.eth.Contract(erc20standardAbi, bbstAddr)
+          else if(props.currency == "BBST")
+            erc20Ctr = new web3Instance.eth.Contract(bbstAbi, bbstAddr)
           erc20Ctr.methods.decimals().call().then((decimals) => {
-            setRaisedAndCB(parseFloat((res * 10**(-decimals)).toFixed(decimals)))
+            console.log(res)
+            setRaisedAndCB(parseFloat((res / (10**(decimals))).toFixed(decimals)))
           })
         }
       })

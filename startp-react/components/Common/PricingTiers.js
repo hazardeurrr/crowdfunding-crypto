@@ -24,6 +24,7 @@ import * as IconFeather from 'react-feather';
 import Link from 'next/link';
 import { BN } from 'bn.js';
 import { toBaseUnit } from '@/utils/bnConverter';
+import { bbstAbi } from '../ContractRelated/BbstAbi';
 const Web3 = require('web3');
 
 // async function selectPlan(amount){
@@ -145,7 +146,7 @@ const PricingTiers = (props) => {
             erc20Ctr = new web3Instance.eth.Contract(erc20standardAbi, usdcAddr)
         }
         else if(campaign.currency == "BBST"){
-            erc20Ctr = new web3Instance.eth.Contract(erc20standardAbi, bbstAddr)
+            erc20Ctr = new web3Instance.eth.Contract(bbstAbi, bbstAddr)
         }
 
         if(erc20Ctr != undefined){
