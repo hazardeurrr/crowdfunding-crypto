@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import ProfilePic from "@/components/ITStartup/ProfilePic";
 import { updateDoc, getOne, postDoc } from 'firebase-crowdfund/queries'
-import TwitterLogin from "react-twitter-login";
-import secrets from "@/components/ITStartup/secrets.json";
+import firebase from 'firebase';
+import Button from '@material-ui/core/Button';
+import { FaTwitter } from 'react-icons/fa';
+import { ImCross } from 'react-icons/im';
 
 
 const ProfileForm = (props) => {
@@ -16,6 +18,7 @@ const ProfileForm = (props) => {
     const [twitter, setTwitter] = useState('');
     const [site, setSite] = useState('');
     const[image, setImage] = useState('');
+    const [verifTwitter, setVerifTwitter] = useState(false);
 
     const handleChangeName = (event) => setName(event.target.value);
     const handleChangeEmail = (event) => setEmail(event.target.value);
@@ -36,6 +39,27 @@ const ProfileForm = (props) => {
         console.log(err, data);
     };
 
+    const authenticateTwitter = () => {
+        var provider = new firebase.auth.TwitterAuthProvider();
+
+        firebase
+        .auth()
+        .signInWithPopup(provider)
+        .then((result) => {
+
+            let username = result.additionalUserInfo.username
+            setTwitter(username)
+            setVerifTwitter(true)
+
+        }).catch((error) => {
+            // Handle Errors here.
+            console.log(error)
+      
+        });
+    }
+
+
+
     function loadData() {
         let user = undefined
         // let userAddr = useSelector((state) => state.address)
@@ -43,13 +67,14 @@ const ProfileForm = (props) => {
         getOne('profile', userAddr, function(doc) {
             if (doc.exists) {
                 user = doc.data()
-                console.log("user info : " + JSON.stringify(user))
+               // console.log("user info : " + JSON.stringify(user))
                 setName(user.username);
                 setEmail(user.email);
                 setImage(user.image);
                 setBio(user.bio);
                 setTwitter(user.twitter);
                 setSite(user.website);
+                setVerifTwitter(user.verif_twitter);
             } else {
                 console.log("Document not found")
             }
@@ -69,6 +94,7 @@ const ProfileForm = (props) => {
                 user.bio = bio;
                 user.twitter = twitter;
                 user.website = site;
+                user.verif_twitter = verifTwitter;
 
                 updateDoc(user.eth_address, 'profile', user, function() {
                     alert("Profile updated !")
@@ -86,6 +112,28 @@ const ProfileForm = (props) => {
     useEffect(() => {
         loadData()
     }, [props.address] )
+
+    const displayTwitter = () => {
+        if(twitter != '' && twitter != undefined && twitter != null){
+            return <>
+            <p><i>You're currently linked to @<a href={`https://twitter.com/${twitter}`} target="_blank">{twitter}</a></i></p>
+            <Button onClick={() => authenticateTwitter()} size="small" variant="contained" style={{color:'white', backgroundColor:'#1d9bf0'}} startIcon={<FaTwitter />}>
+                Change Account
+            </Button>
+            <Button onClick={() => removeTwitter()} variant="contained" style={{marginLeft : 15, color:'red', backgroundColor:'white'}} size="small" startIcon={<ImCross />}>
+                Unlink
+            </Button>
+            </>
+        } else {
+            return <Button onClick={() => authenticateTwitter()} variant="contained" style={{color:'white', backgroundColor:'#1d9bf0'}} startIcon={<FaTwitter />}>
+                Connect
+            </Button>
+        }
+    }
+
+    const removeTwitter = () => {
+        setTwitter('')
+    }
 
     return (
         <>
@@ -148,12 +196,21 @@ const ProfileForm = (props) => {
                                     </div>
                                 </div> */}
 
-                                <p><strong> Twitter account </strong><br/>Enter your twitter username</p>
+                                {/* <p><strong> Twitter account </strong><br/>Enter your twitter username</p>
                                 <div className="col-lg-12 col-md-12">
                                     <div className="form-group">
                                         <input type="text" placeholder="@" className="form-control" value={twitter} onChange={handleChangeTwitter}/>
                                     </div>
+                                </div> */}
+                                <p><strong> Twitter account </strong><br/>Connect to Twitter to link your account to your profile</p>
+                                <div className="col-lg-12 col-md-12">
+                                    <div className="form-group">
+                                        {displayTwitter()}
+                                        
+                                    </div>
                                 </div>
+
+                                
 
                                 <p><strong> Website </strong></p>
                                 <div className="col-lg-12 col-md-12">
