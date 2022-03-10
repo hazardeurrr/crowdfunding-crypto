@@ -109,7 +109,7 @@ const Campaign = (props, {c, u}) => {
     const showTwitter = () => {
         if(user.twitter != ""){
             return <li>
-            <a href={`https://twitter.com/${user.twitter}`} target="_blank"><Icon.Twitter />   @{user.twitter}</a>  <VerifTooltip toBeChecked={user.verif_twitter} media={"Twitter"}/>
+            <a href={`https://twitter.com/${user.twitter}`} target="_blank"><Icon.Twitter />   @{user.twitter}</a>  <VerifTooltip toBeChecked={true} media={"Twitter"}/>
         </li>
         }
     }

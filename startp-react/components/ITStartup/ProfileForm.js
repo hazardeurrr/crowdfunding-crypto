@@ -18,7 +18,6 @@ const ProfileForm = (props) => {
     const [twitter, setTwitter] = useState('');
     const [site, setSite] = useState('');
     const[image, setImage] = useState('');
-    const [verifTwitter, setVerifTwitter] = useState(false);
 
     const handleChangeName = (event) => setName(event.target.value);
     const handleChangeEmail = (event) => setEmail(event.target.value);
@@ -49,7 +48,6 @@ const ProfileForm = (props) => {
 
             let username = result.additionalUserInfo.username
             setTwitter(username)
-            setVerifTwitter(true)
 
         }).catch((error) => {
             // Handle Errors here.
@@ -74,7 +72,6 @@ const ProfileForm = (props) => {
                 setBio(user.bio);
                 setTwitter(user.twitter);
                 setSite(user.website);
-                setVerifTwitter(user.verif_twitter);
             } else {
                 console.log("Document not found")
             }
@@ -94,7 +91,6 @@ const ProfileForm = (props) => {
                 user.bio = bio;
                 user.twitter = twitter;
                 user.website = site;
-                user.verif_twitter = verifTwitter;
 
                 updateDoc(user.eth_address, 'profile', user, function() {
                     alert("Profile updated !")

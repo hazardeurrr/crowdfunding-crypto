@@ -25,7 +25,7 @@ const VerifTooltip = (props) => {
       title={
         <React.Fragment>
           <Typography gutterBottom color="inherit">This {props.media} account is verified</Typography>
-          <i>{"The owner of this address also owns this account"}</i>
+          <i>{"This Twitter account has been linked to this address"}</i>
         </React.Fragment>
       }
     >

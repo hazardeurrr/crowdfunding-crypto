@@ -148,7 +148,7 @@ const Navbar = () => {
                             })
                         }
                     } else {
-                        const user = { username: "", email: "", eth_address: userAddr, image: "", bio: "", twitter: "", verif_twitter: false, website: "", liked: new Array() }
+                        const user = { username: "", email: "", eth_address: userAddr, image: "", bio: "", twitter: "", website: "", liked: new Array() }
                         postDoc(user.eth_address, 'profile', user,
                             console.log(user.username + " has been uploaded")
                         )
