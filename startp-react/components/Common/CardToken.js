@@ -16,8 +16,12 @@ import { useSelector, useDispatch } from 'react-redux'
 import {chain} from '@/utils/chain'
 import {rewardAbi} from '@/components/ContractRelated/RewardABI';
 import {rewardAddr} from '@/components/ContractRelated/RewardAddr';
+import * as IconFeather from 'react-feather';
 
 
+function Alert(props) {
+  return <MuiAlert elevation={6} variant="filled" {...props} />;
+}
 
 const CardToken = () => {
 
@@ -35,10 +39,10 @@ const CardToken = () => {
   const [errorMsg, setErrorMsg] = React.useState("");
 
   React.useEffect(() => {
-    if(web3Instance != undefined){
+    if(web3Instance != undefined && connected && chainID == chain){
       let contract = new web3Instance.eth.Contract(rewardAbi, rewardAddr)
       setRewardCtr(contract)
-      contract.methods.getClaim().call().then(res => setToBeClaimed(web3Instance.utils.fromWei(res)))
+      contract.methods.getClaim().call().then(res => {console.log(res); setToBeClaimed(web3Instance.utils.fromWei(res))})
     }
   }, [web3Instance])
 
@@ -83,7 +87,7 @@ const CardToken = () => {
             </DialogContent></div>
         case 1:
             return <div style={{justifyContent:'center'}}>
-            <DialogTitle id="alert-dialog-title">Thanks for your token mint ! <IconFeather.Heart/></DialogTitle>
+            <DialogTitle id="alert-dialog-title">Claim successfull ! <IconFeather.Heart/></DialogTitle>
             <DialogContent>
             <DialogContentText id="alert-dialog-description" style={{marginTop: 15}}>
             Transaction confirmed : </DialogContentText>
@@ -180,9 +184,9 @@ const closeDialog = () => {
         </div>
 
         <div style={{flex : 2}}>
-          <CardActionArea>
+          <CardContent>
               <a className="btn btn-primary" onClick={() => claimTokens()}>Claim</a>
-          </CardActionArea>
+          </CardContent>
         </div>
       </div>
     </Card>

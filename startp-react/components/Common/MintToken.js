@@ -154,9 +154,9 @@ const closeDialog = () => {
           </div>
 
           <div style={{flex : 2}}>
-            <CardActionArea>
+            <CardContent>
                 <a className="btn btn-primary" onClick={() => mintTokens()}>Mint</a>
-            </CardActionArea>
+            </CardContent>
           </div>
         </div>
       </Card>

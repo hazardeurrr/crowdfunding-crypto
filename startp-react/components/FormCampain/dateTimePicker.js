@@ -8,6 +8,8 @@ import Stack from '@mui/material/Stack';
 export default function DateValidPicker(props) {
   const [valueStart, setValueStart] = React.useState(null);
   const [valueEnd, setValueEnd] = React.useState(null);
+  var now = new Date();
+  const maxVal = new Date(now.setMonth(now.getMonth()+6));
 
   return (
     <LocalizationProvider dateAdapter={AdapterDateFns}>
@@ -31,6 +33,7 @@ export default function DateValidPicker(props) {
             props.handleDateChange(valueStart, newValue)
           }}
           minDateTime={valueStart}
+          maxDateTime={maxVal}
         />
 
        

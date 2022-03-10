@@ -3,7 +3,7 @@ import "firebase/storage";
 
 const firebaseConfig = {
   apiKey: "AIzaSyAxLDH4sjj2Cdtf-ylbdwAcqoQwKnViACM",
-  authDomain: "crowdfunding-dev-5f802.firebaseapp.com",
+  authDomain: "connect.blockboosted.com",
   databaseURL: "https://crowdfunding-dev-5f802-default-rtdb.europe-west1.firebasedatabase.app",
   projectId: "crowdfunding-dev-5f802",
   storageBucket: "crowdfunding-dev-5f802.appspot.com",

@@ -152,7 +152,7 @@ const PricingTiers = (props) => {
         if(erc20Ctr != undefined){
             erc20Ctr.methods.decimals().call().then((decimals) => {
 
-                const amt = toBaseUnit(v, decimals, web3Instance.utils.BN)     
+                const amt = toBaseUnit(v.toString(), decimals, web3Instance.utils.BN)     
     
                 checkAllowed(erc20Ctr).then(res => {
                     let bnres = new BN(res.toString())

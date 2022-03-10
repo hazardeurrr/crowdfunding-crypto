@@ -166,10 +166,10 @@ class MainForm extends React.Component {
 
             if(erc20Ctr != undefined){
                 await erc20Ctr.methods.decimals().call().then((decimals) => {     
-                    amt = toBaseUnit(this.objective, decimals, this.props.web3Instance.utils.BN)               
+                    amt = toBaseUnit(this.objective.toString(), decimals, this.props.web3Instance.utils.BN)               
                     // console.log("amount", amt)
                   //  tierAmountArray = this.tiersArray.map(a => a.threshold * 10**decimals) 
-                    tierAmountArray = this.tiersArray.map(a => toBaseUnit(a.threshold, decimals, this.props.web3Instance.utils.BN))
+                    tierAmountArray = this.tiersArray.map(a => toBaseUnit(a.threshold.toString(), decimals, this.props.web3Instance.utils.BN))
                     console.log(tierAmountArray)
                 })
             } else {

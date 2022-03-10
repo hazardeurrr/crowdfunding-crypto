@@ -33,6 +33,16 @@ const SingleCardCarrousel = (props) => {
       }
   }
 
+  const returnDecToShow = () => {
+    if(campaign.currency == "USDC"){
+        return 2
+    } else if(campaign.currency == "ETH"){
+        return 4
+    } else {
+        return 3
+    }
+}
+
   const timeLeft = () => {
   
     let timeLeft = end_date - now;
@@ -68,7 +78,7 @@ const displayRaised = () => {
     // else
     //     return Math.floor(raised)
     if(metamask_connected && chainID == chain)
-        return <RaisedChecker address={campaign.contract_address} currency={campaign.currency} callback={setRaisedCallback}/>
+        return <RaisedChecker address={campaign.contract_address} currency={campaign.currency} callback={setRaisedCallback} decToShow={returnDecToShow()}/>
 
 }
 

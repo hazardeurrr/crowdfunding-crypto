@@ -128,7 +128,7 @@ const TokenDetails = () => {
                                             <AccordionItemHeading>
                                                 <AccordionItemButton>
                                                     <span>
-                                                        What is $BBST cashback ?
+                                                        What are $BBST rewards ?
                                                     </span>
                                                 </AccordionItemButton>
                                             </AccordionItemHeading>
@@ -136,7 +136,7 @@ const TokenDetails = () => {
                                                 <p>
                                                     When you participate to a crowdfunding campaign on our platform, you become eligible for $BBST cashback.<br></br>
                                                     $BBST cashback acts as an incentive and rewards you for using the protocol.<br></br>
-                                                    Every week, a certain amount of $BBST will be distributed to the donators depending on the amount they donated, their stake in $BBST, and limited to a maximum of 10% cashback.<br></br>
+                                                    Every week, a certain amount of $BBST will be distributed to the donators depending on the amount they donated, their stake in $BBST, and limited to a maximum of 3% cashback.<br></br>
                                                     This ensures a fair distribution with a bonus for the most involved users. <br></br>
                                                     A total of 9.2M $BBST will be distributed in cashback to the platform users over years (see the chart above for more details).<br></br>
                                                 </p>

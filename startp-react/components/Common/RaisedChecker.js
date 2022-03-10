@@ -37,11 +37,20 @@ const RaisedChecker = (props) => {
   const setRaisedAndCB = (value) => {
     setRaisedValue(value)
     if(props.callback != undefined){
+      console.log(value)
       props.callback(value)
     }
   }
 
-  return raisedValue
+  const returnValueWithDec = () => {
+    if(props.decToShow == undefined || raisedValue == null || raisedValue == undefined || raisedValue == 0 || props.decToShow < 1){
+      return raisedValue
+    } else {
+      return parseFloat(raisedValue - 5 * Math.pow(10, -(props.decToShow+1))).toFixed(props.decToShow)
+    }
+  }
+
+  return returnValueWithDec()
 }
 
 export default RaisedChecker;

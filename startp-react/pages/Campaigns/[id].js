@@ -7,7 +7,7 @@ import Link from '@/utils/ActiveLink'
 import ProgressBar from 'react-bootstrap/ProgressBar';
 import CampaignSidebar from '@/components/Blog/CampaignSidebar';
 import VerifTooltip from '@/components/Common/VerifTooltip';
-import { makeStyles } from '@material-ui/core/styles';
+import { makeStyles, withStyles } from '@material-ui/core/styles';
 import ChipUser from '@/components/Common/ChipUser';
 import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
@@ -28,6 +28,8 @@ import { MdSentimentVerySatisfied } from 'react-icons/md';
 import campaignAbi from '@/components/ContractRelated/CampaignAbi';
 import Withdraw from './withdraw';
 import Refund from './refund';
+import Tooltip from '@material-ui/core/Tooltip';
+import Typography from '@material-ui/core/Typography';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -42,6 +44,15 @@ const useStyles = makeStyles((theme) => ({
       }
   }));
 
+  
+const HtmlTooltip = withStyles((theme) => ({
+    tooltip: {
+        backgroundColor: '#f5f5f9',
+        color: 'rgba(0, 0, 0, 0.87)',
+        fontSize: theme.typography.pxToRem(12),
+        border: '1px solid #dadde9',
+    },
+  }))(Tooltip);
 
 
 const Campaign = (props, {c, u}) => {
@@ -130,13 +141,30 @@ const Campaign = (props, {c, u}) => {
         setCampaign(c)
         setRaisedRetrieve(true)
     }
-    
+
+    const returnDecToShow = () => {
+        if(campaign.currency == "USDC"){
+            return 4
+        } else {
+            return 8
+        }
+    }
 // reste les progress bar à update
 
     const displayRaised = () => {
         if(metamask_connected){
-            if(chainID == chain)
-                return <RaisedChecker address={campaign.contract_address} currency={campaign.currency} callback={setRaised}/>
+            if(chainID == chain){
+                return  <HtmlTooltip
+                placement="top"
+                title={
+                  <React.Fragment>
+                    {campaign.raised} {campaign.currency}
+                  </React.Fragment>
+                }
+              >
+                <div><RaisedChecker address={campaign.contract_address} currency={campaign.currency} callback={setRaised} decToShow={returnDecToShow()}/></div>
+              </HtmlTooltip>
+            }
             else
                 return "Connect to the right network to see more"
         }
@@ -267,6 +295,7 @@ const Campaign = (props, {c, u}) => {
         }
     }
 
+
     const ShowTxt = () => {
         if(htmlTxt === "" || htmlTxt === undefined){
             return <div>
@@ -279,7 +308,7 @@ const Campaign = (props, {c, u}) => {
 
     const displayCurrency = () => {
         if(metamask_connected && chainID == chain && raisedRetrieve)
-            return <>{campaign.currency} raised / {parseFloat(campaign.objective)} {campaign.currency}</>
+            return <div style={{marginLeft : 5}}>{campaign.currency} raised / {parseFloat(campaign.objective)} {campaign.currency}</div>
     }
 
     const displayContent = () => {
@@ -328,7 +357,7 @@ const Campaign = (props, {c, u}) => {
 
                                     
                                         <p style={{fontSize: 15, marginBottom: 30}}>{campaign.small_description}</p>
-                                        <h5>{displayRaised()} {displayCurrency()}</h5> 
+                                        <h5 style={{display:"flex"}}>{displayRaised()} {displayCurrency()}</h5> 
                                         {displayProgressBar()}
                                         <div className="blog-details-desc">
                                             <div className="article-content">

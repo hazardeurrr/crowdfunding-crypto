@@ -111,10 +111,18 @@ const SimpleCampaignPost = (props, {u}) => {
         }
     }
 
+    const returnDecToShow = () => {
+        if(campaign.currency == "USDC"){
+            return 4
+        } else {
+            return 8
+        }
+    }
+
     const displayRaised = () => {
         if(metamask_connected){
             if(chainID == chain)
-                return <RaisedChecker address={campaign.contract_address} currency={campaign.currency} callback={setRaisedCallback}/>
+                return <RaisedChecker address={campaign.contract_address} currency={campaign.currency} callback={setRaisedCallback} decToShow={returnDecToShow()}/>
             else
                 return "Connect to the right network to see"
         } else
