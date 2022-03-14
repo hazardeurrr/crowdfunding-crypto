@@ -121,7 +121,7 @@ const Roadmap = () => {
             <TimelineContent>
             <div style={{padding: '10px', width: '-moz-fit-content',display: 'inline-block', boxShadow: '0 2px 48px 0 rgb(0 0 0 / 8%)'}}>
                 <Typography variant="h6" component="h1">
-                    IDO
+                    $BBST Launch
                 </Typography>
                 <Typography>{t.sale}</Typography>
             </div>

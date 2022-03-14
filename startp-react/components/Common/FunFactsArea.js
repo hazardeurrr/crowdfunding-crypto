@@ -11,7 +11,7 @@ import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 
-const cleasArea = () => {
+const FunFactsArea = () => {
 
     const [open, setOpen] = React.useState(false);
     const [inBase, setTrue] = React.useState(false);
