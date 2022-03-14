@@ -137,7 +137,6 @@ const Campaign = (props, {c, u}) => {
     const setRaised = (r) => {
         let c = campaign
         c.raised = r
-        console.log("changed raised")
         setCampaign(c)
         setRaisedRetrieve(true)
     }
@@ -162,7 +161,7 @@ const Campaign = (props, {c, u}) => {
                   </React.Fragment>
                 }
               >
-                <div><RaisedChecker address={campaign.contract_address} currency={campaign.currency} callback={setRaised} decToShow={returnDecToShow()}/></div>
+                <div><RaisedChecker end_date={campaign.end_date} address={campaign.contract_address} currency={campaign.currency} callback={setRaised} decToShow={returnDecToShow()}/></div>
               </HtmlTooltip>
             }
             else
@@ -223,17 +222,17 @@ const Campaign = (props, {c, u}) => {
         }
     }
 
-    const RefundButton = () => {
-        //on n'affiche pas les boutons de refund au createur de la campagne
-        if(raisedRetrieve && metamask_connected && chainID == chain){
-            if(userAddr.toLowerCase() != campaign.creator.toLowerCase()){
-                if(campaign.end_date < now && campaign.raised < campaign.objective && !campaign.flexible){
-                    return <Refund campaign={campaign}/>
-                }
-            }
-        }
+    // const RefundButton = () => {
+    //     //on n'affiche pas les boutons de refund au createur de la campagne
+    //     if(raisedRetrieve && metamask_connected && chainID == chain){
+    //         if(userAddr.toLowerCase() != campaign.creator.toLowerCase()){
+    //             if(campaign.end_date < now && campaign.raised < campaign.objective && !campaign.flexible){
+    //                 return <Refund campaign={campaign}/>
+    //             }
+    //         }
+    //     }
         
-    }
+    // }
 
     const displayProgressBar = () => {
         if(metamask_connected && chainID == chain){
@@ -281,14 +280,15 @@ const Campaign = (props, {c, u}) => {
         if(currentUser !== undefined && campaign !== undefined && metamask_connected && chainID == chain){
             if(userAddr.toLowerCase() === campaign.creator.toLowerCase()){
                 if(raisedRetrieve){
-                    if(campaign.end_date < now && (campaign.flexible || (campaign.raised >= campaign.objective))){
-                        return <Withdraw campaign={campaign}/>
-                    } else if(campaign.end_date < now) {
-                        return <div>
-                        <h4>Unfortunately, your campaign hasn't reached its goal.</h4>
-                        {/* <button className="btn btn-light" onClick={downloadData}>Download data</button> */}
-                        </div>
+                    if(campaign.end_date < now){
+                         return <Withdraw campaign={campaign}/>
                     } 
+                    // else if(campaign.end_date < now) {
+                    //     return <div>
+                    //     <h4>Unfortunately, your campaign hasn't reached its goal.</h4>
+                    //     {/* <button className="btn btn-light" onClick={downloadData}>Download data</button> */}
+                    //     </div>
+                    // } 
                 }
                 
             }
@@ -366,7 +366,7 @@ const Campaign = (props, {c, u}) => {
                                                         <li>
                                                             <Icon.Clock /> {timeLeft()}
                                                         </li>
-                                                        <li><FlexibleTooltip campaign={campaign}/></li>
+                                                        {/* <li><FlexibleTooltip campaign={campaign}/></li> */}
                                                     </ul>
                                                 </div>              
                                             </div>
@@ -374,7 +374,7 @@ const Campaign = (props, {c, u}) => {
 
                                         <div style={{display: "flex"}}>
                                             {BackButton()}
-                                            {RefundButton()}
+                                            {/* {RefundButton()} */}
 
                                             
                                             {showHeart()}

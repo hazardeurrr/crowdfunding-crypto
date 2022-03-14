@@ -78,7 +78,7 @@ const displayRaised = () => {
     // else
     //     return Math.floor(raised)
     if(metamask_connected && chainID == chain)
-        return <RaisedChecker address={campaign.contract_address} currency={campaign.currency} callback={setRaisedCallback} decToShow={returnDecToShow()}/>
+        return <RaisedChecker end_date={campaign.end_date} address={campaign.contract_address} currency={campaign.currency} callback={setRaisedCallback} decToShow={returnDecToShow()}/>
 
 }
 

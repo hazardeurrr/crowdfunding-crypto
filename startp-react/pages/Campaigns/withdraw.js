@@ -57,12 +57,12 @@ const Withdraw = (props) => {
         setSnackbarOpen(false)
     }
 
-  const withdrawMoney = async() => {
+  const withdrawMoney = () => {
     if(connected == true && chainID == chain && ctrInstance != undefined){
         //connect to Metamask and check for a refund
         //const campCtrInstance = new web3Instance.eth.Contract(campaignAbi.campaignAbi, campaign.contract_address)
         
-        await payCreator(ctrInstance);
+         payCreator(ctrInstance);
     } else {
             setErrorMsg("You're not connected. Please connect to Metamask on the right network")
             openSnackbar()
@@ -77,7 +77,7 @@ const Withdraw = (props) => {
     //     openSnackbar()
     // } else {
 
-        // const result = getTiers();
+        // const result = getTiers()
 
         getTokens().then(res => {
             
@@ -104,6 +104,19 @@ const Withdraw = (props) => {
 
         })
     // }
+  }
+
+  function getSubsEvent() {
+
+    if(connected == true && chainID == chain && ctrInstance != undefined){
+        ctrInstance.getPastEvents("Participation", ({fromBlock: 'earliest'}))
+        .then(function(events){
+            console.log(events) // same results as the optional callback above
+            let eventsMapped = events.map(e => [e.returnValues.from.toLowerCase(), e.returnValues.indexTier])
+            console.log(eventsMapped)
+            setSubscribers(eventsMapped)
+        });
+    }
   }
 
   async function getTokens() {
@@ -140,10 +153,10 @@ const Withdraw = (props) => {
 
   
 
-  const payCreator = async(contractInstance) => {
+  const payCreator = (contractInstance) => {
 
     if(campaign.currency == "ETH"){
-        contractInstance.methods.payCreatorBis()
+        contractInstance.methods.payCreator()
         .send({from : userAddr, value: 0})
         .on('transactionHash', function(hash){
             openDialog()
@@ -237,8 +250,9 @@ const Withdraw = (props) => {
             //connect to Metamask and check for a refund
             const campCtrInstance = new web3Instance.eth.Contract(campaignAbi.campaignAbi, campaign.contract_address)
             setCtrInstance(campCtrInstance)
-            campCtrInstance.methods.totalBalance.call().call().then(res => {setTotalBalance(res)})
-            campCtrInstance.methods.getSubs().call().then(res => { setSubscribers(res) })
+            getSubsEvent()
+      //      campCtrInstance.methods.totalBalance.call().call().then(res => {setTotalBalance(res)})
+         //   campCtrInstance.methods.getSubs().call().then(res => { setSubscribers(res)})
       }
     }
   }, [web3Instance])

@@ -61,11 +61,6 @@ const campaignFactoryAbi = [
 				"type": "uint256"
 			},
 			{
-				"internalType": "bool",
-				"name": "partialGoal_",
-				"type": "bool"
-			},
-			{
 				"internalType": "uint256",
 				"name": "tokenChoice",
 				"type": "uint256"

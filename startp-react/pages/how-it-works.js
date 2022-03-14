@@ -138,7 +138,7 @@ const ServiceDetails = () => {
                                             </AccordionItemPanel>
                                         </AccordionItem>
 
-                                        <AccordionItem uuid="g">
+                                        {/* <AccordionItem uuid="g">
                                             <AccordionItemHeading>
                                                 <AccordionItemButton>
                                                     <span>
@@ -154,7 +154,7 @@ const ServiceDetails = () => {
                                                     <br></br>In any other case, you can't get a refund of your contribution.
                                                 </p>
                                             </AccordionItemPanel>
-                                        </AccordionItem>
+                                        </AccordionItem> */}
 
                                         <AccordionItem uuid="h">
                                             <AccordionItemHeading>
@@ -291,8 +291,7 @@ const ServiceDetails = () => {
                                                 </AccordionItemHeading>
                                                 <AccordionItemPanel>
                                                     <p>
-                                                        You choose ! By default, yes, the goal is flexible. It means that you will have all the funds raised in your campaign at the end of it. But you can also
-                                                        set it to "All or nothing", so if the goal is not reached by the deadline, contributors will be able to get a refund.
+                                                        Yes, you will have all the funds raised in your campaign at the end of it.
                                                     </p>
                                                 </AccordionItemPanel>
                                             </AccordionItem>

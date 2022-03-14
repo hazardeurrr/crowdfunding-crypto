@@ -98,67 +98,23 @@ const campaignAbi = [
 			{
 				"indexed": false,
 				"internalType": "uint256",
-				"name": "campaign_id",
-				"type": "uint256"
-			},
-			{
-				"indexed": false,
-				"internalType": "uint256",
 				"name": "amount",
 				"type": "uint256"
 			},
 			{
 				"indexed": false,
+				"internalType": "address",
+				"name": "campaignAddress",
+				"type": "address"
+			},
+			{
+				"indexed": false,
 				"internalType": "uint256",
-				"name": "totalBalance",
+				"name": "indexTier",
 				"type": "uint256"
 			}
 		],
 		"name": "Participation",
-		"type": "event"
-	},
-	{
-		"anonymous": false,
-		"inputs": [
-			{
-				"indexed": false,
-				"internalType": "address",
-				"name": "from",
-				"type": "address"
-			},
-			{
-				"indexed": false,
-				"internalType": "address",
-				"name": "to",
-				"type": "address"
-			},
-			{
-				"indexed": false,
-				"internalType": "uint256",
-				"name": "refund_amount",
-				"type": "uint256"
-			}
-		],
-		"name": "Refund",
-		"type": "event"
-	},
-	{
-		"anonymous": false,
-		"inputs": [
-			{
-				"indexed": false,
-				"internalType": "address",
-				"name": "from",
-				"type": "address"
-			},
-			{
-				"indexed": false,
-				"internalType": "uint256",
-				"name": "refundAmount",
-				"type": "uint256"
-			}
-		],
-		"name": "Refund",
 		"type": "event"
 	},
 	{
@@ -187,11 +143,6 @@ const campaignAbi = [
 				"internalType": "uint256",
 				"name": "endTimestamp_",
 				"type": "uint256"
-			},
-			{
-				"internalType": "bool",
-				"name": "partialGoal_",
-				"type": "bool"
 			},
 			{
 				"internalType": "address",
@@ -266,48 +217,8 @@ const campaignAbi = [
 	},
 	{
 		"inputs": [],
-		"name": "payCreatorBis",
-		"outputs": [],
-		"stateMutability": "nonpayable",
-		"type": "function"
-	},
-	{
-		"inputs": [],
 		"name": "payCreatorERC20",
 		"outputs": [],
-		"stateMutability": "nonpayable",
-		"type": "function"
-	},
-	{
-		"inputs": [],
-		"name": "payCreatorERC20Bis",
-		"outputs": [],
-		"stateMutability": "nonpayable",
-		"type": "function"
-	},
-	{
-		"inputs": [],
-		"name": "refund",
-		"outputs": [
-			{
-				"internalType": "bool",
-				"name": "",
-				"type": "bool"
-			}
-		],
-		"stateMutability": "nonpayable",
-		"type": "function"
-	},
-	{
-		"inputs": [],
-		"name": "refundERC20",
-		"outputs": [
-			{
-				"internalType": "bool",
-				"name": "",
-				"type": "bool"
-			}
-		],
 		"stateMutability": "nonpayable",
 		"type": "function"
 	},
@@ -476,19 +387,6 @@ const campaignAbi = [
 	},
 	{
 		"inputs": [],
-		"name": "partialGoal",
-		"outputs": [
-			{
-				"internalType": "bool",
-				"name": "",
-				"type": "bool"
-			}
-		],
-		"stateMutability": "view",
-		"type": "function"
-	},
-	{
-		"inputs": [],
 		"name": "raised",
 		"outputs": [
 			{
@@ -508,19 +406,6 @@ const campaignAbi = [
 				"internalType": "uint256",
 				"name": "",
 				"type": "uint256"
-			}
-		],
-		"stateMutability": "view",
-		"type": "function"
-	},
-	{
-		"inputs": [],
-		"name": "state",
-		"outputs": [
-			{
-				"internalType": "enum Campaign.State",
-				"name": "",
-				"type": "uint8"
 			}
 		],
 		"stateMutability": "view",

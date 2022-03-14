@@ -5,6 +5,10 @@ import firebase from 'firebase';
 import Button from '@material-ui/core/Button';
 import { FaTwitter } from 'react-icons/fa';
 import { ImCross } from 'react-icons/im';
+import Dialog from '@material-ui/core/Dialog';
+import DialogContent from '@material-ui/core/DialogContent';
+import DialogTitle from '@material-ui/core/DialogTitle';
+import Link from 'next/link';
 
 
 const ProfileForm = (props) => {
@@ -18,6 +22,7 @@ const ProfileForm = (props) => {
     const [twitter, setTwitter] = useState('');
     const [site, setSite] = useState('');
     const[image, setImage] = useState('');
+    const [dialogOpen, setDialog] = useState(false);
 
     const handleChangeName = (event) => setName(event.target.value);
     const handleChangeEmail = (event) => setEmail(event.target.value);
@@ -78,6 +83,37 @@ const ProfileForm = (props) => {
         })
     }
 
+    function openDialog(){
+        setDialog(true);
+    }
+
+    function closeDialog(){
+        setDialog(false);
+    }
+
+    const displayValidation = (addr) => {
+        return <div style={{justifyContent:'center'}}>
+            <DialogTitle id="alert-dialog-title">Profile Updated!</DialogTitle>
+            <DialogContent>
+            
+            <div style={{display: 'flex', justifyContent:'center', alignItems:'center', flexDirection:'column'}}>
+                <div style={{justifyContent:'center'}}>
+                <h5 style={{marginBottom: 5}}>You can now go back to your profile to check your changes !</h5>
+                    <Link href={{
+                        pathname: "/User/[id]",
+                        query: {
+                            id: addr,
+                            }
+                        }}
+                        >
+                    <a style={{marginTop: 15}} className="btn btn-primary">Back to your profile</a>
+                    </Link>  
+                </div>
+            </div>    
+            
+            </DialogContent></div>
+    }
+
     function handleSubmit(event) {
         event.preventDefault();
 
@@ -93,8 +129,7 @@ const ProfileForm = (props) => {
                 user.website = site;
 
                 updateDoc(user.eth_address, 'profile', user, function() {
-                    alert("Profile updated !")
-                    window.location.replace("/User/"+userAddr)
+                    openDialog();
                 })
             } else {
                 console.log("Document not found")
@@ -143,6 +178,24 @@ const ProfileForm = (props) => {
 
                     {/* <button onClick={showAddress}>Show address</button>
                      */}
+                     <Dialog
+                        open={dialogOpen}
+                        onClose={(_, reason) => {
+                            if (reason !== "backdropClick") {
+                                closeDialog();
+                            }
+                            }}
+                        
+                        aria-labelledby="alert-dialog-title"
+                        aria-describedby="alert-dialog-description"
+                    >
+                        {displayValidation(userAddr)}
+                        {/* <DialogActions>
+                        <Button onClick={this.closeDialog} color="primary">
+                            Close
+                        </Button>
+                        </DialogActions> */}
+                    </Dialog>
 
                     <div className="faq-contact">
                         <h3>Complete the information about your profile</h3>
