@@ -158,7 +158,7 @@ const Campaign = (props, {c, u}) => {
                 placement="top"
                 title={
                   <React.Fragment>
-                    {campaign.raised} {campaign.currency}
+                    <i>Exact amount : {campaign.raised} {campaign.currency}</i>
                   </React.Fragment>
                 }
               >

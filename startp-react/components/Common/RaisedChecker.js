@@ -46,8 +46,13 @@ const RaisedChecker = (props) => {
     if(props.decToShow == undefined || raisedValue == null || raisedValue == undefined || raisedValue == 0 || props.decToShow < 1){
       return raisedValue
     } else {
-      return parseFloat(raisedValue - 5 * Math.pow(10, -(props.decToShow+1))).toFixed(props.decToShow)
+      return truncateVal(raisedValue, props.decToShow)
     }
+  }
+
+  const truncateVal = (num, decimals) => {
+    var re = new RegExp('^-?\\d+(?:\.\\d{0,' + (decimals || -1) + '})?');
+    return parseFloat(num.toString().match(re)[0]);
   }
 
   return returnValueWithDec()
