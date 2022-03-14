@@ -11,7 +11,7 @@ import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 
-const FunFactsArea = () => {
+const cleasArea = () => {
 
     const [open, setOpen] = React.useState(false);
     const [inBase, setTrue] = React.useState(false);
@@ -99,7 +99,7 @@ const FunFactsArea = () => {
 
                     <div className="col-lg-3 col-md-3 col-6">
                         <div className="funfact">
-                            <h3>{t.upto} 20%</h3>
+                            <h3>{t.upto} 10%</h3>
                             <p>Cashback</p>
                         </div>
                     </div>
