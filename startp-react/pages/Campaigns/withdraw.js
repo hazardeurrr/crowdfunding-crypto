@@ -16,6 +16,10 @@ import DialogTitle from '@material-ui/core/DialogTitle';
 import Button from '@material-ui/core/Button';
 import * as IconFeather from 'react-feather';
 import Link from 'next/link';
+import {usdcAddr} from '@/components/ContractRelated/USDCAddr';
+import {bbstAddr} from '@/components/ContractRelated/BbstAddr';
+import { erc20standardAbi } from '@/components/ContractRelated/ERC20standardABI';
+import { bbstAbi } from '@/components/ContractRelated/BbstAbi';
 
 
 function Alert(props) {
@@ -252,7 +256,22 @@ const Withdraw = (props) => {
             setCtrInstance(campCtrInstance)
             getSubsEvent()
       //      campCtrInstance.methods.totalBalance.call().call().then(res => {setTotalBalance(res)})
-         //   campCtrInstance.methods.getSubs().call().then(res => { setSubscribers(res)})
+            if(campaign.currency == "ETH"){
+                web3Instance.eth.getBalance(campaign.contract_address).then(res => {
+                        setTotalBalance(res)
+                    }
+                )
+            } else {
+                let erc20Ctr = undefined
+                if(campaign.currency == "USDC")
+                    erc20Ctr = new web3Instance.eth.Contract(erc20standardAbi, usdcAddr)
+                else if(campaign.currency == "BBST")
+                    erc20Ctr = new web3Instance.eth.Contract(bbstAbi, bbstAddr)
+                
+                erc20Ctr.methods.balanceOf(campaign.contract_address).call().then(res => {
+                    setTotalBalance(res)
+                })
+            }
       }
     }
   }, [web3Instance])
