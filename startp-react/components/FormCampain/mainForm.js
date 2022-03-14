@@ -79,7 +79,7 @@ class MainForm extends React.Component {
         this.cats = ['---', '---'];
         this.html = '';
         this.image = undefined;
-        this.flexible = true;
+   //     this.flexible = true;
         this.title = undefined;
         this.startDate = undefined, 
         this.endDate = undefined, 
@@ -190,7 +190,7 @@ class MainForm extends React.Component {
         amt, // WEI for ETH, x 10^decimals
         parseInt(this.startDate), 
         parseInt(this.endDate), 
-        this.flexible, 
+      //  this.flexible, 
         parseInt(this.tokenIndex(this.raisingMethod)),
         amountArray,
         stockArray
@@ -273,7 +273,7 @@ class MainForm extends React.Component {
                     objective: this.objective,
                     long_desc: downloadURL,
                     currency: this.raisingMethod,
-                    flexible: this.flexible,
+                 //   flexible: this.flexible,
                     tiers: this.tiersArray,
                     main_img: this.image,
                     raised: 0,
@@ -380,7 +380,7 @@ class MainForm extends React.Component {
                 </DialogContent></div>
             case 1:
                 return <div style={{justifyContent:'center'}}>
-                <DialogTitle id="alert-dialog-title">Campaign initialization {this.state.initializationProgress}%</DialogTitle>
+                <DialogTitle id="alert-dialog-title">Campaign initialization {this.state.initializationProgress.toFixed(2)}%</DialogTitle>
                 <DialogContent>    
                     <CircularProgress style={{marginTop: 20, marginBottom: 20}}/>
                     <DialogContentText id="alert-dialog-description">
@@ -590,7 +590,7 @@ class MainForm extends React.Component {
                                         </div>
                                     </Modal>
                                     
-                                    <p style={{marginTop: 30}}><strong> Flexibilty </strong><br/>Indicate how flexible can you be about your fundraising and the amount you want to gather. <br></br>If you check this box, the campaign will need to reach its goal before its deadline for you to get the funds, 
+                                    {/* <p style={{marginTop: 30}}><strong> Flexibilty </strong><br/>Indicate how flexible can you be about your fundraising and the amount you want to gather. <br></br>If you check this box, the campaign will need to reach its goal before its deadline for you to get the funds, 
                                     otherwise the funds will be locked and contributors will be able to get a refund. If you don't check this, you will get all funds raised even though the goal of the campaign is not reached by its deadline.</p>
                                     <div className="col-lg-12 col-md-12">
                                         <div className="form-check">
@@ -605,7 +605,7 @@ class MainForm extends React.Component {
                                             />
                                             
                                         </div>
-                                    </div>
+                                    </div> */}
                                     
                                     <h4 style={{marginTop: "15px", marginBottom: "20px"}}>Optionnal</h4>
 
