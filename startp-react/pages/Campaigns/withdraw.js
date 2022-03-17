@@ -115,9 +115,9 @@ const Withdraw = (props) => {
     if(connected == true && chainID == chain && ctrInstance != undefined){
         ctrInstance.getPastEvents("Participation", ({fromBlock: 'earliest'}))
         .then(function(events){
-            console.log(events) // same results as the optional callback above
-            let eventsMapped = events.map(e => [e.returnValues.from.toLowerCase(), e.returnValues.indexTier])
-            console.log(eventsMapped)
+            // console.log(events) // same results as the optional callback above
+            let eventsMapped = events.map(e => [e.returnValues.user.toLowerCase(), e.returnValues.indexTier])
+            // console.log(eventsMapped)
             setSubscribers(eventsMapped)
         });
     }

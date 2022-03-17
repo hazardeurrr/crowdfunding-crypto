@@ -25,6 +25,8 @@ import Link from 'next/link';
 import { BN } from 'bn.js';
 import { toBaseUnit } from '@/utils/bnConverter';
 import { bbstAbi } from '../ContractRelated/BbstAbi';
+import firebase from 'firebase';
+
 const Web3 = require('web3');
 
 // async function selectPlan(amount){
@@ -45,7 +47,7 @@ const PricingTiers = (props) => {
     const chainID = useSelector((state) => state.chainID)
     const userAddr = useSelector((state) => state.address)
     const web3Instance = useSelector((state) => state.web3Instance)
-
+  //  const currentUser = useSelector((state) => state.currentUser)
     const campaign = props.project
 
     const [open, setOpen] = React.useState(false);
@@ -93,7 +95,13 @@ const PricingTiers = (props) => {
             // TX Metamask
             // onSuccess => retire du [] pending et on le met dans [] subscribers
             // onFailure => retire du [] pending
-                
+
+            var userDoc = db.collection("profile").doc(userAddr);
+            // Atomically add a new region to the "participated" array field.
+            userDoc.update({
+                participated: firebase.firestore.FieldValue.arrayUnion(campaign.contract_address)
+            })
+                            
             const campCtrInstance = new web3Instance.eth.Contract(campaignAbi.campaignAbi, campaign.contract_address)
                 if(campaign.currency == "ETH")
                     await participateInETH(false, campCtrInstance, campaign.tiers[index].threshold, index)
@@ -104,6 +112,7 @@ const PricingTiers = (props) => {
 
     async function participateInETH(isFreeDonation, contractInstance, v, indexTier) {
        let ind = isFreeDonation ? 0 : indexTier + 1
+
        contractInstance.methods.participateInETH(ind)
             .send({from : userAddr, value: web3Instance.utils.toWei(v)})
             .on('transactionHash', function(hash){
@@ -253,6 +262,13 @@ const PricingTiers = (props) => {
     async function handleClickFree(e) {    
         let amount = valueRef.current.value
         if(amount > 0){
+            var userDoc = db.collection("profile").doc(userAddr);
+            console.log(userDoc)
+            // Atomically add a new region to the "participated" array field.
+            userDoc.update({
+                participated: firebase.firestore.FieldValue.arrayUnion(campaign.contract_address)
+            }).then(res => console.log(res));
+            
             const campCtrInstance = new web3Instance.eth.Contract(campaignAbi.campaignAbi, campaign.contract_address)
                 if(campaign.currency == "ETH")
                     await participateInETH(true, campCtrInstance, amount, 0)
