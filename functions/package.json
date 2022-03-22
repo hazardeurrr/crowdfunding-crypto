@@ -15,7 +15,8 @@
   "dependencies": {
     "firebase-admin": "^10.0.2",
     "firebase-functions": "^3.18.0",
-    "web3": "^1.7.1"
+    "web3": "^1.7.1",
+    "web3-eth-accounts": "^1.7.1"
   },
   "devDependencies": {
     "firebase-functions-test": "^0.2.0"
