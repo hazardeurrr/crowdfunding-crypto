@@ -23,7 +23,7 @@ const ServicesArea = () => {
         labels: [`${t.liquidity}`, `${t.strategic}`, `${t.provide}`, `${t.privateSale}`,  `${t.advisors}`],
         datasets: [
           {
-            data: [9200000, 2600000, 1900000, 2700000, 3600000],
+            data: [9200000, 2400000, 2100000, 2700000, 3600000],
             backgroundColor: [
               '#c679e3',
               '#44ce6f',
@@ -44,7 +44,7 @@ const ServicesArea = () => {
           },
         ],
       };
-
+      
     return (
         <>
            <div className="services-area ptb-80 bg-f7fafd">
@@ -175,6 +175,8 @@ const ServicesArea = () => {
                                 <Doughnut options={{ responsive: true }} data={chartData} />
                             </div>
 
+                            
+
                         </div>
 
                         <div className="col-lg-6 col-md-12 services-content">
@@ -199,7 +201,7 @@ const ServicesArea = () => {
                                         <p style={{fontSize: 12, fontStyle: 'italic'}}>{t.privateLocked}</p>
                                     </div>
                                     <div className="box">
-                                        <FiTrendingUp size={27} /> {t.strategic}: 2 600 000 BBST
+                                        <FiTrendingUp size={27} /> {t.strategic}: 2 400 000 BBST
                                         {/* <p style={{fontSize: 12, fontStyle: 'italic'}}>{t.strategicExplained}</p> */}
                                     </div>
                                     <div className="box">
@@ -207,7 +209,7 @@ const ServicesArea = () => {
                                         <p style={{fontSize: 12, fontStyle: 'italic'}}>{t.lock}</p>
                                     </div>
                                     <div className="box">
-                                        <FaExchangeAlt size={27}/> {t.provide}: 1 900 000 BBST
+                                        <FaExchangeAlt size={27}/> {t.provide}: 2 100 000 BBST
                                     </div>
 
                             </div>

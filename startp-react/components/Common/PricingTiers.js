@@ -262,12 +262,12 @@ const PricingTiers = (props) => {
     async function handleClickFree(e) {    
         let amount = valueRef.current.value
         if(amount > 0){
-            var userDoc = db.collection("profile").doc(userAddr);
-            console.log(userDoc)
-            // Atomically add a new region to the "participated" array field.
-            userDoc.update({
-                participated: firebase.firestore.FieldValue.arrayUnion(campaign.contract_address)
-            }).then(res => console.log(res));
+            // var userDoc = db.collection("profile").doc(userAddr);
+            // console.log(userDoc)
+            // // Atomically add a new region to the "participated" array field.
+            // userDoc.update({
+            //     participated: firebase.firestore.FieldValue.arrayUnion(campaign.contract_address)
+            // }).then(res => console.log(res));
             
             const campCtrInstance = new web3Instance.eth.Contract(campaignAbi.campaignAbi, campaign.contract_address)
                 if(campaign.currency == "ETH")

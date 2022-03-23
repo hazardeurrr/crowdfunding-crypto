@@ -19,6 +19,7 @@ import {rewardAddr} from '@/components/ContractRelated/RewardAddr';
 import * as IconFeather from 'react-feather';
 import axios from 'axios';
 import secrets from "../../../startp-react/secrets.json"
+import {db, storage} from "../../../startp-react/firebase-crowdfund/index"
 
 const firebase = require("firebase");
 // Required for side-effects
@@ -53,8 +54,56 @@ const CardToken = () => {
       var contract = new web3Instance.eth.Contract(rewardAbi, rewardAddr)
       setRewardCtr(contract)
       getClaim(contract);
+   //   populateTable()
     }
   }, [web3Instance])
+
+  const populateTable = () => {
+    let newSupply = []
+    for(let i = 0 ; i < 2 ; ++i){
+        newSupply.push(2500)
+    }
+    for(let i = 0 ; i < 3 ; ++i){
+        newSupply.push(4500)
+    }
+    for(let i = 0 ; i < 6 ; ++i){
+        newSupply.push(8000)
+    }
+    for(let i = 0 ; i < 6 ; ++i){
+        newSupply.push(10000)
+    }
+    for(let i = 0 ; i < 6 ; ++i){
+        newSupply.push(12500)
+    }
+    for(let i = 0 ; i < 525 ; ++i){
+        newSupply.push(15000)
+    }
+    for(let i = 0 ; i < 50 ; ++i){
+        newSupply.push(10000)
+    }
+    for(let i = 0 ; i < 50 ; ++i){
+        newSupply.push(5000)
+    }
+    for(let i = 0 ; i < 50 ; ++i){
+        newSupply.push(2500)
+    }
+    for(let i = 0 ; i < 50 ; ++i){
+        newSupply.push(1250)
+    }
+    for(let i = 0 ; i < 50 ; ++i){
+        newSupply.push(700)
+    }
+    for(let i = 0 ; i < 50 ; ++i){
+        newSupply.push(350)
+    }
+    for(let i = 0 ; i < 50 ; ++i){
+        newSupply.push(80)
+    }
+    for(let i = 0 ; i < 50 ; ++i){
+        newSupply.push(40)
+    }
+    db.collection('utils').doc('rewardData').update({weeklySupply: newSupply})
+}
 
   const getClaim = async(contract) => {
     var eventsTmp = []

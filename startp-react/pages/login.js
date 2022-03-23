@@ -64,7 +64,7 @@ const Login = () => {
                     </div> */}
                     <div className="auth-form">
                         <div className="auth-head">
-                            <Link href="/it-startup">
+                            <Link href="/">
                                 <a><img src="/images/logo.png" /></a>
                             </Link>
                             <p>Login with your Metamask account to start interacting !</p><br/>

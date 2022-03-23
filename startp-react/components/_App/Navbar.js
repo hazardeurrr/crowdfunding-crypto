@@ -148,7 +148,7 @@ const Navbar = () => {
                             })
                         }
                     } else {
-                        const user = { username: "", email: "", eth_address: userAddr, image: "", bio: "", twitter: "", website: "", liked: new Array(), participated: new Array() }
+                        const user = { username: "", email: "", eth_address: userAddr, image: "", bio: "", twitter: "", website: "", liked: new Array() }
                         postDoc(user.eth_address, 'profile', user,
                             console.log(user.username + " has been uploaded")
                         )
@@ -281,7 +281,7 @@ const Navbar = () => {
             <div className="startp-nav">
                 <div className="container">
                     <nav className="navbar navbar-expand-md navbar-light">
-                        <Link href="/it-startup">
+                        <Link href="/">
                             <a onClick={toggleNavbar} className="navbar-brand">
                                 <img src="/images/bb_logo_full_2.png" alt="logo" />
                             </a>
