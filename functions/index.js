@@ -380,8 +380,6 @@ exports.getClaimValueSigned = functions.region('europe-west1').https.onRequest((
   console.log("Address gathered : " + request.query.address);
   const userAddr = request.query.address;
 
-  console.log(userAddr)
-
   rewardCtr.methods.getLastClaim(userAddr).call().then((res) => {
     rewardCtr.getPastEvents("Participate", ({fromBlock: parseInt(res)}))
       .then((events) => {
@@ -390,8 +388,6 @@ exports.getClaimValueSigned = functions.region('europe-west1').https.onRequest((
         rewardCtr.methods.getStartTimestamp().call().then(async(time) => {
 
           const promises = eventsFiltered.map(async(e) => {
-
-			console.log("Current event :", e.returnValues.timestamp);
 
 			var week = parseInt(Math.floor((e.returnValues.timestamp - time) / 604800));
 			var total = 0;
@@ -416,9 +412,7 @@ exports.getClaimValueSigned = functions.region('europe-west1').https.onRequest((
                     eventsTmp.push(e.returnValues.campaign);
                   } else {
                     var ratio = ((e.returnValues.amount * currentRate) / data.data().totalPerWeek[week]) > 0.03 ? 0.03 : ((e.returnValues.amount * currentRate) / data.data().totalPerWeek[week]);
-					console.log("ratio :", ratio);
                     total += ratio * data.data().weeklySupply[week];
-                    console.log("Total : " + total);
                   }
 
 				}).catch((error) => {console.log(error)})
@@ -449,7 +443,7 @@ exports.getClaimValueSigned = functions.region('europe-west1').https.onRequest((
 				process.env.REACT_APP_PRIVATE_KEY
 			);
 		
-			response.json({amount: `${recipient.allocation}`, sig: `${signature}`, message: `${message}`});
+			response.json({amount: `${recipient.allocation}`, sig: `${signature}`});
         })
 	});
 

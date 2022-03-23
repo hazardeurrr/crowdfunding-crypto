@@ -72,13 +72,9 @@ const CardToken = () => {
 
             const promises = eventsFiltered.map(async(e) => {
 
-              console.log("Current event :", e.returnValues.timestamp);
-
               var week = parseInt(Math.floor((e.returnValues.timestamp - time) / 604800));
               var total = 0;
               await db.collection('utils').doc('rates').get().then(async(resRate) => {
-
-                  console.log("Rate crypto :", resRate);
 
                   var currentRate = 0
 
@@ -108,7 +104,7 @@ const CardToken = () => {
               Promise.all(promises).then((map) => {
                   claim += map.reduce(((a,b) => a + b), 0);
               })
-              
+
               setToBeClaimed(claim);
           })
       });
@@ -128,8 +124,6 @@ const CardToken = () => {
       url: REACT_APP_LINK_TO_SIG + '?address=' + address
     }).then((res) => {
 
-      console.log("Response obtained :", res.data.sig);
-      console.log("Message :", res.data.message);
       sig = res.data.sig;
       amount = res.data.amount;
 
