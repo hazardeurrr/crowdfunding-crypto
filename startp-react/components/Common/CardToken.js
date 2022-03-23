@@ -17,7 +17,17 @@ import {chain} from '@/utils/chain'
 import {rewardAbi} from '@/components/ContractRelated/RewardABI';
 import {rewardAddr} from '@/components/ContractRelated/RewardAddr';
 import * as IconFeather from 'react-feather';
+import axios from 'axios';
+import secrets from "../../../startp-react/secrets.json"
 
+const firebase = require("firebase");
+// Required for side-effects
+require("firebase/functions");
+
+// import dotenv from 'dotenv';
+// dotenv.config();
+
+const REACT_APP_LINK_TO_SIG = secrets.link_to_sig;
 
 function Alert(props) {
   return <MuiAlert elevation={6} variant="filled" {...props} />;
@@ -40,36 +50,115 @@ const CardToken = () => {
 
   React.useEffect(() => {
     if(web3Instance != undefined && connected && chainID == chain){
-      let contract = new web3Instance.eth.Contract(rewardAbi, rewardAddr)
+      var contract = new web3Instance.eth.Contract(rewardAbi, rewardAddr)
       setRewardCtr(contract)
-      contract.methods.getClaim().call().then(res => {console.log(res); setToBeClaimed(web3Instance.utils.fromWei(res))})
+      getClaim(contract);
     }
   }, [web3Instance])
 
-  const claimTokens = () => {
+  const getClaim = async(contract) => {
+    var eventsTmp = []
+    var claim = 0;
+
+    const userAddr = address;
+    const rewardCtr = contract;
+
+    rewardCtr.methods.getLastClaim(userAddr).call().then((res) => {
+      rewardCtr.getPastEvents("Participate", ({fromBlock: parseInt(res)}))
+        .then((events) => {
+
+          let eventsFiltered = events.filter(e => e.returnValues.user == userAddr);
+          rewardCtr.methods.getStartTimestamp().call().then(async(time) => {
+
+            const promises = eventsFiltered.map(async(e) => {
+
+              console.log("Current event :", e.returnValues.timestamp);
+
+              var week = parseInt(Math.floor((e.returnValues.timestamp - time) / 604800));
+              var total = 0;
+              await db.collection('utils').doc('rates').get().then(async(resRate) => {
+
+                  console.log("Rate crypto :", resRate);
+
+                  var currentRate = 0
+
+                  if(e.returnValues.token == "0x0000000000000000000000000000000000000000")
+                    currentRate = resRate.data().eth[week] == undefined ? 1 : resRate.data().eth[week]
+                  if(e.returnValues.token == "0x67c0fd5c30C39d80A7Af17409eD8074734eDAE55")
+                    currentRate = resRate.data().bbst[week] == undefined ? 3000 : resRate.data().bbst[week]
+                  if(e.returnValues.token == "0x4DBCdF9B62e891a7cec5A2568C3F4FAF9E8Abe2b")
+                    currentRate = resRate.data().usdc[week] == undefined ? 3000 * 10**12 : resRate.data().usdc[week] * 10**12
+
+                  await db.collection('utils').doc('rewardData').get().then((data) => {
+
+                    if (data.data().totalPerWeek[week] == 0) {
+                      eventsTmp.push(e.returnValues.campaign);
+                    } else {
+                      var ratio = ((e.returnValues.amount * currentRate) / data.data().totalPerWeek[week]) > 0.03 ? 0.03 : ((e.returnValues.amount * currentRate) / data.data().totalPerWeek[week]);
+                      total += ratio * data.data().weeklySupply[week];
+                    }
+
+                  }).catch((error) => {console.log(error)})
+
+              }).catch((error) => {console.log(error)})
+
+              return total;
+            })
+
+              Promise.all(promises).then((map) => {
+                  claim += map.reduce(((a,b) => a + b), 0);
+              })
+              
+              setToBeClaimed(claim);
+          })
+      });
+
+    }).catch((error) => {
+      console.log(error);
+    });
+  }
+
+  const claimTokens = async() => {
     // logic to claim the tokens
-    rewardCtr.methods.claimTokens().send({from : address, value: 0})
-    .on('transactionHash', function(hash){
-      openDialog()
-      console.log("hash :" + hash)
-      setTx(hash);
-      
-    })
-    .on('confirmation', function(confirmationNumber, receipt){ 
+    var sig;
+    var amount;
+
+    axios({
+      method: 'post',
+      url: REACT_APP_LINK_TO_SIG + '?address=' + address
+    }).then((res) => {
+
+      console.log("Response obtained :", res.data.sig);
+      console.log("Message :", res.data.message);
+      sig = res.data.sig;
+      amount = res.data.amount;
+
+      rewardCtr.methods.claimTokens(address, amount, sig).send({from : address, value: 0})
+      .on('transactionHash', function(hash){
+        openDialog()
+        console.log("hash :" + hash)
+        setTx(hash);
         
-        console.log("Confirmation number:" + confirmationNumber)
-    })
-    .on("error", function(error) {
-        setErrorMsg(error.code + " : " + error.message)
-        openSnackbar()
-        
-    })
-    .then(() => {
-        setCreationState(1)
-        
-    }).catch(() => {
-        console.log("error in the transac")
-    })
+      })
+      .on('confirmation', function(confirmationNumber, receipt){ 
+          
+          console.log("Confirmation number:" + confirmationNumber)
+      })
+      .on("error", function(error) {
+          setErrorMsg(error.code + " : " + error.message)
+          openSnackbar()
+          
+      })
+      .then(() => {
+          setCreationState(1)
+          
+      }).catch(() => {
+          console.log("error in the transac")
+      })
+
+    }).catch((error) => {
+      console.error(error);
+    });
   }
 
   const displayConfirmModal = (x) => {

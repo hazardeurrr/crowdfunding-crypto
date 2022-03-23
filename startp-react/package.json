@@ -9,6 +9,9 @@
         "start": "next start",
         "prod": "npm run build && next export"
     },
+    "browser": {
+        "fs": false
+     },
     "author": "EnvyTheme.com",
     "dependencies": {
         "@date-io/date-fns": "^1.3.13",
@@ -77,6 +80,7 @@
     },
     "license": "MIT",
     "devDependencies": {
+        "dotenv": "^16.0.0",
         "file-loader": "^6.2.0"
     }
 }

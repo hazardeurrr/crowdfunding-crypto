@@ -302,63 +302,73 @@ const cors = require('cors')({ origin: true });
 // https://firebase.google.com/docs/functions/write-firebase-functions
 
 
-// exports.updateWeeklyTotals = functions.region('europe-west1').pubsub.schedule('every monday 00:01')
-//   .timeZone('Europe/Paris')
-//   .onRun(async(context) => {
-//     var now = parseInt(Math.floor(Date.now() / 1000))
-//     const web3Instance = new Web3(new Web3.providers.HttpProvider("https://rinkeby.infura.io/v3/391e7c4cd5274ef8a269414b4833bade"))
-//     await web3Instance.eth.getBlockNumber().then(async(currentBlock) => {
-// 			console.log("currentblock", currentBlock)
-// 			await db.collection('utils').doc('lastWeeklyUpdate').get().then(async(doc1) => {
-// 				let lastWeeklyUpdate = doc1.data()
-// 				let lastTimeStamp = lastWeeklyUpdate.timestamp
-// 				let lastBlockUpdated = lastWeeklyUpdate.block
-// 				//console.log(lastWeeklyUpdate)
-// 				let compteur = 0
-// 				const rewardCtr = new web3Instance.eth.Contract(rewardAbi, rewardAddr);
-// 				rewardCtr.methods.getStartTimestamp().call().then(async(startTs) =>{
-// 					// console.log("start timestamp retrieve : " + startTs)
-// 					// console.log("now" + now)
-// 					let midTs = (now + lastTimeStamp) / 2
-// 					 console.log(lastTimeStamp + " ts")
-// 					// console.log(lastBlockUpdated + " block")
-// 					// console.log(midTs + " mid")
-// 					let week = parseInt(Math.floor((midTs - startTs) / 604800))
-// 					console.log(" week computed =>" + week)
-// 					await db.collection('utils').doc('rates').get().then(async(doc2) => {
-// 						let rate = doc2.data()
-// 						rewardCtr.getPastEvents("Participate", ({fromBlock: lastBlockUpdated, toBlock: currentBlock - 1}))
-// 						.then((events) => {
-// 							let eventsFiltered = events.filter(e => e.returnValues.timestamp > lastTimeStamp)
-// 							compteur += eventsFiltered.reduce((a,b) => {
-// 								let currentRate = 1
-// 								if(e.returnValues.token == "0x0000000000000000000000000000000000000000")
-// 									currentRate = rate.eth[week] == undefined ? 1 : rate.eth[week]
-// 								if(e.returnValues.token == "0x67c0fd5c30C39d80A7Af17409eD8074734eDAE55")
-// 									currentRate = rate.bbst[week] == undefined ? 1 : rate.bbst[week]
-// 								if(e.returnValues.token == "0x4DBCdF9B62e891a7cec5A2568C3F4FAF9E8Abe2b")
-// 									currentRate = rate.usdc[week] == undefined ? 1 : rate.usdc[week] * 10**12
-// 								return a.returnValues.amount * currentRate + b.returnValues.amount * currentRate
-// 							}, 0)
-// 						});
+exports.updateWeeklyTotals = functions.region('europe-west1').pubsub.schedule('every monday 00:00')
+  .timeZone('Europe/Paris')
+  .onRun(async(context) => {
+    var now = parseInt(Math.floor(Date.now() / 1000))
+    const web3Instance = new Web3(new Web3.providers.HttpProvider("https://rinkeby.infura.io/v3/391e7c4cd5274ef8a269414b4833bade"))
+    await web3Instance.eth.getBlockNumber().then(async(currentBlock) => {
+		//	console.log("currentblock", currentBlock)
+			await db.collection('utils').doc('lastWeeklyUpdate').get().then(async(doc1) => {
+				let lastWeeklyUpdate = doc1.data()
+				let lastTimeStamp = lastWeeklyUpdate.timestamp
+				let lastBlockUpdated = lastWeeklyUpdate.block
+				//console.log(lastWeeklyUpdate)
+				const rewardCtr = new web3Instance.eth.Contract(rewardAbi, rewardAddr);
+				rewardCtr.methods.getStartTimestamp().call().then(async(startTs) =>{
+					// console.log("start timestamp retrieve : " + startTs)
+					// console.log("now" + now)
+					let midTs = (now + lastTimeStamp) / 2
+					//  console.log(lastTimeStamp + " ts")
+					// console.log(lastBlockUpdated + " block")
+					// console.log(midTs + " mid")
+					let week = lastTimeStamp == 1 ? 0 : parseInt(Math.floor((midTs - startTs) / 604800))
+					console.log(" week computed =>" + week)
+					await db.collection('utils').doc('rates').get().then(async(doc2) => {
+						let rate = doc2.data()
+						// rewardCtr.getPastEvents("Participate", ({fromBlock: lastBlockUpdated, toBlock: currentBlock - 1}))
+						rewardCtr.getPastEvents("Participate", ({fromBlock: lastBlockUpdated, toBlock: currentBlock}))
+						.then(async(events) => {
+			//				console.log(events.length, 'events')
+							let eventsFiltered = events.filter(e => e.returnValues.timestamp > lastTimeStamp)
+			//				console.log(eventsFiltered.length, 'eventsFiltered')
+							let mapped = eventsFiltered.map((e) => {
+								let currentRate = 1
+								if(e.returnValues.token == "0x0000000000000000000000000000000000000000")
+									currentRate = rate.eth[week] == undefined ? 1 : rate.eth[week]
+								if(e.returnValues.token == "0x67c0fd5c30C39d80A7Af17409eD8074734eDAE55")
+									currentRate = rate.bbst[week] == undefined ? 3000 : rate.bbst[week]
+								if(e.returnValues.token == "0x4DBCdF9B62e891a7cec5A2568C3F4FAF9E8Abe2b")
+									currentRate = rate.usdc[week] == undefined ? 3000 * 10**12 : rate.usdc[week] * 10**12
+								return e.returnValues.amount * currentRate
+							})
+							console.log(mapped)
+							let compteur = mapped.reduce(((a,b) => a + b), 0)
+
+							console.log(compteur, 'compteur')
+			
+							await db.collection('utils').doc('rewardData').get().then(doc3 => {
+								let rewardData = doc3.data()
+							//	console.log(rewardData)
+								let newTotalPerWeek = rewardData.totalPerWeek
+								if(rewardData.totalPerWeek[week] != undefined){
+									newTotalPerWeek[week] = compteur
+								} else {
+									newTotalPerWeek.push(compteur)
+								}
+								db.collection('utils').doc('rewardData').update({totalPerWeek: newTotalPerWeek})
+								db.collection('utils').doc('lastWeeklyUpdate').update({timestamp: now, block: currentBlock})
+						});
 					
 			
-// 						console.log(compteur)
-			
-// 						await db.collection('utils').doc('rewardData').get().then(doc3 => {
-// 							let rewardData = doc3.data()
-// 						//	console.log(rewardData)
-// 							let newTotalPerWeek = rewardData.totalPerWeek
-// 							newTotalPerWeek.push(compteur)
-// 							db.collection('utils').doc('rewardData').update({totalPerWeek: newTotalPerWeek})
-// 							db.collection('utils').doc('lastWeeklyUpdate').update({timestamp: now, block: currentBlock})
-// 						})
-// 					})
-// 				})
-// 			})
-// 		})
-//   return null;
-// });
+					
+						})
+					})
+				})
+			})
+		})
+  return null;
+});
 
 exports.getClaimValueSigned = functions.region('europe-west1').https.onRequest((request, response) => {
   cors(request, response, () => {
@@ -383,7 +393,7 @@ exports.getClaimValueSigned = functions.region('europe-west1').https.onRequest((
 
 			console.log("Current event :", e.returnValues.timestamp);
 
-			var week = parseInt(Math.floor((e.returnValues.timestamp - time) / 604800)) == 0 ? 0 : 0;
+			var week = parseInt(Math.floor((e.returnValues.timestamp - time) / 604800));
 			var total = 0;
 			await db.collection('utils').doc('rates').get().then(async(resRate) => {
 
@@ -392,11 +402,11 @@ exports.getClaimValueSigned = functions.region('europe-west1').https.onRequest((
                 var currentRate = 0
 
                 if(e.returnValues.token == "0x0000000000000000000000000000000000000000")
-                  currentRate = resRate.data().eth[week]
+                  currentRate = resRate.data().eth[week] == undefined ? 1 : resRate.data().eth[week]
                 if(e.returnValues.token == "0x67c0fd5c30C39d80A7Af17409eD8074734eDAE55")
-                  currentRate = resRate.data().bbst[week]
+                  currentRate = resRate.data().bbst[week] == undefined ? 3000 : resRate.data().bbst[week]
                 if(e.returnValues.token == "0x4DBCdF9B62e891a7cec5A2568C3F4FAF9E8Abe2b")
-                  currentRate = resRate.data().usdc[week]
+                  currentRate = resRate.data().usdc[week] == undefined ? 3000 * 10**12 : resRate.data().usdc[week] * 10**12
 
                 await db.collection('utils').doc('rewardData').get().then((data) => {
 
@@ -428,22 +438,18 @@ exports.getClaimValueSigned = functions.region('europe-west1').https.onRequest((
 				address: userAddr,
 				allocation: claim
 			}
-		
-			console.log(recipient);
 
-			const web3 = new Web3(new Web3.providers.HttpProvider("https://rinkeby.infura.io/v3/391e7c4cd5274ef8a269414b4833bade"))
-
-			const message = web3.utils.soliditySha3(
+			const message = web3Instance.utils.soliditySha3(
 				{t: 'address', v: recipient.address},
 				{t: 'uint256', v: recipient.allocation.toString()}
 			).toString('hex');
-		
-			const { signature } = web3.eth.accounts.sign(
+
+			const { signature } = web3Instance.eth.accounts.sign(
 				message, 
-				process.env.PRIVATE_KEY
+				process.env.REACT_APP_PRIVATE_KEY
 			);
 		
-			response.json({message: `${message}`, result: `${signature}`});
+			response.json({amount: `${recipient.allocation}`, sig: `${signature}`, message: `${message}`});
         })
 	});
 
@@ -453,57 +459,6 @@ exports.getClaimValueSigned = functions.region('europe-west1').https.onRequest((
   }).catch((error) => {
     console.log(error);
   });
-  
-  // response.sendStatus(claim.toString());
 
 });
 });
-
-// exports.tryWeb3 = functions.region('europe-west1').https.onRequest(async(request, response) => {
-// 	const web3Instance = new Web3(new Web3.providers.HttpProvider("https://rinkeby.infura.io/v3/391e7c4cd5274ef8a269414b4833bade"))
-// 	const rewardCtr = new web3Instance.eth.Contract(rewardAbi, rewardAddr);
-// 				rewardCtr.methods.getStartTimestamp().call().then(async(startTs) => {
-// 					console.log(startTs)
-// 					response.json({result: `startTs${startTs}.`});
-
-// 				}).catch(err => {console.log(err); response.json({result: `Fail.`})})
-
-
-// });
-
-
-
-// import Web3 from 'web3';
-
-// export default async (req, res) => {
-
-
-
-  
- 
-//   if(recipient) {
-//     const message = Web3.utils.soliditySha3(
-//       {t: 'address', v: recipient.address},
-//       {t: 'uint256', v: recipient.totalAllocation.toString()}
-//     ).toString('hex');
-//     const web3 = new Web3('');
-//     const { signature } = web3.eth.accounts.sign(
-//       message, 
-//       process.env.PRIVATE_KEY
-//     );
-//     res
-//       .status(200)
-//       .json({ 
-//         address: req.body.address, 
-//         basicAllocation: recipient.basicAllocation,
-//         bonusAllocation: recipient.bonusAllocation,
-//         totalAllocation: recipient.totalAllocation,
-//         signature
-//       });
-//     return;
-//   }
-//   //3. otherwise, return error
-//   res
-//     .status(401)
-//     .json({ address: req.body.address });
-// }
