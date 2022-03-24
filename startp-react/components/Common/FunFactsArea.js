@@ -101,6 +101,7 @@ const FunFactsArea = () => {
                         <div className="funfact">
                             <h3>{t.upto} 10%</h3>
                             <p>Cashback</p>
+                            <p style={{fontStyle:'italic', fontSize: 10, marginTop: -15}}>(BBST rewards)</p>
                         </div>
                     </div>
 

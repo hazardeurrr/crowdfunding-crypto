@@ -109,7 +109,7 @@ const Roadmap = () => {
         <TimelineItem>
             <TimelineOppositeContent>
             <Typography variant="body2" color="textSecondary" >
-                Q1/Q2 2022
+                Q2 2022
             </Typography>
             </TimelineOppositeContent>
             <TimelineSeparator>
@@ -133,7 +133,7 @@ const Roadmap = () => {
         <TimelineItem>
             <TimelineOppositeContent>
             <Typography variant="body2" color="textSecondary" >
-                Q2/Q3 2022
+                Q3 2022
             </Typography>
             </TimelineOppositeContent>
             <TimelineSeparator>

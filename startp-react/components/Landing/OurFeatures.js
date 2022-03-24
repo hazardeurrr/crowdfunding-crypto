@@ -31,10 +31,10 @@ const OurFeatures = () => {
                             <h3>
                                     {t.fees}
                             </h3>
-                            <p><b style={{fontSize: 17}}>{t.chargedFees}</b><br></br> {t.fees2}<em style={{fontSize: 10, marginTop: -1}}>*</em><br></br>
+                            <p><b style={{fontSize: 17}}>{t.chargedFees}</b><br></br> {t.fees2}
                             <i style={{fontSize: 13}}></i>{t.fees3}</p>
                             {/* <p style={{fontSize: 10, marginTop: 20}}>*{t.repartition}</p> */}
-                            <p style={{fontSize: 10, marginTop: 10}}>*{t.fees4}</p>
+                            {/* <p style={{fontSize: 10, marginTop: 10}}>*{t.fees4}</p> */}
 
                         </div>
                     </div>

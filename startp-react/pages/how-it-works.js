@@ -30,7 +30,7 @@ const ServiceDetails = () => {
                     <div className="row align-items-center">
                         <div className="col-lg-6 services-details-image">
                             
-                           <iframe src="https://www.youtube.com/embed/-2gl53Dnd38" title="YouTube video player" frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                           <iframe src="https://www.youtube.com/embed/-2gl53Dnd38" title="YouTube video player" frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowFullScreen></iframe>
                            
                         </div>
                         
@@ -50,7 +50,7 @@ const ServiceDetails = () => {
                                             </AccordionItemHeading>
                                             <AccordionItemPanel>
                                                 <p>
-                                                    You need the Ethereum browser wallet Metamask to use our features. If you don't have it, you can download this browser wallet extension at 
+                                                    You need the Ethereum browser wallet Metamask to use our features. If you don't have it, you can download this browser wallet extension at&nbsp;
                                                     <a href="https://metamask.io/"> metamask.io</a>. Once you have the extension installed, click on the Conect Wallet button on the navigation bar of our site.
                                                     Enter your credentials and confirm on the Metamask popup. You're now connected with your Metamask wallet, congratulations !
                                                 </p>
@@ -126,19 +126,20 @@ const ServiceDetails = () => {
                                             <AccordionItemHeading>
                                                 <AccordionItemButton>
                                                     <span>
-                                                        What is BBST cashback and how do I get it ?
+                                                        What is BBST rewards and how do I get it ?
                                                     </span>
                                                 </AccordionItemButton>
                                             </AccordionItemHeading>
                                             <AccordionItemPanel>
                                                 <p>
-                                                    When you contribute to a campaign, you will earn BBST as cashback. BBST is the token powering our ecosystem. It has value and give you power on the platform. Learn more about it and claim your due on the dedicated page <Link href="/token"><a>BBST Token</a></Link>. The amount
-                                                    of cashback in BBST you'll get for your contribution depends on the value of it as well as the amount of BBST you own on your wallet at that time.
+                                                    When you contribute to a campaign, you will also earn $BBST as rewards. $BBST is the token powering our ecosystem. It has value and give you power on the platform. Learn more about it and claim your due on the dedicated page <Link href="/token"><a>BBST Token</a></Link>. The amount
+                                                    of BBST you'll get depends on the amount of the contributions you've made.<br></br> Each week, up to 15 000 BBST are given to the community as rewards.<br></br>
+                                                    <Icon.AlertTriangle/>Note that reward balances are updated every monday at 00:00 GMT+1.
                                                 </p>
                                             </AccordionItemPanel>
                                         </AccordionItem>
 
-                                        <AccordionItem uuid="g">
+                                        {/* <AccordionItem uuid="g">
                                             <AccordionItemHeading>
                                                 <AccordionItemButton>
                                                     <span>
@@ -148,13 +149,13 @@ const ServiceDetails = () => {
                                             </AccordionItemHeading>
                                             <AccordionItemPanel>
                                                 <p>
-                                                    If the campaign set up an "All or nothing" goal and didn't reach it, you will be able to get a refund of your contribution on the relevant campaign page.
-                                                    Just click the "Get your refund" button and confirm on the Metamask pop-up to get your contribution back on your wallet. You have 1 year from the end of the campaign
+                                                    If the campaign set up to an "All or nothing" goal and didn't reach it, you will be able to get a refund of your contribution on the relevant campaign page.
+                                                    Just click the "Refund" button and confirm on the Metamask pop-up to get your contribution back on your wallet. You have 1 year from the end of the campaign
                                                     to get a refund, otherwise the funds will be transfered to the community fund.
                                                     <br></br>In any other case, you can't get a refund of your contribution.
                                                 </p>
                                             </AccordionItemPanel>
-                                        </AccordionItem>
+                                        </AccordionItem> */}
 
                                         <AccordionItem uuid="h">
                                             <AccordionItemHeading>
@@ -166,9 +167,9 @@ const ServiceDetails = () => {
                                             </AccordionItemHeading>
                                             <AccordionItemPanel>
                                                 <p>
-                                                    . If some features are missing, be sure to be connected to Metamask and be sure that it is your only browser extension that serve as an Ethereum wallet.
-                                                    <br></br>. If you are connected to Metamask, be sure you have "Ethereum Mainnet" selected as network on the Metamask tab.
-                                                    <br></br>. If none of these work, try to reload the page or open it with another browser.
+                                                    - If some features are missing, be sure to be connected to Metamask and be sure that it is your only browser extension that serves as an Ethereum wallet.
+                                                    <br></br>- If you are connected to Metamask, be sure you have "Ethereum Mainnet" selected as network on the Metamask tab.
+                                                    <br></br>- If none of these work, try to reload the page or open it with another browser.
                                                 </p>
                                             </AccordionItemPanel>
                                         </AccordionItem>
@@ -183,7 +184,7 @@ const ServiceDetails = () => {
                                             </AccordionItemHeading>
                                             <AccordionItemPanel>
                                                 <p>
-                                                Be sure you have enough money in the needed currency in your Metamask wallet, as well as enough ETH to pay the gas fee of the transaction. Transaction on the Ethereum blockchain can take quite a long time. The less fee you want to pay, the longer it will take to get confirmed. 
+                                                Be sure you have enough money in the needed currency in your Metamask wallet, as well as enough ETH to pay the gas fee for the transaction. Transactions on the Ethereum blockchain can take quite a long time. The less fee you want to pay, the longer it will take to get confirmed. 
                                                 </p>
                                             </AccordionItemPanel>
                                         </AccordionItem>
@@ -212,7 +213,7 @@ const ServiceDetails = () => {
                                                 </AccordionItemHeading>
                                                 <AccordionItemPanel>
                                                     <p>
-                                                        You need the Ethereum browser wallet Metamask to use our features. If you don't have it, you can download this browser wallet extension at 
+                                                        You need the Ethereum browser wallet Metamask to use our features. If you don't have it, you can download this browser wallet extension at&nbsp;
                                                         <a href="https://metamask.io/"> metamask.io</a>. Once you have the extension installed, click on the Conect Wallet button on the navigation bar of our site.
                                                         Enter your credentials and confirm on the Metamask popup. You're now connected with your Metamask wallet, congratulations !
                                                     </p>
@@ -230,7 +231,7 @@ const ServiceDetails = () => {
                                                 <AccordionItemPanel>
                                                     <p>
                                                         You can create a campaign in a few steps clicking on the "Create" button on the navigation bar. You will need to be connected to Metamask to access this feature.
-                                                        Firstly, you'll need to get a certified account. This is a legal need because of AML policy. This step usually takes few minutes.
+                                                        You can link your twitter account to your profile so that, eventually, users put more trust in your campaign. This step usually takes few minutes.
                                                         <br></br>Once it's done, you can finally access the creation page and fill the form as you wish to customize your campaign.
                                                     </p>
                                                 </AccordionItemPanel>
@@ -246,7 +247,7 @@ const ServiceDetails = () => {
                                                 </AccordionItemHeading>
                                                 <AccordionItemPanel>
                                                     <p>
-                                                        Customize your campaign page as you wish with our editor. Add title, style, images, link and videos easily to make an appealing page. You can preview your page in our editor. Note that you won't be able to change it once the campain is created.
+                                                        Customize your campaign page as you wish with our editor. Add title, style, images, links and videos easily to make an appealing page. You can preview your page in our editor. Note that you won't be able to change it once the campaign is created.
                                                     </p>
                                                 </AccordionItemPanel>
                                             </AccordionItem>
@@ -261,7 +262,7 @@ const ServiceDetails = () => {
                                                 </AccordionItemHeading>
                                                 <AccordionItemPanel>
                                                     <p>
-                                                       Yes you can ! Just check the corresponding checkbox on the campaign creation form. You can have as much as 5 different rewards tiers, with a different price for each one.
+                                                       Yes you can! Just check the corresponding checkbox on the campaign creation form. You can have up to 5 different tiers to offer. For each tier, you can set its own price as well as its maximum amount if you want it to be limited in quantity.
                                                     </p>
                                                 </AccordionItemPanel>
                                             </AccordionItem>
@@ -291,8 +292,7 @@ const ServiceDetails = () => {
                                                 </AccordionItemHeading>
                                                 <AccordionItemPanel>
                                                     <p>
-                                                        You choose ! By default, yes, the goal is flexible. It means that you will have all the funds raised in your campaign at the end of it. But you can also
-                                                        set it to "All or nothing", so if the goal is not reached by the deadline, contributors will be able to get a refund.
+                                                        Yes, you will have all the funds raised in your campaign at the end of it.
                                                     </p>
                                                 </AccordionItemPanel>
                                             </AccordionItem>
@@ -337,8 +337,8 @@ const ServiceDetails = () => {
                                                 </AccordionItemHeading>
                                                 <AccordionItemPanel>
                                                     <p>
-                                                        Featured campaigns are determined by BBST stakers and platforms users. When a user like a campaign, he increases its "like score". The more BBST the user stake, the more this score increased.
-                                                        The calculus is made everyday to see which campaign do BBST stakers love the most. <br></br>So if you want your campaign to be featured on the main page and seen as first results, you need to
+                                                        Featured campaigns are determined by BBST stakers and platforms users. When a user likes a campaign, he increases its "like score". The more BBST the user stakes, the more this score increases.
+                                                        The calculus is constantly made to see which campaign do BBST stakers love the most. <br></br>So if you want your campaign to be featured on the main page and seen as first results, you need to
                                                         get likes from the biggest BBST stakers. Note that you can like your own campaign.
                                                     </p>
                                                 </AccordionItemPanel>
@@ -356,7 +356,7 @@ const ServiceDetails = () => {
                                     className="animate__animated animate__fadeInUp" 
                                     alt="image" 
                                 />  
-                                <iframe src="https://www.youtube.com/embed/-2gl53Dnd38" title="YouTube video player" frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                                <iframe src="https://www.youtube.com/embed/-2gl53Dnd38" title="YouTube video player" frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowFullScreen></iframe>
 
                             </div>
                         </div>
