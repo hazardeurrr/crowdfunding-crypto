@@ -348,7 +348,7 @@ const Campaign = (props, {c, u}) => {
                                                         
                                                   
                                                         {showTwitter()}
-                                                        {showWebsite()}
+                                                        {/* {showWebsite()} */}
                                                     </ul>
                                                 </div>              
                                             </div>

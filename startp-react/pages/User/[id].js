@@ -95,7 +95,7 @@ const User = (props, {data}) => {
                            <div className="entry-meta">
                               <ul>
                                   {showTwitter()}
-                                  {showWebsite()}
+                                  {/* {showWebsite()} */}
                               </ul>
                            </div>              
                          </div>

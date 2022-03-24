@@ -76,7 +76,7 @@ const ProfileForm = (props) => {
                 setImage(user.image);
                 setBio(user.bio);
                 setTwitter(user.twitter);
-                setSite(user.website);
+            //    setSite(user.website);
             } else {
                 console.log("Document not found")
             }
@@ -126,7 +126,7 @@ const ProfileForm = (props) => {
                 user.image = image;
                 user.bio = bio;
                 user.twitter = twitter;
-                user.website = site;
+             //   user.website = site;
 
                 updateDoc(user.eth_address, 'profile', user, function() {
                     openDialog();
@@ -211,12 +211,14 @@ const ProfileForm = (props) => {
                                     </div>
                                 </div>
 
-                                <p><strong> Email </strong><br/>Enter your email address</p>
+                                <p><strong> Email </strong><br/>Enter your email address.</p>
                                 <div className="col-lg-12 col-md-12">
                                     <div className="form-group">
                                         <input type="email" placeholder="Email" className="form-control" value={email} onChange={handleChangeEmail}/>
                                     </div>
                                 </div>
+                                <p><i style={{fontSize: 12}}>Email is NOT mandatory. However, if you are waiting for a reward after a participation, please make sure this field is filled
+                                    as it's currently the only way for us to establish direct contact between creators and contributors.</i></p>
 
                                 <p><strong> Profile Pic </strong><br/>Choose a profile picture to represent your account</p>
                                 <div className="col-lg-12 col-md-12">
@@ -261,13 +263,13 @@ const ProfileForm = (props) => {
 
                                 
 
-                                <p><strong> Website </strong></p>
+                                {/* <p><strong> Website </strong></p>
                                 <div className="col-lg-12 col-md-12">
                                     <div className="form-group">
                                         <input type="url" id="url" pattern="https://.*" placeholder="https://your-site.com" className="form-control" 
                                         value={site} onChange={handleChangeSite}/>
                                     </div>
-                                </div>
+                                </div> */}
 
                                 <div className="col-lg-12 col-md-12">
                                     <button className="btn btn-primary" type="submit" onClick={(event) => {
