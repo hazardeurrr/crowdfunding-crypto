@@ -5,7 +5,7 @@ const Web3 = require('web3');
 const { user } = require("firebase-functions/v1/auth");
 const db = admin.firestore();
 
-const rewardAddr = "0x6b94019762a8516f8C9296a71BA842A50E53becE";
+const rewardAddr = "0xC0fDb6d5DeCF098b5d41E9e043f609328BbE2B5e";
 const rewardAbi = [
 	{
 		"inputs": [],
@@ -372,7 +372,7 @@ exports.updateWeeklyTotals = functions.region('europe-west1').pubsub.schedule('e
 
 exports.getClaimValueSigned = functions.region('europe-west1').https.onRequest((request, response) => {
   cors(request, response, () => {
-  var eventsTmp = []
+//   var eventsTmp = []
   const web3Instance = new Web3(new Web3.providers.HttpProvider("https://rinkeby.infura.io/v3/391e7c4cd5274ef8a269414b4833bade"))
   var claim = 0;
   const rewardCtr = new web3Instance.eth.Contract(rewardAbi, rewardAddr);
@@ -384,75 +384,115 @@ exports.getClaimValueSigned = functions.region('europe-west1').https.onRequest((
     rewardCtr.getPastEvents("Participate", ({fromBlock: parseInt(res)}))
       .then((events) => {
 
-		let eventsFiltered = events.filter(e => e.returnValues.user == userAddr);
-        rewardCtr.methods.getStartTimestamp().call().then(async(time) => {
+		let eventsFiltered = events.filter(e => e.returnValues.user.toLowerCase() == userAddr.toLowerCase());
 
-          const promises = eventsFiltered.map(async(e) => {
+		if (eventsFiltered.length == 0) {
+			response.sendStatus(401);
+			throw "Wrong Address !";
+		}
 
-			var week = parseInt(Math.floor((e.returnValues.timestamp - time) / 604800));
-			var total = 0;
-			await db.collection('utils').doc('rates').get().then(async(resRate) => {
-
-				console.log("Rate crypto :", resRate);
-
-                var currentRate = 0
-
-                if(e.returnValues.token == "0x0000000000000000000000000000000000000000")
-                  currentRate = resRate.data().eth[week] == undefined ? 1 : resRate.data().eth[week]
-                if(e.returnValues.token == "0x67c0fd5c30C39d80A7Af17409eD8074734eDAE55")
-                  currentRate = resRate.data().bbst[week] == undefined ? 3000 : resRate.data().bbst[week]
-                if(e.returnValues.token == "0x4DBCdF9B62e891a7cec5A2568C3F4FAF9E8Abe2b")
-                  currentRate = resRate.data().usdc[week] == undefined ? 3000 * 10**12 : resRate.data().usdc[week] * 10**12
-
-                await db.collection('utils').doc('rewardData').get().then((data) => {
-
-				  console.log("week :", week)
-
-                  if (data.data().totalPerWeek[week] == 0) {
-                    eventsTmp.push(e.returnValues.campaign);
-                  } else {
-                    var ratio = ((e.returnValues.amount * currentRate) / data.data().totalPerWeek[week]) > 0.03 ? 0.03 : ((e.returnValues.amount * currentRate) / data.data().totalPerWeek[week]);
-                    total += ratio * data.data().weeklySupply[week];
-                  }
-
-				}).catch((error) => {console.log(error)})
-
-			}).catch((error) => {console.log(error)})
-
-			return total;
-		  })
-
-			await Promise.all(promises).then((map) => {
-				claim += map.reduce(((a,b) => a + b), 0);
-			})
-
-			console.log("Claim :", claim);
-
-			const recipient = {
-				address: userAddr,
-				allocation: claim
-			}
-
-			const message = web3Instance.utils.soliditySha3(
-				{t: 'address', v: recipient.address},
-				{t: 'uint256', v: recipient.allocation.toString()}
-			).toString('hex');
-
-			const { signature } = web3Instance.eth.accounts.sign(
-				message, 
-				process.env.REACT_APP_PRIVATE_KEY
-			);
+		if (eventsFiltered.length != 0) {
+		  rewardCtr.methods.getStartTimestamp().call().then(async(time) => {
+	  
+			const promises = eventsFiltered.map(async(e) => {
+  
+			  var week = parseInt(Math.floor((e.returnValues.timestamp - time) / 604800));
+			  var ratio;
 		
-			response.json({amount: `${recipient.allocation}`, sig: `${signature}`});
-        })
-	});
-
-
-
-
-  }).catch((error) => {
-    console.log(error);
-  });
+			  await db.collection('utils').doc('rates').get().then(async(resRate) => {
+		
+				
+				var currentRate = 0
+				
+				if(e.returnValues.token == "0x0000000000000000000000000000000000000000")
+				currentRate = resRate.data().eth[week] == undefined ? 1 : resRate.data().eth[week]
+				if(e.returnValues.token == "0x67c0fd5c30C39d80A7Af17409eD8074734eDAE55")
+				currentRate = resRate.data().bbst[week] == undefined ? 3000 : resRate.data().bbst[week]
+				if(e.returnValues.token == "0x4DBCdF9B62e891a7cec5A2568C3F4FAF9E8Abe2b")
+				currentRate = resRate.data().usdc[week] == undefined ? 3000 * 10**12 : resRate.data().usdc[week] * 10**12
+				
+				// console.log("Rate crypto :", currentRate);
+  
+				await db.collection('utils').doc('rewardData').get().then((data) => {
+		
+				//   console.log("week :", week)
+		
+				  if (data.data().totalPerWeek[week] == undefined) {
+					ratio = 0;
+				  } else {
+					ratio = (e.returnValues.amount * currentRate) / data.data().totalPerWeek[week];
+					console.log("ratio :", ratio);
+				  }
+		
+				}).catch((error) => {console.log(error)})
+		
+				}).catch((error) => {console.log(error)})
+  
+				return [ratio, week];
+			})
+	  
+			await Promise.all(promises).then(async(res) => {
+			  // claim += map.reduce(((a,b) => a + b), 0);
+  
+			  if (res != undefined) {
+				await db.collection('utils').doc('rewardData').get().then((data) => {
+	
+					var weekTmp = res[0][1];
+					var cpt = 0;
+					var total = 0;
+					var tmpTotalWeek = 0;
+		
+					res.forEach((elem) => {
+					cpt++;
+	
+					if (elem[1] != weekTmp) {
+						var ratio = tmpTotalWeek > 0.03 ? 0.03 : tmpTotalWeek
+						claim += ratio * data.data().weeklySupply[weekTmp];
+						tmpTotalWeek = 0;
+						weekTmp = elem[1];
+					}
+	
+					if (cpt == res.length) {
+						var ratio = tmpTotalWeek > 0.03 ? 0.03 : tmpTotalWeek
+						claim += ratio * data.data().weeklySupply[weekTmp];
+					}
+	
+					tmpTotalWeek += elem[0];
+					})
+	
+					console.log("Claim :", claim);
+				})
+			  }
+  
+			  const recipient = {
+				  address: userAddr,
+				  allocation: claim
+			  }
+		  
+			  const message = web3Instance.utils.soliditySha3(
+				  {t: 'address', v: recipient.address},
+				  {t: 'uint256', v: recipient.allocation.toString()}
+			  ).toString('hex');
+		  
+			  const { signature } = web3Instance.eth.accounts.sign(
+				  message, 
+				  process.env.REACT_APP_PRIVATE_KEY
+			  );
+		  
+			  response.json({amount: `${recipient.allocation}`, sig: `${signature}`});
+			})
+		})
+	}
+	
+	
+	
+	
+}).catch((error) => {
+	response.sendStatus(401);
+	console.log(error);
+});
+});
 
 });
+//   });
 });
