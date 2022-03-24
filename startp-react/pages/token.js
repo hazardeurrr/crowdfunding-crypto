@@ -16,6 +16,25 @@ import MintToken from '@/components/Common/MintToken';
 
 
 const TokenDetails = () => {
+
+    const addToMetamask = () => {
+        {
+            ethereum
+            .request({
+              method: 'wallet_watchAsset',
+              params: {
+                type: 'ERC20',
+                options: {
+                  address: '0x67c0fd5c30C39d80A7Af17409eD8074734eDAE55',
+                  symbol: 'BBST',
+                  decimals: 18,
+                  image: "https://firebasestorage.googleapis.com/v0/b/crowdfunding-dev-5f802.appspot.com/o/logo_token.png?alt=media&token=4dbd574b-a733-48a8-97cc-bc3c3224c126",
+                },
+              },
+            })
+        }
+    }
+
     return (
         <>
             <Navbar />
@@ -32,6 +51,7 @@ const TokenDetails = () => {
             </div> */}
 
 
+
                 <div className="features-area pt-80 bg-f7fafd" style={{marginTop: -100}}>
                     <div className="container">
                         <div className="section-title">
@@ -39,6 +59,7 @@ const TokenDetails = () => {
                             <div className="bar"></div>
                             <p>Test BBST can be used on our test platform (Rinkeby network). Feel free to mint some to try our platform !</p>
                             <MintToken style={{marginTop: 80}}/>
+                            <button style={{marginTop: 25}} className="btn btn-secondary" onClick={() => addToMetamask()}>Add BBST to Metamask</button>
                         </div>
                     </div>
                 </div>
@@ -50,6 +71,7 @@ const TokenDetails = () => {
                             <div className="bar"></div>
                             <p>Contribute to campaigns to earn BBST.</p>
                             <CardToken style={{marginTop: 80}}/>
+                            <button style={{marginTop: 25}} className="btn btn-secondary" onClick={() => addToMetamask()}>Add BBST to Metamask</button>
                         </div>
                     </div>
                 </div>

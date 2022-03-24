@@ -17,6 +17,7 @@ import MuiAlert from "@material-ui/lab/Alert";
 import {bbstAbi} from '@/components/ContractRelated/BbstAbi';
 import {bbstAddr} from '@/components/ContractRelated/BbstAddr';
 import * as IconFeather from 'react-feather';
+import Link from 'next/link';
 
 
 function Alert(props) {
@@ -197,6 +198,14 @@ const closeDialog = () => {
             <DialogContentText id="alert-dialog-description" style={{marginTop: 15}}>
             Transaction confirmed : </DialogContentText>
             <DialogContentText id="alert-dialog-description"><a href={`https://rinkeby.etherscan.io/tx/${Tx}`} target="_blank">{Tx}</a></DialogContentText>
+            <div style={{justifyContent:'center'}}>
+                        <Link href={{
+                            pathname: "/"
+                            }}
+                            >
+                        <a style={{marginTop: 15}} className="btn btn-primary">Back to Main page</a>
+                        </Link>  
+                    </div>
             </DialogContent></div>
        
         default:
