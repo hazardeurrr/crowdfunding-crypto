@@ -31,13 +31,8 @@
     "noPayment": "Pas de frais de paiement ni de traitement",
     "noFees": "Pas d'intermédiaire, pas de frais ! Vous devez uniquement payer le prix du gas de la Blockchain Ethereum.",
     "charges": "Les plateformes de crowdfunding prennent en général 3% de frais liés au traitement des paiements.",
-<<<<<<< HEAD
     "cashback":"Les récompenses pour les contributeurs",
     "boostCampaign":"Les contributeurs qui boostent des projets sur Blockboosted reçoivent des tokens BBST, en fonction de leur contribution et du nombre de BBST stakés !",
-=======
-    "cashback":"Le Cashback pour les contributeurs",
-    "boostCampaign":"Les contributeurs qui boostent des projets sur Blockboosted reçoivent des tokens BBST, en fonction de leurs contributions !",
->>>>>>> fb8ce0acafa8d6d26f45c99ef98da0c202362581
     "governance":"La gouvernance pour les stakers",
     "power": "Rendons le pouvoir aux utilisateurs ! Les stakers de BBST peuvent voter pour les améliorations de la plateforme, les airdrops, ainsi que les campagnes mises en avant.",
     "raise": "Levez des fonds en crypto",
