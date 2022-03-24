@@ -78,12 +78,15 @@
     "alpha": "Version Alpha de la plateforme sur le Testnet",
     "mainnet": "Sortie de la V1 sur le Mainnet",
     "q22": "Q3 2022 et Plus",
-    "improvment": "Amélioration et expansion",
+    "improvment": "Expansion",
     "improvment2": "Amélioration de la plateforme et expansion de l'ecosysteme Blockboosted...",
 
     "team": "Notre équipe",
     "t.doneWith": "Fait avec",
     "t.byBBSTTeam": "par l'équipe BBST",
     "newsletter": "Inscrivez vous à notre newsletter",
-    "news": "Soyez au courant des dernières nouvelles du projet et du BBST IDO"
+    "news": "Soyez au courant des dernières nouvelles du projet et du BBST IDO",
+    "exp1": "Nouvelles fonctionnalités",
+    "exp2": "Service dédié aux associations",
+    "exp3": "Plateforme dédiée aux créateurs de contenu"
 }

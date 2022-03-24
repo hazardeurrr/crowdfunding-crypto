@@ -78,13 +78,15 @@
     "alpha": "Alpha of the platform on Testnet",
     "mainnet": "Release of V1 on Mainnet",
     "q22": "Q3 2022 & More",
-    "improvment": "Improvement and expansion",
+    "improvment": "Expansion",
     "improvment2": "Improvement of the platform and expansion of the BlockBoosted ecosystem...",
 
     "team": "Our awesome Team",
     "t.doneWith": "Made with",
     "t.byBBSTTeam": "by the BBST Team",
     "newsletter": "Subscribe to our newsletter",
-    "news": "Get the latest news on the project and the BBST IDO."
-
+    "news": "Get the latest news on the project and the BBST IDO.",
+    "exp1": "New features",
+    "exp2": "Dedicated service for charities",
+    "exp3": "Dedicated platform for content creators"
 }
