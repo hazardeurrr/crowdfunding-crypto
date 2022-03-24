@@ -29,10 +29,12 @@ class CreatedAndLiked extends Component {
     displayLikedProjects = () => {
       var rows = [];
       for (var i = 0; i < this.user.liked.length; i++) {
-          rows.push( <div key={i} className="col-lg-4 col-md-6">
-          <SimpleCampaignPost project={this.props.allCampaigns.find(e => e.contract_address == this.liked[i])}
-          />
-      </div>);
+          let proj = this.props.allCampaigns.find(e => e.contract_address == this.liked[i])
+          if(proj !== undefined){
+            rows.push( <div key={i} className="col-lg-4 col-md-6">
+            <SimpleCampaignPost project={proj}/>
+            </div>);
+          }
       }
       return rows;
     }

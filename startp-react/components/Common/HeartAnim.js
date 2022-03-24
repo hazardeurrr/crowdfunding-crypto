@@ -19,7 +19,7 @@ const HeartAnim = (props) => {
     // const currentAdd = useSelector((state) => state.address)
     const currentUser = useSelector((state) => state.currentUser)
     const bbstbal = useSelector((state) => state.bbstBalance)
-
+    const web3Instance = useSelector((state) => state.web3Instance)
 
     var arrayLiked = []
 
@@ -63,7 +63,7 @@ const HeartAnim = (props) => {
 
         // Change weight depending on BBST balance. Retrieve BBST balance.
         let c = campaign;
-        let bbstamount = bbstbal === undefined ? 0 : bbstbal
+        let bbstamount = bbstbal === undefined ? 0 : parseInt(web3Instance.utils.fromWei(bbstbal.toString()))
         let baseLikeAmount = 10;
         let totalLikeAmount = baseLikeAmount + bbstamount / 10;
         c.likedTupleMap[currentUser.eth_address] = totalLikeAmount
