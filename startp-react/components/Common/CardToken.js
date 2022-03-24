@@ -18,8 +18,8 @@ import {rewardAbi} from '@/components/ContractRelated/RewardABI';
 import {rewardAddr} from '@/components/ContractRelated/RewardAddr';
 import * as IconFeather from 'react-feather';
 import axios from 'axios';
-import secrets from "../../../startp-react/secrets.json"
-import {db, storage} from "../../../startp-react/firebase-crowdfund/index"
+import secrets from "../../../startp-react/secrets.json";
+import {db} from '../../firebase-crowdfund/index'
 
 const firebase = require("firebase");
 // Required for side-effects
@@ -52,115 +52,101 @@ const CardToken = () => {
   React.useEffect(() => {
     if(web3Instance != undefined && connected && chainID == chain){
       var contract = new web3Instance.eth.Contract(rewardAbi, rewardAddr)
-      setRewardCtr(contract)
+      setRewardCtr(contract);
+      setToBeClaimed(0);
       getClaim(contract);
-   //   populateTable()
     }
   }, [web3Instance])
 
-  const populateTable = () => {
-    let newSupply = []
-    for(let i = 0 ; i < 2 ; ++i){
-        newSupply.push(2500)
-    }
-    for(let i = 0 ; i < 3 ; ++i){
-        newSupply.push(4500)
-    }
-    for(let i = 0 ; i < 6 ; ++i){
-        newSupply.push(8000)
-    }
-    for(let i = 0 ; i < 6 ; ++i){
-        newSupply.push(10000)
-    }
-    for(let i = 0 ; i < 6 ; ++i){
-        newSupply.push(12500)
-    }
-    for(let i = 0 ; i < 525 ; ++i){
-        newSupply.push(15000)
-    }
-    for(let i = 0 ; i < 50 ; ++i){
-        newSupply.push(10000)
-    }
-    for(let i = 0 ; i < 50 ; ++i){
-        newSupply.push(5000)
-    }
-    for(let i = 0 ; i < 50 ; ++i){
-        newSupply.push(2500)
-    }
-    for(let i = 0 ; i < 50 ; ++i){
-        newSupply.push(1250)
-    }
-    for(let i = 0 ; i < 50 ; ++i){
-        newSupply.push(700)
-    }
-    for(let i = 0 ; i < 50 ; ++i){
-        newSupply.push(350)
-    }
-    for(let i = 0 ; i < 50 ; ++i){
-        newSupply.push(80)
-    }
-    for(let i = 0 ; i < 50 ; ++i){
-        newSupply.push(40)
-    }
-    db.collection('utils').doc('rewardData').update({weeklySupply: newSupply})
-}
-
   const getClaim = async(contract) => {
-    var eventsTmp = []
-    var claim = 0;
-
     const userAddr = address;
     const rewardCtr = contract;
 
     rewardCtr.methods.getLastClaim(userAddr).call().then((res) => {
       rewardCtr.getPastEvents("Participate", ({fromBlock: parseInt(res)}))
         .then((events) => {
+  
+      let eventsFiltered = events.filter(e => e.returnValues.user.toLowerCase() == userAddr);
 
-          let eventsFiltered = events.filter(e => e.returnValues.user == userAddr);
-          rewardCtr.methods.getStartTimestamp().call().then(async(time) => {
+      if (eventsFiltered.length != 0) {
+        rewardCtr.methods.getStartTimestamp().call().then(async(time) => {
+    
+          const promises = eventsFiltered.map(async(e) => {
 
-            const promises = eventsFiltered.map(async(e) => {
+            var week = parseInt(Math.floor((e.returnValues.timestamp - time) / 604800));
+            var ratio;
+      
+            await db.collection('utils').doc('rates').get().then(async(resRate) => {
+      
+              
+              var currentRate = 0
+              
+              if(e.returnValues.token == "0x0000000000000000000000000000000000000000")
+              currentRate = resRate.data().eth[week] == undefined ? 1 : resRate.data().eth[week]
+              if(e.returnValues.token == "0x67c0fd5c30C39d80A7Af17409eD8074734eDAE55")
+              currentRate = resRate.data().bbst[week] == undefined ? 3000 : resRate.data().bbst[week]
+              if(e.returnValues.token == "0x4DBCdF9B62e891a7cec5A2568C3F4FAF9E8Abe2b")
+              currentRate = resRate.data().usdc[week] == undefined ? 3000 * 10**12 : resRate.data().usdc[week] * 10**12
+              
+              // console.log("Rate crypto :", currentRate);
 
-              var week = parseInt(Math.floor((e.returnValues.timestamp - time) / 604800));
-              var total = 0;
-              await db.collection('utils').doc('rates').get().then(async(resRate) => {
-
-                  var currentRate = 0
-
-                  if(e.returnValues.token == "0x0000000000000000000000000000000000000000")
-                    currentRate = resRate.data().eth[week] == undefined ? 1 : resRate.data().eth[week]
-                  if(e.returnValues.token == "0x67c0fd5c30C39d80A7Af17409eD8074734eDAE55")
-                    currentRate = resRate.data().bbst[week] == undefined ? 3000 : resRate.data().bbst[week]
-                  if(e.returnValues.token == "0x4DBCdF9B62e891a7cec5A2568C3F4FAF9E8Abe2b")
-                    currentRate = resRate.data().usdc[week] == undefined ? 3000 * 10**12 : resRate.data().usdc[week] * 10**12
-
-                  await db.collection('utils').doc('rewardData').get().then((data) => {
-
-                    if (data.data().totalPerWeek[week] == 0) {
-                      eventsTmp.push(e.returnValues.campaign);
-                    } else {
-                      var ratio = ((e.returnValues.amount * currentRate) / data.data().totalPerWeek[week]) > 0.03 ? 0.03 : ((e.returnValues.amount * currentRate) / data.data().totalPerWeek[week]);
-                      total += ratio * data.data().weeklySupply[week];
-                    }
-
-                  }).catch((error) => {console.log(error)})
-
+              await db.collection('utils').doc('rewardData').get().then((data) => {
+      
+                // console.log("week :", week)
+      
+                if (data.data().totalPerWeek[week] == undefined) {
+                  ratio = 0;
+                } else {
+                  ratio = (e.returnValues.amount * currentRate) / data.data().totalPerWeek[week]
+                }
+      
+              }).catch((error) => {console.log(error)})
+      
               }).catch((error) => {console.log(error)})
 
-              return total;
-            })
+              return [ratio, week];
+          })
+    
+          await Promise.all(promises).then(async(res) => {
+            // claim += map.reduce(((a,b) => a + b), 0);
 
-              Promise.all(promises).then((map) => {
-                  claim += map.reduce(((a,b) => a + b), 0);
+            await db.collection('utils').doc('rewardData').get().then((data) => {
+
+              var weekTmp = res[0][1];
+              var cpt = 0;
+              var total = 0;
+              var tmpTotalWeek = 0;
+  
+              res.forEach((elem) => {
+                cpt++;
+
+                if (elem[1] != weekTmp) {
+                  var ratio = tmpTotalWeek > 0.03 ? 0.03 : tmpTotalWeek
+                  total += ratio * data.data().weeklySupply[weekTmp];
+                  tmpTotalWeek = 0;
+                  weekTmp = elem[1];
+                }
+
+                if (cpt == res.length) {
+                  var ratio = tmpTotalWeek > 0.03 ? 0.03 : tmpTotalWeek
+                  total += ratio * data.data().weeklySupply[weekTmp];
+                }
+
+                tmpTotalWeek += elem[0];
               })
 
-              setToBeClaimed(claim);
+              setToBeClaimed(total);
+            })
+
           })
-      });
+        })
+      }
+    })
 
     }).catch((error) => {
       console.log(error);
     });
+
   }
 
   const claimTokens = async() => {
