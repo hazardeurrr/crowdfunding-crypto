@@ -15,8 +15,29 @@ import DialogTitle from '@material-ui/core/DialogTitle';
 import bbstAbi from '@/components/ContractRelated/BbstAbi'
 import bbstAddr from '@/components/ContractRelated/BbstAddr'
 import {chain} from '@/utils/chain'
+import AppBar from '@material-ui/core/AppBar';
+import Typography from '@material-ui/core/Typography';
+import { makeStyles } from '@material-ui/core/styles';
+
+const useStyles = makeStyles((theme) => ({
+    root: {
+        color: "green"
+    },
+    menuButton: {
+      marginRight: theme.spacing(2),
+    },
+    title: {
+      flexGrow: 1,
+      marginTop:5,
+      marginBottom:5
+    },
+  }));
+
 
 const Navbar = () => {
+
+    const classes = useStyles();
+
     const cart = useSelector((state) => state.cart)
     const [menu, setMenu] = React.useState(true)
     const [connected, setConnected] = React.useState(false)
@@ -275,9 +296,18 @@ const Navbar = () => {
     const classOne = menu ? 'collapse navbar-collapse' : 'collapse navbar-collapse show';
     const classTwo = menu ? 'navbar-toggler navbar-toggler-right collapsed' : 'navbar-toggler navbar-toggler-right';
 
+
+//#c679e3 purple
     return (
         
         <header id="header" className="headroom">
+            <div className={classes.root}>
+                <AppBar position="static" style={{marginTop: -15, marginBottom:10, background:'#44cf6e', justifyContent:'center', alignItems:'center'}}> 
+                    <Typography variant="p" className={classes.title}>
+                        This is an alpha version running on RINKEBY test network !
+                    </Typography>
+                </AppBar>
+            </div>
             <div className="startp-nav">
                 <div className="container">
                     <nav className="navbar navbar-expand-md navbar-light">

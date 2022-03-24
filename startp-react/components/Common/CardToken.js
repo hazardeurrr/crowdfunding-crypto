@@ -225,7 +225,7 @@ const CardToken = () => {
 
 const showBalance = () => {
     if(web3Instance != undefined)
-      return web3Instance.utils.fromWei(bbstbal.toString())
+      return parseFloat(parseFloat(web3Instance.utils.fromWei(bbstbal.toString())).toFixed(6))
   }
 
   const openSnackbar = () => {
