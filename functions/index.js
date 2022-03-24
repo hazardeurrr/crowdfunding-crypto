@@ -417,7 +417,7 @@ exports.getClaimValueSigned = functions.region('europe-west1').https.onRequest((
 		
 				//   console.log("week :", week)
 		
-				  if (data.data().totalPerWeek[week] == undefined) {
+				  if (data.data().totalPerWeek[week] == 0 || data.data().totalPerWeek[week] == undefined) {
 					ratio = 0;
 				  } else {
 					ratio = (e.returnValues.amount * currentRate) / data.data().totalPerWeek[week];
