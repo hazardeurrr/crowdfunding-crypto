@@ -126,14 +126,15 @@ const ServiceDetails = () => {
                                             <AccordionItemHeading>
                                                 <AccordionItemButton>
                                                     <span>
-                                                        What is BBST cashback and how do I get it ?
+                                                        What is BBST rewards and how do I get it ?
                                                     </span>
                                                 </AccordionItemButton>
                                             </AccordionItemHeading>
                                             <AccordionItemPanel>
                                                 <p>
-                                                    When you contribute to a campaign, you will earn $BBST as cashback. $BBST is the token powering our ecosystem. It has value and give you power on the platform. Learn more about it and claim your due on the dedicated page <Link href="/token"><a>BBST Token</a></Link>. The amount
-                                                    of cashback in BBST you'll get for your contribution depends on the value of it, as well as the amount of BBST you spent in different campigns during the week.
+                                                    When you contribute to a campaign, you will also earn $BBST as rewards. $BBST is the token powering our ecosystem. It has value and give you power on the platform. Learn more about it and claim your due on the dedicated page <Link href="/token"><a>BBST Token</a></Link>. The amount
+                                                    of BBST you'll get depends on the amount of the contributions you've made.<br></br> Each week, up to 15 000 BBST are given to the community as rewards.<br></br>
+                                                    <Icon.AlertTriangle/>Note that reward balances are updated every monday at 00:00 GMT+1.
                                                 </p>
                                             </AccordionItemPanel>
                                         </AccordionItem>
