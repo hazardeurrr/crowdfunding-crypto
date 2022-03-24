@@ -166,7 +166,7 @@ const ServicesArea = () => {
                 </div>
             </div>
 
-             <div className="services-area ptb-80">
+             {/* <div className="services-area ptb-80">
                 <div className="container">
                     <div className="row h-100 justify-content-center align-items-center">
                         <div className="col-lg-6 col-md-12 services-left-image">
@@ -193,16 +193,13 @@ const ServicesArea = () => {
                                         <GiMining size={27} /> {t.liquidity}: 9 200 000 BBST
                                         <p style={{fontSize: 12, fontStyle: 'italic'}}>{t.earnBBST}</p>
                                     </div>
-                                    {/* <div className="box">
-                                        <MdPublic size={27}/> {t.IDO}: 3 500 000 BBST
-                                    </div> */}
+
                                     <div className="box">
                                         <RiGitRepositoryPrivateFill size={27}/> {t.privateSale}: 2 700 000 BBST
                                         <p style={{fontSize: 12, fontStyle: 'italic'}}>{t.privateLocked}</p>
                                     </div>
                                     <div className="box">
                                         <FiTrendingUp size={27} /> {t.strategic}: 2 400 000 BBST
-                                        {/* <p style={{fontSize: 12, fontStyle: 'italic'}}>{t.strategicExplained}</p> */}
                                     </div>
                                     <div className="box">
                                         <RiTeamLine size={27} /> {t.advisors}: 3 600 000 BBST
@@ -216,7 +213,7 @@ const ServicesArea = () => {
                         </div> 
                     </div>
                 </div> 
-            </div>
+            </div> */}
         </>
     )
 }

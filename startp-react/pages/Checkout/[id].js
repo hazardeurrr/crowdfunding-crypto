@@ -38,7 +38,7 @@ const DonationCheckout = (props, {c}) => {
                 <Footer />
             </>
             } else {
-                if(now > campaign.end_date || now < campaign.start_date){
+                if(now > campaign.end_date || now < campaign.start_date || !campaign.confirmed){
                     return  <>
                         <Navbar />
         

@@ -277,7 +277,8 @@ class MainForm extends React.Component {
                     tiers: this.tiersArray,
                     main_img: this.image,
                     raised: 0,
-                    likedTupleMap: {}
+                    likedTupleMap: {},
+                    confirmed: true
                 }
                 console.log(campainInfos)
         
@@ -388,7 +389,28 @@ class MainForm extends React.Component {
                 <DialogContentText id="alert-dialog-description"><a href={`https://rinkeby.etherscan.io/tx/${this.state.Tx}`} target="_blank">{this.state.Tx}</a></DialogContentText>
                 </DialogContent></div>
             case 2:
-                 return <div style={{justifyContent:'center'}}>
+                //  return <div style={{justifyContent:'center'}}>
+                // <DialogTitle id="alert-dialog-title">Your campaign is online !</DialogTitle>
+                // <DialogContent>
+                
+                // <div style={{display: 'flex', justifyContent:'center', alignItems:'center', flexDirection:'column'}}>
+                //     <h5 style={{marginBottom: 5}}>{this.title}</h5>
+                //     <img src={this.image} alt='campaign image'/>
+                //     <div style={{justifyContent:'center'}}>
+                //         <Link href={{
+                //             pathname: "/Campaigns/[id]",
+                //             query: {
+                //                 id: this.state.new_contract_address,
+                //                 }
+                //             }}
+                //             >
+                //         <a style={{marginTop: 15}} className="btn btn-primary">See it here</a>
+                //         </Link>  
+                //     </div>
+                // </div>    
+              
+                // </DialogContent></div>
+                return <div style={{justifyContent:'center'}}>
                 <DialogTitle id="alert-dialog-title">Your campaign is online !</DialogTitle>
                 <DialogContent>
                 

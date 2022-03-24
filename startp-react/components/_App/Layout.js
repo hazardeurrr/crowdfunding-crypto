@@ -3,6 +3,7 @@ import Head from "next/head"
 import GoTop from './GoTop'
 import { useSelector, useDispatch } from 'react-redux'
 import {getAll, getOne} from '../../firebase-crowdfund/queries';
+import {db} from '../../firebase-crowdfund/index'
  
 const Layout = ({ children }, {c, crea}) => {
 
@@ -14,27 +15,50 @@ const Layout = ({ children }, {c, crea}) => {
         var campaigns = []
         var creators = []
 
-        getAll('campaign', (docs) => {
-            docs.forEach(element => {
-                campaigns.push(element.data())
-            });
-            changeState(campaigns)
-            console.log("useEffect on layout and load all camp")
-        })
 
-        getAll('campaign', (docs) => {
+        db.collection('campaign').where("confirmed", "==", true)
+        .get()
+        .then((docs) => {
             docs.forEach(element => {
+
+                campaigns.push(element.data())
+
                 getOne('profile', element.data().creator.toLowerCase(), function(doc) {
                     if (doc.exists) {
                         creators.push(doc.data())
                     } else {
                         console.log("Document not found")
                     }
-                })
-            });
-            changeUserState(creators)
-            console.log("useEffect on layout and load all creators")
-        })
+                });
+                changeUserState(creators)
+
+                changeState(campaigns);
+            })
+        }).catch((error) => {
+            console.log("Error getting document:", error);
+        });
+
+        // getAll('campaign', (docs) => {
+        //     docs.forEach(element => {
+        //         campaigns.push(element.data())
+        //     });
+        //     changeState(campaigns)
+        //     console.log("useEffect on layout and load all camp")
+        // })
+
+        // getAll('campaign', (docs) => {
+        //     docs.forEach(element => {
+        //         getOne('profile', element.data().creator.toLowerCase(), function(doc) {
+        //             if (doc.exists) {
+        //                 creators.push(doc.data())
+        //             } else {
+        //                 console.log("Document not found")
+        //             }
+        //         })
+        //     });
+        //     changeUserState(creators)
+        //     console.log("useEffect on layout and load all creators")
+        // })
 
     }, [c, crea])
     

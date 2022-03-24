@@ -8,8 +8,9 @@ const DiscoverArea = () => {
                 <div className="row align-items-center">
                     <div className="col-lg-6 col-md-12">
                         <div className="discover-image">
-                            <img src="/images/bigdata-analytics/discover-img1.png" alt="image" />
-                            <img src="/images/bigdata-analytics/discover-img2.jpg" alt="image" />
+                            {/* <img src="/images/bigdata-analytics/discover-img1.png" alt="image" /> */}
+                            <img src="/images/bigdata-analytics/connection.svg" alt="image" />
+
                         </div>
                     </div>
 

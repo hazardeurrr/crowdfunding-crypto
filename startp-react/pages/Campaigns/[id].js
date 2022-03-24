@@ -30,6 +30,8 @@ import Withdraw from './withdraw';
 import Refund from './refund';
 import Tooltip from '@material-ui/core/Tooltip';
 import Typography from '@material-ui/core/Typography';
+import Custom404 from 'pages/404';
+
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -313,6 +315,9 @@ const Campaign = (props, {c, u}) => {
 
     const displayContent = () => {
         if(campaign != undefined && user != undefined){
+            if(!campaign.confirmed){
+                return <Custom404 />
+            } else {
             return <div>
             <div className="blog-details-area ptb-80">
                 <div className="container">
@@ -365,6 +370,9 @@ const Campaign = (props, {c, u}) => {
                                                     <ul>
                                                         <li>
                                                             <Icon.Clock /> {timeLeft()}
+                                                        </li>
+                                                        <li>
+                                                            <Icon.ExternalLink /> <a target="_blank" href={`https://rinkeby.etherscan.io/address/${campaign.contract_address}`}>See on Etherscan</a>
                                                         </li>
                                                         {/* <li><FlexibleTooltip campaign={campaign}/></li> */}
                                                     </ul>
@@ -427,7 +435,8 @@ const Campaign = (props, {c, u}) => {
                 </div>
             </div>
         </div>
-        } else {
+        }
+    } else {
                 // return <CircularProgress style={{marginTop: 100}}/>
                 return <div>
             <div className="blog-details-area ptb-80">

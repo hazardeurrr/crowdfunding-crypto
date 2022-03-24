@@ -116,7 +116,7 @@ const Withdraw = (props) => {
         ctrInstance.getPastEvents("Participation", ({fromBlock: 'earliest'}))
         .then(function(events){
             console.log(events) // same results as the optional callback above
-            let eventsMapped = events.map(e => [e.returnValues.from.toLowerCase(), e.returnValues.indexTier])
+            let eventsMapped = events.map(e => [e.returnValues.user.toLowerCase(), e.returnValues.indexTier])
             // console.log(eventsMapped)
             setSubscribers(eventsMapped)
         });

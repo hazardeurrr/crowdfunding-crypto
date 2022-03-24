@@ -30,7 +30,8 @@ const ServiceDetails = () => {
                     <div className="row align-items-center">
                         <div className="col-lg-6 services-details-image">
                             
-                           <iframe src="https://www.youtube.com/embed/-2gl53Dnd38" title="YouTube video player" frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowFullScreen></iframe>
+                        <img src="/images/bigdata-analytics/sharedGoals.svg" alt="image" />
+                           {/* <iframe src="https://www.youtube.com/embed/-2gl53Dnd38" title="YouTube video player" frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowFullScreen></iframe> */}
                            
                         </div>
                         
@@ -351,12 +352,13 @@ const ServiceDetails = () => {
                             </div>
 
                             <div className="col-lg-6 services-details-image">
-                                <img 
+                                {/* <img 
                                     src="/images/services-details-image/services-details2.png" 
                                     className="animate__animated animate__fadeInUp" 
                                     alt="image" 
                                 />  
-                                <iframe src="https://www.youtube.com/embed/-2gl53Dnd38" title="YouTube video player" frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowFullScreen></iframe>
+                                <iframe src="https://www.youtube.com/embed/-2gl53Dnd38" title="YouTube video player" frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowFullScreen></iframe> */}
+                                <img src="/images/bigdata-analytics/launcher.svg" alt="image" />
 
                             </div>
                         </div>
