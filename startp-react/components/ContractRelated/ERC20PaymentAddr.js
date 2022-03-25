@@ -1,4 +1,4 @@
-const erc20PaymentAddr = "0x328ed4E775420983459A02Ee22c6d5f1D35C11FC"
+const erc20PaymentAddr = "0x6E48cEC04a7371D263E36Ef2282760E6cA267eE9"
 
 module.exports = {
   erc20PaymentAddr

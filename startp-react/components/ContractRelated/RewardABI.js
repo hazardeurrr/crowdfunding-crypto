@@ -249,6 +249,19 @@ const rewardAbi = [
 	{
 		"inputs": [
 			{
+				"internalType": "bool",
+				"name": "state",
+				"type": "bool"
+			}
+		],
+		"name": "setActive",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
 				"internalType": "address",
 				"name": "factoryAddress",
 				"type": "address"
@@ -268,13 +281,7 @@ const rewardAbi = [
 			}
 		],
 		"name": "setRewardTimestamp",
-		"outputs": [
-			{
-				"internalType": "bool",
-				"name": "",
-				"type": "bool"
-			}
-		],
+		"outputs": [],
 		"stateMutability": "nonpayable",
 		"type": "function"
 	},
