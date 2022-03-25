@@ -485,6 +485,7 @@ class MainForm extends React.Component {
                             <h2>Campaign</h2>
                             <div className="bar"></div>
                             <p>Here is the place where you can create your campaign and start raising funds for your project.</p>
+                            <br /><p><i>Beware : if your campaign is considered as offensive or inappropriate, it would be deleted from our platform and we will not be able to reimburse you. Thank you for your comprehension.</i></p>
                         </div>
 
                         <div className="faq-contact">
