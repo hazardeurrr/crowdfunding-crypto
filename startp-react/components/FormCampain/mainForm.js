@@ -636,6 +636,7 @@ class MainForm extends React.Component {
 
                                     <Tiers step={this.getNbrStep()} onTiersChange={e => {
                                         this.tiersArray = e
+                                        console.log(this.tiersArray, "mainForm tiersArray")
                                     }}/>
                                     
                                     <div className="col-lg-12 col-md-12">

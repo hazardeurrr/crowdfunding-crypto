@@ -13,18 +13,46 @@ class Tiers extends React.Component {
 
     handleTiers(event) {
         event.preventDefault()
-        const listTiers = []
-        this.tiers = []
-        for (var i = 1; i <= event.target.value; i++) {
-            listTiers.push({index: i, description: ''})
-            this.tiers.push({
-                title: "",
-                threshold: 0,
-                description: "",
-                maxClaimers: -1,
-            })
+        let listTiers = this.state.tiers
+        // for(let j = 0 ; j < this.tiers.length ; ++j){
+        //     this.tiers[j]["title"] = ""
+        //     this.tiers[j]["threshold"] = 0
+        //     this.tiers[j]["description"] = ""
+        //     this.tiers[j]["maxClaimers"] = -1
+        // }
+        // this.tiers = []
+        // console.log(event.target.value)
+        // for (var i = 1; i <= event.target.value; i++) {
+        //     listTiers.push({index: i, description: ''})
+        //     this.tiers.push({
+        //         title: "",
+        //         threshold: 0,
+        //         description: "",
+        //         maxClaimers: -1,
+        //     })
+        // }
+        console.log(event.target.value, "targetvalue")
+        console.log(this.tiers.length, "tiersLength")
+
+        if(event.target.value > this.tiers.length){
+            for (var i = 0; i <= event.target.value - this.tiers.length; i++) {
+                    listTiers.push({index: i, description: ''})
+
+                    this.tiers.push({
+                        title: "",
+                        threshold: 0,
+                        description: "",
+                        maxClaimers: -1,
+                    })
+                }
+        } else if(event.target.value < this.tiers.length){
+            console.log("removing")
+            listTiers = listTiers.slice(0, event.target.value)
+            this.tiers = this.tiers.slice(0, event.target.value)
         }
+      //  console.log(this.tiers)
         this.setState({tiers: listTiers})
+        this.props.onTiersChange(this.tiers)
     }
 
     render() {
@@ -41,7 +69,7 @@ class Tiers extends React.Component {
                 {
                     this.state.tiers.map((elt, index) => {
                         return (
-                            <div>
+                            <div key={`tier${index+1}`}>
                                 <strong>Tier {index + 1}</strong>
                                 <p>Title for the tier<br/>
                                 Give us a description of the tier :
@@ -85,6 +113,7 @@ class Tiers extends React.Component {
 
                                 <Claimers index={index} onClaimersChange={e => {
                                         this.tiers[index]["maxClaimers"] = parseInt(e)
+                                        this.props.onTiersChange(this.tiers)
                                     }} />
 
                                 

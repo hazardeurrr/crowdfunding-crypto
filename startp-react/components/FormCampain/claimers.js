@@ -9,6 +9,11 @@ class Claimers extends React.Component {
     }
 
     handleLimited() {
+        if(this.state.disabled){
+            document.getElementById("nbClaimers").value = 1;
+            this.props.onClaimersChange(1)
+        }
+
         this.setState( {disabled: !this.state.disabled} )
     }
 
