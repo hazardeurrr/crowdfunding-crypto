@@ -15,7 +15,6 @@ class Tiers extends React.Component {
         event.preventDefault()
         const listTiers = []
         this.tiers = []
-        let index_tiers = 0
         for (var i = 1; i <= event.target.value; i++) {
             listTiers.push({index: i, description: ''})
             this.tiers.push({
