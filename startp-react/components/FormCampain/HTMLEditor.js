@@ -22,7 +22,7 @@ function HTMLEditor(props) {
             videoResizing: false,
             videoHeightShow: false,
             videoRatioShow: false,
-            height: 1000,
+            height: 500,
             buttonList:// You can specify the arrangement of buttons according to the screen size in advance.
             // Responsive settings start with a percent sign.("%").
             // %510(Number based on "px")
