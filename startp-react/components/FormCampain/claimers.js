@@ -10,7 +10,7 @@ class Claimers extends React.Component {
 
     handleLimited() {
         if(this.state.disabled){
-            document.getElementById("nbClaimers").value = 1;
+            document.getElementById(`nbClaimers${this.props.index}`).value = 1;
             this.props.onClaimersChange(1)
         }
 
@@ -39,7 +39,7 @@ class Claimers extends React.Component {
                                 }}/>
                                 <label htmlFor={`limited/${this.props.index}`}>Limited</label>
                             </p>
-                            <input type={(this.state.disabled) ? "hidden" : "number"} id="nbClaimers" placeholder="Limit" min="1" className="form-control"
+                            <input type={(this.state.disabled) ? "hidden" : "number"} id={`nbClaimers${this.props.index}`} placeholder="Limit" min="1" className="form-control"
                             onChange={e => {
                               this.props.onClaimersChange(e.target.value)
                             }}/>
