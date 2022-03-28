@@ -31,6 +31,7 @@ import Refund from './refund';
 import Tooltip from '@material-ui/core/Tooltip';
 import Typography from '@material-ui/core/Typography';
 import Custom404 from 'pages/404';
+import DOMPurify from 'dompurify';
 
 
 const useStyles = makeStyles((theme) => ({
@@ -304,9 +305,16 @@ const Campaign = (props, {c, u}) => {
                     <Skeleton variant="rect" animation='pulse' height={550}/>
                 </div>
         } else {
-            return Parser(htmlTxt)
+            return sanitizeAndParseHtml(htmlTxt)
         }
     }
+
+    const sanitizeAndParseHtml = (htmlString) => {
+        const cleanHtmlString = DOMPurify.sanitize(htmlString, { ADD_TAGS: ["iframe"]}, { ADD_ATTR: ['allow', 'allowfullscreen', 'frameborder', 'scrolling'] },
+          { USE_PROFILES: { html: true } });
+        const html = Parser(cleanHtmlString);
+        return html;
+}
 
     const displayCurrency = () => {
         if(metamask_connected && chainID == chain && raisedRetrieve)

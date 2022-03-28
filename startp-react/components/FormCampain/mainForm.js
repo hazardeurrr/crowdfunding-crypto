@@ -218,6 +218,12 @@ class MainForm extends React.Component {
         )
     }
 
+    sanitizeAndParseHtml(htmlString){
+        const cleanHtmlString = DOMPurify.sanitize(htmlString, { ADD_TAGS: ["iframe"]}, { ADD_ATTR: ['allow', 'allowfullscreen', 'frameborder', 'scrolling'] },
+          { USE_PROFILES: { html: true } });
+        return html;
+    }
+
     createFirebaseObject(contract_addr){
         this.setState({ creationState: 1 });    // etat "push to bdd"
         if(!this.state.dialogOpen){
@@ -225,7 +231,7 @@ class MainForm extends React.Component {
         }
         console.log("CreatingFirebaseObject")
         let contract_address = contract_addr.toLowerCase()
-        var blob = new Blob([this.html], {
+        var blob = new Blob([this.sanitizeAndParseHtml(this.html)], {
             type: "text/plain",
           });
         let uploadTask = postHTMLPage(blob, contract_address)

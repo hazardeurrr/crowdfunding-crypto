@@ -28,8 +28,8 @@ const useStyles = makeStyles((theme) => ({
     },
     title: {
       flexGrow: 1,
-      marginTop:5,
-      marginBottom:5
+      marginBottom:5,
+      color:'white'
     },
   }));
 
@@ -303,7 +303,7 @@ const Navbar = () => {
         <header id="header" className="headroom">
             <div className={classes.root}>
                 <AppBar position="static" style={{marginTop: -15, marginBottom:10, background:'#44cf6e', justifyContent:'center', alignItems:'center'}}> 
-                    <Typography variant="p" className={classes.title}>
+                    <Typography className={classes.title}>
                         This is an alpha version running on RINKEBY test network !
                     </Typography>
                 </AppBar>

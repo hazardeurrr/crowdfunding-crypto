@@ -5,10 +5,18 @@ import heart from 'react-useanimations/lib/heart'
 import ProgressBar from 'react-bootstrap/ProgressBar';
 import Parser from 'html-react-parser';
 import * as Icon from 'react-feather';
+import DOMPurify from 'dompurify';
 
 const PreviewCampaign = (props) => {
 
-  console.log(props.content)
+//   console.log(props.content)
+    const sanitizeAndParseHtml = (htmlString) => {
+        const cleanHtmlString = DOMPurify.sanitize(htmlString, { ADD_TAGS: ["iframe"]}, { ADD_ATTR: ['allow', 'allowfullscreen', 'frameborder', 'scrolling'] },
+        { USE_PROFILES: { html: true } });
+        const html = Parser(cleanHtmlString);
+        return html;
+    }
+
   const content = props.content == undefined ? '' : props.content
   return <div>
       <div className="blog-details-area ptb-80">
@@ -85,7 +93,7 @@ const PreviewCampaign = (props) => {
                                 <div className="article-content">  
                                 
                                 <div className="separator"></div>
-                                 {Parser(content)}
+                                 {sanitizeAndParseHtml(content)}
                                 </div>
                             </div>
                         </div>
