@@ -37,6 +37,8 @@ import Snackbar from '@material-ui/core/Snackbar';
 import MuiAlert from "@material-ui/lab/Alert";
 import { toBaseUnit } from '@/utils/bnConverter';
 import { bbstAbi } from '../ContractRelated/BbstAbi';
+import DOMPurify from 'dompurify';
+
 const Web3 = require('web3');
 const BN = require('bn.js');
 
@@ -221,7 +223,7 @@ class MainForm extends React.Component {
     sanitizeAndParseHtml(htmlString){
         const cleanHtmlString = DOMPurify.sanitize(htmlString, { ADD_TAGS: ["iframe"]}, { ADD_ATTR: ['allow', 'allowfullscreen', 'frameborder', 'scrolling'] },
           { USE_PROFILES: { html: true } });
-        return html;
+        return cleanHtmlString;
     }
 
     createFirebaseObject(contract_addr){
@@ -642,7 +644,7 @@ class MainForm extends React.Component {
 
                                     <Tiers step={this.getNbrStep()} onTiersChange={e => {
                                         this.tiersArray = e
-                                        console.log(this.tiersArray, "mainForm tiersArray")
+                                        // console.log(this.tiersArray, "mainForm tiersArray")
                                     }}/>
                                     
                                     <div className="col-lg-12 col-md-12">

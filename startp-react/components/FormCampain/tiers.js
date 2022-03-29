@@ -31,8 +31,8 @@ class Tiers extends React.Component {
         //         maxClaimers: -1,
         //     })
         // }
-        console.log(event.target.value, "targetvalue")
-        console.log(this.tiers.length, "tiersLength")
+        // console.log(event.target.value, "targetvalue")
+        // console.log(this.tiers.length, "tiersLength")
 
         if(event.target.value > this.tiers.length){
             for (var i = 0; i <= event.target.value - this.tiers.length; i++) {

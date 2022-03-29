@@ -498,7 +498,6 @@ const ServiceDetails = () => {
                                 </div>
                             </div>
                         </div> */}
- 
                     </div>
                 </div>
             </div>

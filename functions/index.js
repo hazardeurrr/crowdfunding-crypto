@@ -5,10 +5,16 @@ const Web3 = require('web3');
 const { user } = require("firebase-functions/v1/auth");
 const db = admin.firestore();
 
-const rewardAddr = "0xC0fDb6d5DeCF098b5d41E9e043f609328BbE2B5e";
+const rewardAddr = "0xea462Ef2A3c7f98129FEB2D21AE463109556D7dd";
 const rewardAbi = [
 	{
-		"inputs": [],
+		"inputs": [
+			{
+				"internalType": "address",
+				"name": "_admin",
+				"type": "address"
+			}
+		],
 		"stateMutability": "nonpayable",
 		"type": "constructor"
 	},
@@ -103,11 +109,6 @@ const rewardAbi = [
 	{
 		"inputs": [
 			{
-				"internalType": "address",
-				"name": "recipient",
-				"type": "address"
-			},
-			{
 				"internalType": "uint256",
 				"name": "amount",
 				"type": "uint256"
@@ -191,6 +192,25 @@ const rewardAbi = [
 		"inputs": [
 			{
 				"internalType": "address",
+				"name": "",
+				"type": "address"
+			}
+		],
+		"name": "nbClaim",
+		"outputs": [
+			{
+				"internalType": "uint256",
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "address",
 				"name": "sender",
 				"type": "address"
 			},
@@ -251,6 +271,19 @@ const rewardAbi = [
 	{
 		"inputs": [
 			{
+				"internalType": "bool",
+				"name": "state",
+				"type": "bool"
+			}
+		],
+		"name": "setActive",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
 				"internalType": "address",
 				"name": "factoryAddress",
 				"type": "address"
@@ -270,13 +303,7 @@ const rewardAbi = [
 			}
 		],
 		"name": "setRewardTimestamp",
-		"outputs": [
-			{
-				"internalType": "bool",
-				"name": "",
-				"type": "bool"
-			}
-		],
+		"outputs": [],
 		"stateMutability": "nonpayable",
 		"type": "function"
 	},
@@ -302,7 +329,7 @@ const cors = require('cors')({ origin: true });
 // https://firebase.google.com/docs/functions/write-firebase-functions
 
 
-exports.updateWeeklyTotals = functions.region('europe-west1').pubsub.schedule('every monday 00:00')
+exports.updateWeeklyTotals = functions.region('europe-west1').pubsub.schedule('0,10,20,30,40,50 * * * *')
   .timeZone('Europe/Paris')
   .onRun(async(context) => {
     var now = parseInt(Math.floor(Date.now() / 1000))
@@ -322,7 +349,7 @@ exports.updateWeeklyTotals = functions.region('europe-west1').pubsub.schedule('e
 					//  console.log(lastTimeStamp + " ts")
 					// console.log(lastBlockUpdated + " block")
 					// console.log(midTs + " mid")
-					let week = lastTimeStamp == 1 ? 0 : parseInt(Math.floor((midTs - startTs) / 604800))
+					let week = lastTimeStamp == 1 ? 0 : parseInt(Math.floor((midTs - startTs) / 600))
 					console.log(" week computed =>" + week)
 					await db.collection('utils').doc('rates').get().then(async(doc2) => {
 						let rate = doc2.data()
@@ -335,11 +362,11 @@ exports.updateWeeklyTotals = functions.region('europe-west1').pubsub.schedule('e
 							let mapped = eventsFiltered.map((e) => {
 								let currentRate = 1
 								if(e.returnValues.token == "0x0000000000000000000000000000000000000000")
-									currentRate = rate.eth[week] == undefined ? 1 : rate.eth[week]
+								currentRate = rate.eth[week] == undefined ? 3200 : rate.eth[week]
 								if(e.returnValues.token == "0x67c0fd5c30C39d80A7Af17409eD8074734eDAE55")
-									currentRate = rate.bbst[week] == undefined ? 3000 : rate.bbst[week]
+								currentRate = rate.bbst[week] == undefined ? 1.25 : rate.bbst[week]
 								if(e.returnValues.token == "0x4DBCdF9B62e891a7cec5A2568C3F4FAF9E8Abe2b")
-									currentRate = rate.usdc[week] == undefined ? 3000 * 10**12 : rate.usdc[week] * 10**12
+								currentRate = rate.usdc[week] == undefined ? 10**12 : rate.usdc[week] * 10 ** 12
 								return e.returnValues.amount * currentRate
 							})
 							console.log(mapped)
@@ -381,14 +408,41 @@ exports.getClaimValueSigned = functions.region('europe-west1').https.onRequest((
   const userAddr = request.query.address;
 
   rewardCtr.methods.getLastClaim(userAddr).call().then((res) => {
+	  console.log(res);
     rewardCtr.getPastEvents("Participate", ({fromBlock: parseInt(res)}))
       .then((events) => {
 
 		let eventsFiltered = events.filter(e => e.returnValues.user.toLowerCase() == userAddr.toLowerCase());
 
 		if (eventsFiltered.length == 0) {
-			response.sendStatus(401);
-			throw "Wrong Address !";
+			// rewardCtr.methods.nbClaim(userAddr).call().then((claims) => {
+
+			// 	console.log("Nombre de claims :", claims);
+			// 	console.log("Claim :", claim);
+				
+			// 	const recipient = {
+			// 		address: userAddr,
+			// 		allocation: web3Instance.utils.toWei(claim.toString()),
+			// 		nbClaims: claims
+			// 	}
+
+			// 	console.log("Alloc :", recipient.allocation);
+				
+			// 	const message = web3Instance.utils.soliditySha3(recipient.address,
+			// 		recipient.allocation, recipient.nbClaims
+			// 		).toString('hex');
+
+			// 		console.log("Message :", message)
+					
+			// 	const { signature } = web3Instance.eth.accounts.sign(
+			// 		message, 
+			// 		process.env.REACT_APP_PRIVATE_KEY
+			// 	);
+					
+			// 	response.json({amount: `${recipient.allocation}`, sig: `${signature}`});
+			// })
+			response.send("Wrong Address or no participations registered yet!");
+			// throw "";
 		}
 
 		if (eventsFiltered.length != 0) {
@@ -396,7 +450,7 @@ exports.getClaimValueSigned = functions.region('europe-west1').https.onRequest((
 	  
 			const promises = eventsFiltered.map(async(e) => {
   
-			  var week = parseInt(Math.floor((e.returnValues.timestamp - time) / 604800));
+			  var week = parseInt(Math.floor((e.returnValues.timestamp - time) / 600));
 			  var ratio;
 		
 			  await db.collection('utils').doc('rates').get().then(async(resRate) => {
@@ -405,11 +459,11 @@ exports.getClaimValueSigned = functions.region('europe-west1').https.onRequest((
 				var currentRate = 0
 				
 				if(e.returnValues.token == "0x0000000000000000000000000000000000000000")
-				currentRate = resRate.data().eth[week] == undefined ? 1 : resRate.data().eth[week]
+				currentRate = resRate.data().eth[week] == undefined ? 3200 : resRate.data().eth[week]
 				if(e.returnValues.token == "0x67c0fd5c30C39d80A7Af17409eD8074734eDAE55")
-				currentRate = resRate.data().bbst[week] == undefined ? 3000 : resRate.data().bbst[week]
+				currentRate = resRate.data().bbst[week] == undefined ? 1.25 : resRate.data().bbst[week]
 				if(e.returnValues.token == "0x4DBCdF9B62e891a7cec5A2568C3F4FAF9E8Abe2b")
-				currentRate = resRate.data().usdc[week] == undefined ? 3000 * 10**12 : resRate.data().usdc[week] * 10**12
+				currentRate = resRate.data().usdc[week] == undefined ? 10**12 : resRate.data().usdc[week] * 10 ** 12
 				
 				// console.log("Rate crypto :", currentRate);
   
@@ -421,7 +475,7 @@ exports.getClaimValueSigned = functions.region('europe-west1').https.onRequest((
 					ratio = 0;
 				  } else {
 					ratio = (e.returnValues.amount * currentRate) / data.data().totalPerWeek[week];
-					console.log("ratio :", ratio);
+					// console.log("ratio :", ratio);
 				  }
 		
 				}).catch((error) => {console.log(error)})
@@ -451,35 +505,50 @@ exports.getClaimValueSigned = functions.region('europe-west1').https.onRequest((
 						tmpTotalWeek = 0;
 						weekTmp = elem[1];
 					}
+
+					tmpTotalWeek += elem[0];
 	
 					if (cpt == res.length) {
 						var ratio = tmpTotalWeek > 0.03 ? 0.03 : tmpTotalWeek
 						claim += ratio * data.data().weeklySupply[weekTmp];
 					}
 	
-					tmpTotalWeek += elem[0];
 					})
 	
 					console.log("Claim :", claim);
 				})
-			  }
-  
-			  const recipient = {
-				  address: userAddr,
-				  allocation: claim
-			  }
-		  
-			  const message = web3Instance.utils.soliditySha3(
-				  {t: 'address', v: recipient.address},
-				  {t: 'uint256', v: recipient.allocation.toString()}
-			  ).toString('hex');
-		  
-			  const { signature } = web3Instance.eth.accounts.sign(
-				  message, 
-				  process.env.REACT_APP_PRIVATE_KEY
-			  );
-		  
-			  response.json({amount: `${recipient.allocation}`, sig: `${signature}`});
+
+				if (claim == 0) {
+					response.send("You have nothing to claim");
+				}
+				
+				rewardCtr.methods.nbClaim(userAddr).call().then((claims) => {
+
+					console.log("Nombre de claims :", claims);
+					
+					const recipient = {
+						address: userAddr,
+						allocation: web3Instance.utils.toWei(claim.toString()),
+						nbClaims: claims
+					}
+					
+					const message = web3Instance.utils.soliditySha3(
+						{t: 'address', v: recipient.address},
+						{t: 'uint256', v: recipient.allocation.toString()},
+						{t: 'uint', v: recipient.nbClaims.toString()}
+						).toString('hex');
+
+						console.log("Message :", message)
+						
+						const { signature } = web3Instance.eth.accounts.sign(
+							message, 
+							process.env.REACT_APP_PRIVATE_KEY
+						);
+							
+						response.json({amount: `${recipient.allocation}`, sig: `${signature}`});
+					})
+						
+				}
 			})
 		})
 	}
@@ -488,8 +557,8 @@ exports.getClaimValueSigned = functions.region('europe-west1').https.onRequest((
 	
 	
 }).catch((error) => {
-	response.sendStatus(401);
-	console.log(error);
+	response.sendStatus(404);
+	// throw error;
 });
 });
 

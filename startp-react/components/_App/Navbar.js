@@ -303,7 +303,7 @@ const Navbar = () => {
         <header id="header" className="headroom">
             <div className={classes.root}>
                 <AppBar position="static" style={{marginTop: -15, marginBottom:10, background:'#44cf6e', justifyContent:'center', alignItems:'center'}}> 
-                    <Typography className={classes.title}>
+                    <Typography style={{color: 'white'}}>
                         This is an alpha version running on RINKEBY test network !
                     </Typography>
                 </AppBar>

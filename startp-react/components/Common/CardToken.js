@@ -20,6 +20,7 @@ import * as IconFeather from 'react-feather';
 import axios from 'axios';
 import secrets from "../../../startp-react/secrets.json";
 import {db} from '../../firebase-crowdfund/index'
+import { GiConsoleController } from 'react-icons/gi';
 
 const firebase = require("firebase");
 // Required for side-effects
@@ -73,7 +74,7 @@ const CardToken = () => {
     
           const promises = eventsFiltered.map(async(e) => {
 
-            var week = parseInt(Math.floor((e.returnValues.timestamp - time) / 604800));
+            var week = parseInt(Math.floor((e.returnValues.timestamp - time) / 600));
             var ratio;
       
             await db.collection('utils').doc('rates').get().then(async(resRate) => {
@@ -82,11 +83,11 @@ const CardToken = () => {
               var currentRate = 0
               
               if(e.returnValues.token == "0x0000000000000000000000000000000000000000")
-              currentRate = resRate.data().eth[week] == undefined ? 1 : resRate.data().eth[week]
+              currentRate = resRate.data().eth[week] == undefined ? 3200 : resRate.data().eth[week]
               if(e.returnValues.token == "0x67c0fd5c30C39d80A7Af17409eD8074734eDAE55")
-              currentRate = resRate.data().bbst[week] == undefined ? 3000 : resRate.data().bbst[week]
+              currentRate = resRate.data().bbst[week] == undefined ? 1.25 : resRate.data().bbst[week]
               if(e.returnValues.token == "0x4DBCdF9B62e891a7cec5A2568C3F4FAF9E8Abe2b")
-              currentRate = resRate.data().usdc[week] == undefined ? 3000 * 10**12 : resRate.data().usdc[week] * 10**12
+              currentRate = resRate.data().usdc[week] == undefined ? 10**12 : resRate.data().usdc[week] * 10 ** 12
               
               // console.log("Rate crypto :", currentRate);
 
@@ -98,9 +99,10 @@ const CardToken = () => {
                   ratio = 0;
                 } else {
                   ratio = (e.returnValues.amount * currentRate) / data.data().totalPerWeek[week]
+                  // console.log("ratio :", ratio)
                 }
       
-              }).catch((error) => {console.log(error)})
+              }).catch((error) => { console.log(error)})
       
               }).catch((error) => {console.log(error)})
 
@@ -109,6 +111,7 @@ const CardToken = () => {
     
           await Promise.all(promises).then(async(res) => {
             // claim += map.reduce(((a,b) => a + b), 0);
+            console.log(res)
 
             await db.collection('utils').doc('rewardData').get().then((data) => {
 
@@ -118,21 +121,23 @@ const CardToken = () => {
               var tmpTotalWeek = 0;
   
               res.forEach((elem) => {
-                cpt++;
+                ++cpt;
 
                 if (elem[1] != weekTmp) {
                   var ratio = tmpTotalWeek > 0.03 ? 0.03 : tmpTotalWeek
                   total += ratio * data.data().weeklySupply[weekTmp];
                   tmpTotalWeek = 0;
                   weekTmp = elem[1];
+                  cpt = 0;
                 }
+
+                tmpTotalWeek += elem[0];
 
                 if (cpt == res.length) {
                   var ratio = tmpTotalWeek > 0.03 ? 0.03 : tmpTotalWeek
                   total += ratio * data.data().weeklySupply[weekTmp];
                 }
 
-                tmpTotalWeek += elem[0];
               })
 
               setToBeClaimed(total);
@@ -144,7 +149,7 @@ const CardToken = () => {
     })
 
     }).catch((error) => {
-      console.log(error);
+      throw error;
     });
 
   }
@@ -159,8 +164,10 @@ const CardToken = () => {
       url: REACT_APP_LINK_TO_SIG + '?address=' + address
     }).then((res) => {
 
+      console.log(res)
+
       sig = res.data.sig;
-      amount = res.data.amount;
+      amount = web3Instance.utils.toWei(res.data.amount.toString());
 
       rewardCtr.methods.claimTokens(address, amount, sig).send({from : address, value: 0})
       .on('transactionHash', function(hash){
@@ -186,7 +193,7 @@ const CardToken = () => {
       })
 
     }).catch((error) => {
-      console.error(error);
+      throw "Error in the request";
     });
   }
 
