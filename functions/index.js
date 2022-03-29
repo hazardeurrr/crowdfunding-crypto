@@ -5,7 +5,7 @@ const Web3 = require('web3');
 const { user } = require("firebase-functions/v1/auth");
 const db = admin.firestore();
 
-const rewardAddr = "0xea462Ef2A3c7f98129FEB2D21AE463109556D7dd";
+const rewardAddr = "0xa1732280dDa43AF062d2f58cF2118656cf993d08";
 const rewardAbi = [
 	{
 		"inputs": [
@@ -90,25 +90,6 @@ const rewardAbi = [
 	{
 		"inputs": [
 			{
-				"internalType": "address",
-				"name": "",
-				"type": "address"
-			}
-		],
-		"name": "allowed",
-		"outputs": [
-			{
-				"internalType": "bool",
-				"name": "",
-				"type": "bool"
-			}
-		],
-		"stateMutability": "view",
-		"type": "function"
-	},
-	{
-		"inputs": [
-			{
 				"internalType": "uint256",
 				"name": "amount",
 				"type": "uint256"
@@ -126,7 +107,7 @@ const rewardAbi = [
 	},
 	{
 		"inputs": [],
-		"name": "getCurrentWeek",
+		"name": "getBalance",
 		"outputs": [
 			{
 				"internalType": "uint256",
@@ -146,19 +127,6 @@ const rewardAbi = [
 			}
 		],
 		"name": "getLastClaim",
-		"outputs": [
-			{
-				"internalType": "uint256",
-				"name": "",
-				"type": "uint256"
-			}
-		],
-		"stateMutability": "view",
-		"type": "function"
-	},
-	{
-		"inputs": [],
-		"name": "getStartTimestamp",
 		"outputs": [
 			{
 				"internalType": "uint256",
@@ -237,25 +205,6 @@ const rewardAbi = [
 		"type": "function"
 	},
 	{
-		"inputs": [
-			{
-				"internalType": "address",
-				"name": "",
-				"type": "address"
-			}
-		],
-		"name": "rates",
-		"outputs": [
-			{
-				"internalType": "uint256",
-				"name": "",
-				"type": "uint256"
-			}
-		],
-		"stateMutability": "view",
-		"type": "function"
-	},
-	{
 		"inputs": [],
 		"name": "rewardStartTimestamp",
 		"outputs": [
@@ -329,7 +278,7 @@ const cors = require('cors')({ origin: true });
 // https://firebase.google.com/docs/functions/write-firebase-functions
 
 
-exports.updateWeeklyTotals = functions.region('europe-west1').pubsub.schedule('0,10,20,30,40,50 * * * *')
+exports.updateWeeklyTotals = functions.region('europe-west1').pubsub.schedule('0 0 * * *')
   .timeZone('Europe/Paris')
   .onRun(async(context) => {
     var now = parseInt(Math.floor(Date.now() / 1000))
@@ -349,7 +298,7 @@ exports.updateWeeklyTotals = functions.region('europe-west1').pubsub.schedule('0
 					//  console.log(lastTimeStamp + " ts")
 					// console.log(lastBlockUpdated + " block")
 					// console.log(midTs + " mid")
-					let week = lastTimeStamp == 1 ? 0 : parseInt(Math.floor((midTs - startTs) / 600))
+					let week = lastTimeStamp == 1 ? 0 : parseInt(Math.floor((midTs - startTs) / 86400))
 					console.log(" week computed =>" + week)
 					await db.collection('utils').doc('rates').get().then(async(doc2) => {
 						let rate = doc2.data()
@@ -450,7 +399,7 @@ exports.getClaimValueSigned = functions.region('europe-west1').https.onRequest((
 	  
 			const promises = eventsFiltered.map(async(e) => {
   
-			  var week = parseInt(Math.floor((e.returnValues.timestamp - time) / 600));
+			  var week = parseInt(Math.floor((e.returnValues.timestamp - time) / 86400));
 			  var ratio;
 		
 			  await db.collection('utils').doc('rates').get().then(async(resRate) => {
