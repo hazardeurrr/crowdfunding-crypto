@@ -34,8 +34,10 @@ class Tiers extends React.Component {
         // console.log(event.target.value, "targetvalue")
         // console.log(this.tiers.length, "tiersLength")
 
+        
         if(event.target.value > this.tiers.length){
-            for (var i = 0; i <= event.target.value - this.tiers.length; i++) {
+            var length = this.tiers.length;
+            for (var i = 0; i <= event.target.value - length; i++) {
                     listTiers.push({index: i, description: ''})
 
                     this.tiers.push({
