@@ -34,7 +34,7 @@ const ContactForm = () => {
     const handleChange = e => {
         const { name, value } = e.target;
         setContact(prevState => ({ ...prevState, [name]: value }));
-        console.log(contact)
+        // console.log(contact)
     }
 
     const onSubmit = async e => {
@@ -44,7 +44,7 @@ const ContactForm = () => {
             const { name, email, number, subject, text } = contact;
             const payload = { name, email, number, subject, text };
             await axios.post(url, payload);
-            console.log(url);
+            // console.log(url);
             setContact(INITIAL_STATE);
             alertContent();
         } catch (error) {

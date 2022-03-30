@@ -1,85 +1,196 @@
 import React from 'react';
 import Link from 'next/link';
 import * as Icon from 'react-feather';
+import {db} from '../../firebase-crowdfund/index'
+import { FaTelegramPlane, FaMediumM } from 'react-icons/fa';
+import Dialog from '@material-ui/core/Dialog';
+import DialogContent from '@material-ui/core/DialogContent';
+import DialogContentText from '@material-ui/core/DialogContentText';
+import DialogTitle from '@material-ui/core/DialogTitle';
 
 const Footer = () => {
 
     const currentYear = new Date().getFullYear();
 
+    const [open, setOpen] = React.useState(false);
+    const [inBase, setTrue] = React.useState(false);
+      
+    const handleClose = () => {
+        setOpen(false);
+    };
+
+    const handleClosed = () => {
+        setTrue(false);
+    };
+    
+    const handleSubmit = (event) => {
+        event.preventDefault()
+        // console.log('in submit function')
+        // console.log(event.target[0].value)
+        // console.log(event)
+        
+        const email = event.target[0].value
+
+        db.collection('newsletter').where("email", "==", email).get().then(function(querySnapshot) {
+            var res = false
+
+            querySnapshot.forEach(function(doc) {
+                // console.log(doc.data())
+                if (doc.exists) {
+                    res = true
+                    setTrue(true);
+                    // console.log("document found")
+                } else {
+                    // console.log("document not found")
+                }
+            })
+
+            if (res == false) {
+                db.collection('newsletter').doc(firebase.database().ref().push().key).set({email: email}).then(x => {
+                    setOpen(true);
+                    console.log('document written with : ' + email)
+                }).catch(err => {
+                    console.error(err)
+                })
+            }
+        }).catch((error) => {
+            console.log("Error getting document:", error);
+        });
+
+    }
+
     return (
         <footer className="footer-area bg-f7fafd">
             <div className="container">
-                <div className="row">
-                    <div className="col-lg-3 col-md-6">
-                        <div className="single-footer-widget">
-                            <div className="logo">
-                                <Link href="/it-startup">
+                <div className="row" style={{display: 'flex'}}>
+                    <div style={{flex: 2}}>
+                        <div className="single-footer-widget" style={{marginRight : '5%'}}>
+                           
+                                                                             
+
+                                    <div className="logo">
+                                <Link href="/">
                                     <a>
-                                        <img src="/images/logo.png" alt="logo" />
+                                        <img src="/images/bb_logo_full_2.png" alt="logo" />
                                     </a>
                                 </Link>
                             </div>
-                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi.</p>
+                            <p>BlockBoosted is an innovative crowdfunding ecosystem using the Ethereum Blockchain ! Less fees, more trust, better user experience and rewards for contributors.</p>
+                        
+
+
+                                <ul className="social-links" style={{marginTop: 15}}>
+                                            <li>
+                                                <Link href="https://twitter.com/blockboosted">
+                                                    <a className="twitter" target="_blank"><Icon.Twitter /></a>
+                                                </Link>
+                                            </li>
+                                            {/* <li>
+                                                <Link href="https://twitter.com/blockboosted">
+                                                    <a className="linkedin" target="_blank"><FaTelegramPlane /></a>
+                                                </Link>
+                                            </li> */}
+                                            <li>
+                                                <Link href="https://medium.com/@blockboosted">
+                                                    <a className="instagram" target="_blank"><FaMediumM /></a>
+                                                </Link>
+                                            </li>
+                                         
+                                        </ul>
+
                         </div>
                     </div>
 
-                    <div className="col-lg-3 col-md-6">
+                    <Dialog
+                        open={inBase}
+                        onClose={handleClosed}
+                        aria-labelledby="alert-dialog-title"
+                        aria-describedby="alert-dialog-description"
+                    >
+                        <DialogTitle id="alert-dialog-title">{"Subscription to the newsletter"}</DialogTitle>
+                        <DialogContent>
+                        <DialogContentText id="alert-dialog-description">
+                            You already subscribed to our newsletter !
+                        </DialogContentText>
+                        </DialogContent>
+                    </Dialog>
+
+                    <Dialog
+                        open={open}
+                        onClose={handleClose}
+                        aria-labelledby="alert-dialog-title"
+                        aria-describedby="alert-dialog-description"
+                    >
+                        <DialogTitle id="alert-dialog-title">{"Subscription to the newsletter"}</DialogTitle>
+                        <DialogContent>
+                        <DialogContentText id="alert-dialog-description">
+                            You successfully subscribed to our newsletter. See you soon on Blockboosted.com !
+                        </DialogContentText>
+                        </DialogContent>
+                    </Dialog>
+
+                    <div style={{flex: 1}}>
                         <div className="single-footer-widget pl-5">
-                            <h3>Company</h3>
+                            <h3>BlockBoosted</h3>
                             <ul className="list">
                                 <li>
-                                    <Link href="/about-1">
-                                        <a>About Us</a>
+                                    <Link href={{
+                                        pathname: "/SearchPage/",
+                                        query: {
+                                            id: "explore",
+                                        }
+                                    }}>
+                                        <a>Explore</a>
                                     </Link>
                                 </li>
                                 <li>
-                                    <Link href="/services-1">
-                                        <a>Services</a>
+                                    <Link href="/form-campaign">
+                                        <a>Create</a>
                                     </Link>
                                 </li>
                                 <li>
-                                    <Link href="/features">
-                                        <a>Features</a>
+                                    <Link href="/how-it-works">
+                                        <a>How it works</a>
                                     </Link>
                                 </li>
                                 <li>
-                                    <Link href="/pricing">
-                                        <a>Our Pricing</a>
-                                    </Link>
-                                </li>
-                                <li>
-                                    <Link href="/blog-1">
-                                        <a>Latest News</a>
+                                    <Link href="/token">
+                                        <a>BBST Token</a>
                                     </Link>
                                 </li>
                             </ul>
                         </div>
                     </div>
 
-                    <div className="col-lg-3 col-md-6">
+                    <div style={{flex: 1}}>
                         <div className="single-footer-widget">
-                            <h3>Support</h3>
+                            <h3>Community</h3>
                             <ul className="list">
                                 <li>
-                                    <Link href="/faq">
-                                        <a>FAQ's</a>
-                                    </Link>
+                                    {/* <Link href="/faq"> */}
+                                        <a>Discussion</a>
+                                    {/* </Link> */}
                                 </li>
                                 <li>
-                                    <Link href="/privacy-policy">
-                                        <a>Privacy Policy</a>
-                                    </Link>
+                                    {/* <Link href="/privacy-policy"> */}
+                                        <a>Vote</a>
+                                    {/* </Link> */}
                                 </li>
-                                <li>
+                            </ul>
+                        </div>
+                        <div className="single-footer-widget" style={{marginTop: 25}}>
+                            <h3>About</h3>
+                            <ul className="list">
+                                {/* <li>
                                     <Link href="/term-condition">
-                                        <a>Terms & Condition</a>
+                                        <a>Terms & Conditions</a>
                                     </Link>
                                 </li>
                                 <li>
-                                    <Link href="/team">
-                                        <a>Team</a>
+                                    <Link href="/contact">
+                                        <a>Privacy policy</a>
                                     </Link>
-                                </li>
+                                </li> */}
                                 <li>
                                     <Link href="/contact">
                                         <a>Contact Us</a>
@@ -89,52 +200,18 @@ const Footer = () => {
                         </div>
                     </div>
 
-                    <div className="col-lg-3 col-md-6">
-                        <div className="single-footer-widget">
-                            <h3>Address</h3>
-                            
-                            <ul className="footer-contact-info">
-                                <li> 
-                                    <Icon.MapPin />
-                                    27 Division St, New York, <br /> NY 10002, USA
-                                </li>
-                                <li>
-                                    <Icon.Mail />
-                                    Email: <a href="mailto:startp@gmail.com">startp@gmail.com</a>
-                                </li>
-                                <li> 
-                                    <Icon.PhoneCall />
-                                    Phone: <a href="tel:321984754">+ (321) 984 754</a>
-                                </li>
-                            </ul>
-                            <ul className="social-links">
-                                <li>
-                                    <Link href="#">
-                                        <a className="facebook" target="_blank"><Icon.Facebook /></a>
-                                    </Link>
-                                </li>
-                                <li>
-                                    <Link href="#">
-                                        <a className="twitter" target="_blank"><Icon.Twitter /></a>
-                                    </Link>
-                                </li>
-                                <li>
-                                    <Link href="#">
-                                        <a className="instagram" target="_blank"><Icon.Instagram /></a>
-                                    </Link>
-                                </li>
-                                <li>
-                                    <Link href="#">
-                                        <a className="linkedin" target="_blank"><Icon.Linkedin /></a>
-                                    </Link>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-
                     <div className="col-lg-12 col-md-12">
+                        <div className="free-trial-content">
+
+                            <h5 >Get our latest news</h5>
+
+                            <form className="newsletter-form" onSubmit={handleSubmit} style={{marginTop: -3}}>
+                                <input type="email" className="input-newsletter" placeholder="Email" />
+                                <button type="submit">GO !</button>
+                            </form>
+                        </div>
                         <div className="copyright-area">
-                            <p>Copyright &copy; {currentYear} StartP. All rights reserved by <a href="https://envytheme.com/" target="_blank">EnvyTheme</a></p>
+                            <p>Copyright &copy; {currentYear} BlockBoosted. Made with <Icon.Heart /> by the BlockBoosted team</p>
                         </div>
                     </div>
                 </div>

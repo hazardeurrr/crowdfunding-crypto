@@ -1,18 +1,145 @@
 import { useMemo } from 'react'
 import { createStore, applyMiddleware } from 'redux'
 import { composeWithDevTools } from 'redux-devtools-extension'
-import { productsData } from './products'
+import {getOne, updateDoc} from 'firebase-crowdfund/queries';
+import {chain} from '@/utils/chain'
 
 let store
 
 const initialState = {
-  products: productsData,
+  products: [],
   cart: [],
   total: 0,
+  address: undefined,
+  metamask_connected: false,
+  chainID: chain,
+  allCampaigns: [],
+  allCreators: [],
+  currentUser: undefined,
+  bbstBalance: 0,
+  web3Instance: undefined
 }
+
+// const reducerComp = (previous, current) => previous[1] + current[1];
+// const compare = (x, y) => {
+//   console.log("comparing" + x.title + y.title)
+//   if(x.likedTupleArray.length === 0 && y.likedTupleArray.length > 0){
+//     return -1
+//   }
+//   if(x.likedTupleArray.length > 0 && y.likedTupleArray.length === 0){
+//     return 1
+//   }
+//   if(x.likedTupleArray.length === 0 && y.likedTupleArray.length === 0){
+//     return 0
+//   }
+//   if(y.likedTupleArray.reduce(reducerComp) > x.likedTupleArray.reduce(reducerComp)){
+//     return -1
+//   }
+//   return 1
+  
+// }
+
+ const compare = (x, y) => {
+   let xvalues = Object.values(x.likedTupleMap)
+   let yvalues = Object.values(y.likedTupleMap)
+
+   if(xvalues.length === 0 && yvalues.length > 0){
+     return 1
+   }
+   if(xvalues.length> 0 && yvalues.length === 0){
+     return -1
+   }
+   if(xvalues.length === 0 && yvalues.length === 0){
+     return 1
+   }
+   if(yvalues.reduce((acc, val) => acc + val, 0) > xvalues.reduce((acc, val) => acc + val, 0)){
+     return 1
+   }
+   return -1
+  
+ }
+
 
 const reducer = (state = initialState, action) => {
   switch (action.type) {
+
+    case 'SET_BBST_BALANCE':
+      return {
+        ...state,
+        bbstBalance: action.id
+      }
+
+    case 'SET_WEB3':
+      return {
+        ...state,
+        web3Instance: action.id
+    }
+
+
+    case 'SET_ALL_CAMPAIGNS':
+      let campaigns = action.id
+      var now = Date.now() / 1000
+
+      let current = [];
+      let ended = [];
+      let future = [];
+
+      for (let elem of campaigns) {
+        if (elem.end_date < now) {
+          ended.push(elem)
+        }
+        else if (elem.start_date > now) {
+          future.push(elem)
+        }
+        else current.push(elem)
+      }
+
+      current.sort((x, y) => compare(x,y))
+      future.sort((x, y) => compare(x,y))
+      ended.sort((x, y) => compare(x,y))
+
+      let tmp = current.concat(future)
+
+      campaigns =  tmp.concat(ended);
+
+
+
+      // console.log(campaigns)
+      return {
+        ...state,
+        allCampaigns: campaigns
+      }
+
+      case 'SET_ALL_CREATORS':
+        return {
+          ...state,
+          allCreators: action.id
+        }
+
+    case 'SET_ADDRESS':
+      return {
+        ...state,
+        address: action.id
+      }
+
+    case 'SET_CURRENT_USER':
+      return {
+        ...state,
+        currentUser: action.id
+      }
+
+    case 'SET_CONNECTED':
+      return {
+        ...state,
+        metamask_connected: action.id
+      }
+
+    case 'SET_CHAINID':
+      return {
+        ...state,
+        chainID: action.id
+      }
+
     case 'ADD_TO_CART':
       let addedItem = state.products.find(item => item.id === action.id)
       let existed_item = state.cart.find(item => action.id === item.id)

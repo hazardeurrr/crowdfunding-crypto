@@ -3,7 +3,7 @@ import Link from 'next/link';
 
 const MainBanner = () => {
     return (
-		<div className="main-banner">
+		<div className="main-banner-updated">
 			<div className="d-table">
 				<div className="d-table-cell">
 					<div className="container">
@@ -21,14 +21,14 @@ const MainBanner = () => {
 
 							<div className="col-lg-6 offset-lg-1">
 								<div className="banner-image">
-                                    <img 
+                                    {/* <img 
                                         src='/images/banner-image/man.png' 
                                         className="animate__animated animate__fadeInDown animate__delay-0.1s" 
                                         alt="man" 
                                     />
                         
                                     <img 
-                                        src="/images/banner-image/code.png" 
+                                        src="/images/banner-image/code.png"
                                         className="animate__animated animate__fadeInUp animate__delay-0.1s" 
                                         alt="code"
                                     />
@@ -103,10 +103,10 @@ const MainBanner = () => {
                                         src="/images/banner-image/headphone.png" 
                                         className="animate__animated animate__rollIn animate__delay-0.1" 
                                         alt="headphone"
-                                    />
+                                    /> */}
                             
                                     <img 
-                                        src="/images/banner-image/main-pic.png" 
+                                        src="/images/banner-image/ml-main-pic-2.png" 
                                         className="animate__animated animate__fadeInUp animate__delay-0.1" 
                                         alt="main-pic"
                                     />

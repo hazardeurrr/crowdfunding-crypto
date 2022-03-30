@@ -8,18 +8,28 @@ const MainBanner = () => {
                 <div className="row">
                     <div className="col-lg-6 col-md-12">
                         <div className="ml-banner-content">
-                            <h1>World’s Leading AI & Machine Learning Company</h1>
-                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Quis ipsum suspendisse ultrices gravida.</p>
+                            <h1>A new way to raise funds</h1>
+                           
+                                <h5>Crowdfunding reinvented.</h5><p>Less fees, more trust, community based.<br></br>Earn <Link href="/token"><a>BBST</a></Link> while supporting great projects !
+                                <br></br>Raise and contribute in crypto thanks to the Ethereum blockchain.</p>
 
-                            <Link href="/contact">
-                                <a className="btn btn-secondary">Get Started</a>
+                            <Link href="/form-campaign">
+								<a className="btn btn-primary">Create a campaign</a>
+							</Link>
+                            <Link href={{
+                                        pathname: "SearchPage",
+                                        query: {
+                                            id: "explore",
+                                            }
+                                        }} activeClassName="active">
+                                        <a className="btn btn-light">Explore</a>
                             </Link>
                         </div>
                     </div>
 
                     <div className="col-lg-6 col-md-12">
                         <div className="ml-banner-image">
-                            <img 
+                            {/* <img 
                                 src="/images/ml-banner-image/one.png" 
                                 className="animate__animated animate__fadeIn animate__delay-2s" 
                                 alt="image" 
@@ -86,10 +96,47 @@ const MainBanner = () => {
                             />
                     
                             <img 
-                                src="/images/ml-banner-image/ml-main-pic.png" 
+                                src="/images/ml-banner-image/ml-main-pic-2.png" 
                                 className="animate__animated animate__fadeInUp animate__delay-0.5s" 
                                 alt="image" 
+                            /> */}
+
+                            <img 
+                                src="/images/ml-banner-image/man.png" 
+                                className="animate__animated animate__fadeInDown animate__delay-0.5s" 
+                                alt="image" 
                             />
+                        
+                            <img 
+                                src="/images/ml-banner-image/blockchain.png" 
+                                className="animate__animated animate__fadeInUp animate__delay-1s" 
+                                alt="image" 
+                            />
+                    
+                            <img 
+                                src="/images/ml-banner-image/piggy.png" 
+                                className="animate__animated animate__fadeInDown animate__delay-1s" 
+                                alt="image" 
+                            />
+                            <img 
+                                src="/images/ml-banner-image/graph.png" 
+                                className="animate__animated animate__fadeInUp animate__delay-1s" 
+                                alt="image" 
+                            />
+                            <img 
+                                src="/images/ml-banner-image/bbtoken.png" 
+                                className="animate__animated animate__fadeIn animate__delay-2s" 
+                                alt="image" 
+                            />
+                             <img 
+                                src="/images/ml-banner-image/ml-main-pic-2.png" 
+                                className="animate__animated animate__fadeIn animate__delay-2s" 
+                                alt="image" 
+                            />
+                        
+                        
+
+                           
                         </div>
                     </div>
                 </div>

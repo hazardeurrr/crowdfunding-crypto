@@ -1,33 +1,32 @@
 import React from 'react';
 import Navbar from "@/components/_App/Navbar";
-import MainBanner from "@/components/ITStartup/MainBanner";
-import Features from "@/components/ITStartup/Features";
-import OurFeatures from "@/components/ITStartup/OurFeatures";
-import ServicesArea from "@/components/ITStartup/ServicesArea";
-import Team from "@/components/Common/Team";
-import FunFactsArea from "@/components/Common/FunFactsArea";
-import RecentWorks from "@/components/Common/RecentWorks";
-import PricingStyleOne from "@/components/PricingPlans/PricingStyleOne";
-import Feedback from "@/components/Common/Feedback";
-import Partner from "@/components/Common/Partner";
-import BlogPost from "@/components/Common/BlogPost";
+import MainBanner from "@/components/MachineLearning/MainBanner";
 import Footer from "@/components/_App/Footer";
+import CategoriesLight from "@/components/ITStartup/CategoriesLight";
+import ProjectGridMain from "@/components/ITStartup/ProjectGridMain";
+import DiscoverArea from '@/components/ITStartup/DiscoverArea';
+import FeaturedProjectCarrousel from '@/components/ITStartup/FeaturedProjectCarrousel';
+
 
 const ITStartup = () => {
     return (
         <>
             <Navbar />
             <MainBanner />
-            <Features />
-            <ServicesArea />
+            {/* <Features /> */}
+            <FeaturedProjectCarrousel/>
+            <CategoriesLight />
+            <ProjectGridMain />
+            <DiscoverArea />
+            {/* <ServicesArea />
             <OurFeatures />
             <Team />
             <FunFactsArea />
             <RecentWorks />
             <PricingStyleOne />
-            <Feedback />
-            <Partner />
-            <BlogPost />
+            <Partner /> */}
+            {/* <CategoriesMainPage /> */}
+
             <Footer />
         </>
     )

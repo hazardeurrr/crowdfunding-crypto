@@ -10,16 +10,16 @@ const Features = () => {
 					<div className="col-lg-3 col-md-6">
 						<div className="single-box">
 							<div className="icon">
-                                <Icon.Server />
+                                <Icon.DollarSign />
 							</div>
 
 							<h3>
 								<Link href="/feature-details">
-									<a>Zero Configuration</a>
+									<a>Low fees</a>
 								</Link>
 							</h3>
 
-							<p>Lorem ipsum dolor sit amet elit, adipiscing, sed do eiusmod tempor incididunt ut labore dolore magna.</p>
+							<p>Most of the crowdfunding platforms charge 5% fees + payment fees. We charge only 1% to keep the project alive.</p>
 						</div>
 					</div>
 
@@ -31,11 +31,11 @@ const Features = () => {
 
 							<h3>
 								<Link href="/feature-details">
-									<a>Code Security</a>
+									<a>Blockchain based</a>
 								</Link>
 							</h3>
 
-							<p>Lorem ipsum dolor sit amet elit, adipiscing, sed do eiusmod tempor incididunt ut labore dolore magna.</p>
+							<p>We use the Ethereum blockchain. We never touch the money : smart contract rules it all.</p>
 						</div>
 					</div>
 
@@ -47,27 +47,27 @@ const Features = () => {
 
 							<h3>
 								<Link href="/feature-details">
-									<a>Team Management</a>
+									<a>Easy to use</a>
 								</Link>
 							</h3>
 
-							<p>Lorem ipsum dolor sit amet elit, adipiscing, sed do eiusmod tempor incididunt ut labore dolore magna.</p>
+							<p>Create a campaign in 2 minutes, contribute in 1. Everyone can raise fund and everyone can support anyone.</p>
 						</div>
 					</div>
 
 					<div className="col-lg-3 col-md-6">
 						<div className="single-box bg-eb6b3d">
 							<div className="icon">
-                                <Icon.GitBranch />
+                                <Icon.CheckCircle />
 							</div>
 
 							<h3>
 								<Link href="/feature-details">
-									<a>Access Controlled</a>
+									<a>ETH and USDC supported</a>
 								</Link>
 							</h3>
 
-							<p>Lorem ipsum dolor sit amet elit, adipiscing, sed do eiusmod tempor incididunt ut labore dolore magna.</p>
+							<p>Raise funds in Ether or USDC.</p>
 						</div>
 					</div>
 				</div>

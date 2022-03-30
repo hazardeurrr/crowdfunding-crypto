@@ -3,9 +3,11 @@ import dynamic from 'next/dynamic';
 const OwlCarousel = dynamic(import('react-owl-carousel3'));
 import * as Icon from 'react-feather';
 import Link from 'next/link'
-
+import {useRouter} from 'next/router'
+import fr from '../../public/locales/fr/translation'
+import en from '../../public/locales/en/translation'
 const options = {
-    items: 5,
+    items: 3,
     loop: true,
     nav: false,
     dots: true,
@@ -20,15 +22,19 @@ const options = {
             items: 2
         },
         1200: {
-            items: 4
+            items: 3
         },
         1500: {
-            items: 5
+            items: 3
         }
     }
 }
 
 const Team = () => {
+    const router = useRouter()
+    const  {locale} = router
+    // console.log('locale',locale)
+    const t = locale === 'en' ? en : fr
     const [display, setDisplay] = React.useState(false);
 
     React.useEffect(() => {
@@ -39,9 +45,8 @@ const Team = () => {
         <div className="team-area ptb-80 bg-f9f6f6">
             <div className="container">
                 <div className="section-title">
-                    <h2>Our Awesome Team</h2>
+                    <h2>{t.team}</h2>
                     <div className="bar"></div>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
                 </div>
             </div>
 
@@ -51,16 +56,16 @@ const Team = () => {
             > 
                 <div className="single-team">
                     <div className="team-image">
-                        <img src="/images/team-image/team1.jpg" alt="image" />
+                        <img src="/images/team-image/tibo.jpg" alt="image" />
                     </div>
 
                     <div className="team-content">
                         <div className="team-info">
-                            <h3>Josh Buttler</h3>
-                            <span>CEO & Founder</span>
+                            <h3>Thibault Drouot</h3>
+                            <span>CEO<br></br> Engineer & Entrepreneur</span>
                         </div>
 
-                        <ul>
+                        {/* <ul>
                             <li>
                                 <Link href="#">
                                     <a target="_blank"><Icon.Facebook /></a>
@@ -84,22 +89,23 @@ const Team = () => {
                             </li>
                         </ul>
 
-                        <p>Risus commodo viverra maecenas accumsan lacus vel facilisis quis ipsum. </p>
+                        <p>Risus commodo viverra maecenas accumsan lacus vel facilisis quis ipsum. </p> */}
                     </div>
                 </div>
             
                 <div className="single-team">
                     <div className="team-image">
-                        <img src="/images/team-image/team2.jpg" alt="image" />
+                        <img src="/images/team-image/hugo.jpg" alt="image" />
                     </div>
 
                     <div className="team-content">
                         <div className="team-info">
-                            <h3>Alex Maxwel</h3>
-                            <span>Marketing Manager</span>
+                            <h3>Hugo Deroche</h3>
+                            {/* <span>Co-founder</span><br></br> */}
+                            <span>Blockchain Engineer | Co-Founder</span>
                         </div>
 
-                        <ul>
+                        {/* <ul>
                             <li>
                                 <Link href="#">
                                     <a target="_blank"><Icon.Facebook /></a>
@@ -123,22 +129,23 @@ const Team = () => {
                             </li>
                         </ul>
 
-                        <p>Risus commodo viverra maecenas accumsan lacus vel facilisis quis ipsum. </p>
+                        <p>Risus commodo viverra maecenas accumsan lacus vel facilisis quis ipsum. </p> */}
                     </div>
                 </div>
     
                 <div className="single-team">
                     <div className="team-image">
-                        <img src="/images/team-image/team3.jpg" alt="image" />
+                        <img src="/images/team-image/malc.jpg" alt="image" />
                     </div>
 
                     <div className="team-content">
                         <div className="team-info">
-                            <h3>Janny Cotller</h3>
-                            <span>Web Developer</span>
+                            <h3>Malcolm Etoundi</h3>
+                            {/* <span>Co-founder</span><br></br> */}
+                            <span>Blockchain Engineer | Co-Founder</span>
                         </div>
 
-                        <ul>
+                        {/* <ul>
                             <li>
                                 <Link href="#">
                                     <a target="_blank"><Icon.Facebook /></a>
@@ -162,11 +169,13 @@ const Team = () => {
                             </li>
                         </ul>
 
-                        <p>Risus commodo viverra maecenas accumsan lacus vel facilisis quis ipsum. </p>
+                        <p>Risus commodo viverra maecenas accumsan lacus vel facilisis quis ipsum. </p> */}
                     </div>
                 </div>
+
+               
             
-                <div className="single-team">
+                {/* <div className="single-team">
                     <div className="team-image">
                         <img src="/images/team-image/team4.jpg" alt="image" />
                     </div>
@@ -243,201 +252,8 @@ const Team = () => {
                         <p>Risus commodo viverra maecenas accumsan lacus vel facilisis quis ipsum. </p>
                     </div>
                 </div>
-        
-                <div className="single-team">
-                    <div className="team-image">
-                        <img src="/images/team-image/team1.jpg" alt="image" />
-                    </div>
-
-                    <div className="team-content">
-                        <div className="team-info">
-                            <h3>Josh Buttler</h3>
-                            <span>CEO & Founder</span>
-                        </div>
-
-                        <ul>
-                            <li>
-                                <Link href="#">
-                                    <a target="_blank"><Icon.Facebook /></a>
-                                </Link>
-                                
-                            </li>
-                            <li>
-                                <Link href="#">
-                                    <a target="_blank"><Icon.Twitter /></a>
-                                </Link>
-                            </li>
-                            <li>
-                                <Link href="#">
-                                    <a target="_blank"><Icon.Linkedin /></a>
-                                </Link>
-                            </li>
-                            <li>
-                                <Link href="#">
-                                    <a target="_blank"><Icon.Gitlab /></a>
-                                </Link>
-                            </li>
-                        </ul>
-
-                        <p>Risus commodo viverra maecenas accumsan lacus vel facilisis quis ipsum. </p>
-                    </div>
-                </div>
-        
-                <div className="single-team">
-                    <div className="team-image">
-                        <img src="/images/team-image/team2.jpg" alt="image" />
-                    </div>
-
-                    <div className="team-content">
-                        <div className="team-info">
-                            <h3>Alex Maxwel</h3>
-                            <span>Marketing Manager</span>
-                        </div>
-
-                        <ul>
-                            <li>
-                                <Link href="#">
-                                    <a target="_blank"><Icon.Facebook /></a>
-                                </Link>
-                                
-                            </li>
-                            <li>
-                                <Link href="#">
-                                    <a target="_blank"><Icon.Twitter /></a>
-                                </Link>
-                            </li>
-                            <li>
-                                <Link href="#">
-                                    <a target="_blank"><Icon.Linkedin /></a>
-                                </Link>
-                            </li>
-                            <li>
-                                <Link href="#">
-                                    <a target="_blank"><Icon.Gitlab /></a>
-                                </Link>
-                            </li>
-                        </ul>
-
-                        <p>Risus commodo viverra maecenas accumsan lacus vel facilisis quis ipsum. </p>
-                    </div>
-                </div>
-        
-                <div className="single-team">
-                    <div className="team-image">
-                        <img src="/images/team-image/team3.jpg" alt="image" />
-                    </div>
-
-                    <div className="team-content">
-                        <div className="team-info">
-                            <h3>Janny Cotller</h3>
-                            <span>Web Developer</span>
-                        </div>
-
-                        <ul>
-                            <li>
-                                <Link href="#">
-                                    <a target="_blank"><Icon.Facebook /></a>
-                                </Link>
-                                
-                            </li>
-                            <li>
-                                <Link href="#">
-                                    <a target="_blank"><Icon.Twitter /></a>
-                                </Link>
-                            </li>
-                            <li>
-                                <Link href="#">
-                                    <a target="_blank"><Icon.Linkedin /></a>
-                                </Link>
-                            </li>
-                            <li>
-                                <Link href="#">
-                                    <a target="_blank"><Icon.Gitlab /></a>
-                                </Link>
-                            </li>
-                        </ul>
-
-                        <p>Risus commodo viverra maecenas accumsan lacus vel facilisis quis ipsum. </p>
-                    </div>
-                </div>
-    
-                <div className="single-team">
-                    <div className="team-image">
-                        <img src="/images/team-image/team4.jpg" alt="image" />
-                    </div>
-
-                    <div className="team-content">
-                        <div className="team-info">
-                            <h3>Jason Statham</h3>
-                            <span>UX/UI Designer</span>
-                        </div>
-
-                        <ul>
-                            <li>
-                                <Link href="#">
-                                    <a target="_blank"><Icon.Facebook /></a>
-                                </Link>
-                                
-                            </li>
-                            <li>
-                                <Link href="#">
-                                    <a target="_blank"><Icon.Twitter /></a>
-                                </Link>
-                            </li>
-                            <li>
-                                <Link href="#">
-                                    <a target="_blank"><Icon.Linkedin /></a>
-                                </Link>
-                            </li>
-                            <li>
-                                <Link href="#">
-                                    <a target="_blank"><Icon.Gitlab /></a>
-                                </Link>
-                            </li>
-                        </ul>
-
-                        <p>Risus commodo viverra maecenas accumsan lacus vel facilisis quis ipsum. </p>
-                    </div>
-                </div>
-            
-                <div className="single-team">
-                    <div className="team-image">
-                        <img src="/images/team-image/team5.jpg" alt="image" />
-                    </div>
-
-                    <div className="team-content">
-                        <div className="team-info">
-                            <h3>Corey Anderson</h3>
-                            <span>Project Manager</span>
-                        </div>
-
-                        <ul>
-                            <li>
-                                <Link href="#">
-                                    <a target="_blank"><Icon.Facebook /></a>
-                                </Link>
-                                
-                            </li>
-                            <li>
-                                <Link href="#">
-                                    <a target="_blank"><Icon.Twitter /></a>
-                                </Link>
-                            </li>
-                            <li>
-                                <Link href="#">
-                                    <a target="_blank"><Icon.Linkedin /></a>
-                                </Link>
-                            </li>
-                            <li>
-                                <Link href="#">
-                                    <a target="_blank"><Icon.Gitlab /></a>
-                                </Link>
-                            </li>
-                        </ul>
-
-                        <p>Risus commodo viverra maecenas accumsan lacus vel facilisis quis ipsum. </p>
-                    </div>
-                </div>
+         */}
+               
             </OwlCarousel> : ''}
         </div>
     )
