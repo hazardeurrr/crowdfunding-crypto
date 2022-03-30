@@ -10,8 +10,9 @@ import {chain} from '@/utils/chain'
 
 
 
-const SimpleCampaignPost = (props, {u}) => {
+const SimpleCampaignPost = (props) => {
     const campaign = props.project
+    const creator = campaign.creator
     const objective = campaign.objective
     
     var start_date = campaign.start_date;
@@ -35,14 +36,11 @@ const SimpleCampaignPost = (props, {u}) => {
 
 
     useEffect(() => {
-        getOne('profile', campaign.creator.toLowerCase(), function(docs) {
-            if (docs.exists) {
-                setUser(docs.data())
-            } else {
-                console.log("Document not found")
-            }
+
+        getOne('profile', creator.toLowerCase(), (docs) => {
+            setUser(docs.data())
         })
-      }, [u])
+      }, [creator])
     
 
     const timeLeft = () => {

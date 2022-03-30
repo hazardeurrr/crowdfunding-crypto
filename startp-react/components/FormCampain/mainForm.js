@@ -93,7 +93,7 @@ class MainForm extends React.Component {
     }
 
     
-     componentWillMount() {
+     UNSAFE_componentWillMount() {
          //web3 à gérer (init dans le header, récup via le store)
          if(this.props.web3Instance !== undefined){
              this.initFactoryInstance()
@@ -106,11 +106,11 @@ class MainForm extends React.Component {
         this.setState({factoryInstance: factInstance})
     }
 
-    componentWillReceiveProps(nextProps) {
+    UNSAFE_componentWillReceiveProps(nextProps) {
         // You don't have to do this check first, but it can help prevent an unneeded render
         if (nextProps.web3Instance !== this.props.web3Instance && nextProps.web3Instance !== undefined) {
             // console.log(nextProps.web3Instance)
-            this.componentWillMount()
+            this.UNSAFE_componentWillMount()
         }
       }
 

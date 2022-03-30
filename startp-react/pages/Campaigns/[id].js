@@ -58,7 +58,7 @@ const HtmlTooltip = withStyles((theme) => ({
   }))(Tooltip);
 
 
-const Campaign = (props, {c, u}) => {
+const Campaign = (props) => {
 
     const classes = useStyles();
 
@@ -104,7 +104,7 @@ const Campaign = (props, {c, u}) => {
               console.log("Document not found")
           }
         })
-    }, [c, u] )
+    }, [])
 
 
     

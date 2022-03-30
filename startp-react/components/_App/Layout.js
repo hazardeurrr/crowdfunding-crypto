@@ -35,29 +35,6 @@ const Layout = ({ children }, {c, crea}) => {
         }).catch((error) => {
             console.log("Error getting document:", error);
         });
-
-        // getAll('campaign', (docs) => {
-        //     docs.forEach(element => {
-        //         campaigns.push(element.data())
-        //     });
-        //     changeState(campaigns)
-        //     console.log("useEffect on layout and load all camp")
-        // })
-
-        // getAll('campaign', (docs) => {
-        //     docs.forEach(element => {
-        //         getOne('profile', element.data().creator.toLowerCase(), function(doc) {
-        //             if (doc.exists) {
-        //                 creators.push(doc.data())
-        //             } else {
-        //                 console.log("Document not found")
-        //             }
-        //         })
-        //     });
-        //     changeUserState(creators)
-        //     console.log("useEffect on layout and load all creators")
-        // })
-
     }, [c, crea])
     
     const changeState = (campaigns) => {
