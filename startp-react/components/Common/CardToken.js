@@ -72,7 +72,7 @@ const CardToken = () => {
           //  console.log(events);
   
       let eventsFiltered = events.filter(e => e.returnValues.user.toLowerCase() == userAddr);
-      console.log(eventsFiltered);
+      // console.log(eventsFiltered);
       if (eventsFiltered.length != 0) {
         rewardCtr.methods.getStartTimestamp().call().then(async(time) => {
     

@@ -68,7 +68,7 @@ const Navbar = () => {
         if (provider) {
             setProviderDetected(true)
             startApp(provider); // Initialize your app
-            console.log('Provider found')
+            // console.log('Provider found')
         } else {
             setProviderDetected(false)
             console.log('Please install MetaMask!');
@@ -123,7 +123,7 @@ const Navbar = () => {
             id: false
         })
         } else {
-            console.log("in accounts changed")
+            // console.log("in accounts changed")
             dispatch({
                 type: 'SET_CONNECTED',
                 id: true
@@ -141,10 +141,10 @@ const Navbar = () => {
 
             const chainId = await ethereum.request({ method: 'eth_chainId' });
             if(chainId == chain){
-                console.log("cheching BBST balance...")
+                // console.log("cheching BBST balance...")
                 const bbst_contract = new web3.eth.Contract(bbstAbi.bbstAbi, bbstAddr.bbstAddr);
                 bbst_contract.methods.balanceOf(accounts[0]).call().then(response => {
-                    console.log('response', response)
+                    // console.log('response', response)
                     dispatch({
                         type: 'SET_BBST_BALANCE',
                         id: response
@@ -156,7 +156,7 @@ const Navbar = () => {
 
 
             if (userAddr != undefined) {
-                console.log('user address',userAddr)
+                // console.log('user address',userAddr)
                 getOne('profile', userAddr, function(doc) {
                     if (doc.exists) {
                         // console.log('data', doc.data())     // afiche bien l'objet avec le bon user
