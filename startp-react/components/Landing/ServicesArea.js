@@ -16,7 +16,6 @@ import en from '../../public/locales/en/translation'
 const ServicesArea = () => {
     const router = useRouter()
     const  {locale} = router
-    console.log('locale',locale)
     const t = locale === 'en' ? en : fr
     const chartData = {
         labels: [`${t.liquidity}`, `${t.IDO}`, `${t.privateSale}`, `${t.strategic}`, `${t.advisors}`, `${t.provide}`],
