@@ -45,8 +45,6 @@ const MainBanner = () => {
                     res = true
                     setTrue(true);
                     // console.log("document found")
-                } else {
-                    // console.log("document not found")
                 }
             })
 
