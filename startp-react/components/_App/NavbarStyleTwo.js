@@ -64,7 +64,7 @@ const NavbarStyleTwo = () => {
                             </ul> */}
                         </div>
 
-                        <a style={{marginRight: 50}} href="https://alpha.blockboosted.com/" className="btn btn-primary">
+                        <a style={{marginRight: 50}} target="_blank" href="https://app.blockboosted.com/" className="btn btn-primary">
                                         LAUNCH ALPHA
                         </a>
 
