@@ -11,7 +11,6 @@ import en from '../../public/locales/en/translation'
 const OurFeatures = () => {
     const router = useRouter()
     const  {locale} = router
-    console.log('locale',locale)
     const t = locale === 'en' ? en : fr
     return (
         <div className="features-area pt-80 pb-50 bg-f7fafd">
@@ -31,10 +30,10 @@ const OurFeatures = () => {
                             <h3>
                                     {t.fees}
                             </h3>
-                            <p><b style={{fontSize: 17}}>{t.chargedFees}</b><br></br> {t.fees2}<em style={{fontSize: 10, marginTop: -1}}>*</em><br></br>
-                            <i style={{fontSize: 13}}></i>{t.fees3}</p>
+                            <p><b style={{fontSize: 17}}>{t.chargedFees}</b><br></br> {t.fees2}<br></br>
+                            <i style={{fontSize: 13}}>{t.fees3}</i></p>
                             {/* <p style={{fontSize: 10, marginTop: 20}}>*{t.repartition}</p> */}
-                            <p style={{fontSize: 10, marginTop: 10}}>*{t.fees4}</p>
+                            {/* <p style={{fontSize: 10, marginTop: 10}}>*{t.fees4}</p> */}
 
                         </div>
                     </div>
@@ -49,7 +48,11 @@ const OurFeatures = () => {
                                     <a>{t.noPayment}</a>
                                 </Link>
                             </h3>
-                            <p>{t.noFees}<br></br>
+                            <p><b style={{fontSize: 17}}>{t.noFees}</b><br></br>
+                            {t.noFees2}
+                            <br></br>
+                            {t.noFees3}
+                            <br></br>
                             <i style={{fontSize: 12}}>{t.charges}</i></p>
                         </div>
                     </div>

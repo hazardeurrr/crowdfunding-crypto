@@ -33,7 +33,6 @@ const options = {
 const Team = () => {
     const router = useRouter()
     const  {locale} = router
-    console.log('locale',locale)
     const t = locale === 'en' ? en : fr
     const [display, setDisplay] = React.useState(false);
 

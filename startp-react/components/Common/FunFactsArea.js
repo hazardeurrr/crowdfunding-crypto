@@ -26,7 +26,6 @@ const FunFactsArea = () => {
 
     const router = useRouter()
     const  {locale} = router
-    console.log('locale',locale)
     const t = locale === 'en' ? en : fr
 
     const handleSubmit = (event) => {
@@ -99,8 +98,9 @@ const FunFactsArea = () => {
 
                     <div className="col-lg-3 col-md-3 col-6">
                         <div className="funfact">
-                            <h3>{t.upto} 10%</h3>
-                            <p>Cashback</p>
+                            <h3>{t.rewardsevery}</h3>
+                            <p>{t.everyweek}</p>
+                            {/* <p style={{fontStyle:'italic', fontSize: 10, marginTop: -15}}>(BBST rewards)</p> */}
                         </div>
                     </div>
 
