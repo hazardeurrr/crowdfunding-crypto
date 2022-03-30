@@ -97,7 +97,7 @@ class MainForm extends React.Component {
          //web3 à gérer (init dans le header, récup via le store)
          if(this.props.web3Instance !== undefined){
              this.initFactoryInstance()
-             console.log("remount")
+            //  console.log("remount")
          }
      }
 
@@ -109,7 +109,7 @@ class MainForm extends React.Component {
     componentWillReceiveProps(nextProps) {
         // You don't have to do this check first, but it can help prevent an unneeded render
         if (nextProps.web3Instance !== this.props.web3Instance && nextProps.web3Instance !== undefined) {
-            console.log(nextProps.web3Instance)
+            // console.log(nextProps.web3Instance)
             this.componentWillMount()
         }
       }
@@ -172,7 +172,7 @@ class MainForm extends React.Component {
                     // console.log("amount", amt)
                   //  tierAmountArray = this.tiersArray.map(a => a.threshold * 10**decimals) 
                     tierAmountArray = this.tiersArray.map(a => toBaseUnit(a.threshold.toString(), decimals, this.props.web3Instance.utils.BN))
-                    console.log(tierAmountArray)
+                    // console.log(tierAmountArray)
                 })
             } else {
                 throw "erc20 contract instance not define"
@@ -200,18 +200,18 @@ class MainForm extends React.Component {
         .send({from : this.props.userAddr, value: 0})
         .on('transactionHash', function(hash){
             context.openDialog()
-            console.log("hash :" + hash)
+            // console.log("hash :" + hash)
             context.setState({ Tx: hash });
 
         })
         .on('confirmation', function(confirmationNumber, receipt){ 
 
-            console.log("Confirmation number:" + confirmationNumber)
+            // console.log("Confirmation number:" + confirmationNumber)
         })
         .on("error", function(error) {
             context.setState({ errorMsg: error.code + " : " + error.message})
             context.openSnackbar()
-            console.log(error);
+            // console.log(error);
         })
         .then(a => {
             this.setState({new_contract_address: a.events.CampaignCreated.returnValues[0].toLowerCase()})
@@ -246,7 +246,7 @@ class MainForm extends React.Component {
             // Observe state change events such as progress, pause, and resume
             // Get task progress, including the number of bytes uploaded and the total number of bytes to be uploaded
             const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-            console.log('Upload is ' + progress + '% done');
+            // console.log('Upload is ' + progress + '% done');
             this.setState({initializationProgress: progress})
             switch (snapshot.state) {
             case 'paused':
@@ -295,7 +295,7 @@ class MainForm extends React.Component {
                 campainInfos['creator'] = creator_address
                 if (this.cats.length < 1) {return}
                 db.collection('campaign').doc(contract_address).set(campainInfos).then(x => {
-                    console.log('document written with : ' + campainInfos.title)
+                    // console.log('document written with : ' + campainInfos.title)
                     this.setState({ creationState: 2 }); // etat fini
                     if(!this.state.dialogOpen){
                         this.openDialog()

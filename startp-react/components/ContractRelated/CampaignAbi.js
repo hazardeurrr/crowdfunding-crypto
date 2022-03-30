@@ -268,19 +268,6 @@ const campaignAbi = [
 		"type": "function"
 	},
 	{
-		"inputs": [],
-		"name": "isCreator",
-		"outputs": [
-			{
-				"internalType": "bool",
-				"name": "",
-				"type": "bool"
-			}
-		],
-		"stateMutability": "view",
-		"type": "function"
-	},
-	{
 		"inputs": [
 			{
 				"internalType": "uint256",

@@ -1,6 +1,7 @@
 import React from 'react';
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
+import Link from 'next/link';
 import CardActionArea from '@material-ui/core/CardActionArea';
 import TextField from '@material-ui/core/TextField';
 import Dialog from '@material-ui/core/Dialog';
@@ -66,15 +67,18 @@ const CardToken = () => {
     rewardCtr.methods.getLastClaim(userAddr).call().then((res) => {
       rewardCtr.getPastEvents("Participate", ({fromBlock: parseInt(res)}))
         .then((events) => {
+
+          // console.log(res);
+          //  console.log(events);
   
       let eventsFiltered = events.filter(e => e.returnValues.user.toLowerCase() == userAddr);
-
+      console.log(eventsFiltered);
       if (eventsFiltered.length != 0) {
         rewardCtr.methods.getStartTimestamp().call().then(async(time) => {
     
           const promises = eventsFiltered.map(async(e) => {
 
-            var week = parseInt(Math.floor((e.returnValues.timestamp - time) / 600));
+            var week = parseInt(Math.floor((e.returnValues.timestamp - time) / 86400));
             var ratio;
       
             await db.collection('utils').doc('rates').get().then(async(resRate) => {
@@ -111,7 +115,7 @@ const CardToken = () => {
     
           await Promise.all(promises).then(async(res) => {
             // claim += map.reduce(((a,b) => a + b), 0);
-            console.log(res)
+            // console.log(res)
 
             await db.collection('utils').doc('rewardData').get().then((data) => {
 
@@ -128,7 +132,6 @@ const CardToken = () => {
                   total += ratio * data.data().weeklySupply[weekTmp];
                   tmpTotalWeek = 0;
                   weekTmp = elem[1];
-                  cpt = 0;
                 }
 
                 tmpTotalWeek += elem[0];
@@ -164,12 +167,12 @@ const CardToken = () => {
       url: REACT_APP_LINK_TO_SIG + '?address=' + address
     }).then((res) => {
 
-      console.log(res)
+      // console.log(res)
 
       sig = res.data.sig;
-      amount = web3Instance.utils.toWei(res.data.amount.toString());
+      amount = res.data.amount;
 
-      rewardCtr.methods.claimTokens(address, amount, sig).send({from : address, value: 0})
+      rewardCtr.methods.claimTokens(amount, sig).send({from : address, value: 0})
       .on('transactionHash', function(hash){
         openDialog()
         console.log("hash :" + hash)
@@ -178,7 +181,7 @@ const CardToken = () => {
       })
       .on('confirmation', function(confirmationNumber, receipt){ 
           
-          console.log("Confirmation number:" + confirmationNumber)
+          // console.log("Confirmation number:" + confirmationNumber)
       })
       .on("error", function(error) {
           setErrorMsg(error.code + " : " + error.message)
@@ -214,6 +217,16 @@ const CardToken = () => {
             return <div style={{justifyContent:'center'}}>
             <DialogTitle id="alert-dialog-title">Claim successfull ! <IconFeather.Heart/></DialogTitle>
             <DialogContent>
+            <div style={{display: 'flex', justifyContent:'center', flexDirection:'column'}}>
+                    <div style={{justifyContent:'center'}}>
+                        <Link href={{
+                            pathname: "/",
+                            }}
+                            >
+                        <a className="btn btn-primary">Back to Main page</a>
+                        </Link>  
+                    </div>
+                </div> 
             <DialogContentText id="alert-dialog-description" style={{marginTop: 15}}>
             Transaction confirmed : </DialogContentText>
             <DialogContentText id="alert-dialog-description"><a href={`https://rinkeby.etherscan.io/tx/${Tx}`} target="_blank">{Tx}</a></DialogContentText>
@@ -310,7 +323,7 @@ const closeDialog = () => {
 
         <div style={{flex : 2}}>
           <CardContent>
-              <a className="btn btn-primary" onClick={() => claimTokens()}>Claim</a>
+              <button hidden={toBeClaimed <= 0} className="btn btn-primary" onClick={() => claimTokens()}>Claim</button>
           </CardContent>
         </div>
       </div>

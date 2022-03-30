@@ -3,6 +3,7 @@ import Navbar from "@/components/_App/Navbar";
 import Footer from "@/components/_App/Footer";
 import PageBanner from '@/components/Common/PageBanner';
 import ServicesArea from "@/components/Landing/ServicesArea";
+import * as Icon from 'react-feather';
 
 import {
     Accordion,
@@ -70,6 +71,7 @@ const TokenDetails = () => {
                             <h2 className="search-page-title">Claim your tokens</h2>
                             <div className="bar"></div>
                             <p>Contribute to campaigns to earn BBST.</p>
+                            <p><Icon.AlertTriangle />During Alpha period, rewards are distributed every day instead of every week for test purposes.</p>
                             <CardToken style={{marginTop: 80}}/>
                             <button style={{marginTop: 25}} className="btn btn-secondary" onClick={() => addToMetamask()}>Add BBST to Metamask</button>
                         </div>
