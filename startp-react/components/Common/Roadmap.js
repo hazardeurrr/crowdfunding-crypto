@@ -19,7 +19,6 @@ const Roadmap = () => {
 
     const router = useRouter()
     const  {locale} = router
-    console.log('locale',locale)
     const t = locale === 'en' ? en : fr
 
     const currentYear = new Date().getFullYear();
