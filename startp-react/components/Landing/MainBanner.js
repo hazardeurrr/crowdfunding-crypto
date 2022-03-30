@@ -45,13 +45,15 @@ const MainBanner = () => {
                     res = true
                     setTrue(true);
                     // console.log("document found")
+                } else {
+                    // console.log("document not found")
                 }
             })
 
             if (res == false) {
                 db.collection('newsletter').doc(firebase.database().ref().push().key).set({email: email}).then(x => {
                     setOpen(true);
-                    console.log('document written with : ' + email)
+                    // console.log('document written with : ' + email)
                 }).catch(err => {
                     console.error(err)
                 })
@@ -64,6 +66,7 @@ const MainBanner = () => {
     
     const router = useRouter()
     const  {locale} = router
+    console.log('locale',locale)
     const t = locale === 'en' ? en : fr
 
     return (
@@ -98,7 +101,7 @@ const MainBanner = () => {
                                   <div style={{display:'flex', marginTop : 20}}><Icon.CheckCircle style={{marginLeft : 50, marginRight: 20}}/> <h4>{t.intermediates}, <b>{t.nofee}</b></h4>
                                     {/* <p style={{fontSize:12, fontStyle:'italic', marginTop: -1, marginLeft : 1}}>*</p> */}
                                   </div>
-                                  <div style={{display:'flex'}}><Icon.CheckCircle style={{marginLeft : 50, marginRight: 20}}/> <h4><b>REWARDS</b> {t.forcontributors}</h4></div>
+                                  <div style={{display:'flex'}}><Icon.CheckCircle style={{marginLeft : 50, marginRight: 20}}/> <h4><b>CASHBACK</b> {t.forcontributors}</h4></div>
                                   <div style={{display:'flex'}}><Icon.CheckCircle style={{marginLeft : 50, marginRight: 20}}/> <h4>{t.transparent}</h4></div>
 
                                   {/* <h4>{t.heroDesc}</h4> */}
