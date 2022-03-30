@@ -115,7 +115,7 @@ const Withdraw = (props) => {
     if(connected == true && chainID == chain && ctrInstance != undefined){
         ctrInstance.getPastEvents("Participation", ({fromBlock: 'earliest'}))
         .then(function(events){
-            console.log(events) // same results as the optional callback above
+            // console.log(events) // same results as the optional callback above
             let eventsMapped = events.map(e => [e.returnValues.user.toLowerCase(), e.returnValues.indexTier])
             // console.log(eventsMapped)
             setSubscribers(eventsMapped)
@@ -170,7 +170,7 @@ const Withdraw = (props) => {
         })
         .on('confirmation', function(confirmationNumber, receipt){
 
-            console.log("Confirmation number:" + confirmationNumber)
+            // console.log("Confirmation number:" + confirmationNumber)
         })
         .on("error", function(error) {
             setErrorMsg(error.code + " : " + error.message)
@@ -192,7 +192,7 @@ const Withdraw = (props) => {
         })
         .on('confirmation', function(confirmationNumber, receipt){
 
-            console.log("Confirmation number:" + confirmationNumber)
+            // console.log("Confirmation number:" + confirmationNumber)
         })
         .on("error", function(error) {
             setErrorMsg(error.code + " : " + error.message)

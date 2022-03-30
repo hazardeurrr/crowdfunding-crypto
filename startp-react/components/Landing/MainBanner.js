@@ -53,7 +53,7 @@ const MainBanner = () => {
             if (res == false) {
                 db.collection('newsletter').doc(firebase.database().ref().push().key).set({email: email}).then(x => {
                     setOpen(true);
-                    console.log('document written with : ' + email)
+                    // console.log('document written with : ' + email)
                 }).catch(err => {
                     console.error(err)
                 })
@@ -66,7 +66,7 @@ const MainBanner = () => {
     
     const router = useRouter()
     const  {locale} = router
-    console.log('locale',locale)
+    // console.log('locale',locale)
     const t = locale === 'en' ? en : fr
 
     return (

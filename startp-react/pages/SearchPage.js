@@ -25,7 +25,7 @@ class SearchPage extends React.Component {
 
     constructor(props){
         super(props);
-        console.log(this.props.allCampaigns)
+        // console.log(this.props.allCampaigns)
         this.props = props
         this.languagesSelected = ["EN"];
         this.categoriesSelected = [];
@@ -94,7 +94,7 @@ class SearchPage extends React.Component {
 
 
     dynamicSearch(){
-        console.log(this.categoriesSelected)
+        // console.log(this.categoriesSelected)
         //return this.allCampaigns.filter(p => p.categories.some(r=> this.categoriesSelected.includes(r)))
 
         return this.props.allCampaigns.filter(p => p.categories.some(r=> this.categoriesSelected.includes(r)))
@@ -131,7 +131,7 @@ class SearchPage extends React.Component {
         var rows = [];
         //[0 ... 20[ [20 ... 40[
         var len = this.state.projects.length < (this.state.page) * this.nbByPage ? this.state.projects.length : (this.state.page) * this.nbByPage;
-        console.log("len : " + len + " / print page : " + this.state.page)
+        // console.log("len : " + len + " / print page : " + this.state.page)
         for (var i = (this.state.page - 1) * this.nbByPage; i < len; i++) {
             rows.push( <div key={i} className="col-lg-4 col-md-6">
             <SimpleCampaignPost project={this.state.projects[i]}
@@ -208,7 +208,7 @@ export default connect(
   )(SearchPage);
 
 export async function getServerSideProps (context) {
-    console.log(context.query) 
+    // console.log(context.query) 
     // returns { id: episode.itunes.episode, title: episode.title}
     
   

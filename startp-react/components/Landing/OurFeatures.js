@@ -11,7 +11,7 @@ import en from '../../public/locales/en/translation'
 const OurFeatures = () => {
     const router = useRouter()
     const  {locale} = router
-    console.log('locale',locale)
+    // console.log('locale',locale)
     const t = locale === 'en' ? en : fr
     return (
         <div className="features-area pt-80 pb-50 bg-f7fafd">

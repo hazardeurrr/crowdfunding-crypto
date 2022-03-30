@@ -231,7 +231,7 @@ class MainForm extends React.Component {
         if(!this.state.dialogOpen){
             this.openDialog()
         }
-        console.log("CreatingFirebaseObject")
+        // console.log("CreatingFirebaseObject")
         let contract_address = contract_addr.toLowerCase()
         var blob = new Blob([this.sanitizeAndParseHtml(this.html)], {
             type: "text/plain",
@@ -267,7 +267,7 @@ class MainForm extends React.Component {
             storage.ref('campaigns')
              .child(contract_address)
              .getDownloadURL().then((downloadURL) => {
-                console.log('File available at', downloadURL);
+                // console.log('File available at', downloadURL);
     
                 const campainInfos = {
                     title: this.title,
@@ -288,7 +288,7 @@ class MainForm extends React.Component {
                     likedTupleMap: {},
                     confirmed: true
                 }
-                console.log(campainInfos)
+                // console.log(campainInfos)
         
                 // campaign address to be retrieved from the solidity smart contract
                 const creator_address = localStorage.getItem('current_address')

@@ -71,7 +71,7 @@ const DonationCheckout = (props, {c}) => {
 export default DonationCheckout;
 
 export async function getServerSideProps (context) {
-    console.log(context.query) 
+    // console.log(context.query) 
     // returns { id: episode.itunes.episode, title: episode.title}
     
   

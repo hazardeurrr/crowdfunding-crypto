@@ -165,10 +165,10 @@ const PricingTiers = (props) => {
     
                 checkAllowed(erc20Ctr).then(res => {
                     let bnres = new BN(res.toString())
-                    console.log(res)
-                    console.log(amt)
+                    // console.log(res)
+                    // console.log(amt)
                     if(bnres.gte(amt)){
-                        console.log("allowance OK")
+                        // console.log("allowance OK")
                         payInERC(isFreeDonation, contractInstance, amt, indexTier)
                     } else {
                         erc20Ctr.methods.approve(erc20PaymentAddr, max).send({from : userAddr, value: 0})
@@ -207,8 +207,8 @@ const PricingTiers = (props) => {
             // })
             // .then(res => console.log(res))
 
-            console.log(ind)
-            console.log(v)
+            // console.log(ind)
+            // console.log(v)
 
 
             contractInstance.methods.participateInERC20(ind, v)
@@ -231,7 +231,7 @@ const PricingTiers = (props) => {
                 })
                 .then((a) => {
                     setCreationState(1)
-                    console.log(a.events)
+                    // console.log(a.events)
                 })
     }
 
@@ -239,7 +239,7 @@ const PricingTiers = (props) => {
     const selectPlan = (tier, index) => {
         if(connected == true && chainID == chain){
             // console.log("content tier : " + JSON.stringify(tier))
-            console.log("plan selected of " + tier.threshold);
+            // console.log("plan selected of " + tier.threshold);
 
             var ind = parseInt(index)
 

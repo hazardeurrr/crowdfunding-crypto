@@ -48,7 +48,7 @@ class Tiers extends React.Component {
                     })
                 }
         } else if(event.target.value < this.tiers.length){
-            console.log("removing")
+            // console.log("removing")
             listTiers = listTiers.slice(0, event.target.value)
             this.tiers = this.tiers.slice(0, event.target.value)
         }

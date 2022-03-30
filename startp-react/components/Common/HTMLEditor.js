@@ -9,11 +9,11 @@ function HTMLEditor() {
 
 
     const handleChange = (content) => {
-        console.log(content)
+        // console.log(content)
         setText(content)    
     }
     const handleKeyDown = (content) => {
-        console.log(content)
+        // console.log(content)
     }
     return (
         <div>

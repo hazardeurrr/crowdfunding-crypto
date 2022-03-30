@@ -27,7 +27,7 @@ const HeartAnim = (props) => {
     useEffect(() => {
       if(currentUser != undefined){
         arrayLiked = currentUser.liked
-        console.log(arrayLiked)
+        // console.log(arrayLiked)
         if(arrayLiked.includes(campaign.contract_address)){
           setChecked(true)
         }

@@ -76,7 +76,7 @@ const Refund = (props) => {
         })
         .on('confirmation', function(confirmationNumber, receipt){
 
-            console.log("Confirmation number:" + confirmationNumber)
+            // console.log("Confirmation number:" + confirmationNumber)
         })
         .on("error", function(error) {
             setErrorMsg(error.code + " : " + error.message)
@@ -101,7 +101,7 @@ const Refund = (props) => {
         })
         .on('confirmation', function(confirmationNumber, receipt){
 
-            console.log("Confirmation number:" + confirmationNumber)
+            // console.log("Confirmation number:" + confirmationNumber)
         })
         .on("error", function(error) {
             setErrorMsg(error.code + " : " + error.message)
