@@ -25,7 +25,7 @@ import Link from 'next/link';
 import { BN } from 'bn.js';
 import { toBaseUnit } from '@/utils/bnConverter';
 import { bbstAbi } from '../ContractRelated/BbstAbi';
-import firebase from 'firebase';
+import firebase from '../../firebase-crowdfund/index';
 
 const Web3 = require('web3');
 

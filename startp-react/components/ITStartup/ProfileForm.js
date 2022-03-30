@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import ProfilePic from "@/components/ITStartup/ProfilePic";
 import { updateDoc, getOne, postDoc } from 'firebase-crowdfund/queries'
-import firebase from 'firebase';
+import firebase from 'firebase-crowdfund/index';
 import Button from '@material-ui/core/Button';
 import { FaTwitter } from 'react-icons/fa';
 import { ImCross } from 'react-icons/im';
@@ -77,8 +77,6 @@ const ProfileForm = (props) => {
                 setBio(user.bio);
                 setTwitter(user.twitter);
             //    setSite(user.website);
-            } else {
-                console.log("Document not found")
             }
         })
     }

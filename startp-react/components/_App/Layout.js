@@ -26,8 +26,6 @@ const Layout = ({ children }, {c, crea}) => {
                 getOne('profile', element.data().creator.toLowerCase(), function(doc) {
                     if (doc.exists) {
                         creators.push(doc.data())
-                    } else {
-                        console.log("Document not found")
                     }
                 });
                 changeUserState(creators)

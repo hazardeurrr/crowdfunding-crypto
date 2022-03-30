@@ -20,10 +20,9 @@ import {rewardAddr} from '@/components/ContractRelated/RewardAddr';
 import * as IconFeather from 'react-feather';
 import axios from 'axios';
 import secrets from "../../../startp-react/secrets.json";
-import {db} from '../../firebase-crowdfund/index'
+import {db, firebase} from '../../firebase-crowdfund/index'
 import { GiConsoleController } from 'react-icons/gi';
 
-const firebase = require("firebase");
 // Required for side-effects
 require("firebase/functions");
 
