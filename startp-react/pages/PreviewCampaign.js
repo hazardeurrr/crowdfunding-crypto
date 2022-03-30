@@ -5,7 +5,7 @@ import heart from 'react-useanimations/lib/heart'
 import ProgressBar from 'react-bootstrap/ProgressBar';
 import Parser from 'html-react-parser';
 import * as Icon from 'react-feather';
-import DOMPurify from 'dompurify';
+import DOMPurify from 'isomorphic-dompurify';
 
 const PreviewCampaign = (props) => {
 

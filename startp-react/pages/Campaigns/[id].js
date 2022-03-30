@@ -31,7 +31,7 @@ import Refund from './refund';
 import Tooltip from '@material-ui/core/Tooltip';
 import Typography from '@material-ui/core/Typography';
 import Custom404 from 'pages/404';
-import DOMPurify from 'dompurify';
+import DOMPurify from 'isomorphic-dompurify';
 
 
 const useStyles = makeStyles((theme) => ({

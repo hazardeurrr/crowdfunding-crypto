@@ -37,7 +37,7 @@ import Snackbar from '@material-ui/core/Snackbar';
 import MuiAlert from "@material-ui/lab/Alert";
 import { toBaseUnit } from '@/utils/bnConverter';
 import { bbstAbi } from '../ContractRelated/BbstAbi';
-import DOMPurify from 'dompurify';
+import DOMPurify from 'isomorphic-dompurify';
 
 const Web3 = require('web3');
 const BN = require('bn.js');

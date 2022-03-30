@@ -37,6 +37,7 @@
         "firebase": "^8.4.3",
         "html-react-parser": "^1.2.5",
         "i18next": "^20.3.0",
+        "isomorphic-dompurify": "^0.18.0",
         "jodit-react": "^1.0.81",
         "localtunnel": "^2.0.2",
         "lt": "^0.3.3",
