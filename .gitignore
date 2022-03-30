@@ -104,3 +104,6 @@ dist
 .tern-port
 
 # Twitter keys
+
+# Cloud Functions
+functions/
