@@ -82,21 +82,12 @@ const Campaign = (props) => {
     const metamask_connected = useSelector((state) => state.metamask_connected)
     const userAddr = useSelector((state) => state.address)
 
-    const [checked, setChecked] = React.useState(false);
 
     React.useEffect(() => {
 
        // console.log(props.address)
 
-       if(currentUser != undefined){
-        var arrayLiked = currentUser.liked
-        // console.log(arrayLiked)
-        if(arrayLiked.includes(campaign.contract_address)){
-            setChecked(true);
-        } else {
-            setChecked(false);
-        }
-      }
+      
 
         getOne('campaign', props.address, function(doc) {
           if (doc.exists) {
@@ -115,7 +106,7 @@ const Campaign = (props) => {
               console.log("Document not found")
           }
         })
-    }, [currentUser])
+    }, [])
 
 
     
@@ -280,7 +271,7 @@ const Campaign = (props) => {
 
     const showHeart = () => {
         if(connected && chainID == chain)
-            return <HeartAnim campaign={campaign} checked={checked}/>
+            return <HeartAnim key={currentUser} campaign={campaign}/>
     }
 
     async function displayHTMLTxt(data){
