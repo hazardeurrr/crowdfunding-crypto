@@ -67,7 +67,7 @@ const HeartAnim = (props) => {
         let baseLikeAmount = 10;
         let totalLikeAmount = baseLikeAmount + bbstamount / 10;
         c.likedTupleMap[currentUser.eth_address] = totalLikeAmount
-        updateDoc(campaign.contract_address, 'campaign', c, console.log(c))
+        updateDoc(campaign.contract_address, 'campaign', c, console.log)
 
         // CHANGER ARRAY PAR UNE MAP
     }
