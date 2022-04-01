@@ -8,6 +8,7 @@ import Rodal from 'rodal';
 import 'rodal/lib/rodal.css';
 import { GiConsoleController } from 'react-icons/gi';
 import Skeleton from '@material-ui/lab/Skeleton';
+import CircularProgress from '@material-ui/core/CircularProgress';
 
 const HeartAnim = (props) => {
 
@@ -31,12 +32,9 @@ const HeartAnim = (props) => {
         // console.log(arrayLiked)
         if(arrayLiked.includes(campaign.contract_address)){
           setChecked(true);
-          console.log("should be black")
-          console.log("checked", checked)
+          
         } else {
           setChecked(false);
-          console.log("should be white")
-          console.log("checked", checked);
         }
       }
     }, [currentUser.eth_address])
@@ -111,8 +109,8 @@ const HeartAnim = (props) => {
     } else {
       if(showModal)
         setShowModal(false)
-      return <div style={{marginLeft: 25, marginTop: 20}}>
-     <button disabled style={{border: "none", background:"none", outline:"none"}}> <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="#eaecec" viewBox="0 0 24 24"><path d="M12 4.435c-1.989-5.399-12-4.597-12 3.568 0 4.068 3.06 9.481 12 14.997 8.94-5.516 12-10.929 12-14.997 0-8.118-10-8.999-12-3.568z"/></svg></button>
+      return <div style={{marginLeft: 25, marginTop: 15}}>
+        <CircularProgress size={35} thickness={3} color="inherit" />
     </div>
     }
   }
