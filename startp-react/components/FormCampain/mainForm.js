@@ -505,6 +505,7 @@ class MainForm extends React.Component {
 
                         <div className="faq-contact">
                             <h3>Complete the information for your campaign</h3>
+                            <p><i>Creator address : {this.props.userAddr}</i></p>
                             <form id="formCampaign" onSubmit={this.handleCampaign}>
                                 <div className="row">
                                     <Title onChange={e => {this.title = e}}/>

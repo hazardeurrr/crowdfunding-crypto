@@ -46,7 +46,7 @@ const SimpleCampaignPost = (props) => {
         // })
         // setCreaProf(creator)
         // console.log(user)
-        console.log("used with", creator)
+        //console.log("used with", creator)
       }, [creator])
     
     const setCreaProf = (creator) => {

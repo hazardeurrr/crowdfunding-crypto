@@ -433,7 +433,9 @@ const Campaign = (props) => {
 
                                 
                                 <div className="separator"></div>
-                                    {ShowTxt()}
+                                    <div id="htmlDisplay">
+                                        {ShowTxt()}
+                                    </div>
                                 </div>
                             </div>
                         </div>
