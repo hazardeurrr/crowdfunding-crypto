@@ -3,6 +3,8 @@ import * as Icon from 'react-feather';
 import Link from 'next/link';
 import SimpleCampaignPost from '@/components/Common/SimpleCampaignPost';
 import { useSelector } from 'react-redux';
+import {getOne } from '../../firebase-crowdfund/queries'
+import {db, firebase} from '../../firebase-crowdfund/index' 
 
 
  
@@ -11,18 +13,16 @@ const ProjectGridMain = () => {
 
     const projectList = useSelector((state) => state.allCampaigns)
 
-    projectList.forEach((obj) => {
-        console.log(obj.title, obj.creator)
-    })
+    // const [user, setUser] = React.useState(undefined);
 
     const displayProjects = () => {
         const len = projectList.length > 6 ? 6 : projectList.length
         var rows = [];
         for (var i = 0; i < len; i++) {
-            rows.push( <div key={i} className="col-lg-4 col-md-6">
+                    rows.push( <div key={i} className="col-lg-4 col-md-6">
             <SimpleCampaignPost project={projectList[i]}
-            />
-        </div>);
+                />
+            </div>);
         }
         return rows;
       }

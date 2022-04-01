@@ -7,6 +7,7 @@ import {getOne } from '../../firebase-crowdfund/queries'
 import RaisedChecker from './RaisedChecker';
 import { useSelector, useDispatch } from 'react-redux';
 import {chain} from '@/utils/chain'
+import {db, firebase} from '../../firebase-crowdfund/index'
 
 
 
@@ -29,20 +30,33 @@ const SimpleCampaignPost = (props) => {
     // const u = useSelector((state) => selectCreatorByAdd(state, campaign.creator)));
 
     
-    // const [state, updateState] = React.useState();
+    const [state, updateState] = React.useState();
     // const forceUpdate = React.useCallback(() => updateState({state}), []);
 
-    const [user, setUser] = React.useState(undefined)
+    const [user, setUser] = React.useState()
+
+    // const user = props.creator;
 
 
     useEffect(() => {
 
         // console.log(campaign.title, " creator :", creator)
-        getOne('profile', creator.toLowerCase(), (docs) => {
-            setUser(docs.data())
-        })
-      }, [user])
+        // getOne('profile', creator.toLowerCase(), (docs) => {
+        //     setUser(docs.data())
+        // })
+        // setCreaProf(creator)
+        // console.log(user)
+        console.log("used with", creator)
+      }, [creator])
     
+    const setCreaProf = (creator) => {
+        db.collection('profile').doc(creator.toLowerCase()).get().then((crea) => {
+
+            setUser(crea.data());
+        }).catch((error) => {
+            console.log(error)
+        })
+    }
 
     const timeLeft = () => {
         
@@ -150,7 +164,7 @@ const SimpleCampaignPost = (props) => {
     }
 
     const displayContent = () => {
-        if(user != undefined){
+        if(user != undefined && user.eth_address.toLowerCase() == creator.toLowerCase()){
             return <div className="single-blog-post">
             <div className="blog-image">
               <Link href={{
@@ -197,7 +211,9 @@ const SimpleCampaignPost = (props) => {
             </div>
           </div>            
   
-        } 
+        } else {
+            setCreaProf(creator);
+        }
     }
 
 
