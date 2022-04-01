@@ -12,7 +12,7 @@ import {chain} from '@/utils/chain'
 
 const SimpleCampaignPost = (props) => {
     const campaign = props.project
-    const creator = campaign.creator
+    const creator = props.creator
     const objective = campaign.objective
     
     var start_date = campaign.start_date;
@@ -37,10 +37,11 @@ const SimpleCampaignPost = (props) => {
 
     useEffect(() => {
 
+        // console.log(campaign.title, " creator :", creator)
         getOne('profile', creator.toLowerCase(), (docs) => {
             setUser(docs.data())
         })
-      }, [creator])
+      }, [user])
     
 
     const timeLeft = () => {

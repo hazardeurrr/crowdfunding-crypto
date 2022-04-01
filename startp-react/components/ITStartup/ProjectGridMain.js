@@ -11,12 +11,16 @@ const ProjectGridMain = () => {
 
     const projectList = useSelector((state) => state.allCampaigns)
 
+    projectList.forEach((obj) => {
+        console.log(obj.title, obj.creator)
+    })
+
     const displayProjects = () => {
         const len = projectList.length > 6 ? 6 : projectList.length
         var rows = [];
         for (var i = 0; i < len; i++) {
             rows.push( <div key={i} className="col-lg-4 col-md-6">
-            <SimpleCampaignPost project={projectList[i]}
+            <SimpleCampaignPost project={projectList[i]} creator={projectList[i].creator}
             />
         </div>);
         }

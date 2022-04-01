@@ -100,7 +100,7 @@ const reducer = (state = initialState, action) => {
 
       let tmp = current.concat(future)
 
-      campaigns =  tmp.concat(ended);
+      campaigns = tmp.concat(ended);
 
 
 
