@@ -12,7 +12,7 @@ import {chain} from '@/utils/chain'
 
 const SimpleCampaignPost = (props) => {
     const campaign = props.project
-    const creator = props.creator
+    const creator = campaign.creator
     const objective = campaign.objective
     
     var start_date = campaign.start_date;

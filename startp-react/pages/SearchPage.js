@@ -134,7 +134,7 @@ class SearchPage extends React.Component {
         // console.log("len : " + len + " / print page : " + this.state.page)
         for (var i = (this.state.page - 1) * this.nbByPage; i < len; i++) {
             rows.push( <div key={i} className="col-lg-4 col-md-6">
-            <SimpleCampaignPost project={this.state.projects[i]} creator={this.state.projects[i].creator}
+            <SimpleCampaignPost project={this.state.projects[i]}
             />
         </div>);
         }
