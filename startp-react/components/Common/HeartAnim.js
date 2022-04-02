@@ -7,7 +7,6 @@ import {getOne, updateDoc} from '../../firebase-crowdfund/queries';
 import Rodal from 'rodal';
 import 'rodal/lib/rodal.css';
 import { GiConsoleController } from 'react-icons/gi';
-import Skeleton from '@material-ui/lab/Skeleton';
 import CircularProgress from '@material-ui/core/CircularProgress';
 
 const HeartAnim = (props) => {

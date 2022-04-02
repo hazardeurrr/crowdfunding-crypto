@@ -18,6 +18,8 @@ import {chain} from '@/utils/chain'
 import AppBar from '@material-ui/core/AppBar';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
+import ChipUser from "../Common/ChipUser";
+import ProfileNav from "../Common/ProfileNav";
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -253,13 +255,16 @@ const Navbar = () => {
     }
 
     const showProfile = () => {
-        if(useSelector((state) => state.metamask_connected)){
+        if(useSelector((state) => state.metamask_connected && currentUser != undefined)){
+            if(currentUser.eth_address === userAddr){
+
             return (
-                <>
+                <div style={{marginTop: -8}}>
                     <li className="nav-item">
                     <Link href="#">
                         <a onClick={e => e.preventDefault()} className="nav-link">
-                            Profile <Icon.ChevronDown />
+                            <ProfileNav user={currentUser}/> 
+                            {/* <Icon.ChevronDown /> */}
                         </a>
                     </Link>
 
@@ -278,8 +283,10 @@ const Navbar = () => {
                         </ul>
                     </li>
 
-                </>
+                </div>
             )
+                            
+            }
         }
     }
 
@@ -382,6 +389,7 @@ const Navbar = () => {
                                 </li>
 
                                 {showProfile()}
+
                             </ul>
                         </div>
 
