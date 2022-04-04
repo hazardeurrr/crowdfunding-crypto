@@ -18,6 +18,8 @@ import {chain} from '@/utils/chain'
 import AppBar from '@material-ui/core/AppBar';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
+import ChipUser from "../Common/ChipUser";
+import ProfileNav from "../Common/ProfileNav";
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -52,6 +54,11 @@ const Navbar = () => {
     const handleClickOpen = () => {
       setOpen(true);
     };
+
+    const componentWillUnmount = () => {
+        ethereum.removeListener('accountsChanged', handleAccountsChanged);
+        ethereum.removeListener('chainChanged', handleChainChanged);
+    }
   
     const handleClose = () => {
       setOpen(false);
@@ -111,6 +118,7 @@ const Navbar = () => {
         // connected.
         ethereum.on('accountsChanged', handleAccountsChanged);
 
+
     }
 
     // For now, 'eth_accounts' will continue to always return an array
@@ -151,25 +159,17 @@ const Navbar = () => {
                     })
                 }).catch(console.error)
             }
-            
 
-
-
-            if (userAddr != undefined) {
-                // console.log('user address',userAddr)
-                getOne('profile', userAddr, function(doc) {
+            if (accounts[0] != undefined) {
+                getOne('profile', accounts[0], function(doc) {
                     if (doc.exists) {
-                        // console.log('data', doc.data())     // afiche bien l'objet avec le bon user
-                        // console.log("Connected");
-                        if(currentUser == undefined){
-
                             dispatch({
                                 type: 'SET_CURRENT_USER',
                                 id: doc.data()
                             })
-                        }
+                            // console.log(doc.data(), "doc.data navbar")
                     } else {
-                        const user = { username: "", email: "", eth_address: userAddr, image: "", bio: "", twitter: "", liked: new Array() }
+                        const user = { username: "", email: "", eth_address: accounts[0], image: "", bio: "", twitter: "", liked: new Array() }
                         postDoc(user.eth_address, 'profile', user,
                             console.log(user.username + " has been uploaded")
                         )
@@ -237,8 +237,12 @@ const Navbar = () => {
         });
         window.scrollTo(0, 0); 
         initProvider();
-        //connectToMetamask()
-    })
+            // componentWillUnmount
+            return () => {
+                ethereum.removeListener('accountsChanged', handleAccountsChanged);
+                ethereum.removeListener('chainChanged', handleChainChanged);
+            }
+    }, [])
 
     const isConnected = () => {
         if (!useSelector((state) => state.metamask_connected)) {
@@ -251,13 +255,16 @@ const Navbar = () => {
     }
 
     const showProfile = () => {
-        if(useSelector((state) => state.metamask_connected)){
+        if(useSelector((state) => state.metamask_connected && currentUser != undefined)){
+            if(currentUser.eth_address === userAddr){
+
             return (
-                <>
+                <div style={{marginTop: -8}}>
                     <li className="nav-item">
                     <Link href="#">
                         <a onClick={e => e.preventDefault()} className="nav-link">
-                            Profile <Icon.ChevronDown />
+                            <ProfileNav user={currentUser}/> 
+                            {/* <Icon.ChevronDown /> */}
                         </a>
                     </Link>
 
@@ -276,8 +283,10 @@ const Navbar = () => {
                         </ul>
                     </li>
 
-                </>
+                </div>
             )
+                            
+            }
         }
     }
 
@@ -380,6 +389,7 @@ const Navbar = () => {
                                 </li>
 
                                 {showProfile()}
+
                             </ul>
                         </div>
 

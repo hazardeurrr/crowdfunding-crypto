@@ -3,6 +3,7 @@ import Link from '@/utils/ActiveLink'
 import { makeStyles } from '@material-ui/core/styles';
 import Avatar from '@material-ui/core/Avatar';
 import Chip from '@material-ui/core/Chip';
+import Skeleton from '@material-ui/lab/Skeleton';
 
 
 
@@ -28,8 +29,7 @@ const useStyles = makeStyles((theme) => ({
       whiteSpace: 'nowrap',
       overflow: 'hidden',
       textOverflow: 'ellipsis',
-      fontSize : "9px",
-      fontStyle : "italic"
+      fontSize : "10px",
   },
   sec:{
       lineHeight : '14.5px',
@@ -40,13 +40,7 @@ const useStyles = makeStyles((theme) => ({
 
 
 
-const ChipUser = (props) => {
-
-  
-  const handleClick = () => {
-    console.info('You clicked the Chip.');
-  };
-
+const ProfileNav = (props) => {
 
   const classes = useStyles();
 
@@ -55,27 +49,16 @@ const ChipUser = (props) => {
     const display = () => {
       if(user === undefined){
         return <>                          
-          <a> <Chip avatar={<Avatar alt='avatar' />} label={<section className={classes.sec}>
-              <div className={classes.pchip1}>Loading...</div>
-              <div className={classes.pchip2}>Loading...</div>
-              </section>} />
-          </a>
+<Skeleton variant="circle"><Avatar alt='avatar' /></Skeleton>
+
     </>
       } else {
         return <>
-        <Link href={{
-          pathname: "/User/[id]",
-             query: {
-               id: user.eth_address,
-             }
-           }}>
-                          
-          <a> <Chip avatar={<Avatar alt='avatar' src={user.image} />} label={<section className={classes.sec}>
-              <div className={classes.pchip1}>{user.username}</div>
-              <div className={classes.pchip2}>{user.eth_address}</div>
-              </section>} onClick={handleClick} />
-          </a>
-        </Link>
+{/* <Avatar alt='avatar' src={user.image} /> */}
+<Chip variant="outlined" style={{height: 40, background:"none"}} avatar={<Avatar sizes='medium' alt='avatar' src={user.image} />} label={<section className={classes.sec}>
+              <div className={classes.pchip1}>{user.username.length <= 10 ? user.username : user.username.substring(0,7)+"..."}</div>
+              <div className={classes.pchip2}>{user.eth_address.slice(0,6)} ... {user.eth_address.slice(user.eth_address.length - 4, user.eth_address.length)}</div>
+              </section>} />
     </>
       }
     }
@@ -85,4 +68,4 @@ const ChipUser = (props) => {
     )
 }
 
-export default ChipUser
+export default ProfileNav

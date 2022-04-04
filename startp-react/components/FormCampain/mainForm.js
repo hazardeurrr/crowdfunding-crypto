@@ -106,6 +106,14 @@ class MainForm extends React.Component {
         this.setState({factoryInstance: factInstance})
     }
 
+    componentDidUpdate(prevProps){
+        if(prevProps.web3Instance != this.props.web3Instance){
+            if(this.props.web3Instance !== undefined){
+                this.initFactoryInstance()
+            }
+        }
+    }
+
     UNSAFE_componentWillReceiveProps(nextProps) {
         // You don't have to do this check first, but it can help prevent an unneeded render
         if (nextProps.web3Instance !== this.props.web3Instance && nextProps.web3Instance !== undefined) {
@@ -291,7 +299,7 @@ class MainForm extends React.Component {
                 // console.log(campainInfos)
         
                 // campaign address to be retrieved from the solidity smart contract
-                const creator_address = localStorage.getItem('current_address')
+                const creator_address = this.props.userAddr
                 campainInfos['creator'] = creator_address
                 if (this.cats.length < 1) {return}
                 db.collection('campaign').doc(contract_address).set(campainInfos).then(x => {
@@ -316,7 +324,7 @@ class MainForm extends React.Component {
     }
 
     handleCampaign = (event) => {
-        event.preventDefault()
+        event.preventDefault();
 
         if(this.checkCampaignIsValid()){
             this.checkContractCanBeCreated()
@@ -450,10 +458,9 @@ class MainForm extends React.Component {
         }
     }
 
-    render() {
-
-        return (
-            <>
+    display(){
+        if(this.props.web3Instance !== undefined && this.state.factoryInstance !== undefined){
+            return <>
                 {/* <Navbar /> */}
                 <PageBanner pageTitle="Create your campaign !" />
 
@@ -498,6 +505,7 @@ class MainForm extends React.Component {
 
                         <div className="faq-contact">
                             <h3>Complete the information for your campaign</h3>
+                            <p><i>Creator address : {this.props.userAddr}</i></p>
                             <form id="formCampaign" onSubmit={this.handleCampaign}>
                                 <div className="row">
                                     <Title onChange={e => {this.title = e}}/>
@@ -657,7 +665,65 @@ class MainForm extends React.Component {
                 </div>
 
                 {/* <Footer /> */}
-            </>        )
+            </> 
+        } else {
+            return <>
+            {/* <Navbar /> */}
+            <PageBanner pageTitle="Create your campaign !" />
+
+            <Snackbar
+                open={this.state.snackbarOpen}
+                onClose={() => this.handleCloseSnackbar()}
+                autoHideDuration={9000}
+            >
+            <Alert onClose={() => this.handleCloseSnackbar()} severity="error" >
+                Error : {this.state.errorMsg}
+            </Alert>
+            </Snackbar>
+
+            <Dialog
+                open={this.state.dialogOpen}
+                onClose={(_, reason) => {
+                    if (reason !== "backdropClick") {
+                      this.closeDialog();
+                    }
+                  }}
+                
+                aria-labelledby="alert-dialog-title"
+                aria-describedby="alert-dialog-description"
+            >
+                {this.displayConfirmModal(this.state.creationState)}
+                {/* <DialogActions>
+                <Button onClick={this.closeDialog} color="primary">
+                    Close
+                </Button>
+                </DialogActions> */}
+            </Dialog>
+
+
+            <div className="services-area-two pt-80 pb-50 bg-f9f6f6">
+                <div className="container">
+                    <div className="section-title">
+                        <h2>Campaign</h2>
+                        <div className="bar"></div>
+                        <p>Here is the place where you can create your campaign and start raising funds for your project.</p>
+                        <br /><p><i>Beware : if your campaign promote or contains offensive, inappropriate or illegal content, it might get suspended. Thank you for your comprehension.</i></p>
+                    </div>
+
+                    <div className="faq-contact">
+                        <div style={{display: "flex"}}><CircularProgress /><div style={{marginLeft: 20, marginTop: -5}}><h4>Accessing Web3</h4><p><i>Please check your provider settings and reload if it takes too long</i></p></div></div>
+                    </div>
+                </div>
+            </div>
+        </> 
+        }
+    }
+
+    render() {
+
+        return (
+            this.display()
+                   )
     }
 }
 

@@ -15,6 +15,7 @@ const SetProfile = (props) => {
     const addr = useSelector((state) => state.address)
     const connected = useSelector((state) => state.metamask_connected)
     const chainID = useSelector((state) => state.chainID)
+    const currentUser = useSelector((state) => state.currentUser)
 
     const [open, setOpen] = React.useState(false);
 
@@ -30,7 +31,7 @@ const SetProfile = (props) => {
         if(connected == true && chainID == chain){
             return <>
             <PageBanner pageTitle="User Profile" />
-            <ProfileForm address={addr}/>
+            <ProfileForm currentUser={currentUser}/>
             </>
         } else {
             return <div><PageBanner pageTitle="You are not connected"/>

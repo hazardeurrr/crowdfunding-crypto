@@ -93,7 +93,9 @@ const PreviewCampaign = (props) => {
                                 <div className="article-content">  
                                 
                                 <div className="separator"></div>
-                                 {sanitizeAndParseHtml(content)}
+                                    <div id="htmlDisplay">
+                                        {sanitizeAndParseHtml(content)}
+                                    </div>
                                 </div>
                             </div>
                         </div>
