@@ -117,7 +117,7 @@ const ServiceDetails = () => {
                                             <AccordionItemPanel>
                                                 <p>
                                                     In order to use ERC20 tokens on our platform, you must allow our smart contracts to access them. It's a security feature of the ERC20 standard. You only need to do the approval
-                                                    once every time you use a new token.
+                                                    once per token.
                                                 </p>
                                             </AccordionItemPanel>
                                         </AccordionItem>
