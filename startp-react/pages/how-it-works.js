@@ -110,6 +110,22 @@ const ServiceDetails = () => {
                                             <AccordionItemHeading>
                                                 <AccordionItemButton>
                                                     <span>
+                                                        What is ERC20 allowance ?
+                                                    </span>
+                                                </AccordionItemButton>
+                                            </AccordionItemHeading>
+                                            <AccordionItemPanel>
+                                                <p>
+                                                    In order to use ERC20 tokens on our platform, you must allow our smart contracts to access them. It's a security feature of the ERC20 standard. You only need to do the approval
+                                                    once every time you use a new token.
+                                                </p>
+                                            </AccordionItemPanel>
+                                        </AccordionItem>
+
+                                        <AccordionItem uuid="f">
+                                            <AccordionItemHeading>
+                                                <AccordionItemButton>
+                                                    <span>
                                                         How do I get my rewards ?
                                                     </span>
                                                 </AccordionItemButton>
@@ -123,7 +139,7 @@ const ServiceDetails = () => {
                                             </AccordionItemPanel>
                                         </AccordionItem>
 
-                                        <AccordionItem uuid="f">
+                                        <AccordionItem uuid="g">
                                             <AccordionItemHeading>
                                                 <AccordionItemButton>
                                                     <span>
