@@ -60,6 +60,8 @@ const CardToken = () => {
   }, [web3Instance])
 
   const getClaim = async(contract) => {
+    const weekTime = 86400;
+    
     const userAddr = address;
     const rewardCtr = contract;
 
@@ -77,7 +79,7 @@ const CardToken = () => {
     
           const promises = eventsFiltered.map(async(e) => {
 
-            var week = parseInt(Math.floor((e.returnValues.timestamp - time) / 86400));
+            var week = parseInt(Math.floor((e.returnValues.timestamp - time) / weekTime));
             var ratio;
       
             await db.collection('utils').doc('rates').get().then(async(resRate) => {
@@ -157,6 +159,10 @@ const CardToken = () => {
   }
 
   const claimTokens = async() => {
+
+    setCreationState(2)
+    openDialog()
+
     // logic to claim the tokens
     var sig;
     var amount;
@@ -173,6 +179,8 @@ const CardToken = () => {
 
       rewardCtr.methods.claimTokens(amount, sig).send({from : address, value: 0})
       .on('transactionHash', function(hash){
+        setCreationState(0)
+
         openDialog()
         console.log("hash :" + hash)
         setTx(hash);
@@ -230,6 +238,16 @@ const CardToken = () => {
             Transaction confirmed : </DialogContentText>
             <DialogContentText id="alert-dialog-description"><a href={`https://rinkeby.etherscan.io/tx/${Tx}`} target="_blank">{Tx}</a></DialogContentText>
             </DialogContent></div>
+
+        case 2:
+          return <div style={{justifyContent:'center'}}>
+          <DialogTitle id="alert-dialog-title">Accessing Web3...</DialogTitle>
+          <DialogContent>
+
+            <CircularProgress style={{marginTop: 20, marginBottom: 20}}/>
+            <DialogContentText id="alert-dialog-description" style={{marginTop: 15}}>
+            Please confirm the transaction on Metamask to withdraw your BBST</DialogContentText>
+          </DialogContent></div>
        
         default:
             return <div style={{justifyContent:'center'}}>
