@@ -69,7 +69,7 @@ const Footer = () => {
                                                                              
 
                                     <div className="logo">
-                                <Link href="/it-startup">
+                                <Link href="/">
                                     <a>
                                         <img src="/images/bb_logo_full_2.png" alt="logo" />
                                     </a>

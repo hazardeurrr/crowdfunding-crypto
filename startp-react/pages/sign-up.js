@@ -15,7 +15,7 @@ const SignUp = () => {
                 <div className="container">
                     <div className="auth-form">
                         <div className="auth-head">
-                            <Link href="/it-startup">
+                            <Link href="/">
                                 <a><img src="/images/logo.png" /></a>
                             </Link>
                             <p>Create a new account</p>
