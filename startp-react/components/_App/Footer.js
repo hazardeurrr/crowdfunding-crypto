@@ -92,7 +92,7 @@ const Footer = () => {
                                                 </Link>
                                             </li>
                                             <li>
-                                                <Link href="https://twitter.com/blockboosted">
+                                                <Link href="https://discord.gg/6QdBGMKSUn">
                                                     <a className="facebook" target="_blank"><FaDiscord /></a>
                                                 </Link>
                                             </li>
