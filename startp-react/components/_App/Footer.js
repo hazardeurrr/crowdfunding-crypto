@@ -167,14 +167,7 @@ const Footer = () => {
                             <h3>Community</h3>
                             <ul className="list">
                                 <li>
-                                    {/* <Link href="/faq"> */}
-                                        <a>Discussion</a>
-                                    {/* </Link> */}
-                                </li>
-                                <li>
-                                    {/* <Link href="/privacy-policy"> */}
-                                        <a>Vote</a>
-                                    {/* </Link> */}
+                                    <a href="https://discord.gg/6QdBGMKSUn">Discord</a>
                                 </li>
                             </ul>
                         </div>
