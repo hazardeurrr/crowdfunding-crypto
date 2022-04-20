@@ -1,6 +1,8 @@
 import React from 'react';
 import * as Icon from 'react-feather';
 import Link from 'next/link';
+import { FaDiscord } from 'react-icons/fa';
+
 
 const ContactInfo = () => {
     return (
@@ -13,28 +15,32 @@ const ContactInfo = () => {
 
                 </div>
                 <div className="row justify-content-center">
+
+                <div className="col-lg-4 col-md-6 col-sm-6">
+                        <div className="contact-info-box" style={{border: '2px solid #c8ccce', borderRadius: 8}}>
+                        <a href="https://discord.gg/6QdBGMKSUn" target="_blank"><div className="icon">
+                                <FaDiscord />
+                            </div>
+                            <h3>Discord</h3>
+                            <p style={{fontSize: 10, fontStyle:"italic", marginTop: -17, marginBottom: 7}}>(Recommended)</p>
+                            <p><b>Quick support</b>.<br></br>Talk directly with the team & community.</p>
+                            </a>
+                        </div>
+                    </div>
+
                     <div className="col-lg-4 col-md-6 col-sm-6">
                         <div className="contact-info-box">
 
                             <div className="icon">
                                 <Icon.Mail />
                             </div>
-                            <h3>Support</h3>
-                            <p>We’ll Be Glad To Assist You !</p>
-                            <p><a href="mailto:support@blockboosted.com?subject=[SUPPORT]">support@blockboosted.com</a></p>
+                            <h3>Email</h3>
+                            <p style={{marginTop: 15}}>You can also contact our team by email</p>
+                            <p><a href="mailto:inbox@blockboosted.com">inbox@blockboosted.com</a></p>
                         </div>
                     </div>
 
-                    <div className="col-lg-4 col-md-6 col-sm-6">
-                        <div className="contact-info-box">
-                            <div className="icon">
-                                <Icon.ThumbsUp />
-                            </div>
-                            <h3>Feedback</h3>
-                            <p>Give us your thoughts about BlockBoosted</p>
-                            <p><a href="mailto:feedback@blockboosted.com?subject=[FEEDBACK]">feedback@blockboosted.com</a></p>
-                        </div>
-                    </div>
+
 
                     {/* <div className="col-lg-4 col-md-6 col-sm-6">
                         <div className="contact-info-box">
