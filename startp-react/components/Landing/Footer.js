@@ -2,7 +2,7 @@ import React from 'react';
 import Link from 'next/link';
 import * as Icon from 'react-feather';
 import {db} from '../../firebase-crowdfund/index'
-import { FaTelegramPlane, FaMediumM } from 'react-icons/fa';
+import { FaTelegramPlane, FaMediumM, FaDiscord } from 'react-icons/fa';
 import {useRouter} from 'next/router'
 import fr from '../../public/locales/fr/translation'
 import en from '../../public/locales/en/translation'
@@ -41,14 +41,16 @@ const Footer = () => {
                                                    <a className="twitter" target="_blank"><Icon.Twitter /></a>
                                                </Link>
                                            </li>
-                                           {/* <li>
-                                               <Link href="https://linkedin.com/blockboosted">
-                                                   <a className="linkedin" target="_blank"><FaTelegramPlane /></a>
-                                               </Link>
-                                           </li> */}
+
                                            <li>
                                                <Link href="https://medium.com/@blockboosted">
                                                    <a className="instagram" target="_blank"><FaMediumM /></a>
+                                               </Link>
+                                           </li>
+
+                                           <li>
+                                               <Link href="https://discord.gg/6QdBGMKSUn">
+                                                   <a className="facebook" target="_blank"><FaDiscord /></a>
                                                </Link>
                                            </li>
                                            <li>

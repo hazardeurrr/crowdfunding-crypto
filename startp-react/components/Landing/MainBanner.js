@@ -2,7 +2,7 @@ import React from 'react';
 import Link from 'next/link';
 import {db} from '../../firebase-crowdfund/index'
 import * as Icon from 'react-feather';
-import { FaTelegramPlane, FaMediumM, FaTwitter } from 'react-icons/fa';
+import { FaTelegramPlane, FaMediumM, FaTwitter, FaDiscord } from 'react-icons/fa';
 import firebase from '../../firebase-crowdfund/index'
 import {useRouter} from 'next/router'
 import Dialog from '@material-ui/core/Dialog';
@@ -83,22 +83,29 @@ const MainBanner = () => {
                                    
                                         <div className="landing-btns">
                                             <a target="_blank" href="https://twitter.com/intent/user?screen_name=blockboosted" >
-                                                <Button variant="contained" style={{color:'white', backgroundColor:'#1d9bf0', marginRight : 20}} size="large" startIcon={<FaTwitter />}>
+                                                <Button variant="contained" style={{color:'white', backgroundColor:'#1d9bf0', marginRight : 20, marginBottom: 10}} size="large" startIcon={<FaTwitter />}>
                                                     Twitter
                                                 </Button>
                                             </a>
                                         
-                                            <a target="_blank" href="https://medium.com/@blockboosted" >
-                                                <Button variant="contained" style={{color:'white', backgroundColor:'black'}} size="large" endIcon={<FaMediumM />}>
+                                            <a target="_blank" href="https://blockboosted.medium.com" >
+                                                <Button variant="contained" style={{color:'white', backgroundColor:'black', marginRight:20, marginBottom: 10}} size="large" startIcon={<FaMediumM />}>
                                                     Medium
                                                 </Button>
                                             </a>
+
+                                            <a target="_blank" href="https://discord.gg/6QdBGMKSUn" >
+                                                <Button variant="contained" style={{color:'white', backgroundColor:'#5865F2', marginBottom: 10}} size="large" startIcon={<FaDiscord />}>
+                                                    Discord
+                                                </Button>
+                                            </a>
+
                                         </div>
                                   </div>
                                   <br></br><br></br>
 
                                 
-                                  <div style={{display:'flex', marginTop : 20}}><Icon.CheckCircle style={{marginLeft : 50, marginRight: 20}}/> <h4>{t.intermediates}, <b>{t.nofee}</b></h4>
+                                  <div style={{display:'flex'}}><Icon.CheckCircle style={{marginLeft : 50, marginRight: 20}}/> <h4>{t.intermediates}, <b>{t.nofee}</b></h4>
                                     {/* <p style={{fontSize:12, fontStyle:'italic', marginTop: -1, marginLeft : 1}}>*</p> */}
                                   </div>
                                   <div style={{display:'flex'}}><Icon.CheckCircle style={{marginLeft : 50, marginRight: 20}}/> <h4><b>CASHBACK</b> {t.forcontributors}</h4></div>
