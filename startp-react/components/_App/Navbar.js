@@ -3,6 +3,7 @@ import Link from '@/utils/ActiveLink'
 import * as Icon from 'react-feather'
 import { useSelector, useDispatch } from 'react-redux'
 const Web3 = require('web3');
+import Avatar from '@material-ui/core/Avatar';
 
 import detectEthereumProvider from '@metamask/detect-provider';
 import { postDoc, getOne } from 'firebase-crowdfund/queries'
@@ -20,6 +21,7 @@ import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import ChipUser from "../Common/ChipUser";
 import ProfileNav from "../Common/ProfileNav";
+import Chip from '@material-ui/core/Chip';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -259,6 +261,7 @@ const Navbar = () => {
             if(currentUser.eth_address === userAddr){
 
             return (
+                <>
                 <div style={{marginTop: -8}}>
                     <li className="nav-item">
                     <Link href="#">
@@ -282,8 +285,21 @@ const Navbar = () => {
                             </li>
                         </ul>
                     </li>
-
                 </div>
+
+
+                <li className="nav-item">
+                    <Chip variant="outlined" style={{marginTop: -8, height: 40, background:"none", border:"none"}} avatar={<Avatar sizes='medium' alt='avatar' src={"/images/cryptoicons/ethblack.svg"} />} label={<section style={{display:"flex"}}>
+                       <div style={{fontWeight: 600}}>Ethereum</div> 
+                       {/* <Icon.ChevronDown /> */}
+
+                        </section>} />
+                {/* <img style={{marginTop: -8, height: 40, border: "1.5px solid #c3c2c4", padding: 4, borderRadius: 12}} src={'/images/cryptoicons/ethblack.svg'}/> */}
+                </li>
+            </>
+
+
+
             )
                             
             }
@@ -310,13 +326,13 @@ const Navbar = () => {
     return (
         
         <header id="header" className="headroom">
-            <div className={classes.root}>
+            {/* <div className={classes.root}>
                 <AppBar position="static" style={{marginTop: -15, marginBottom:10, background:'#44cf6e', justifyContent:'center', alignItems:'center'}}> 
                     <Typography style={{color: 'white'}}>
                         This is an alpha version running on RINKEBY test network !
                     </Typography>
                 </AppBar>
-            </div>
+            </div> */}
             <div className="startp-nav">
                 <div className="container">
                     <nav className="navbar navbar-expand-md navbar-light">
@@ -389,6 +405,8 @@ const Navbar = () => {
                                 </li>
 
                                 {showProfile()}
+
+
 
                             </ul>
                         </div>

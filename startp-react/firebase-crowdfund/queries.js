@@ -48,7 +48,7 @@ export function postImage(folder, image, progress) {
 // }
 
 export function postHTMLPage(blob, id) {
-    let uploadTask = storage.ref('campaigns/'+id).put(blob);
+    let uploadTask = storage.ref('campaignsTest/'+id).put(blob);
 
     // 'file' comes from the Blob or File API
     

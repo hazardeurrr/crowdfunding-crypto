@@ -107,21 +107,28 @@ const SimpleCampaignPost = (props) => {
     }
 
 
+    const showCats = () => {
+        if(campaign.categories.length > 1){
+            return campaign.categories[0] + " | " + campaign.categories[1]
+        } else if(campaign.categories.length != 0){
+            return campaign.categories[0]
+        }
+    }
 
     const cat = () => {
-        if(campaign.categories.length > 1){
-            return (
-                <div className="date">
-                  <Icon.Bookmark /> {campaign.categories[0]} | {campaign.categories[1]}
-                </div>
-            )
-        } else if(campaign.categories.length != 0){
-            return (
-                <div className="date">
-                  <Icon.Bookmark /> {campaign.categories[0]}
-                </div>
-            )
-        }
+            if(campaign.network == "ethereum"){
+                return (
+                    <div className="date">
+                      <img style={{height: 20}} src={'/images/cryptoicons/ethwhite.svg'}/> <span style={{marginLeft: 5}}>{showCats()}</span>
+                    </div>
+                )
+            } else if (campaign.network == "polygon"){
+                return (
+                    <div className="date">
+                      <img style={{height: 20}} src={'/images/cryptoicons/maticwhite.svg'}/> <span style={{marginLeft: 5}}>{showCats()}</span>
+                    </div>
+                )
+            }
     }
 
     const returnDecToShow = () => {
@@ -156,10 +163,27 @@ const SimpleCampaignPost = (props) => {
     const displayProgressBar = () => {
         if(metamask_connected && raisedRetrieve && chainID == chain){
             if(end_date > now && start_date < now){
+                // if(campaign.network == "ethereum"){
+                //     return <ProgressBar variant="eth" animated now={(raised / objective) * 100}/>
+                // } else if(campaign.network == "polygon"){
+                //     return <ProgressBar variant="polygon" animated now={(raised / objective) * 100}/>
+                // }
                 return <ProgressBar variant="green" animated now={(raised / objective) * 100}/>
             } else {
                 return <ProgressBar variant="down" now={(raised / objective) * 100}/>
             }
+        }
+    }
+
+    const showNetwork = () => {
+        if(campaign.network == "ethereum"){
+            return <>
+                Ethereum <img style={{height: 15, marginLeft: 2}} src={'/images/cryptoicons/eth.svg'}/>
+            </>
+        } else if(campaign.network == "polygon"){
+            return <>
+                Polygon <img style={{height: 15, marginLeft: 2}} src={'/images/cryptoicons/matic.svg'}/>
+            </>
         }
     }
 
@@ -196,7 +220,10 @@ const SimpleCampaignPost = (props) => {
                 <p>{displayDesc()}</p>
                 <b>{displayRaised()} {displayCurrency()}</b>
                 {displayProgressBar()}
-                <p><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="feather feather-clock"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>   {timeLeft()}</p>
+                {/* <div style={{display:"flex"}}> */}
+                    <p><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="feather feather-clock"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>   {timeLeft()}</p>
+                    {/* <p style={{marginLeft: 10}}><Icon.Globe style={{height:15}}/> Network : {showNetwork()}</p> */}
+                {/* </div> */}
                 <Link href={{
                           pathname: "/Campaigns/[id]",
                           query: {

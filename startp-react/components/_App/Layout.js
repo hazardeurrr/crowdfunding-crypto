@@ -16,7 +16,7 @@ const Layout = ({ children }, {c, crea}) => {
         var creators = []
 
 
-        db.collection('campaign').where("confirmed", "==", true)
+        db.collection('campaignsTest').where("confirmed", "==", true)
         .get()
         .then((docs) => {
             docs.forEach(element => {

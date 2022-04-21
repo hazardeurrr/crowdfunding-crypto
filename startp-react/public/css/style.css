@@ -4213,6 +4213,28 @@ Blog CSS
   border-radius: 50px;
 }
 
+.single-blog-post .blog-image .dateETH {
+  position: absolute;
+  left: 20px;
+  bottom: -20px;
+  background: linear-gradient(135deg, #3d5fc5 0%, #6877a9 100%);
+  color: #ffffff;
+  padding: 8px 16px;
+  font-size: 13px;
+  border-radius: 50px;
+}
+
+.single-blog-post .blog-image .datePOLYGON {
+  position: absolute;
+  left: 20px;
+  bottom: -20px;
+  background: linear-gradient(135deg, #6c2198 0%, #9153bb 100%);
+  color: #ffffff;
+  padding: 8px 16px;
+  font-size: 13px;
+  border-radius: 50px;
+}
+
 .single-blog-post .blog-image .date svg {
   width: 15px;
   margin-right: 3px;
@@ -10672,6 +10694,14 @@ Go Top CSS
 
 .bg-green {
   background-color: #42BC62;
+}
+
+.bg-eth {
+  background-color: #4c64d8;
+}
+
+.bg-polygon {
+  background-color: #6c41d3;
 }
 
 .share-icon {

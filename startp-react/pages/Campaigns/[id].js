@@ -89,7 +89,7 @@ const Campaign = (props) => {
 
       
 
-        getOne('campaign', props.address, function(doc) {
+        getOne('campaignsTest', props.address, function(doc) {
           if (doc.exists) {
             setCampaign(doc.data())
             displayHTMLTxt(doc.data().long_desc)
@@ -243,7 +243,13 @@ const Campaign = (props) => {
         if(metamask_connected && chainID == chain){
             if(raisedRetrieve){
                 if(campaign.end_date > now && campaign.start_date < now){
-                    return <ProgressBar animated now={(campaign.raised / campaign.objective) * 100}/>
+                    // if(campaign.network == "ethereum"){
+                    //     return <ProgressBar variant="eth" animated now={(campaign.raised / campaign.objective) * 100}/>
+                    // } else if(campaign.network == "polygon"){
+                    //     return <ProgressBar variant="polygon" animated now={(campaign.raised / campaign.objective) * 100}/>
+                    // }
+                    return <ProgressBar variant="green" animated now={(campaign.raised / campaign.objective) * 100}/>
+
                 } else {
                     return <ProgressBar variant="down" now={(campaign.raised / campaign.objective) * 100}/>
                 }
@@ -323,6 +329,50 @@ const Campaign = (props) => {
             return <div style={{marginLeft : 5}}>{campaign.currency} raised / {parseFloat(campaign.objective)} {campaign.currency}</div>
     }
 
+    const showNetwork = () => {
+        if(campaign.network == "ethereum"){
+            return <>
+                Ethereum <img style={{height: 15, marginLeft: 2}} src={'/images/cryptoicons/eth.svg'}/>
+            </>
+        } else if(campaign.network == "polygon"){
+            return <>
+                Polygon <img style={{height: 15, marginLeft: 2}} src={'/images/cryptoicons/matic.svg'}/>
+            </>
+        }
+    }
+
+    const showCurrency = () => {
+        if(campaign.currency == "ETH"){
+            return <>
+                ETH <img style={{height: 15, marginLeft: 2}} src={'/images/cryptoicons/eth.svg'}/>
+            </>
+        } else if(campaign.currency == "USDC"){
+            return <>
+                USDC <img style={{height: 15, marginLeft: 2}} src={'/images/cryptoicons/usdc.svg'}/>
+            </>
+        } else if(campaign.currency == "BBST"){
+            return <>
+                BBST <img style={{height: 15, marginLeft: 2}} src={'/images/cryptoicons/bbst.svg'}/>
+            </>
+        } else if(campaign.currency == "MATIC"){
+            return <>
+                MATIC <img style={{height: 15, marginLeft: 2}} src={'/images/cryptoicons/matic.svg'}/>
+            </>
+        }
+    }
+
+    const showScan = () => {
+        if(campaign.network == "ethereum"){
+            return <li>
+            <Icon.ExternalLink /> <a target="_blank" href={`https://rinkeby.etherscan.io/address/${campaign.contract_address}`}>See on Etherscan</a>
+            </li>
+        } else {
+            return <li>
+            <Icon.ExternalLink /> <a target="_blank" href={`https://polygonscan.com/address/${campaign.contract_address}`}>See on Polygonscan</a>
+            </li>
+        }
+    }
+
     const displayContent = () => {
         if(campaign != undefined && user != undefined){
             if(!campaign.confirmed){
@@ -349,6 +399,8 @@ const Campaign = (props) => {
                                         <span className="sub-title">{showCats()}</span>
                                         <ShareIcons campaign={campaign}/>
 
+                                        
+
                                         <h2 style={{marginTop: 20, marginBottom: 10}}>{campaign.title}</h2>
                                          <div className="blog-details-desc">
                                             <div className="article-content">
@@ -363,29 +415,52 @@ const Campaign = (props) => {
                                                         
                                                   
                                                         {showTwitter()}
-                                                        {/* {showWebsite()} */}
+
                                                     </ul>
+                                                   
                                                 </div>              
                                             </div>
                                         </div>
                                         <div className="bar"></div>
-
-                                    
-                                        <p style={{fontSize: 15, marginBottom: 30}}>{campaign.small_description}</p>
-                                        <h5 style={{display:"flex"}}>{displayRaised()} {displayCurrency()}</h5> 
-                                        {displayProgressBar()}
                                         <div className="blog-details-desc">
                                             <div className="article-content">
                                                 <div className="entry-meta">
                                                     <ul>
+                                                        
+                                                        <li>
+                                                           <Icon.Disc /> Currency : {showCurrency()}
+                                                       </li>
+                                                       <li>
+                                                           <Icon.Globe /> Network : {showNetwork()}
+                                                       </li>
+                                                        
+                                                        {/* <li><FlexibleTooltip campaign={campaign}/></li> */}
+                                                    </ul>      
+                                                </div>              
+                                            </div>
+                                        </div>
+
+                                    
+                                        <p style={{fontSize: 15, marginBottom: 30}}>{campaign.small_description}</p>
+                                        <h5 style={{display:"flex"}}>{displayRaised()} {displayCurrency()}</h5> 
+                                        
+                                        {displayProgressBar()}
+                                        <div className="blog-details-desc">
+                                            <div className="article-content">
+                                                <div className="entry-meta">
+                                                      
+                                                    <ul>
                                                         <li>
                                                             <Icon.Clock /> {timeLeft()}
                                                         </li>
-                                                        <li>
-                                                            <Icon.ExternalLink /> <a target="_blank" href={`https://rinkeby.etherscan.io/address/${campaign.contract_address}`}>See on Etherscan</a>
-                                                        </li>
-                                                        {/* <li><FlexibleTooltip campaign={campaign}/></li> */}
-                                                    </ul>
+                                                        {/* <li>
+                                                            <Icon.Globe /> Network : {showNetwork()}
+                                                        </li> */}
+                                                            {showScan()}
+                                                        
+                                                    </ul>                                                 
+
+
                                                 </div>              
                                             </div>
                                         </div>

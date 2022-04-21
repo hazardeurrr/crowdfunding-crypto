@@ -272,7 +272,7 @@ class MainForm extends React.Component {
         () => {
             // Handle successful uploads on complete
             // For instance, get the download URL: https://firebasestorage.googleapis.com/...
-            storage.ref('campaigns')
+            storage.ref('campaignsTest')
              .child(contract_address)
              .getDownloadURL().then((downloadURL) => {
                 // console.log('File available at', downloadURL);
@@ -302,7 +302,7 @@ class MainForm extends React.Component {
                 const creator_address = this.props.userAddr
                 campainInfos['creator'] = creator_address
                 if (this.cats.length < 1) {return}
-                db.collection('campaign').doc(contract_address).set(campainInfos).then(x => {
+                db.collection('campaignsTest').doc(contract_address).set(campainInfos).then(x => {
                     // console.log('document written with : ' + campainInfos.title)
                     this.setState({ creationState: 2 }); // etat fini
                     if(!this.state.dialogOpen){
