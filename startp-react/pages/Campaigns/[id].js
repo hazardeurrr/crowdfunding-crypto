@@ -23,6 +23,8 @@ import {getOne} from '../../firebase-crowdfund/queries';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import Skeleton from '@material-ui/lab/Skeleton';
 import {chain} from '@/utils/chain'
+import {poly_chain} from '@/utils/poly_chain'
+
 import RaisedChecker from '@/components/Common/RaisedChecker';
 import { MdSentimentVerySatisfied } from 'react-icons/md';
 import campaignAbi from '@/components/ContractRelated/CampaignAbi';
@@ -156,8 +158,8 @@ const Campaign = (props) => {
 // reste les progress bar à update
 
     const displayRaised = () => {
-        if(metamask_connected){
-            if(chainID == chain){
+        // if(metamask_connected){
+            // if(chainID == chain){
                 return  <HtmlTooltip
                 placement="top"
                 title={
@@ -166,14 +168,14 @@ const Campaign = (props) => {
                   </React.Fragment>
                 }
               >
-                <div><RaisedChecker end_date={campaign.end_date} address={campaign.contract_address} currency={campaign.currency} callback={setRaised} decToShow={returnDecToShow()}/></div>
+                <div><RaisedChecker campaign={campaign} callback={setRaised} decToShow={returnDecToShow()}/></div>
               </HtmlTooltip>
-            }
-            else
-                return "Connect to the right network to see more"
-        }
-        else
-            return "Connect to see more"
+            // }
+            // else
+            //     return "Connect to the right network to see more"
+        // }
+        // else
+        //     return "Connect to see more"
     }
 
     const timeLeft = () => {
@@ -212,18 +214,25 @@ const Campaign = (props) => {
     
 
     const BackButton = () => {
-        if(metamask_connected && chainID == chain){
-            if(campaign.end_date > now && campaign.start_date < now){
-                return <Link href={{
-                            pathname: "/Checkout/[id]",
-                            query: {
-                                id: campaign.contract_address,
-                                }
-                            }}
-                                as={`/Checkout/${campaign.contract_address}`}>
-                        <a className="btn btn-primary">Back this campaign</a>
-                        </Link>
+        if(metamask_connected){
+            if(campaign.network == chainID){
+                if(campaign.end_date > now && campaign.start_date < now){
+                    return <Link href={{
+                                pathname: "/Checkout/[id]",
+                                query: {
+                                    id: campaign.contract_address,
+                                    }
+                                }}
+                                    as={`/Checkout/${campaign.contract_address}`}>
+                            <a className="btn btn-primary">Back this campaign</a>
+                            </Link>
+                }
+            } else {
+                return <>
+                    <p><Icon.AlertTriangle /> You are not connected to the right network. Please switch to {showNetwork()} to back this campaign.</p>
+                </>
             }
+            
         }
     }
 
@@ -240,21 +249,15 @@ const Campaign = (props) => {
     // }
 
     const displayProgressBar = () => {
-        if(metamask_connected && chainID == chain){
             if(raisedRetrieve){
                 if(campaign.end_date > now && campaign.start_date < now){
-                    // if(campaign.network == "ethereum"){
-                    //     return <ProgressBar variant="eth" animated now={(campaign.raised / campaign.objective) * 100}/>
-                    // } else if(campaign.network == "polygon"){
-                    //     return <ProgressBar variant="polygon" animated now={(campaign.raised / campaign.objective) * 100}/>
-                    // }
+                  
                     return <ProgressBar variant="green" animated now={(campaign.raised / campaign.objective) * 100}/>
 
                 } else {
                     return <ProgressBar variant="down" now={(campaign.raised / campaign.objective) * 100}/>
                 }
             }
-        }
         
     }
 
@@ -276,7 +279,7 @@ const Campaign = (props) => {
     }
 
     const showHeart = () => {
-        if(connected && chainID == chain)
+        if(connected)
             return <HeartAnim key={currentUser} campaign={campaign}/>
     }
 
@@ -325,16 +328,16 @@ const Campaign = (props) => {
 }
 
     const displayCurrency = () => {
-        if(metamask_connected && chainID == chain && raisedRetrieve)
+        if(raisedRetrieve)
             return <div style={{marginLeft : 5}}>{campaign.currency} raised / {parseFloat(campaign.objective)} {campaign.currency}</div>
     }
 
     const showNetwork = () => {
-        if(campaign.network == "ethereum"){
+        if(campaign.network == chain){
             return <>
                 Ethereum <img style={{height: 15, marginLeft: 2}} src={'/images/cryptoicons/eth.svg'}/>
             </>
-        } else if(campaign.network == "polygon"){
+        } else if(campaign.network == poly_chain){
             return <>
                 Polygon <img style={{height: 15, marginLeft: 2}} src={'/images/cryptoicons/matic.svg'}/>
             </>
@@ -362,13 +365,13 @@ const Campaign = (props) => {
     }
 
     const showScan = () => {
-        if(campaign.network == "ethereum"){
+        if(campaign.network == chain){
             return <li>
             <Icon.ExternalLink /> <a target="_blank" href={`https://rinkeby.etherscan.io/address/${campaign.contract_address}`}>See on Etherscan</a>
             </li>
-        } else {
+        } else if(campaign.network == poly_chain){
             return <li>
-            <Icon.ExternalLink /> <a target="_blank" href={`https://polygonscan.com/address/${campaign.contract_address}`}>See on Polygonscan</a>
+            <Icon.ExternalLink /> <a target="_blank" href={`https://mumbai.polygonscan.com/address/${campaign.contract_address}`}>See on Polygonscan</a>
             </li>
         }
     }

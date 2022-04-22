@@ -6,6 +6,7 @@ import ProgressBar from 'react-bootstrap/ProgressBar';
 import RaisedChecker from './RaisedChecker';
 import { useSelector, useDispatch } from 'react-redux';
 import {chain} from '@/utils/chain'
+import {poly_chain} from '@/utils/poly_chain'
 
 
 const SingleCardCarrousel = (props) => {
@@ -23,9 +24,9 @@ const SingleCardCarrousel = (props) => {
 
     const cat = () => {
       if(campaign.categories.length > 1){
-          return (
-            <p className="read-more-btn">{campaign.categories[0]} | {campaign.categories[1]}</p>
-          )
+          return (<>
+            <p className="read-more-btn" >{campaign.categories[0]}<br></br>{campaign.categories[1]}</p>
+            </>)
       } else if(campaign.categories != 0) {
           return (
           <p className="read-more-btn">{campaign.categories[0]}</p>
@@ -77,8 +78,8 @@ const displayRaised = () => {
     //     return raised.toFixed(3)
     // else
     //     return Math.floor(raised)
-    if(metamask_connected && chainID == chain)
-        return <RaisedChecker end_date={campaign.end_date} address={campaign.contract_address} currency={campaign.currency} callback={setRaisedCallback} decToShow={returnDecToShow()}/>
+    // if(metamask_connected && chainID == chain)
+        return <RaisedChecker campaign={campaign} callback={setRaisedCallback} decToShow={returnDecToShow()}/>
 
 }
 
@@ -116,13 +117,13 @@ const displayTitle = () => {
 }
 
 const displayCurrency = () => {
-    if(metamask_connected && raisedRetrieve && chainID == chain){
+    if(raisedRetrieve){
             return campaign.currency
     }
 }
 
 const displayProgressBar = () => {
-    if(metamask_connected && raisedRetrieve){
+    if(raisedRetrieve){
             let pct = Math.round((raised / objective) * 100 * 10) / 10;
             if(end_date > now && start_date < now){
                 return <ProgressBar animated variant="green"  now={pct} label={`${pct}%`}/>
@@ -133,7 +134,7 @@ const displayProgressBar = () => {
 }
 
 const displayRaisedIcon = () => {
-    if(metamask_connected && raisedRetrieve){
+    if(raisedRetrieve){
             return <svg xmlns="http://www.w3.org/2000/svg" width="16" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="feather feather-activity"><polyline points="17 11 12 6 7 11"></polyline><polyline points="17 18 12 13 7 18"></polyline></svg>
         }
     }

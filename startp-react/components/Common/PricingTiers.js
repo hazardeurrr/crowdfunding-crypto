@@ -8,6 +8,7 @@ import DialogTitle from '@material-ui/core/DialogTitle';
 import { useSelector, useDispatch } from 'react-redux';
 import Button from '@material-ui/core/Button';
 import {chain} from '@/utils/chain'
+import {poly_chain} from '@/utils/poly_chain'
 import { updateDoc, getOne } from 'firebase-crowdfund/queries'
 import {db, storage} from '../../firebase-crowdfund/index'
 import campaignAbi from '@/components/ContractRelated/CampaignAbi';
@@ -237,7 +238,7 @@ const PricingTiers = (props) => {
 
 
     const selectPlan = (tier, index) => {
-        if(connected == true && chainID == chain){
+        if(connected == true && chainID == campaign.network){
             // console.log("content tier : " + JSON.stringify(tier))
             // console.log("plan selected of " + tier.threshold);
 
@@ -278,7 +279,7 @@ const PricingTiers = (props) => {
     }
 
     const getSubsLength = async() => {
-        if(web3Instance != undefined){
+        if(web3Instance != undefined && chainID == campaign.network){
             const campCtrInstance = new web3Instance.eth.Contract(campaignAbi.campaignAbi, campaign.contract_address)
             campCtrInstance.methods.getStock().call().then(res => {
                 // console.log(res)
@@ -326,6 +327,14 @@ const PricingTiers = (props) => {
         return rows;
       }
 
+      const showScan = () => {
+        if(campaign.network == chain){
+            return <a href={`https://rinkeby.etherscan.io/tx/${Tx}`} target="_blank">{Tx}</a>
+        } else if(campaign.network == poly_chain){
+            return <a href={`https://mumbai.polygonscan.io/tx/${Tx}`} target="_blank">{Tx}</a>
+        }
+    }
+
      const displayConfirmModal = (x) => {
         switch(x) {
             case 0:
@@ -337,7 +346,7 @@ const PricingTiers = (props) => {
 
                 <DialogContentText id="alert-dialog-description">
                 Transaction Hash : </DialogContentText>
-                <DialogContentText id="alert-dialog-description"><a href={`https://rinkeby.etherscan.io/tx/${Tx}`} target="_blank">{Tx}</a></DialogContentText>
+                <DialogContentText id="alert-dialog-description">{showScan()}</DialogContentText>
                 </DialogContent></div>
             case 1:
                 return <div style={{justifyContent:'center'}}>
@@ -358,7 +367,7 @@ const PricingTiers = (props) => {
                 </div>
                 <DialogContentText id="alert-dialog-description" style={{marginTop: 15}}>
                 Transaction confirmed : </DialogContentText>
-                <DialogContentText id="alert-dialog-description"><a href={`https://rinkeby.etherscan.io/tx/${Tx}`} target="_blank">{Tx}</a></DialogContentText>
+                <DialogContentText id="alert-dialog-description">{showScan()}</DialogContentText>
                 </DialogContent></div>
             case 2:
                 return <div style={{justifyContent:'center'}}>
@@ -379,7 +388,7 @@ const PricingTiers = (props) => {
 
                 <DialogContentText id="alert-dialog-description">
                 Transaction Hash : </DialogContentText>
-                <DialogContentText id="alert-dialog-description"><a href={`https://rinkeby.etherscan.io/tx/${Tx}`} target="_blank">{Tx}</a></DialogContentText>
+                <DialogContentText id="alert-dialog-description">{showScan()}</DialogContentText>
                 </DialogContent></div>
             case 3:
                 return <div style={{justifyContent:'center'}}>
@@ -399,6 +408,71 @@ const PricingTiers = (props) => {
                 <CircularProgress style={{marginTop: 20, marginBottom: 20}}/>
                 </DialogContent></div>
 
+        }
+    }
+
+    const showNetwork = () => {
+        if(campaign.network == chain){
+            return <>
+                Ethereum <img style={{height: 15, marginLeft: 2}} src={'/images/cryptoicons/eth.svg'}/>
+            </>
+        } else if(campaign.network == poly_chain){
+            return <>
+                Polygon <img style={{height: 15, marginLeft: 2}} src={'/images/cryptoicons/matic.svg'}/>
+            </>
+        }
+    }
+
+    const showPlans = () => {
+        if(chainID == campaign.network){
+            return <div className="row justify-content-center">
+            <div className="col-lg-4 col-md-6">
+                <div className="pricing-table">
+                    <div className="pricing-header">
+                        <h3>Free donation</h3>
+                    </div>
+                    
+                    <div className="price">
+                        <span><sup>{campaign.currency}</sup> 
+                        <TextField
+                        id="standard-number"
+                        type="number"
+                        size="small"
+                        inputRef={valueRef}   //connecting inputRef property of TextField to the valueRef
+
+                        InputLabelProps={{
+                            shrink: true,
+                        }}
+                        inputProps={{ min: 0}}
+                        /></span>
+                    </div>
+                    
+                    <div className="pricing-features">
+                        <ul>
+                            <li className="active">Thanks for supporting this campaign !</li>
+                        </ul>
+                    </div>
+                    
+                    <div className="pricing-footer">
+                        <button onClick={handleClickFree} className="btn btn-primary">Select Plan</button>
+                    </div>
+                </div>
+            </div>   
+
+            {displayTiers()}
+
+
+        </div>
+        }
+    }
+
+    const showChoose = () => {
+        if(chainID == campaign.network){
+            return <h3 style={{marginTop: 10}}>Choose the plan you want and the amount you wish to donate !</h3>                    
+        } else {
+            return <div style={{marginTop: 30}}>
+            <h3><IconFeather.AlertTriangle /> You are not connected to the right network !</h3>
+        </div>
         }
     }
 
@@ -440,59 +514,22 @@ const PricingTiers = (props) => {
                     <h2>{campaign.title}</h2>
                     <p>{campaign.small_description}</p>
                     <div className="bar"></div>
-
-                    <h3>Choose the plan you want and the amount you wish to donate !</h3>
-                    
+                    <p>Network : {showNetwork()}</p>
+                    {showChoose()}
                 </div>
 
-                <div className="row justify-content-center">
-                    <div className="col-lg-4 col-md-6">
-                        <div className="pricing-table">
-                            <div className="pricing-header">
-                                <h3>Free donation</h3>
-                            </div>
-                            
-                            <div className="price">
-                                <span><sup>{campaign.currency}</sup> 
-                                <TextField
-                                id="standard-number"
-                                type="number"
-                                size="small"
-                                inputRef={valueRef}   //connecting inputRef property of TextField to the valueRef
-
-                                InputLabelProps={{
-                                    shrink: true,
-                                }}
-                                inputProps={{ min: 0}}
-                                /></span>
-                            </div>
-                            
-                            <div className="pricing-features">
-                                <ul>
-                                    <li className="active">Thanks for supporting this campaign !</li>
-                                </ul>
-                            </div>
-                            
-                            <div className="pricing-footer">
-                                <button onClick={handleClickFree} className="btn btn-primary">Select Plan</button>
-                            </div>
-                        </div>
-                    </div>   
-
-                    {displayTiers()}
-
-
-                </div>
+                {showPlans()}
+                
                 <Dialog
                     open={open}
                     onClose={handleClose}
                     aria-labelledby="alert-dialog-title"
                     aria-describedby="alert-dialog-description"
                 >
-                    <DialogTitle id="alert-dialog-title">{"You are not connected to the Ethereum Network with Metamask"}</DialogTitle>
+                    <DialogTitle id="alert-dialog-title">{"You are not connected to the right network"}</DialogTitle>
                     <DialogContent>
                     <DialogContentText id="alert-dialog-description">
-                        Please connect to Metamask. If you are already connected, be sure to select Ethereum Mainnet as network on the Metamask tab.
+                        Please connect to Metamask. If you are already connected, be sure to select the right network.
                     </DialogContentText>
                     </DialogContent>
                     <DialogActions>

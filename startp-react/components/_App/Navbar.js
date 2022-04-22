@@ -16,6 +16,7 @@ import DialogTitle from '@material-ui/core/DialogTitle';
 import bbstAbi from '@/components/ContractRelated/BbstAbi'
 import bbstAddr from '@/components/ContractRelated/BbstAddr'
 import {chain} from '@/utils/chain'
+import {poly_chain} from '@/utils/poly_chain'
 import AppBar from '@material-ui/core/AppBar';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
@@ -50,7 +51,6 @@ const Navbar = () => {
     const currentUser = useSelector((state) => state.currentUser)
     const [providerDetected, setProviderDetected] = React.useState(false)
     const chainID = useSelector((state) => state.chainID)
-
     const [open, setOpen] = React.useState(false);
 
     const handleClickOpen = () => {
@@ -148,6 +148,16 @@ const Navbar = () => {
                 type: 'SET_WEB3',
                 id: web3
             })
+            var web3poly = new Web3(new Web3.providers.HttpProvider("https://rpc-mumbai.maticvigil.com/"))
+            dispatch({
+                type:'SET_WEB3POLY',
+                id: web3poly
+            })
+            var web3eth = new Web3(new Web3.providers.HttpProvider("https://rinkeby.infura.io/v3/391e7c4cd5274ef8a269414b4833bade"))
+            dispatch({
+                type:'SET_WEB3ETH',
+                id: web3eth
+            })
 
             const chainId = await ethereum.request({ method: 'eth_chainId' });
             if(chainId == chain){
@@ -222,7 +232,7 @@ const Navbar = () => {
             id: _chainId
         })
         // prompt CHANGE TO MAINNET ?!
-        window.location.reload();
+        //window.location.reload();
     }
 
 
@@ -255,6 +265,104 @@ const Navbar = () => {
             )
         }
     }
+
+    const showCurrentNetwork = () => {
+        if(chainID == chain){   // ETH
+            return <Link href="#">
+            <a onClick={e => e.preventDefault()} className="nav-link">
+                <div style={{display:"flex"}}><img style={{height: 20}} src="/images/cryptoicons/eth.svg" /> <span style={{marginLeft: 5}}>Ethereum</span> <Icon.ChevronDown /></div>
+            </a>
+            </Link>
+        } else if(chainID == poly_chain) {      // POLYGON MAINNET
+            return <Link href="#">
+            <a onClick={e => e.preventDefault()} className="nav-link">
+                <div style={{display:"flex"}}><img style={{height: 20}} src="/images/cryptoicons/matic.svg" /> <span style={{marginLeft: 5}}>Polygon</span> <Icon.ChevronDown /></div>
+            </a>
+            </Link>
+        } else {
+            return <Link href="#">
+            <a onClick={e => e.preventDefault()} className="nav-link">
+                <div style={{display:"flex"}}><Icon.AlertCircle/> <span style={{marginLeft: 5}}>Unknown</span> <Icon.ChevronDown /></div>
+            </a>
+            </Link>
+        }
+    }
+
+    const switchToPolygon = async() => {
+        if (window.ethereum.networkVersion !== "0x89") {
+            try {
+              await window.ethereum.request({
+                method: 'wallet_switchEthereumChain',
+                params: [{ chainId: "0x89" }]
+              });
+            } catch (err) {
+                // This error code indicates that the chain has not been added to MetaMask
+              if (err.code === 4902) {
+                await window.ethereum.request({
+                  method: 'wallet_addEthereumChain',
+                  params: [
+                    {
+                      chainName: 'Polygon Mainnet',
+                      chainId: "0x89",
+                      nativeCurrency: { name: 'MATIC', decimals: 18, symbol: 'MATIC' },
+                      rpcUrls: ['https://polygon-rpc.com/']
+                    }
+                  ]
+                });
+              }
+            }
+          }
+    }
+
+    const switchToMumbai = async() => {
+        if (window.ethereum.networkVersion !== "0x13881") {
+            try {
+              await window.ethereum.request({
+                method: 'wallet_switchEthereumChain',
+                params: [{ chainId: "0x13881" }]
+              });
+            } catch (err) {
+                // This error code indicates that the chain has not been added to MetaMask
+              if (err.code === 4902) {
+                await window.ethereum.request({
+                  method: 'wallet_addEthereumChain',
+                  params: [
+                    {
+                      chainName: 'Polygon Mumbai',
+                      chainId: "0x13881",
+                      nativeCurrency: { name: 'MATIC', decimals: 18, symbol: 'MATIC' },
+                      rpcUrls: ["https://rpc-mumbai.maticvigil.com/"]
+                    }
+                  ]
+                });
+              }
+            }
+          }
+    }
+
+    const switchToRinkeby = async() => {
+        if (window.ethereum.networkVersion !== "0x4") {
+            {
+              await window.ethereum.request({
+                method: 'wallet_switchEthereumChain',
+                params: [{ chainId: "0x4" }]
+              });
+            }
+        } 
+    }
+
+    const switchToETH = async() => {
+        if (window.ethereum.networkVersion !== "0x1") {
+            {
+              await window.ethereum.request({
+                method: 'wallet_switchEthereumChain',
+                params: [{ chainId: "0x1" }]
+              });
+            }
+        } 
+    }
+
+
 
     const showProfile = () => {
         if(useSelector((state) => state.metamask_connected && currentUser != undefined)){
@@ -289,11 +397,35 @@ const Navbar = () => {
 
 
                 <li className="nav-item">
-                    <Chip variant="outlined" style={{marginTop: -8, height: 40, background:"none", border:"none"}} avatar={<Avatar sizes='medium' alt='avatar' src={"/images/cryptoicons/ethblack.svg"} />} label={<section style={{display:"flex"}}>
-                       <div style={{fontWeight: 600}}>Ethereum</div> 
-                       {/* <Icon.ChevronDown /> */}
+                    {/* <Chip variant="outlined" style={{marginTop: -8, height: 40, background:"none", border:"none"}} avatar={<Avatar sizes='medium' alt='avatar' src={"/images/cryptoicons/ethblack.svg"} />} label={<section style={{display:"flex"}}>
+                       <div style={{}}>Ethereum</div> 
+                       <Icon.ChevronDown />
 
-                        </section>} />
+                        </section>} /> */}
+                        {showCurrentNetwork()}
+                        <ul className="dropdown-menu">
+                            <li className="nav-item">
+                                <Link href="#">
+                                <a onClick={e => {
+                                    e.preventDefault();
+                                    switchToRinkeby()                   // !!!!!!!!!!!!!!!!!!!!!!!! CHANGER TO SWITCH TO ETH !!!!!!!!!!!!!!!!!
+                                    }} className="nav-link">
+                                    <div style={{display:"flex"}}><img style={{height: 20}} src="/images/cryptoicons/eth.svg" /> <span style={{marginLeft: 5}}>Ethereum</span></div>
+                                </a>
+                                </Link>                           
+                            </li>
+
+                            <li className="nav-item">
+                                <Link href="#">
+                                <a onClick={e => {
+                                    e.preventDefault();
+                                    switchToMumbai()                   // !!!!!!!!!!!!!!!!!!!!!!!!!!! CHANGER TO SWITCH TO POLYGON !!!!!!!!!!!
+                                    }} className="nav-link">
+                                    <div style={{display:"flex"}}><img style={{height: 20}} src="/images/cryptoicons/matic.svg" /> <span style={{marginLeft: 5}}>Polygon</span></div>
+                                </a>
+                                </Link>
+                            </li>                            
+                        </ul>
                 {/* <img style={{marginTop: -8, height: 40, border: "1.5px solid #c3c2c4", padding: 4, borderRadius: 12}} src={'/images/cryptoicons/ethblack.svg'}/> */}
                 </li>
             </>

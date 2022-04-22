@@ -27,6 +27,8 @@ import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import campaignFactoryAbi from '@/components/ContractRelated/CampaignFactoryAbi';
 import campaignFactoryAddr from '@/components/ContractRelated/CampaignFactoryAddr';
+import poly_campaignFactoryAddr from '@/components/ContractRelated/poly_CampaignFactoryAddr';
+
 import {usdcAddr} from '@/components/ContractRelated/USDCAddr';
 import {bbstAddr} from '@/components/ContractRelated/BbstAddr';
 import { erc20standardAbi } from '../ContractRelated/ERC20standardABI';
@@ -38,6 +40,8 @@ import MuiAlert from "@material-ui/lab/Alert";
 import { toBaseUnit } from '@/utils/bnConverter';
 import { bbstAbi } from '../ContractRelated/BbstAbi';
 import DOMPurify from 'isomorphic-dompurify';
+import {chain} from '@/utils/chain'
+import {poly_chain} from '@/utils/poly_chain'
 
 const Web3 = require('web3');
 const BN = require('bn.js');
@@ -45,7 +49,8 @@ const BN = require('bn.js');
 const mapStateToProps = state => {
     return {
         web3Instance: state.web3Instance,
-        userAddr: state.address
+        userAddr: state.address,
+        chainID: state.chainID
     }
 }
 
@@ -102,12 +107,18 @@ class MainForm extends React.Component {
      }
 
     async initFactoryInstance(){
-        const factInstance = await new this.props.web3Instance.eth.Contract(campaignFactoryAbi.campaignFactoryAbi, campaignFactoryAddr.campaignFactoryAddr)
+        var factInstance = null
+        if(this.props.chainID == chain){
+            factInstance = await new this.props.web3Instance.eth.Contract(campaignFactoryAbi.campaignFactoryAbi, campaignFactoryAddr.campaignFactoryAddr)
+        } else if(this.props.chainID == poly_chain){
+            factInstance = await new this.props.web3Instance.eth.Contract(campaignFactoryAbi.campaignFactoryAbi, poly_campaignFactoryAddr.poly_campaignFactoryAddr)
+        }
         this.setState({factoryInstance: factInstance})
     }
 
     componentDidUpdate(prevProps){
-        if(prevProps.web3Instance != this.props.web3Instance){
+        if(prevProps.web3Instance != this.props.web3Instance || prevProps.chainID != this.props.chainID){
+            console.log("changed props component did update")
             if(this.props.web3Instance !== undefined){
                 this.initFactoryInstance()
             }
@@ -294,7 +305,8 @@ class MainForm extends React.Component {
                     main_img: this.image,
                     raised: 0,
                     likedTupleMap: {},
-                    confirmed: true
+                    confirmed: true,
+                    network: this.props.chainID
                 }
                 // console.log(campainInfos)
         
@@ -382,6 +394,14 @@ class MainForm extends React.Component {
         }
     }
 
+    explorerLink = () => {
+        if(this.props.chainID == chain){
+            <a href={`https://rinkeby.etherscan.io/tx/${this.state.Tx}`} target="_blank">{this.state.Tx}</a>
+        } else if(this.props.chainID == poly_chain){
+            <a href={`https://mumbai.polygonscan.com/tx/${this.state.Tx}`} target="_blank">{this.state.Tx}</a>
+        }
+    }
+
     displayConfirmModal = (x) => {
         switch(x) {
             case 0:
@@ -393,7 +413,7 @@ class MainForm extends React.Component {
 
                 <DialogContentText id="alert-dialog-description">
                 Transaction Hash : </DialogContentText>
-                <DialogContentText id="alert-dialog-description"><a href={`https://rinkeby.etherscan.io/tx/${this.state.Tx}`} target="_blank">{this.state.Tx}</a></DialogContentText>
+                <DialogContentText id="alert-dialog-description">{this.explorerLink()}</DialogContentText>
                 </DialogContent></div>
             case 1:
                 return <div style={{justifyContent:'center'}}>
@@ -402,7 +422,7 @@ class MainForm extends React.Component {
                     <CircularProgress style={{marginTop: 20, marginBottom: 20}}/>
                     <DialogContentText id="alert-dialog-description">
                 Transaction confirmed : </DialogContentText>
-                <DialogContentText id="alert-dialog-description"><a href={`https://rinkeby.etherscan.io/tx/${this.state.Tx}`} target="_blank">{this.state.Tx}</a></DialogContentText>
+                <DialogContentText id="alert-dialog-description">{this.explorerLink()}</DialogContentText>
                 </DialogContent></div>
             case 2:
                 //  return <div style={{justifyContent:'center'}}>
@@ -458,6 +478,71 @@ class MainForm extends React.Component {
         }
     }
 
+    showCurrentNetwork(){
+        if(this.props.chainID == chain){   // ETH
+            return <div style={{display:"flex"}}>Selected network : <img style={{height: 20, marginLeft: 5}} src="/images/cryptoicons/eth.svg" /> <span style={{marginLeft: 5}}>Ethereum</span></div>
+        } else if(this.props.chainID == poly_chain) {      // POLYGON MAINNET
+            return <div style={{display:"flex"}}>Selected network : <img style={{height: 20, marginLeft: 5}} src="/images/cryptoicons/matic.svg" /> <span style={{marginLeft: 5}}>Polygon</span></div>
+        } else {
+            return <div style={{display:"flex"}}>Selected network : <Icon.AlertCircle/> <span style={{marginLeft: 5}}>Unsupported. Please switch network.</span></div>
+        }
+    }
+
+    displayRaisingMethods(){
+        if(this.props.chainID == chain){
+            return <div className="payment-method">
+            <p>
+                <input type="radio" id="usdc" name="radio-group" defaultChecked value="USDC" onChange={(event) => {
+                    this.raisingMethod = event.target.value
+
+                }}/>
+                <label htmlFor="usdc">USDC (2.5% fee)</label>
+            </p>
+            <p>
+                <input type="radio" id="eth" name="radio-group" value="ETH" onChange={(event) => {
+                    this.raisingMethod = event.target.value
+                }}/>
+                <label htmlFor="eth">ETH (2.5% fee)</label>
+            </p>
+            <p>
+                <input type="radio" id="bbst" name="radio-group" value="BBST" onChange={(event) => {
+                    this.raisingMethod = event.target.value
+                }}/>
+                <label htmlFor="bbst">BBST (0% fee)</label>
+            </p>
+        </div>
+        } else if(this.props.chainID == poly_chain){
+            return <div className="payment-method">
+            <p><i>Please keep in mind this campaign will be on Polygon network.</i></p>
+            <p>
+                <input type="radio" id="matic" name="radio-group" defaultChecked value="matic" onChange={(event) => {
+                    this.raisingMethod = event.target.value
+
+                }}/>
+                <label htmlFor="matic">pMATIC (2.5% fee)</label>
+            </p>
+            <p>
+                <input type="radio" id="usdc" name="radio-group" defaultChecked value="USDC" onChange={(event) => {
+                    this.raisingMethod = event.target.value
+                }}/>
+                <label htmlFor="usdc">pUSDC (2.5% fee)</label>
+            </p>
+            <p>
+                <input type="radio" id="eth" name="radio-group" value="ETH" onChange={(event) => {
+                    this.raisingMethod = event.target.value
+                }}/>
+                <label htmlFor="eth">pETH (2.5% fee)</label>
+            </p>
+            <p>
+                <input type="radio" id="bbst" name="radio-group" value="BBST" onChange={(event) => {
+                    this.raisingMethod = event.target.value
+                }}/>
+                <label htmlFor="bbst">pBBST (0% fee)</label>
+            </p>
+        </div>
+        }
+    }
+
     display(){
         if(this.props.web3Instance !== undefined && this.state.factoryInstance !== undefined){
             return <>
@@ -506,6 +591,8 @@ class MainForm extends React.Component {
                         <div className="faq-contact">
                             <h3>Complete the information for your campaign</h3>
                             <p><i>Creator address : {this.props.userAddr}</i></p>
+                            <p>{this.showCurrentNetwork()}</p>
+
                             <form id="formCampaign" onSubmit={this.handleCampaign}>
                                 <div className="row">
                                     <Title onChange={e => {this.title = e}}/>
@@ -566,27 +653,7 @@ class MainForm extends React.Component {
                                     <div className="col-lg-12 col-md-12">
                                         <div className="form-group">
                                             <div className="order-details">
-                                                <div className="payment-method">
-                                                    <p>
-                                                        <input type="radio" id="usdc" name="radio-group" defaultChecked value="USDC" onChange={(event) => {
-                                                            this.raisingMethod = event.target.value
-
-                                                        }}/>
-                                                        <label htmlFor="usdc">USDC (2.5% fee)</label>
-                                                    </p>
-                                                    <p>
-                                                        <input type="radio" id="eth" name="radio-group" value="ETH" onChange={(event) => {
-                                                            this.raisingMethod = event.target.value
-                                                        }}/>
-                                                        <label htmlFor="eth">ETH (2.5% fee)</label>
-                                                    </p>
-                                                    <p>
-                                                        <input type="radio" id="bbst" name="radio-group" value="BBST" onChange={(event) => {
-                                                            this.raisingMethod = event.target.value
-                                                        }}/>
-                                                        <label htmlFor="bbst">BBST (0% fee)</label>
-                                                    </p>
-                                                </div>
+                                                {this.displayRaisingMethods()}
                                             </div>
                                         </div>
                                     </div>

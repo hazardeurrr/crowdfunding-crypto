@@ -7,6 +7,7 @@ import {getOne } from '../../firebase-crowdfund/queries'
 import RaisedChecker from './RaisedChecker';
 import { useSelector, useDispatch } from 'react-redux';
 import {chain} from '@/utils/chain'
+import {poly_chain} from '@/utils/poly_chain'
 import {db, firebase} from '../../firebase-crowdfund/index'
 
 
@@ -116,18 +117,29 @@ const SimpleCampaignPost = (props) => {
     }
 
     const cat = () => {
-            if(campaign.network == "ethereum"){
-                return (
-                    <div className="date">
-                      <img style={{height: 20}} src={'/images/cryptoicons/ethwhite.svg'}/> <span style={{marginLeft: 5}}>{showCats()}</span>
-                    </div>
-                )
-            } else if (campaign.network == "polygon"){
-                return (
-                    <div className="date">
-                      <img style={{height: 20}} src={'/images/cryptoicons/maticwhite.svg'}/> <span style={{marginLeft: 5}}>{showCats()}</span>
-                    </div>
-                )
+            if(campaign.network == chain){
+                if(campaign.categories.length > 0){
+
+                    return (
+                        <div className="date">
+                            <Icon.Bookmark/>
+                        {/* <img style={{height: 20}} src={'/images/cryptoicons/ethwhite.svg'}/>  */}
+                        <span style={{marginLeft: 5}}>{showCats()}</span>
+                        </div>
+                    )
+                }
+            } else if (campaign.network == poly_chain){
+                if(campaign.categories.length > 0){
+                    return (
+                        <div className="date">
+                        
+                            <Icon.Bookmark/>
+                          {/* <img style={{height: 20}} src={'/images/cryptoicons/maticwhite.svg'}/>  */}
+                          <span style={{marginLeft: 5}}>{showCats()}</span>
+                        </div>
+                    )
+                }
+               
             }
     }
 
@@ -140,17 +152,17 @@ const SimpleCampaignPost = (props) => {
     }
 
     const displayRaised = () => {
-        if(metamask_connected){
-            if(chainID == chain)
-                return <RaisedChecker end_date={campaign.end_date} address={campaign.contract_address} currency={campaign.currency} callback={setRaisedCallback} decToShow={returnDecToShow()}/>
-            else
-                return "Connect to the right network to see"
-        } else
-            return "Connect to see"
+        // if(metamask_connected){
+        //     if(chainID == chain)
+                return <RaisedChecker campaign={campaign} callback={setRaisedCallback} decToShow={returnDecToShow()}/>
+        //     else
+        //         return "Connect to the right network to see"
+        // } else
+        //     return "Connect to see"
     }
 
     const displayCurrency = () => {
-        if(raisedRetrieve && metamask_connected && chainID == chain){
+        if(raisedRetrieve){
                 return campaign.currency
         }
     }
@@ -161,13 +173,9 @@ const SimpleCampaignPost = (props) => {
     }
 
     const displayProgressBar = () => {
-        if(metamask_connected && raisedRetrieve && chainID == chain){
+        if(raisedRetrieve){
             if(end_date > now && start_date < now){
-                // if(campaign.network == "ethereum"){
-                //     return <ProgressBar variant="eth" animated now={(raised / objective) * 100}/>
-                // } else if(campaign.network == "polygon"){
-                //     return <ProgressBar variant="polygon" animated now={(raised / objective) * 100}/>
-                // }
+                
                 return <ProgressBar variant="green" animated now={(raised / objective) * 100}/>
             } else {
                 return <ProgressBar variant="down" now={(raised / objective) * 100}/>
@@ -176,13 +184,13 @@ const SimpleCampaignPost = (props) => {
     }
 
     const showNetwork = () => {
-        if(campaign.network == "ethereum"){
+        if(campaign.network == chain){
             return <>
-                Ethereum <img style={{height: 15, marginLeft: 2}} src={'/images/cryptoicons/eth.svg'}/>
+                Ethereum<img style={{height: 15, marginLeft: 5}} src={'/images/cryptoicons/eth.svg'}/> 
             </>
-        } else if(campaign.network == "polygon"){
+        } else if(campaign.network == poly_chain){
             return <>
-                Polygon <img style={{height: 15, marginLeft: 2}} src={'/images/cryptoicons/matic.svg'}/>
+                Polygon<img style={{height: 15, marginLeft: 5}} src={'/images/cryptoicons/matic.svg'}/>  
             </>
         }
     }
@@ -205,25 +213,25 @@ const SimpleCampaignPost = (props) => {
                 {cat()}
             </div>
             <div className="blog-post-content">
-                <h3>
-                    <Link href={{
-                          pathname: "/Campaigns/[id]",
-                          query: {
-                              id: campaign.contract_address,
-                          }
-                      }}
-                      as={`/Campaigns/${campaign.contract_address}`}>
-                        <a>{campaign.title}</a>
-                    </Link>
-                </h3>
+                    <h3>
+                        <Link href={{
+                            pathname: "/Campaigns/[id]",
+                            query: {
+                                id: campaign.contract_address,
+                            }
+                        }}
+                        as={`/Campaigns/${campaign.contract_address}`}>
+                            <a>{campaign.title}</a>
+                        </Link>
+                    </h3>
                 <span width="10">By <ChipUser user={user}/></span>
                 <p>{displayDesc()}</p>
-                <b>{displayRaised()} {displayCurrency()}</b>
+                <b style={{fontSize: 16.5, marginTop: 2}}>{displayRaised()} {displayCurrency()}</b>
                 {displayProgressBar()}
-                {/* <div style={{display:"flex"}}> */}
+                <div style={{display:"flex", justifyContent:"space-between"}}>
                     <p><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="feather feather-clock"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>   {timeLeft()}</p>
-                    {/* <p style={{marginLeft: 10}}><Icon.Globe style={{height:15}}/> Network : {showNetwork()}</p> */}
-                {/* </div> */}
+                    <p>{showNetwork()}</p>
+                </div>
                 <Link href={{
                           pathname: "/Campaigns/[id]",
                           query: {

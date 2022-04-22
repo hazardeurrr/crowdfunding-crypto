@@ -11,6 +11,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import Button from '@material-ui/core/Button';
 import PageBanner from '@/components/Common/PageBanner';
 import {chain} from '@/utils/chain'
+import {poly_chain} from '@/utils/poly_chain'
 
 const FormCampaign = () => {
 
@@ -30,7 +31,7 @@ const FormCampaign = () => {
     const ethadress = useSelector((state) => state.address)
 
     const showForm = (amount) => {
-        if(connected == true && chainID == chain){
+        if(connected == true && (chainID == chain || chainID == poly_chain)){
             return <MainForm address = {ethadress}/>
         } else {
             return <div><PageBanner pageTitle="You are not connected"/>
@@ -41,7 +42,7 @@ const FormCampaign = () => {
                     <br/>
                     <div className="bar"></div>
                     <br/>
-                    <p>To access this feature, please connect to Metamask and ensure you are connected to Ethereum Mainnet network on the Metamask tab.</p>
+                    <p>To access this feature, please connect to Metamask and ensure you are connected to a supported network.</p>
                 </div>
             </div>
             </div>

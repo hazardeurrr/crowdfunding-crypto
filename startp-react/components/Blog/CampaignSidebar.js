@@ -13,6 +13,7 @@ import Typography from '@material-ui/core/Typography';
 import { useSelector, useDispatch } from 'react-redux';
 import campaignAbi from '@/components/ContractRelated/CampaignAbi';
 import {chain} from '@/utils/chain'
+import {poly_chain} from '@/utils/poly_chain'
 
 
 const useStyles = makeStyles({
@@ -46,20 +47,27 @@ const CampaignSidebar = (props) => {
     const metamask_connected = useSelector((state) => state.metamask_connected)
     const chainID = useSelector((state) => state.chainID)
     const [subsLength, setSubsLength] = React.useState(undefined);
+    const poly_web3Instance = useSelector((state) => state.poly_web3Instance)
+    const eth_web3Instance = useSelector((state) => state.eth_web3Instance)
 
     React.useEffect(() => {
         getSubsLength();
-    }, [web3Instance])
+    }, [poly_web3Instance, eth_web3Instance])
     
     const getSubsLength = async() => {
-        if(web3Instance != undefined && metamask_connected && chainID == chain){
-            const campCtrInstance = new web3Instance.eth.Contract(campaignAbi.campaignAbi, campaign.contract_address)
-            campCtrInstance.methods.getStock().call().then(res => {
-                // console.log(res)
-                setSubsLength(res);
-            })
-        }
-        
+            var web3 = null
+            if(campaign.network == chain){
+                web3 = eth_web3Instance
+            } else if (campaign.network == poly_chain){
+                web3 = poly_web3Instance
+            }
+            if(web3 != undefined){
+                const campCtrInstance = new web3.eth.Contract(campaignAbi.campaignAbi, campaign.contract_address)
+                campCtrInstance.methods.getStock().call().then(res => {
+                    // console.log(res)
+                    setSubsLength(res);
+                })
+            }        
     }
 
     const campaign = props.project
@@ -95,10 +103,10 @@ const CampaignSidebar = (props) => {
             </h3>
             </div>
             } else {
-                if(!metamask_connected || chainID != chain){
+                if(!metamask_connected || chainID != campaign.network){
                     return <div className="works-content">
             <h3>
-                Please connect to participate <Icon.AlertOctagon />
+                Please connect to the right network <Icon.AlertOctagon />
             </h3>
             </div>
                 } else {
@@ -152,10 +160,10 @@ const CampaignSidebar = (props) => {
         </div>
         }
          else {
-            if(!metamask_connected || chainID != chain){
+            if(!metamask_connected || chainID != campaign.network){
                 return <div className="works-content">
             <h3>
-                Please connect to participate <Icon.AlertOctagon />
+                Please connect to the right network <Icon.AlertOctagon />
             </h3>
             </div>
             } else

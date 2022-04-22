@@ -17,7 +17,9 @@ const initialState = {
   allCreators: [],
   currentUser: undefined,
   bbstBalance: 0,
-  web3Instance: undefined
+  web3Instance: undefined,
+  eth_web3Instance: undefined,
+  poly_web3Instance: undefined
 }
 
 // const reducerComp = (previous, current) => previous[1] + current[1];
@@ -75,6 +77,17 @@ const reducer = (state = initialState, action) => {
         web3Instance: action.id
     }
 
+    case 'SET_WEB3ETH':
+      return {
+        ...state,
+        eth_web3Instance: action.id
+    }
+
+    case 'SET_WEB3POLY':
+      return {
+        ...state,
+        poly_web3Instance: action.id
+    }
 
     case 'SET_ALL_CAMPAIGNS':
       let campaigns = action.id
