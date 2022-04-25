@@ -118,7 +118,7 @@ class MainForm extends React.Component {
 
     componentDidUpdate(prevProps){
         if(prevProps.web3Instance != this.props.web3Instance || prevProps.chainID != this.props.chainID){
-            console.log("changed props component did update")
+            // console.log("changed props component did update")
             if(this.props.web3Instance !== undefined){
                 this.initFactoryInstance()
             }
@@ -480,11 +480,11 @@ class MainForm extends React.Component {
 
     showCurrentNetwork(){
         if(this.props.chainID == chain){   // ETH
-            return <div style={{display:"flex"}}>Selected network : <img style={{height: 20, marginLeft: 5}} src="/images/cryptoicons/eth.svg" /> <span style={{marginLeft: 5}}>Ethereum</span></div>
+            return <div style={{display:"flex"}}><p>Selected network : <img style={{height: 20, marginLeft: 5}} src="/images/cryptoicons/eth.svg" /> <span style={{marginLeft: 5}}>Ethereum</span></p></div>
         } else if(this.props.chainID == poly_chain) {      // POLYGON MAINNET
-            return <div style={{display:"flex"}}>Selected network : <img style={{height: 20, marginLeft: 5}} src="/images/cryptoicons/matic.svg" /> <span style={{marginLeft: 5}}>Polygon</span></div>
+            return <div style={{display:"flex"}}><p>Selected network : <img style={{height: 20, marginLeft: 5}} src="/images/cryptoicons/matic.svg" /> <span style={{marginLeft: 5}}>Polygon</span></p></div>
         } else {
-            return <div style={{display:"flex"}}>Selected network : <Icon.AlertCircle/> <span style={{marginLeft: 5}}>Unsupported. Please switch network.</span></div>
+            return <div style={{display:"flex"}}><p>Selected network : <Icon.AlertCircle/> <span style={{marginLeft: 5}}>Unsupported. Please switch network.</span></p></div>
         }
     }
 
@@ -515,14 +515,14 @@ class MainForm extends React.Component {
             return <div className="payment-method">
             <p><i>Please keep in mind this campaign will be on Polygon network.</i></p>
             <p>
-                <input type="radio" id="matic" name="radio-group" defaultChecked value="matic" onChange={(event) => {
+                <input type="radio" id="matic" name="radio-group" defaultChecked value="p_MATIC" onChange={(event) => {
                     this.raisingMethod = event.target.value
 
                 }}/>
                 <label htmlFor="matic">MATIC (2.5% fee)</label>
             </p>
             <p>
-                <input type="radio" id="usdc" name="radio-group" defaultChecked value="USDC" onChange={(event) => {
+                <input type="radio" id="usdc" name="radio-group" defaultChecked value="p_USDC" onChange={(event) => {
                     this.raisingMethod = event.target.value
                 }}/>
                 <label htmlFor="usdc">USDC (2.5% fee)</label>
@@ -534,7 +534,7 @@ class MainForm extends React.Component {
                 <label htmlFor="eth">wETH (2.5% fee)</label>
             </p> */}
             <p>
-                <input type="radio" id="bbst" name="radio-group" value="BBST" onChange={(event) => {
+                <input type="radio" id="bbst" name="radio-group" value="p_BBST" onChange={(event) => {
                     this.raisingMethod = event.target.value
                 }}/>
                 <label htmlFor="bbst">BBST (0% fee)</label>
@@ -591,7 +591,7 @@ class MainForm extends React.Component {
                         <div className="faq-contact">
                             <h3>Complete the information for your campaign</h3>
                             <p><i>Creator address : {this.props.userAddr}</i></p>
-                            <p>{this.showCurrentNetwork()}</p>
+                            {this.showCurrentNetwork()}
 
                             <form id="formCampaign" onSubmit={this.handleCampaign}>
                                 <div className="row">

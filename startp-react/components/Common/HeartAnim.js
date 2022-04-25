@@ -36,7 +36,7 @@ const HeartAnim = (props) => {
           setChecked(false);
         }
       }
-    }, [currentUser.eth_address])
+    }, [currentUser])
 
 
   const handleHeartClicked = () => {
@@ -98,20 +98,32 @@ const HeartAnim = (props) => {
   }
 
   const displayAnim = () => {
-    if(ethaddress === currentUser.eth_address){ 
-      return <div style={{marginLeft: 25, marginTop: 20}}>
-                {displayHeart()}
-                <Rodal visible={showModal} onClose={() => setShowModal(false)}>
-                  {showTextModal()}
-                </Rodal>
+    if(currentUser !== undefined){
+      if(ethaddress === currentUser.eth_address){ 
+        return <div style={{marginLeft: 25, marginTop: 20}}>
+                  {displayHeart()}
+                  <Rodal visible={showModal} onClose={() => setShowModal(false)}>
+                    {showTextModal()}
+                  </Rodal>
+          </div>
+      } else {
+        if(showModal){
+          setShowModal(false)
+        }
+        return <div style={{marginLeft: 25, marginTop: 15}}>
+          <CircularProgress size={35} thickness={3} color="inherit" />
         </div>
+        }
     } else {
-      if(showModal)
-        setShowModal(false)
       return <div style={{marginLeft: 25, marginTop: 15}}>
-        <CircularProgress size={35} thickness={3} color="inherit" />
+      <CircularProgress size={35} thickness={3} color="inherit" />
     </div>
     }
+    // return null
+  }
+
+  const showProgress = () => {
+    
   }
 
     return (

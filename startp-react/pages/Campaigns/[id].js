@@ -233,6 +233,10 @@ const Campaign = (props) => {
                 </>
             }
             
+        } else {
+            return <>
+            <p><Icon.AlertTriangle /> Connect your wallet to donate to this campaign !</p>
+            </>
         }
     }
 
