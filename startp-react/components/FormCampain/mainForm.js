@@ -519,25 +519,25 @@ class MainForm extends React.Component {
                     this.raisingMethod = event.target.value
 
                 }}/>
-                <label htmlFor="matic">pMATIC (2.5% fee)</label>
+                <label htmlFor="matic">MATIC (2.5% fee)</label>
             </p>
             <p>
                 <input type="radio" id="usdc" name="radio-group" defaultChecked value="USDC" onChange={(event) => {
                     this.raisingMethod = event.target.value
                 }}/>
-                <label htmlFor="usdc">pUSDC (2.5% fee)</label>
+                <label htmlFor="usdc">USDC (2.5% fee)</label>
             </p>
-            <p>
+            {/* <p>
                 <input type="radio" id="eth" name="radio-group" value="ETH" onChange={(event) => {
                     this.raisingMethod = event.target.value
                 }}/>
-                <label htmlFor="eth">pETH (2.5% fee)</label>
-            </p>
+                <label htmlFor="eth">wETH (2.5% fee)</label>
+            </p> */}
             <p>
                 <input type="radio" id="bbst" name="radio-group" value="BBST" onChange={(event) => {
                     this.raisingMethod = event.target.value
                 }}/>
-                <label htmlFor="bbst">pBBST (0% fee)</label>
+                <label htmlFor="bbst">BBST (0% fee)</label>
             </p>
         </div>
         }

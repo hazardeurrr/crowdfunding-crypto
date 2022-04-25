@@ -87,6 +87,19 @@ const Navbar = () => {
     async function startApp(provider) {
         // If the provider returned by detectEthereumProvider is not the same as
         // window.ethereum, something is overwriting it, perhaps another wallet.
+
+        var web3poly = new Web3(new Web3.providers.HttpProvider("https://rpc-mumbai.maticvigil.com/"))
+            dispatch({
+                type:'SET_WEB3POLY',
+                id: web3poly
+            })
+            var web3eth = new Web3(new Web3.providers.HttpProvider("https://rinkeby.infura.io/v3/391e7c4cd5274ef8a269414b4833bade"))
+            dispatch({
+                type:'SET_WEB3ETH',
+                id: web3eth
+            })
+
+            
         if (provider !== window.ethereum) {
             console.error('Do you have multiple wallets installed?');
         }
@@ -148,17 +161,7 @@ const Navbar = () => {
                 type: 'SET_WEB3',
                 id: web3
             })
-            var web3poly = new Web3(new Web3.providers.HttpProvider("https://rpc-mumbai.maticvigil.com/"))
-            dispatch({
-                type:'SET_WEB3POLY',
-                id: web3poly
-            })
-            var web3eth = new Web3(new Web3.providers.HttpProvider("https://rinkeby.infura.io/v3/391e7c4cd5274ef8a269414b4833bade"))
-            dispatch({
-                type:'SET_WEB3ETH',
-                id: web3eth
-            })
-
+            
             const chainId = await ethereum.request({ method: 'eth_chainId' });
             if(chainId == chain){
                 // console.log("cheching BBST balance...")
