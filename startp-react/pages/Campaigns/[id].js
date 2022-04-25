@@ -157,6 +157,13 @@ const Campaign = (props) => {
     }
 // reste les progress bar à update
 
+    const showCurrencyWoPrefix = () => {
+        if(campaign.currency.includes('_'))
+            return campaign.currency.substring(campaign.currency.indexOf('_') + 1);
+        else
+            return campaign.currency
+    }
+
     const displayRaised = () => {
         // if(metamask_connected){
             // if(chainID == chain){
@@ -164,7 +171,7 @@ const Campaign = (props) => {
                 placement="top"
                 title={
                   <React.Fragment>
-                    <i>Exact amount : {campaign.raised} {campaign.currency}</i>
+                    <i>Exact amount : {campaign.raised} {showCurrencyWoPrefix()}</i>
                   </React.Fragment>
                 }
               >
@@ -333,7 +340,7 @@ const Campaign = (props) => {
 
     const displayCurrency = () => {
         if(raisedRetrieve)
-            return <div style={{marginLeft : 5}}>{campaign.currency} raised / {parseFloat(campaign.objective)} {campaign.currency}</div>
+            return <div style={{marginLeft : 5}}>{showCurrencyWoPrefix()} raised / {parseFloat(campaign.objective)} {showCurrencyWoPrefix()}</div>
     }
 
     const showNetwork = () => {
@@ -492,10 +499,10 @@ const Campaign = (props) => {
                         aria-labelledby="alert-dialog-title"
                         aria-describedby="alert-dialog-description"
                     >
-                        <DialogTitle id="alert-dialog-title">{"You are not connected to the Ethereum Network with Metamask"}</DialogTitle>
+                        <DialogTitle id="alert-dialog-title">{"You are not connected to a supported network with Metamask"}</DialogTitle>
                         <DialogContent>
                         <DialogContentText id="alert-dialog-description">
-                            Please connect to Metamask. If you are already connected, be sure to select Ethereum Mainnet as network on the Metamask tab.
+                            Please connect to Metamask. If you are already connected, be sure to select a supported network on the Metamask tab.
                         </DialogContentText>
                         </DialogContent>
                         <DialogActions>

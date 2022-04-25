@@ -52,6 +52,7 @@ const Navbar = () => {
     const [providerDetected, setProviderDetected] = React.useState(false)
     const chainID = useSelector((state) => state.chainID)
     const [open, setOpen] = React.useState(false);
+    const eth_web3Instance = useSelector((state) => state.eth_web3Instance)
 
     const handleClickOpen = () => {
       setOpen(true);
@@ -109,10 +110,10 @@ const Navbar = () => {
             type: 'SET_CHAINID',
             id: chainId
         })
-        if(chainId !== chain){
-            console.log("Please change your network to Ethereum Mainnet on Metamask")
+        if(chainId !== chain && chainId !== poly_chain){
+            console.log("Please change your network to a supported one.")
         }
-''
+
         ethereum.on('chainChanged', handleChainChanged);
 
         ethereum
@@ -163,17 +164,25 @@ const Navbar = () => {
             })
             
             const chainId = await ethereum.request({ method: 'eth_chainId' });
-            if(chainId == chain){
                 // console.log("cheching BBST balance...")
-                const bbst_contract = new web3.eth.Contract(bbstAbi.bbstAbi, bbstAddr.bbstAddr);
+                var web3eth = null
+                if(eth_web3Instance != undefined){
+                    web3eth = eth_web3Instance
+                } else {
+                    web3eth = new Web3(new Web3.providers.HttpProvider("https://rinkeby.infura.io/v3/391e7c4cd5274ef8a269414b4833bade"))
+                }
+                const bbst_contract = new web3eth.eth.Contract(bbstAbi.bbstAbi, bbstAddr.bbstAddr);
                 bbst_contract.methods.balanceOf(accounts[0]).call().then(response => {
                     // console.log('response', response)
                     dispatch({
                         type: 'SET_BBST_BALANCE',
                         id: response
                     })
+                    // console.log(response)
                 }).catch(console.error)
-            }
+            
+            
+            
 
             if (accounts[0] != undefined) {
                 getOne('profile', accounts[0], function(doc) {

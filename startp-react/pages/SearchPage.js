@@ -10,6 +10,8 @@ import { green } from '@material-ui/core/colors';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Pagination from '@material-ui/lab/Pagination';
 import {connect} from 'react-redux'
+import {chain} from '@/utils/chain'
+import {poly_chain} from '@/utils/poly_chain'
 
 const GreenCheckbox = withStyles({
     root: {
@@ -29,11 +31,13 @@ class SearchPage extends React.Component {
         this.props = props
         this.languagesSelected = ["EN"];
         this.categoriesSelected = [];
+        this.networksSelected = [];
         this.nbByPage = 9;
 
         this.state = {
             projects: this.props.allCampaigns,
             checked: this.populateCheckArray(),
+            network_checked: [chain, poly_chain],
             page: 1
         }
         this.addCategory = this.addCategory.bind(this);
@@ -57,6 +61,18 @@ class SearchPage extends React.Component {
         this.setState({checked: this.CheckedArrayChanged(e)})
       };
 
+      handleChangeNetwork = (event) => {
+        let e = event.target.name
+        if(this.state.network_checked.includes(e)){
+          let newArr = this.state.network_checked.filter(a => a != e)
+          this.setState({network_checked: newArr})
+        }
+        else {
+          let newArr = [...this.state.network_checked, e]
+          this.setState({network_checked: newArr })
+        }
+      };
+
       CheckedArrayChanged(i){
           let arr = this.state.checked
           arr[i] = !arr[i]
@@ -71,6 +87,25 @@ class SearchPage extends React.Component {
               label={CategoryList[i]}
             />);
         }
+        return rows;
+      }
+
+      networkCheckboxes = () => {
+        var rows = [];
+        rows.push(<FormControlLabel key={0}
+          control={<Checkbox color="primary" checked={this.state.network_checked.includes(chain)} onChange={this.handleChangeNetwork} name={chain} />}
+          label={<section>
+            Ethereum 
+            {/* <img style={{height: 17}} src="/images/cryptoicons/eth.svg"/> */}
+          </section>}
+        />);
+        rows.push(<FormControlLabel key={1}
+          control={<Checkbox color="primary" checked={this.state.network_checked.includes(poly_chain)} onChange={this.handleChangeNetwork} name={poly_chain} />}
+          label={<section>
+            Polygon 
+            {/* <img style={{height: 17}} src="/images/cryptoicons/matic.svg"/> */}
+          </section>}
+        />);
         return rows;
       }
 
@@ -129,12 +164,13 @@ class SearchPage extends React.Component {
 
     displayProjects = () => {
         var rows = [];
+        var lproj = this.state.projects.filter(p => this.state.network_checked.includes(p.network))
         //[0 ... 20[ [20 ... 40[
-        var len = this.state.projects.length < (this.state.page) * this.nbByPage ? this.state.projects.length : (this.state.page) * this.nbByPage;
+        var len = lproj.length < (this.state.page) * this.nbByPage ? lproj.length : (this.state.page) * this.nbByPage;
         // console.log("len : " + len + " / print page : " + this.state.page)
         for (var i = (this.state.page - 1) * this.nbByPage; i < len; i++) {
             rows.push( <div key={i} className="col-lg-4 col-md-6">
-            <SimpleCampaignPost project={this.state.projects[i]} creator={this.state.projects[i].creator}
+            <SimpleCampaignPost project={lproj[i]} creator={lproj[i].creator}
             />
         </div>);
         }
@@ -154,6 +190,8 @@ class SearchPage extends React.Component {
                             <h2 className="search-page-title">Discover projects that need you !</h2>
                             <div className="bar"></div>
                             {/* <CheckboxList alreadyChecked = {categoryList.indexOf(this.props.cat)} addCat = {this.addCategory} removeCat = {this.removeCategory} /> */}
+                            {this.networkCheckboxes()}
+                            <br></br>
                             {this.showCheckboxes()}
                         </div>
                     </div>

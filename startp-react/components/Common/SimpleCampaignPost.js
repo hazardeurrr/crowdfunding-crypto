@@ -163,8 +163,15 @@ const SimpleCampaignPost = (props) => {
 
     const displayCurrency = () => {
         if(raisedRetrieve){
-                return campaign.currency
+                return showCurrencyWoPrefix()
         }
+    }
+
+    const showCurrencyWoPrefix = () => {
+        if(campaign.currency.includes('_'))
+            return campaign.currency.substring(campaign.currency.indexOf('_') + 1);
+        else
+            return campaign.currency
     }
 
     const setRaisedCallback = (r) => {

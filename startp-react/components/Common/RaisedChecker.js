@@ -4,6 +4,8 @@ import { useSelector, useDispatch } from 'react-redux';
 import { toBaseUnit } from '@/utils/bnConverter';
 import {usdcAddr} from '@/components/ContractRelated/USDCAddr';
 import {bbstAddr} from '@/components/ContractRelated/BbstAddr';
+import {poly_usdcAddr} from '@/components/ContractRelated/poly_USDCAddr';
+import {poly_bbstAddr} from '@/components/ContractRelated/poly_BbstAddr';
 import { erc20standardAbi } from '../ContractRelated/ERC20standardABI';
 import { bbstAbi } from '../ContractRelated/BbstAbi';
 import {chain} from '@/utils/chain';
@@ -25,6 +27,7 @@ const RaisedChecker = (props) => {
   
 
   React.useEffect(() => {
+    // console.log("inRaiseChecker")
     if(props.campaign.network == chain)
       setweb3(eth_web3Instance)
     if(props.campaign.network == poly_chain)
@@ -33,7 +36,7 @@ const RaisedChecker = (props) => {
     if(web3 != undefined){
       let ctr = new web3.eth.Contract(campaignAbi, props.campaign.contract_address)
 
-      if(props.campaign.currency == "ETH"){
+      if(props.campaign.currency == "ETH" || props.campaign.currency == "p_MATIC"){
         web3.eth.getBalance(props.campaign.contract_address).then(
           r0 => {
             callRaiseCheck(r0, ctr)
@@ -45,6 +48,11 @@ const RaisedChecker = (props) => {
           erc20Ctr = new web3.eth.Contract(erc20standardAbi, usdcAddr)
         else if(props.campaign.currency == "BBST")
           erc20Ctr = new web3.eth.Contract(bbstAbi, bbstAddr)
+        else if(props.campaign.currency == "p_USDC")
+          erc20Ctr = new web3.eth.Contract(erc20standardAbi, poly_usdcAddr)
+        else if(props.campaign.currency == "p_BBST")
+          erc20Ctr = new web3.eth.Contract(bbstAbi, poly_bbstAddr)
+
         
         erc20Ctr.methods.balanceOf(props.campaign.contract_address).call().then(r1 => {
             callRaiseCheck(r1, ctr)
@@ -68,7 +76,7 @@ const RaisedChecker = (props) => {
   }
 
   const convertAndSet = (res) => {
-    if(props.campaign.currency == "ETH"){
+    if(props.campaign.currency == "ETH" || props.campaign.currency == "p_MATIC"){
           setRaisedAndCB(web3.utils.fromWei(res.toString(), 'ether'))
         } else {
           let erc20Ctr = undefined
@@ -76,6 +84,11 @@ const RaisedChecker = (props) => {
             erc20Ctr = new web3.eth.Contract(erc20standardAbi, usdcAddr)
           else if(props.campaign.currency == "BBST")
             erc20Ctr = new web3.eth.Contract(bbstAbi, bbstAddr)
+          else if(props.campaign.currency == "p_USDC")
+            erc20Ctr = new web3.eth.Contract(erc20standardAbi, poly_usdcAddr)
+          else if(props.campaign.currency == "p_BBST")
+            erc20Ctr = new web3.eth.Contract(bbstAbi, poly_bbstAddr)
+
           erc20Ctr.methods.decimals().call().then((decimals) => {
             setRaisedAndCB(parseFloat((res / (10**(decimals))).toFixed(decimals)))
           })

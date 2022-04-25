@@ -20,7 +20,8 @@ import {usdcAddr} from '@/components/ContractRelated/USDCAddr';
 import {bbstAddr} from '@/components/ContractRelated/BbstAddr';
 import { erc20standardAbi } from '@/components/ContractRelated/ERC20standardABI';
 import { bbstAbi } from '@/components/ContractRelated/BbstAbi';
-
+import {poly_usdcAddr} from '@/components/ContractRelated/poly_USDCAddr';
+import {poly_bbstAddr} from '@/components/ContractRelated/poly_BbstAddr';
 
 function Alert(props) {
     return <MuiAlert elevation={6} variant="filled" {...props} />;
@@ -62,7 +63,7 @@ const Withdraw = (props) => {
     }
 
   const withdrawMoney = () => {
-    if(connected == true && chainID == chain && ctrInstance != undefined){
+    if(connected == true && chainID == campaign.network && ctrInstance != undefined){
         //connect to Metamask and check for a refund
         //const campCtrInstance = new web3Instance.eth.Contract(campaignAbi.campaignAbi, campaign.contract_address)
         
@@ -112,7 +113,7 @@ const Withdraw = (props) => {
 
   function getSubsEvent() {
 
-    if(connected == true && chainID == chain && ctrInstance != undefined){
+    if(connected == true && chainID == campaign.network && ctrInstance != undefined){
         ctrInstance.getPastEvents("Participation", ({fromBlock: 'earliest'}))
         .then(function(events){
             // console.log(events) // same results as the optional callback above
@@ -159,7 +160,7 @@ const Withdraw = (props) => {
 
   const payCreator = (contractInstance) => {
 
-    if(campaign.currency == "ETH"){
+    if(campaign.currency == "ETH" || campaign.currency == "p_MATIC"){
         contractInstance.methods.payCreator()
         .send({from : userAddr, value: 0})
         .on('transactionHash', function(hash){
@@ -219,7 +220,7 @@ const Withdraw = (props) => {
 
             <DialogContentText id="alert-dialog-description">
             Transaction Hash : </DialogContentText>
-            <DialogContentText id="alert-dialog-description"><a href={`https://rinkeby.etherscan.io/tx/${Tx}`} target="_blank">{Tx}</a></DialogContentText>
+            <DialogContentText id="alert-dialog-description">{showScan()}</DialogContentText>
             </DialogContent></div>
         case 1:
             return <div style={{justifyContent:'center'}}>
@@ -234,7 +235,7 @@ const Withdraw = (props) => {
                 </Link>  </DialogContentText>
             <DialogContentText id="alert-dialog-description" style={{marginTop: 15}}>
             Transaction confirmed : </DialogContentText>
-            <DialogContentText id="alert-dialog-description"><a href={`https://rinkeby.etherscan.io/tx/${Tx}`} target="_blank">{Tx}</a></DialogContentText>
+            <DialogContentText id="alert-dialog-description">{showScan()}</DialogContentText>
             </DialogContent></div>
         default:
             return <div style={{justifyContent:'center'}}>
@@ -247,16 +248,25 @@ const Withdraw = (props) => {
     }
 }
 
+const showScan = () => {
+    if(campaign.network == chain){
+        return <a href={`https://rinkeby.etherscan.io/tx/${Tx}`} target="_blank">{Tx}</a>
+    } else if(campaign.network == poly_chain){
+        return <a href={`https://mumbai.polygonscan.com/tx/${Tx}`} target="_blank">{Tx}</a>
+    }
+}
+
+
 
   React.useEffect(() => {
       if(web3Instance != undefined){
-        if(connected == true && chainID == chain){
+        if(connected == true && chainID == campaign.network){
             //connect to Metamask and check for a refund
             const campCtrInstance = new web3Instance.eth.Contract(campaignAbi.campaignAbi, campaign.contract_address)
             setCtrInstance(campCtrInstance)
             getSubsEvent()
       //      campCtrInstance.methods.totalBalance.call().call().then(res => {setTotalBalance(res)})
-            if(campaign.currency == "ETH"){
+            if(campaign.currency == "ETH" || campaign.currency == "p_MATIC"){
                 web3Instance.eth.getBalance(campaign.contract_address).then(res => {
                         setTotalBalance(res)
                     }
@@ -267,7 +277,11 @@ const Withdraw = (props) => {
                     erc20Ctr = new web3Instance.eth.Contract(erc20standardAbi, usdcAddr)
                 else if(campaign.currency == "BBST")
                     erc20Ctr = new web3Instance.eth.Contract(bbstAbi, bbstAddr)
-                
+                else if(campaign.currency == "p_USDC")
+                    erc20Ctr = new web3Instance.eth.Contract(erc20standardAbi, poly_usdcAddr)
+                else if(campaign.currency == "p_BBST")
+                    erc20Ctr = new web3Instance.eth.Contract(bbstAbi, poly_bbstAddr)
+
                 erc20Ctr.methods.balanceOf(campaign.contract_address).call().then(res => {
                     setTotalBalance(res)
                 })

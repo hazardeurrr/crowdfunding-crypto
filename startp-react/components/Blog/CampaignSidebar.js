@@ -209,6 +209,13 @@ const CampaignSidebar = (props) => {
         }
     }
 
+    const showCurrencyWoPrefix = () => {
+        if(campaign.currency.includes('_'))
+            return campaign.currency.substring(campaign.currency.indexOf('_') + 1);
+        else
+            return campaign.currency
+    }
+
     return (
         <div className="widget-area" id="secondary">
 
@@ -247,7 +254,7 @@ const CampaignSidebar = (props) => {
                                     <Card className={classes.root} variant="outlined">
                                             <CardContent>
                                                 <Typography className={classes.title} color="textSecondary" gutterBottom>
-                                                {parseFloat(tile.threshold)} {campaign.currency}
+                                                {parseFloat(tile.threshold)} {showCurrencyWoPrefix()}
                                                 </Typography>
                                                 <Typography variant="h5" component="h2" gutterBottom>
                                                     {tile.title}

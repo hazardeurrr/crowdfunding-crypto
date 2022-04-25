@@ -16,7 +16,6 @@ import {usdcAddr} from '@/components/ContractRelated/USDCAddr';
 import {bbstAddr} from '@/components/ContractRelated/BbstAddr';
 import {poly_usdcAddr} from '@/components/ContractRelated/poly_USDCAddr';
 import {poly_bbstAddr} from '@/components/ContractRelated/poly_BbstAddr';
-import {poly_maticAddr} from '@/components/ContractRelated/poly_MATICAddr';
 
 import {erc20PaymentAddr} from '@/components/ContractRelated/ERC20PaymentAddr';
 import {poly_erc20PaymentAddr} from '@/components/ContractRelated/poly_ERC20PaymentAddr';
@@ -305,6 +304,13 @@ const PricingTiers = (props) => {
         
     }
 
+    const showCurrencyWoPrefix = () => {
+        if(campaign.currency.includes('_'))
+            return campaign.currency.substring(campaign.currency.indexOf('_') + 1);
+        else
+            return campaign.currency
+    }
+
     const displayTiers = () => {
 
         var rows = [];
@@ -323,7 +329,7 @@ const PricingTiers = (props) => {
                             </div>
                             
                             <div className="price">
-                                <span><sup>{campaign.currency}</sup>{parseFloat(tier.threshold)}</span>
+                                <span><sup>{showCurrencyWoPrefix()}</sup>{parseFloat(tier.threshold)}</span>
                             </div>
                             
                             <div className="pricing-features">
@@ -347,7 +353,7 @@ const PricingTiers = (props) => {
         if(campaign.network == chain){
             return <a href={`https://rinkeby.etherscan.io/tx/${Tx}`} target="_blank">{Tx}</a>
         } else if(campaign.network == poly_chain){
-            return <a href={`https://mumbai.polygonscan.io/tx/${Tx}`} target="_blank">{Tx}</a>
+            return <a href={`https://mumbai.polygonscan.com/tx/${Tx}`} target="_blank">{Tx}</a>
         }
     }
 
@@ -449,7 +455,7 @@ const PricingTiers = (props) => {
                     </div>
                     
                     <div className="price">
-                        <span><sup>{campaign.currency}</sup> 
+                        <span><sup>{showCurrencyWoPrefix()}</sup> 
                         <TextField
                         id="standard-number"
                         type="number"

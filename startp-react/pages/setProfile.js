@@ -42,7 +42,7 @@ const SetProfile = (props) => {
                     <br/>
                     <div className="bar"></div>
                     <br/>
-                    <p>To access this feature, please connect to Metamask and ensure you are connected to Ethereum Mainnet network on the Metamask tab.</p>
+                    <p>To access this feature, please connect to Metamask and ensure you are connected to a supported network.</p>
                 </div>
             </div>
             </div>

@@ -31,6 +31,8 @@ import poly_campaignFactoryAddr from '@/components/ContractRelated/poly_Campaign
 
 import {usdcAddr} from '@/components/ContractRelated/USDCAddr';
 import {bbstAddr} from '@/components/ContractRelated/BbstAddr';
+import {poly_usdcAddr} from '@/components/ContractRelated/poly_USDCAddr';
+import {poly_bbstAddr} from '@/components/ContractRelated/poly_BbstAddr';
 import { erc20standardAbi } from '../ContractRelated/ERC20standardABI';
 import DialogActions from '@material-ui/core/DialogActions';
 import Button from '@material-ui/core/Button';
@@ -75,7 +77,8 @@ class MainForm extends React.Component {
             dialogOpen : false,
             creationState: 0,
             new_contract_address: '',
-            initializationProgress: 0            
+            initializationProgress: 0,
+            raisingMethod: this.getStartRaisingMethod()     
         }
 
         this.handleCloseSnackbar.bind(this);
@@ -91,10 +94,18 @@ class MainForm extends React.Component {
         this.startDate = undefined, 
         this.endDate = undefined, 
         this.small_description = '',
-        this.raisingMethod = "USDC",
+        // this.raisingMethod = this.getStartRaisingMethod(),
         this.tiersNumber = 0,
         this.objective = 0,
         this.objectiveError = ''
+    }
+
+    getStartRaisingMethod(){
+        if(this.props.chainID == chain){
+            return "USDC"
+        } else if(this.props.chainID == poly_chain){
+            return "p_USDC"
+        }
     }
 
     
@@ -119,6 +130,9 @@ class MainForm extends React.Component {
     componentDidUpdate(prevProps){
         if(prevProps.web3Instance != this.props.web3Instance || prevProps.chainID != this.props.chainID){
             // console.log("changed props component did update")
+            if(prevProps.chainID != this.props.chainID){
+                this.setState({raisingMethod: this.getStartRaisingMethod()})
+            }
             if(this.props.web3Instance !== undefined){
                 this.initFactoryInstance()
             }
@@ -174,15 +188,20 @@ class MainForm extends React.Component {
 
         let context = this
         let amt = 0
-        let tierAmountArray = []      
+        let tierAmountArray = []  
+        
+        // console.log(this.state.raisingMethod)
 
-        if(this.raisingMethod != "ETH"){
+        if(this.state.raisingMethod != "ETH" && this.state.raisingMethod != "p_MATIC"){
             let erc20Ctr = undefined
-            if(this.raisingMethod == "USDC"){
+            if(this.state.raisingMethod == "USDC"){
                 erc20Ctr = new this.props.web3Instance.eth.Contract(erc20standardAbi, usdcAddr)
-            }
-            else if(this.raisingMethod == "BBST"){
+            } else if(this.state.raisingMethod == "BBST"){
                 erc20Ctr = new this.props.web3Instance.eth.Contract(bbstAbi, bbstAddr)
+            } else if(this.state.raisingMethod == "p_BBST"){
+                erc20Ctr = new this.props.web3Instance.eth.Contract(bbstAbi, poly_bbstAddr)
+            } else if(this.state.raisingMethod == "p_USDC"){
+                erc20Ctr = new this.props.web3Instance.eth.Contract(erc20standardAbi, poly_usdcAddr)
             }
 
             if(erc20Ctr != undefined){
@@ -212,7 +231,7 @@ class MainForm extends React.Component {
         parseInt(this.startDate), 
         parseInt(this.endDate), 
       //  this.flexible, 
-        parseInt(this.tokenIndex(this.raisingMethod)),
+        parseInt(this.tokenIndex(this.state.raisingMethod)),
         amountArray,
         stockArray
         )
@@ -299,7 +318,7 @@ class MainForm extends React.Component {
                     }), // remove '---' and then remove double
                     objective: this.objective,
                     long_desc: downloadURL,
-                    currency: this.raisingMethod,
+                    currency: this.state.raisingMethod,
                  //   flexible: this.flexible,
                     tiers: this.tiersArray,
                     main_img: this.image,
@@ -373,12 +392,12 @@ class MainForm extends React.Component {
         this.setState({modal: false});
       };
 
-    getNbrStep = () => {                    // marche pas (pas de state)
-        if(this.raisingMethod == "USDC")
+    getNbrStep = () => {                    
+        if(this.state.raisingMethod == "USDC" || this.state.raisingMethod == "p_USDC")
             return 0.000001
-        if(this.raisingMethod == "ETH")
+        if(this.state.raisingMethod == "ETH" || this.state.raisingMethod == "p_MATIC")
             return 0.000000000000000001
-        if(this.raisingMethod == "BBST")
+        if(this.state.raisingMethod == "BBST" || this.state.raisingMethod == "p_BBST")
             return 0.000000000000000001
     }
 
@@ -396,9 +415,9 @@ class MainForm extends React.Component {
 
     explorerLink = () => {
         if(this.props.chainID == chain){
-            <a href={`https://rinkeby.etherscan.io/tx/${this.state.Tx}`} target="_blank">{this.state.Tx}</a>
+            return <a href={`https://rinkeby.etherscan.io/tx/${this.state.Tx}`} target="_blank">{this.state.Tx}</a>
         } else if(this.props.chainID == poly_chain){
-            <a href={`https://mumbai.polygonscan.com/tx/${this.state.Tx}`} target="_blank">{this.state.Tx}</a>
+            return <a href={`https://mumbai.polygonscan.com/tx/${this.state.Tx}`} target="_blank">{this.state.Tx}</a>
         }
     }
 
@@ -492,21 +511,20 @@ class MainForm extends React.Component {
         if(this.props.chainID == chain){
             return <div className="payment-method">
             <p>
-                <input type="radio" id="usdc" name="radio-group" defaultChecked value="USDC" onChange={(event) => {
-                    this.raisingMethod = event.target.value
-
+                <input type="radio" id="usdc" name="radio-group" value="USDC" checked={this.state.raisingMethod == "USDC"} onChange={(event) => {
+                    this.setState({raisingMethod: event.target.value})
                 }}/>
                 <label htmlFor="usdc">USDC (2.5% fee)</label>
             </p>
             <p>
-                <input type="radio" id="eth" name="radio-group" value="ETH" onChange={(event) => {
-                    this.raisingMethod = event.target.value
+                <input type="radio" id="eth" name="radio-group" value="ETH" checked={this.state.raisingMethod == "ETH"} onChange={(event) => {
+                    this.setState({raisingMethod: event.target.value})
                 }}/>
                 <label htmlFor="eth">ETH (2.5% fee)</label>
             </p>
             <p>
-                <input type="radio" id="bbst" name="radio-group" value="BBST" onChange={(event) => {
-                    this.raisingMethod = event.target.value
+                <input type="radio" id="bbst" name="radio-group" value="BBST" checked={this.state.raisingMethod == "BBST"} onChange={(event) => {
+                    this.setState({raisingMethod: event.target.value})
                 }}/>
                 <label htmlFor="bbst">BBST (0% fee)</label>
             </p>
@@ -515,29 +533,22 @@ class MainForm extends React.Component {
             return <div className="payment-method">
             <p><i>Please keep in mind this campaign will be on Polygon network.</i></p>
             <p>
-                <input type="radio" id="matic" name="radio-group" defaultChecked value="p_MATIC" onChange={(event) => {
-                    this.raisingMethod = event.target.value
-
+                <input type="radio" id="poly_usdc" name="poly_radio-group" value="p_USDC" checked={this.state.raisingMethod == "p_USDC"} onChange={(event) => {
+                    this.setState({raisingMethod: event.target.value})
                 }}/>
-                <label htmlFor="matic">MATIC (2.5% fee)</label>
+                <label htmlFor="poly_usdc">USDC (2.5% fee)</label>
             </p>
             <p>
-                <input type="radio" id="usdc" name="radio-group" defaultChecked value="p_USDC" onChange={(event) => {
-                    this.raisingMethod = event.target.value
+                <input type="radio" id="poly_matic" name="poly_radio-group" value="p_MATIC" checked={this.state.raisingMethod == "p_MATIC"} onChange={(event) => {
+                    this.setState({raisingMethod: event.target.value})
                 }}/>
-                <label htmlFor="usdc">USDC (2.5% fee)</label>
+                <label htmlFor="poly_matic">MATIC (2.5% fee)</label>
             </p>
-            {/* <p>
-                <input type="radio" id="eth" name="radio-group" value="ETH" onChange={(event) => {
-                    this.raisingMethod = event.target.value
-                }}/>
-                <label htmlFor="eth">wETH (2.5% fee)</label>
-            </p> */}
             <p>
-                <input type="radio" id="bbst" name="radio-group" value="p_BBST" onChange={(event) => {
-                    this.raisingMethod = event.target.value
+                <input type="radio" id="poly_bbst" name="poly_radio-group" value="p_BBST" checked={this.state.raisingMethod == "p_BBST"} onChange={(event) => {
+                    this.setState({raisingMethod: event.target.value})
                 }}/>
-                <label htmlFor="bbst">BBST (0% fee)</label>
+                <label htmlFor="poly_bbst">BBST (0% fee)</label>
             </p>
         </div>
         }
@@ -592,6 +603,7 @@ class MainForm extends React.Component {
                             <h3>Complete the information for your campaign</h3>
                             <p><i>Creator address : {this.props.userAddr}</i></p>
                             {this.showCurrentNetwork()}
+                            <br></br>
 
                             <form id="formCampaign" onSubmit={this.handleCampaign}>
                                 <div className="row">
