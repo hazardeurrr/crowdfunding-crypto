@@ -14,7 +14,12 @@ import {db, storage} from '../../firebase-crowdfund/index'
 import campaignAbi from '@/components/ContractRelated/CampaignAbi';
 import {usdcAddr} from '@/components/ContractRelated/USDCAddr';
 import {bbstAddr} from '@/components/ContractRelated/BbstAddr';
+import {poly_usdcAddr} from '@/components/ContractRelated/poly_USDCAddr';
+import {poly_bbstAddr} from '@/components/ContractRelated/poly_BbstAddr';
+import {poly_maticAddr} from '@/components/ContractRelated/poly_MATICAddr';
+
 import {erc20PaymentAddr} from '@/components/ContractRelated/ERC20PaymentAddr';
+import {poly_erc20PaymentAddr} from '@/components/ContractRelated/poly_ERC20PaymentAddr';
 import {erc20PaymentAbi} from '@/components/ContractRelated/ERC20PaymentABI';
 import { erc20standardAbi } from '../ContractRelated/ERC20standardABI';
 import CircularProgress from '@material-ui/core/CircularProgress';
@@ -59,6 +64,8 @@ const PricingTiers = (props) => {
     const [Tx, setTx] = React.useState("");
     const [subsLength, setSubsLength] = React.useState("");
 
+    var globalERC20Addr = null;
+
 
     const handleDialogOpen = () => {
         setOpen(true);
@@ -69,6 +76,11 @@ const PricingTiers = (props) => {
     };
 
     React.useEffect(() => {
+        if(campaign.network == chain){
+            globalERC20Addr = erc20PaymentAddr
+        } else if(campaign.network == poly_chain){
+            globalERC20Addr = poly_erc20PaymentAddr
+        }
         getSubsLength();
     }, [web3Instance])
 
@@ -104,7 +116,7 @@ const PricingTiers = (props) => {
             // })
                             
             const campCtrInstance = new web3Instance.eth.Contract(campaignAbi.campaignAbi, campaign.contract_address)
-                if(campaign.currency == "ETH")
+                if(campaign.currency == "ETH" || campaign.currency == "p_MATIC")
                     await participateInETH(false, campCtrInstance, campaign.tiers[index].threshold, index)
                 else
                     await participateInERC20(false, campCtrInstance, campaign.tiers[index].threshold, index)
@@ -142,7 +154,7 @@ const PricingTiers = (props) => {
 
 
     async function checkAllowed(contractInstance){
-       return await contractInstance.methods.allowance(userAddr, erc20PaymentAddr).call()
+       return await contractInstance.methods.allowance(userAddr, globalERC20Addr).call()
       
     }
 
@@ -157,6 +169,10 @@ const PricingTiers = (props) => {
         }
         else if(campaign.currency == "BBST"){
             erc20Ctr = new web3Instance.eth.Contract(bbstAbi, bbstAddr)
+        } else if(campaign.currency == "p_USDC"){
+            erc20Ctr = new web3Instance.eth.Contract(erc20standardAbi, poly_usdcAddr)
+        } else if(campaign.currency == "p_BBST"){
+            erc20Ctr = new web3Instance.eth.Contract(erc20standardAbi, poly_bbstAddr)
         }
 
         if(erc20Ctr != undefined){
@@ -172,7 +188,7 @@ const PricingTiers = (props) => {
                         // console.log("allowance OK")
                         payInERC(isFreeDonation, contractInstance, amt, indexTier)
                     } else {
-                        erc20Ctr.methods.approve(erc20PaymentAddr, max).send({from : userAddr, value: 0})
+                        erc20Ctr.methods.approve(globalERC20Addr, max).send({from : userAddr, value: 0})
                         .on('transactionHash', function(hash){
                             setCreationState(2)
                             openDialog()
@@ -271,7 +287,7 @@ const PricingTiers = (props) => {
             // }).then(res => console.log(res));
             
             const campCtrInstance = new web3Instance.eth.Contract(campaignAbi.campaignAbi, campaign.contract_address)
-                if(campaign.currency == "ETH")
+                if(campaign.currency == "ETH" || campaign.currency == "p_MATIC")
                     await participateInETH(true, campCtrInstance, amount, 0)
                 else
                     await participateInERC20(true, campCtrInstance, amount, 0)

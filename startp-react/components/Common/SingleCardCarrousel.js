@@ -35,9 +35,9 @@ const SingleCardCarrousel = (props) => {
   }
 
   const returnDecToShow = () => {
-    if(campaign.currency == "USDC"){
+    if(campaign.currency == "USDC" || campaign.currency == "p_USDC"){
         return 2
-    } else if(campaign.currency == "ETH"){
+    } else if(campaign.currency == "ETH" || campaign.currency == "p_MATIC"){
         return 4
     } else {
         return 3

@@ -144,11 +144,11 @@ class MainForm extends React.Component {
     }
 
     tokenIndex(currency){
-        if(currency == "USDC")
+        if(currency == "USDC" || "p_USDC")
             return 0
-        if(currency == "ETH")
+        if(currency == "ETH" || "p_MATIC")
             return 1
-        if(currency == "BBST")
+        if(currency == "BBST" || "p_BBST")
             return 2
     }
 

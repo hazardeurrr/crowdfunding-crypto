@@ -144,7 +144,7 @@ const SimpleCampaignPost = (props) => {
     }
 
     const returnDecToShow = () => {
-        if(campaign.currency == "USDC"){
+        if(campaign.currency == "USDC" || campaign.currency == "p_USDC"){
             return 4
         } else {
             return 8

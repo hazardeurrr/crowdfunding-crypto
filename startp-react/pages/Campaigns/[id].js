@@ -149,7 +149,7 @@ const Campaign = (props) => {
     }
 
     const returnDecToShow = () => {
-        if(campaign.currency == "USDC"){
+        if(campaign.currency == "USDC" || campaign.currency == "p_USDC"){
             return 4
         } else {
             return 8
@@ -339,11 +339,11 @@ const Campaign = (props) => {
     const showNetwork = () => {
         if(campaign.network == chain){
             return <>
-                Ethereum <img style={{height: 15, marginLeft: 2}} src={'/images/cryptoicons/eth.svg'}/>
+                <img style={{height: 15, marginLeft: 2}} src={'/images/cryptoicons/eth.svg'}/> Ethereum
             </>
         } else if(campaign.network == poly_chain){
             return <>
-                Polygon <img style={{height: 15, marginLeft: 2}} src={'/images/cryptoicons/matic.svg'}/>
+                <img style={{height: 15, marginLeft: 2}} src={'/images/cryptoicons/matic.svg'}/> Polygon
             </>
         }
     }
@@ -351,19 +351,19 @@ const Campaign = (props) => {
     const showCurrency = () => {
         if(campaign.currency == "ETH"){
             return <>
-                ETH <img style={{height: 15, marginLeft: 2}} src={'/images/cryptoicons/eth.svg'}/>
+                <img style={{height: 15, marginLeft: 2}} src={'/images/cryptoicons/eth.svg'}/> ETH
             </>
-        } else if(campaign.currency == "USDC"){
+        } else if(campaign.currency == "USDC" || campaign.currency == "p_USDC"){
             return <>
-                USDC <img style={{height: 15, marginLeft: 2}} src={'/images/cryptoicons/usdc.svg'}/>
+                <img style={{height: 15, marginLeft: 2}} src={'/images/cryptoicons/usdc.svg'}/> USDC
             </>
-        } else if(campaign.currency == "BBST"){
+        } else if(campaign.currency == "BBST" || campaign.currency == "p_BBST"){
             return <>
-                BBST <img style={{height: 15, marginLeft: 2}} src={'/images/cryptoicons/bbst.svg'}/>
+                <img style={{height: 15, marginLeft: 2}} src={'/images/cryptoicons/bbst.svg'}/> BBST
             </>
-        } else if(campaign.currency == "MATIC"){
+        } else if(campaign.currency == "p_MATIC"){
             return <>
-                MATIC <img style={{height: 15, marginLeft: 2}} src={'/images/cryptoicons/matic.svg'}/>
+                <img style={{height: 15, marginLeft: 2}} src={'/images/cryptoicons/matic.svg'}/> MATIC
             </>
         }
     }
@@ -435,7 +435,7 @@ const Campaign = (props) => {
                                                     <ul>
                                                         
                                                         <li>
-                                                           <Icon.Disc /> Currency : {showCurrency()}
+                                                           <Icon.DollarSign /> Currency : {showCurrency()}
                                                        </li>
                                                        <li>
                                                            <Icon.Globe /> Network : {showNetwork()}
