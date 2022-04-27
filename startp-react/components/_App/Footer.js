@@ -2,7 +2,7 @@ import React from 'react';
 import Link from 'next/link';
 import * as Icon from 'react-feather';
 import {db} from '../../firebase-crowdfund/index'
-import { FaTelegramPlane, FaMediumM } from 'react-icons/fa';
+import { FaTelegramPlane, FaDiscord, FaMediumM } from 'react-icons/fa';
 import Dialog from '@material-ui/core/Dialog';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
@@ -85,17 +85,17 @@ const Footer = () => {
                                                     <a className="twitter" target="_blank"><Icon.Twitter /></a>
                                                 </Link>
                                             </li>
-                                            {/* <li>
-                                                <Link href="https://twitter.com/blockboosted">
-                                                    <a className="linkedin" target="_blank"><FaTelegramPlane /></a>
-                                                </Link>
-                                            </li> */}
+                                            
                                             <li>
                                                 <Link href="https://medium.com/@blockboosted">
                                                     <a className="instagram" target="_blank"><FaMediumM /></a>
                                                 </Link>
                                             </li>
-                                         
+                                            <li>
+                                                <Link href="https://discord.gg/6QdBGMKSUn">
+                                                    <a className="facebook" target="_blank"><FaDiscord /></a>
+                                                </Link>
+                                            </li>
                                         </ul>
 
                         </div>
@@ -167,14 +167,10 @@ const Footer = () => {
                             <h3>Community</h3>
                             <ul className="list">
                                 <li>
-                                    {/* <Link href="/faq"> */}
-                                        <a>Discussion</a>
-                                    {/* </Link> */}
+                                    <a href="https://discord.gg/6QdBGMKSUn">Discord</a>
                                 </li>
                                 <li>
-                                    {/* <Link href="/privacy-policy"> */}
-                                        <a>Vote</a>
-                                    {/* </Link> */}
+                                    <a href="https://twitter.com/blockboosted">Twitter</a>
                                 </li>
                             </ul>
                         </div>
