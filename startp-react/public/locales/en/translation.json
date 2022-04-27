@@ -4,7 +4,7 @@
     "nofee" : "NO FEES",
     "forcontributors" : "for contributors",
     "transparent" : "Transparent and trustful",
-    "joinrevolution" : "Join the crowdfunding revolution on Ethereum with the BlockBoosted dApp.",
+    "joinrevolution" : "Join the crypto-fundraise revolution on Ethereum with the BlockBoosted dApp.",
 
     "platformf" : "Platform fee",
     "inbbst" : "campaigns in BBST",
@@ -14,19 +14,19 @@
     "keep" : "Keep in touch !",
     "getnews" : "Get the news on the project and IDO.",
 
-    "hero": "Crowdfunding reinvented with BlockBoosted !",
+    "hero": "Fundraising reinvented with BlockBoosted !",
     "heroDesc":"Less fees, more trust, better user experience and rewards for contributors.",
     "subscribe": "Subscribe to our newsletter for free to get the latest news on BlockBoosted and BBST Token Sale.",
     "emailAddress": "Enter your email here",
     "subscribeBtn" : "Subscribe !",
 
 
-    "title": "Fair crowdfunding",
-    "subtitle": "We make crowdfunding fairer for raisers and contributors.",
+    "title": "Fair fundraising",
+    "subtitle": "We make fundraising fairer for raisers and contributors.",
     "fees": "Less platform fees",
     "chargedFees": "We charge 0% for campaigns in BBST.",
     "fees2": "Only 2.5% for campaigns in ETH or USDC to keep the protocol alive : this fee will be used to buy back and burn BBST, and to pay our operating costs. ",
-    "fees3": "Crowdfunding platforms usually charge a 5% platform fee.",
+    "fees3": "Fundraising platforms usually charge a 5% platform fee.",
     "repartition": "0% for campaigns in BBST, 2.5% for successfuls campaigns in ETH and USDC",
     "fees4":"We split the fee between the community fund (insurance & airdrops), the BBST burning and the payment of our fixed costs.",
     "noPayment": "No payment or processing fee",
@@ -36,7 +36,7 @@
     "rewardsevery": "Rewards",
     "everyweek": "Every week",
 
-    "charges": "Crowdfunding platforms usually charge a 3% payment fee for their payment provider on top of the platform fee.",
+    "charges": "Fundraising platforms usually charge a 3 to 5% payment fee for their payment provider on top of the platform fee.",
     "cashback":"Rewards for contributors",
     "boostCampaign":"Contributors that boost projects on BlockBoosted are given BBST tokens, depending on their contributions !",
     "governance":"Governance for stakers",

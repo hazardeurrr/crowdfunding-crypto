@@ -58,23 +58,23 @@ const ShareIcons = (props) => {
     return (
       <div style={{display: 'flex', flexDirection: 'row'}}>
         <TwitterShareButton className="share-icon"
-          title={`Boost the crowdfunding campaign "${props.campaign.title}" with crypto on @blockboosted`}
+          title={`Boost the campaign "${props.campaign.title}" with crypto on @blockboosted`}
           url={pageURL}
-          hashtags={["BlockBoosted", "Crowdfunding", "Crypto"]}
+          hashtags={["BlockBoosted", "Fundraise", "Crypto"]}
         >
           <TwitterIcon size={32} round={true} />
         </TwitterShareButton>
 
       <FacebookShareButton className="share-icon"
         url={pageURL}
-        quote={`Boost the crowdfunding campaign "${props.campaign.title}" with crypto on BlockBoosted`}
+        quote={`Boost the campaign "${props.campaign.title}" with crypto on BlockBoosted`}
         hashtag={"#crowdfunding"}
       >
         <FacebookIcon size={32} round={true} />
       </FacebookShareButton>
 
       <WhatsappShareButton className="share-icon"
-          title={`Boost the crowdfunding campaign "${props.campaign.title}" with crypto on BlockBoosted`}
+          title={`Boost the campaign "${props.campaign.title}" with crypto on BlockBoosted`}
           separator=" "
           url={pageURL}
           >
@@ -83,7 +83,7 @@ const ShareIcons = (props) => {
 
       <LinkedinShareButton className="share-icon"
           title={`Support "${props.campaign.title}" !`}
-          summary={`Boost the crowdfunding campaign "${props.campaign.title}" with crypto on BlockBoosted`}
+          summary={`Boost the campaign "${props.campaign.title}" with crypto on BlockBoosted`}
           url={pageURL}
           >
         <LinkedinIcon size={32} round={true}/>
@@ -91,21 +91,21 @@ const ShareIcons = (props) => {
 
       <EmailShareButton className="share-icon"
         subject={`Support "${props.campaign.title}" !`}
-        body={`Boost the crowdfunding campaign "${props.campaign.title}" with crypto on BlockBoosted`}
+        body={`Boost the campaign "${props.campaign.title}" with crypto on BlockBoosted`}
         url={pageURL}
       >
         <EmailIcon size={32} round={true}/>
       </EmailShareButton>
 
       <RedditShareButton className="share-icon"
-          title={`Boost the crowdfunding campaign "${props.campaign.title}" with crypto on BlockBoosted`}
+          title={`Boost the campaign "${props.campaign.title}" with crypto on BlockBoosted`}
           url={pageURL}
       >
         <RedditIcon size={32} round={true}/>
       </RedditShareButton>
 
       <TelegramShareButton className="share-icon"
-          title={`Boost the crowdfunding campaign "${props.campaign.title}" with crypto on BlockBoosted`}
+          title={`Boost the campaign "${props.campaign.title}" with crypto on BlockBoosted`}
           url={pageURL}
       >
         <TelegramIcon size={32} round={true}/>

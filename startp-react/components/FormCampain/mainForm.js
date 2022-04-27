@@ -175,7 +175,7 @@ class MainForm extends React.Component {
                                             </div>
                                         </div>
                                     </div>
-                                    <p><strong> Raising Method </strong><br/>Give a raising currency for your crowdfunding project.</p>
+                                    <p><strong> Raising Method </strong><br/>Give a raising currency for your project.</p>
                                     <div className="col-lg-12 col-md-12">
                                         <div className="form-group">
                                             <div className="order-details">
