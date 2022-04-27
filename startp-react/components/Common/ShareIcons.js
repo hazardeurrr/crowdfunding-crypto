@@ -98,14 +98,14 @@ const ShareIcons = (props) => {
       </EmailShareButton>
 
       <RedditShareButton className="share-icon"
-          title={`Boost the crowdfunding campaign "${props.campaign.title}" with crypto on BlockBoosted`}
+          title={`Boost the campaign "${props.campaign.title}" with crypto on BlockBoosted`}
           url={pageURL}
       >
         <RedditIcon size={32} round={true}/>
       </RedditShareButton>
 
       <TelegramShareButton className="share-icon"
-          title={`Boost the crowdfunding campaign "${props.campaign.title}" with crypto on BlockBoosted`}
+          title={`Boost the campaign "${props.campaign.title}" with crypto on BlockBoosted`}
           url={pageURL}
       >
         <TelegramIcon size={32} round={true}/>
