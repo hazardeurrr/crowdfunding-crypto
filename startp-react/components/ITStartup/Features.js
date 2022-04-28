@@ -19,7 +19,7 @@ const Features = () => {
 								</Link>
 							</h3>
 
-							<p>Most of the fundraising platforms charge 5% fees + payment fees. We charge only 1% to keep the project alive.</p>
+							<p>Most of the platforms charge 5% fees + payment fees. We charge only 1% to keep the project alive.</p>
 						</div>
 					</div>
 

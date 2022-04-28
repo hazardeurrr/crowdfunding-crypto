@@ -60,7 +60,7 @@ const ShareIcons = (props) => {
         <TwitterShareButton className="share-icon"
           title={`Boost the campaign "${props.campaign.title}" with crypto on @blockboosted`}
           url={pageURL}
-          hashtags={["BlockBoosted", "Fundraise", "Crypto"]}
+          hashtags={["BlockBoosted", "Cryptofunding", "Crypto"]}
         >
           <TwitterIcon size={32} round={true} />
         </TwitterShareButton>
