@@ -75,7 +75,7 @@ const Footer = () => {
                                     </a>
                                 </Link>
                             </div>
-                            <p>BlockBoosted is an innovative crowdfunding ecosystem using the Ethereum Blockchain ! Less fees, more trust, better user experience and rewards for contributors.</p>
+                            <p>BlockBoosted is an innovative crowdfunding ecosystem using the blockchain technology ! Less fees, more trust, better user experience and rewards for contributors.</p>
                         
 
 

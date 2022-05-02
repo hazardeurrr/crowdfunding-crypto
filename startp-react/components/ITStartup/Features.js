@@ -35,7 +35,7 @@ const Features = () => {
 								</Link>
 							</h3>
 
-							<p>We use the Ethereum blockchain. We never touch the money : smart contract rules it all.</p>
+							<p>We use blockchain. We never touch the money : smart contract rules it all.</p>
 						</div>
 					</div>
 

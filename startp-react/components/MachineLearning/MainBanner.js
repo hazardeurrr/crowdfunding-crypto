@@ -10,8 +10,8 @@ const MainBanner = () => {
                         <div className="ml-banner-content">
                             <h1>A new way to raise funds</h1>
                            
-                                <h5>Crowdfunding reinvented.</h5><p>Less fees, more trust, community based.<br></br>Earn <Link href="/token"><a>BBST</a></Link> while supporting great projects !
-                                <br></br>Raise and contribute in crypto thanks to the Ethereum blockchain.</p>
+                                <h5>Crowdfunding 3.0</h5><p>Less fees, more trust, community based.<br></br>Earn <Link href="/token"><a>BBST</a></Link> while supporting great projects !
+                                <br></br>Raise and contribute in crypto on Ethereum & Polygon.</p>
 
                             <Link href="/form-campaign">
 								<a className="btn btn-primary">Create a campaign</a>
@@ -108,13 +108,13 @@ const MainBanner = () => {
                             />
                         
                             <img 
-                                src="/images/ml-banner-image/blockchain.png" 
+                                src="/images/ml-banner-image/blockchain2.png" 
                                 className="animate__animated animate__fadeInUp animate__delay-1s" 
                                 alt="image" 
                             />
                     
                             <img 
-                                src="/images/ml-banner-image/piggy.png" 
+                                src="/images/ml-banner-image/piggy2.png" 
                                 className="animate__animated animate__fadeInDown animate__delay-1s" 
                                 alt="image" 
                             />
@@ -129,7 +129,7 @@ const MainBanner = () => {
                                 alt="image" 
                             />
                              <img 
-                                src="/images/ml-banner-image/ml-main-pic-2.png" 
+                                src="/images/ml-banner-image/ml-main-pic-22.png" 
                                 className="animate__animated animate__fadeIn animate__delay-2s" 
                                 alt="image" 
                             />

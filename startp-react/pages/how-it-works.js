@@ -100,7 +100,7 @@ const ServiceDetails = () => {
                                             </AccordionItemHeading>
                                             <AccordionItemPanel>
                                                 <p>
-                                                    As a contributor, you aren't charged any fee by the platform. But you will have to pay the gas fee of the Ethereum blockchain when confirming the transaction. Note that this is
+                                                    As a contributor, you aren't charged any fee by the platform. But you will have to pay the gas fee of the blockchain when confirming the transaction. Note that this is
                                                     the only fee you'll pay.
                                                 </p>
                                             </AccordionItemPanel>

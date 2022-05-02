@@ -52,7 +52,7 @@ const ServicesArea = () => {
                     <div className="row justify-content-center align-items-center">
                         <div className="col-lg-6 col-md-12 services-content">
                             <div className="section-title">
-                                <h2>{t.bbstoken}</h2>
+                                <div style={{display : "flex"}}><img src="/images/cryptoicons/bbstgrad.png" style={{height: 35, marginRight: 10}}/><h2>{t.bbstoken}</h2></div>
                                 <div className="bar"></div>
                                 <h5>{t.partners}</h5><br></br><p>{t.descToken}</p>
                                 
@@ -143,7 +143,7 @@ const ServicesArea = () => {
 
                         <div className="col-lg-6 col-md-12 services-right-image">
                             <img 
-                                src="/images/bbst_sa2.png"
+                                src="/images/bbst_sa22.png"
                                 className="animate__animated animate__fadeInDown animate__delay-0.2s" 
                                 alt="bbst-features"
                             />

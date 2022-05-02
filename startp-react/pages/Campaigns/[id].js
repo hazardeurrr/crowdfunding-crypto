@@ -236,7 +236,7 @@ const Campaign = (props) => {
                 }
             } else {
                 return <>
-                    <p><Icon.AlertTriangle /> You are not connected to the right network. Please switch to {showNetwork()} to back this campaign.</p>
+                    <p><Icon.AlertTriangle /> You are not connected to the right network.<br></br>Please switch to {showNetwork()} to back this campaign.</p>
                 </>
             }
             
@@ -346,11 +346,11 @@ const Campaign = (props) => {
     const showNetwork = () => {
         if(campaign.network == chain){
             return <>
-                <img style={{height: 15, marginLeft: 2}} src={'/images/cryptoicons/eth.svg'}/> Ethereum
+                <img style={{height: 18, marginTop: -2,marginLeft: 2, marginRight: 1}} src={'/images/cryptoicons/eth.svg'}/> Ethereum
             </>
         } else if(campaign.network == poly_chain){
             return <>
-                <img style={{height: 15, marginLeft: 2}} src={'/images/cryptoicons/matic.svg'}/> Polygon
+                <img style={{height: 18, marginTop: -2, marginLeft: 2,marginRight: 1}} src={'/images/cryptoicons/matic.svg'}/> Polygon
             </>
         }
     }
@@ -358,19 +358,19 @@ const Campaign = (props) => {
     const showCurrency = () => {
         if(campaign.currency == "ETH"){
             return <>
-                <img style={{height: 15, marginLeft: 2}} src={'/images/cryptoicons/eth.svg'}/> ETH
+                <img style={{height: 18, marginTop: -2, marginLeft: 2,marginRight: 1}} src={'/images/cryptoicons/eth.svg'}/> ETH
             </>
         } else if(campaign.currency == "USDC" || campaign.currency == "p_USDC"){
             return <>
-                <img style={{height: 15, marginLeft: 2}} src={'/images/cryptoicons/usdc.svg'}/> USDC
+                <img style={{height: 18, marginTop: -2, marginLeft: 2,marginRight: 1}} src={'/images/cryptoicons/usdc.svg'}/> USDC
             </>
         } else if(campaign.currency == "BBST" || campaign.currency == "p_BBST"){
             return <>
-                <img style={{height: 15, marginLeft: 2}} src={'/images/cryptoicons/bbst.svg'}/> BBST
+                <img style={{height: 18, marginTop: -2, marginLeft: 2,marginRight: 1}} src={'/images/cryptoicons/bbstgrad.png'}/> BBST
             </>
         } else if(campaign.currency == "p_MATIC"){
             return <>
-                <img style={{height: 15, marginLeft: 2}} src={'/images/cryptoicons/matic.svg'}/> MATIC
+                <img style={{height: 18, marginTop: -2, marginLeft: 2, marginRight: 1}} src={'/images/cryptoicons/matic.svg'}/> MATIC
             </>
         }
     }

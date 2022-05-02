@@ -23,8 +23,8 @@ const ServiceDetails = () => {
                         <div className="col-lg-6 services-details">
                             <div className="services-details-desc">
                                 <h3>Connecting creators, organizations and entrepreneurs to their public</h3>
-                                <p>Everyone can create a campaign to raise funds for its project. Once all the information about the campaign is given, a smart contract working on the Ethereum blockchain will create the campaign's own contract.</p>
-                                <p>Taking advantage of the Ethereum blockchain, everyone can back a campaign, interacting with the contract and sending either ETH or USDC depending on the creator's choice.</p>
+                                <p>Everyone can create a campaign to raise funds for its project. Once all the information about the campaign is given, a smart contract working on the selected blockchain will create the campaign's own contract.</p>
+                                <p>Taking advantage of the blockchain, everyone can back a campaign, interacting with the contract and sending crypto depending on the creator's choice.</p>
                                 <p>Once the end date is reached, the funds on the contract are unlocked and transfered to the creator's address.</p>
                                 <p>Note that everything is run by smart contracts and that we never touch your cryptocurrencies</p>
                             </div>

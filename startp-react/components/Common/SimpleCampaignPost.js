@@ -122,7 +122,8 @@ const SimpleCampaignPost = (props) => {
 
                     return (
                         <div className="date">
-                            <Icon.Bookmark/>
+                            {/* <Icon.Bookmark/> */}
+                            {returnCurrencyIconWhite()}
                         {/* <img style={{height: 20}} src={'/images/cryptoicons/ethwhite.svg'}/>  */}
                         <span style={{marginLeft: 5}}>{showCats()}</span>
                         </div>
@@ -133,7 +134,7 @@ const SimpleCampaignPost = (props) => {
                     return (
                         <div className="date">
                         
-                            <Icon.Bookmark/>
+                            {returnCurrencyIconWhite()}
                           {/* <img style={{height: 20}} src={'/images/cryptoicons/maticwhite.svg'}/>  */}
                           <span style={{marginLeft: 5}}>{showCats()}</span>
                         </div>
@@ -141,6 +142,18 @@ const SimpleCampaignPost = (props) => {
                 }
                
             }
+    }
+
+    const returnCurrencyIconWhite = () => {
+        if(campaign.currency == "USDC" || campaign.currency == "p_USDC"){
+            return <img style={{height: 20}} src={'/images/cryptoicons/usdcwhite.svg'}/>
+        } else if(campaign.currency == "BBST" || campaign.currency == "p_BBST"){
+            return <img style={{height: 20}} src={'/images/cryptoicons/bbstwhite.svg'}/>
+        } else if(campaign.currency == "ETH") {
+            return <img style={{height: 20}} src={'/images/cryptoicons/ethwhite.svg'}/>
+        } else if(campaign.currency == "p_MATIC"){
+            return <img style={{height: 20}} src={'/images/cryptoicons/maticwhite.svg'}/>
+        }
     }
 
     const returnDecToShow = () => {
