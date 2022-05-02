@@ -36,7 +36,7 @@ const ContactInfo = () => {
                             </div>
                             <h3>Email</h3>
                             <p style={{marginTop: 15}}>You can also contact our team by email</p>
-                            <p><a href="mailto:inbox@blockboosted.com">inbox@blockboosted.com</a></p>
+                            <p><a href="mailto:inbox@blockboosted.com">contact@blockboosted.com</a></p>
                         </div>
                     </div>
 
