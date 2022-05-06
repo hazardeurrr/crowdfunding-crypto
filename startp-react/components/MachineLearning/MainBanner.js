@@ -10,7 +10,7 @@ const MainBanner = () => {
                         <div className="ml-banner-content">
                             <h1>A new way to raise funds</h1>
                            
-                                <h5>Crowdfunding 3.0</h5><p>Less fees, more trust, community based.<br></br>Earn <Link href="/token"><a>BBST</a></Link> while supporting great projects !
+                                <h5>Crowdfunding 3.0</h5><p>Less fees, more trust, community based.<br></br>Earn <Link href="/token"><a><img style={{height: 20, marginRight: 3}} src="/images/cryptoicons/bbstgrad.png"/>BBST</a></Link> while supporting great projects !
                                 <br></br>Raise and contribute in crypto on Ethereum & Polygon.</p>
 
                             <Link href="/form-campaign">
@@ -101,7 +101,8 @@ const MainBanner = () => {
                                 alt="image" 
                             /> */}
 
-                            <img 
+{/* TEST SVG */}
+                            {/* <img 
                                 src="/images/ml-banner-image/man.png" 
                                 className="animate__animated animate__fadeInDown animate__delay-0.5s" 
                                 alt="image" 
@@ -132,8 +133,34 @@ const MainBanner = () => {
                                 src="/images/ml-banner-image/ml-main-pic-22.png" 
                                 className="animate__animated animate__fadeIn animate__delay-2s" 
                                 alt="image" 
+                        />*/}
+                        {/* <img 
+                                src="/images/ml-banner-image/totalSVG.svg" 
+                                className="animate__animated animate__fadeInDown animate__delay-0.5s" 
+                                alt="image" 
                             />
-                        
+                         */}
+                    
+                            {/* <img 
+                                src="/images/ml-banner-image/undraw_savings.svg" 
+                                className="animate__animated animate__fadeInDown animate__delay-1s" 
+                                alt="image" 
+                            />
+                            <img 
+                                src="/images/ml-banner-image/undraw_growth_curve.svg" 
+                                className="animate__animated animate__fadeInUp animate__delay-1s" 
+                                alt="image" 
+                            /> */}
+                            {/*<img 
+                                src="/images/ml-banner-image/bbtoken.png" 
+                                className="animate__animated animate__fadeIn animate__delay-2s" 
+                                alt="image" 
+                            /> */}
+                             <img 
+                                src="/images/ml-banner-image/totalSVG.svg" 
+                                className="animate__animated animate__fadeIn animate__delay-2s" 
+                                alt="image" 
+                            />
                         
 
                            
