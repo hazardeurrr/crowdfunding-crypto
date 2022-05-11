@@ -1,0 +1,81 @@
+<?xml version="1.0"?>
+<svg width="980.49384" height="751.89531" xmlns="http://www.w3.org/2000/svg" xmlns:svg="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" data-name="Layer 1">
+ <!-- Created with SVG-edit - https://github.com/SVG-Edit/svgedit-->
+ <defs>
+  <symbol height="32" id="svg_37" viewBox="0 0 32 32" width="32" xmlns="http://www.w3.org/2000/svg">
+   <g fill="none">
+    <circle cx="16" cy="16" fill="#6F41D8" r="16"/>
+    <path d="m21.09,12.69c-0.37,-0.21 -0.85,-0.21 -1.25,0l-2.88,1.66l-1.96,1.07l-2.88,1.66c-0.36,0.21 -0.84,0.21 -1.25,0l-2.29,-1.3c-0.37,-0.21 -0.62,-0.61 -0.62,-1.04l0,-2.55c0,-0.43 0.22,-0.83 0.62,-1.04l2.25,-1.26c0.37,-0.22 0.85,-0.22 1.26,0l2.25,1.26c0.37,0.21 0.63,0.61 0.63,1.04l0,1.65l1.95,-1.11l0,-1.65a1.16,1.16 0 0 0 -0.63,-1.05l-4.17,-2.37c-0.36,-0.21 -0.84,-0.21 -1.25,0l-4.24,2.37a1.16,1.16 0 0 0 -0.63,1.05l0,4.78c0,0.43 0.22,0.82 0.63,1.04l4.24,2.37c0.37,0.22 0.85,0.22 1.25,0l2.88,-1.62l1.96,-1.11l2.88,-1.62c0.37,-0.21 0.85,-0.21 1.25,0l2.25,1.26c0.37,0.21 0.63,0.61 0.63,1.04l0,2.55c0,0.44 -0.22,0.83 -0.63,1.05l-2.25,1.29c-0.37,0.22 -0.85,0.22 -1.25,0l-2.25,-1.26c-0.37,-0.21 -0.63,-0.61 -0.63,-1.04l0,-1.65l-1.96,1.11l0,1.65c0,0.44 0.22,0.83 0.63,1.05l4.25,2.37c0.36,0.21 0.84,0.21 1.25,0l4.24,-2.37c0.37,-0.22 0.63,-0.61 0.63,-1.05l0,-4.78a1.16,1.16 0 0 0 -0.63,-1.04l-4.28,-2.41z" fill="#FFF"/>
+   </g>
+  </symbol>
+  <symbol enable-background="new 0 0 1242 962" id="svg_57" version="1" viewBox="0 0 1242 962" x="0px" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" y="0px">
+   <style type="text/css">.st0{fill:#627EEA;}
+	.st1{fill:#FFFFFF;fill-opacity:0.602;}
+	.st2{fill:#FFFFFF;}
+	.st3{fill:#FFFFFF;fill-opacity:0.2;}</style>
+   <desc>Created with Sketch.</desc>
+   <g id="svg_42">
+    <g id="svg_43" transform="translate(-1008.000000, -2285.000000)">
+     <g id="svg_44" transform="translate(382.000000, 2270.799999)">
+      <g id="svg_45" transform="translate(0.000000, 0.200001)">
+       <g id="svg_46" transform="translate(0.000000, 14.000000)">
+        <g id="svg_47">
+         <g id="svg_48" transform="translate(626.400000, 0.000000)">
+          <g id="svg_50">
+           <circle class="st0" cx="620.8" cy="481.5" id="svg_56" r="365.8"/>
+           <polygon class="st1" id="svg_55" points="632.2,207.1 632.2,409.9 803.6,486.5         "/>
+           <polygon class="st2" id="svg_54" points="632.2,207.1 460.8,486.5 632.2,409.9         "/>
+           <polygon class="st1" id="svg_53" points="632.2,617.9 632.2,755.7 803.7,518.4         "/>
+           <polygon class="st2" id="svg_52" points="632.2,755.7 632.2,617.9 460.8,518.4         "/>
+           <polygon class="st3" id="svg_51" points="632.2,586 803.6,486.5 632.2,409.9         "/>
+          </g>
+          <polygon class="st1" id="svg_49" points="460.8,486.5 632.2,586 632.2,409.9        "/>
+         </g>
+        </g>
+       </g>
+      </g>
+     </g>
+    </g>
+   </g>
+  </symbol>
+ </defs>
+ <g class="layer">
+  <title>Layer 1</title>
+  <rect fill="#3f3d56" height="107" id="svg_34" width="2" x="239.96" y="235"/>
+  <rect fill="#3f3d56" height="94.15" id="svg_33" width="2" x="239.96" y="373.85"/>
+  <rect fill="#3f3d56" height="2" id="svg_32" width="155" x="236.96" y="483"/>
+  <rect fill="#3f3d56" height="85" id="svg_31" width="2" x="170.96" y="509"/>
+  <rect fill="#3f3d56" height="2" id="svg_30" width="235" x="188.96" y="610"/>
+  <path d="m439.97,595" fill="none" id="svg_29" stroke="#3f3d56" stroke-miterlimit="10" stroke-width="2"/>
+  <path d="m439.97,513" fill="none" id="svg_28" stroke="#3f3d56" stroke-miterlimit="10" stroke-width="2"/>
+  <rect fill="#3f3d56" height="101" id="svg_27" width="2" x="617.96" y="167"/>
+  <rect fill="#3f3d56" height="2" id="svg_26" width="147.03" x="455.93" y="284"/>
+  <rect fill="#3f3d56" height="135" id="svg_25" width="2" x="438.96" y="300"/>
+  <path d="m240.97,375a17,17 0 1 1 17,-17a17.02,17.02 0 0 1 -17,17zm0,-32a15,15 0 1 0 15,15a15.02,15.02 0 0 0 -15,-15z" fill="#3f3d56" id="svg_24"/>
+  <path d="m172.97,628a17,17 0 1 1 17,-17a17.02,17.02 0 0 1 -17,17zm0,-32a15,15 0 1 0 15,15a15.02,15.02 0 0 0 -15,-15z" fill="#3f3d56" id="svg_23"/>
+  <circle cx="241.96" cy="484" fill="#6c63ff" id="svg_22" r="16"/>
+  <rect fill="#3f3d56" height="2" id="svg_21" width="166" x="654.96" y="357"/>
+  <rect fill="#3f3d56" height="94.15" id="svg_20" width="2" x="637.96" y="373.85"/>
+  <rect fill="#3f3d56" height="2" id="svg_19" width="133" x="488.96" y="483"/>
+  <rect fill="#3f3d56" height="2" id="svg_18" width="138" x="722.96" y="492"/>
+  <rect fill="#3f3d56" height="85" id="svg_17" width="2" x="706.96" y="510"/>
+  <rect fill="#3f3d56" height="2" id="svg_16" width="235" x="455.96" y="610"/>
+  <rect fill="#3f3d56" height="62" id="svg_15" width="2" x="438.96" y="533"/>
+  <circle cx="638.96" cy="358" fill="#6c63ff" id="svg_14" r="16"/>
+  <path d="m618.97,301a17,17 0 1 1 17,-17a17.02,17.02 0 0 1 -17,17zm0,-32a15,15 0 1 0 15,15a15.02,15.02 0 0 0 -15,-15z" fill="#3f3d56" id="svg_13"/>
+  <path d="m439.97,301a17,17 0 1 1 17,-17a17.02,17.02 0 0 1 -17,17zm0,-32a15,15 0 1 0 15,15a15.02,15.02 0 0 0 -15,-15z" fill="#3f3d56" id="svg_12"/>
+  <path d="m706.97,511a17,17 0 1 1 17,-17a17.02,17.02 0 0 1 -17,17zm0,-32a15,15 0 1 0 15,15a15.02,15.02 0 0 0 -15,-15z" fill="#3f3d56" id="svg_11"/>
+  <circle cx="706.96" cy="611" fill="#6c63ff" id="svg_10" r="16"/>
+  <path d="m439.97,628a17,17 0 1 1 17,-17a17.02,17.02 0 0 1 -17,17zm0,-32a15,15 0 1 0 15,15a15.02,15.02 0 0 0 -15,-15z" fill="#3f3d56" id="svg_9"/>
+  <path d="m637.97,501a17,17 0 1 1 17,-17a17.02,17.02 0 0 1 -17,17zm0,-32a15,15 0 1 0 15,15a15.02,15.02 0 0 0 -15,-15z" fill="#3f3d56" id="svg_8"/>
+  <path d="m172.97,460a20,20 0 1 0 20,20a20.06,20.06 0 0 0 -20,-20zm0,6a6,6 0 1 1 -6,6a6.02,6.02 0 0 1 6,-6zm0,28.89a14.57,14.57 0 0 1 -12,-6.41c0.09,-4 8,-6.2 12,-6.2s11.9,2.2 12,6.2a14.59,14.59 0 0 1 -12,6.41z" fill="#3f3d56" id="svg_7"/>
+  <path d="m241.97,187a20,20 0 1 0 20,20a20.06,20.06 0 0 0 -20,-20zm0,6a6,6 0 1 1 -6,6a6.02,6.02 0 0 1 6,-6zm0,28.89a14.57,14.57 0 0 1 -12,-6.41c0.09,-4 8,-6.2 12,-6.2s11.9,2.2 12,6.2a14.59,14.59 0 0 1 -12,6.41z" fill="#3f3d56" id="svg_6"/>
+  <path d="m616.97,122a20,20 0 1 0 20,20a20.06,20.06 0 0 0 -20,-20zm0,6a6,6 0 1 1 -6,6a6.02,6.02 0 0 1 6,-6zm0,28.89a14.57,14.57 0 0 1 -12,-6.41c0.09,-4 8,-6.2 12,-6.2s11.9,2.2 12,6.2a14.59,14.59 0 0 1 -12,6.41z" fill="#3f3d56" id="svg_5"/>
+  <path d="m833.97,339a20,20 0 1 0 20,20a20.06,20.06 0 0 0 -20,-20zm0,6a6,6 0 1 1 -6,6a6.02,6.02 0 0 1 6,-6zm0,28.89a14.57,14.57 0 0 1 -12,-6.41c0.09,-4 8,-6.2 12,-6.2s11.9,2.2 12,6.2a14.59,14.59 0 0 1 -12,6.41z" fill="#3f3d56" id="svg_4"/>
+  <path d="m871.97,474a20,20 0 1 0 20,20a20.06,20.06 0 0 0 -20,-20zm0,6a6,6 0 1 1 -6,6a6.02,6.02 0 0 1 6,-6zm0,28.89a14.57,14.57 0 0 1 -12,-6.41c0.09,-4 8,-6.2 12,-6.2s11.9,2.2 12,6.2a14.59,14.59 0 0 1 -12,6.41z" fill="#3f3d56" id="svg_3"/>
+  <use id="svg_2" transform="matrix(2.17227 0 0 2.17227 176.77 117.952)" x="112.22" xlink:href="#svg_55" y="160.25"/>
+  <use id="svg_1" transform="matrix(0.124358 0 0 0.124358 223.414 313.504)" x="1122.06" xlink:href="#svg_80" y="861.58"/>
+  <use id="svg_38" transform="matrix(2.37579 0 0 2.37579 256.373 245.226)" x="68.16" xlink:href="#svg_37" y="91.37"/>
+  <use id="svg_58" transform="matrix(0.14508 0 0 0.14508 100.069 114.105)" x="1711.09" xlink:href="#svg_57" y="2059.14"/>
+ </g>
+</svg>

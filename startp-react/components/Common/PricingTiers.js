@@ -63,7 +63,12 @@ const PricingTiers = (props) => {
     const [Tx, setTx] = React.useState("");
     const [subsLength, setSubsLength] = React.useState("");
 
-    var globalERC20Addr = null;
+    var globalERC20Addr
+    if(campaign.network == chain){
+        globalERC20Addr = erc20PaymentAddr
+    } else if(campaign.network == poly_chain){
+        globalERC20Addr = poly_erc20PaymentAddr
+    }
 
 
     const handleDialogOpen = () => {
@@ -75,11 +80,7 @@ const PricingTiers = (props) => {
     };
 
     React.useEffect(() => {
-        if(campaign.network == chain){
-            globalERC20Addr = erc20PaymentAddr
-        } else if(campaign.network == poly_chain){
-            globalERC20Addr = poly_erc20PaymentAddr
-        }
+        
         getSubsLength();
     }, [web3Instance])
 
@@ -153,20 +154,20 @@ const PricingTiers = (props) => {
 
 
     async function checkAllowed(contractInstance){
+        console.log(globalERC20Addr)
        return await contractInstance.methods.allowance(userAddr, globalERC20Addr).call()
       
     }
 
     async function participateInERC20(isFreeDonation, contractInstance, v, indexTier){
-
+        console.log("participatinginERC20")
         let erc20Ctr = undefined
 
         const max = new BN("115792089237316195423570985008687907853269984665640564039457584007913129639935");
 
         if(campaign.currency == "USDC"){
             erc20Ctr = new web3Instance.eth.Contract(erc20standardAbi, usdcAddr)
-        }
-        else if(campaign.currency == "BBST"){
+        } else if(campaign.currency == "BBST"){
             erc20Ctr = new web3Instance.eth.Contract(bbstAbi, bbstAddr)
         } else if(campaign.currency == "p_USDC"){
             erc20Ctr = new web3Instance.eth.Contract(erc20standardAbi, poly_usdcAddr)
@@ -174,19 +175,25 @@ const PricingTiers = (props) => {
             erc20Ctr = new web3Instance.eth.Contract(erc20standardAbi, poly_bbstAddr)
         }
 
+        console.log(v)
+
+
         if(erc20Ctr != undefined){
             erc20Ctr.methods.decimals().call().then((decimals) => {
+                console.log(decimals)
+                const amt = toBaseUnit(v.toString(), decimals.toString(), web3Instance.utils.BN)     
+                console.log(amt.toString())
 
-                const amt = toBaseUnit(v.toString(), decimals, web3Instance.utils.BN)     
-    
                 checkAllowed(erc20Ctr).then(res => {
                     let bnres = new BN(res.toString())
-                    // console.log(res)
+                    console.log(bnres)
                     // console.log(amt)
                     if(bnres.gte(amt)){
-                        // console.log("allowance OK")
+                         console.log("allowance OK")
                         payInERC(isFreeDonation, contractInstance, amt, indexTier)
                     } else {
+                        console.log("approve to do")
+
                         erc20Ctr.methods.approve(globalERC20Addr, max).send({from : userAddr, value: 0})
                         .on('transactionHash', function(hash){
                             setCreationState(2)
@@ -225,7 +232,7 @@ const PricingTiers = (props) => {
 
             // console.log(ind)
             // console.log(v)
-
+            console.log(v.toString())
 
             contractInstance.methods.participateInERC20(ind, v)
                 .send({from : userAddr, value: 0})

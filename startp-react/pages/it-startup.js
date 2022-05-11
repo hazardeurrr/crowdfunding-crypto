@@ -14,7 +14,7 @@ const ITStartup = () => {
             <Navbar />
             <MainBanner />
             {/* <Features /> */}
-            <FeaturedProjectCarrousel/>
+            {/* <FeaturedProjectCarrousel/> */}
             <CategoriesLight />
             <ProjectGridMain />
             <DiscoverArea />

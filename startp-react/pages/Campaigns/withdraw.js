@@ -63,15 +63,17 @@ const Withdraw = (props) => {
     }
 
   const withdrawMoney = () => {
-    if(connected == true && chainID == campaign.network && ctrInstance != undefined){
-        //connect to Metamask and check for a refund
-        //const campCtrInstance = new web3Instance.eth.Contract(campaignAbi.campaignAbi, campaign.contract_address)
-        
-         payCreator(ctrInstance);
-    } else {
-            setErrorMsg("You're not connected. Please connect to Metamask on the right network")
-            openSnackbar()
-        }
+      if(campaign !== undefined){
+        if(connected == true && chainID == campaign.network && ctrInstance != undefined){
+            //connect to Metamask and check for a refund
+            //const campCtrInstance = new web3Instance.eth.Contract(campaignAbi.campaignAbi, campaign.contract_address)
+            
+             payCreator(ctrInstance);
+        } else {
+                setErrorMsg("You're not connected. Please connect to Metamask on the right network")
+                openSnackbar()
+            }
+      }
   }
 
   const downloadData = () => {
@@ -259,7 +261,7 @@ const showScan = () => {
 
 
   React.useEffect(() => {
-      if(web3Instance != undefined){
+      if(web3Instance != undefined && campaign !== undefined){
         if(connected == true && chainID == campaign.network){
             //connect to Metamask and check for a refund
             const campCtrInstance = new web3Instance.eth.Contract(campaignAbi.campaignAbi, campaign.contract_address)

@@ -3462,8 +3462,8 @@ Feedback CSS
   width: 260px;
   height: 260px;
   content: '';
-  z-index: -1;
-  background-image: url(/images/layer.png);
+  z-index: -1; 
+  /* background-image: url(/images/layer.png);*/
 }
 
 .testimonials-slides::after {
@@ -3474,12 +3474,12 @@ Feedback CSS
   height: 260px;
   content: '';
   z-index: -1;
-  background-image: url(/images/layer.png);
+  /* background-image: url(/images/layer.png); */
 }
 
 .testimonials-slides .owl-dots {
   position: absolute;
-  bottom: 40px;
+  bottom: 0px;
   right: 0;
   left: 0;
 }
@@ -3499,7 +3499,7 @@ Feedback CSS
   position: absolute;
   left: 0;
   right: 0;
-  text-align: center;
+  /* text-align: center; */
   margin: 0 auto;
   width: 10px;
   height: 10px;
@@ -4211,6 +4211,31 @@ Blog CSS
   padding: 8px 16px;
   font-size: 13px;
   border-radius: 50px;
+}
+
+.single-blog-post .blog-image .hot {
+  /* position: absolute;
+  right: -30px;
+  width: 200px;
+  top: 0px;
+  background: linear-gradient(135deg, #ea1010 0%, #e74343 100%);
+  color: #ffffff;
+  padding: 8px 16px;
+  font-size: 13px;
+  border-radius: 50px;
+  transform: rotate(30deg); */
+  color: #ffffff;
+  font-size: 13px;
+  position: absolute;
+  top: -8px;
+  right: -26px;
+  transform: rotate(30deg);
+  height: 0;
+  width: 140px;
+  border-bottom: 25px solid #e42222;
+  border-top: 38px solid transparent;
+  border-left: 42.5px solid transparent;
+  border-right: 15px solid transparent;
 }
 
 .single-blog-post .blog-image .dateETH {

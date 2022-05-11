@@ -158,11 +158,11 @@ class MainForm extends React.Component {
     }
 
     tokenIndex(currency){
-        if(currency == "USDC" || "p_USDC")
+        if(currency == "USDC" || currency == "p_USDC")
             return 0
-        if(currency == "ETH" || "p_MATIC")
+        if(currency == "ETH" || currency == "p_MATIC")
             return 1
-        if(currency == "BBST" || "p_BBST")
+        if(currency == "BBST" || currency == "p_BBST")
             return 2
     }
 
@@ -215,7 +215,7 @@ class MainForm extends React.Component {
             } else {
                 throw "erc20 contract instance not define"
             }
-        } else {        // <=> campagne en ETH
+        } else {        // <=> campagne en ETH ou MATIC
             tierAmountArray = this.tiersArray.map(a => this.props.web3Instance.utils.toWei(a.threshold.toString()))
             amt = this.props.web3Instance.utils.toWei(this.objective.toString())
         }
@@ -225,13 +225,16 @@ class MainForm extends React.Component {
         let st0 = [-1]
         let amountArray = am0.concat(tierAmountArray)
         let stockArray = st0.concat(tierStockArray)
+        let tokenAdd = this.tokenIndex(this.state.raisingMethod)
+        console.log(tokenAdd)
+        console.log(this.state.raisingMethod)
         // [0, tiersArray[0].threshold, tiersArray[1].threshold]
         return await this.state.factoryInstance.methods.createCampaign(
         amt, // WEI for ETH, x 10^decimals
         parseInt(this.startDate), 
         parseInt(this.endDate), 
       //  this.flexible, 
-        parseInt(this.tokenIndex(this.state.raisingMethod)),
+        parseInt(tokenAdd),
         amountArray,
         stockArray
         )
@@ -306,16 +309,19 @@ class MainForm extends React.Component {
              .child(contract_address)
              .getDownloadURL().then((downloadURL) => {
                 // console.log('File available at', downloadURL);
-    
+                let precategs = this.cats.filter(a => a !== "---").filter(function (value, index, array) { 
+                    return array.indexOf(value) === index;
+                })
+
+                let categs = precategs.length == 0 ? ["Diverse"] : precategs
+
                 const campainInfos = {
                     title: this.title,
                     start_date: this.startDate,
                     end_date: this.endDate,
                     contract_address: contract_address,
                     small_description: this.small_description,
-                    categories: this.cats.filter(a => a !== "---").filter(function (value, index, array) { 
-                        return array.indexOf(value) === index;
-                    }), // remove '---' and then remove double
+                    categories: categs, // remove '---' and then remove double
                     objective: this.objective,
                     long_desc: downloadURL,
                     currency: this.state.raisingMethod,

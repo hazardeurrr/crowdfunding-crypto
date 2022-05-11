@@ -89,7 +89,7 @@ const Navbar = () => {
         // If the provider returned by detectEthereumProvider is not the same as
         // window.ethereum, something is overwriting it, perhaps another wallet.
 
-        var web3poly = new Web3(new Web3.providers.HttpProvider("https://rpc-mumbai.maticvigil.com/"))
+        var web3poly = new Web3(new Web3.providers.HttpProvider("https://matic-mumbai.chainstacklabs.com"))
             dispatch({
                 type:'SET_WEB3POLY',
                 id: web3poly
@@ -343,7 +343,7 @@ const Navbar = () => {
                       chainName: 'Polygon Mumbai',
                       chainId: "0x13881",
                       nativeCurrency: { name: 'MATIC', decimals: 18, symbol: 'MATIC' },
-                      rpcUrls: ["https://rpc-mumbai.maticvigil.com/"]
+                      rpcUrls: ["https://matic-mumbai.chainstacklabs.com"]
                     }
                   ]
                 });
