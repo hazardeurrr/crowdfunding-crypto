@@ -16,7 +16,7 @@ const ProjectGridMain = () => {
     // const [user, setUser] = React.useState(undefined);
 
     const displayProjects = () => {
-        const len = projectList.length > 6 ? 6 : projectList.length
+        const len = projectList.length > 9 ? 9 : projectList.length
         var rows = [];
         for (var i = 0; i < len; i++) {
                     rows.push( <div key={i} className="col-lg-4 col-md-6">

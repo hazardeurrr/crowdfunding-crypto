@@ -12,13 +12,20 @@ const MainBanner = () => {
 
     const showProject = () => {
         if(projectList.length > 0){
-            return <div style={{marginTop: 50}}><MainProjectFeaturedCarousel /></div>
+            return <div className="mainCarousel"><MainProjectFeaturedCarousel /></div>
 						    // return <div style={{marginTop: 50}}><MainProjectFeatured project={projectList[0]} /></div>
         }
     }
 
+		const carouselCSS = () => {
+			return <div className="col-lg-5">
+								{/* <div className="banner-form ml-3"> */}
+                                    {showProject()}
+														</div>
+		}
+//style={{paddingTop: 100, marginBottom: -50}}
     return (
-        <div className="main-banner" style={{paddingTop: 150, marginBottom: -50}}>
+        <div className="main-banner" >  
 			<div className="d-table">
 				<div className="d-table-cell">
 					<div className="container">
@@ -44,13 +51,9 @@ const MainBanner = () => {
 								</div>
 							</div>
 
-							{/* <div className="col-lg-5 offset-lg-1"> */}
-                            <div className="col-lg-6 col-md-12">
+							{carouselCSS()}
 
-								{/* <div className="banner-form ml-3"> */}
-                                    {showProject()}
-								{/* </div> */}
-														</div>
+							
 						</div>
 					</div>
 				</div>

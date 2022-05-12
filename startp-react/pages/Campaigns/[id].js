@@ -346,11 +346,11 @@ const Campaign = (props) => {
     const showNetwork = () => {
         if(campaign.network == chain){
             return <>
-                <img style={{height: 18, marginTop: -2,marginLeft: 2, marginRight: 1}} src={'/images/cryptoicons/eth.svg'}/> Ethereum
+                <img style={{height: 15, marginTop: -2,marginLeft: 2, marginRight: 0}} src={'/images/cryptoicons/smallethgray.svg'}/> Ethereum
             </>
         } else if(campaign.network == poly_chain){
             return <>
-                <img style={{height: 18, marginTop: -2, marginLeft: 2,marginRight: 1}} src={'/images/cryptoicons/matic.svg'}/> Polygon
+                <img style={{height: 15, marginTop: -2, marginLeft: 2,marginRight: 1}} src={'/images/cryptoicons/smallpolygongray.svg'}/> Polygon
             </>
         }
     }

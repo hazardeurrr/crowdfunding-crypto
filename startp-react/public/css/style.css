@@ -3448,7 +3448,7 @@ Feedback CSS
 }
 
 .testimonials-slides {
-  background-color: #f7fbfe;
+  /* background-color: #f7fbfe; */
   max-width: 850px;
   margin: 90px auto 30px;
   position: relative;
@@ -3488,7 +3488,7 @@ Feedback CSS
   width: 18px;
   height: 18px;
   background: transparent !important;
-  border: 2px solid #D6D6D6;
+  /* border: 2px solid #D6D6D6; */
   position: relative;
   margin: 0 3px;
 }
@@ -4234,7 +4234,7 @@ Blog CSS
   width: 140px;
   border-bottom: 25px solid #e42222;
   border-top: 38px solid transparent;
-  border-left: 42.5px solid transparent;
+  border-left: 43.5px solid transparent;
   border-right: 15px solid transparent;
 }
 
@@ -10775,3 +10775,14 @@ Go Top CSS
 }
 
 /* 6084a4 */
+@media only screen and (max-width: 767px){
+
+  .bigOnly{
+    visibility: hidden;
+  }
+}
+
+.simpleCa{
+  margin-top: 1px;
+  margin-right: 3px;
+}

@@ -48,7 +48,7 @@
   .main-banner {
     height: 100%;
     padding-top: 150px;
-    padding-bottom: 80px;
+    /* padding-bottom: 80px; */
     background-position: center;
   }
   .main-banner .hero-content {
@@ -1783,13 +1783,22 @@
 /* Min width 768px to Max width 991px */
 @media only screen and (min-width: 768px) and (max-width: 991px) {
 
-
-  
   .main-banner {
+    height: 100%;
+    padding-top: 150px;
+    /* padding-bottom: 80px; */
+    background-position: center;
+  }
+  .main-banner .hero-content {
+    margin-bottom: 45px;
+    text-align: center;
+  }
+  
+  /* .main-banner {
     height: 100%;
     padding-top: 185px;
     padding-bottom: 165px;
-  }
+  } */
   .main-banner .banner-image {
     text-align: center;
     margin-top: 45px;
@@ -2388,6 +2397,12 @@
     height: 240px !important;
   }
 
+  .main-banner {
+    height: 100%;
+    /* padding-top: 120px; */
+    background-position: center;
+  }
+
   .main-banner .hero-content h1 {
     font-size: 35px;
   }
@@ -2608,7 +2623,10 @@
 /* Min width 1550px */
 @media only screen and (min-width: 1550px) {
 
- 
+  .main-banner {
+    padding-top: 150px;
+    background-position: center;
+  }
 
   .iot-banner-image {
     right: 90px;
@@ -2643,6 +2661,12 @@
     max-width: 1250px;
   }
 
+  .main-banner {
+    padding-top: 20px;
+    background-position: center;
+    margin-bottom: -135px;
+  }
+
   .blog-details-desc .article-content iframe{
     width: 768px !important;
     height: 432px !important;
@@ -2656,3 +2680,21 @@
   }
 }
 /*# sourceMappingURL=responsive.css.map */
+
+@media only screen and (min-width: 1200px) and (max-width: 1349px) {
+
+
+  .main-banner {
+    padding-top: 20px;
+    background-position: center;
+    margin-bottom: -135px;
+  }
+
+
+}
+
+@media only screen and (min-width: 992px) {
+  .mainCarousel {
+    margin-top: 50px;
+  }
+}

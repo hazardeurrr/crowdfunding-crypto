@@ -10,7 +10,7 @@ import {chain} from '@/utils/chain'
 import {poly_chain} from '@/utils/poly_chain'
 import {db, firebase} from '../../firebase-crowdfund/index'
 import { HiFire } from 'react-icons/hi';
-
+import { BsArrowUpRight } from 'react-icons/bs'
 
 
 const MainProjectFeatured = (props) => {
@@ -61,8 +61,32 @@ const MainProjectFeatured = (props) => {
         })
     }
 
-    const timeLeft = () => {
+    // const timeLeft = () => {
         
+    //     let timeLeft = end_date - now;
+    //     let days = Math.floor(timeLeft / 86400); 
+    //     let hours = Math.floor((timeLeft - (days * 86400)) / 3600);
+    //     let minutes = Math.floor((timeLeft - (days * 86400) - (hours * 3600 )) / 60);
+    //     if(start_date > now){
+    //         let timeTilStart = start_date - now;
+    //         let daysTilStart = Math.floor(timeTilStart / 86400);
+    //         if(daysTilStart > 0)
+    //             return "Starts in " + daysTilStart.toString() + " day" + SorNot(daysTilStart)
+    //         else
+    //             return "Starts soon !"
+    //     } else if(days > 0){
+    //             return days.toString() + " day" + SorNot(days) +" left"
+    //         } else if(days == 0 && hours > 0){                
+    //             return hours.toString() + " hour" + SorNot(hours) + " left"
+    //         } else if(days == 0 && hours == 0 && minutes >= 0){
+    //             return minutes.toString() + " minute" + SorNot(minutes) + " left"
+    //         } else {
+    //             return "Ended " + Math.abs(days.toString()) + " day" + SorNot(days) + " ago"
+    //         }
+    //     }
+
+    const timeLeft = () => {
+  
         let timeLeft = end_date - now;
         let days = Math.floor(timeLeft / 86400); 
         let hours = Math.floor((timeLeft - (days * 86400)) / 3600);
@@ -70,26 +94,23 @@ const MainProjectFeatured = (props) => {
         if(start_date > now){
             let timeTilStart = start_date - now;
             let daysTilStart = Math.floor(timeTilStart / 86400);
-            if(daysTilStart > 0)
-                return "Starts in " + daysTilStart.toString() + " day" + SorNot(daysTilStart)
-            else
-                return "Starts soon !"
-        } else if(days > 0){
-                return days.toString() + " day" + SorNot(days) +" left"
-            } else if(days == 0 && hours > 0){                
-                return hours.toString() + " hour" + SorNot(hours) + " left"
-            } else if(days == 0 && hours == 0 && minutes >= 0){
-                return minutes.toString() + " minute" + SorNot(minutes) + " left"
+            return "Starts soon "
+        } else {
+            if(days > 0){
+                return days.toString() + " " + dayS(days) + " left"
+            }else if((minutes >= 0 && hours == 0 && days == 0) || (hours > 0 && days == 0)) {
+                return "Last day !"
             } else {
-                return "Ended " + Math.abs(days.toString()) + " day" + SorNot(days) + " ago"
+                return "Ended"
             }
         }
+    }
 
-    const SorNot = (nb) => {
-        if(nb != 0 && nb != -1 && nb != 1){
-            return "s"
+    const dayS = (nbDays) => {
+        if(nbDays == 0 || nbDays == -1 || nbDays == 1){
+            return "day"
         } else {
-            return ""
+            return "days"
         }
     }
 
@@ -112,10 +133,64 @@ const MainProjectFeatured = (props) => {
 
     const showCats = () => {
         if(campaign.categories.length > 1){
-            return campaign.categories[0] + " | " + campaign.categories[1]
+            return <div style={{display:'flex'}}>{getCatIcon(campaign.categories[0])}{campaign.categories[0]} &ensp;|&ensp; {getCatIcon(campaign.categories[1])}{campaign.categories[1]}</div>
         } else if(campaign.categories.length != 0){
-            return campaign.categories[0]
+            return <span style={{display:'flex'}}>{getCatIcon(campaign.categories[0])}{campaign.categories[0]}</span>
         }
+    }
+
+    const getCatIcon = (cat) => {
+        if(cat == "Art"){
+            return <div className="icon simpleCa">
+                <i className='bx bx-paint'></i>
+            </div>
+        }
+        if(cat == "Charity"){
+            return <div className="icon simpleCa">
+                <i className='bx bx-donate-heart'></i>
+            </div>
+        }
+        if(cat == "Healthcare"){
+            return <div className="icon simpleCa">
+                <i className='bx bx-health'></i>
+            </div>
+        }
+        if(cat == "Green"){
+            return <div className="icon simpleCa">
+                <i className='bx bx-world'></i>
+            </div>           
+        }
+        if(cat == "Cryptocurrency"){
+            return <div className="icon simpleCa">
+                <i className='bx bx-bitcoin'></i>
+            </div>        
+        }
+        if(cat == "Games"){
+            return <div className="icon simpleCa">
+                <i className='bx bx-game'></i>
+            </div>    
+        }
+        if(cat == "Technology"){
+            return <div className="icon simpleCa">
+                <i className='bx bx-chip'></i>
+            </div> 
+        }
+        if(cat == "Innovation"){
+            return <div className="icon simpleCa">
+                <i className='bx bx-bulb'></i>
+            </div> 
+        }
+        if(cat == "Special Event"){
+            return <div className="icon simpleCa">
+                <i className='bx bx-star'></i>
+            </div>
+        }
+        if(cat == "Diverse"){
+            return <div className="icon simpleCa">
+                <i className='bx bx-unite'></i>
+            </div>
+        }
+
     }
 
     const cat = () => {
@@ -125,9 +200,9 @@ const MainProjectFeatured = (props) => {
                     return (
                         <div className="date" style={{display:'flex'}}>
                             {/* <Icon.Bookmark/> */}
-                            {returnCurrencyIconWhite()}
+                            {/* {returnCurrencyIconWhite()} */}
                         {/* <img style={{height: 20}} src={'/images/cryptoicons/ethwhite.svg'}/>  */}
-                        <span style={{marginLeft: 5}}>{showCats()}</span>
+                        <span>{showCats()}</span>
                         </div>
                     )
                 }
@@ -136,9 +211,9 @@ const MainProjectFeatured = (props) => {
                     return (
                         <div className="date" style={{display:'flex'}}>
                         
-                            {returnCurrencyIconWhite()}
+                            {/* {returnCurrencyIconWhite()} */}
                           {/* <img style={{height: 20}} src={'/images/cryptoicons/maticwhite.svg'}/>  */}
-                          <span style={{marginLeft: 5}}>{showCats()}</span>
+                          <span>{showCats()}</span>
                         </div>
                     )
                 }
@@ -245,7 +320,7 @@ const MainProjectFeatured = (props) => {
                 {showHot()}
             </div>
             
-            <div className="blog-post-content" style={{borderRadius: 50}}>
+            <div className="blog-post-content">
                     <h3>
                         <Link href={{
                             pathname: "/Campaigns/[id]",
@@ -259,7 +334,10 @@ const MainProjectFeatured = (props) => {
                     </h3>
                 {/* <span width="10">By <ChipUser user={user}/></span> */}
                 <p>{displayDesc()}</p>
-                <b style={{fontSize: 16.5, marginTop: 2}}>{displayRaised()} {displayCurrency()}</b>
+                <div style={{display:"flex", justifyContent:"space-between"}}>
+                    <div style={{display:'flex'}}><p style={{marginTop: -0}}><BsArrowUpRight size={20}/></p><b style={{fontSize: 16.5, marginTop: 2}}> &nbsp;{displayRaised()} {displayCurrency()}</b></div>
+                    <div style={{display:'flex'}}><p><svg style={{marginTop: -2}} xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="feather feather-clock"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg> {timeLeft()}</p></div>
+                </div>
                 {/* {displayProgressBar()} */}
                 {/* <div style={{display:"flex", justifyContent:"space-between"}}>
                     <p><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="feather feather-clock"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>   {timeLeft()}</p>

@@ -443,11 +443,11 @@ const PricingTiers = (props) => {
     const showNetwork = () => {
         if(campaign.network == chain){
             return <>
-                Ethereum <img style={{height: 15, marginLeft: 2}} src={'/images/cryptoicons/eth.svg'}/>
+                <img style={{height: 15, marginRight: 3, marginTop: -1}} src={'/images/cryptoicons/smallethgray.svg'}/>Ethereum 
             </>
         } else if(campaign.network == poly_chain){
             return <>
-                Polygon <img style={{height: 15, marginLeft: 2}} src={'/images/cryptoicons/matic.svg'}/>
+                <img style={{height: 15, marginRight: 3, marginTop: -1}} src={'/images/cryptoicons/smallpolygongray.svg'}/>Polygon 
             </>
         }
     }
@@ -501,6 +501,7 @@ const PricingTiers = (props) => {
         } else {
             return <div style={{marginTop: 30}}>
             <h3><IconFeather.AlertTriangle /> You are not connected to the right network !</h3>
+            <p>Please switch to <strong>{showNetwork()}</strong> network to donate to this campaign.</p>
         </div>
         }
     }
@@ -541,9 +542,9 @@ const PricingTiers = (props) => {
             <div className="container">
                 <div className="section-title">
                     <h2>{campaign.title}</h2>
-                    <p>{campaign.small_description}</p>
+                    <p style={{marginTop: 5}}>{campaign.small_description}</p>
                     <div className="bar"></div>
-                    <p>Network : {showNetwork()}</p>
+                    {/* <p>Network : {showNetwork()}</p> */}
                     {showChoose()}
                 </div>
 

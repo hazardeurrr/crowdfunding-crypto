@@ -25,7 +25,7 @@ const MainProjectFeaturedCarousel = ({p}) => {
     }, [])
 
     const options = {
-        loop: false,
+        loop: true,
         nav: false,
         dots: true,
         autoplay: true,

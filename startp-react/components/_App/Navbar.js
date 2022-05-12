@@ -282,19 +282,19 @@ const Navbar = () => {
         if(chainID == chain){   // ETH
             return <Link href="#">
             <a onClick={e => e.preventDefault()} className="nav-link">
-                <div style={{display:"flex"}}><img style={{height: 20}} src="/images/cryptoicons/eth.svg" /> <span style={{marginLeft: 5}}>Ethereum</span> <Icon.ChevronDown /></div>
+                <div style={{display:"flex"}}><img style={{height: 20, marginTop: 1}} src="/images/cryptoicons/smallethgray.svg" /> <span style={{marginLeft: 5}}>Ethereum</span> <Icon.ChevronDown /></div>
             </a>
             </Link>
         } else if(chainID == poly_chain) {      // POLYGON MAINNET
             return <Link href="#">
             <a onClick={e => e.preventDefault()} className="nav-link">
-                <div style={{display:"flex"}}><img style={{height: 20}} src="/images/cryptoicons/matic.svg" /> <span style={{marginLeft: 5}}>Polygon</span> <Icon.ChevronDown /></div>
+                <div style={{display:"flex"}}><img style={{height: 20, marginTop: 1}} src="/images/cryptoicons/smallpolygongray.svg" /> <span style={{marginLeft: 5}}>Polygon</span> <Icon.ChevronDown /></div>
             </a>
             </Link>
         } else {
             return <Link href="#">
             <a onClick={e => e.preventDefault()} className="nav-link">
-                <div style={{display:"flex"}}><Icon.AlertCircle/> <span style={{marginLeft: 5}}>Unknown</span> <Icon.ChevronDown /></div>
+                <div style={{display:"flex"}}><Icon.AlertCircle/> <span style={{marginLeft: 5, marginTop: 1}}>Unknown</span> <Icon.ChevronDown /></div>
             </a>
             </Link>
         }
@@ -422,7 +422,7 @@ const Navbar = () => {
                                     e.preventDefault();
                                     switchToRinkeby()                   // !!!!!!!!!!!!!!!!!!!!!!!! CHANGER TO SWITCH TO ETH !!!!!!!!!!!!!!!!!
                                     }} className="nav-link">
-                                    <div style={{display:"flex"}}><img style={{height: 20}} src="/images/cryptoicons/eth.svg" /> <span style={{marginLeft: 5}}>Ethereum</span></div>
+                                    <div style={{display:"flex"}}><img style={{height: 18, marginTop: 1}} src="/images/cryptoicons/smallethgray.svg" /> <span style={{marginLeft: 5}}>Ethereum</span></div>
                                 </a>
                                 </Link>                           
                             </li>
@@ -433,7 +433,7 @@ const Navbar = () => {
                                     e.preventDefault();
                                     switchToMumbai()                   // !!!!!!!!!!!!!!!!!!!!!!!!!!! CHANGER TO SWITCH TO POLYGON !!!!!!!!!!!
                                     }} className="nav-link">
-                                    <div style={{display:"flex"}}><img style={{height: 20}} src="/images/cryptoicons/matic.svg" /> <span style={{marginLeft: 5}}>Polygon</span></div>
+                                    <div style={{display:"flex"}}><img style={{height: 18, marginTop: 1}} src="/images/cryptoicons/smallpolygongray.svg" /> <span style={{marginLeft: 5}}>Polygon</span></div>
                                 </a>
                                 </Link>
                             </li>                            
