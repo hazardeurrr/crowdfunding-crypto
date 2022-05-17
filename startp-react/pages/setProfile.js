@@ -7,6 +7,7 @@ import ProfilePic from "@/components/ITStartup/ProfilePic";
 import ProfileForm from "@/components/ITStartup/ProfileForm";
 import { useSelector, useDispatch } from 'react-redux'
 import {chain} from '@/utils/chain'
+import {poly_chain} from '@/utils/poly_chain'
 
 
 const SetProfile = (props) => {
@@ -28,7 +29,7 @@ const SetProfile = (props) => {
     };
 
     const showForm = (amount) => {
-        if(connected == true && chainID == chain){
+        if(connected == true && (chainID == chain || chainID == poly_chain)){
             return <>
             <PageBanner pageTitle="User Profile" />
             <ProfileForm currentUser={currentUser}/>

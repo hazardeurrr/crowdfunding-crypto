@@ -6,16 +6,17 @@ const Partner = () => {
         <>
             <div className="ready-to-talk">
                 <div className="container">
-                    <h3>Ready to talk?</h3>
-                    <p>Our team is here to answer your question about StartP</p>
-                    
-                    <Link href="/contact">
-                        <a className="btn btn-primary">Contact Us</a>
+                    <h3>Powered by <img height={30} style={{marginRight: 5, marginTop: -5, marginLeft: 1}} src="/images/cryptoicons/bbstgrad.png"/>BBST</h3>
+                    <p>BlockBoosted's ecosystem is powered by our ERC-20 token BBST.</p>
+                    <p style={{marginTop: -5}}>0% fee & platform advantages | Fundraising & contributions in BBST | Exclusive features & services for holders<br></br>Rewards in BBST | Governance right & community | Buy-back & Burn | Deflationnary aspect...</p>
+
+                    <Link href="/token">
+                        <a className="btn btn-primary">Buy BBST on Uniswap</a>
                     </Link>
 
                     <span>
-                        <Link href="#">
-                            <a>Or, get started now with a free trial</a>
+                        <Link href="/token">
+                            <a>Or learn more about BBST here</a>
                         </Link>
                     </span>
                 </div>
@@ -23,7 +24,7 @@ const Partner = () => {
 
             <div className="partner-area partner-section">
                 <div className="container">
-                    <h5>More that 1.5 million businesses and organizations use StartP</h5>
+                    <h5>↓ Backed by top investors ↓</h5>
 
                     <div className="partner-inner">
                         <div className="row justify-content-center">

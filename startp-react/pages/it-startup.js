@@ -6,6 +6,7 @@ import CategoriesLight from "@/components/ITStartup/CategoriesLight";
 import ProjectGridMain from "@/components/ITStartup/ProjectGridMain";
 import DiscoverArea from '@/components/ITStartup/DiscoverArea';
 import FeaturedProjectCarrousel from '@/components/ITStartup/FeaturedProjectCarrousel';
+import Partner from '@/components/Common/Partner';
 
 
 const ITStartup = () => {
@@ -17,6 +18,8 @@ const ITStartup = () => {
             {/* <FeaturedProjectCarrousel/> */}
             <CategoriesLight />
             <ProjectGridMain />
+            <Partner />
+
             <DiscoverArea />
             {/* <ServicesArea />
             <OurFeatures />
