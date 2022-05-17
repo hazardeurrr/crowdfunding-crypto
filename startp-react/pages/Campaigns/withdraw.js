@@ -114,7 +114,6 @@ const Withdraw = (props) => {
   }
 
   function getSubsEvent() {
-
     if(connected == true && chainID == campaign.network && ctrInstance != undefined){
         ctrInstance.getPastEvents("Participation", ({fromBlock: 'earliest'}))
         .then(function(events){
@@ -251,10 +250,12 @@ const Withdraw = (props) => {
 }
 
 const showScan = () => {
-    if(campaign.network == chain){
-        return <a href={`https://rinkeby.etherscan.io/tx/${Tx}`} target="_blank">{Tx}</a>
-    } else if(campaign.network == poly_chain){
-        return <a href={`https://mumbai.polygonscan.com/tx/${Tx}`} target="_blank">{Tx}</a>
+    if(campaign !== undefined){
+        if(campaign.network == chain){
+            return <a href={`https://rinkeby.etherscan.io/tx/${Tx}`} target="_blank">{Tx}</a>
+        } else if(campaign.network == poly_chain){
+            return <a href={`https://mumbai.polygonscan.com/tx/${Tx}`} target="_blank">{Tx}</a>
+        }
     }
 }
 
@@ -290,7 +291,7 @@ const showScan = () => {
             }
       }
     }
-  }, [web3Instance])
+  }, [web3Instance, campaign])
 
 
   const displayWithdrawBtn = () => {
