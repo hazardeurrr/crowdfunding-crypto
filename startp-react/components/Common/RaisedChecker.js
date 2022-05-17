@@ -59,6 +59,10 @@ const RaisedChecker = (props) => {
         })
       }
     }
+    return () => {
+      setRaisedValue(null); // This worked for me
+      setweb3(undefined)
+    };
   }, [web3Instance, poly_web3Instance, eth_web3Instance, web3])
 
   const callRaiseCheck = (contractBalance, ctr) => {
