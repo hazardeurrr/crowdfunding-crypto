@@ -28,10 +28,10 @@ const Layout = ({ children }, {c, crea}) => {
                         creators.push(doc.data())
                     }
                 });
-                changeUserState(creators)
-
-                changeState(campaigns);
+                
             })
+            changeUserState(creators);
+            changeState(campaigns);
         }).catch((error) => {
             console.log("Error getting document:", error);
         });
