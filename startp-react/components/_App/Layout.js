@@ -57,7 +57,7 @@ const Layout = ({ children }, {c, crea}) => {
                 <meta charSet="utf-8" />
                 <meta name="viewport" content="width=device-width, initial-scale=1" />
                 <title>BlockBoosted App - Boost your project with crypto</title>
-                <meta name="description" content="BlockBoosted App · Create your campaign and start raising funds in crypto · Get rewarded in BBST for your donations · Support projects that make sense with 0% fee · Crypto crowdfunding" />
+                <meta name="description" content="Create your campaign and start raising funds in crypto · Get rewarded in BBST for your donations · Support projects that make sense with 0% fee · Crypto crowdfunding" />
             </Head>
             {children}
 
