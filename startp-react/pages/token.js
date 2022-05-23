@@ -160,7 +160,7 @@ const TokenDetails = () => {
                                                 <p>
                                                     When you participate to a crowdfunding campaign on our platform, you become eligible for $BBST rewards.<br></br>
                                                     It acts as an incentive and rewards you for using the protocol.<br></br>
-                                                    Every week, up to 15 000 $BBST will be distributed to the donators depending on the amount they donated. Note that each address will be limited to a certain amount of rewards per week to prevent abuse.<br></br>
+                                                    Every week, up to 15 000 $BBST will be distributed to the donors depending on the amount they donated. Note that each address will be limited to a certain amount of rewards per week to prevent abuse.<br></br>
                                                     This ensures a fair distribution with a bonus for the most involved users. <br></br>
                                                     A total of 9.2M $BBST will be distributed in rewards to the platform users over the years.<br></br>
                                                 </p>

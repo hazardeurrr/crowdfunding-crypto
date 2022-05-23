@@ -1663,6 +1663,9 @@
     margin-right: 5px;
     font-size: 10px;
   }
+  .startp-nav nav .others-option .btn-not-displayed {
+    display: none;
+  }
   .startp-nav nav .others-option .cart-wrapper-btn {
     margin-right: 25px;
   }
@@ -2366,6 +2369,9 @@
     padding: 6px 12px;
     margin-right: 5px;
     font-size: 10px;
+  }
+  .startp-nav nav .others-option .btn-not-displayed {
+    display: none;
   }
   .startp-nav nav .others-option .cart-wrapper-btn {
     margin-right: 25px;

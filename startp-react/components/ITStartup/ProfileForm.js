@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useReducer } from 'react';
 import ProfilePic from "@/components/ITStartup/ProfilePic";
 import { updateDoc, getOne, postDoc } from 'firebase-crowdfund/queries'
 import firebase from 'firebase-crowdfund/index';
@@ -9,30 +9,25 @@ import Dialog from '@material-ui/core/Dialog';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import Link from 'next/link';
+import { useSelector, useDispatch } from 'react-redux';
+import Skeleton from '@material-ui/lab/Skeleton';
 
 
 const ProfileForm = (props) => {
-    // const data = undefined;
-
-    let userAddr = props.address
 
     const [name, setName] = useState('');
     const [email, setEmail] = useState('');
     const [bio, setBio] = useState('');
     const [twitter, setTwitter] = useState('');
-    const [site, setSite] = useState('');
     const[image, setImage] = useState('');
     const [dialogOpen, setDialog] = useState(false);
+    const currentUser = props.currentUser;
 
     const handleChangeName = (event) => setName(event.target.value);
     const handleChangeEmail = (event) => setEmail(event.target.value);
     const handleChangeBio = (event) => setBio(event.target.value);
     const handleChangeTwitter = (event) => setTwitter(event.target.value);
     const handleChangeSite = (event) => setSite(event.target.value);
-
-    function showAddress() {
-        // console.log(userAddr)
-    }
 
     const handleChangeImage = (image) => {
         // console.log("image changed")
@@ -53,6 +48,7 @@ const ProfileForm = (props) => {
 
             let username = result.additionalUserInfo.username
             setTwitter(username)
+            // user.twitter = username;
 
         }).catch((error) => {
             // Handle Errors here.
@@ -64,21 +60,14 @@ const ProfileForm = (props) => {
 
 
     function loadData() {
-        let user = undefined
-        // let userAddr = useSelector((state) => state.address)
-        // console.log('Adresse: ' + userAddr)
-        getOne('profile', userAddr, function(doc) {
-            if (doc.exists) {
-                user = doc.data()
-               // console.log("user info : " + JSON.stringify(user))
-                setName(user.username);
-                setEmail(user.email);
-                setImage(user.image);
-                setBio(user.bio);
-                setTwitter(user.twitter);
-            //    setSite(user.website);
-            }
-        })
+
+        if(currentUser != undefined) {
+            setName(currentUser.username);
+            setEmail(currentUser.email);
+            setImage(currentUser.image);
+            setBio(currentUser.bio);
+            setTwitter(currentUser.twitter);
+        }
     }
 
     function openDialog(){
@@ -115,32 +104,22 @@ const ProfileForm = (props) => {
     function handleSubmit(event) {
         event.preventDefault();
 
-        let user = undefined
-        getOne('profile', userAddr, function(doc) {
-            if (doc.exists) {
-                user = doc.data()
-                user.username = name;
-                user.email = email;
-                user.image = image;
-                user.bio = bio;
-                user.twitter = twitter;
-             //   user.website = site;
+        let user = currentUser
 
-                updateDoc(user.eth_address, 'profile', user, function() {
-                    openDialog();
-                })
-            } else {
-                console.log("Document not found")
-            }
+        user.username = name;
+        user.email = email;
+        user.image = image;
+        user.bio = bio;
+        user.twitter = twitter;
 
-
+        updateDoc(user.eth_address, 'profile', user, function() {
+            openDialog();
         })
-
     }
 
     useEffect(() => {
         loadData()
-    }, [props.address] )
+    }, [props.currentUser] )
 
     const displayTwitter = () => {
         if(twitter != '' && twitter != undefined && twitter != null){
@@ -164,8 +143,9 @@ const ProfileForm = (props) => {
         setTwitter('')
     }
 
-    return (
-        <>
+    const displayProfileForm = () => {
+        if(currentUser != undefined){
+            return <>
             <div className="services-area-two pt-80 pb-50 bg-f9f6f6">
                 <div className="container">
                     <div className="section-title">
@@ -187,7 +167,7 @@ const ProfileForm = (props) => {
                         aria-labelledby="alert-dialog-title"
                         aria-describedby="alert-dialog-description"
                     >
-                        {displayValidation(userAddr)}
+                        {displayValidation(currentUser.eth_address)}
                         {/* <DialogActions>
                         <Button onClick={this.closeDialog} color="primary">
                             Close
@@ -197,11 +177,13 @@ const ProfileForm = (props) => {
 
                     <div className="faq-contact">
                         <h3>Complete the information about your profile</h3>
-                        <form action={`/User/${userAddr}`} onSubmit={(event) => {
+                        <form action={`/User/${currentUser.eth_address}`} onSubmit={(event) => {
                             handleSubmit(event)
                         }
                         }>
                             <div className="row">
+                                <p><i> Address : {currentUser.eth_address}</i><br/></p>
+
                                 <p><strong> Displayed name </strong><br/>Choose a name that will be displayed to the other users</p>
                                 <div className="col-lg-12 col-md-12">
                                     <div className="form-group">
@@ -232,25 +214,7 @@ const ProfileForm = (props) => {
                                     </div>
                                 </div>
 
-                                {/* <p><strong> Twitter account </strong><br/>Link your Twitter account to be certified</p>
-                                <div className="col-lg-12 col-md-12">
-                                    <div className="form-group">
-                                        <input type="text" placeholder="@" className="form-control" value={twitter} onChange={handleChangeTwitter}/>
-                                        <TwitterLogin
-                                            authCallback={authHandler}
-                                            consumerKey={secrets.consumer_key}
-                                            consumerSecret={secrets.consumer_secret}
-                                            buttonTheme="light_short"
-                                        />
-                                    </div>
-                                </div> */}
-
-                                {/* <p><strong> Twitter account </strong><br/>Enter your twitter username</p>
-                                <div className="col-lg-12 col-md-12">
-                                    <div className="form-group">
-                                        <input type="text" placeholder="@" className="form-control" value={twitter} onChange={handleChangeTwitter}/>
-                                    </div>
-                                </div> */}
+                    
                                 <p><strong> Twitter account </strong><br/>Connect to Twitter to link your account to your profile</p>
                                 <div className="col-lg-12 col-md-12">
                                     <div className="form-group">
@@ -258,16 +222,6 @@ const ProfileForm = (props) => {
                                         
                                     </div>
                                 </div>
-
-                                
-
-                                {/* <p><strong> Website </strong></p>
-                                <div className="col-lg-12 col-md-12">
-                                    <div className="form-group">
-                                        <input type="url" id="url" pattern="https://.*" placeholder="https://your-site.com" className="form-control" 
-                                        value={site} onChange={handleChangeSite}/>
-                                    </div>
-                                </div> */}
 
                                 <div className="col-lg-12 col-md-12">
                                     <button className="btn btn-primary" type="submit" onClick={(event) => {
@@ -279,6 +233,68 @@ const ProfileForm = (props) => {
                 </div>
             </div>
         </>
+        } else {
+            return  <>
+            <div className="services-area-two pt-80 pb-50 bg-f9f6f6">
+                <div className="container">
+                    <div className="section-title">
+                        <h2>Profile</h2>
+                        <div className="bar"></div>
+                        <p>Customize your profile here.</p>
+                    </div>
+
+                    <div className="faq-contact">
+                        <h3>Complete the information about your profile</h3>
+                            <div className="row">
+                                <p style={{display:'flex'}}><i> Address : </i><Skeleton animation={false} variant="text"/><br/></p>
+
+                                <p><strong> Displayed name </strong><br/>Choose a name that will be displayed to the other users</p>
+                                <div className="col-lg-12 col-md-12">
+                                    <div className="form-group">
+                                        <Skeleton animation={false} variant="rect" height={35} />
+                                    </div>
+                                </div>
+
+                                <p><strong> Email </strong><br/>Enter your email address.</p>
+                                <div className="col-lg-12 col-md-12">
+                                    <div className="form-group">
+                                        <Skeleton animation={false} variant="rect" height={35} />
+                                    </div>
+                                </div>
+                                <p><i style={{fontSize: 12}}>Email is NOT mandatory. However, if you are waiting for a reward after a participation, please make sure this field is filled
+                                    as it's currently the only way for us to establish direct contact between creators and contributors.</i></p>
+
+                                <p><strong> Profile Pic </strong><br/>Choose a profile picture to represent your account</p>
+                                <div className="col-lg-12 col-md-12">
+                                    <div className="form-group">
+                                        <Skeleton animation={false} variant="rect" height={40} />
+                                    </div>
+                                </div>
+
+                                <p><strong> Bio </strong><br/> Make a short description of yourself.</p>
+                                <div className="col-lg-12 col-md-12">
+                                    <div className="form-group">
+                                        <Skeleton animation={false} variant="rect" height={150} />
+                                    </div>
+                                </div>
+
+                    
+                                <p><strong> Twitter account </strong><br/>Connect to Twitter to link your account to your profile</p>
+                                <div className="col-lg-12 col-md-12">
+                                    <div className="form-group">
+                                        <Skeleton animation={false} variant="rect" height={45} />
+                                    </div>
+                                </div>
+                            </div>
+                    </div>
+                </div>
+            </div>
+        </>
+        }
+    }
+
+    return (
+        displayProfileForm()
     )
 }
 

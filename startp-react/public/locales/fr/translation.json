@@ -2,7 +2,7 @@
     "intermediates": "Pas d'intermédiaire",
     "nofee" : "PAS DE FRAIS",
     "forcontributors" : "pour les contributeurs",
-    "joinrevolution" : "Rejoignez la révolution du crowdfunding avec la dApp BlockBoosted.",
+    "joinrevolution" : "Rejoignez la révolution du crypto-financement avec la dApp BlockBoosted.",
     "transparent" : "Transparent et de confiance",
 
     "platformf" : "Frais de plateforme",
@@ -14,7 +14,7 @@
     "getnews" : "Soyez informés de toutes les informations sur le projet et l'IDO.",
 
 
-    "hero": "Le crowdfunding réinventé par Blockboosted",
+    "hero": "Le financement participatif réinventé par Blockboosted",
     "heroDesc":"Blockboosed est un ecosystème innovant de financement participatif via la blockchain Ethereum. Moins de frais, plus de confiance, une meilleure expérience utilisateur et des récompenses pour les contributeurs.",
     "subscribe": "Souscrivez à notre newsletter gratuitement pour rester au courant de l'avancée du projet Blockboosted ainsi que du lancement de notre IDO !",
     "emailAddress": "Entrez votre adresse mail",
@@ -25,12 +25,12 @@
     "fees": "Moins de frais de plateforme",
     "chargedFees": "Nous prenons 0% de frais pour les campagnes en BBST.",
     "fees2": "Seulement 2.5% pour les campagnes en ETH et USDC. Et pour de bonnes raisons.",
-    "fees3": "Les plateformes de crowdfunding prennent en général 5% de frais.",
+    "fees3": "Les plateformes de financement participatif prennent en général 5% de frais.",
     "repartition": "1% pour les campagnes en BBST, 2.5% pour les camapagnes terminées en ETH et USDC",
     "fees4":"Les frais sont partagés entre le fond pour la communauté (assurance & airdrops),  le burn de BBST et le paiement nos frais fixes (audits, salaires, serveurs, taxes...).",
     "noPayment": "Pas de frais de paiement ni de traitement",
     "noFees": "Pas d'intermédiaire, pas de frais ! Vous devez uniquement payer le prix du gas de la Blockchain Ethereum.",
-    "charges": "Les plateformes de crowdfunding prennent en général 3% de frais liés au traitement des paiements.",
+    "charges": "Les plateformes de crowdfunding prennent en général 3 à 5% de frais liés au traitement des paiements.",
     "cashback":"Les récompenses pour les contributeurs",
     "boostCampaign":"Les contributeurs qui boostent des projets sur Blockboosted reçoivent des tokens BBST, en fonction de leur contribution et du nombre de BBST stakés !",
     "governance":"La gouvernance pour les stakers",

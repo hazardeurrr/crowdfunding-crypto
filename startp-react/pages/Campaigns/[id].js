@@ -87,6 +87,8 @@ const Campaign = (props) => {
 
        // console.log(props.address)
 
+      
+
         getOne('campaign', props.address, function(doc) {
           if (doc.exists) {
             setCampaign(doc.data())
@@ -269,7 +271,7 @@ const Campaign = (props) => {
 
     const showHeart = () => {
         if(connected && chainID == chain)
-            return <HeartAnim campaign={campaign}/>
+            return <HeartAnim key={currentUser} campaign={campaign}/>
     }
 
     async function displayHTMLTxt(data){
@@ -431,7 +433,9 @@ const Campaign = (props) => {
 
                                 
                                 <div className="separator"></div>
-                                    {ShowTxt()}
+                                    <div id="htmlDisplay">
+                                        {ShowTxt()}
+                                    </div>
                                 </div>
                             </div>
                         </div>

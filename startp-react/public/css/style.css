@@ -10692,3 +10692,31 @@ Go Top CSS
   display: flex;
   width: 30%;
 }
+
+/* #0e314c */
+
+#htmlDisplay p, #htmlDisplay li, #htmlDisplay h1, #htmlDisplay h2, #htmlDisplay h3, #htmlDisplay h4, #htmlDisplay h5, #htmlDisplay h6{
+  color: #0e314c
+}
+
+#htmlDisplay a{
+  color: black
+}
+
+#htmlDisplay blockquote{
+  padding: 30px !important
+}
+
+#htmlDisplay a:hover{
+  color: #44ce6f
+}
+
+#htmlDisplay {
+  color: #0e314c
+}
+
+#htmlDisplay blockquote p{
+  color: #6084a4
+}
+
+/* 6084a4 */

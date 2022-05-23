@@ -96,11 +96,11 @@ const PricingTiers = (props) => {
             // onSuccess => retire du [] pending et on le met dans [] subscribers
             // onFailure => retire du [] pending
 
-            var userDoc = db.collection("profile").doc(userAddr);
-            // Atomically add a new region to the "participated" array field.
-            userDoc.update({
-                participated: firebase.firestore.FieldValue.arrayUnion(campaign.contract_address)
-            })
+            // var userDoc = db.collection("profile").doc(userAddr);
+            // // Atomically add a new region to the "participated" array field.
+            // userDoc.update({
+            //     participated: firebase.firestore.FieldValue.arrayUnion(campaign.contract_address)
+            // })
                             
             const campCtrInstance = new web3Instance.eth.Contract(campaignAbi.campaignAbi, campaign.contract_address)
                 if(campaign.currency == "ETH")
