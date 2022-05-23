@@ -13,6 +13,7 @@ const Layout = ({ children }) => {
                 <meta charSet="utf-8" />
                 <meta name="viewport" content="width=device-width, initial-scale=1" />
                 <meta name="description" content="Crowdfunding reinvented with BlockBoosted ! ... Join the crowdfunding revolution on Ethereum with the BlockBoosted dApp." />
+                    <meta name="thumbnail" content="https://blockboosted.com/images/bb_logo_full_2.png" />
                 <title>BlockBoosted - Boost your project with crypto</title>
             </Head>
             {children}

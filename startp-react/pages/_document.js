@@ -14,7 +14,6 @@ class MyDocument extends Document {
             <Html>
                 <Head>
                     <link rel="icon" type="image/png" href="/images/favicon.png"></link>
-                    <meta name="description" content="Crowdfunding reinvented with BlockBoosted ! ... Join the crowdfunding revolution on Ethereum with the BlockBoosted dApp." />
                 </Head>
                 <body dir={dir} lang={locale}>
                     <Main />
