@@ -70,7 +70,8 @@ class MainForm extends React.Component {
             dialogOpen : false,
             creationState: 0,
             new_contract_address: '',
-            initializationProgress: 0            
+            initializationProgress: 0,
+            imageProgress: 0        
         }
 
         this.handleCloseSnackbar.bind(this);
@@ -235,12 +236,53 @@ class MainForm extends React.Component {
     }
 
     createFirebaseObject(contract_addr){
+
+        this.setState({ creationState: 3 });    // etat "push to bdd"
+        if(!this.state.dialogOpen){
+            this.openDialog()
+        }
+
+        let contract_address = contract_addr.toLowerCase()
+
+        let uploadTaskImg = postImage('mainPic', this.image, contract_address)
+        uploadTaskImg.on('state_changed', 
+        (snapshot) => {
+            // Observe state change events such as progress, pause, and resume
+            // Get task progress, including the number of bytes uploaded and the total number of bytes to be uploaded
+            const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+            // console.log('Upload is ' + progress + '% done');
+            this.setState({imageProgress: progress})
+            switch (snapshot.state) {
+            case 'paused':
+                console.log('Upload is paused');
+                break;
+            case 'running':
+                console.log('Upload is running');
+                break;
+            }
+        }, 
+        (error) => {
+            // Handle unsuccessful uploads
+            console.log(error)
+        }, 
+        () => {
+            // Handle successful uploads on complete
+            // For instance, get the download URL: https://firebasestorage.googleapis.com/...
+            storage.ref('mainPic')
+             .child(contract_address)
+             .getDownloadURL().then((downloadURL) => {
+                 this.createHTMLAndPush(contract_address, downloadURL)
+             }).catch(console.error)
+        })
+    }
+
+    createHTMLAndPush = (contract_address, imageURL) => {
         this.setState({ creationState: 1 });    // etat "push to bdd"
         if(!this.state.dialogOpen){
             this.openDialog()
         }
+
         // console.log("CreatingFirebaseObject")
-        let contract_address = contract_addr.toLowerCase()
         var blob = new Blob([this.sanitizeAndParseHtml(this.html)], {
             type: "text/plain",
           });
@@ -291,7 +333,7 @@ class MainForm extends React.Component {
                     currency: this.raisingMethod,
                  //   flexible: this.flexible,
                     tiers: this.tiersArray,
-                    main_img: this.image,
+                    main_img: imageURL,
                     raised: 0,
                     likedTupleMap: {},
                     confirmed: true
@@ -311,7 +353,7 @@ class MainForm extends React.Component {
                 }).catch(console.error)
     
     
-                });
+                }).catch(console.error);
             }
         );
     }
@@ -447,6 +489,15 @@ class MainForm extends React.Component {
                 </div>    
               
                 </DialogContent></div>
+            case 3:
+                return <div style={{justifyContent:'center'}}>
+                <DialogTitle id="alert-dialog-title">Uploading Data {this.state.imageProgress.toFixed(2)}%</DialogTitle>
+                <DialogContent>    
+                    <CircularProgress style={{marginTop: 20, marginBottom: 20}}/>
+                    <DialogContentText id="alert-dialog-description">
+                Transaction confirmed : </DialogContentText>
+                <DialogContentText id="alert-dialog-description"><a href={`https://rinkeby.etherscan.io/tx/${this.state.Tx}`} target="_blank">{this.state.Tx}</a></DialogContentText>
+                </DialogContent></div>
             default:
                 return <div style={{justifyContent:'center'}}>
                 <DialogTitle id="alert-dialog-title">Waiting for confirmation...</DialogTitle>
@@ -511,7 +562,7 @@ class MainForm extends React.Component {
                                     <Title onChange={e => {this.title = e}}/>
                                     {this.state.titleError !== '' ? <p style={{color: 'red'}}>{this.state.titleError}</p>: null}
                                     <p><strong> Image Banner </strong><br/> Insert the best image for your project</p>
-                                    <p>Size : max 800kb / Format : JPG, PNG or GIF / Resolution : 16:9 (ex: 1920x1080, 1280x720, 1024x576)</p>
+                                    <p>Size : max 3MB / Format : JPG, PNG or GIF / Resolution : 16:9 (ex: 1920x1080, 1280x720, 1024x576, 640x360...)</p>
                                     <ProfilePic onImageChange={this.handleChangeImage.bind(this)} ratio="ratio" resolutionWidth={1920} resolutionHeight={1080} />
                                     <br></br>
                                     <p><strong> Fundraising Duration </strong><br/> Projects with shorter durations have higher success rates. You won’t be able to adjust your duration after you launch.</p>
