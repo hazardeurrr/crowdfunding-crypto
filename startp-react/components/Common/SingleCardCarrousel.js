@@ -7,6 +7,7 @@ import RaisedChecker from './RaisedChecker';
 import { useSelector, useDispatch } from 'react-redux';
 import {chain} from '@/utils/chain'
 import {poly_chain} from '@/utils/poly_chain'
+import { prefixedAddress } from '@/utils/prefix';
 
 
 const SingleCardCarrousel = (props) => {
@@ -94,10 +95,11 @@ const displayTitle = () => {
             <Link href={{
                 pathname: "/Campaigns/[id]",
                 query: {
-                    id: campaign.contract_address
+                    id: prefixedAddress(campaign.network, campaign.contract_address)
                 }
             }}
-            as={`/Campaigns/${campaign.contract_address}`}>
+            // as={`/Campaigns/${campaign.contract_address}`}
+            >
             <a>{campaign.title}</a>
         </Link>
     </h5>
@@ -106,10 +108,11 @@ const displayTitle = () => {
             <Link href={{
                 pathname: "/Campaigns/[id]",
                 query: {
-                    id: campaign.contract_address
+                    id: prefixedAddress(campaign.network, campaign.contract_address)
                 }
             }}
-            as={`/Campaigns/${campaign.contract_address}`}>
+            // as={`/Campaigns/${campaign.contract_address}`}
+            >
             <a>{campaign.title}</a>
         </Link>
     </h5>
@@ -153,10 +156,11 @@ const displayRaisedIcon = () => {
             <Link href={{
                         pathname: "/Campaigns/[id]",
                         query: {
-                            id: campaign.contract_address,
+                            id: prefixedAddress(campaign.network, campaign.contract_address),
                         }
                     }}
-                    as={`/Campaigns/${campaign.contract_address}`}>
+                    // as={`/Campaigns/${campaign.contract_address}`}
+                    >
                     <a>
                         {displayProgressBar()}
                         <img src={campaign.main_img} alt="image" />

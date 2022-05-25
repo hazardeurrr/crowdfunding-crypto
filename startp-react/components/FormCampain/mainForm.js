@@ -44,6 +44,7 @@ import { bbstAbi } from '../ContractRelated/BbstAbi';
 import DOMPurify from 'isomorphic-dompurify';
 import {chain} from '@/utils/chain'
 import {poly_chain} from '@/utils/poly_chain'
+import { prefixedAddress } from '@/utils/prefix';
 
 const Web3 = require('web3');
 const BN = require('bn.js');
@@ -242,20 +243,20 @@ class MainForm extends React.Component {
         .send({from : this.props.userAddr, value: 0})
         .on('transactionHash', function(hash){
             context.openDialog()
-            // console.log("hash :" + hash)
+            console.log("hash :" + hash)
             context.setState({ Tx: hash });
 
         })
-        .on('confirmation', function(confirmationNumber, receipt){ 
+        .on('confirmation', function(confirmationNumber, receipt){
 
-            // console.log("Confirmation number:" + confirmationNumber)
+            console.log("Confirmation number:" + confirmationNumber)
         })
         .on("error", function(error) {
             context.setState({ errorMsg: error.code + " : " + error.message})
             context.openSnackbar()
-            // console.log(error);
+            console.log(error);
         })
-        .then(a => {
+        .then((a) => {
             this.setState({new_contract_address: a.events.CampaignCreated.returnValues[0].toLowerCase()})
             this.createFirebaseObject(a.events.CampaignCreated.returnValues[0].toLowerCase())
             }
@@ -277,7 +278,7 @@ class MainForm extends React.Component {
 
         let contract_address = contract_addr.toLowerCase()
 
-        let uploadTaskImg = postImage('mainPic', this.image, contract_address)
+        let uploadTaskImg = postImage('mainPic', this.image, this.prefixedAddress(contract_address))
         uploadTaskImg.on('state_changed', 
         (snapshot) => {
             // Observe state change events such as progress, pause, and resume
@@ -302,7 +303,7 @@ class MainForm extends React.Component {
             // Handle successful uploads on complete
             // For instance, get the download URL: https://firebasestorage.googleapis.com/...
             storage.ref('mainPic')
-             .child(contract_address)
+             .child(this.prefixedAddress(contract_address))
              .getDownloadURL().then((downloadURL) => {
                  this.createHTMLAndPush(contract_address, downloadURL)
              }).catch(console.error)
@@ -319,7 +320,7 @@ class MainForm extends React.Component {
         var blob = new Blob([this.sanitizeAndParseHtml(this.html)], {
             type: "text/plain",
           });
-        let uploadTask = postHTMLPage(blob, contract_address)
+        let uploadTask = postHTMLPage(blob, this.prefixedAddress(contract_address))
             // Register three observers:
     // 1. 'state_changed' observer, called any time the state changes
     // 2. Error observer, called on failure
@@ -347,8 +348,8 @@ class MainForm extends React.Component {
         () => {
             // Handle successful uploads on complete
             // For instance, get the download URL: https://firebasestorage.googleapis.com/...
-            storage.ref('campaigns')
-             .child(contract_address)
+            storage.ref('campaignsTest')
+             .child(this.prefixedAddress(contract_address))
              .getDownloadURL().then((downloadURL) => {
                 // console.log('File available at', downloadURL);
 
@@ -369,7 +370,7 @@ class MainForm extends React.Component {
                     }), // remove '---' and then remove double
                     objective: this.objective,
                     long_desc: downloadURL,
-                    currency: this.raisingMethod,
+                    currency: this.state.raisingMethod,
                  //   flexible: this.flexible,
                     tiers: this.tiersArray,
                     network: this.props.chainID,
@@ -384,7 +385,7 @@ class MainForm extends React.Component {
                 const creator_address = this.props.userAddr
                 campainInfos['creator'] = creator_address
                 if (this.cats.length < 1) {return}
-                db.collection('campaign').doc(contract_address).set(campainInfos).then(x => {
+                db.collection('campaignsTest').doc(this.prefixedAddress(contract_address)).set(campainInfos).then(x => {
                     // console.log('document written with : ' + campainInfos.title)
                     this.setState({ creationState: 2 }); // etat fini
                     if(!this.state.dialogOpen){
@@ -396,6 +397,14 @@ class MainForm extends React.Component {
                 }).catch(console.error);
             }
         );
+    }
+
+    prefixedAddress = (addr) => {
+        if(this.props.chainID == poly_chain){
+            return "poly_"+addr
+        } else if(this.props.chainID == chain){
+            return "eth_"+addr
+        }
     }
 
     checkCampaignIsValid = () => {
@@ -527,7 +536,7 @@ class MainForm extends React.Component {
                         <Link href={{
                             pathname: "/Campaigns/[id]",
                             query: {
-                                id: this.state.new_contract_address,
+                                id: prefixedAddress(this.props.chainID, this.state.new_contract_address),
                                 }
                             }}
                             >

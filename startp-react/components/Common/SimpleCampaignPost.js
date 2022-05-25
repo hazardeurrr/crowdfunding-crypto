@@ -9,7 +9,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import {chain} from '@/utils/chain'
 import {poly_chain} from '@/utils/poly_chain'
 import {db, firebase} from '../../firebase-crowdfund/index'
-
+import { prefixedAddress } from '@/utils/prefix';
 
 
 const SimpleCampaignPost = (props) => {
@@ -298,10 +298,11 @@ const SimpleCampaignPost = (props) => {
               <Link href={{
                               pathname: "/Campaigns/[id]",
                               query: {
-                                  id: campaign.contract_address,
+                                  id: prefixedAddress(campaign.network, campaign.contract_address),
                               }
                           }}
-                          as={`/Campaigns/${campaign.contract_address}`}>
+                        //   as={`/Campaigns/${campaign.contract_address}`}
+                          >
                       <a>
                           <img src={campaign.main_img} alt="image" />
                       </a>
@@ -313,10 +314,11 @@ const SimpleCampaignPost = (props) => {
                         <Link href={{
                             pathname: "/Campaigns/[id]",
                             query: {
-                                id: campaign.contract_address,
+                                id: prefixedAddress(campaign.network, campaign.contract_address),
                             }
                         }}
-                        as={`/Campaigns/${campaign.contract_address}`}>
+                        // as={`/Campaigns/${campaign.contract_address}`}
+                        >
                             <a>{campaign.title}</a>
                         </Link>
                     </h3>
@@ -331,10 +333,11 @@ const SimpleCampaignPost = (props) => {
                 <Link href={{
                           pathname: "/Campaigns/[id]",
                           query: {
-                              id: campaign.contract_address,
+                              id: prefixedAddress(campaign.network, campaign.contract_address),
                           }
                       }}
-                      as={`/Campaigns/${campaign.contract_address}`}>
+                    //   as={`/Campaigns/${campaign.contract_address}`}
+                      >
                     <a className="read-more-btn">
                         {SupportOrSee()} <Icon.ArrowRight />
                     </a>

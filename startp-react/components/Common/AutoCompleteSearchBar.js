@@ -5,6 +5,7 @@ import SearchBarCard from '@/components/Common/SearchBarCard';
 import Link from 'next/link';
 import Popper from '@material-ui/core/Popper';
 import { useSelector } from 'react-redux';
+import { prefixedAddress } from '@/utils/prefix';
 
 
 const AutoCompleteSearchBar = () => {
@@ -63,10 +64,11 @@ const AutoCompleteSearchBar = () => {
       renderOption={(option) => <Link href={{
                                       pathname: "/Campaigns/[id]",
                                       query: {
-                                          id: option.contract_address,
+                                          id: prefixedAddress(option.network, option.contract_address),
                                       }
                                   }}
-                                  as={`/Campaigns/${option.contract_address}`}>
+                                  // as={`/Campaigns/${option.contract_address}`}
+                                  >
                                     <a><SearchBarCard campaign={option} user={creators.find(e => e.eth_address.toLowerCase() == option.creator.toLowerCase())}/></a>
                                 </Link>
                     }

@@ -14,6 +14,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import campaignAbi from '@/components/ContractRelated/CampaignAbi';
 import {chain} from '@/utils/chain'
 import {poly_chain} from '@/utils/poly_chain'
+import { prefixedAddress } from '@/utils/prefix';
 
 
 const useStyles = makeStyles({
@@ -114,7 +115,7 @@ const CampaignSidebar = (props) => {
                     <Link href={{
                     pathname: "/Checkout/[id]",
                     query: {
-                        id: campaign.contract_address,
+                        id: prefixedAddress(campaign.network, campaign.contract_address),
                     }
                 }}
                 as={`/Checkout/${campaign.contract_address}`}>
@@ -129,10 +130,11 @@ const CampaignSidebar = (props) => {
                         <Link href={{
                             pathname: "/Checkout/[id]",
                             query: {
-                                id: campaign.contract_address,
+                                id: prefixedAddress(campaign.network, campaign.contract_address),
                             }
                         }}
-                        as={`/Checkout/${campaign.contract_address}`}>
+                        // as={`/Checkout/${campaign.contract_address}`}
+                        >
                                 <a>Back this campaign !</a>
                         </Link>
                     </h3>
@@ -171,10 +173,11 @@ const CampaignSidebar = (props) => {
                 <Link href={{
                 pathname: "/Checkout/[id]",
                 query: {
-                    id: campaign.contract_address,
+                    id: prefixedAddress(campaign.network, campaign.contract_address),
                 }
             }}
-            as={`/Checkout/${campaign.contract_address}`}>
+            // as={`/Checkout/${campaign.contract_address}`}
+            >
             
                 <a className="icon">
                     <Icon.ArrowRight />
@@ -186,10 +189,11 @@ const CampaignSidebar = (props) => {
                     <Link href={{
                         pathname: "/Checkout/[id]",
                         query: {
-                            id: campaign.contract_address,
+                            id: prefixedAddress(campaign.network, campaign.contract_address),
                         }
                     }}
-                    as={`/Checkout/${campaign.contract_address}`}>
+                    // as={`/Checkout/${campaign.contract_address}`}
+                    >
                             <a>Back this campaign !</a>
                     </Link>
                 </h3>

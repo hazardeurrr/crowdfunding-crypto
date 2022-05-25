@@ -10,6 +10,8 @@ export default function DateValidPicker(props) {
   const [valueEnd, setValueEnd] = React.useState(null);
   var now = new Date();
   const maxVal = new Date(now.setMonth(now.getMonth()+6));
+  // var now2 = new Date();
+  // const minVal = new Date(now2.setDate(now2.getDate()+1));
 
   return (
     <LocalizationProvider dateAdapter={AdapterDateFns}>

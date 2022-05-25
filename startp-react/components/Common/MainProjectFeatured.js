@@ -11,6 +11,7 @@ import {poly_chain} from '@/utils/poly_chain'
 import {db, firebase} from '../../firebase-crowdfund/index'
 import { HiFire } from 'react-icons/hi';
 import { BsArrowUpRight } from 'react-icons/bs'
+import { prefixedAddress } from '@/utils/prefix';
 
 
 const MainProjectFeatured = (props) => {
@@ -308,10 +309,11 @@ const MainProjectFeatured = (props) => {
               <Link href={{
                               pathname: "/Campaigns/[id]",
                               query: {
-                                  id: campaign.contract_address,
+                                  id: prefixedAddress(campaign.network, campaign.contract_address),
                               }
                           }}
-                          as={`/Campaigns/${campaign.contract_address}`}>
+                        //   as={`/Campaigns/${campaign.contract_address}`}
+                          >
                       <a>
                           <img src={campaign.main_img} alt="image" />
                       </a>
@@ -325,10 +327,11 @@ const MainProjectFeatured = (props) => {
                         <Link href={{
                             pathname: "/Campaigns/[id]",
                             query: {
-                                id: campaign.contract_address,
+                                id: prefixedAddress(campaign.network, campaign.contract_address),
                             }
                         }}
-                        as={`/Campaigns/${campaign.contract_address}`}>
+                        // as={`/Campaigns/${campaign.contract_address}`}
+                        >
                             <a>{campaign.title}</a>
                         </Link>
                     </h3>

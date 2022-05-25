@@ -35,6 +35,8 @@ import Typography from '@material-ui/core/Typography';
 import Custom404 from 'pages/404';
 import DOMPurify from 'isomorphic-dompurify';
 
+import { prefixedAddress } from '@/utils/prefix';
+
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -89,7 +91,7 @@ const Campaign = (props) => {
 
        // console.log(props.address)
 
-      
+        // console.log(props)
 
         getOne('campaignsTest', props.address, function(doc) {
           if (doc.exists) {
@@ -101,7 +103,7 @@ const Campaign = (props) => {
                 if (docs.exists) {
                     setUser(docs.data())
                 } else {
-                    console.log("Document not found")
+                    // console.log("Document not found")
                 }
             })
           } else {
@@ -228,10 +230,11 @@ const Campaign = (props) => {
                     return <Link href={{
                                 pathname: "/Checkout/[id]",
                                 query: {
-                                    id: campaign.contract_address,
+                                    id: prefixedAddress(campaign.network, campaign.contract_address),
                                     }
                                 }}
-                                    as={`/Checkout/${campaign.contract_address}`}>
+                                    // as={`/Checkout/${campaign.contract_address}`}
+                                    >
                             <a className="btn btn-primary">Back this campaign</a>
                             </Link>
                 }

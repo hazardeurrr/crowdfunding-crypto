@@ -31,6 +31,7 @@ import { BN } from 'bn.js';
 import { toBaseUnit } from '@/utils/bnConverter';
 import { bbstAbi } from '../ContractRelated/BbstAbi';
 import firebase from '../../firebase-crowdfund/index';
+import { prefixedAddress } from '@/utils/prefix';
 
 const Web3 = require('web3');
 
@@ -596,7 +597,7 @@ const PricingTiers = (props) => {
                             <Link href={{
                             pathname: "/Campaigns/[id]",
                             query: {
-                                id: campaign.contract_address,
+                                id: prefixedAddress(campaign.network, campaign.contract_address),
                                 }
                             }}
                             >
