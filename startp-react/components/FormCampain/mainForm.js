@@ -17,7 +17,7 @@ import {postHTMLPage, postImage} from '../../firebase-crowdfund/queries';
 import "react-dates/lib/css/_datepicker.css";
 import categoryList from '@/utils/CategoryList';
 import 'suneditor/dist/css/suneditor.min.css'; // Import Sun Editor's CSS File
-import ProfilePic from '@/components/ITStartup/ProfilePic.js'
+import MainPic from '@/components/ITStartup/MainPic.js'
 import Modal from '@material-ui/core/Modal';
 import PreviewCampaign from 'pages/PreviewCampaign';
 import { ref } from "firebase/storage";
@@ -78,6 +78,7 @@ class MainForm extends React.Component {
             creationState: 0,
             new_contract_address: '',
             initializationProgress: 0,
+            imageProgress: 0,
             raisingMethod: this.getStartRaisingMethod()     
         }
 
@@ -268,12 +269,53 @@ class MainForm extends React.Component {
     }
 
     createFirebaseObject(contract_addr){
+
+        this.setState({ creationState: 3 });    // etat "push to bdd"
+        if(!this.state.dialogOpen){
+            this.openDialog()
+        }
+
+        let contract_address = contract_addr.toLowerCase()
+
+        let uploadTaskImg = postImage('mainPic', this.image, contract_address)
+        uploadTaskImg.on('state_changed', 
+        (snapshot) => {
+            // Observe state change events such as progress, pause, and resume
+            // Get task progress, including the number of bytes uploaded and the total number of bytes to be uploaded
+            const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+            // console.log('Upload is ' + progress + '% done');
+            this.setState({imageProgress: progress})
+            switch (snapshot.state) {
+            case 'paused':
+                console.log('Upload is paused');
+                break;
+            case 'running':
+                console.log('Upload is running');
+                break;
+            }
+        }, 
+        (error) => {
+            // Handle unsuccessful uploads
+            console.log(error)
+        }, 
+        () => {
+            // Handle successful uploads on complete
+            // For instance, get the download URL: https://firebasestorage.googleapis.com/...
+            storage.ref('mainPic')
+             .child(contract_address)
+             .getDownloadURL().then((downloadURL) => {
+                 this.createHTMLAndPush(contract_address, downloadURL)
+             }).catch(console.error)
+        })
+    }
+
+    createHTMLAndPush = (contract_address, imageURL) => {
         this.setState({ creationState: 1 });    // etat "push to bdd"
         if(!this.state.dialogOpen){
             this.openDialog()
         }
+
         // console.log("CreatingFirebaseObject")
-        let contract_address = contract_addr.toLowerCase()
         var blob = new Blob([this.sanitizeAndParseHtml(this.html)], {
             type: "text/plain",
           });
@@ -305,33 +347,36 @@ class MainForm extends React.Component {
         () => {
             // Handle successful uploads on complete
             // For instance, get the download URL: https://firebasestorage.googleapis.com/...
-            storage.ref('campaignsTest')
+            storage.ref('campaigns')
              .child(contract_address)
              .getDownloadURL().then((downloadURL) => {
                 // console.log('File available at', downloadURL);
+
                 let precategs = this.cats.filter(a => a !== "---").filter(function (value, index, array) { 
                     return array.indexOf(value) === index;
                 })
 
                 let categs = precategs.length == 0 ? ["Diverse"] : precategs
-
+    
                 const campainInfos = {
                     title: this.title,
                     start_date: this.startDate,
                     end_date: this.endDate,
                     contract_address: contract_address,
                     small_description: this.small_description,
-                    categories: categs, // remove '---' and then remove double
+                    categories: this.cats.filter(a => a !== "---").filter(function (value, index, array) { 
+                        return array.indexOf(value) === index;
+                    }), // remove '---' and then remove double
                     objective: this.objective,
                     long_desc: downloadURL,
-                    currency: this.state.raisingMethod,
+                    currency: this.raisingMethod,
                  //   flexible: this.flexible,
                     tiers: this.tiersArray,
-                    main_img: this.image,
+                    network: this.props.chainID,
+                    main_img: imageURL,
                     raised: 0,
                     likedTupleMap: {},
-                    confirmed: true,
-                    network: this.props.chainID
+                    confirmed: true
                 }
                 // console.log(campainInfos)
         
@@ -339,7 +384,7 @@ class MainForm extends React.Component {
                 const creator_address = this.props.userAddr
                 campainInfos['creator'] = creator_address
                 if (this.cats.length < 1) {return}
-                db.collection('campaignsTest').doc(contract_address).set(campainInfos).then(x => {
+                db.collection('campaign').doc(contract_address).set(campainInfos).then(x => {
                     // console.log('document written with : ' + campainInfos.title)
                     this.setState({ creationState: 2 }); // etat fini
                     if(!this.state.dialogOpen){
@@ -348,7 +393,7 @@ class MainForm extends React.Component {
                 }).catch(console.error)
     
     
-                });
+                }).catch(console.error);
             }
         );
     }
@@ -492,6 +537,16 @@ class MainForm extends React.Component {
                 </div>    
               
                 </DialogContent></div>
+
+            case 3:
+                return <div style={{justifyContent:'center'}}>
+                <DialogTitle id="alert-dialog-title">Uploading Data {this.state.imageProgress.toFixed(2)}%</DialogTitle>
+                <DialogContent>    
+                    <CircularProgress style={{marginTop: 20, marginBottom: 20}}/>
+                    <DialogContentText id="alert-dialog-description">
+                Transaction confirmed : </DialogContentText>
+                <DialogContentText id="alert-dialog-description"><a href={this.explorerLink()} target="_blank">{this.state.Tx}</a></DialogContentText>
+                </DialogContent></div>
             default:
                 return <div style={{justifyContent:'center'}}>
                 <DialogTitle id="alert-dialog-title">Waiting for confirmation...</DialogTitle>
@@ -616,8 +671,8 @@ class MainForm extends React.Component {
                                     <Title onChange={e => {this.title = e}}/>
                                     {this.state.titleError !== '' ? <p style={{color: 'red'}}>{this.state.titleError}</p>: null}
                                     <p><strong> Image Banner </strong><br/> Insert the best image for your project</p>
-                                    <p>Size : max 800kb / Format : JPG, PNG or GIF / Resolution : 16:9 (ex: 1920x1080, 1280x720, 1024x576)</p>
-                                    <ProfilePic onImageChange={this.handleChangeImage.bind(this)} ratio="ratio" resolutionWidth={1920} resolutionHeight={1080} />
+                                    <p>Size : max 3MB / Format : JPG, PNG or GIF / Resolution : 16:9 (ex: 1920x1080, 1280x720, 1024x576, 640x360...)</p>
+                                    <MainPic onImageChange={this.handleChangeImage.bind(this)} ratio="ratio" resolutionWidth={1920} resolutionHeight={1080} />
                                     <br></br>
                                     <p><strong> Fundraising Duration </strong><br/> Projects with shorter durations have higher success rates. You won’t be able to adjust your duration after you launch.</p>
                                     <div className="col-lg-12 col-md-12">

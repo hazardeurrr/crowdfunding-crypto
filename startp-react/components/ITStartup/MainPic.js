@@ -4,7 +4,7 @@ import Alert from '@material-ui/lab/Alert';
 import Snackbar from '@material-ui/core/Snackbar';
 
 
-const ProfilePic = (props) => {
+const MainPic = (props) => {
     const [images, setImages] = React.useState([]);
     const [snackText, setSnackText] = React.useState("");
     const [openSnack, setOpenSnack] = React.useState(false);
@@ -55,7 +55,10 @@ const ProfilePic = (props) => {
             </Snackbar>
             <ImageUploading
                 acceptType={['jpg', 'gif', 'png']}
-                maxFileSize={750e3}
+                maxFileSize={3000e3}
+                resolutionType={props.ratio}
+                resolutionWidth={props.resolutionWidth}
+                resolutionHeight={props.resolutionHeight}
                 multiple="false"
                 value={images}
                 onChange={onChange}
@@ -79,7 +82,7 @@ const ProfilePic = (props) => {
                     {/* &nbsp; */}
                     {imageList.map((image, index) => (
                     <div key={index} className="image-item">
-                        <img src={image.data_url} alt="" style={{ objectFit: 'cover', borderRadius: '50%', height: 100, width: 100}}/>
+                        <img src={image.data_url} alt="" width="100" />
                         <div className="image-item__btn-wrapper">
                         <button className="btn btn-primary" type="button" onClick={() => onImageUpdate(index)}>Update</button>
                         <button className="btn btn-primary" type="button" onClick={() => onImageRemove(index)}>Remove</button>
@@ -94,4 +97,4 @@ const ProfilePic = (props) => {
     );
 }
 
-export default ProfilePic;
+export default MainPic;

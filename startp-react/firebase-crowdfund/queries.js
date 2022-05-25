@@ -27,25 +27,11 @@ export function updateDoc(id, collection, doc, callback) {
     db.collection(collection).doc(id).update(doc).then(callback)
 }
 
-export function postImage(folder, image, progress) {
-    let uploadTask = storage.ref(folder + `/${image.name}`).put(image)
-    uploadTask.on('state_changed', progress, console.error, () => {
-        storage.ref(folder)
-        .child(image.name)
-        .getDownloadURL()
-        .then(url => { return url })
-    })
+export function postImage(folder, image, name) {
+    let uploadTask = storage.ref(folder + `/${name}`).putString(image, 'data_url')
+    
+    return uploadTask;
 }
-
-// export function postHTMLPage(folder, doc, id) {
-//     let uploadTask = storage.ref(folder + `/${id}`).put(doc)
-//     uploadTask.on('state_changed', console.log, console.error, () => {
-//         storage.ref(folder)
-//         .child(id)
-//         .getDownloadURL()
-//         .then(url => { console.log(url); return url })
-//     })
-// }
 
 export function postHTMLPage(blob, id) {
     let uploadTask = storage.ref('campaignsTest/'+id).put(blob);

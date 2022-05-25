@@ -201,9 +201,10 @@ const ProfileForm = (props) => {
                                     as it's currently the only way for us to establish direct contact between creators and contributors.</i></p>
 
                                 <p><strong> Profile Pic </strong><br/>Choose a profile picture to represent your account</p>
+                                <p><i style={{fontSize: 12}}>Size : max 750kb / Format : JPG, PNG or GIF</i></p>
                                 <div className="col-lg-12 col-md-12">
                                     <div className="form-group">
-                                        <ProfilePic onImageChange={handleChangeImage} ratio="less" resolutionWidth={1920} resolutionHeight={1080} />
+                                        <ProfilePic onImageChange={handleChangeImage} />
                                     </div>
                                 </div>
 
