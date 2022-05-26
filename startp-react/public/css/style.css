@@ -3450,7 +3450,7 @@ Feedback CSS
 .testimonials-slides {
   /* background-color: #f7fbfe; */
   max-width: 850px;
-  margin: 90px auto 30px;
+  margin: 20px auto 30px;
   position: relative;
   z-index: 1;
 }

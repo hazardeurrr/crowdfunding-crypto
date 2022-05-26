@@ -482,7 +482,7 @@ const Navbar = () => {
                     <nav className="navbar navbar-expand-md navbar-light">
                         <Link href="/">
                             <a onClick={toggleNavbar} className="navbar-brand">
-                                <img src="/images/bb_logo_full_2.png" alt="logo" />
+                                <img src="/images/logo_svg-cropped.svg" style={{width: 100}} alt="logo" />
                             </a>
                         </Link>
 
@@ -555,7 +555,7 @@ const Navbar = () => {
                             </ul>
                         </div>
 
-                        <div className="others-option">
+                        <div className="others-option" style={{alignItems:'center'}}>
 
                             {/* <Link href="/cart">
                                 <a className="cart-wrapper-btn">

@@ -55,7 +55,7 @@ const ProfilePic = (props) => {
             </Snackbar>
             <ImageUploading
                 acceptType={['jpg', 'gif', 'png']}
-                maxFileSize={750e3}
+                maxFileSize={800e3}
                 multiple="false"
                 value={images}
                 onChange={onChange}

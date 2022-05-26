@@ -366,9 +366,7 @@ class MainForm extends React.Component {
                     end_date: this.endDate,
                     contract_address: contract_address,
                     small_description: this.small_description,
-                    categories: this.cats.filter(a => a !== "---").filter(function (value, index, array) { 
-                        return array.indexOf(value) === index;
-                    }), // remove '---' and then remove double
+                    categories: categs,
                     objective: this.objective,
                     long_desc: downloadURL,
                     currency: this.state.raisingMethod,
