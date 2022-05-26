@@ -230,6 +230,7 @@ class MainForm extends React.Component {
         let tokenAdd = this.tokenIndex(this.state.raisingMethod)
         console.log(tokenAdd)
         console.log(this.state.raisingMethod)
+        const ethInstance = this.props.web3Instance.eth;
         // [0, tiersArray[0].threshold, tiersArray[1].threshold]
         return await this.state.factoryInstance.methods.createCampaign(
         amt, // WEI for ETH, x 10^decimals
@@ -245,7 +246,7 @@ class MainForm extends React.Component {
             context.openDialog()
             console.log("hash :" + hash)
             context.setState({ Tx: hash });
-
+            // ethInstance.getTransactionReceipt(hash).then(console.log);
         })
         .on('confirmation', function(confirmationNumber, receipt){
 
