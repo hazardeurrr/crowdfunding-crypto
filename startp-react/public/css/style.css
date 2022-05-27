@@ -884,6 +884,7 @@ Main Banner CSS
   height: 910px;
   z-index: 1;
   background: transparent url(/images/banner-bg1.jpg) right top no-repeat;
+  padding-top: 130px;
 }
 
 .main-banner .hero-content h1 {
