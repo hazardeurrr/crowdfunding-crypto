@@ -565,7 +565,7 @@ const Navbar = () => {
                             </Link> */}
 
                             <Link href="/form-campaign">
-							    <a className="btn btn-secondary">Create</a>
+                                <a className="btn btn-secondary btn-not-displayed">Create</a>
                             </Link>
 
                             {isConnected()}
