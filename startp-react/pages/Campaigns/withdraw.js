@@ -2,6 +2,7 @@ import React from 'react';
 import campaignAbi from '@/components/ContractRelated/CampaignAbi';
 import { useSelector, useDispatch } from 'react-redux';
 import {chain} from '@/utils/chain'
+import {poly_chain} from '@/utils/poly_chain'
 import { updateDoc, getOne } from 'firebase-crowdfund/queries';
 import {db, storage} from '../../firebase-crowdfund/index'
 

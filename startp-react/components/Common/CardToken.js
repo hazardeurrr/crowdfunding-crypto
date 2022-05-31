@@ -17,6 +17,8 @@ import { useSelector, useDispatch } from 'react-redux'
 import {chain} from '@/utils/chain'
 import {rewardAbi} from '@/components/ContractRelated/RewardABI';
 import {rewardAddr} from '@/components/ContractRelated/RewardAddr';
+import {poly_rewardAbi} from '@/components/ContractRelated/poly_RewardABI';
+import {poly_rewardAddr} from '@/components/ContractRelated/poly_RewardAddr';
 import * as IconFeather from 'react-feather';
 import axios from 'axios';
 import secrets from "../../../startp-react/secrets.json";
@@ -42,8 +44,11 @@ const CardToken = () => {
   const address = useSelector((state) => state.address)
   const bbstbal = useSelector((state) => state.bbstBalance)
   const web3Instance = useSelector((state) => state.web3Instance)
+  const poly_web3Instance = useSelector((state) => state.poly_web3Instance)
+
   const [toBeClaimed, setToBeClaimed] = React.useState(0)
   const [rewardCtr, setRewardCtr] = React.useState(undefined)
+  // const [polyRewardCtr, setPolyRewardCtr] = React.useState(undefined)
   const [dialogOpen, setDialogOpen] = React.useState(false);
   const [snackbarOpen, setSnackbarOpen] = React.useState(false);
   const [creationState, setCreationState] = React.useState(0);
@@ -53,104 +58,124 @@ const CardToken = () => {
   React.useEffect(() => {
     if(web3Instance != undefined && connected && chainID == chain){
       var contract = new web3Instance.eth.Contract(rewardAbi, rewardAddr)
+      var poly_contract = new poly_web3Instance.eth.Contract(poly_rewardAbi, poly_rewardAddr)
+
+      // setPolyRewardCtr(poly_contract);
       setRewardCtr(contract);
       setToBeClaimed(0);
-      getClaim(contract);
+      getClaim(contract, poly_contract);
     }
   }, [web3Instance])
 
-  const getClaim = async(contract) => {
-    const weekTime = 86400;
+  const getClaim = async(contract, poly_contract) => {
+    const weekTime = 300;
     
     const userAddr = address;
     const rewardCtr = contract;
+    const polyRewardCtr = poly_contract;
 
     rewardCtr.methods.getLastClaim(userAddr).call().then((res) => {
-      rewardCtr.getPastEvents("Participate", ({fromBlock: parseInt(res)}))
+      rewardCtr.getPastEvents("Participate", ({fromBlock: 10445766, toBlock: "latest"}))
         .then((events) => {
-
-          // console.log(res);
-          //  console.log(events);
   
-      let eventsFiltered = events.filter(e => e.returnValues.user.toLowerCase() == userAddr);
-      // console.log(eventsFiltered);
-      if (eventsFiltered.length != 0) {
-        rewardCtr.methods.rewardStartTimestamp.call().call().then(async(time) => {
-    
-          const promises = eventsFiltered.map(async(e) => {
-
-            var week = parseInt(Math.floor((e.returnValues.timestamp - time) / weekTime));
-            var ratio;
-      
-            await db.collection('utils').doc('rates').get().then(async(resRate) => {
-      
-              
-              var currentRate = 0
-              
-              if(e.returnValues.token == "0x0000000000000000000000000000000000000000")
-              currentRate = resRate.data().eth[week] == undefined ? 3200 : resRate.data().eth[week]
-              if(e.returnValues.token == "0x67c0fd5c30C39d80A7Af17409eD8074734eDAE55")
-              currentRate = resRate.data().bbst[week] == undefined ? 1.25 : resRate.data().bbst[week]
-              if(e.returnValues.token == "0x4DBCdF9B62e891a7cec5A2568C3F4FAF9E8Abe2b")
-              currentRate = resRate.data().usdc[week] == undefined ? 10**12 : resRate.data().usdc[week] * 10 ** 12
-              
-              // console.log("Rate crypto :", currentRate);
-
-              await db.collection('utils').doc('rewardData').get().then((data) => {
-      
-                // console.log("week :", week)
-      
-                if (data.data().totalPerWeek[week] == 0 || data.data().totalPerWeek[week] == undefined) {
-                  ratio = 0;
-                } else {
-                  ratio = (e.returnValues.amount * currentRate) / data.data().totalPerWeek[week]
-                  // console.log("ratio :", ratio)
-                }
-      
-              }).catch((error) => { console.log(error)})
-      
-              }).catch((error) => {console.log(error)})
-
-              return [ratio, week];
-          })
-    
-          await Promise.all(promises).then(async(res) => {
-            // claim += map.reduce(((a,b) => a + b), 0);
-            // console.log(res)
-
-            await db.collection('utils').doc('rewardData').get().then((data) => {
-
-              var weekTmp = res[0][1];
-              var cpt = 0;
-              var total = 0;
-              var tmpTotalWeek = 0;
+          let eventsFilteredETH = events.filter(e => e.returnValues.user.toLowerCase() == userAddr && e.returnValues.timestamp >= res).map(a => ({ ...a, chain: 'ethereum' }));
+          
+          polyRewardCtr.getPastEvents("Participate", ({fromBlock: 26539712, toBlock: "latest"}))
+            .then((eventsPoly) => {
+              let eventsFilteredPoly = eventsPoly.filter(e => e.returnValues.user.toLowerCase() == userAddr && e.returnValues.timestamp >= res).map(a => ({ ...a, chain: 'polygon' }));
+              let eventsFiltered = eventsFilteredETH.concat(eventsFilteredPoly)
   
-              res.forEach((elem) => {
-                ++cpt;
+            if (eventsFiltered.length == 0) {
+              console.error("Wrong Address or no participations registered yet !");
+            }
+  
+            if (eventsFiltered.length != 0) {
+              rewardCtr.methods.rewardStartTimestamp.call().call().then(async(time) => {
+      
+                  const promises = eventsFiltered.map(async(e) => {
+        
+                    var week = parseInt(Math.floor((e.returnValues.timestamp - time) / weekTime));
+                    var ratio;
+              
+                    await db.collection('utils').doc('rates').get().then(async(resRate) => {
+              
+                      
+                      var currentRate = 0
+                      
+                      if(e.returnValues.token == "0x0000000000000000000000000000000000000000" && e.chain == "ethereum")
+                      currentRate = resRate.data().eth[week] == undefined ? 3200 : resRate.data().eth[week]
+                      if(e.returnValues.token == "0x9AeC9767B0842d04dc0b831ADAA71342Ed8B8Ba1" && e.chain == "ethereum")
+                      currentRate = resRate.data().bbst[week] == undefined ? 1.25 : resRate.data().bbst[week]
+                      if(e.returnValues.token == "0xb465fbfe1678ff41cd3d749d54d2ee2cfabe06f3" && e.chain == "ethereum")
+                      currentRate = resRate.data().usdc[week] == undefined ? 10**12 : resRate.data().usdc[week] * 10 ** 12
+                      if(e.returnValues.token == "0x0000000000000000000000000000000000000000" && e.chain == "polygon")
+                      currentRate = resRate.data().matic[week] == undefined ? 0.6 : resRate.data().matic[week]
+                      if(e.returnValues.token == "0x8922Ab8ed4FE9E7C25D826171d91c3c8E98284b3" && e.chain == "polygon")
+                      currentRate = resRate.data().bbst[week] == undefined ? 1.25 : resRate.data().bbst[week]
+                      if(e.returnValues.token == "0x8f7116ca03aeb48547d0e2edd3faa73bfb232538" && e.chain == "polygon")
+                      currentRate = resRate.data().usdc[week] == undefined ? 10**12 : resRate.data().usdc[week] * 10 ** 12
+  
+                      // console.log("Rate crypto :", currentRate);
+        
+                      await db.collection('utils').doc('rewardData').get().then((data) => {
+              
+                        // console.log("week :", week)
+                        let totalETH = data.data().test_totalPerWeekETH[week] == undefined ? 0 : data.data().test_totalPerWeekETH[week]
+                        let totalPolygon = data.data().test_totalPerWeekPolygon[week] == undefined ? 0 : data.data().test_totalPerWeekPolygon[week]
+                        let totalThisWeek = totalETH + totalPolygon
+              
+                        if (totalThisWeek == 0 || totalThisWeek == undefined) {
+                          ratio = 0;
+                        } else {
+                          ratio = (e.returnValues.amount * currentRate) / totalThisWeek
+                          // console.log("ratio :", ratio)
+                        }
+              
+                      }).catch((error) => { console.log(error) })
+              
+                      }).catch((error) => { console.log(error) })
+        
+                      return [ratio, week];
+                  })
+            
+                  await Promise.all(promises).then(async(res) => {
+                    // claim += map.reduce(((a,b) => a + b), 0);
+                    // console.log(res)
+        
+                    await db.collection('utils').doc('rewardData').get().then((data) => {
+        
+                      var weekTmp = res[0][1];
+                      var cpt = 0;
+                      var tmpTotalWeek = 0;
+                      var claim = 0;
+          
+                      res.forEach((elem) => {
+                        ++cpt;
+        
+                        if (elem[1] != weekTmp) {
+                          var ratio = tmpTotalWeek > 0.03 ? 0.03 : tmpTotalWeek
+                          claim += ratio * data.data().weeklySupply[weekTmp];
+                          tmpTotalWeek = 0;
+                          weekTmp = elem[1];
+                        }
+        
+                        tmpTotalWeek += elem[0];
+        
+                        if (cpt == res.length) {
+                          var ratio = tmpTotalWeek > 0.03 ? 0.03 : tmpTotalWeek
+                          claim += ratio * data.data().weeklySupply[weekTmp];
+                        }
+        
+                      })
 
-                if (elem[1] != weekTmp) {
-                  var ratio = tmpTotalWeek > 0.03 ? 0.03 : tmpTotalWeek
-                  total += ratio * data.data().weeklySupply[weekTmp];
-                  tmpTotalWeek = 0;
-                  weekTmp = elem[1];
-                }
+                      setToBeClaimed(claim)
 
-                tmpTotalWeek += elem[0];
-
-                if (cpt == res.length) {
-                  var ratio = tmpTotalWeek > 0.03 ? 0.03 : tmpTotalWeek
-                  total += ratio * data.data().weeklySupply[weekTmp];
-                }
-
+                    })
+                  }) 
               })
-
-              setToBeClaimed(total);
-            })
-
+            }
           })
-        })
-      }
-    })
+      })	
 
     }).catch((error) => {
       throw error;
@@ -351,7 +376,7 @@ const closeDialog = () => {
         <div>
           <CardContent>
           <Typography component="h5" variant="h5" color="textSecondary">
-            Connect to Metamask <br></br>to claim your tokens
+            Connect to Ethereum <br></br>to claim your tokens
           </Typography>
           </CardContent>
           </div>

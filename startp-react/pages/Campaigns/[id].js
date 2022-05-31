@@ -306,7 +306,7 @@ const Campaign = (props) => {
     }
 
     const displayOwnerButtons = () => {
-        if(currentUser !== undefined && campaign !== undefined && metamask_connected && chainID == chain){
+        if(currentUser !== undefined && campaign !== undefined && metamask_connected && chainID == campaign.network){
             if(userAddr.toLowerCase() === campaign.creator.toLowerCase()){
                 if(raisedRetrieve){
                     if(campaign.end_date < now){
