@@ -75,7 +75,7 @@ const CardToken = () => {
     const polyRewardCtr = poly_contract;
 
     rewardCtr.methods.getLastClaim(userAddr).call().then((res) => {
-      rewardCtr.getPastEvents("Participate", ({fromBlock: 10445766, toBlock: "latest"}))
+      rewardCtr.getPastEvents("Participate", ({fromBlock: 6981402, toBlock: "latest"}))
         .then((events) => {
   
           let eventsFilteredETH = events.filter(e => e.returnValues.user.toLowerCase() == userAddr && e.returnValues.timestamp >= res).map(a => ({ ...a, chain: 'ethereum' }));
@@ -84,7 +84,7 @@ const CardToken = () => {
             .then((eventsPoly) => {
               let eventsFilteredPoly = eventsPoly.filter(e => e.returnValues.user.toLowerCase() == userAddr && e.returnValues.timestamp >= res).map(a => ({ ...a, chain: 'polygon' }));
               let eventsFiltered = eventsFilteredETH.concat(eventsFilteredPoly)
-  
+              console.log(eventsFiltered)
             if (eventsFiltered.length == 0) {
               console.error("Wrong Address or no participations registered yet !");
             }
@@ -103,17 +103,17 @@ const CardToken = () => {
                       var currentRate = 0
                       
                       if(e.returnValues.token == "0x0000000000000000000000000000000000000000" && e.chain == "ethereum")
-                      currentRate = resRate.data().eth[week] == undefined ? 3200 : resRate.data().eth[week]
+                        currentRate = resRate.data().eth[week] == undefined ? 3200 : resRate.data().eth[week]
                       if(e.returnValues.token == "0x9AeC9767B0842d04dc0b831ADAA71342Ed8B8Ba1" && e.chain == "ethereum")
-                      currentRate = resRate.data().bbst[week] == undefined ? 1.25 : resRate.data().bbst[week]
-                      if(e.returnValues.token == "0xb465fbfe1678ff41cd3d749d54d2ee2cfabe06f3" && e.chain == "ethereum")
-                      currentRate = resRate.data().usdc[week] == undefined ? 10**12 : resRate.data().usdc[week] * 10 ** 12
+                        currentRate = resRate.data().bbst[week] == undefined ? 1.25 : resRate.data().bbst[week]
+                      if(e.returnValues.token == "0xb465fBFE1678fF41CD3D749D54d2ee2CfABE06F3" && e.chain == "ethereum")
+                        currentRate = resRate.data().usdc[week] == undefined ? 10**12 : resRate.data().usdc[week] * 10 ** 12
                       if(e.returnValues.token == "0x0000000000000000000000000000000000000000" && e.chain == "polygon")
-                      currentRate = resRate.data().matic[week] == undefined ? 0.6 : resRate.data().matic[week]
+                        currentRate = resRate.data().matic[week] == undefined ? 0.6 : resRate.data().matic[week]
                       if(e.returnValues.token == "0x8922Ab8ed4FE9E7C25D826171d91c3c8E98284b3" && e.chain == "polygon")
-                      currentRate = resRate.data().bbst[week] == undefined ? 1.25 : resRate.data().bbst[week]
-                      if(e.returnValues.token == "0x8f7116ca03aeb48547d0e2edd3faa73bfb232538" && e.chain == "polygon")
-                      currentRate = resRate.data().usdc[week] == undefined ? 10**12 : resRate.data().usdc[week] * 10 ** 12
+                        currentRate = resRate.data().bbst[week] == undefined ? 1.25 : resRate.data().bbst[week]
+                      if(e.returnValues.token == "0x8f7116CA03AEB48547d0E2EdD3Faa73bfB232538" && e.chain == "polygon")
+                        currentRate = resRate.data().usdc[week] == undefined ? 10**12 : resRate.data().usdc[week] * 10 ** 12
   
                       // console.log("Rate crypto :", currentRate);
         
@@ -376,7 +376,7 @@ const closeDialog = () => {
         <div>
           <CardContent>
           <Typography component="h5" variant="h5" color="textSecondary">
-            Connect to Ethereum <br></br>to claim your tokens
+            Connect to <img style={{marginLeft: 1, marginRight: 1, marginTop: -3, height: 25}} src="/images/cryptoicons/smallethgray.svg"/>Ethereum <br></br>to claim your tokens
           </Typography>
           </CardContent>
           </div>

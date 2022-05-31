@@ -31,7 +31,7 @@ const MainProjectFeaturedCarousel = ({p}) => {
         dots: true,
         autoplay: true,
         smartSpeed: 1000,
-        autoplayTimeout: 5000,
+        autoplayTimeout: 8000,
         items: 1,
         touchDrag: false,
         mouseDrag: false,
