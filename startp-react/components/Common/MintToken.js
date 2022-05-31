@@ -189,7 +189,7 @@ const closeDialog = () => {
 
             <DialogContentText id="alert-dialog-description">
             Transaction Hash : </DialogContentText>
-            <DialogContentText id="alert-dialog-description"><a href={`https://rinkeby.etherscan.io/tx/${Tx}`} target="_blank">{Tx}</a></DialogContentText>
+            <DialogContentText id="alert-dialog-description"><a href={`https://goerli.etherscan.io/tx/${Tx}`} target="_blank">{Tx}</a></DialogContentText>
             </DialogContent></div>
         case 1:
             return <div style={{justifyContent:'center'}}>
@@ -197,7 +197,7 @@ const closeDialog = () => {
             <DialogContent>
             <DialogContentText id="alert-dialog-description" style={{marginTop: 15}}>
             Transaction confirmed : </DialogContentText>
-            <DialogContentText id="alert-dialog-description"><a href={`https://rinkeby.etherscan.io/tx/${Tx}`} target="_blank">{Tx}</a></DialogContentText>
+            <DialogContentText id="alert-dialog-description"><a href={`https://goerli.etherscan.io/tx/${Tx}`} target="_blank">{Tx}</a></DialogContentText>
             <div style={{justifyContent:'center'}}>
                         <Link href={{
                             pathname: "/"

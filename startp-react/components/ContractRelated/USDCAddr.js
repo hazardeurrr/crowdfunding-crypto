@@ -1,4 +1,4 @@
-const usdcAddr = "0x4DBCdF9B62e891a7cec5A2568C3F4FAF9E8Abe2b"
+const usdcAddr = "0xb465fbfe1678ff41cd3d749d54d2ee2cfabe06f3"
 
 module.exports = {
   usdcAddr

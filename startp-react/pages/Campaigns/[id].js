@@ -382,7 +382,7 @@ const Campaign = (props) => {
     const showScan = () => {
         if(campaign.network == chain){
             return <li>
-            <Icon.ExternalLink /> <a target="_blank" href={`https://rinkeby.etherscan.io/address/${campaign.contract_address}`}>See on Etherscan</a>
+            <Icon.ExternalLink /> <a target="_blank" href={`https://goerli.etherscan.io/address/${campaign.contract_address}`}>See on Etherscan</a>
             </li>
         } else if(campaign.network == poly_chain){
             return <li>

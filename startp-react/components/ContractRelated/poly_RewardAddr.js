@@ -1,4 +1,4 @@
-const poly_rewardAddr = "0xfd170a6595898d8ebCEC2fb8EF572c3bd165A718"
+const poly_rewardAddr = "0xd3F061Bf9047ce16b7C9A1540762ad0145f3aB3F"
 
 module.exports = {
   poly_rewardAddr

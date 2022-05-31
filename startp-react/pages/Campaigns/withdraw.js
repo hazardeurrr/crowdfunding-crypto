@@ -252,7 +252,7 @@ const Withdraw = (props) => {
 const showScan = () => {
     if(campaign !== undefined){
         if(campaign.network == chain){
-            return <a href={`https://rinkeby.etherscan.io/tx/${Tx}`} target="_blank">{Tx}</a>
+            return <a href={`https://goerli.etherscan.io/tx/${Tx}`} target="_blank">{Tx}</a>
         } else if(campaign.network == poly_chain){
             return <a href={`https://mumbai.polygonscan.com/tx/${Tx}`} target="_blank">{Tx}</a>
         }

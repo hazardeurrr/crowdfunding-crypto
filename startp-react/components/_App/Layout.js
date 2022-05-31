@@ -4,7 +4,7 @@ import GoTop from './GoTop'
 import { useSelector, useDispatch } from 'react-redux'
 import {getAll, getOne} from '../../firebase-crowdfund/queries';
 import {db} from '../../firebase-crowdfund/index'
- 
+
 const Layout = ({ children }, {c, crea}) => {
 
     

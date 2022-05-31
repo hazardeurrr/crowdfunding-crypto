@@ -474,7 +474,7 @@ class MainForm extends React.Component {
 
     explorerLink = () => {
         if(this.props.chainID == chain){
-            return <a href={`https://rinkeby.etherscan.io/tx/${this.state.Tx}`} target="_blank">{this.state.Tx}</a>
+            return <a href={`https://goerli.etherscan.io/tx/${this.state.Tx}`} target="_blank">{this.state.Tx}</a>
         } else if(this.props.chainID == poly_chain){
             return <a href={`https://mumbai.polygonscan.com/tx/${this.state.Tx}`} target="_blank">{this.state.Tx}</a>
         }
@@ -568,9 +568,9 @@ class MainForm extends React.Component {
 
     showCurrentNetwork(){
         if(this.props.chainID == chain){   // ETH
-            return <div style={{display:"flex"}}><p>Selected network : <img style={{height: 20, marginLeft: 5}} src="/images/cryptoicons/eth.svg" /> <span style={{marginLeft: 5}}>Ethereum</span></p></div>
+            return <div style={{display:"flex"}}><p>Selected network : <img style={{height: 20, marginLeft: 5}} src="/images/cryptoicons/smallethgray.svg" /> <span style={{marginLeft: 3}}>Ethereum</span></p></div>
         } else if(this.props.chainID == poly_chain) {      // POLYGON MAINNET
-            return <div style={{display:"flex"}}><p>Selected network : <img style={{height: 20, marginLeft: 5}} src="/images/cryptoicons/matic.svg" /> <span style={{marginLeft: 5}}>Polygon</span></p></div>
+            return <div style={{display:"flex"}}><p>Selected network : <img style={{height: 20, marginLeft: 5}} src="/images/cryptoicons/smallpolygongray.svg" /> <span style={{marginLeft: 3}}>Polygon</span></p></div>
         } else {
             return <div style={{display:"flex"}}><p>Selected network : <Icon.AlertCircle/> <span style={{marginLeft: 5}}>Unsupported. Please switch network.</span></p></div>
         }
@@ -682,7 +682,8 @@ class MainForm extends React.Component {
                                     <p>Size : max 3MB / Format : JPG, PNG or GIF / Resolution : 16:9 (ex: 1920x1080, 1280x720, 1024x576, 640x360...)</p>
                                     <MainPic onImageChange={this.handleChangeImage.bind(this)} ratio="ratio" resolutionWidth={1920} resolutionHeight={1080} />
                                     <br></br>
-                                    <p><strong> Fundraising Duration </strong><br/> Projects with shorter durations have higher success rates. You won’t be able to adjust your duration after you launch.</p>
+
+                                    <p style={{marginTop: 10}}><strong> Fundraising Duration </strong><br/> Projects with shorter durations have higher success rates. You won’t be able to adjust your duration after you launch.</p>
                                     <div className="col-lg-12 col-md-12">
                                         <div className="form-group">
                                             {/* <DatePicker onChange={e => {

@@ -94,7 +94,7 @@ const Navbar = () => {
                 type:'SET_WEB3POLY',
                 id: web3poly
             })
-            var web3eth = new Web3(new Web3.providers.HttpProvider("https://rinkeby.infura.io/v3/391e7c4cd5274ef8a269414b4833bade"))
+            var web3eth = new Web3(new Web3.providers.HttpProvider("https://goerli.infura.io/v3/391e7c4cd5274ef8a269414b4833bade"))
             dispatch({
                 type:'SET_WEB3ETH',
                 id: web3eth
@@ -169,7 +169,7 @@ const Navbar = () => {
                 if(eth_web3Instance != undefined){
                     web3eth = eth_web3Instance
                 } else {
-                    web3eth = new Web3(new Web3.providers.HttpProvider("https://rinkeby.infura.io/v3/391e7c4cd5274ef8a269414b4833bade"))
+                    web3eth = new Web3(new Web3.providers.HttpProvider("https://goerli.infura.io/v3/391e7c4cd5274ef8a269414b4833bade"))
                 }
                 const bbst_contract = new web3eth.eth.Contract(bbstAbi.bbstAbi, bbstAddr.bbstAddr);
                 bbst_contract.methods.balanceOf(accounts[0]).call().then(response => {
@@ -352,12 +352,12 @@ const Navbar = () => {
           }
     }
 
-    const switchToRinkeby = async() => {
-        if (window.ethereum.networkVersion !== "0x4") {
+    const switchTogoerli = async() => {
+        if (window.ethereum.networkVersion !== "0x5") {
             {
               await window.ethereum.request({
                 method: 'wallet_switchEthereumChain',
-                params: [{ chainId: "0x4" }]
+                params: [{ chainId: "0x5" }]
               });
             }
         } 
@@ -416,11 +416,12 @@ const Navbar = () => {
                         </section>} /> */}
                         {showCurrentNetwork()}
                         <ul className="dropdown-menu">
+                            <p style={{marginLeft: 5, fontSize: 15, marginBottom: 0}}><i>Switch network</i></p>
                             <li className="nav-item">
                                 <Link href="#">
                                 <a onClick={e => {
                                     e.preventDefault();
-                                    switchToRinkeby()                   // !!!!!!!!!!!!!!!!!!!!!!!! CHANGER TO SWITCH TO ETH !!!!!!!!!!!!!!!!!
+                                    switchTogoerli()                   // !!!!!!!!!!!!!!!!!!!!!!!! CHANGER TO SWITCH TO ETH !!!!!!!!!!!!!!!!!
                                     }} className="nav-link">
                                     <div style={{display:"flex"}}><img style={{height: 18, marginTop: 1}} src="/images/cryptoicons/smallethgray.svg" /> <span style={{marginLeft: 5}}>Ethereum</span></div>
                                 </a>
@@ -436,7 +437,13 @@ const Navbar = () => {
                                     <div style={{display:"flex"}}><img style={{height: 18, marginTop: 1}} src="/images/cryptoicons/smallpolygongray.svg" /> <span style={{marginLeft: 5}}>Polygon</span></div>
                                 </a>
                                 </Link>
-                            </li>                            
+                            </li>   
+                            <p style={{marginTop: 10, marginLeft: 2, fontSize: 15, marginBottom: 0}}><i>Bridge</i></p>
+                            <li className="nav-item">
+                                <a className="nav-link" href="https://wallet-dev.polygon.technology/bridge/" target="_about">
+                                    <div style={{display:"flex"}}><img style={{height: 18, marginTop: 1}} src="/images/cryptoicons/smallethgray.svg" /> <span style={{marginLeft: 5}}>Ethereum ↔ Polygon</span><img style={{height: 18, marginTop: 1, marginLeft: 5}} src="/images/cryptoicons/smallpolygongray.svg" /></div>
+                                </a>
+                            </li>   
                         </ul>
                 {/* <img style={{marginTop: -8, height: 40, border: "1.5px solid #c3c2c4", padding: 4, borderRadius: 12}} src={'/images/cryptoicons/ethblack.svg'}/> */}
                 </li>
@@ -473,7 +480,7 @@ const Navbar = () => {
             {/* <div className={classes.root}>
                 <AppBar position="static" style={{marginTop: -15, marginBottom:10, background:'#44cf6e', justifyContent:'center', alignItems:'center'}}> 
                     <Typography style={{color: 'white'}}>
-                        This is an alpha version running on RINKEBY test network !
+                        This is an alpha version running on goerli test network !
                     </Typography>
                 </AppBar>
             </div> */}

@@ -6,6 +6,7 @@ import SingleCardCarrousel from '../Common/SingleCardCarrousel';
 import { useSelector, useDispatch } from 'react-redux'
 import {getAll} from '../../firebase-crowdfund/queries';
 import MainProjectFeatured from './MainProjectFeatured';
+import { FlashOnRounded } from '@material-ui/icons';
 const OwlCarousel = dynamic(import('react-owl-carousel3'));
 
 
@@ -30,8 +31,11 @@ const MainProjectFeaturedCarousel = ({p}) => {
         dots: true,
         autoplay: true,
         smartSpeed: 1000,
-        autoplayTimeout: 10000,
+        autoplayTimeout: 5000,
         items: 1,
+        touchDrag: false,
+        mouseDrag: false,
+        pullDrag: false,
     }
 
     const ShowProjects = () => {

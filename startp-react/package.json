@@ -21,6 +21,7 @@
         "@material-ui/icons": "^4.11.2",
         "@material-ui/lab": "^4.0.0-alpha.57",
         "@material-ui/pickers": "^3.3.10",
+        "@maticnetwork/wallet-widget": "^1.0.3",
         "@metamask/detect-provider": "^1.2.0",
         "@mui/lab": "^5.0.0-alpha.71",
         "@mui/material": "^5.4.4",

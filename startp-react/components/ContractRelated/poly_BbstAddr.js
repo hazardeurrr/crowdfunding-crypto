@@ -1,4 +1,4 @@
-const poly_bbstAddr = "0x67c0fd5c30C39d80A7Af17409eD8074734eDAE55"
+const poly_bbstAddr = "0x8922ab8ed4fe9e7c25d826171d91c3c8e98284b3"
 
 module.exports = {
   poly_bbstAddr

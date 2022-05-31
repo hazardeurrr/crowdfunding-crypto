@@ -5,6 +5,8 @@ import PageBanner from '@/components/Common/PageBanner';
 import ServicesArea from "@/components/Landing/ServicesArea";
 import * as Icon from 'react-feather';
 import {bbstAddr} from '@/components/ContractRelated/BbstAddr'
+import {poly_bbstAddr} from '@/components/ContractRelated/poly_BbstAddr'
+import { Widget } from '@maticnetwork/wallet-widget'
 
 import {
     Accordion,
@@ -16,10 +18,10 @@ import {
 import CardToken from '@/components/Common/CardToken';
 import MintToken from '@/components/Common/MintToken';
 
+const EthPolyBridge = () => {
+    
 
-const TokenDetails = () => {
-
-    const addToMetamask = () => {
+    const addToMetamaskETH = () => {
         {
             ethereum
             .request({
@@ -36,6 +38,46 @@ const TokenDetails = () => {
             })
         }
     }
+
+    const addToMetamaskPolygon = () => {
+        {
+            ethereum
+            .request({
+              method: 'wallet_watchAsset',
+              params: {
+                type: 'ERC20',
+                options: {
+                  address: poly_bbstAddr,
+                  symbol: 'BBST',
+                  decimals: 18,
+                  image: "https://firebasestorage.googleapis.com/v0/b/crowdfunding-dev-5f802.appspot.com/o/gradlogowhite.png?alt=media&token=2e6382a3-5cec-4cfc-baaf-e4b2400cdbbe",
+                },
+              },
+            })
+        }
+    }
+
+    const widget = new Widget({
+        target: '',
+        appName: 'Polygon-Ethereum_Bridge',
+        autoShowTime: 0,
+        position: 'center',
+        height: 630,
+        width: 540,
+        overlay: false,
+        network: 'testnet',
+        closable: true,
+      });
+    
+
+    const showWidget = () => {
+    }
+
+    React.useEffect(() => {
+        widget.create()
+        widget.show()
+
+    }, [])
 
     return (
         <>
@@ -61,7 +103,9 @@ const TokenDetails = () => {
                             <div className="bar"></div>
                             <p>Test BBST can be used on our test platform (Goerli network). Feel free to mint some to try our platform !</p>
                             <MintToken style={{marginTop: 80}}/>
-                            <button style={{marginTop: 25}} className="btn btn-secondary" onClick={() => addToMetamask()}>Add BBST to Metamask</button>
+                            <button style={{marginTop: 25}} className="btn btn-secondary" onClick={() => addToMetamaskETH()}>Add BBST to Metamask (ETH)</button>
+                            <button style={{marginTop: 25}} className="btn btn-secondary" onClick={() => addToMetamaskPolygon()}>Add BBST to Metamask (Polygon)</button>
+
                         </div>
                     </div>
                 </div>
@@ -81,28 +125,10 @@ const TokenDetails = () => {
 
             <div className="services-details-area ptb-80">
                 <div className="container">
-                    {/* <div className="row align-items-center">
-                        <div className="col-lg-6 services-details">
-                            <div className="services-details-desc">
-                                <h3>Our vision with the BBST token</h3>
-                                <p>The BBST Token is </p>
-                                <p>The token will reflect the team's effort to ensure that everyone can become a campaign creator and that everyone can invest in any project they want</p>
-                            </div>
-                        </div>
 
-                        <div className="col-lg-6 services-details-image">
-                            <img 
-                                src="/images/services-details-image/services-details1.png" 
-                                className="animate__animated animate__fadeInUp" 
-                                alt="image" 
-                            />
-                        </div>
-                    </div> */}
-                    <ServicesArea />
+                        {/* {showWidget()} */}
 
-                    <div className="separate"></div>
-
-                    <div className="row align-items-center">
+                        <div className="row align-items-center">
                         <div className="col-lg-6 services-details-image">
                             <img 
                                 src="/images/bigdata-analytics/investing.svg" 
@@ -110,6 +136,7 @@ const TokenDetails = () => {
                                 alt="image" 
                             />
                         </div>
+
 
                         <div className="col-lg-6 services-details">
                             <div className="services-details-desc">
@@ -191,9 +218,6 @@ const TokenDetails = () => {
                                 </div>
                             </div>
                         </div>
-
-                        {/* <div className="separate"></div> */}
- 
                     </div>
                 </div>
             </div>
@@ -203,4 +227,4 @@ const TokenDetails = () => {
     )
 }
 
-export default TokenDetails;
+export default EthPolyBridge;
