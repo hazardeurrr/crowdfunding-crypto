@@ -1,4 +1,4 @@
-const poly_campaignAddr = "0x3b26aBc627eE62a0C88167280A0d74b5656041bE"
+const poly_campaignAddr = "0xa466eb9a71e8E325A5eCA6235ed47574FaFFD2bB"
 
 module.exports = {
   poly_campaignAddr

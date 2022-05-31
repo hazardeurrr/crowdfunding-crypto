@@ -1,4 +1,4 @@
-const poly_usdcAddr = "0x8f7116ca03aeb48547d0e2edd3faa73bfb232538"
+const poly_usdcAddr = "0x8f7116CA03AEB48547d0E2EdD3Faa73bfB232538"
 
 module.exports = {
   poly_usdcAddr
