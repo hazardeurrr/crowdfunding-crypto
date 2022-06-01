@@ -68,7 +68,7 @@ const CardToken = () => {
   }, [web3Instance])
 
   const getClaim = async(contract, poly_contract) => {
-    const weekTime = 300;
+    const weekTime = 86400;
     
     const userAddr = address;
     const rewardCtr = contract;
