@@ -110,19 +110,20 @@ const ServiceDetails = () => {
                                             <AccordionItemHeading>
                                                 <AccordionItemButton>
                                                     <span>
-                                                        What are the supported networks & how to change network ?
+                                                        What are the supported networks & how to change your current network ?
                                                     </span>
                                                 </AccordionItemButton>
                                             </AccordionItemHeading>
                                             <AccordionItemPanel>
                                                 <p>
-                                                    BlockBoosted supports both Ethereum & Polygon networks. You can change network on our navigation bar or directly on the Metamask tab.
+                                                    BlockBoosted supports both Ethereum & Polygon chains. Each campaign is deployed only on one chain, and will only accept funds through this network. 
                                                     You can sort campaigns by supported network on our <Link href={{
                                                         pathname: "/SearchPage/",
                                                         query: {
                                                             id: "explore",
                                                         }
                                                     }}><a>Explore</a></Link> page.
+                                                    <br></br>You can change your current network on our navigation bar or directly on the Metamask tab.
                                                 </p>
                                             </AccordionItemPanel>
                                         </AccordionItem>
@@ -147,7 +148,7 @@ const ServiceDetails = () => {
                                             <AccordionItemHeading>
                                                 <AccordionItemButton>
                                                     <span>
-                                                        How do I get my rewards ?
+                                                        How do I get the rewards from a campaign I supported ?
                                                     </span>
                                                 </AccordionItemButton>
                                             </AccordionItemHeading>
@@ -195,39 +196,6 @@ const ServiceDetails = () => {
                                             </AccordionItemPanel>
                                         </AccordionItem> */}
 
-                                        <AccordionItem uuid="h">
-                                            <AccordionItemHeading>
-                                                <AccordionItemButton>
-                                                    <span>
-                                                        I can't access some features
-                                                    </span>
-                                                </AccordionItemButton>
-                                            </AccordionItemHeading>
-                                            <AccordionItemPanel>
-                                                <p>
-                                                    - If some features are missing, be sure to be connected to Metamask and be sure that it is your only browser extension that serves as an Ethereum wallet.
-                                                    <br></br>- If you are connected to Metamask, be sure you have one of our supported network selected on the Metamask tab.
-                                                    <br></br>- If none of these work, try to reload the page or open it with another browser.
-                                                    <br></br>- If none of these work, you can <Link href="/contact-us"><a>contact our support.</a></Link>
-                                                </p>
-                                            </AccordionItemPanel>
-                                        </AccordionItem>
-
-                                        <AccordionItem uuid="i">
-                                            <AccordionItemHeading>
-                                                <AccordionItemButton>
-                                                    <span>
-                                                        I can't confirm my transaction
-                                                    </span>
-                                                </AccordionItemButton>
-                                            </AccordionItemHeading>
-                                            <AccordionItemPanel>
-                                                <p>
-                                                Be sure you have enough money in the needed currency in your Metamask wallet, as well as enough ETH (Ethereum network) or MATIC (Polygon network) to pay the gas fee for the transaction. Transactions on the blockchain can take quite a long time. The less fee you want to pay, the longer it will take to get confirmed. 
-                                                </p>
-                                            </AccordionItemPanel>
-                                        </AccordionItem>
-
                                         <AccordionItem uuid="ac">
                                             <AccordionItemHeading>
                                                 <AccordionItemButton>
@@ -248,7 +216,7 @@ const ServiceDetails = () => {
                                                         </li>
                                                     </ul>
                                                     If you already have some crypto on Polygon network, you can directly use it on our platform (MATIC, USDC or BBST)
-                                                    or swap it on a DEX/CEX that supports Polygon to one of our supported currencies.
+                                                    or swap it on a DEX/CEX that supports Polygon.
                                                     <br></br><i>Note that you will need MATIC to pay the gas fees once using the Polygon network (instead of ETH for Ethereum network).</i>
                                                 </p>
                                             </AccordionItemPanel>
@@ -268,6 +236,41 @@ const ServiceDetails = () => {
                                                 </p>
                                             </AccordionItemPanel>
                                         </AccordionItem>
+
+                                        <AccordionItem uuid="h">
+                                            <AccordionItemHeading>
+                                                <AccordionItemButton>
+                                                    <span>
+                                                        I can't access some features
+                                                    </span>
+                                                </AccordionItemButton>
+                                            </AccordionItemHeading>
+                                            <AccordionItemPanel>
+                                                <p>
+                                                    - If some features are missing, be sure to be connected to Metamask and be sure that it is your only browser extension that serves as an Ethereum wallet.
+                                                    <br></br>- If you are connected to Metamask, be sure you have one of our supported network selected on the Metamask tab.
+                                                    <br></br>- If none of these work, try to reload the page or open it with another browser.
+                                                    <br></br>- If none of these work, you can <Link href="/contact"><a>contact our support.</a></Link>
+                                                </p>
+                                            </AccordionItemPanel>
+                                        </AccordionItem>
+
+                                        <AccordionItem uuid="i">
+                                            <AccordionItemHeading>
+                                                <AccordionItemButton>
+                                                    <span>
+                                                        I can't confirm my transaction
+                                                    </span>
+                                                </AccordionItemButton>
+                                            </AccordionItemHeading>
+                                            <AccordionItemPanel>
+                                                <p>
+                                                Be sure you have enough money in the needed currency in your Metamask wallet, as well as enough ETH (Ethereum network) or MATIC (Polygon network) to pay the gas fee for the transaction. Transactions on the blockchain can take quite a long time. The less fee you want to pay, the longer it will take to get confirmed. 
+                                                </p>
+                                            </AccordionItemPanel>
+                                        </AccordionItem>
+
+                                        
 
                                     </Accordion>
 
@@ -434,9 +437,9 @@ const ServiceDetails = () => {
                                                 </AccordionItemHeading>
                                                 <AccordionItemPanel>
                                                     <p>
-                                                        Featured campaigns are determined by BBST stakers and platforms users. When a user likes a campaign, he increases its "like score". The more BBST the user stakes, the more this score increases.
-                                                        The calculus is constantly made to see which campaign do BBST stakers love the most. <br></br>So if you want your campaign to be featured on the main page and seen as first results, you need to
-                                                        get likes from the biggest BBST stakers. Note that you can like your own campaign.
+                                                        Featured campaigns are determined by BBST holders and platforms users. When a user likes a campaign, he increases its "like score". The more BBST the user holds, the more this score increases.
+                                                        The calculus is constantly made to see which campaign do BBST holders love the most. <br></br>So if you want your campaign to be featured on the main page and seen as first results, you need to
+                                                        get likes from the BlockBoosted community !
                                                     </p>
                                                 </AccordionItemPanel>
                                             </AccordionItem>
