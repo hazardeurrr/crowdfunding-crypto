@@ -51,8 +51,8 @@ const ServiceDetails = () => {
                                             </AccordionItemHeading>
                                             <AccordionItemPanel>
                                                 <p>
-                                                    You need the Ethereum browser wallet Metamask to use our features. If you don't have it, you can download this browser wallet extension at&nbsp;
-                                                    <a href="https://metamask.io/"> metamask.io</a>. Once you have the extension installed, click on the Conect Wallet button on the navigation bar of our site.
+                                                    You need the browser wallet Metamask to use our features. If you don't have it, you can download this extension at&nbsp;
+                                                    <a href="https://metamask.io/"> metamask.io</a>. Once installed, click on the Connect Wallet button on the navigation bar of our site.
                                                     Enter your credentials and confirm on the Metamask popup. You're now connected with your Metamask wallet, congratulations !
                                                 </p>
                                             </AccordionItemPanel>
@@ -69,7 +69,7 @@ const ServiceDetails = () => {
                                             <AccordionItemPanel>
                                                 <p>
                                                     The easiest way to access a campaign is by searching for its name on the searchbar. You can also search its creator there by its username.
-                                                    Otherwise, you can explore all the campaigns sorted by categories in our "Explore" tab.
+                                                    Otherwise, you can explore all the campaigns sorted by categories or network in our "Explore" tab.
                                                 </p>
                                             </AccordionItemPanel>
                                         </AccordionItem>
@@ -78,7 +78,7 @@ const ServiceDetails = () => {
                                             <AccordionItemHeading>
                                                 <AccordionItemButton>
                                                     <span>
-                                                        How do I contribute to a campaign ?
+                                                        How can I contribute to a campaign ?
                                                     </span>
                                                 </AccordionItemButton>
                                             </AccordionItemHeading>
@@ -102,6 +102,27 @@ const ServiceDetails = () => {
                                                 <p>
                                                     As a contributor, you aren't charged any fee by the platform. But you will have to pay the gas fee of the blockchain when confirming the transaction. Note that this is
                                                     the only fee you'll pay.
+                                                </p>
+                                            </AccordionItemPanel>
+                                        </AccordionItem>
+
+                                        <AccordionItem uuid="aa">
+                                            <AccordionItemHeading>
+                                                <AccordionItemButton>
+                                                    <span>
+                                                        What are the supported networks & how to change network ?
+                                                    </span>
+                                                </AccordionItemButton>
+                                            </AccordionItemHeading>
+                                            <AccordionItemPanel>
+                                                <p>
+                                                    BlockBoosted supports both Ethereum & Polygon networks. You can change network on our navigation bar or directly on the Metamask tab.
+                                                    You can sort campaigns by supported network on our <Link href={{
+                                                        pathname: "/SearchPage/",
+                                                        query: {
+                                                            id: "explore",
+                                                        }
+                                                    }}><a>Explore</a></Link> page.
                                                 </p>
                                             </AccordionItemPanel>
                                         </AccordionItem>
@@ -185,8 +206,9 @@ const ServiceDetails = () => {
                                             <AccordionItemPanel>
                                                 <p>
                                                     - If some features are missing, be sure to be connected to Metamask and be sure that it is your only browser extension that serves as an Ethereum wallet.
-                                                    <br></br>- If you are connected to Metamask, be sure you have "Ethereum Mainnet" selected as network on the Metamask tab.
+                                                    <br></br>- If you are connected to Metamask, be sure you have one of our supported network selected on the Metamask tab.
                                                     <br></br>- If none of these work, try to reload the page or open it with another browser.
+                                                    <br></br>- If none of these work, you can <Link href="/contact-us"><a>contact our support.</a></Link>
                                                 </p>
                                             </AccordionItemPanel>
                                         </AccordionItem>
@@ -201,10 +223,52 @@ const ServiceDetails = () => {
                                             </AccordionItemHeading>
                                             <AccordionItemPanel>
                                                 <p>
-                                                Be sure you have enough money in the needed currency in your Metamask wallet, as well as enough ETH to pay the gas fee for the transaction. Transactions on the Ethereum blockchain can take quite a long time. The less fee you want to pay, the longer it will take to get confirmed. 
+                                                Be sure you have enough money in the needed currency in your Metamask wallet, as well as enough ETH (Ethereum network) or MATIC (Polygon network) to pay the gas fee for the transaction. Transactions on the blockchain can take quite a long time. The less fee you want to pay, the longer it will take to get confirmed. 
                                                 </p>
                                             </AccordionItemPanel>
                                         </AccordionItem>
+
+                                        <AccordionItem uuid="ac">
+                                            <AccordionItemHeading>
+                                                <AccordionItemButton>
+                                                    <span>
+                                                        How can I transfer funds to Polygon ?
+                                                    </span>
+                                                </AccordionItemButton>
+                                            </AccordionItemHeading>
+                                            <AccordionItemPanel>
+                                                <p>
+                                                    There are two ways of transfering funds to Polygon network.
+                                                    <ul>
+                                                        <li>
+                                                            Deposit funds on an exchange supporting Polygon (Binance, FTX...). Then withdraw to your Metamask wallet selecting Polygon as network. The exchange will basically handle the bridge for you !
+                                                        </li>
+                                                        <li>
+                                                            Bridge tokens from Ethereum to Polygon thanks to Polygon Bridge. You can access it on our navigation bar.
+                                                        </li>
+                                                    </ul>
+                                                    If you already have some crypto on Polygon network, you can directly use it on our platform (MATIC, USDC or BBST)
+                                                    or swap it on a DEX/CEX that supports Polygon to one of our supported currencies.
+                                                    <br></br><i>Note that you will need MATIC to pay the gas fees once using the Polygon network (instead of ETH for Ethereum network).</i>
+                                                </p>
+                                            </AccordionItemPanel>
+                                        </AccordionItem>
+
+                                        <AccordionItem uuid="ab">
+                                            <AccordionItemHeading>
+                                                <AccordionItemButton>
+                                                    <span>
+                                                        I used the Polygon Bridge but can't see the tokens in my wallets
+                                                    </span>
+                                                </AccordionItemButton>
+                                            </AccordionItemHeading>
+                                            <AccordionItemPanel>
+                                                <p>
+                                                    Bridging assets between Ethereum & Polygon networks usually takes around 10 minutes. Also, make sure to import the tokens on Metamask on both networks to see the balances.
+                                                </p>
+                                            </AccordionItemPanel>
+                                        </AccordionItem>
+
                                     </Accordion>
 
                                     
@@ -230,8 +294,8 @@ const ServiceDetails = () => {
                                                 </AccordionItemHeading>
                                                 <AccordionItemPanel>
                                                     <p>
-                                                        You need the Ethereum browser wallet Metamask to use our features. If you don't have it, you can download this browser wallet extension at&nbsp;
-                                                        <a href="https://metamask.io/"> metamask.io</a>. Once you have the extension installed, click on the Conect Wallet button on the navigation bar of our site.
+                                                        You need the browser wallet Metamask to use our features. If you don't have it, you can download this extension at&nbsp;
+                                                        <a href="https://metamask.io/"> metamask.io</a>. Once installed, click on the Connect Wallet button on the navigation bar of our site.
                                                         Enter your credentials and confirm on the Metamask popup. You're now connected with your Metamask wallet, congratulations !
                                                     </p>
                                                 </AccordionItemPanel>
@@ -253,6 +317,21 @@ const ServiceDetails = () => {
                                                     </p>
                                                 </AccordionItemPanel>
                                             </AccordionItem>
+
+                                            <AccordionItem uuid="b2">
+                                                <AccordionItemHeading>
+                                                    <AccordionItemButton>
+                                                        <span>
+                                                            What are the supported networks ?
+                                                        </span>
+                                                    </AccordionItemButton>
+                                                </AccordionItemHeading>
+                                                <AccordionItemPanel>
+                                                    <p>
+                                                        BlockBoosted supports Ethereum & Polygon chains. Note that your campaign can only be deployed on one chain, and will only accepts funds through that network. 
+                                                    </p>
+                                                </AccordionItemPanel>
+                                            </AccordionItem>                                            
 
                                             <AccordionItem uuid="c">
                                                 <AccordionItemHeading>
@@ -294,7 +373,8 @@ const ServiceDetails = () => {
                                                 </AccordionItemHeading>
                                                 <AccordionItemPanel>
                                                     <p>
-                                                        At the moment, you have to choose a currency for your campaign between ETH (Ether), USDC (USD Coin) and BBST (our native token : BlockBoosted).
+                                                        For campaigns on Ethereum : ETH, USDC or BBST.
+                                                        <br></br>For campaigns on Polygon : MATIC, USDC or BBST.
                                                     </p>
                                                 </AccordionItemPanel>
                                             </AccordionItem>
