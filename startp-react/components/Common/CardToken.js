@@ -74,7 +74,8 @@ const CardToken = () => {
     const rewardCtr = contract;
     const polyRewardCtr = poly_contract;
 
-    rewardCtr.methods.getLastClaim(userAddr).call().then((res) => {
+    rewardCtr.methods.lastClaim(userAddr).call().then((res) => {
+      console.log(res)
       rewardCtr.getPastEvents("Participate", ({fromBlock: 6981402, toBlock: "latest"}))
         .then((events) => {
   
