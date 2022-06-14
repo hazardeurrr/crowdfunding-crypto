@@ -114,25 +114,6 @@ const rewardAbi = [
 		"inputs": [
 			{
 				"internalType": "address",
-				"name": "claimer",
-				"type": "address"
-			}
-		],
-		"name": "getLastClaim",
-		"outputs": [
-			{
-				"internalType": "uint256",
-				"name": "",
-				"type": "uint256"
-			}
-		],
-		"stateMutability": "view",
-		"type": "function"
-	},
-	{
-		"inputs": [
-			{
-				"internalType": "address",
 				"name": "",
 				"type": "address"
 			}
