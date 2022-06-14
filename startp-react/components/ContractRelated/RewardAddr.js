@@ -1,4 +1,4 @@
-const rewardAddr = "0x0Fc0DB0B88598f4A0cfcc8A216b5C590Ec35d13e"
+const rewardAddr = "0xFAB6944568885c4C0e0b03b307BdFec8B457C691"
 
 module.exports = {
   rewardAddr

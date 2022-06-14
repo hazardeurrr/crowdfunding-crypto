@@ -257,7 +257,8 @@ class MainForm extends React.Component {
             context.openSnackbar()
             console.log(error);
         })
-        .then((a) => {
+        .then(a => {
+            console.log(a);
             this.setState({new_contract_address: a.events.CampaignCreated.returnValues[0].toLowerCase()})
             this.createFirebaseObject(a.events.CampaignCreated.returnValues[0].toLowerCase())
             }
