@@ -33,7 +33,7 @@ const Footer = () => {
                            
                         <div className="copyright-area">
                         <div className="logo">
-                                        <img src="/images/bb_logo_full_2.png" alt="logo" />
+                                        <img src="/images/logo_svg.svg" style={{width: 110}} alt="logo" />
                             </div>
                            <ul className="social-links">
                                             <li>
