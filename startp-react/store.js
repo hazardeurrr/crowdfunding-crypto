@@ -19,7 +19,7 @@ const initialState = {
   bbstBalance: 0,
   web3Instance: undefined,
   eth_web3Instance: undefined,
-  poly_web3Instance: undefined
+  bnb_web3Instance: undefined
 }
 
 // const reducerComp = (previous, current) => previous[1] + current[1];
@@ -83,10 +83,10 @@ const reducer = (state = initialState, action) => {
         eth_web3Instance: action.id
     }
 
-    case 'SET_WEB3POLY':
+    case 'SET_WEB3BNB':
       return {
         ...state,
-        poly_web3Instance: action.id
+        bnb_web3Instance: action.id
     }
 
     case 'SET_ALL_CAMPAIGNS':

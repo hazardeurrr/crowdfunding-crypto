@@ -8,17 +8,17 @@ import DialogTitle from '@material-ui/core/DialogTitle';
 import { useSelector, useDispatch } from 'react-redux';
 import Button from '@material-ui/core/Button';
 import {chain} from '@/utils/chain'
-import {poly_chain} from '@/utils/poly_chain'
+import {bnb_chain} from '@/utils/bnb_chain'
 import { updateDoc, getOne } from 'firebase-crowdfund/queries'
 import {db, storage} from '../../firebase-crowdfund/index'
 import campaignAbi from '@/components/ContractRelated/CampaignAbi';
 import {usdcAddr} from '@/components/ContractRelated/USDCAddr';
 import {bbstAddr} from '@/components/ContractRelated/BbstAddr';
-import {poly_usdcAddr} from '@/components/ContractRelated/poly_USDCAddr';
-import {poly_bbstAddr} from '@/components/ContractRelated/poly_BbstAddr';
+import {bnb_usdcAddr} from '@/components/ContractRelated/bnb_USDCAddr';
+import {bnb_bbstAddr} from '@/components/ContractRelated/bnb_BbstAddr';
 
 import {erc20PaymentAddr} from '@/components/ContractRelated/ERC20PaymentAddr';
-import {poly_erc20PaymentAddr} from '@/components/ContractRelated/poly_ERC20PaymentAddr';
+import {bnb_erc20PaymentAddr} from '@/components/ContractRelated/bnb_ERC20PaymentAddr';
 import {erc20PaymentAbi} from '@/components/ContractRelated/ERC20PaymentABI';
 import { erc20standardAbi } from '../ContractRelated/ERC20standardABI';
 import CircularProgress from '@material-ui/core/CircularProgress';
@@ -67,8 +67,8 @@ const PricingTiers = (props) => {
     var globalERC20Addr
     if(campaign.network == chain){
         globalERC20Addr = erc20PaymentAddr
-    } else if(campaign.network == poly_chain){
-        globalERC20Addr = poly_erc20PaymentAddr
+    } else if(campaign.network == bnb_chain){
+        globalERC20Addr = bnb_erc20PaymentAddr
     }
 
 
@@ -117,7 +117,7 @@ const PricingTiers = (props) => {
             // })
                             
             const campCtrInstance = new web3Instance.eth.Contract(campaignAbi.campaignAbi, campaign.contract_address)
-                if(campaign.currency == "ETH" || campaign.currency == "p_MATIC")
+                if(campaign.currency == "ETH" || campaign.currency == "b_BNB")
                     await participateInETH(false, campCtrInstance, campaign.tiers[index].threshold, index)
                 else
                     await participateInERC20(false, campCtrInstance, campaign.tiers[index].threshold, index)
@@ -170,10 +170,10 @@ const PricingTiers = (props) => {
             erc20Ctr = new web3Instance.eth.Contract(erc20standardAbi, usdcAddr)
         } else if(campaign.currency == "BBST"){
             erc20Ctr = new web3Instance.eth.Contract(bbstAbi, bbstAddr)
-        } else if(campaign.currency == "p_USDC"){
-            erc20Ctr = new web3Instance.eth.Contract(erc20standardAbi, poly_usdcAddr)
-        } else if(campaign.currency == "p_BBST"){
-            erc20Ctr = new web3Instance.eth.Contract(erc20standardAbi, poly_bbstAddr)
+        } else if(campaign.currency == "b_BUSD"){
+            erc20Ctr = new web3Instance.eth.Contract(erc20standardAbi, bnb_usdcAddr)
+        } else if(campaign.currency == "b_BBST"){
+            erc20Ctr = new web3Instance.eth.Contract(erc20standardAbi, bnb_bbstAddr)
         }
 
         console.log(v)
@@ -294,7 +294,7 @@ const PricingTiers = (props) => {
             // }).then(res => console.log(res));
             
             const campCtrInstance = new web3Instance.eth.Contract(campaignAbi.campaignAbi, campaign.contract_address)
-                if(campaign.currency == "ETH" || campaign.currency == "p_MATIC")
+                if(campaign.currency == "ETH" || campaign.currency == "b_BNB")
                     await participateInETH(true, campCtrInstance, amount, 0)
                 else
                     await participateInERC20(true, campCtrInstance, amount, 0)
@@ -360,8 +360,8 @@ const PricingTiers = (props) => {
       const showScan = () => {
         if(campaign.network == chain){
             return <a href={`https://goerli.etherscan.io/tx/${Tx}`} target="_blank">{Tx}</a>
-        } else if(campaign.network == poly_chain){
-            return <a href={`https://mumbai.polygonscan.com/tx/${Tx}`} target="_blank">{Tx}</a>
+        } else if(campaign.network == bnb_chain){
+            return <a href={`https://testnet.bscscan.com/tx/${Tx}`} target="_blank">{Tx}</a>
         }
     }
 
@@ -446,9 +446,9 @@ const PricingTiers = (props) => {
             return <>
                 <img style={{height: 15, marginRight: 3, marginTop: -1}} src={'/images/cryptoicons/smallethgray.svg'}/>Ethereum 
             </>
-        } else if(campaign.network == poly_chain){
+        } else if(campaign.network == bnb_chain){
             return <>
-                <img style={{height: 15, marginRight: 3, marginTop: -1}} src={'/images/cryptoicons/smallpolygongray.svg'}/>Polygon 
+                <img style={{height: 15, marginRight: 3, marginTop: -1}} src={'/images/cryptoicons/smallbnbgray.svg'}/>BNB Chain 
             </>
         }
     }

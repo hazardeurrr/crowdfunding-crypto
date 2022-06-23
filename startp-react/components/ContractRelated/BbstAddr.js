@@ -1,4 +1,4 @@
-const bbstAddr = "0x9AeC9767B0842d04dc0b831ADAA71342Ed8B8Ba1"
+const bbstAddr = "0xa6F6F46384FD07f82A7756C48fFf7f0193108688"
 
 module.exports = {
   bbstAddr

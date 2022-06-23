@@ -27,12 +27,12 @@ import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import campaignFactoryAbi from '@/components/ContractRelated/CampaignFactoryAbi';
 import campaignFactoryAddr from '@/components/ContractRelated/CampaignFactoryAddr';
-import poly_campaignFactoryAddr from '@/components/ContractRelated/poly_CampaignFactoryAddr';
+import bnb_campaignFactoryAddr from '@/components/ContractRelated/bnb_CampaignFactoryAddr';
 
 import {usdcAddr} from '@/components/ContractRelated/USDCAddr';
 import {bbstAddr} from '@/components/ContractRelated/BbstAddr';
-import {poly_usdcAddr} from '@/components/ContractRelated/poly_USDCAddr';
-import {poly_bbstAddr} from '@/components/ContractRelated/poly_BbstAddr';
+import {bnb_usdcAddr} from '@/components/ContractRelated/bnb_USDCAddr';
+import {bnb_bbstAddr} from '@/components/ContractRelated/bnb_BbstAddr';
 import { erc20standardAbi } from '../ContractRelated/ERC20standardABI';
 import DialogActions from '@material-ui/core/DialogActions';
 import Button from '@material-ui/core/Button';
@@ -43,7 +43,7 @@ import { toBaseUnit } from '@/utils/bnConverter';
 import { bbstAbi } from '../ContractRelated/BbstAbi';
 import DOMPurify from 'isomorphic-dompurify';
 import {chain} from '@/utils/chain'
-import {poly_chain} from '@/utils/poly_chain'
+import {bnb_chain} from '@/utils/bnb_chain'
 import { prefixedAddress } from '@/utils/prefix';
 
 const Web3 = require('web3');
@@ -105,8 +105,8 @@ class MainForm extends React.Component {
     getStartRaisingMethod(){
         if(this.props.chainID == chain){
             return "USDC"
-        } else if(this.props.chainID == poly_chain){
-            return "p_USDC"
+        } else if(this.props.chainID == bnb_chain){
+            return "b_BUSD"
         }
     }
 
@@ -123,8 +123,8 @@ class MainForm extends React.Component {
         var factInstance = null
         if(this.props.chainID == chain){
             factInstance = await new this.props.web3Instance.eth.Contract(campaignFactoryAbi.campaignFactoryAbi, campaignFactoryAddr.campaignFactoryAddr)
-        } else if(this.props.chainID == poly_chain){
-            factInstance = await new this.props.web3Instance.eth.Contract(campaignFactoryAbi.campaignFactoryAbi, poly_campaignFactoryAddr.poly_campaignFactoryAddr)
+        } else if(this.props.chainID == bnb_chain){
+            factInstance = await new this.props.web3Instance.eth.Contract(campaignFactoryAbi.campaignFactoryAbi, bnb_campaignFactoryAddr.bnb_campaignFactoryAddr)
         }
         this.setState({factoryInstance: factInstance})
     }
@@ -160,11 +160,11 @@ class MainForm extends React.Component {
     }
 
     tokenIndex(currency){
-        if(currency == "USDC" || currency == "p_USDC")
+        if(currency == "USDC" || currency == "b_BUSD")
             return 0
-        if(currency == "ETH" || currency == "p_MATIC")
+        if(currency == "ETH" || currency == "b_BNB")
             return 1
-        if(currency == "BBST" || currency == "p_BBST")
+        if(currency == "BBST" || currency == "b_BBST")
             return 2
     }
 
@@ -194,16 +194,16 @@ class MainForm extends React.Component {
         
         // console.log(this.state.raisingMethod)
 
-        if(this.state.raisingMethod != "ETH" && this.state.raisingMethod != "p_MATIC"){
+        if(this.state.raisingMethod != "ETH" && this.state.raisingMethod != "b_BNB"){
             let erc20Ctr = undefined
             if(this.state.raisingMethod == "USDC"){
                 erc20Ctr = new this.props.web3Instance.eth.Contract(erc20standardAbi, usdcAddr)
             } else if(this.state.raisingMethod == "BBST"){
                 erc20Ctr = new this.props.web3Instance.eth.Contract(bbstAbi, bbstAddr)
-            } else if(this.state.raisingMethod == "p_BBST"){
-                erc20Ctr = new this.props.web3Instance.eth.Contract(bbstAbi, poly_bbstAddr)
-            } else if(this.state.raisingMethod == "p_USDC"){
-                erc20Ctr = new this.props.web3Instance.eth.Contract(erc20standardAbi, poly_usdcAddr)
+            } else if(this.state.raisingMethod == "b_BBST"){
+                erc20Ctr = new this.props.web3Instance.eth.Contract(bbstAbi, bnb_bbstAddr)
+            } else if(this.state.raisingMethod == "b_BUSD"){
+                erc20Ctr = new this.props.web3Instance.eth.Contract(erc20standardAbi, bnb_usdcAddr)
             }
 
             if(erc20Ctr != undefined){
@@ -400,8 +400,8 @@ class MainForm extends React.Component {
     }
 
     prefixedAddress = (addr) => {
-        if(this.props.chainID == poly_chain){
-            return "poly_"+addr
+        if(this.props.chainID == bnb_chain){
+            return "bnb_"+addr
         } else if(this.props.chainID == chain){
             return "eth_"+addr
         }
@@ -453,11 +453,11 @@ class MainForm extends React.Component {
       };
 
     getNbrStep = () => {                    
-        if(this.state.raisingMethod == "USDC" || this.state.raisingMethod == "p_USDC")
+        if(this.state.raisingMethod == "USDC" || this.state.raisingMethod == "b_BUSD")
             return 0.000001
-        if(this.state.raisingMethod == "ETH" || this.state.raisingMethod == "p_MATIC")
+        if(this.state.raisingMethod == "ETH" || this.state.raisingMethod == "b_BNB")
             return 0.000000000000000001
-        if(this.state.raisingMethod == "BBST" || this.state.raisingMethod == "p_BBST")
+        if(this.state.raisingMethod == "BBST" || this.state.raisingMethod == "b_BBST")
             return 0.000000000000000001
     }
 
@@ -476,8 +476,8 @@ class MainForm extends React.Component {
     explorerLink = () => {
         if(this.props.chainID == chain){
             return <a href={`https://goerli.etherscan.io/tx/${this.state.Tx}`} target="_blank">{this.state.Tx}</a>
-        } else if(this.props.chainID == poly_chain){
-            return <a href={`https://mumbai.polygonscan.com/tx/${this.state.Tx}`} target="_blank">{this.state.Tx}</a>
+        } else if(this.props.chainID == bnb_chain){
+            return <a href={`https://testnet.bscscan.com/tx/${this.state.Tx}`} target="_blank">{this.state.Tx}</a>
         }
     }
 
@@ -570,8 +570,8 @@ class MainForm extends React.Component {
     showCurrentNetwork(){
         if(this.props.chainID == chain){   // ETH
             return <div style={{display:"flex"}}><p>Selected network : <img style={{height: 20, marginLeft: 5}} src="/images/cryptoicons/smallethgray.svg" /> <span style={{marginLeft: 3}}>Ethereum</span></p></div>
-        } else if(this.props.chainID == poly_chain) {      // POLYGON MAINNET
-            return <div style={{display:"flex"}}><p>Selected network : <img style={{height: 20, marginLeft: 5}} src="/images/cryptoicons/smallpolygongray.svg" /> <span style={{marginLeft: 3}}>Polygon</span></p></div>
+        } else if(this.props.chainID == bnb_chain) {      // BNB MAINNET
+            return <div style={{display:"flex"}}><p>Selected network : <img style={{height: 20, marginLeft: 5}} src="/images/cryptoicons/smallbnbgray.svg" /> <span style={{marginLeft: 3}}>BNB Smart Chain</span></p></div>
         } else {
             return <div style={{display:"flex"}}><p>Selected network : <Icon.AlertCircle/> <span style={{marginLeft: 5}}>Unsupported. Please switch network.</span></p></div>
         }
@@ -584,41 +584,41 @@ class MainForm extends React.Component {
                 <input type="radio" id="usdc" name="radio-group" value="USDC" checked={this.state.raisingMethod == "USDC"} onChange={(event) => {
                     this.setState({raisingMethod: event.target.value})
                 }}/>
-                <label htmlFor="usdc">USDC (2.5% fee)</label>
+                <label htmlFor="usdc">USDC (3.5% fee)</label>
             </p>
             <p>
                 <input type="radio" id="eth" name="radio-group" value="ETH" checked={this.state.raisingMethod == "ETH"} onChange={(event) => {
                     this.setState({raisingMethod: event.target.value})
                 }}/>
-                <label htmlFor="eth">ETH (2.5% fee)</label>
+                <label htmlFor="eth">ETH (3.5% fee)</label>
             </p>
-            <p>
+            {/* <p>
                 <input type="radio" id="bbst" name="radio-group" value="BBST" checked={this.state.raisingMethod == "BBST"} onChange={(event) => {
                     this.setState({raisingMethod: event.target.value})
                 }}/>
                 <label htmlFor="bbst">BBST (0% fee)</label>
-            </p>
+            </p> */}
         </div>
-        } else if(this.props.chainID == poly_chain){
+        } else if(this.props.chainID == bnb_chain){
             return <div className="payment-method">
-            <p><i>Please keep in mind this campaign will be on Polygon network.</i></p>
+            <p><i>Please keep in mind this campaign will be on BNB Smart Chain network.</i></p>
             <p>
-                <input type="radio" id="poly_usdc" name="poly_radio-group" value="p_USDC" checked={this.state.raisingMethod == "p_USDC"} onChange={(event) => {
+                <input type="radio" id="bnb_busd" name="bnb_radio-group" value="b_BUSD" checked={this.state.raisingMethod == "b_BUSD"} onChange={(event) => {
                     this.setState({raisingMethod: event.target.value})
                 }}/>
-                <label htmlFor="poly_usdc">USDC (2.5% fee)</label>
+                <label htmlFor="bnb_busd">BUSD (3.5% fee)</label>
             </p>
             <p>
-                <input type="radio" id="poly_matic" name="poly_radio-group" value="p_MATIC" checked={this.state.raisingMethod == "p_MATIC"} onChange={(event) => {
+                <input type="radio" id="bnb_bnb" name="bnb_radio-group" value="b_BNB" checked={this.state.raisingMethod == "b_BNB"} onChange={(event) => {
                     this.setState({raisingMethod: event.target.value})
                 }}/>
-                <label htmlFor="poly_matic">MATIC (2.5% fee)</label>
+                <label htmlFor="bnb_bnb">BNB (3.5% fee)</label>
             </p>
             <p>
-                <input type="radio" id="poly_bbst" name="poly_radio-group" value="p_BBST" checked={this.state.raisingMethod == "p_BBST"} onChange={(event) => {
+                <input type="radio" id="bnb_bbst" name="bnb_radio-group" value="b_BBST" checked={this.state.raisingMethod == "b_BBST"} onChange={(event) => {
                     this.setState({raisingMethod: event.target.value})
                 }}/>
-                <label htmlFor="poly_bbst">BBST (0% fee)</label>
+                <label htmlFor="bnb_bbst">BBST (0% fee)</label>
             </p>
         </div>
         }

@@ -5,6 +5,8 @@ import PageBanner from '@/components/Common/PageBanner';
 import ServicesArea from "@/components/Landing/ServicesArea";
 import * as Icon from 'react-feather';
 import {bbstAddr} from '@/components/ContractRelated/BbstAddr'
+import { useSelector, useDispatch } from 'react-redux'
+import {bnb_chain} from '@/utils/bnb_chain'
 
 import {
     Accordion,
@@ -18,6 +20,8 @@ import MintToken from '@/components/Common/MintToken';
 
 
 const TokenDetails = () => {
+
+    const chainID = useSelector((state) => state.chainID)
 
     const addToMetamask = () => {
         {
@@ -34,6 +38,12 @@ const TokenDetails = () => {
                 },
               },
             })
+        }
+    }
+
+    const addToMetamaskBtn = () => {
+        if(chainID == bnb_chain){
+            return <button style={{marginTop: 25}} className="btn btn-secondary" onClick={() => addToMetamask()}>Add BBST to Metamask</button>
         }
     }
 
@@ -57,11 +67,11 @@ const TokenDetails = () => {
                 <div className="features-area pt-80 bg-f7fafd" style={{marginTop: -100}}>
                     <div className="container">
                         <div className="section-title">
-                            <h2 className="search-page-title">Mint Test BBST (Goerli network)</h2>
+                            <h2 className="search-page-title">Mint Test BBST (BNB Smart Chain network)</h2>
                             <div className="bar"></div>
-                            <p>Test BBST can be used on our test platform (Goerli network). Feel free to mint some to try our platform !</p>
+                            <p>Test BBST can be used on our test platform (on BNB Smart Chain network). Feel free to mint some to try our platform !</p>
                             <MintToken style={{marginTop: 80}}/>
-                            <button style={{marginTop: 25}} className="btn btn-secondary" onClick={() => addToMetamask()}>Add BBST to Metamask</button>
+                            {addToMetamaskBtn()}
                         </div>
                     </div>
                 </div>
@@ -74,7 +84,7 @@ const TokenDetails = () => {
                             <p>Contribute to campaigns to earn BBST.</p>
                             <p><Icon.AlertTriangle />During Alpha period, rewards are distributed every day instead of every week for test purposes.</p>
                             <CardToken style={{marginTop: 80}}/>
-                            <button style={{marginTop: 25}} className="btn btn-secondary" onClick={() => addToMetamask()}>Add BBST to Metamask</button>
+                            {addToMetamaskBtn()}
                         </div>
                     </div>
                 </div>

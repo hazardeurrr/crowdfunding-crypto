@@ -14,11 +14,11 @@ import Snackbar from '@material-ui/core/Snackbar';
 import MuiAlert from "@material-ui/lab/Alert";
 import Typography from '@material-ui/core/Typography';
 import { useSelector, useDispatch } from 'react-redux'
-import {chain} from '@/utils/chain'
+import {bnb_chain} from '@/utils/bnb_chain'
 import {rewardAbi} from '@/components/ContractRelated/RewardABI';
 import {rewardAddr} from '@/components/ContractRelated/RewardAddr';
-import {poly_rewardAbi} from '@/components/ContractRelated/poly_RewardABI';
-import {poly_rewardAddr} from '@/components/ContractRelated/poly_RewardAddr';
+import {bnb_rewardAbi} from '@/components/ContractRelated/bnb_RewardABI';
+import {bnb_rewardAddr} from '@/components/ContractRelated/bnb_RewardAddr';
 import * as IconFeather from 'react-feather';
 import axios from 'axios';
 import secrets from "../../../startp-react/secrets.json";
@@ -44,7 +44,8 @@ const CardToken = () => {
   const address = useSelector((state) => state.address)
   const bbstbal = useSelector((state) => state.bbstBalance)
   const web3Instance = useSelector((state) => state.web3Instance)
-  const poly_web3Instance = useSelector((state) => state.poly_web3Instance)
+  const bnb_web3Instance = useSelector((state) => state.bnb_web3Instance)
+  const eth_web3Instance = useSelector((state) => state.eth_web3Instance)
 
   const [toBeClaimed, setToBeClaimed] = React.useState(0)
   const [rewardCtr, setRewardCtr] = React.useState(undefined)
@@ -56,35 +57,35 @@ const CardToken = () => {
   const [errorMsg, setErrorMsg] = React.useState("");
 
   React.useEffect(() => {
-    if(web3Instance != undefined && connected && chainID == chain){
-      var contract = new web3Instance.eth.Contract(rewardAbi, rewardAddr)
-      var poly_contract = new poly_web3Instance.eth.Contract(poly_rewardAbi, poly_rewardAddr)
+    if(web3Instance != undefined && connected && chainID == bnb_chain){
+      var contract = new eth_web3Instance.eth.Contract(rewardAbi, rewardAddr)
+      var bnb_contract = new web3Instance.eth.Contract(bnb_rewardAbi, bnb_rewardAddr)
 
-      // setPolyRewardCtr(poly_contract);
-      setRewardCtr(contract);
+      // setPolyRewardCtr(bnb_contract);
+      // setRewardCtr(bnb_contract);
       setToBeClaimed(0);
-      getClaim(contract, poly_contract);
+      getClaim(contract, bnb_contract);
     }
   }, [web3Instance])
 
-  const getClaim = async(contract, poly_contract) => {
+  const getClaim = async(contract, bnb_contract) => {
     const weekTime = 86400;
     
     const userAddr = address;
-    const rewardCtr = contract;
-    const polyRewardCtr = poly_contract;
+    const rewardCtr = bnb_contract;
+    const ethRewardCtr = contract;
 
     rewardCtr.methods.lastClaim(userAddr).call().then((res) => {
       console.log(res)
-      rewardCtr.getPastEvents("Participate", ({fromBlock: 6981402, toBlock: "latest"}))
+      rewardCtr.getPastEvents("Participate", ({fromBlock: 0, toBlock: "latest"}))
         .then((events) => {
   
-          let eventsFilteredETH = events.filter(e => e.returnValues.user.toLowerCase() == userAddr && e.returnValues.timestamp >= res).map(a => ({ ...a, chain: 'ethereum' }));
+          let eventsFilteredBnb = events.filter(e => e.returnValues.user.toLowerCase() == userAddr && e.returnValues.timestamp >= res).map(a => ({ ...a, chain: 'ethereum' }));
           
-          polyRewardCtr.getPastEvents("Participate", ({fromBlock: 26539712, toBlock: "latest"}))
-            .then((eventsPoly) => {
-              let eventsFilteredPoly = eventsPoly.filter(e => e.returnValues.user.toLowerCase() == userAddr && e.returnValues.timestamp >= res).map(a => ({ ...a, chain: 'polygon' }));
-              let eventsFiltered = eventsFilteredETH.concat(eventsFilteredPoly)
+          ethRewardCtr.getPastEvents("Participate", ({fromBlock: 7108671, toBlock: "latest"}))
+            .then((eventsEth) => {
+              let eventsFilteredEth = eventsEth.filter(e => e.returnValues.user.toLowerCase() == userAddr && e.returnValues.timestamp >= res).map(a => ({ ...a, chain: 'bnbchain' }));
+              let eventsFiltered = eventsFilteredBnb.concat(eventsFilteredEth)
               console.log(eventsFiltered)
             if (eventsFiltered.length == 0) {
               console.error("Wrong Address or no participations registered yet !");
@@ -109,12 +110,12 @@ const CardToken = () => {
                         currentRate = resRate.data().bbst[week] == undefined ? 1.25 : resRate.data().bbst[week]
                       if(e.returnValues.token == "0xb465fBFE1678fF41CD3D749D54d2ee2CfABE06F3" && e.chain == "ethereum")
                         currentRate = resRate.data().usdc[week] == undefined ? 10**12 : resRate.data().usdc[week] * 10 ** 12
-                      if(e.returnValues.token == "0x0000000000000000000000000000000000000000" && e.chain == "polygon")
-                        currentRate = resRate.data().matic[week] == undefined ? 0.6 : resRate.data().matic[week]
-                      if(e.returnValues.token == "0x8922Ab8ed4FE9E7C25D826171d91c3c8E98284b3" && e.chain == "polygon")
+                      if(e.returnValues.token == "0x0000000000000000000000000000000000000000" && e.chain == "bnbchain")
+                        currentRate = resRate.data().bnb[week] == undefined ? 0.6 : resRate.data().bnb[week]
+                      if(e.returnValues.token == "0x8922Ab8ed4FE9E7C25D826171d91c3c8E98284b3" && e.chain == "bnbchain")
                         currentRate = resRate.data().bbst[week] == undefined ? 1.25 : resRate.data().bbst[week]
-                      if(e.returnValues.token == "0x8f7116CA03AEB48547d0E2EdD3Faa73bfB232538" && e.chain == "polygon")
-                        currentRate = resRate.data().usdc[week] == undefined ? 10**12 : resRate.data().usdc[week] * 10 ** 12
+                      if(e.returnValues.token == "0x8f7116CA03AEB48547d0E2EdD3Faa73bfB232538" && e.chain == "bnbchain")
+                        currentRate = resRate.data().busd[week] == undefined ? 10**12 : resRate.data().busd[week] * 10 ** 12
   
                       // console.log("Rate crypto :", currentRate);
         
@@ -122,8 +123,8 @@ const CardToken = () => {
               
                         // console.log("week :", week)
                         let totalETH = data.data().test_totalPerWeekETH[week] == undefined ? 0 : data.data().test_totalPerWeekETH[week]
-                        let totalPolygon = data.data().test_totalPerWeekPolygon[week] == undefined ? 0 : data.data().test_totalPerWeekPolygon[week]
-                        let totalThisWeek = totalETH + totalPolygon
+                        let totalBnbchain = data.data().test_totalPerWeekBnbchain[week] == undefined ? 0 : data.data().test_totalPerWeekBnbchain[week]
+                        let totalThisWeek = totalETH + totalBnbchain
               
                         if (totalThisWeek == 0 || totalThisWeek == undefined) {
                           ratio = 0;
@@ -244,7 +245,7 @@ const CardToken = () => {
 
             <DialogContentText id="alert-dialog-description">
             Transaction Hash : </DialogContentText>
-            <DialogContentText id="alert-dialog-description"><a href={`https://goerli.etherscan.io/tx/${Tx}`} target="_blank">{Tx}</a></DialogContentText>
+            <DialogContentText id="alert-dialog-description"><a href={`https://testnet.bscscan.com/tx/${Tx}`} target="_blank">{Tx}</a></DialogContentText>
             </DialogContent></div>
         case 1:
             return <div style={{justifyContent:'center'}}>
@@ -262,7 +263,7 @@ const CardToken = () => {
                 </div> 
             <DialogContentText id="alert-dialog-description" style={{marginTop: 15}}>
             Transaction confirmed : </DialogContentText>
-            <DialogContentText id="alert-dialog-description"><a href={`https://goerli.etherscan.io/tx/${Tx}`} target="_blank">{Tx}</a></DialogContentText>
+            <DialogContentText id="alert-dialog-description"><a href={`https://testnet.bscscan.com/tx/${Tx}`} target="_blank">{Tx}</a></DialogContentText>
             </DialogContent></div>
 
         case 2:
@@ -310,7 +311,7 @@ const closeDialog = () => {
 }
 
   const displayCardContent = () => {
-    if(connected && address != undefined && chainID == chain){
+    if(connected && address != undefined && chainID == bnb_chain){
       return <>
          <Snackbar
           open={snackbarOpen}
@@ -377,7 +378,7 @@ const closeDialog = () => {
         <div>
           <CardContent>
           <Typography component="h5" variant="h5" color="textSecondary">
-            Connect to <img style={{marginLeft: 1, marginRight: 1, marginTop: -3, height: 25}} src="/images/cryptoicons/smallethgray.svg"/>Ethereum <br></br>to claim your tokens
+            Connect to <img style={{marginLeft: 1, marginRight: 5, marginTop: -3, height: 25}} src="/images/cryptoicons/smallbnbgray.svg"/>BNB Smart Chain <br></br>to claim your tokens
           </Typography>
           </CardContent>
           </div>

@@ -11,7 +11,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import Button from '@material-ui/core/Button';
 import PageBanner from '@/components/Common/PageBanner';
 import {chain} from '@/utils/chain'
-import {poly_chain} from '@/utils/poly_chain'
+import {bnb_chain} from '@/utils/bnb_chain'
 
 const FormCampaign = () => {
 
@@ -31,7 +31,7 @@ const FormCampaign = () => {
     const ethadress = useSelector((state) => state.address)
 
     const showForm = (amount) => {
-        if(connected == true && (chainID == chain || chainID == poly_chain)){
+        if(connected == true && (chainID == chain || chainID == bnb_chain)){
             return <MainForm address = {ethadress}/>
         } else {
             return <div><PageBanner pageTitle="You are not connected"/>

@@ -6,7 +6,7 @@ import ProgressBar from 'react-bootstrap/ProgressBar';
 import RaisedChecker from './RaisedChecker';
 import { useSelector, useDispatch } from 'react-redux';
 import {chain} from '@/utils/chain'
-import {poly_chain} from '@/utils/poly_chain'
+import {bnb_chain} from '@/utils/bnb_chain'
 import { prefixedAddress } from '@/utils/prefix';
 
 
@@ -36,9 +36,9 @@ const SingleCardCarrousel = (props) => {
   }
 
   const returnDecToShow = () => {
-    if(campaign.currency == "USDC" || campaign.currency == "p_USDC"){
+    if(campaign.currency == "USDC" || campaign.currency == "b_BUSD"){
         return 2
-    } else if(campaign.currency == "ETH" || campaign.currency == "p_MATIC"){
+    } else if(campaign.currency == "ETH" || campaign.currency == "b_BNB"){
         return 4
     } else {
         return 3

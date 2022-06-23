@@ -16,7 +16,7 @@ import DialogTitle from '@material-ui/core/DialogTitle';
 import bbstAbi from '@/components/ContractRelated/BbstAbi'
 import bbstAddr from '@/components/ContractRelated/BbstAddr'
 import {chain} from '@/utils/chain'
-import {poly_chain} from '@/utils/poly_chain'
+import {bnb_chain} from '@/utils/bnb_chain'
 import AppBar from '@material-ui/core/AppBar';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
@@ -52,7 +52,7 @@ const Navbar = () => {
     const [providerDetected, setProviderDetected] = React.useState(false)
     const chainID = useSelector((state) => state.chainID)
     const [open, setOpen] = React.useState(false);
-    const eth_web3Instance = useSelector((state) => state.eth_web3Instance)
+    const bnb_web3Instance = useSelector((state) => state.bnb_web3Instance)
 
     const handleClickOpen = () => {
       setOpen(true);
@@ -89,10 +89,10 @@ const Navbar = () => {
         // If the provider returned by detectEthereumProvider is not the same as
         // window.ethereum, something is overwriting it, perhaps another wallet.
 
-        var web3poly = new Web3(new Web3.providers.HttpProvider("https://matic-mumbai.chainstacklabs.com"))
+            var web3bnb = new Web3(new Web3.providers.HttpProvider("https://data-seed-prebsc-1-s1.binance.org:8545/"))
             dispatch({
-                type:'SET_WEB3POLY',
-                id: web3poly
+                type:'SET_WEB3BNB',
+                id: web3bnb
             })
             var web3eth = new Web3(new Web3.providers.HttpProvider("https://goerli.infura.io/v3/391e7c4cd5274ef8a269414b4833bade"))
             dispatch({
@@ -110,7 +110,7 @@ const Navbar = () => {
             type: 'SET_CHAINID',
             id: chainId
         })
-        if(chainId !== chain && chainId !== poly_chain){
+        if(chainId !== chain && chainId !== bnb_chain){
             console.log("Please change your network to a supported one.")
         }
 
@@ -165,13 +165,13 @@ const Navbar = () => {
             
             const chainId = await ethereum.request({ method: 'eth_chainId' });
                 // console.log("cheching BBST balance...")
-                var web3eth = null
-                if(eth_web3Instance != undefined){
-                    web3eth = eth_web3Instance
+                var web3b = null
+                if(bnb_web3Instance != undefined){
+                    web3b = bnb_web3Instance
                 } else {
-                    web3eth = new Web3(new Web3.providers.HttpProvider("https://goerli.infura.io/v3/391e7c4cd5274ef8a269414b4833bade"))
+                    web3b = new Web3(new Web3.providers.HttpProvider("https://data-seed-prebsc-1-s1.binance.org:8545/"))
                 }
-                const bbst_contract = new web3eth.eth.Contract(bbstAbi.bbstAbi, bbstAddr.bbstAddr);
+                const bbst_contract = new web3b.eth.Contract(bbstAbi.bbstAbi, bbstAddr.bbstAddr);
                 bbst_contract.methods.balanceOf(accounts[0]).call().then(response => {
                     // console.log('response', response)
                     dispatch({
@@ -285,10 +285,10 @@ const Navbar = () => {
                 <div style={{display:"flex"}}><img style={{height: 20, marginTop: 1}} src="/images/cryptoicons/smallethgray.svg" /> <span style={{marginLeft: 5}}>Ethereum</span> <Icon.ChevronDown /></div>
             </a>
             </Link>
-        } else if(chainID == poly_chain) {      // POLYGON MAINNET
+        } else if(chainID == bnb_chain) {      // BSC
             return <Link href="#">
             <a onClick={e => e.preventDefault()} className="nav-link">
-                <div style={{display:"flex"}}><img style={{height: 20, marginTop: 1}} src="/images/cryptoicons/smallpolygongray.svg" /> <span style={{marginLeft: 5}}>Polygon</span> <Icon.ChevronDown /></div>
+                <div style={{display:"flex"}}><img style={{height: 20, marginTop: 1}} src="/images/cryptoicons/smallbnbgray.svg" /> <span style={{marginLeft: 5}}>BNB Chain</span> <Icon.ChevronDown /></div>
             </a>
             </Link>
         } else {
@@ -300,12 +300,12 @@ const Navbar = () => {
         }
     }
 
-    const switchToPolygon = async() => {
-        if (window.ethereum.networkVersion !== "0x89") {
+    const switchToBNB = async() => {
+        if (window.ethereum.networkVersion !== "0x38") {
             try {
               await window.ethereum.request({
                 method: 'wallet_switchEthereumChain',
-                params: [{ chainId: "0x89" }]
+                params: [{ chainId: "0x38" }]
               });
             } catch (err) {
                 // This error code indicates that the chain has not been added to MetaMask
@@ -314,10 +314,11 @@ const Navbar = () => {
                   method: 'wallet_addEthereumChain',
                   params: [
                     {
-                      chainName: 'Polygon Mainnet',
-                      chainId: "0x89",
-                      nativeCurrency: { name: 'MATIC', decimals: 18, symbol: 'MATIC' },
-                      rpcUrls: ['https://polygon-rpc.com/']
+                      chainName: 'BNB Smart Chain Mainnet',
+                      chainId: "0x38",
+                      nativeCurrency: { name: 'Binance Coin', decimals: 18, symbol: 'BNB' },
+                      rpcUrls: ["https://bsc-dataseed.binance.org/"],
+                      blockExplorerUrls: ['https://bscscan.com']
                     }
                   ]
                 });
@@ -326,12 +327,12 @@ const Navbar = () => {
           }
     }
 
-    const switchToMumbai = async() => {
-        if (window.ethereum.networkVersion !== "0x13881") {
+    const switchToBNBTestnet = async() => {
+        if (window.ethereum.networkVersion !== "0x61") {
             try {
               await window.ethereum.request({
                 method: 'wallet_switchEthereumChain',
-                params: [{ chainId: "0x13881" }]
+                params: [{ chainId: "0x61" }]
               });
             } catch (err) {
                 // This error code indicates that the chain has not been added to MetaMask
@@ -340,10 +341,11 @@ const Navbar = () => {
                   method: 'wallet_addEthereumChain',
                   params: [
                     {
-                      chainName: 'Polygon Mumbai',
-                      chainId: "0x13881",
-                      nativeCurrency: { name: 'MATIC', decimals: 18, symbol: 'MATIC' },
-                      rpcUrls: ["https://matic-mumbai.chainstacklabs.com"]
+                      chainName: 'BNB Smart Chain Testnet',
+                      chainId: "0x61",
+                      nativeCurrency: { name: 'Binance Coin', decimals: 18, symbol: 'BNB' },
+                      rpcUrls: ["https://data-seed-prebsc-1-s1.binance.org:8545/"],
+                      blockExplorerUrls: ['https://testnet.bscscan.com']
                     }
                   ]
                 });
@@ -421,6 +423,17 @@ const Navbar = () => {
                                 <Link href="#">
                                 <a onClick={e => {
                                     e.preventDefault();
+                                    switchToBNBTestnet()                   // !!!!!!!!!!!!!!!!!!!!!!!!!!! CHANGER TO SWITCH TO BNB !!!!!!!!!!!
+                                    }} className="nav-link">
+                                    <div style={{display:"flex"}}><img style={{height: 18, marginTop: 1}} src="/images/cryptoicons/smallbnbgray.svg" /> <span style={{marginLeft: 5}}>BNB Smart Chain</span></div>
+                                </a>
+                                </Link>
+                            </li>  
+
+                            <li className="nav-item">
+                                <Link href="#">
+                                <a onClick={e => {
+                                    e.preventDefault();
                                     switchTogoerli()                   // !!!!!!!!!!!!!!!!!!!!!!!! CHANGER TO SWITCH TO ETH !!!!!!!!!!!!!!!!!
                                     }} className="nav-link">
                                     <div style={{display:"flex"}}><img style={{height: 18, marginTop: 1}} src="/images/cryptoicons/smallethgray.svg" /> <span style={{marginLeft: 5}}>Ethereum</span></div>
@@ -428,22 +441,13 @@ const Navbar = () => {
                                 </Link>                           
                             </li>
 
-                            <li className="nav-item">
-                                <Link href="#">
-                                <a onClick={e => {
-                                    e.preventDefault();
-                                    switchToMumbai()                   // !!!!!!!!!!!!!!!!!!!!!!!!!!! CHANGER TO SWITCH TO POLYGON !!!!!!!!!!!
-                                    }} className="nav-link">
-                                    <div style={{display:"flex"}}><img style={{height: 18, marginTop: 1}} src="/images/cryptoicons/smallpolygongray.svg" /> <span style={{marginLeft: 5}}>Polygon</span></div>
-                                </a>
-                                </Link>
-                            </li>   
-                            <p style={{marginTop: 10, marginLeft: 2, fontSize: 15, marginBottom: 0}}><i>Bridge</i></p>
+                            
+                            {/* <p style={{marginTop: 10, marginLeft: 2, fontSize: 15, marginBottom: 0}}><i>Bridge</i></p>
                             <li className="nav-item">
                                 <a className="nav-link" href="https://wallet-dev.polygon.technology/bridge/" target="_about">
                                     <div style={{display:"flex"}}><img style={{height: 18, marginTop: 1}} src="/images/cryptoicons/smallethgray.svg" /> <span style={{marginLeft: 5}}>Ethereum ↔ Polygon</span><img style={{height: 18, marginTop: 1, marginLeft: 5}} src="/images/cryptoicons/smallpolygongray.svg" /></div>
                                 </a>
-                            </li>   
+                            </li>    */}
                         </ul>
                 {/* <img style={{marginTop: -8, height: 40, border: "1.5px solid #c3c2c4", padding: 4, borderRadius: 12}} src={'/images/cryptoicons/ethblack.svg'}/> */}
                 </li>

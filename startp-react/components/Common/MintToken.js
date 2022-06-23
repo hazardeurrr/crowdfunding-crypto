@@ -10,7 +10,7 @@ import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import Typography from '@material-ui/core/Typography';
 import { useSelector, useDispatch } from 'react-redux'
-import {chain} from '@/utils/chain'
+import {bnb_chain} from '@/utils/bnb_chain'
 import CircularProgress from '@material-ui/core/CircularProgress';
 import Snackbar from '@material-ui/core/Snackbar';
 import MuiAlert from "@material-ui/lab/Alert";
@@ -99,7 +99,7 @@ const closeDialog = () => {
   }
 
   const displayCardContent = () => {
-    if(connected && chainID == chain){
+    if(connected && chainID == bnb_chain){
       return  <>
         <Snackbar
           open={snackbarOpen}
@@ -169,7 +169,7 @@ const closeDialog = () => {
         <div>
           <CardContent>
           <Typography component="h5" variant="h5" color="textSecondary">
-            Connect to Metamask <br></br>to mint your tokens.
+          Connect to <img style={{marginLeft: 1, marginRight: 5, marginTop: -3, height: 25}} src="/images/cryptoicons/smallbnbgray.svg"/>BNB Smart Chain <br></br>to claim your tokens
           </Typography>
           </CardContent>
           </div>
@@ -189,7 +189,7 @@ const closeDialog = () => {
 
             <DialogContentText id="alert-dialog-description">
             Transaction Hash : </DialogContentText>
-            <DialogContentText id="alert-dialog-description"><a href={`https://goerli.etherscan.io/tx/${Tx}`} target="_blank">{Tx}</a></DialogContentText>
+            <DialogContentText id="alert-dialog-description"><a href={`https://testnet.bscscan.com/tx/${Tx}`} target="_blank">{Tx}</a></DialogContentText>
             </DialogContent></div>
         case 1:
             return <div style={{justifyContent:'center'}}>
@@ -197,7 +197,7 @@ const closeDialog = () => {
             <DialogContent>
             <DialogContentText id="alert-dialog-description" style={{marginTop: 15}}>
             Transaction confirmed : </DialogContentText>
-            <DialogContentText id="alert-dialog-description"><a href={`https://goerli.etherscan.io/tx/${Tx}`} target="_blank">{Tx}</a></DialogContentText>
+            <DialogContentText id="alert-dialog-description"><a href={`https://testnet.bscscan/tx/${Tx}`} target="_blank">{Tx}</a></DialogContentText>
             <div style={{justifyContent:'center'}}>
                         <Link href={{
                             pathname: "/"

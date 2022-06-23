@@ -7,7 +7,7 @@ import {getOne } from '../../firebase-crowdfund/queries'
 import RaisedChecker from './RaisedChecker';
 import { useSelector, useDispatch } from 'react-redux';
 import {chain} from '@/utils/chain'
-import {poly_chain} from '@/utils/poly_chain'
+import {bnb_chain} from '@/utils/bnb_chain'
 import {db, firebase} from '../../firebase-crowdfund/index'
 import { HiFire } from 'react-icons/hi';
 import { BsArrowUpRight } from 'react-icons/bs'
@@ -207,7 +207,7 @@ const MainProjectFeatured = (props) => {
                         </div>
                     )
                 }
-            } else if (campaign.network == poly_chain){
+            } else if (campaign.network == bnb_chain){
                 if(campaign.categories.length > 0){
                     return (
                         <div className="date" style={{display:'flex'}}>
@@ -223,19 +223,21 @@ const MainProjectFeatured = (props) => {
     }
 
     const returnCurrencyIconWhite = () => {
-        if(campaign.currency == "USDC" || campaign.currency == "p_USDC"){
+        if(campaign.currency == "USDC"){
             return <img style={{height: 20}} src={'/images/cryptoicons/usdcwhite.svg'}/>
-        } else if(campaign.currency == "BBST" || campaign.currency == "p_BBST"){
+        }  else if(campaign.currency == "b_BUSD"){
+            return <img style={{height: 20}} src={'/images/cryptoicons/busdwhite.svg'}/>
+        }  else if(campaign.currency == "BBST" || campaign.currency == "b_BBST"){
             return <img style={{height: 20}} src={'/images/cryptoicons/bbstwhite.svg'}/>
         } else if(campaign.currency == "ETH") {
             return <img style={{height: 20}} src={'/images/cryptoicons/ethwhite.svg'}/>
-        } else if(campaign.currency == "p_MATIC"){
-            return <img style={{height: 20}} src={'/images/cryptoicons/maticwhite.svg'}/>
+        } else if(campaign.currency == "b_BNB"){
+            return <img style={{height: 20}} src={'/images/cryptoicons/bnbwhite.svg'}/>
         }
     }
 
     const returnDecToShow = () => {
-        if(campaign.currency == "USDC" || campaign.currency == "p_USDC"){
+        if(campaign.currency == "USDC" || campaign.currency == "b_BUSD"){
             return 4
         } else {
             return 8
@@ -287,9 +289,9 @@ const MainProjectFeatured = (props) => {
             return <div style={{display:'flex'}}>
                 Ethereum<img style={{height: 15, marginLeft: 5, marginTop: 5}} src={'/images/cryptoicons/eth.svg'}/> 
             </div>
-        } else if(campaign.network == poly_chain){
+        } else if(campaign.network == bnb_chain){
             return <div style={{display:'flex'}}>
-                Polygon<img style={{height: 15, marginLeft: 5, marginTop: 5}} src={'/images/cryptoicons/matic.svg'}/>  
+                BNB Smart Chain<img style={{height: 15, marginLeft: 5, marginTop: 5}} src={'/images/cryptoicons/bnb.svg'}/>  
             </div>
         }
     }

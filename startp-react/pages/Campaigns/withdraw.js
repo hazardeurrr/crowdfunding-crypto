@@ -2,7 +2,7 @@ import React from 'react';
 import campaignAbi from '@/components/ContractRelated/CampaignAbi';
 import { useSelector, useDispatch } from 'react-redux';
 import {chain} from '@/utils/chain'
-import {poly_chain} from '@/utils/poly_chain'
+import {bnb_chain} from '@/utils/bnb_chain'
 import { updateDoc, getOne } from 'firebase-crowdfund/queries';
 import {db, storage} from '../../firebase-crowdfund/index'
 
@@ -21,8 +21,8 @@ import {usdcAddr} from '@/components/ContractRelated/USDCAddr';
 import {bbstAddr} from '@/components/ContractRelated/BbstAddr';
 import { erc20standardAbi } from '@/components/ContractRelated/ERC20standardABI';
 import { bbstAbi } from '@/components/ContractRelated/BbstAbi';
-import {poly_usdcAddr} from '@/components/ContractRelated/poly_USDCAddr';
-import {poly_bbstAddr} from '@/components/ContractRelated/poly_BbstAddr';
+import {bnb_usdcAddr} from '@/components/ContractRelated/bnb_USDCAddr';
+import {bnb_bbstAddr} from '@/components/ContractRelated/bnb_BbstAddr';
 
 function Alert(props) {
     return <MuiAlert elevation={6} variant="filled" {...props} />;
@@ -162,7 +162,7 @@ const Withdraw = (props) => {
 
   const payCreator = (contractInstance) => {
 
-    if(campaign.currency == "ETH" || campaign.currency == "p_MATIC"){
+    if(campaign.currency == "ETH" || campaign.currency == "b_BNB"){
         contractInstance.methods.payCreator()
         .send({from : userAddr, value: 0})
         .on('transactionHash', function(hash){
@@ -254,8 +254,8 @@ const showScan = () => {
     if(campaign !== undefined){
         if(campaign.network == chain){
             return <a href={`https://goerli.etherscan.io/tx/${Tx}`} target="_blank">{Tx}</a>
-        } else if(campaign.network == poly_chain){
-            return <a href={`https://mumbai.polygonscan.com/tx/${Tx}`} target="_blank">{Tx}</a>
+        } else if(campaign.network == bnb_chain){
+            return <a href={`https://testnet.bscscan.com/tx/${Tx}`} target="_blank">{Tx}</a>
         }
     }
 }
@@ -270,7 +270,7 @@ const showScan = () => {
             setCtrInstance(campCtrInstance)
             getSubsEvent()
       //      campCtrInstance.methods.totalBalance.call().call().then(res => {setTotalBalance(res)})
-            if(campaign.currency == "ETH" || campaign.currency == "p_MATIC"){
+            if(campaign.currency == "ETH" || campaign.currency == "b_BNB"){
                 web3Instance.eth.getBalance(campaign.contract_address).then(res => {
                         setTotalBalance(res)
                     }
@@ -281,10 +281,10 @@ const showScan = () => {
                     erc20Ctr = new web3Instance.eth.Contract(erc20standardAbi, usdcAddr)
                 else if(campaign.currency == "BBST")
                     erc20Ctr = new web3Instance.eth.Contract(bbstAbi, bbstAddr)
-                else if(campaign.currency == "p_USDC")
-                    erc20Ctr = new web3Instance.eth.Contract(erc20standardAbi, poly_usdcAddr)
-                else if(campaign.currency == "p_BBST")
-                    erc20Ctr = new web3Instance.eth.Contract(bbstAbi, poly_bbstAddr)
+                else if(campaign.currency == "b_BUSD")
+                    erc20Ctr = new web3Instance.eth.Contract(erc20standardAbi, bnb_usdcAddr)
+                else if(campaign.currency == "b_BBST")
+                    erc20Ctr = new web3Instance.eth.Contract(bbstAbi, bnb_bbstAddr)
 
                 erc20Ctr.methods.balanceOf(campaign.contract_address).call().then(res => {
                     setTotalBalance(res)

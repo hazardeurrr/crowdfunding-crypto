@@ -23,7 +23,7 @@ import {getOne} from '../../firebase-crowdfund/queries';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import Skeleton from '@material-ui/lab/Skeleton';
 import {chain} from '@/utils/chain'
-import {poly_chain} from '@/utils/poly_chain'
+import {bnb_chain} from '@/utils/bnb_chain'
 
 import RaisedChecker from '@/components/Common/RaisedChecker';
 import { MdSentimentVerySatisfied } from 'react-icons/md';
@@ -152,7 +152,7 @@ const Campaign = (props) => {
     }
 
     const returnDecToShow = () => {
-        if(campaign.currency == "USDC" || campaign.currency == "p_USDC"){
+        if(campaign.currency == "USDC" || campaign.currency == "b_BUSD"){
             return 4
         } else {
             return 8
@@ -352,9 +352,9 @@ const Campaign = (props) => {
             return <>
                 <img style={{height: 15, marginTop: -2,marginLeft: 2, marginRight: 0}} src={'/images/cryptoicons/smallethgray.svg'}/> Ethereum
             </>
-        } else if(campaign.network == poly_chain){
+        } else if(campaign.network == bnb_chain){
             return <>
-                <img style={{height: 15, marginTop: -2, marginLeft: 2,marginRight: 1}} src={'/images/cryptoicons/smallpolygongray.svg'}/> Polygon
+                <img style={{height: 15, marginTop: -2, marginLeft: 2,marginRight: 1}} src={'/images/cryptoicons/smallbnbgray.svg'}/> BNB Chain
             </>
         }
     }
@@ -364,17 +364,21 @@ const Campaign = (props) => {
             return <>
                 <img style={{height: 18, marginTop: -2, marginLeft: 2,marginRight: 1}} src={'/images/cryptoicons/eth.svg'}/> ETH
             </>
-        } else if(campaign.currency == "USDC" || campaign.currency == "p_USDC"){
+        }  else if(campaign.currency == "b_BUSD"){
+            return <>
+                <img style={{height: 18, marginTop: -2, marginLeft: 2,marginRight: 1}} src={'/images/cryptoicons/busd.svg'}/> BUSD
+            </>
+        } else if(campaign.currency == "USDC"){
             return <>
                 <img style={{height: 18, marginTop: -2, marginLeft: 2,marginRight: 1}} src={'/images/cryptoicons/usdc.svg'}/> USDC
             </>
-        } else if(campaign.currency == "BBST" || campaign.currency == "p_BBST"){
+        } else if(campaign.currency == "BBST" || campaign.currency == "b_BBST"){
             return <>
                 <img style={{height: 18, marginTop: -2, marginLeft: 2,marginRight: 1}} src={'/images/cryptoicons/bbstgrad.png'}/> BBST
             </>
-        } else if(campaign.currency == "p_MATIC"){
+        } else if(campaign.currency == "b_BNB"){
             return <>
-                <img style={{height: 18, marginTop: -2, marginLeft: 2, marginRight: 1}} src={'/images/cryptoicons/matic.svg'}/> MATIC
+                <img style={{height: 18, marginTop: -2, marginLeft: 2, marginRight: 1}} src={'/images/cryptoicons/bnb.svg'}/> BNB
             </>
         }
     }
@@ -384,9 +388,9 @@ const Campaign = (props) => {
             return <li>
             <Icon.ExternalLink /> <a target="_blank" href={`https://goerli.etherscan.io/address/${campaign.contract_address}`}>See on Etherscan</a>
             </li>
-        } else if(campaign.network == poly_chain){
+        } else if(campaign.network == bnb_chain){
             return <li>
-            <Icon.ExternalLink /> <a target="_blank" href={`https://mumbai.polygonscan.com/address/${campaign.contract_address}`}>See on Polygonscan</a>
+            <Icon.ExternalLink /> <a target="_blank" href={`https://testnet.bscscan.com/address/${campaign.contract_address}`}>See on BSCScan</a>
             </li>
         }
     }

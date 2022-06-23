@@ -116,7 +116,7 @@ const ServiceDetails = () => {
                                             </AccordionItemHeading>
                                             <AccordionItemPanel>
                                                 <p>
-                                                    BlockBoosted supports both Ethereum & Polygon chains. Each campaign is deployed only on one chain, and will only accept funds through this network. 
+                                                    BlockBoosted supports both Ethereum & BNB Chain chains. Each campaign is deployed only on one chain, and will only accept funds through this network. 
                                                     You can sort campaigns by supported network on our <Link href={{
                                                         pathname: "/SearchPage/",
                                                         query: {
@@ -200,24 +200,24 @@ const ServiceDetails = () => {
                                             <AccordionItemHeading>
                                                 <AccordionItemButton>
                                                     <span>
-                                                        How can I transfer funds to Polygon ?
+                                                        How can I transfer funds to BNB Chain ?
                                                     </span>
                                                 </AccordionItemButton>
                                             </AccordionItemHeading>
                                             <AccordionItemPanel>
                                                 <p>
-                                                    There are two ways of transfering funds to Polygon network.
+                                                    There are two ways of transfering funds to BNB Chain network.
                                                     <ul>
                                                         <li>
-                                                            Deposit funds on an exchange supporting Polygon (Binance, FTX...). Then withdraw to your Metamask wallet selecting Polygon as network. The exchange will basically handle the bridge for you !
+                                                            Deposit funds on an exchange supporting BNB Chain (Binance, FTX...). Then withdraw to your Metamask wallet selecting BNB Chain as network. The exchange will basically handle the bridge for you !
                                                         </li>
                                                         <li>
-                                                            Bridge tokens from Ethereum to Polygon thanks to Polygon Bridge. You can access it on our navigation bar.
+                                                            Bridge tokens from Ethereum to BNB Chain thanks to Binance. You can access it on our navigation bar.
                                                         </li>
                                                     </ul>
-                                                    If you already have some crypto on Polygon network, you can directly use it on our platform (MATIC, USDC or BBST)
-                                                    or swap it on a DEX/CEX that supports Polygon.
-                                                    <br></br><i>Note that you will need MATIC to pay the gas fees once using the Polygon network (instead of ETH for Ethereum network).</i>
+                                                    If you already have some crypto on BNB Chain network, you can directly use it on our platform (BNB, BUSD or BBST)
+                                                    or swap it on a DEX/CEX that supports BNB Chain.
+                                                    <br></br><i>Note that you will need BNB to pay the gas fees once using the BNB Chain network (instead of ETH for Ethereum network).</i>
                                                 </p>
                                             </AccordionItemPanel>
                                         </AccordionItem>
@@ -226,13 +226,13 @@ const ServiceDetails = () => {
                                             <AccordionItemHeading>
                                                 <AccordionItemButton>
                                                     <span>
-                                                        I used the Polygon Bridge but can't see the tokens in my wallets
+                                                        I used the BNB Chain Bridge but can't see the tokens in my wallets
                                                     </span>
                                                 </AccordionItemButton>
                                             </AccordionItemHeading>
                                             <AccordionItemPanel>
                                                 <p>
-                                                    Bridging assets between Ethereum & Polygon networks usually takes around 10 minutes. Also, make sure to import the tokens on Metamask on both networks to see the balances.
+                                                    Bridging assets between Ethereum & BNB Chain networks usually takes around 10 minutes. Also, make sure to import the tokens on Metamask on both networks to see the balances.
                                                 </p>
                                             </AccordionItemPanel>
                                         </AccordionItem>
@@ -265,7 +265,7 @@ const ServiceDetails = () => {
                                             </AccordionItemHeading>
                                             <AccordionItemPanel>
                                                 <p>
-                                                Be sure you have enough money in the needed currency in your Metamask wallet, as well as enough ETH (Ethereum network) or MATIC (Polygon network) to pay the gas fee for the transaction. Transactions on the blockchain can take quite a long time. The less fee you want to pay, the longer it will take to get confirmed. 
+                                                Be sure you have enough money in the needed currency in your Metamask wallet, as well as enough ETH (Ethereum network) or BNB (BNB Chain network) to pay the gas fee for the transaction. Transactions on the blockchain can take quite a long time. The less fee you want to pay, the longer it will take to get confirmed. 
                                                 </p>
                                             </AccordionItemPanel>
                                         </AccordionItem>
@@ -331,7 +331,7 @@ const ServiceDetails = () => {
                                                 </AccordionItemHeading>
                                                 <AccordionItemPanel>
                                                     <p>
-                                                        BlockBoosted supports Ethereum & Polygon chains. Note that your campaign can only be deployed on one chain, and will only accepts funds through that network. 
+                                                        BlockBoosted supports Ethereum & BNB Chain chains. Note that your campaign can only be deployed on one chain, and will only accepts funds through that network. 
                                                     </p>
                                                 </AccordionItemPanel>
                                             </AccordionItem>                                            
@@ -377,7 +377,7 @@ const ServiceDetails = () => {
                                                 <AccordionItemPanel>
                                                     <p>
                                                         For campaigns on Ethereum : ETH, USDC or BBST.
-                                                        <br></br>For campaigns on Polygon : MATIC, USDC or BBST.
+                                                        <br></br>For campaigns on BNB Chain : BNB, BUSD or BBST.
                                                     </p>
                                                 </AccordionItemPanel>
                                             </AccordionItem>

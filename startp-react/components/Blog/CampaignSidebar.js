@@ -13,7 +13,7 @@ import Typography from '@material-ui/core/Typography';
 import { useSelector, useDispatch } from 'react-redux';
 import campaignAbi from '@/components/ContractRelated/CampaignAbi';
 import {chain} from '@/utils/chain'
-import {poly_chain} from '@/utils/poly_chain'
+import {bnb_chain} from '@/utils/bnb_chain'
 import { prefixedAddress } from '@/utils/prefix';
 
 
@@ -48,19 +48,19 @@ const CampaignSidebar = (props) => {
     const metamask_connected = useSelector((state) => state.metamask_connected)
     const chainID = useSelector((state) => state.chainID)
     const [subsLength, setSubsLength] = React.useState(undefined);
-    const poly_web3Instance = useSelector((state) => state.poly_web3Instance)
+    const bnb_web3Instance = useSelector((state) => state.bnb_web3Instance)
     const eth_web3Instance = useSelector((state) => state.eth_web3Instance)
 
     React.useEffect(() => {
         getSubsLength();
-    }, [poly_web3Instance, eth_web3Instance])
+    }, [bnb_web3Instance, eth_web3Instance])
     
     const getSubsLength = async() => {
             var web3 = null
             if(campaign.network == chain){
                 web3 = eth_web3Instance
-            } else if (campaign.network == poly_chain){
-                web3 = poly_web3Instance
+            } else if (campaign.network == bnb_chain){
+                web3 = bnb_web3Instance
             }
             if(web3 != undefined){
                 const campCtrInstance = new web3.eth.Contract(campaignAbi.campaignAbi, campaign.contract_address)

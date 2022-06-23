@@ -11,7 +11,7 @@ import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Pagination from '@material-ui/lab/Pagination';
 import {connect} from 'react-redux'
 import {chain} from '@/utils/chain'
-import {poly_chain} from '@/utils/poly_chain'
+import {bnb_chain} from '@/utils/bnb_chain'
 
 const GreenCheckbox = withStyles({
     root: {
@@ -37,7 +37,7 @@ class SearchPage extends React.Component {
         this.state = {
             projects: this.props.allCampaigns,
             checked: this.populateCheckArray(),
-            network_checked: [chain, poly_chain],
+            network_checked: [chain, bnb_chain],
             page: 1
         }
         this.addCategory = this.addCategory.bind(this);
@@ -93,17 +93,17 @@ class SearchPage extends React.Component {
       networkCheckboxes = () => {
         var rows = [];
         rows.push(<FormControlLabel key={0}
+          control={<Checkbox color="primary" checked={this.state.network_checked.includes(bnb_chain)} onChange={this.handleChangeNetwork} name={bnb_chain} />}
+          label={<section>
+            BNB Chain 
+            {/* <img style={{height: 17}} src="/images/cryptoicons/bnb.svg"/> */}
+          </section>}
+        />);
+        rows.push(<FormControlLabel key={1}
           control={<Checkbox color="primary" checked={this.state.network_checked.includes(chain)} onChange={this.handleChangeNetwork} name={chain} />}
           label={<section>
             Ethereum 
             {/* <img style={{height: 17}} src="/images/cryptoicons/eth.svg"/> */}
-          </section>}
-        />);
-        rows.push(<FormControlLabel key={1}
-          control={<Checkbox color="primary" checked={this.state.network_checked.includes(poly_chain)} onChange={this.handleChangeNetwork} name={poly_chain} />}
-          label={<section>
-            Polygon 
-            {/* <img style={{height: 17}} src="/images/cryptoicons/matic.svg"/> */}
           </section>}
         />);
         return rows;
