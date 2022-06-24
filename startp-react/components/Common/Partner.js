@@ -7,11 +7,11 @@ const Partner = () => {
             <div className="ready-to-talk">
                 <div className="container">
                     <h3>Powered by <img height={30} style={{marginRight: 5, marginTop: -5, marginLeft: 1}} src="/images/cryptoicons/bbstgrad.png"/>BBST</h3>
-                    <p>BlockBoosted's ecosystem is powered by our ERC-20 token BBST.</p>
+                    <p>BlockBoosted's ecosystem is powered by our BEP-20 token BBST.</p>
                     <p style={{marginTop: -5}}>0% fee & platform advantages | Fundraising & contributions in BBST | Exclusive features & services for holders<br></br>Rewards in BBST | Governance right & community | Buy-back & Burn | Deflationnary aspect...</p>
 
                     <Link href="/token">
-                        <a className="btn btn-primary">Buy BBST on Uniswap</a>
+                        <a className="btn btn-primary">Buy BBST on PancakeSwap</a>
                     </Link>
 
                     <span>
