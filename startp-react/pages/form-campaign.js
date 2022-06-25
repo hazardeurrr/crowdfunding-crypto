@@ -31,7 +31,7 @@ const FormCampaign = () => {
     const ethadress = useSelector((state) => state.address)
 
     const showForm = (amount) => {
-        if(connected == true && (chainID == chain || chainID == bnb_chain)){
+        if(connected == true && (chainID == bnb_chain)){
             return <MainForm address = {ethadress}/>
         } else {
             return <div><PageBanner pageTitle="You are not connected"/>

@@ -35,7 +35,7 @@ const MainBanner = () => {
 								<h1>A new way to raise funds</h1>
                            
 													 <h5>Crowdfunding 3.0</h5><p style={{marginTop: 15}}>Less fees, more trust, community based.<br></br>Earn <Link href="/token"><a><img style={{height: 20, marginRight: 3}} src="/images/cryptoicons/bbstgrad.png"/>BBST</a></Link> while supporting great projects !
-													 <br></br>Raise and contribute in crypto on BNB Chain & Ethereum.</p>
+													 <br></br>Raise and contribute in crypto on BNB Smart Chain.</p>
 
 											 <Link href="/form-campaign">
 												<a className="btn btn-primary">Create a campaign</a>

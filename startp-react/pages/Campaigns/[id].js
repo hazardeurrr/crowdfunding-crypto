@@ -354,7 +354,7 @@ const Campaign = (props) => {
             </>
         } else if(campaign.network == bnb_chain){
             return <>
-                <img style={{height: 15, marginTop: -2, marginLeft: 2,marginRight: 1}} src={'/images/cryptoicons/smallbnbgray.svg'}/> BNB Chain
+                <img style={{height: 15, marginTop: -2, marginLeft: 2,marginRight: 1}} src={'/images/cryptoicons/smallbnbgray.svg'}/> BNB Smart Chain
             </>
         }
     }

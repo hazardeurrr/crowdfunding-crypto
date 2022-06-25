@@ -448,7 +448,7 @@ const PricingTiers = (props) => {
             </>
         } else if(campaign.network == bnb_chain){
             return <>
-                <img style={{height: 15, marginRight: 3, marginTop: -1}} src={'/images/cryptoicons/smallbnbgray.svg'}/>BNB Chain 
+                <img style={{height: 15, marginRight: 3, marginTop: -1}} src={'/images/cryptoicons/smallbnbgray.svg'}/>BNB Smart Chain 
             </>
         }
     }

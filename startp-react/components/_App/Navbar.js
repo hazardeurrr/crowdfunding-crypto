@@ -164,6 +164,7 @@ const Navbar = () => {
             })
             
             const chainId = await ethereum.request({ method: 'eth_chainId' });
+
                 // console.log("cheching BBST balance...")
                 var web3b = null
                 if(bnb_web3Instance != undefined){
@@ -279,22 +280,27 @@ const Navbar = () => {
     }
 
     const showCurrentNetwork = () => {
-        if(chainID == chain){   // ETH
+        // if(chainID == chain){   // ETH
+        //     return <Link href="#">
+        //     <a onClick={e => e.preventDefault()} className="nav-link">
+        //         <div style={{display:"flex"}}><img style={{height: 20, marginTop: 1}} src="/images/cryptoicons/smallethgray.svg" /> <span style={{marginLeft: 5}}>Ethereum</span> <Icon.ChevronDown /></div>
+        //     </a>
+        //     </Link>
+        // } else
+             if(chainID == bnb_chain) {      // BSC
             return <Link href="#">
             <a onClick={e => e.preventDefault()} className="nav-link">
-                <div style={{display:"flex"}}><img style={{height: 20, marginTop: 1}} src="/images/cryptoicons/smallethgray.svg" /> <span style={{marginLeft: 5}}>Ethereum</span> <Icon.ChevronDown /></div>
-            </a>
-            </Link>
-        } else if(chainID == bnb_chain) {      // BSC
-            return <Link href="#">
-            <a onClick={e => e.preventDefault()} className="nav-link">
-                <div style={{display:"flex"}}><img style={{height: 20, marginTop: 1}} src="/images/cryptoicons/smallbnbgray.svg" /> <span style={{marginLeft: 5}}>BNB Chain</span> <Icon.ChevronDown /></div>
+                <div style={{display:"flex"}}><img style={{height: 20, marginTop: 1}} src="/images/cryptoicons/smallbnbgray.svg" /> <span style={{marginLeft: 5, marginRight:2}}>BSC</span> 
+                {/* <Icon.ChevronDown /> */}
+                </div>
             </a>
             </Link>
         } else {
             return <Link href="#">
             <a onClick={e => e.preventDefault()} className="nav-link">
-                <div style={{display:"flex"}}><Icon.AlertCircle/> <span style={{marginLeft: 5, marginTop: 1}}>Unknown</span> <Icon.ChevronDown /></div>
+                <div style={{display:"flex"}}><Icon.AlertCircle/> <span style={{marginLeft: 5, marginTop: 1}}>Unknown</span> 
+                {/* <Icon.ChevronDown /> */}
+                </div>
             </a>
             </Link>
         }
@@ -410,47 +416,7 @@ const Navbar = () => {
                 </div>
 
 
-                <li className="nav-item">
-                    {/* <Chip variant="outlined" style={{marginTop: -8, height: 40, background:"none", border:"none"}} avatar={<Avatar sizes='medium' alt='avatar' src={"/images/cryptoicons/ethblack.svg"} />} label={<section style={{display:"flex"}}>
-                       <div style={{}}>Ethereum</div> 
-                       <Icon.ChevronDown />
-
-                        </section>} /> */}
-                        {showCurrentNetwork()}
-                        <ul className="dropdown-menu">
-                            <p style={{marginLeft: 5, fontSize: 15, marginBottom: 0}}><i>Switch network</i></p>
-                            <li className="nav-item">
-                                <Link href="#">
-                                <a onClick={e => {
-                                    e.preventDefault();
-                                    switchToBNBTestnet()                   // !!!!!!!!!!!!!!!!!!!!!!!!!!! CHANGER TO SWITCH TO BNB !!!!!!!!!!!
-                                    }} className="nav-link">
-                                    <div style={{display:"flex"}}><img style={{height: 18, marginTop: 1}} src="/images/cryptoicons/smallbnbgray.svg" /> <span style={{marginLeft: 5}}>BNB Smart Chain</span></div>
-                                </a>
-                                </Link>
-                            </li>  
-
-                            <li className="nav-item">
-                                <Link href="#">
-                                <a onClick={e => {
-                                    e.preventDefault();
-                                    switchTogoerli()                   // !!!!!!!!!!!!!!!!!!!!!!!! CHANGER TO SWITCH TO ETH !!!!!!!!!!!!!!!!!
-                                    }} className="nav-link">
-                                    <div style={{display:"flex"}}><img style={{height: 18, marginTop: 1}} src="/images/cryptoicons/smallethgray.svg" /> <span style={{marginLeft: 5}}>Ethereum</span></div>
-                                </a>
-                                </Link>                           
-                            </li>
-
-                            
-                            {/* <p style={{marginTop: 10, marginLeft: 2, fontSize: 15, marginBottom: 0}}><i>Bridge</i></p>
-                            <li className="nav-item">
-                                <a className="nav-link" href="https://wallet-dev.polygon.technology/bridge/" target="_about">
-                                    <div style={{display:"flex"}}><img style={{height: 18, marginTop: 1}} src="/images/cryptoicons/smallethgray.svg" /> <span style={{marginLeft: 5}}>Ethereum ↔ Polygon</span><img style={{height: 18, marginTop: 1, marginLeft: 5}} src="/images/cryptoicons/smallpolygongray.svg" /></div>
-                                </a>
-                            </li>    */}
-                        </ul>
-                {/* <img style={{marginTop: -8, height: 40, border: "1.5px solid #c3c2c4", padding: 4, borderRadius: 12}} src={'/images/cryptoicons/ethblack.svg'}/> */}
-                </li>
+                {/* {showCurrNet()} */}
             </>
 
 
@@ -461,30 +427,66 @@ const Navbar = () => {
         }
     }
 
-    // async function connectToMetamask(){
-    //     let c = await loadWeb3();
-    //     setConnected(c);
-    //     const addr = await web3.eth.getAccounts()
-    //     setAddress(addr[0])
+    const showCurrNet = () => {
+        return <li className="nav-item">
+        {/* <Chip variant="outlined" style={{marginTop: -8, height: 40, background:"none", border:"none"}} avatar={<Avatar sizes='medium' alt='avatar' src={"/images/cryptoicons/ethblack.svg"} />} label={<section style={{display:"flex"}}>
+           <div style={{}}>Ethereum</div> 
+           <Icon.ChevronDown />
 
-    //     dispatch({
-    //         type: 'SET_ADDRESS',
-    //         id: addr[0]
-    //     })
-    // }
- 
+            </section>} /> */}
+            {showCurrentNetwork()}
+            <ul className="dropdown-menu">
+                <p style={{marginLeft: 5, fontSize: 15, marginBottom: 0}}><i>Select network</i></p>
+                <li className="nav-item">
+                    <Link href="#">
+                    <a onClick={e => {
+                        e.preventDefault();
+                        switchToBNBTestnet()                   // !!!!!!!!!!!!!!!!!!!!!!!!!!! CHANGER TO SWITCH TO BNB !!!!!!!!!!!
+                        }} className="nav-link">
+                        <div style={{display:"flex"}}><img style={{height: 18, marginTop: 1}} src="/images/cryptoicons/smallbnbgray.svg" /> <span style={{marginLeft: 5}}>BNB Smart Chain</span></div>
+                    </a>
+                    </Link>
+                </li>  
+
+                {/* <li className="nav-item">
+                    <Link href="#">
+                    <a onClick={e => {
+                        e.preventDefault();
+                        switchTogoerli()                   // !!!!!!!!!!!!!!!!!!!!!!!! CHANGER TO SWITCH TO ETH !!!!!!!!!!!!!!!!!
+                        }} className="nav-link">
+                        <div style={{display:"flex"}}><img style={{height: 18, marginTop: 1}} src="/images/cryptoicons/smallethgray.svg" /> <span style={{marginLeft: 5}}>Ethereum</span></div>
+                    </a>
+                    </Link>                           
+                </li> */}
+
+            </ul>
+    </li>
+    }
+
     const classOne = menu ? 'collapse navbar-collapse' : 'collapse navbar-collapse show';
     const classTwo = menu ? 'navbar-toggler navbar-toggler-right collapsed' : 'navbar-toggler navbar-toggler-right';
 
+    const showSwitchNetworkBar = () => {
+        if(chainID != bnb_chain){
+            return <div className={classes.root}>
+            <AppBar position="static" style={{marginTop: -15, marginBottom:10, background:'#F3BA2F', justifyContent:'center', alignItems:'center'}}> 
+                <Typography style={{color: 'white', fontSize: 14, marginTop: 3, marginBottom: 3}}>
+                    You aren't connected to a supported network. Please <b><a style={{textDecoration: "underline", cursor: "pointer"}} onClick={() => switchToBNBTestnet()}>switch to BNB Smart Chain Testnet</a></b>.
+                </Typography>
+            </AppBar>
+        </div>
+        }
+    }
 
 //#c679e3 purple
     return (
         
         <header id="header" className="headroom">
+            {showSwitchNetworkBar()}
             {/* <div className={classes.root}>
-                <AppBar position="static" style={{marginTop: -15, marginBottom:10, background:'#44cf6e', justifyContent:'center', alignItems:'center'}}> 
-                    <Typography style={{color: 'white'}}>
-                        This is an alpha version running on goerli test network !
+                <AppBar position="static" style={{marginTop: -15, marginBottom:10, background:'#F3BA2F', justifyContent:'center', alignItems:'center'}}> 
+                    <Typography style={{color: 'white', fontSize: 14, marginTop: 3, marginBottom: 3}}>
+                        Alpha v0.2 running on BNB Smart Chain testnet !
                     </Typography>
                 </AppBar>
             </div> */}

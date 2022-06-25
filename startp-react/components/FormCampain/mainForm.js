@@ -601,7 +601,7 @@ class MainForm extends React.Component {
         </div>
         } else if(this.props.chainID == bnb_chain){
             return <div className="payment-method">
-            <p><i>Please keep in mind this campaign will be on BNB Smart Chain network.</i></p>
+            {/* <p><i>Please keep in mind this campaign will be on BNB Smart Chain network.</i></p> */}
             <p>
                 <input type="radio" id="bnb_busd" name="bnb_radio-group" value="b_BUSD" checked={this.state.raisingMethod == "b_BUSD"} onChange={(event) => {
                     this.setState({raisingMethod: event.target.value})

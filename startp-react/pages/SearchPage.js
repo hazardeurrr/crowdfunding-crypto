@@ -164,7 +164,9 @@ class SearchPage extends React.Component {
 
     displayProjects = () => {
         var rows = [];
-        var lproj = this.state.projects.filter(p => this.state.network_checked.includes(p.network))
+        // var lproj = this.state.projects.filter(p => this.state.network_checked.includes(p.network))
+        var lproj = this.state.projects
+        
         //[0 ... 20[ [20 ... 40[
         var len = lproj.length < (this.state.page) * this.nbByPage ? lproj.length : (this.state.page) * this.nbByPage;
         // console.log("len : " + len + " / print page : " + this.state.page)
@@ -190,8 +192,8 @@ class SearchPage extends React.Component {
                             <h2 className="search-page-title">Discover projects that need you !</h2>
                             <div className="bar"></div>
                             {/* <CheckboxList alreadyChecked = {categoryList.indexOf(this.props.cat)} addCat = {this.addCategory} removeCat = {this.removeCategory} /> */}
-                            {this.networkCheckboxes()}
-                            <br></br>
+                            {/* {this.networkCheckboxes()}
+                            <br></br> */}
                             {this.showCheckboxes()}
                         </div>
                     </div>

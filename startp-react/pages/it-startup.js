@@ -18,7 +18,7 @@ const ITStartup = () => {
             {/* <FeaturedProjectCarrousel/> */}
             <CategoriesLight />
             <ProjectGridMain />
-            <Partner />
+            {/* <Partner /> */}
 
             <DiscoverArea />
             {/* <ServicesArea />
