@@ -8,6 +8,8 @@ import Rodal from 'rodal';
 import 'rodal/lib/rodal.css';
 import { GiConsoleController } from 'react-icons/gi';
 import CircularProgress from '@material-ui/core/CircularProgress';
+import {chain} from '@/utils/chain'
+import {bnb_chain} from '@/utils/bnb_chain'
 
 const HeartAnim = (props) => {
 
@@ -22,6 +24,18 @@ const HeartAnim = (props) => {
     const web3Instance = useSelector((state) => state.web3Instance)
     const ethaddress = useSelector((state) => state.address)
 
+
+    const getNetworkPrefix = () => {
+      if(campaign.network == bnb_chain){
+        return "bnb_"
+      } else if (campaign.network == chain){
+        return "eth_"
+      }
+    }
+
+    let documentAddress = getNetworkPrefix() + campaign.contract_address
+
+
     var arrayLiked = []
 
     useEffect(() => {
@@ -29,7 +43,7 @@ const HeartAnim = (props) => {
       if(currentUser != undefined){
         arrayLiked = currentUser.liked
         // console.log(arrayLiked)
-        if(arrayLiked.includes(campaign.contract_address)){
+        if(arrayLiked.includes(documentAddress)){
           setChecked(true);
           
         } else {
@@ -45,7 +59,7 @@ const HeartAnim = (props) => {
     if(checked){
        setChecked(false)
        setShowModal(true)
-       arrayLiked = arrayLiked.filter((e => e != campaign.contract_address))
+       arrayLiked = arrayLiked.filter((e => e != documentAddress))
        if(currentUser == undefined || currentUser == null){return}
         let u = currentUser;
         u.liked = arrayLiked;
@@ -54,12 +68,12 @@ const HeartAnim = (props) => {
           // Change weight depending on BBST balance. Retrieve BBST balance.
           let c = campaign;
           delete c.likedTupleMap[currentUser.eth_address]
-          updateDoc(campaign.contract_address, 'campaignsBNB', c)
+          updateDoc(documentAddress, 'campaignsBNB', c)
   
     } else {
       setChecked(true)
       setShowModal(true)
-      arrayLiked.push(campaign.contract_address)
+      arrayLiked.push(documentAddress)
       if(currentUser == undefined || currentUser == null){return}
         let u = currentUser;
         u.liked = arrayLiked;
@@ -71,7 +85,7 @@ const HeartAnim = (props) => {
         let baseLikeAmount = 10;
         let totalLikeAmount = baseLikeAmount + bbstamount / 10;
         c.likedTupleMap[currentUser.eth_address] = totalLikeAmount
-        updateDoc(campaign.contract_address, 'campaignsBNB', c)
+        updateDoc(documentAddress, 'campaignsBNB', c)
 
         // CHANGER ARRAY PAR UNE MAP
     }

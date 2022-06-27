@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import SimpleCampaignPost from '@/components/Common/SimpleCampaignPost'
 import {connect} from 'react-redux'
+import { bnb_chain } from '@/utils/bnb_chain';
+import { chain } from '@/utils/chain';
 
 
 class CreatedAndLiked extends Component {
@@ -26,10 +28,18 @@ class CreatedAndLiked extends Component {
       return rows;
     }
 
+    getPrefixedAddr = (camp) => {
+        if(camp.network == bnb_chain){
+            return "bnb_"+camp.contract_address
+        } else if(camp.network == chain){
+            return "eth_"+camp.contract_address
+        }
+    }
+
     displayLikedProjects = () => {
       var rows = [];
       for (var i = 0; i < this.user.liked.length; i++) {
-          let proj = this.props.allCampaigns.find(e => e.contract_address == this.liked[i])
+          let proj = this.props.allCampaigns.find(e => this.getPrefixedAddr(e) == this.liked[i])
           if(proj !== undefined){
             rows.push( <div key={i} className="col-lg-4 col-md-6">
             <SimpleCampaignPost project={proj}/>
