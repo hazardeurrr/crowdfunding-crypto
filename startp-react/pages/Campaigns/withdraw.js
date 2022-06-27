@@ -114,15 +114,28 @@ const Withdraw = (props) => {
     // }
   }
 
-  function getSubsEvent() {
-    if(connected == true && chainID == campaign.network && ctrInstance != undefined){
-        ctrInstance.getPastEvents("Participation", ({fromBlock: 'earliest'}))
-        .then(function(events){
-            // console.log(events) // same results as the optional callback above
-            let eventsMapped = events.map(e => [e.returnValues.user.toLowerCase(), e.returnValues.indexTier])
-            // console.log(eventsMapped)
-            setSubscribers(eventsMapped)
-        });
+  function getSubsEvent(ctrInstance) {
+    if(connected == true && chainID == campaign.network){
+        ctrInstance.methods.creationBlock.call().call().then((cblock) =>  {
+            web3Instance.eth.getBlockNumber().then((currentBlock) => {
+
+                let allEvents = []
+                
+                for(let i = cblock; i < currentBlock; i += 5000) {
+                    const _startBlock = i;
+                    const _endBlock = Math.min(currentBlock, i + 4999);
+                    ctrInstance.getPastEvents("Participation", ({fromBlock: _startBlock, toBlock: _endBlock}))
+                    .then(function(events){
+                        // console.log(events) // same results as the optional callback above
+                        let eventsMapped = events.map(e => [e.returnValues.user.toLowerCase(), e.returnValues.indexTier])
+                        // console.log(eventsMapped)
+                        allEvents = [...allEvents, ...eventsMapped]
+                    });
+                  }
+                  console.log(eventsMapped)
+                  setSubscribers(eventsMapped)
+            })
+        })
     }
   }
 
@@ -132,14 +145,12 @@ const Withdraw = (props) => {
     let addressesArr = []
     
     let copySubs = [...subscribers];
-
     let subSorted = copySubs.sort((a,b) => a[1].localeCompare(b[1]));
 
     for(let i = 0 ; i < subSorted.length; ++i){
         addressesArr = addressesArr.concat(subSorted[i][0].toLowerCase())
     }
 
-    // console.log(addressesArr);
     const promises = addressesArr.map(getUser);
     const users = await Promise.all(promises);
     return users.map((user, index) => user.data().eth_address + "," + nullOrMail(user.data().email) + "," + showTierExcel(subSorted[index][1]) + "\n")
@@ -268,7 +279,7 @@ const showScan = () => {
             //connect to Metamask and check for a refund
             const campCtrInstance = new web3Instance.eth.Contract(campaignAbi.campaignAbi, campaign.contract_address)
             setCtrInstance(campCtrInstance)
-            getSubsEvent()
+            getSubsEvent(campCtrInstance)
       //      campCtrInstance.methods.totalBalance.call().call().then(res => {setTotalBalance(res)})
             if(campaign.currency == "ETH" || campaign.currency == "b_BNB"){
                 web3Instance.eth.getBalance(campaign.contract_address).then(res => {
