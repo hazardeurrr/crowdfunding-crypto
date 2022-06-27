@@ -199,11 +199,11 @@ const ServiceDetails = () => {
                                             </AccordionItemHeading>
                                             <AccordionItemPanel>
                                                 <p>
-                                                    The easiest way to get assets on BNB Smart Chain (BSC) is to make a withdrawal of your selected currency from Binance or any other exchanges that supports BSC. <br></br>
-                                                    If you have assets on other chains and want to bridge them to the BSC network, please use <a href="https://www.bnbchain.org/en/bridge">the BNB Smart Chain Bridge</a><br></br>
+                                                    The easiest way to get assets on BNB Smart Chain (BSC) is to make a withdrawal of your selected currency from Binance or any other exchanges that supports BSC. <b>Make sure to select BNB Smart Chain (BSC) as selected network when you make your withdrawal !</b><br></br><br></br>
+                                                    If you have assets on other chains and want to bridge them to the BSC network, please use <a href="https://www.bnbchain.org/en/bridge">the BNB Smart Chain Bridge</a><br></br><br></br>
                                                     If you already have some crypto on BSC network, you can directly use it on our platform (BNB, BUSD or BBST)
                                                     or swap it on a DEX/CEX that supports BSC.
-                                                    <br></br><i>Note that you will need BNB to pay the gas fees once using the BNB Smart Chain network.</i>
+                                                    <br></br><br></br><Icon.AlertTriangle />&nbsp;<i>Note that you will need BNB to pay the gas fees once using the BNB Smart Chain network.</i>
                                                 </p>
                                             </AccordionItemPanel>
                                         </AccordionItem>

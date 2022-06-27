@@ -14,7 +14,7 @@ import {db, storage} from '../../firebase-crowdfund/index'
 import campaignAbi from '@/components/ContractRelated/CampaignAbi';
 import {usdcAddr} from '@/components/ContractRelated/USDCAddr';
 import {bbstAddr} from '@/components/ContractRelated/BbstAddr';
-import {bnb_usdcAddr} from '@/components/ContractRelated/bnb_USDCAddr';
+import {bnb_busdAddr} from '@/components/ContractRelated/bnb_busdAddr';
 import {bnb_bbstAddr} from '@/components/ContractRelated/bnb_BbstAddr';
 
 import {erc20PaymentAddr} from '@/components/ContractRelated/ERC20PaymentAddr';
@@ -171,7 +171,7 @@ const PricingTiers = (props) => {
         } else if(campaign.currency == "BBST"){
             erc20Ctr = new web3Instance.eth.Contract(bbstAbi, bbstAddr)
         } else if(campaign.currency == "b_BUSD"){
-            erc20Ctr = new web3Instance.eth.Contract(erc20standardAbi, bnb_usdcAddr)
+            erc20Ctr = new web3Instance.eth.Contract(erc20standardAbi, bnb_busdAddr)
         } else if(campaign.currency == "b_BBST"){
             erc20Ctr = new web3Instance.eth.Contract(erc20standardAbi, bnb_bbstAddr)
         }
@@ -408,7 +408,7 @@ const PricingTiers = (props) => {
                             pathname: "/how-it-works"
                             }}
                             >
-                        <a style={{marginTop: 15}}>More information about ERC20 allowance here</a>
+                        <a style={{marginTop: 15}}>More information about BEP20 allowance here</a>
                         </Link>.</i>
                 </div>
 

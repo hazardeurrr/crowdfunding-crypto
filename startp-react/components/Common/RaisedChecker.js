@@ -4,7 +4,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { toBaseUnit } from '@/utils/bnConverter';
 import {usdcAddr} from '@/components/ContractRelated/USDCAddr';
 import {bbstAddr} from '@/components/ContractRelated/BbstAddr';
-import {bnb_usdcAddr} from '@/components/ContractRelated/bnb_USDCAddr';
+import {bnb_busdAddr} from '@/components/ContractRelated/bnb_busdAddr';
 import {bnb_bbstAddr} from '@/components/ContractRelated/bnb_BbstAddr';
 import { erc20standardAbi } from '../ContractRelated/ERC20standardABI';
 import { bbstAbi } from '../ContractRelated/BbstAbi';
@@ -49,7 +49,7 @@ const RaisedChecker = (props) => {
         else if(props.campaign.currency == "BBST")
           erc20Ctr = new web3.eth.Contract(bbstAbi, bbstAddr)
         else if(props.campaign.currency == "b_BUSD")
-          erc20Ctr = new web3.eth.Contract(erc20standardAbi, bnb_usdcAddr)
+          erc20Ctr = new web3.eth.Contract(erc20standardAbi, bnb_busdAddr)
         else if(props.campaign.currency == "b_BBST")
           erc20Ctr = new web3.eth.Contract(bbstAbi, bnb_bbstAddr)
 
@@ -89,7 +89,7 @@ const RaisedChecker = (props) => {
           else if(props.campaign.currency == "BBST")
             erc20Ctr = new web3.eth.Contract(bbstAbi, bbstAddr)
           else if(props.campaign.currency == "b_BUSD")
-            erc20Ctr = new web3.eth.Contract(erc20standardAbi, bnb_usdcAddr)
+            erc20Ctr = new web3.eth.Contract(erc20standardAbi, bnb_busdAddr)
           else if(props.campaign.currency == "b_BBST")
             erc20Ctr = new web3.eth.Contract(bbstAbi, bnb_bbstAddr)
 

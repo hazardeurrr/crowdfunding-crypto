@@ -289,9 +289,9 @@ const SimpleCampaignPost = (props) => {
                 Ethereum<img style={{height: 12, marginTop: -1, marginLeft: 5}} src={'/images/cryptoicons/smallethgray.svg'}/> 
             </>
         } else if(campaign.network == bnb_chain){
-            return <>
-                BNB Smart Chain<img style={{height: 12, marginTop: -1,marginLeft: 5}} src={'/images/cryptoicons/smallbnbgray.svg'}/>  
-            </>
+            return <div className="bnb-singlepost">
+                <img style={{height: 12, marginTop: -1,marginLeft: 5}} src={'/images/cryptoicons/smallbnbgray.svg'}/>  
+            </div>
         }
     }
 
@@ -326,7 +326,10 @@ const SimpleCampaignPost = (props) => {
                             <a>{campaign.title}</a>
                         </Link>
                     </h3>
-                <span width="10">By <ChipUser user={user}/></span>
+                <span width="10">
+                    By &nbsp;
+                    <ChipUser user={user}/>
+                </span>
                 <p>{displayDesc()}</p>
                 <b style={{fontSize: 16.5, marginTop: 2}}><div style={{display:"flex"}}>{displayRaised()} {displayCurrency()}</div></b>
                 {displayProgressBar()}

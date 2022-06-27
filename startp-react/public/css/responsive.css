@@ -2710,3 +2710,27 @@
     margin-top: 100px;
   }
 } */
+
+@media only screen and (max-width: 575px){
+  .bnb-singlepost:before {
+    content: "BSC";
+  }
+
+  .createdlike {
+    font-size: 11px;
+  }
+
+  .chipusersmall {
+    width: 88%;
+  }
+}
+
+@media only screen and (min-width: 768px) and (max-width: 1200px){
+  .bnb-singlepost:before {
+    content: "BSC";
+  }
+
+  .chipusersmall {
+    width: 88%;
+  }
+}

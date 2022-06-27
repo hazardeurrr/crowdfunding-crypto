@@ -10787,3 +10787,7 @@ Go Top CSS
   margin-top: 1px;
   margin-right: 3px;
 }
+
+.bnb-singlepost:before {
+  content: "BNB Smart Chain";
+}

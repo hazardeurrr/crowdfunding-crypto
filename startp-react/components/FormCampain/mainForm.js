@@ -31,7 +31,7 @@ import bnb_campaignFactoryAddr from '@/components/ContractRelated/bnb_CampaignFa
 
 import {usdcAddr} from '@/components/ContractRelated/USDCAddr';
 import {bbstAddr} from '@/components/ContractRelated/BbstAddr';
-import {bnb_usdcAddr} from '@/components/ContractRelated/bnb_USDCAddr';
+import {bnb_busdAddr} from '@/components/ContractRelated/bnb_busdAddr';
 import {bnb_bbstAddr} from '@/components/ContractRelated/bnb_BbstAddr';
 import { erc20standardAbi } from '../ContractRelated/ERC20standardABI';
 import DialogActions from '@material-ui/core/DialogActions';
@@ -192,7 +192,7 @@ class MainForm extends React.Component {
         let amt = 0
         let tierAmountArray = []  
         
-        // console.log(this.state.raisingMethod)
+        console.log(this.state.raisingMethod)
 
         if(this.state.raisingMethod != "ETH" && this.state.raisingMethod != "b_BNB"){
             let erc20Ctr = undefined
@@ -203,7 +203,7 @@ class MainForm extends React.Component {
             } else if(this.state.raisingMethod == "b_BBST"){
                 erc20Ctr = new this.props.web3Instance.eth.Contract(bbstAbi, bnb_bbstAddr)
             } else if(this.state.raisingMethod == "b_BUSD"){
-                erc20Ctr = new this.props.web3Instance.eth.Contract(erc20standardAbi, bnb_usdcAddr)
+                erc20Ctr = new this.props.web3Instance.eth.Contract(erc20standardAbi, bnb_busdAddr)
             }
 
             if(erc20Ctr != undefined){

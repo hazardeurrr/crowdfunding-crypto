@@ -84,8 +84,10 @@ class CreatedAndLiked extends Component {
 
                                 <div className="blog-area ">
                                   <div className="container">
-                                      <div className="row justify-content-center">
-                                        {this.displayCreatedProjects()}
+                                    <div className="createdlike">
+                                        <div className="row justify-content-center">
+                                            {this.displayCreatedProjects()}
+                                        </div>
                                       </div>
                                     </div>
                                   </div>
@@ -96,8 +98,10 @@ class CreatedAndLiked extends Component {
                                 <div className="row justify-content-center">
                                   <div className="blog-area ">
                                     <div className="container">
-                                        <div className="row justify-content-center">
-                                          {this.displayLikedProjects()}
+                                        <div className="createdlike">
+                                            <div className="row justify-content-center">
+                                            {this.displayLikedProjects()}
+                                            </div>
                                         </div>
                                     </div>
                                   </div>

@@ -55,7 +55,7 @@ const ChipUser = (props) => {
     const display = () => {
       if(user === undefined){
         return <>                          
-          <a> <Chip avatar={<Avatar alt='avatar' />} label={<section className={classes.sec}>
+          <a className='chipusersmall'> <Chip className='chipusersmall' avatar={<Avatar alt='avatar' />} label={<section className={classes.sec}>
               <div className={classes.pchip1}>Loading...</div>
               <div className={classes.pchip2}>Loading...</div>
               </section>} />
@@ -70,7 +70,7 @@ const ChipUser = (props) => {
              }
            }}>
                           
-          <a> <Chip avatar={<Avatar alt='avatar' src={user.image} />} label={<section className={classes.sec}>
+          <a className='chipusersmall'> <Chip className='chipusersmall' avatar={<Avatar alt='avatar' src={user.image} />} label={<section className={classes.sec}>
               <div className={classes.pchip1}>{user.username}</div>
               <div className={classes.pchip2}>{user.eth_address}</div>
               </section>} onClick={handleClick} />

@@ -21,7 +21,7 @@ import {usdcAddr} from '@/components/ContractRelated/USDCAddr';
 import {bbstAddr} from '@/components/ContractRelated/BbstAddr';
 import { erc20standardAbi } from '@/components/ContractRelated/ERC20standardABI';
 import { bbstAbi } from '@/components/ContractRelated/BbstAbi';
-import {bnb_usdcAddr} from '@/components/ContractRelated/bnb_USDCAddr';
+import {bnb_busdAddr} from '@/components/ContractRelated/bnb_busdAddr';
 import {bnb_bbstAddr} from '@/components/ContractRelated/bnb_BbstAddr';
 
 function Alert(props) {
@@ -282,7 +282,7 @@ const showScan = () => {
                 else if(campaign.currency == "BBST")
                     erc20Ctr = new web3Instance.eth.Contract(bbstAbi, bbstAddr)
                 else if(campaign.currency == "b_BUSD")
-                    erc20Ctr = new web3Instance.eth.Contract(erc20standardAbi, bnb_usdcAddr)
+                    erc20Ctr = new web3Instance.eth.Contract(erc20standardAbi, bnb_busdAddr)
                 else if(campaign.currency == "b_BBST")
                     erc20Ctr = new web3Instance.eth.Contract(bbstAbi, bnb_bbstAddr)
 
