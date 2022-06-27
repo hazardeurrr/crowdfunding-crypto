@@ -114,7 +114,7 @@ const MainBanner = () => {
                                   {/* <h4>{t.heroDesc}</h4> */}
 
                                 <br></br><br></br>
-                                <p style={{fontSize: 20}}>{t.joinrevolution}</p><p style={{fontSize:18}}>Powered by BBST.</p>
+                                <p style={{fontSize: 20}}>{t.joinrevolution}</p><p style={{fontSize:18}}>Powered by BBST & BNB Smart Chain.</p>
                                 {/* <p>{t.subscribe}</p> */}
                                 {/* <Dialog
                                     open={inBase}

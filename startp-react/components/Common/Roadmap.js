@@ -39,7 +39,7 @@ const Roadmap = () => {
         <TimelineItem>
             <TimelineOppositeContent>
             <Typography variant="body2" color="textSecondary">
-                Q1 2021
+                Q2 2021
             </Typography>
             </TimelineOppositeContent>
             <TimelineSeparator>
@@ -60,7 +60,7 @@ const Roadmap = () => {
         <TimelineItem>
             <TimelineOppositeContent>
             <Typography variant="body2" color="textSecondary" >
-                Q2 2021
+                Q3 2021
             </Typography>
             </TimelineOppositeContent>
             <TimelineSeparator>
@@ -84,7 +84,7 @@ const Roadmap = () => {
         <TimelineItem>
         <TimelineOppositeContent>
             <Typography variant="body2" color="textSecondary">
-                Q1 2022
+                Q2 2022
             </Typography>
             
             </TimelineOppositeContent>
@@ -108,7 +108,7 @@ const Roadmap = () => {
         <TimelineItem>
             <TimelineOppositeContent>
             <Typography variant="body2" color="textSecondary" >
-                Q2 2022
+                Q3/Q4 2022
             </Typography>
             </TimelineOppositeContent>
             <TimelineSeparator>
@@ -120,7 +120,7 @@ const Roadmap = () => {
             <TimelineContent>
             <div style={{padding: '10px', width: '-moz-fit-content',display: 'inline-block', boxShadow: '0 2px 48px 0 rgb(0 0 0 / 8%)'}}>
                 <Typography variant="h6" component="h1">
-                    $BBST Launch
+                    BBST Launch
                 </Typography>
                 <Typography>{t.sale}</Typography>
             </div>
@@ -132,7 +132,7 @@ const Roadmap = () => {
         <TimelineItem>
             <TimelineOppositeContent>
             <Typography variant="body2" color="textSecondary" >
-                Q3 2022
+                Q3/Q4 2022
             </Typography>
             </TimelineOppositeContent>
             <TimelineSeparator>
