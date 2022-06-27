@@ -100,7 +100,7 @@ const ServiceDetails = () => {
                                             </AccordionItemHeading>
                                             <AccordionItemPanel>
                                                 <p>
-                                                    As a contributor, you aren't charged any fee by the platform. But you will have to pay the gas fee of the blockchain when confirming the transaction. Note that this is
+                                                    As a contributor, you aren't charged any fee by the platform. But you will have to pay the gas fee of the blockchain when confirming the transaction. As BlockBoosted currently runs on BNB Smart Chain, this gas fee is negligible. Note that this is
                                                     the only fee you'll pay.
                                                 </p>
                                             </AccordionItemPanel>
@@ -110,20 +110,13 @@ const ServiceDetails = () => {
                                             <AccordionItemHeading>
                                                 <AccordionItemButton>
                                                     <span>
-                                                        What are the supported networks & how to change your current network ?
+                                                        What are the supported networks ?
                                                     </span>
                                                 </AccordionItemButton>
                                             </AccordionItemHeading>
                                             <AccordionItemPanel>
                                                 <p>
-                                                    BlockBoosted supports both Ethereum & BNB Chain chains. Each campaign is deployed only on one chain, and will only accept funds through this network. 
-                                                    You can sort campaigns by supported network on our <Link href={{
-                                                        pathname: "/SearchPage/",
-                                                        query: {
-                                                            id: "explore",
-                                                        }
-                                                    }}><a>Explore</a></Link> page.
-                                                    <br></br>You can change your current network on our navigation bar or directly on the Metamask tab.
+                                                    BlockBoosted only supports BNB Smart Chain at the moment.
                                                 </p>
                                             </AccordionItemPanel>
                                         </AccordionItem>
@@ -132,13 +125,13 @@ const ServiceDetails = () => {
                                             <AccordionItemHeading>
                                                 <AccordionItemButton>
                                                     <span>
-                                                        What is ERC20 allowance ?
+                                                        What is BEP20 allowance ?
                                                     </span>
                                                 </AccordionItemButton>
                                             </AccordionItemHeading>
                                             <AccordionItemPanel>
                                                 <p>
-                                                    In order to use ERC20 tokens on our platform, you must allow our smart contracts to access them. It's a security feature of the ERC20 standard. You only need to do the approval
+                                                    In order to use BEP20 tokens on our platform, you must allow our smart contracts to access them. It's a security feature of the ERC20 standard. You only need to do the approval
                                                     once per token.
                                                 </p>
                                             </AccordionItemPanel>
@@ -171,9 +164,9 @@ const ServiceDetails = () => {
                                             </AccordionItemHeading>
                                             <AccordionItemPanel>
                                                 <p>
-                                                    When you contribute to a campaign, you will also earn $BBST as rewards. $BBST is the token powering our ecosystem. It has value and give you power on the platform. Learn more about it and claim your due on the dedicated page <Link href="/token"><a>BBST Token</a></Link>. The amount
+                                                    When you contribute to a campaign, you will also earn BBST as rewards. BBST is the token powering our ecosystem. It has value and give you power on the platform. Learn more about it and claim your due on the dedicated page <Link href="/token"><a>BBST Token</a></Link>. The amount
                                                     of BBST you'll get depends on the amount of the contributions you've made.<br></br> Each week, up to 15 000 BBST are given to the community as rewards.<br></br>
-                                                    <Icon.AlertTriangle/>Note that reward balances are updated every monday at 00:00 GMT+1.
+                                                    {/* <Icon.AlertTriangle/>Note that reward balances are updated every monday at 00:00 GMT+1. */}
                                                 </p>
                                             </AccordionItemPanel>
                                         </AccordionItem>
@@ -200,39 +193,17 @@ const ServiceDetails = () => {
                                             <AccordionItemHeading>
                                                 <AccordionItemButton>
                                                     <span>
-                                                        How can I transfer funds to BNB Chain ?
+                                                        How can I get funds on BNB Smart Chain ?
                                                     </span>
                                                 </AccordionItemButton>
                                             </AccordionItemHeading>
                                             <AccordionItemPanel>
                                                 <p>
-                                                    There are two ways of transfering funds to BNB Chain network.
-                                                    <ul>
-                                                        <li>
-                                                            Deposit funds on an exchange supporting BNB Chain (Binance, FTX...). Then withdraw to your Metamask wallet selecting BNB Chain as network. The exchange will basically handle the bridge for you !
-                                                        </li>
-                                                        <li>
-                                                            Bridge tokens from Ethereum to BNB Chain thanks to Binance. You can access it on our navigation bar.
-                                                        </li>
-                                                    </ul>
-                                                    If you already have some crypto on BNB Chain network, you can directly use it on our platform (BNB, BUSD or BBST)
-                                                    or swap it on a DEX/CEX that supports BNB Chain.
-                                                    <br></br><i>Note that you will need BNB to pay the gas fees once using the BNB Chain network (instead of ETH for Ethereum network).</i>
-                                                </p>
-                                            </AccordionItemPanel>
-                                        </AccordionItem>
-
-                                        <AccordionItem uuid="ab">
-                                            <AccordionItemHeading>
-                                                <AccordionItemButton>
-                                                    <span>
-                                                        I used the BNB Chain Bridge but can't see the tokens in my wallets
-                                                    </span>
-                                                </AccordionItemButton>
-                                            </AccordionItemHeading>
-                                            <AccordionItemPanel>
-                                                <p>
-                                                    Bridging assets between Ethereum & BNB Chain networks usually takes around 10 minutes. Also, make sure to import the tokens on Metamask on both networks to see the balances.
+                                                    The easiest way to get assets on BNB Smart Chain (BSC) is to make a withdrawal of your selected currency from Binance or any other exchanges that supports BSC. <br></br>
+                                                    If you have assets on other chains and want to bridge them to the BSC network, please use <a href="https://www.bnbchain.org/en/bridge">the BNB Smart Chain Bridge</a><br></br>
+                                                    If you already have some crypto on BSC network, you can directly use it on our platform (BNB, BUSD or BBST)
+                                                    or swap it on a DEX/CEX that supports BSC.
+                                                    <br></br><i>Note that you will need BNB to pay the gas fees once using the BNB Smart Chain network.</i>
                                                 </p>
                                             </AccordionItemPanel>
                                         </AccordionItem>
@@ -247,7 +218,7 @@ const ServiceDetails = () => {
                                             </AccordionItemHeading>
                                             <AccordionItemPanel>
                                                 <p>
-                                                    - If some features are missing, be sure to be connected to Metamask and be sure that it is your only browser extension that serves as an Ethereum wallet.
+                                                    - If some features are missing, be sure to be connected to Metamask and be sure that it is your only browser extension that serves as a browser wallet.
                                                     <br></br>- If you are connected to Metamask, be sure you have one of our supported network selected on the Metamask tab.
                                                     <br></br>- If none of these work, try to reload the page or open it with another browser.
                                                     <br></br>- If none of these work, you can <Link href="/contact"><a>contact our support.</a></Link>
@@ -265,7 +236,7 @@ const ServiceDetails = () => {
                                             </AccordionItemHeading>
                                             <AccordionItemPanel>
                                                 <p>
-                                                Be sure you have enough money in the needed currency in your Metamask wallet, as well as enough ETH (Ethereum network) or BNB (BNB Chain network) to pay the gas fee for the transaction. Transactions on the blockchain can take quite a long time. The less fee you want to pay, the longer it will take to get confirmed. 
+                                                Be sure you have enough money in the needed currency in your Metamask wallet, as well as enough BNB to pay the gas fee for the transaction. Transactions on the blockchain can take quite a long time. The less fee you want to pay, the longer it will take to get confirmed. 
                                                 </p>
                                             </AccordionItemPanel>
                                         </AccordionItem>
@@ -331,7 +302,7 @@ const ServiceDetails = () => {
                                                 </AccordionItemHeading>
                                                 <AccordionItemPanel>
                                                     <p>
-                                                        BlockBoosted supports Ethereum & BNB Chain chains. Note that your campaign can only be deployed on one chain, and will only accepts funds through that network. 
+                                                        BlockBoosted only supports BNB Smart Chain at the moment.
                                                     </p>
                                                 </AccordionItemPanel>
                                             </AccordionItem>                                            
@@ -376,8 +347,7 @@ const ServiceDetails = () => {
                                                 </AccordionItemHeading>
                                                 <AccordionItemPanel>
                                                     <p>
-                                                        For campaigns on Ethereum : ETH, USDC or BBST.
-                                                        <br></br>For campaigns on BNB Chain : BNB, BUSD or BBST.
+                                                        We currently support 3 cryptocurrencies : BNB, BUSD or BBST.
                                                     </p>
                                                 </AccordionItemPanel>
                                             </AccordionItem>
