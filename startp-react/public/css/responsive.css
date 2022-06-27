@@ -2409,7 +2409,7 @@
     height: 100%;
     /* margin-top: 35px; */
     background-position: center;
-    padding-top: 150px;
+    /* padding-top: 150px; */
   }
 
   .main-banner .hero-content h1 {
@@ -2734,3 +2734,10 @@
     width: 88%;
   }
 }
+
+@media only screen and (min-width: 992px) {
+  .mainCarousel {
+    padding-top: 100px;
+  }
+}
+
