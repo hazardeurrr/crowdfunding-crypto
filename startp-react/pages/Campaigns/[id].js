@@ -390,7 +390,7 @@ const Campaign = (props) => {
             </li>
         } else if(campaign.network == bnb_chain){
             return <li>
-            <Icon.ExternalLink /> <a target="_blank" href={`https://testnet.bscscan.com/address/${campaign.contract_address}`}>See on BSCScan</a>
+            <Icon.ExternalLink /> <a target="_blank" href={`https://testnet.bscscan.com/address/${campaign.contract_address}`}>See on BscScan</a>
             </li>
         }
     }
