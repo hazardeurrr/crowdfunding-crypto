@@ -69,18 +69,7 @@ const bnb_rewardAbi = [
 		"type": "function"
 	},
 	{
-		"inputs": [
-			{
-				"internalType": "uint256",
-				"name": "amount",
-				"type": "uint256"
-			},
-			{
-				"internalType": "bytes",
-				"name": "signature",
-				"type": "bytes"
-			}
-		],
+		"inputs": [],
 		"name": "claimTokens",
 		"outputs": [],
 		"stateMutability": "nonpayable",
@@ -112,6 +101,13 @@ const bnb_rewardAbi = [
 				"type": "bool"
 			}
 		],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"inputs": [],
+		"name": "retrieveRewards",
+		"outputs": [],
 		"stateMutability": "nonpayable",
 		"type": "function"
 	},
@@ -157,12 +153,12 @@ const bnb_rewardAbi = [
 	{
 		"inputs": [
 			{
-				"internalType": "address",
-				"name": "newAdmin",
-				"type": "address"
+				"internalType": "uint256",
+				"name": "newSuperWeek",
+				"type": "uint256"
 			}
 		],
-		"name": "updateAdmin",
+		"name": "setSuperWeek",
 		"outputs": [],
 		"stateMutability": "nonpayable",
 		"type": "function"
@@ -170,11 +166,75 @@ const bnb_rewardAbi = [
 	{
 		"inputs": [
 			{
-				"internalType": "address",
-				"name": "_admin",
-				"type": "address"
+				"internalType": "uint256",
+				"name": "newSupplySuperWeek",
+				"type": "uint256"
 			}
 		],
+		"name": "setSupplySuperWeek",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "uint256",
+				"name": "newTaux",
+				"type": "uint256"
+			}
+		],
+		"name": "setTauxBBST",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "uint256",
+				"name": "newTaux",
+				"type": "uint256"
+			}
+		],
+		"name": "setTauxBNB",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "uint256",
+				"name": "newTaux",
+				"type": "uint256"
+			}
+		],
+		"name": "setTauxBUSD",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "uint256",
+				"name": "index",
+				"type": "uint256"
+			},
+			{
+				"internalType": "uint256",
+				"name": "newBalance",
+				"type": "uint256"
+			}
+		],
+		"name": "setWeeklySupply",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"inputs": [],
 		"stateMutability": "nonpayable",
 		"type": "constructor"
 	},
@@ -195,11 +255,24 @@ const bnb_rewardAbi = [
 		"inputs": [
 			{
 				"internalType": "address",
-				"name": "",
+				"name": "claimer",
 				"type": "address"
 			}
 		],
-		"name": "lastClaim",
+		"name": "getClaim",
+		"outputs": [
+			{
+				"internalType": "uint256",
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [],
+		"name": "getCurrrentWeek",
 		"outputs": [
 			{
 				"internalType": "uint256",
@@ -216,9 +289,80 @@ const bnb_rewardAbi = [
 				"internalType": "address",
 				"name": "",
 				"type": "address"
+			},
+			{
+				"internalType": "uint256",
+				"name": "",
+				"type": "uint256"
 			}
 		],
-		"name": "nbClaim",
+		"name": "keys",
+		"outputs": [
+			{
+				"internalType": "uint256",
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "address",
+				"name": "",
+				"type": "address"
+			},
+			{
+				"internalType": "uint256",
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"name": "participations",
+		"outputs": [
+			{
+				"internalType": "uint256",
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "uint256",
+				"name": "numerator",
+				"type": "uint256"
+			},
+			{
+				"internalType": "uint256",
+				"name": "denominator",
+				"type": "uint256"
+			},
+			{
+				"internalType": "uint256",
+				"name": "precision",
+				"type": "uint256"
+			}
+		],
+		"name": "percent",
+		"outputs": [
+			{
+				"internalType": "uint256",
+				"name": "quotient",
+				"type": "uint256"
+			}
+		],
+		"stateMutability": "pure",
+		"type": "function"
+	},
+	{
+		"inputs": [],
+		"name": "rewardStartTimestamp",
 		"outputs": [
 			{
 				"internalType": "uint256",
@@ -231,7 +375,58 @@ const bnb_rewardAbi = [
 	},
 	{
 		"inputs": [],
-		"name": "rewardStartTimestamp",
+		"name": "superWeek",
+		"outputs": [
+			{
+				"internalType": "uint256",
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [],
+		"name": "supplySuperWeek",
+		"outputs": [
+			{
+				"internalType": "uint256",
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "uint256",
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"name": "totalParticipations",
+		"outputs": [
+			{
+				"internalType": "uint256",
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "uint256",
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"name": "weeklySupply",
 		"outputs": [
 			{
 				"internalType": "uint256",

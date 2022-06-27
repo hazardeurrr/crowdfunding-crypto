@@ -48,7 +48,7 @@ const CardToken = () => {
   const eth_web3Instance = useSelector((state) => state.eth_web3Instance)
 
   const [toBeClaimed, setToBeClaimed] = React.useState(0)
-  const [rewardCtr, setRewardCtr] = React.useState(undefined)
+  const [bnb_contract, setBnbContract] = React.useState(undefined)
   // const [polyRewardCtr, setPolyRewardCtr] = React.useState(undefined)
   const [dialogOpen, setDialogOpen] = React.useState(false);
   const [snackbarOpen, setSnackbarOpen] = React.useState(false);
@@ -58,180 +58,42 @@ const CardToken = () => {
 
   React.useEffect(() => {
     if(web3Instance != undefined && connected && chainID == bnb_chain){
-      var contract = new eth_web3Instance.eth.Contract(rewardAbi, rewardAddr)
-      var bnb_contract = new web3Instance.eth.Contract(bnb_rewardAbi, bnb_rewardAddr)
-
-      // setPolyRewardCtr(bnb_contract);
-      // setRewardCtr(bnb_contract);
+      var bnb_ctr = new web3Instance.eth.Contract(bnb_rewardAbi, bnb_rewardAddr);
+      setBnbContract(bnb_ctr);
       setToBeClaimed(0);
-      getClaim(contract, bnb_contract);
+      getClaim(bnb_ctr);
     }
   }, [web3Instance])
 
-  const getClaim = async(contract, bnb_contract) => {
-    const weekTime = 86400;
-    
-    const userAddr = address;
-    const rewardCtr = bnb_contract;
-    const ethRewardCtr = contract;
-
-    rewardCtr.methods.lastClaim(userAddr).call().then((res) => {
-      console.log(res)
-      rewardCtr.getPastEvents("Participate", ({fromBlock: 0, toBlock: "latest"}))
-        .then((events) => {
-  
-          let eventsFilteredBnb = events.filter(e => e.returnValues.user.toLowerCase() == userAddr && e.returnValues.timestamp >= res).map(a => ({ ...a, chain: 'ethereum' }));
-          
-          ethRewardCtr.getPastEvents("Participate", ({fromBlock: 7108671, toBlock: "latest"}))
-            .then((eventsEth) => {
-              let eventsFilteredEth = eventsEth.filter(e => e.returnValues.user.toLowerCase() == userAddr && e.returnValues.timestamp >= res).map(a => ({ ...a, chain: 'bnbchain' }));
-              let eventsFiltered = eventsFilteredBnb.concat(eventsFilteredEth)
-              console.log(eventsFiltered)
-            if (eventsFiltered.length == 0) {
-              console.error("Wrong Address or no participations registered yet !");
-            }
-  
-            if (eventsFiltered.length != 0) {
-              rewardCtr.methods.rewardStartTimestamp.call().call().then(async(time) => {
-      
-                  const promises = eventsFiltered.map(async(e) => {
-        
-                    var week = parseInt(Math.floor((e.returnValues.timestamp - time) / weekTime));
-                    var ratio;
-              
-                    await db.collection('utils').doc('rates').get().then(async(resRate) => {
-              
-                      
-                      var currentRate = 0
-                      
-                      if(e.returnValues.token == "0x0000000000000000000000000000000000000000" && e.chain == "ethereum")
-                        currentRate = resRate.data().eth[week] == undefined ? 3200 : resRate.data().eth[week]
-                      if(e.returnValues.token == "0x9AeC9767B0842d04dc0b831ADAA71342Ed8B8Ba1" && e.chain == "ethereum")
-                        currentRate = resRate.data().bbst[week] == undefined ? 1.25 : resRate.data().bbst[week]
-                      if(e.returnValues.token == "0xb465fBFE1678fF41CD3D749D54d2ee2CfABE06F3" && e.chain == "ethereum")
-                        currentRate = resRate.data().usdc[week] == undefined ? 10**12 : resRate.data().usdc[week] * 10 ** 12
-                      if(e.returnValues.token == "0x0000000000000000000000000000000000000000" && e.chain == "bnbchain")
-                        currentRate = resRate.data().bnb[week] == undefined ? 0.6 : resRate.data().bnb[week]
-                      if(e.returnValues.token == "0x8922Ab8ed4FE9E7C25D826171d91c3c8E98284b3" && e.chain == "bnbchain")
-                        currentRate = resRate.data().bbst[week] == undefined ? 1.25 : resRate.data().bbst[week]
-                      if(e.returnValues.token == "0x8f7116CA03AEB48547d0E2EdD3Faa73bfB232538" && e.chain == "bnbchain")
-                        currentRate = resRate.data().busd[week] == undefined ? 10**12 : resRate.data().busd[week] * 10 ** 12
-  
-                      // console.log("Rate crypto :", currentRate);
-        
-                      await db.collection('utils').doc('rewardData').get().then((data) => {
-              
-                        // console.log("week :", week)
-                        let totalETH = data.data().test_totalPerWeekETH[week] == undefined ? 0 : data.data().test_totalPerWeekETH[week]
-                        let totalBnbchain = data.data().test_totalPerWeekBnbchain[week] == undefined ? 0 : data.data().test_totalPerWeekBnbchain[week]
-                        let totalThisWeek = totalETH + totalBnbchain
-              
-                        if (totalThisWeek == 0 || totalThisWeek == undefined) {
-                          ratio = 0;
-                        } else {
-                          ratio = (e.returnValues.amount * currentRate) / totalThisWeek
-                          // console.log("ratio :", ratio)
-                        }
-              
-                      }).catch((error) => { console.log(error) })
-              
-                      }).catch((error) => { console.log(error) })
-        
-                      return [ratio, week];
-                  })
-            
-                  await Promise.all(promises).then(async(res) => {
-                    // claim += map.reduce(((a,b) => a + b), 0);
-                    // console.log(res)
-        
-                    await db.collection('utils').doc('rewardData').get().then((data) => {
-        
-                      var weekTmp = res[0][1];
-                      var cpt = 0;
-                      var tmpTotalWeek = 0;
-                      var claim = 0;
-          
-                      res.forEach((elem) => {
-                        ++cpt;
-        
-                        if (elem[1] != weekTmp) {
-                          var ratio = tmpTotalWeek > 0.03 ? 0.03 : tmpTotalWeek
-                          claim += ratio * data.data().weeklySupply[weekTmp];
-                          tmpTotalWeek = 0;
-                          weekTmp = elem[1];
-                        }
-        
-                        tmpTotalWeek += elem[0];
-        
-                        if (cpt == res.length) {
-                          var ratio = tmpTotalWeek > 0.03 ? 0.03 : tmpTotalWeek
-                          claim += ratio * data.data().weeklySupply[weekTmp];
-                        }
-        
-                      })
-
-                      setToBeClaimed(claim)
-
-                    })
-                  }) 
-              })
-            }
-          })
-      })	
-
-    }).catch((error) => {
-      throw error;
-    });
-
+  const getClaim = async(ctr) => {
+    ctr.methods.getClaim(address).call().then((nb) => setToBeClaimed(parseFloat(web3Instance.utils.fromWei(nb))))
   }
 
   const claimTokens = async() => {
+    bnb_contract.methods.claimTokens().send({from : address, value: 0})
+    .on('transactionHash', function(hash){
+      setCreationState(0)
 
-    setCreationState(2)
-    openDialog()
-
-    // logic to claim the tokens
-    var sig;
-    var amount;
-
-    axios({
-      method: 'post',
-      url: REACT_APP_LINK_TO_SIG + '?address=' + address
-    }).then((res) => {
-
-      // console.log(res)
-
-      sig = res.data.sig;
-      amount = res.data.amount;
-
-      rewardCtr.methods.claimTokens(amount, sig).send({from : address, value: 0})
-      .on('transactionHash', function(hash){
-        setCreationState(0)
-
-        openDialog()
-        console.log("hash :" + hash)
-        setTx(hash);
+      openDialog()
+      console.log("hash :" + hash)
+      setTx(hash);
+      
+    })
+    .on('confirmation', function(confirmationNumber, receipt){ 
         
-      })
-      .on('confirmation', function(confirmationNumber, receipt){ 
-          
-          // console.log("Confirmation number:" + confirmationNumber)
-      })
-      .on("error", function(error) {
-          setErrorMsg(error.code + " : " + error.message)
-          openSnackbar()
-          
-      })
-      .then(() => {
-          setCreationState(1)
-          
-      }).catch(() => {
-          console.log("error in the transac")
-      })
-
-    }).catch((error) => {
-      throw "Error in the request";
-    });
+        // console.log("Confirmation number:" + confirmationNumber)
+    })
+    .on("error", function(error) {
+        setErrorMsg(error.code + " : " + error.message)
+        openSnackbar()
+        
+    })
+    .then(() => {
+        setCreationState(1)
+        
+    }).catch(() => {
+        console.log("error in the transac")
+    })
   }
 
   const displayConfirmModal = (x) => {

@@ -1,4 +1,4 @@
-const bnb_rewardAddr = "0xF971c6956a545C2eB13D0c5Be9E6368fb46f1fB3"
+const bnb_rewardAddr = "0x1ad4c898B7cc4cc8f30669AbA290507F812969b0"
 
 module.exports = {
   bnb_rewardAddr

@@ -93,7 +93,7 @@ const Campaign = (props) => {
 
         // console.log(props)
 
-        getOne('campaignsTest', props.address, function(doc) {
+        getOne('campaignsBNB', props.address, function(doc) {
           if (doc.exists) {
             setCampaign(doc.data())
             displayHTMLTxt(doc.data().long_desc)

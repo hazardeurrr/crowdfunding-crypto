@@ -114,17 +114,19 @@ const Withdraw = (props) => {
     // }
   }
 
-  function getSubsEvent(ctrInstance) {
+  function getSubsEvent(ctr) {
     if(connected == true && chainID == campaign.network){
-        ctrInstance.methods.creationBlock.call().call().then((cblock) =>  {
+        console.log(ctr)
+        ctr.methods.creationBlock.call().call().then((cblock) =>  {
+            console.log("creablock")
             web3Instance.eth.getBlockNumber().then((currentBlock) => {
-
+                console.log(currentBlock)
                 let allEvents = []
                 
                 for(let i = cblock; i < currentBlock; i += 5000) {
                     const _startBlock = i;
                     const _endBlock = Math.min(currentBlock, i + 4999);
-                    ctrInstance.getPastEvents("Participation", ({fromBlock: _startBlock, toBlock: _endBlock}))
+                    ctr.getPastEvents("Participation", ({fromBlock: _startBlock, toBlock: _endBlock}))
                     .then(function(events){
                         // console.log(events) // same results as the optional callback above
                         let eventsMapped = events.map(e => [e.returnValues.user.toLowerCase(), e.returnValues.indexTier])
@@ -132,8 +134,8 @@ const Withdraw = (props) => {
                         allEvents = [...allEvents, ...eventsMapped]
                     });
                   }
-                  console.log(eventsMapped)
-                  setSubscribers(eventsMapped)
+                  console.log(allEvents)
+                  setSubscribers(allEvents)
             })
         })
     }
