@@ -197,7 +197,7 @@ const closeDialog = () => {
             <DialogContent>
             <DialogContentText id="alert-dialog-description" style={{marginTop: 15}}>
             Transaction confirmed : </DialogContentText>
-            <DialogContentText id="alert-dialog-description"><a href={`https://testnet.bscscan/tx/${Tx}`} target="_blank">{Tx}</a></DialogContentText>
+            <DialogContentText id="alert-dialog-description"><a href={`https://testnet.bscscan.com/tx/${Tx}`} target="_blank">{Tx}</a></DialogContentText>
             <div style={{justifyContent:'center'}}>
                         <Link href={{
                             pathname: "/"

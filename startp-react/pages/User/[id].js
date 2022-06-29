@@ -90,7 +90,7 @@ const User = (props, {data}) => {
                     </div>
 
                       <h2>{user.username}</h2>
-                      <a href={`https://testnet.bscscan/address/${user.eth_address}`} target="_blank"><h6 className="user-address">{user.eth_address}</h6></a>
+                      <a href={`https://testnet.bscscan.com/address/${user.eth_address}`} target="_blank"><h6 className="user-address">{user.eth_address}</h6></a>
                       <div className="blog-details-desc">
                         <div className="article-content">
                            <div className="entry-meta">
