@@ -1,9 +1,10 @@
-import React from "react"
+ import React from "react"
 import Link from '@/utils/ActiveLink'
 import * as Icon from 'react-feather'
 import { useSelector, useDispatch } from 'react-redux'
 const Web3 = require('web3');
 import Avatar from '@material-ui/core/Avatar';
+import firebase from 'firebase-crowdfund/index';
 
 import detectEthereumProvider from '@metamask/detect-provider';
 import { postDoc, getOne } from 'firebase-crowdfund/queries'
@@ -23,6 +24,8 @@ import { makeStyles } from '@material-ui/core/styles';
 import ChipUser from "../Common/ChipUser";
 import ProfileNav from "../Common/ProfileNav";
 import Chip from '@material-ui/core/Chip';
+import axios from 'axios';
+import { getSvgData } from "carbon-components-react";
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -121,8 +124,8 @@ const Navbar = () => {
         ethereum
         .request({ method: 'eth_accounts' })
         .then((value) => {
-            handleAccountsChanged(value)
-            localStorage.setItem('current_address', value[0])
+           // handleAccountsChanged(value)
+            // localStorage.setItem('current_address', value[0])
         })
         .catch((err) => {
             // Some unexpected error.
@@ -136,6 +139,16 @@ const Navbar = () => {
         // connected.
         ethereum.on('accountsChanged', handleAccountsChanged);
 
+        window.ethereum.on('connect', connectAccount);
+        window.ethereum.on('disconnect', disconnectAccount);
+
+    }
+
+    const connectAccount = () => {
+
+    }
+
+    const disconnectAccount = () => {
 
     }
 
@@ -144,70 +157,144 @@ const Navbar = () => {
         if (accounts.length === 0) {
         // MetaMask is locked or the user has not connected any accounts
         console.log('Please connect to MetaMask.');
+        
         dispatch({
             type: 'SET_CONNECTED',
             id: false
         })
         } else {
-            // console.log("in accounts changed")
-            dispatch({
-                type: 'SET_CONNECTED',
-                id: true
-            })
-            dispatch({
-                type: 'SET_ADDRESS',
-                id: accounts[0]
-            })
+             //-------------------------REQUEST AUTHENTICATION-------------------------/
 
-            var web3 = new Web3(window.ethereum)
-            dispatch({
-                type: 'SET_WEB3',
-                id: web3
-            })
-            
-            const chainId = await ethereum.request({ method: 'eth_chainId' });
+             if(firebase.auth().currentUser.uid == accounts[0].toLowerCase()){
+                   getDataOnceAuth(firebase.auth().currentUser.uid)
+            } else {
+                authenticate()
+             }
 
-                // console.log("cheching BBST balance...")
-                var web3b = null
-                if(bnb_web3Instance != undefined){
-                    web3b = bnb_web3Instance
+             //------------------------------------------------------------------------/
+        }
+    }
+
+    const getDataOnceAuth = async(address) => {
+        dispatch({
+            type: 'SET_CONNECTED',
+            id: true
+        })
+        dispatch({
+            type: 'SET_ADDRESS',
+            id: address
+        })
+
+        var web3 = new Web3(window.ethereum)
+        dispatch({
+            type: 'SET_WEB3',
+            id: web3
+        })
+        
+        const chainId = await ethereum.request({ method: 'eth_chainId' });
+
+            // console.log("cheching BBST balance...")
+            var web3b = null
+            if(bnb_web3Instance != undefined){
+                web3b = bnb_web3Instance
+            } else {
+                web3b = new Web3(new Web3.providers.HttpProvider("https://data-seed-prebsc-1-s1.binance.org:8545/"))
+            }
+            const bbst_contract = new web3b.eth.Contract(bbstAbi.bbstAbi, bbstAddr.bbstAddr);
+            bbst_contract.methods.balanceOf(address).call().then(response => {
+                // console.log('response', response)
+                dispatch({
+                    type: 'SET_BBST_BALANCE',
+                    id: response
+                })
+                // console.log(response)
+            }).catch(console.error)
+        
+        
+        
+
+        if (address != undefined) {
+
+            getOne('profile', address, function(doc) {
+                if (doc.exists) {
+                        dispatch({
+                            type: 'SET_CURRENT_USER',
+                            id: doc.data()
+                        })
                 } else {
-                    web3b = new Web3(new Web3.providers.HttpProvider("https://data-seed-prebsc-1-s1.binance.org:8545/"))
+                    const user = { username: "", email: "", eth_address: address, image: "", bio: "", twitter: "", liked: new Array() }
+                    postDoc(user.eth_address, 'profile', user,
+                        console.log(user.username + " has been uploaded")
+                    )
+                     dispatch({
+                         type: 'SET_CURRENT_USER',
+                         id: user
+                     })
                 }
-                const bbst_contract = new web3b.eth.Contract(bbstAbi.bbstAbi, bbstAddr.bbstAddr);
-                bbst_contract.methods.balanceOf(accounts[0]).call().then(response => {
-                    // console.log('response', response)
-                    dispatch({
-                        type: 'SET_BBST_BALANCE',
-                        id: response
-                    })
-                    // console.log(response)
-                }).catch(console.error)
-            
-            
-            
+            })
+        }
+    }
 
-            if (accounts[0] != undefined) {
-                getOne('profile', accounts[0], function(doc) {
-                    if (doc.exists) {
-                            dispatch({
-                                type: 'SET_CURRENT_USER',
-                                id: doc.data()
-                            })
-                            // console.log(doc.data(), "doc.data navbar")
-                    } else {
-                        const user = { username: "", email: "", eth_address: accounts[0], image: "", bio: "", twitter: "", liked: new Array() }
-                        postDoc(user.eth_address, 'profile', user,
-                            console.log(user.username + " has been uploaded")
-                        )
-                         dispatch({
-                             type: 'SET_CURRENT_USER',
-                             id: user
-                         })
+    const authenticate = async() => {
+
+        axios({
+            method: 'post',
+            url: 'https://europe-west1-crowdfunding-dev-5f802.cloudfunctions.net/getNonceToSign',
+            data: {
+              address: ethereum.selectedAddress
+            }
+          })
+          .then(async(response) => {
+            console.log(response.data);
+            //----------SIGN NONCE---------//
+            ethereum.request({
+                method: 'personal_sign',
+                params: [
+                  `0x${toHex(response.data.nonce)}`,
+                  ethereum.selectedAddress,
+                ],
+            })
+            .then(async(sig) => {
+                //--------------VERIFY SIG---------//
+                console.log(sig)
+                axios({
+                    method: 'post',
+                    url: 'https://europe-west1-crowdfunding-dev-5f802.cloudfunctions.net/verifySignedMessage',
+                    data: {
+                      address: ethereum.selectedAddress,
+                      signature: sig
                     }
                 })
-            }
+                .then(async(tokenResp) => {
+                    //---------SIGN WITH TOKEN-------//
+                    firebase.auth().signInWithCustomToken(tokenResp.data.token)
+                    .then((result) => {
+                        console.log(result)
+                        getDataOnceAuth(result.user.uid)
+
+                    }).catch((error) => {
+                        console.log(error)
+                    });
+                })
+                .catch((error) => {
+                    console.log(error);
+                });
+            })
+            .catch((error) => {
+                console.log(error);
+            });
+          })
+          .catch((error) => {
+            console.log(error);
+          });
+    }
+
+    const toHex = (str) => {
+        var arr = [];
+        for (var i = 0; i < str.length; i++) {
+            arr[i] = ("00" + str.charCodeAt(i).toString(16)).slice(-4);
         }
+        return "\\u" + arr.join("\\u");
     }
 
     const connect = () => {
