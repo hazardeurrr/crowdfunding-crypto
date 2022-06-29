@@ -73,6 +73,17 @@ const Navbar = () => {
     }
 
     async function initProvider(){
+        var web3bnb = new Web3(new Web3.providers.HttpProvider("https://data-seed-prebsc-1-s1.binance.org:8545/"))
+            dispatch({
+                type:'SET_WEB3BNB',
+                id: web3bnb
+            })
+            var web3eth = new Web3(new Web3.providers.HttpProvider("https://goerli.infura.io/v3/391e7c4cd5274ef8a269414b4833bade"))
+            dispatch({
+                type:'SET_WEB3ETH',
+                id: web3eth
+            })
+            
         const provider = await detectEthereumProvider();
 
         if (provider) {
@@ -89,16 +100,7 @@ const Navbar = () => {
         // If the provider returned by detectEthereumProvider is not the same as
         // window.ethereum, something is overwriting it, perhaps another wallet.
 
-            var web3bnb = new Web3(new Web3.providers.HttpProvider("https://data-seed-prebsc-1-s1.binance.org:8545/"))
-            dispatch({
-                type:'SET_WEB3BNB',
-                id: web3bnb
-            })
-            var web3eth = new Web3(new Web3.providers.HttpProvider("https://goerli.infura.io/v3/391e7c4cd5274ef8a269414b4833bade"))
-            dispatch({
-                type:'SET_WEB3ETH',
-                id: web3eth
-            })
+            
 
             
         if (provider !== window.ethereum) {
