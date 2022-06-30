@@ -14,6 +14,7 @@ import Dialog from '@material-ui/core/Dialog';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
+import DialogActions from '@material-ui/core/DialogActions';
 import bbstAbi from '@/components/ContractRelated/BbstAbi'
 import bbstAddr from '@/components/ContractRelated/BbstAddr'
 import {chain} from '@/utils/chain'
@@ -26,6 +27,13 @@ import ProfileNav from "../Common/ProfileNav";
 import Chip from '@material-ui/core/Chip';
 import axios from 'axios';
 import { getSvgData } from "carbon-components-react";
+
+import Button from '@material-ui/core/Button';
+import List from '@material-ui/core/List';
+import ListItem from '@material-ui/core/ListItem';
+import ListItemAvatar from '@material-ui/core/ListItemAvatar';
+import ListItemText from '@material-ui/core/ListItemText';
+
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -46,7 +54,6 @@ const Navbar = () => {
 
     const classes = useStyles();
 
-    const cart = useSelector((state) => state.cart)
     const [menu, setMenu] = React.useState(true)
     const [connected, setConnected] = React.useState(false)
     const dispatch = useDispatch()
@@ -54,28 +61,50 @@ const Navbar = () => {
     const currentUser = useSelector((state) => state.currentUser)
     const [providerDetected, setProviderDetected] = React.useState(false)
     const chainID = useSelector((state) => state.chainID)
-    const [open, setOpen] = React.useState(false);
     const bnb_web3Instance = useSelector((state) => state.bnb_web3Instance)
+    const [selectAddr, setSelectAddr] = React.useState(null)
+    //-----------CONNECTION MODAL-------------//
+    const [openConnect, setOpenConnect] = React.useState(false);
+    const [modalState, setModalState] = React.useState(0);
 
-    const handleClickOpen = () => {
-      setOpen(true);
+
+    const handleConnectOpen = () => {
+        setOpenConnect(true);
     };
 
-    const componentWillUnmount = () => {
-        ethereum.removeListener('accountsChanged', handleAccountsChanged);
-        ethereum.removeListener('chainChanged', handleChainChanged);
-    }
-  
-    const handleClose = () => {
-      setOpen(false);
+    const handleConnectClose = (value) => {
+        setOpenConnect(false);
+        setModalState(0)
     };
-  
+
+    //----------------------------------------//
+
  
     const toggleNavbar = () => {
         setMenu(!menu)
     }
 
-    async function initProvider(){
+    
+    React.useEffect(() => {
+        let elementId = document.getElementById("header");
+        document.addEventListener("scroll", () => {
+            if (window.scrollY > 170) {
+                elementId.classList.add("is-sticky");
+            } else {
+                elementId.classList.remove("is-sticky");
+            }
+        });
+        window.scrollTo(0, 0); 
+        initApp();
+
+        // componentWillUnmount
+        return () => {
+            ethereum.removeListener('accountsChanged', handleAccountsChanged);
+            ethereum.removeListener('chainChanged', handleChainChanged);
+        }
+    }, [])
+
+    async function initApp(){
         var web3bnb = new Web3(new Web3.providers.HttpProvider("https://data-seed-prebsc-1-s1.binance.org:8545/"))
             dispatch({
                 type:'SET_WEB3BNB',
@@ -86,70 +115,57 @@ const Navbar = () => {
                 type:'SET_WEB3ETH',
                 id: web3eth
             })
-            
+    }
+
+    async function initMetamaskProvider() {
+        // If the provider returned by detectEthereumProvider is not the same as
+        // window.ethereum, something is overwriting it, perhaps another wallet.
+
         const provider = await detectEthereumProvider();
 
         if (provider) {
             setProviderDetected(true)
-            startApp(provider); // Initialize your app
             // console.log('Provider found')
+            if (provider !== window.ethereum) {
+                console.error('Do you have multiple wallets installed?');
+            }
+            // Access the decentralized web!
+            const chainId = await ethereum.request({ method: 'eth_chainId' });
+            dispatch({
+                type: 'SET_CHAINID',
+                id: chainId
+            })
+            if(chainId !== chain && chainId !== bnb_chain){
+                console.log("Please change your network to a supported one.")
+            }
+    
+            ethereum.on('chainChanged', handleChainChanged);
+    
+            ethereum
+            .request({ method: 'eth_requestAccounts' })
+            .then((value) => {
+                console.log(value)
+                handleAccountsChanged(value)
+                // localStorage.setItem('current_address', value[0])
+            })
+            .catch((err) => {
+                if (err.code === 4001) {
+                // EIP-1193 userRejectedRequest error
+                // If this happens, the user rejected the connection request.
+                console.log('Please connect to MetaMask.');
+                } else {
+                console.error(err);
+                }
+            });    
+            // Note that this event is emitted on page load.
+            // If the array of accounts is non-empty, you're already
+            // connected.
+            ethereum.on('accountsChanged', handleAccountsChanged);
         } else {
             setProviderDetected(false)
+            setModalState(1)
             console.log('Please install MetaMask!');
-        }
-    }
-
-    async function startApp(provider) {
-        // If the provider returned by detectEthereumProvider is not the same as
-        // window.ethereum, something is overwriting it, perhaps another wallet.
-
-            
-
-            
-        if (provider !== window.ethereum) {
-            console.error('Do you have multiple wallets installed?');
-        }
-        // Access the decentralized web!
-        const chainId = await ethereum.request({ method: 'eth_chainId' });
-        dispatch({
-            type: 'SET_CHAINID',
-            id: chainId
-        })
-        if(chainId !== chain && chainId !== bnb_chain){
-            console.log("Please change your network to a supported one.")
-        }
-
-        ethereum.on('chainChanged', handleChainChanged);
-
-        ethereum
-        .request({ method: 'eth_accounts' })
-        .then((value) => {
-           // handleAccountsChanged(value)
-            // localStorage.setItem('current_address', value[0])
-        })
-        .catch((err) => {
-            // Some unexpected error.
-            // For backwards compatibility reasons, if no accounts are available,
-            // eth_accounts will return an empty array.
-            console.error(err);
-        });
-
-        // Note that this event is emitted on page load.
-        // If the array of accounts is non-empty, you're already
-        // connected.
-        ethereum.on('accountsChanged', handleAccountsChanged);
-
-        window.ethereum.on('connect', connectAccount);
-        window.ethereum.on('disconnect', disconnectAccount);
-
-    }
-
-    const connectAccount = () => {
-
-    }
-
-    const disconnectAccount = () => {
-
+        }        
     }
 
     // For now, 'eth_accounts' will continue to always return an array
@@ -157,22 +173,35 @@ const Navbar = () => {
         if (accounts.length === 0) {
         // MetaMask is locked or the user has not connected any accounts
         console.log('Please connect to MetaMask.');
-        
-        dispatch({
-            type: 'SET_CONNECTED',
-            id: false
-        })
+        cancelConnection()
+    
         } else {
-             //-------------------------REQUEST AUTHENTICATION-------------------------/
+            console.log("accounts changed")
+            
+            setSelectAddr(accounts[0])
 
-             if(firebase.auth().currentUser.uid == accounts[0].toLowerCase()){
-                   getDataOnceAuth(firebase.auth().currentUser.uid)
-            } else {
-                authenticate()
-             }
-
-             //------------------------------------------------------------------------/
+            metamaskAuth()
         }
+    }
+
+    const metamaskAuth = () => {
+        //-------------------------REQUEST AUTHENTICATION-------------------------/
+        if(firebase.auth().currentUser.uid == ethereum.selectedAddress.toLowerCase()){
+            getDataOnceAuth(firebase.auth().currentUser.uid)
+            handleConnectClose()
+        } else {
+            dispatch({
+                type: 'SET_CONNECTED',
+                id: false
+            })
+            dispatch({
+                type: 'SET_CURRENT_USER',
+                id: undefined
+            })
+            setModalState(2)
+            handleConnectOpen()
+        }
+        //------------------------------------------------------------------------/
     }
 
     const getDataOnceAuth = async(address) => {
@@ -191,8 +220,6 @@ const Navbar = () => {
             id: web3
         })
         
-        const chainId = await ethereum.request({ method: 'eth_chainId' });
-
             // console.log("cheching BBST balance...")
             var web3b = null
             if(bnb_web3Instance != undefined){
@@ -235,7 +262,9 @@ const Navbar = () => {
         }
     }
 
-    const authenticate = async() => {
+    const authenticateWithMetamask = async() => {
+
+        console.log(ethereum.selectedAddress)
 
         axios({
             method: 'post',
@@ -271,6 +300,7 @@ const Navbar = () => {
                     .then((result) => {
                         console.log(result)
                         getDataOnceAuth(result.user.uid)
+                        handleConnectClose()
 
                     }).catch((error) => {
                         console.log(error)
@@ -290,42 +320,18 @@ const Navbar = () => {
     }
 
     const toHex = (str) => {
-        var arr = [];
-        for (var i = 0; i < str.length; i++) {
-            arr[i] = ("00" + str.charCodeAt(i).toString(16)).slice(-4);
-        }
-        return "\\u" + arr.join("\\u");
+        //converting string into buffer
+    let bufStr = Buffer.from(str, 'utf8');
+
+    //with buffer, you can convert it into hex with following code
+        return bufStr.toString('hex');
     }
 
+    //Connect button handler
     const connect = () => {
-        if(providerDetected){
-            ethereum
-            .request({ method: 'eth_requestAccounts' })
-            .then((value) => {
-                handleAccountsChanged(value);
-            })
-            .catch((err) => {
-                if (err.code === 4001) {
-                // EIP-1193 userRejectedRequest error
-                // If this happens, the user rejected the connection request.
-                console.log('Please connect to MetaMask.');
-                } else {
-                console.error(err);
-                }
-            });
-        } else {
-            console.log("Install Metamask.io")
-            handleClickOpen()
-        }
-
-      }
-
-
-
-
-
-
-
+        setModalState(0)
+        handleConnectOpen()
+    }
 
     const handleChainChanged = (_chainId) => {
         // We recommend reloading the page, unless you must do otherwise
@@ -336,27 +342,6 @@ const Navbar = () => {
         // prompt CHANGE TO MAINNET ?!
         //window.location.reload();
     }
-
-
-    
-
-    React.useEffect(() => {
-        let elementId = document.getElementById("header");
-        document.addEventListener("scroll", () => {
-            if (window.scrollY > 170) {
-                elementId.classList.add("is-sticky");
-            } else {
-                elementId.classList.remove("is-sticky");
-            }
-        });
-        window.scrollTo(0, 0); 
-        initProvider();
-            // componentWillUnmount
-            return () => {
-                ethereum.removeListener('accountsChanged', handleAccountsChanged);
-                ethereum.removeListener('chainChanged', handleChainChanged);
-            }
-    }, [])
 
     const isConnected = () => {
         if (!useSelector((state) => state.metamask_connected)) {
@@ -471,6 +456,64 @@ const Navbar = () => {
         } 
     }
 
+    const displayConnectModal = (x) => {
+        switch(x) {
+            case 0 : default:
+                return <div>
+                    <DialogTitle id="simple-dialog-title">Connect your wallet</DialogTitle>
+                        <List>                            
+                            <ListItem autoFocus button onClick={() => initMetamaskProvider()}>
+                                <ListItemAvatar>
+                                    <Avatar src="/images/wallets/metamask.png" />
+                                </ListItemAvatar>
+                                <ListItemText primary="Metamask" />
+                            </ListItem>
+                        </List>
+                    </div>
+            case 1:
+                return <div>
+                <DialogTitle id="alert-dialog-title">{"You don't have Metamask !"}</DialogTitle>
+                    <DialogContent>
+                    <DialogContentText id="alert-dialog-description">
+                        You need to have Metamask installed to access this feature. Metamask is a plugin that serves as your browser Wallet.
+                        <br></br><br></br>Please install it at <b><a target="_blank" href="https://metamask.io/download.html">metamask.io</a></b>.
+                    </DialogContentText>
+                    </DialogContent>
+                </div>
+    
+            case 2:
+              return <div>
+              <DialogTitle id="alert-dialog-title">{"Welcome to BlockBoosted !"}</DialogTitle>
+                    <DialogContent>
+                    <DialogContentText id="alert-dialog-description">
+                        Address : {selectAddr}
+                    </DialogContentText>
+                    <DialogContentText id="alert-dialog-description">
+                        By connecting your wallet and using BlockBoosted, you agree to our Terms of Service and Privacy Policy. Please sign this message on Metamask to authenticate.
+                    </DialogContentText>
+                    
+                    <DialogActions>
+                        <Button onClick={authenticateWithMetamask} color="primary">
+                            Accept & sign
+                        </Button>
+                        <Button onClick={() => cancelConnection()} color="primary">
+                            Cancel
+                        </Button>
+                    </DialogActions>
+                    </DialogContent>
+              </div>
+    
+        }
+    }
+
+    const cancelConnection = () => {
+        dispatch({
+            type: 'SET_CONNECTED',
+            id: false
+        })
+        handleConnectClose()
+    }
+
 
 
     const showProfile = () => {
@@ -556,7 +599,7 @@ const Navbar = () => {
     const classTwo = menu ? 'navbar-toggler navbar-toggler-right collapsed' : 'navbar-toggler navbar-toggler-right';
 
     const showSwitchNetworkBar = () => {
-        if(chainID != bnb_chain){
+        if(chainID != bnb_chain && connected){
             return <div className={classes.root}>
             <AppBar position="static" style={{marginTop: -15, marginBottom:10, background:'#F3BA2F', justifyContent:'center', alignItems:'center'}}> 
                 <Typography style={{color: 'white', fontSize: 14, marginTop: 3, marginBottom: 3}}>
@@ -610,22 +653,15 @@ const Navbar = () => {
                         <div className="autocomplete-container"><SearchIcon style={{marginTop: 10, marginLeft: 5, marginRight: 5}}/><AutoCompleteSearchBar/></div>
 
                             <ul className="navbar-nav ms-auto">
-                               
 
-                                <Dialog
-                                    open={open}
-                                    onClose={handleClose}
-                                    aria-labelledby="alert-dialog-title"
-                                    aria-describedby="alert-dialog-description"
-                                >
-                                    <DialogTitle id="alert-dialog-title">{"You don't have Metamask !"}</DialogTitle>
-                                    <DialogContent>
-                                    <DialogContentText id="alert-dialog-description">
-                                        You need to have Metamask installed to access this feature. Metamask is a browser plugin that serves as an Ethereum Wallet.
-                                        <br></br><br></br>Please install it at <b><a target="_blank" href="https://metamask.io/download.html">metamask.io</a></b>.
-                                    </DialogContentText>
-                                    </DialogContent>
+                                {/* //----------------CONNECT MODAL---------------// */}
+
+                                <Dialog onClose={handleConnectClose} aria-labelledby="simple-dialog-title" open={openConnect}>
+                                    {displayConnectModal(modalState)}
                                 </Dialog>
+
+                                {/* //----------------CONNECT MODAL END---------------// */}
+
 
                                 <li className="nav-item">
                                 <Link href={"/token"} activeClassName="active">
