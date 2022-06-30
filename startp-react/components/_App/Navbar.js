@@ -5,6 +5,7 @@ import { useSelector, useDispatch } from 'react-redux'
 const Web3 = require('web3');
 import Avatar from '@material-ui/core/Avatar';
 import firebase from 'firebase-crowdfund/index';
+import CircularProgress from '@material-ui/core/CircularProgress';
 
 import detectEthereumProvider from '@metamask/detect-provider';
 import { postDoc, getOne } from 'firebase-crowdfund/queries'
@@ -33,7 +34,7 @@ import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemAvatar from '@material-ui/core/ListItemAvatar';
 import ListItemText from '@material-ui/core/ListItemText';
-
+import MuiAlert from "@material-ui/lab/Alert";
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -49,6 +50,9 @@ const useStyles = makeStyles((theme) => ({
     },
   }));
 
+function Alert(props) {
+    return <MuiAlert elevation={6} variant="filled" {...props} />;
+}
 
 const Navbar = () => {
 
@@ -66,6 +70,7 @@ const Navbar = () => {
     //-----------CONNECTION MODAL-------------//
     const [openConnect, setOpenConnect] = React.useState(false);
     const [modalState, setModalState] = React.useState(0);
+    const [showSign, setShowSign] = React.useState(true);
 
 
     const handleConnectOpen = () => {
@@ -75,6 +80,7 @@ const Navbar = () => {
     const handleConnectClose = (value) => {
         setOpenConnect(false);
         setModalState(0)
+        setShowSign(true)
     };
 
     //----------------------------------------//
@@ -263,8 +269,7 @@ const Navbar = () => {
     }
 
     const authenticateWithMetamask = async() => {
-
-        console.log(ethereum.selectedAddress)
+        setShowSign(false)
 
         axios({
             method: 'post',
@@ -303,20 +308,25 @@ const Navbar = () => {
                         handleConnectClose()
 
                     }).catch((error) => {
-                        console.log(error)
+                        handleError(error)
                     });
                 })
                 .catch((error) => {
-                    console.log(error);
+                    handleError(error)
                 });
             })
             .catch((error) => {
-                console.log(error);
+                handleError(error)
             });
           })
           .catch((error) => {
-            console.log(error);
+            handleError(error)
           });
+    }
+
+    const handleError = (error) => {
+        setShowSign(true)
+        console.log(error)
     }
 
     const toHex = (str) => {
@@ -456,6 +466,16 @@ const Navbar = () => {
         } 
     }
 
+    const showSignBtn = () => {
+        if(showSign){
+            return  <Button onClick={authenticateWithMetamask} color="primary">
+            Accept & sign
+        </Button>
+        } else {
+            return <CircularProgress />
+        }
+    }
+
     const displayConnectModal = (x) => {
         switch(x) {
             case 0 : default:
@@ -493,9 +513,7 @@ const Navbar = () => {
                     </DialogContentText>
                     
                     <DialogActions>
-                        <Button onClick={authenticateWithMetamask} color="primary">
-                            Accept & sign
-                        </Button>
+                        {showSignBtn()}
                         <Button onClick={() => cancelConnection()} color="primary">
                             Cancel
                         </Button>
@@ -661,7 +679,6 @@ const Navbar = () => {
                                 </Dialog>
 
                                 {/* //----------------CONNECT MODAL END---------------// */}
-
 
                                 <li className="nav-item">
                                 <Link href={"/token"} activeClassName="active">
