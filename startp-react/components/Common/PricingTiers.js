@@ -454,7 +454,7 @@ const PricingTiers = (props) => {
     }
 
     const showPlans = () => {
-        if(chainID == campaign.network){
+        if(chainID == campaign.network && connected){
             return <div className="row justify-content-center">
             <div className="col-lg-4 col-md-6">
                 <div className="pricing-table">
@@ -499,11 +499,16 @@ const PricingTiers = (props) => {
     const showChoose = () => {
         if(chainID == campaign.network){
             return <h3 style={{marginTop: 10}}>Choose the plan you want and the amount you wish to donate !</h3>                    
-        } else {
+        } else if(connected) {
             return <div style={{marginTop: 30}}>
             <h3><IconFeather.AlertTriangle /> You are not connected to the right network !</h3>
             <p>Please switch to <strong>{showNetwork()}</strong> network to donate to this campaign.</p>
         </div>
+        } else {
+            return <div style={{marginTop: 30}}>
+            <h3><IconFeather.AlertTriangle /> You are not connected !</h3>
+            <p>Please connect your wallet to access this feature.</p>
+            </div>
         }
     }
 

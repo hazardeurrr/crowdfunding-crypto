@@ -59,7 +59,6 @@ const Navbar = () => {
     const classes = useStyles();
 
     const [menu, setMenu] = React.useState(true)
-    const [connected, setConnected] = React.useState(false)
     const dispatch = useDispatch()
     const userAddr = useSelector((state) => state.address)
     const currentUser = useSelector((state) => state.currentUser)
@@ -71,9 +70,10 @@ const Navbar = () => {
     const [openConnect, setOpenConnect] = React.useState(false);
     const [modalState, setModalState] = React.useState(0);
     const [showSign, setShowSign] = React.useState(true);
-
+    const connected = useSelector((state) => state.metamask_connected);
 
     const handleConnectOpen = () => {
+        console.log("connect open")
         setOpenConnect(true);
     };
 
@@ -354,7 +354,7 @@ const Navbar = () => {
     }
 
     const isConnected = () => {
-        if (!useSelector((state) => state.metamask_connected)) {
+        if (!connected) {
             return (
                 <>
                 <button type="submit" className="btn btn-secondary" onClick={() => connect()}>Connect Wallet</button>
@@ -488,6 +488,7 @@ const Navbar = () => {
                                 </ListItemAvatar>
                                 <ListItemText primary="Metamask" />
                             </ListItem>
+                            
                         </List>
                     </div>
             case 1:
@@ -535,7 +536,7 @@ const Navbar = () => {
 
 
     const showProfile = () => {
-        if(useSelector((state) => state.metamask_connected && currentUser != undefined)){
+        if(connected && currentUser != undefined){
             if(currentUser.eth_address === userAddr){
 
             return (
