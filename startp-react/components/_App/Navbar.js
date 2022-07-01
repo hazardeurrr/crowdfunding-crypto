@@ -174,6 +174,57 @@ const Navbar = () => {
         }        
     }
 
+    async function initWalletConnectProvider() {
+        // If the provider returned by detectEthereumProvider is not the same as
+        // window.ethereum, something is overwriting it, perhaps another wallet.
+
+        const provider = await detectEthereumProvider();
+
+        if (provider) {
+            setProviderDetected(true)
+            // console.log('Provider found')
+            if (provider !== window.ethereum) {
+                console.error('Do you have multiple wallets installed?');
+            }
+            // Access the decentralized web!
+            const chainId = await ethereum.request({ method: 'eth_chainId' });
+            dispatch({
+                type: 'SET_CHAINID',
+                id: chainId
+            })
+            if(chainId !== chain && chainId !== bnb_chain){
+                console.log("Please change your network to a supported one.")
+            }
+    
+            ethereum.on('chainChanged', handleChainChanged);
+    
+            ethereum
+            .request({ method: 'eth_requestAccounts' })
+            .then((value) => {
+                console.log(value)
+                handleAccountsChanged(value)
+                // localStorage.setItem('current_address', value[0])
+            })
+            .catch((err) => {
+                if (err.code === 4001) {
+                // EIP-1193 userRejectedRequest error
+                // If this happens, the user rejected the connection request.
+                console.log('Please connect to MetaMask.');
+                } else {
+                console.error(err);
+                }
+            });    
+            // Note that this event is emitted on page load.
+            // If the array of accounts is non-empty, you're already
+            // connected.
+            ethereum.on('accountsChanged', handleAccountsChanged);
+        } else {
+            setProviderDetected(false)
+            setModalState(1)
+            console.log('Please install MetaMask!');
+        }        
+    }
+
     // For now, 'eth_accounts' will continue to always return an array
     const handleAccountsChanged = async(accounts) => {
         if (accounts.length === 0) {
@@ -488,7 +539,13 @@ const Navbar = () => {
                                 </ListItemAvatar>
                                 <ListItemText primary="Metamask" />
                             </ListItem>
-                            
+
+                            <ListItem autoFocus button onClick={() => initWalletConnectProvider()}>
+                                <ListItemAvatar>
+                                    <Avatar src="/images/wallets/walletconnect.png" />
+                                </ListItemAvatar>
+                                <ListItemText primary="Wallet Connect" />
+                            </ListItem>
                         </List>
                     </div>
             case 1:
