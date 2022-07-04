@@ -16,18 +16,27 @@ const Layout = ({ children }, {c, crea}) => {
         var creators = []
 
 
-        db.collection('campaignsBNB').where("confirmed", "==", true)
+        db.collection('campaignsTest').where("confirmed", "==", true)
         .get()
         .then((docs) => {
             docs.forEach(element => {
 
                 campaigns.push(element.data())
 
-                getOne('profile', element.data().creator.toLowerCase(), function(doc) {
+                // getOne('profile', element.data().creator.toLowerCase(), function(doc) {
+                //     if (doc.exists) {
+                //         creators.push(doc.data())
+                //     }
+                // });
+
+                db.collection('profileTest').doc(element.data().creator.toLowerCase()).get().then((doc) => {
                     if (doc.exists) {
                         creators.push(doc.data())
                     }
-                });
+                }).catch((err) => {
+                    console.log(err);
+                })
+
                 changeUserState(creators)
 
                 changeState(campaigns);

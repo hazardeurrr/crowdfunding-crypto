@@ -43,7 +43,7 @@ const User = (props, {data}) => {
 
 
   React.useEffect(() => {
-    getOne('profile', props.address, function(doc) {
+    getOne('profileTest', props.address, function(doc) {
       if (doc.exists) {
         setUser(doc.data())
       } else {

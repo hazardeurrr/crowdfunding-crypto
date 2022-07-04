@@ -52,6 +52,22 @@ const HeartAnim = (props) => {
       }
     }, [currentUser])
 
+  // const updateProfile = (usr) => {
+
+  //   const user = usr;
+  //   const privacy = undefined;
+
+  //   axios({
+  //       method: 'post',
+  //       url: 'https://europe-west1-crowdfunding-dev-5f802.cloudfunctions.net/updateProfile',
+  //       data: {
+  //           profile: user,
+  //           privacy: privacy
+  //       }
+  //   }).then(async(response) => {
+  //       console.log(response.data);
+  //   }).catch(console.log);
+  // }
 
   const handleHeartClicked = () => {
     arrayLiked = currentUser.liked
@@ -63,12 +79,12 @@ const HeartAnim = (props) => {
        if(currentUser == undefined || currentUser == null){return}
         let u = currentUser;
         u.liked = arrayLiked;
-        updateDoc(currentUser.eth_address, 'profile', u)
+        updateDoc(currentUser.eth_address, 'profileTest', u)
 
           // Change weight depending on BBST balance. Retrieve BBST balance.
           let c = campaign;
           delete c.likedTupleMap[currentUser.eth_address]
-          updateDoc(documentAddress, 'campaignsBNB', c)
+          updateDoc(documentAddress, 'campaignsTest', c)
   
     } else {
       setChecked(true)
@@ -77,7 +93,7 @@ const HeartAnim = (props) => {
       if(currentUser == undefined || currentUser == null){return}
         let u = currentUser;
         u.liked = arrayLiked;
-        updateDoc(currentUser.eth_address, 'profile', u)
+        updateDoc(currentUser.eth_address, 'profileTest', u)
 
         // Change weight depending on BBST balance. Retrieve BBST balance.
         let c = campaign;
@@ -85,7 +101,7 @@ const HeartAnim = (props) => {
         let baseLikeAmount = 10;
         let totalLikeAmount = baseLikeAmount + bbstamount / 10;
         c.likedTupleMap[currentUser.eth_address] = totalLikeAmount
-        updateDoc(documentAddress, 'campaignsBNB', c)
+        updateDoc(documentAddress, 'campaignsTest', c)
 
         // CHANGER ARRAY PAR UNE MAP
     }

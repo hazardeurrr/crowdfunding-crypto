@@ -40,6 +40,9 @@ import WalletConnectProvider from '@walletconnect/web3-provider'
 import CoinbaseWalletSDK from "@coinbase/wallet-sdk";
 
 
+import { db } from '../../firebase-crowdfund/index'
+
+
 const useStyles = makeStyles((theme) => ({
     root: {
         color: "green"
@@ -312,6 +315,31 @@ const Navbar = () => {
         //------------------------------------------------------------------------/
     }
 
+
+    const createProfile = (address) => {
+        const user = { username: "", eth_address: address, image: "", bio: "", twitter: "", liked: new Array() };
+        const privacy = { email: "" };
+
+        axios({
+            method: 'post',
+            url: 'https://europe-west1-crowdfunding-dev-5f802.cloudfunctions.net/assignProfile',
+            data: {
+                profile: user,
+                privacy: privacy
+            }
+        }).then(async(response) => {
+            console.log(response.data);
+            
+            dispatch({
+                type: 'SET_CURRENT_USER',
+                id: user
+            })
+        }).catch(console.log);
+
+        return user;
+    }
+
+
     const getDataOnceAuth = async(address) => {
         dispatch({
             type: 'SET_CONNECTED',
@@ -338,22 +366,35 @@ const Navbar = () => {
         
         if (address != undefined) {
 
-            getOne('profile', address, function(doc) {
+            // getOne('profile', address, function(doc) {
+            //     if (doc.exists) {
+            //             dispatch({
+            //                 type: 'SET_CURRENT_USER',
+            //                 id: doc.data()
+            //             })
+            //     } else {
+            //         const user = { username: "", email: "", eth_address: address, image: "", bio: "", twitter: "", liked: new Array() }
+            //         postDoc(user.eth_address, 'profile', user,
+            //             console.log(user.username + " has been uploaded")
+            //         )
+            //          dispatch({
+            //              type: 'SET_CURRENT_USER',
+            //              id: user
+            //          })
+            //     }
+            // })
+
+            db.collection('profileTest').doc(address).get().then((doc) => {
                 if (doc.exists) {
-                        dispatch({
-                            type: 'SET_CURRENT_USER',
-                            id: doc.data()
-                        })
+                    dispatch({
+                        type: 'SET_CURRENT_USER',
+                        id: doc.data()
+                    })
                 } else {
-                    const user = { username: "", email: "", eth_address: address, image: "", bio: "", twitter: "", liked: new Array() }
-                    postDoc(user.eth_address, 'profile', user,
-                        console.log(user.username + " has been uploaded")
-                    )
-                     dispatch({
-                         type: 'SET_CURRENT_USER',
-                         id: user
-                     })
+                    createProfile(address);
                 }
+            }).catch((err) => {
+                console.log(err);
             })
         }
     }

@@ -11,7 +11,8 @@ import DialogTitle from '@material-ui/core/DialogTitle';
 import Link from 'next/link';
 import { useSelector, useDispatch } from 'react-redux';
 import Skeleton from '@material-ui/lab/Skeleton';
-
+import axios from 'axios';
+import { db } from 'firebase-crowdfund/index'
 
 const ProfileForm = (props) => {
 
@@ -57,13 +58,15 @@ const ProfileForm = (props) => {
         });
     }
 
-
-
     function loadData() {
 
         if(currentUser != undefined) {
             setName(currentUser.username);
-            setEmail(currentUser.email);
+            db.collection('profileTest').doc(currentUser.eth_address).collection("privacy").doc("personalData").get().then((doc) => {
+                setEmail(doc.data().email);
+            }).catch((err) => {
+                console.log(err);
+            })
             setImage(currentUser.image);
             setBio(currentUser.bio);
             setTwitter(currentUser.twitter);
@@ -101,20 +104,77 @@ const ProfileForm = (props) => {
             </DialogContent></div>
     }
 
+    const createProfile = () => {
+        const user = { username: "", eth_address: "0xCE82601346578C58fFE5b5769a0A640d8d9Ed7C5".toLowerCase(), image: "", bio: "", twitter: "", liked: new Array() };
+        const privacy = { email: "" };
+
+        axios({
+            method: 'post',
+            url: 'https://europe-west1-crowdfunding-dev-5f802.cloudfunctions.net/assignProfile',
+            data: {
+                profile: user,
+                privacy: privacy
+            }
+        }).then(async(response) => {
+            console.log(response.data);
+            
+            dispatch({
+                type: 'SET_CURRENT_USER',
+                id: user
+            })
+        }).catch(console.log);
+    }
+
+    const updateProfile = () => {
+        let tmpUser = currentUser;
+
+        const user = { username: name, eth_address: tmpUser.eth_address, image: image, bio: bio, twitter: twitter, 
+            liked: tmpUser.liked };
+        const privacy = { email: email };
+
+        axios({
+            method: 'post',
+            url: 'https://europe-west1-crowdfunding-dev-5f802.cloudfunctions.net/updateProfile',
+            data: {
+                profile: user,
+                privacy: privacy
+            }
+        }).then(async(response) => {
+            openDialog();
+            console.log(response.data);
+        }).catch(console.log);
+    }
+
+    // function printPf() {
+    //     db.collection('profileTest').doc("0xCE82601346578C58fFE5b5769a0A640d8d9Ed7C5".toLowerCase()).get().then((doc) => {
+	// 		db.collection('profileTest').doc("0xCE82601346578C58fFE5b5769a0A640d8d9Ed7C5".toLowerCase()).collection("privacy").doc("personalData").get().then((doc) => {
+    //             console.log("subcollection doc", doc.data());
+	// 		}).catch((err) => {
+	// 			console.log(err);
+	// 		})
+    //         console.log("doc gathered", doc.data());
+	// 	}).catch((err) => {
+	// 		console.log(err);
+	// 	})
+    // }
+
     function handleSubmit(event) {
         event.preventDefault();
 
-        let user = currentUser
+        // let user = currentUser
 
-        user.username = name;
-        user.email = email;
-        user.image = image;
-        user.bio = bio;
-        user.twitter = twitter;
+        // user.username = name;
+        // user.email = email;
+        // user.image = image;
+        // user.bio = bio;
+        // user.twitter = twitter;
 
-        updateDoc(user.eth_address, 'profile', user, function() {
-            openDialog();
-        })
+        // updateDoc(user.eth_address, 'profile', user, function() {
+        //     openDialog();
+        // })
+
+        updateProfile()
+        
     }
 
     useEffect(() => {
