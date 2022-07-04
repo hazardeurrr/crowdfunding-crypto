@@ -35,10 +35,10 @@ import ListItem from '@material-ui/core/ListItem';
 import ListItemAvatar from '@material-ui/core/ListItemAvatar';
 import ListItemText from '@material-ui/core/ListItemText';
 
-import Web3Modal from 'web3modal';
 import WalletConnectProvider from '@walletconnect/web3-provider'
 import CoinbaseWalletSDK from "@coinbase/wallet-sdk";
-
+import Portis from '@portis/web3';
+import { BscConnector } from '@binance-chain/bsc-connector'
 
 import { db } from '../../firebase-crowdfund/index'
 
@@ -155,6 +155,7 @@ const Navbar = () => {
 
     async function initProvider(provider, legacy = false){
 
+        console.log(legacy, "legacy")
         // Subscribe to accounts change
         provider.on("accountsChanged", (accounts) => {
             handleAccountsChanged(accounts);
@@ -177,7 +178,7 @@ const Navbar = () => {
         console.log(provider)
         let chainId
         // Get connected chain id from Ethereum node
-        if(legacy){
+        if(!legacy){
             chainId = await provider.request({ method: 'eth_chainId' });
         } else {
             chainId = await web3.eth.getChainId()
@@ -233,6 +234,33 @@ const Navbar = () => {
         
           await initProvider(provider);
     }
+
+    //----------------PORTIS---------------//
+    async function initPortisProvider(){
+          const bscProvider = {
+            nodeUrl: "https://data-seed-prebsc-1-s1.binance.org:8545/",
+            chainId: 97,
+          };
+          const portis = new Portis('e03ef7e1-2dad-4cb1-ae22-a400dd63143f', bscProvider);
+        
+          await initProvider(portis.provider, true);
+    }
+
+     //----------------BINANCE WALLET---------------//
+     async function initBNBWalletProvider(){
+        const bsc = new BscConnector({
+            supportedChainIds: [56, 97]
+            })
+            const bsc_provider = await bsc.getProvider()
+
+            if(bsc_provider !== null && bsc_provider !== undefined){
+                await initProvider(bsc_provider);
+            } else {
+                console.log("Please install Binance Wallet Extension")
+                setModalState(3)
+            }
+
+  }
 
     //----------------WALLET CONNECT---------------//
     async function initWalletConnectProvider(){
@@ -630,6 +658,21 @@ const Navbar = () => {
                                 </ListItemAvatar>
                                 <ListItemText primary="Coinbase Wallet" />
                             </ListItem>
+
+                            {/* <ListItem autoFocus button onClick={() => initPortisProvider()}>
+                                <ListItemAvatar>
+                                    <Avatar src="/images/wallets/portiswallet.png" />
+                                </ListItemAvatar>
+                                <ListItemText primary="Portis" />
+                            </ListItem> */}
+
+                            <ListItem autoFocus button onClick={() => initBNBWalletProvider()}>
+                                <ListItemAvatar>
+                                    <Avatar src="/images/wallets/binancewallet.png" />
+                                </ListItemAvatar>
+                                <ListItemText primary="Binance Wallet" />
+                            </ListItem>
+
                         </List>
                     </div>
             case 1:
@@ -662,6 +705,16 @@ const Navbar = () => {
                     </DialogActions>
                     </DialogContent>
               </div>
+             case 3:
+                return <div>
+                <DialogTitle id="alert-dialog-title">{"You don't have Binance Wallet installed !"}</DialogTitle>
+                    <DialogContent>
+                    <DialogContentText id="alert-dialog-description">
+                        You need the Binance Wallet extension to access this feature.
+                        <br></br><br></br>Please install it at <b><a target="_blank" href="https://www.bnbchain.org/en/binance-wallet">bnbchain.org/en/binance-wallet</a></b>.
+                    </DialogContentText>
+                    </DialogContent>
+                </div>
         }
     }
 
