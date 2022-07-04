@@ -210,6 +210,9 @@ const PricingTiers = (props) => {
                             setCreationState(3)
                             payInERC(isFreeDonation, contractInstance, amt, indexTier);
                         })
+                        .catch((err) => {
+                            console.log(err)
+                        })
                     }
                 })
             })

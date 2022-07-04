@@ -34,7 +34,11 @@ import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemAvatar from '@material-ui/core/ListItemAvatar';
 import ListItemText from '@material-ui/core/ListItemText';
-import MuiAlert from "@material-ui/lab/Alert";
+
+import Web3Modal from 'web3modal';
+import WalletConnectProvider from '@walletconnect/web3-provider'
+import CoinbaseWalletSDK from "@coinbase/wallet-sdk";
+
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -50,10 +54,6 @@ const useStyles = makeStyles((theme) => ({
     },
   }));
 
-function Alert(props) {
-    return <MuiAlert elevation={6} variant="filled" {...props} />;
-}
-
 const Navbar = () => {
 
     const classes = useStyles();
@@ -62,7 +62,6 @@ const Navbar = () => {
     const dispatch = useDispatch()
     const userAddr = useSelector((state) => state.address)
     const currentUser = useSelector((state) => state.currentUser)
-    const [providerDetected, setProviderDetected] = React.useState(false)
     const chainID = useSelector((state) => state.chainID)
     const bnb_web3Instance = useSelector((state) => state.bnb_web3Instance)
     const [selectAddr, setSelectAddr] = React.useState(null)
@@ -71,6 +70,7 @@ const Navbar = () => {
     const [modalState, setModalState] = React.useState(0);
     const [showSign, setShowSign] = React.useState(true);
     const connected = useSelector((state) => state.metamask_connected);
+    const web3Instance = useSelector((state) => state.web3Instance);
 
     const handleConnectOpen = () => {
         console.log("connect open")
@@ -79,10 +79,38 @@ const Navbar = () => {
 
     const handleConnectClose = (value) => {
         setOpenConnect(false);
-        setModalState(0)
+        // setModalState(0)
         setShowSign(true)
     };
 
+    //------------------WALLET CONNECT----------------------//
+
+
+  /**
+   * Disconnect wallet button pressed.
+   */
+  async function onDisconnect() {
+  
+    console.log("Killing the wallet connection", web3Instance.currentProvider);
+  
+    // TODO: Which providers have close method?
+    if(web3Instance.currentProvider.close) {
+      await web3Instance.currentProvider.close();
+    }
+   
+    removeListeners()
+    cancelConnection()
+  }
+
+  async function removeListeners(){
+    if(web3Instance !== undefined){
+        if(web3Instance.currentProvider != undefined){
+            web3Instance.currentProvider.removeListener('accountsChanged', handleAccountsChanged);
+            web3Instance.currentProvider.removeListener('chainChanged', handleChainChanged);
+        }
+    }
+  }
+  
     //----------------------------------------//
 
  
@@ -105,8 +133,7 @@ const Navbar = () => {
 
         // componentWillUnmount
         return () => {
-            ethereum.removeListener('accountsChanged', handleAccountsChanged);
-            ethereum.removeListener('chainChanged', handleChainChanged);
+            removeListeners()
         }
     }, [])
 
@@ -123,127 +150,151 @@ const Navbar = () => {
             })
     }
 
-    async function initMetamaskProvider() {
-        // If the provider returned by detectEthereumProvider is not the same as
-        // window.ethereum, something is overwriting it, perhaps another wallet.
+    async function initProvider(provider, legacy = false){
 
-        const provider = await detectEthereumProvider();
+        // Subscribe to accounts change
+        provider.on("accountsChanged", (accounts) => {
+            handleAccountsChanged(accounts);
+        });
 
-        if (provider) {
-            setProviderDetected(true)
-            // console.log('Provider found')
-            if (provider !== window.ethereum) {
-                console.error('Do you have multiple wallets installed?');
-            }
-            // Access the decentralized web!
-            const chainId = await ethereum.request({ method: 'eth_chainId' });
-            dispatch({
-                type: 'SET_CHAINID',
-                id: chainId
-            })
-            if(chainId !== chain && chainId !== bnb_chain){
-                console.log("Please change your network to a supported one.")
-            }
     
-            ethereum.on('chainChanged', handleChainChanged);
-    
-            ethereum
-            .request({ method: 'eth_requestAccounts' })
+        // Subscribe to chainId change
+        provider.on("chainChanged", (chainId) => {
+            handleChainChanged(chainId);
+        });
+        
+        // Get a Web3 instance for the wallet
+        const web3 = new Web3(provider);
+        dispatch({
+            type: 'SET_WEB3',
+            id: web3
+        })
+
+        console.log("Web3 instance is", web3);
+        console.log(provider)
+        let chainId
+        // Get connected chain id from Ethereum node
+        if(legacy){
+            chainId = await provider.request({ method: 'eth_chainId' });
+        } else {
+            chainId = await web3.eth.getChainId()
+        }
+        
+        dispatch({
+            type: 'SET_CHAINID',
+            id: chainId
+        })
+        // if(chainId !== chain && chainId !== bnb_chain){
+        //     console.log("Please change your network to a supported one.")
+        // }
+
+        if(legacy){
+            web3.eth.getAccounts()
             .then((value) => {
                 console.log(value)
                 handleAccountsChanged(value)
-                // localStorage.setItem('current_address', value[0])
             })
             .catch((err) => {
-                if (err.code === 4001) {
-                // EIP-1193 userRejectedRequest error
-                // If this happens, the user rejected the connection request.
-                console.log('Please connect to MetaMask.');
-                } else {
                 console.error(err);
-                }
             });    
-            // Note that this event is emitted on page load.
-            // If the array of accounts is non-empty, you're already
-            // connected.
-            ethereum.on('accountsChanged', handleAccountsChanged);
         } else {
-            setProviderDetected(false)
-            setModalState(1)
-            console.log('Please install MetaMask!');
-        }        
-    }
-
-    async function initWalletConnectProvider() {
-        // If the provider returned by detectEthereumProvider is not the same as
-        // window.ethereum, something is overwriting it, perhaps another wallet.
-
-        const provider = await detectEthereumProvider();
-
-        if (provider) {
-            setProviderDetected(true)
-            // console.log('Provider found')
-            if (provider !== window.ethereum) {
-                console.error('Do you have multiple wallets installed?');
-            }
-            // Access the decentralized web!
-            const chainId = await ethereum.request({ method: 'eth_chainId' });
-            dispatch({
-                type: 'SET_CHAINID',
-                id: chainId
-            })
-            if(chainId !== chain && chainId !== bnb_chain){
-                console.log("Please change your network to a supported one.")
-            }
-    
-            ethereum.on('chainChanged', handleChainChanged);
-    
-            ethereum
-            .request({ method: 'eth_requestAccounts' })
+            provider.request({ method: "eth_requestAccounts" })
             .then((value) => {
                 console.log(value)
                 handleAccountsChanged(value)
-                // localStorage.setItem('current_address', value[0])
             })
             .catch((err) => {
-                if (err.code === 4001) {
-                // EIP-1193 userRejectedRequest error
-                // If this happens, the user rejected the connection request.
-                console.log('Please connect to MetaMask.');
-                } else {
                 console.error(err);
-                }
             });    
-            // Note that this event is emitted on page load.
-            // If the array of accounts is non-empty, you're already
-            // connected.
-            ethereum.on('accountsChanged', handleAccountsChanged);
-        } else {
-            setProviderDetected(false)
-            setModalState(1)
-            console.log('Please install MetaMask!');
-        }        
-    }
-
-    // For now, 'eth_accounts' will continue to always return an array
-    const handleAccountsChanged = async(accounts) => {
-        if (accounts.length === 0) {
-        // MetaMask is locked or the user has not connected any accounts
-        console.log('Please connect to MetaMask.');
-        cancelConnection()
-    
-        } else {
-            console.log("accounts changed")
-            
-            setSelectAddr(accounts[0])
-
-            metamaskAuth()
         }
     }
 
-    const metamaskAuth = () => {
-        //-------------------------REQUEST AUTHENTICATION-------------------------/
-        if(firebase.auth().currentUser.uid == ethereum.selectedAddress.toLowerCase()){
+    ///----------------COINBASE WALLET-------------///
+    async function initCoinbaseWalletProvider(){
+        const coinbaseWallet = new CoinbaseWalletSDK({
+            appName: "BLOCKBOOSTED",
+            appLogoUrl: "https://blockboosted.com/images/logo_svg.svg",
+            darkMode: false
+          })
+
+          let provider
+
+          console.log("coinbase");
+          try {
+            provider = await coinbaseWallet.makeWeb3Provider("https://data-seed-prebsc-1-s1.binance.org:8545/", 97)
+            console.log(provider)
+          } catch(e) {
+            console.log("Could not get a wallet connection", e);
+            return;
+          }
+        
+          await initProvider(provider);
+    }
+
+    //----------------WALLET CONNECT---------------//
+    async function initWalletConnectProvider(){
+        const provider = new WalletConnectProvider({
+            rpc: {
+              97: "https://data-seed-prebsc-1-s1.binance.org:8545/",
+              56:"https://bsc-dataseed.binance.org/"
+              // ...
+            },
+          });
+          
+          try {
+            //  Enable session (triggers QR Code modal)
+            let pr = await provider.enable();
+          } catch(e) {
+            console.log("Could not get a wallet connection", e);
+            return;
+          }
+        
+          await initProvider(provider, true);
+    }
+
+    //---------------METAMASK------------------//
+    async function initMetamaskProvider() {
+        
+        let provider
+        let injectedResp
+
+        try {
+            injectedResp = await detectEthereumProvider();
+          } catch(e) {
+            console.log("Could not find provider", e);
+            return;
+          }
+
+        if(injectedResp){
+            if(injectedResp.providers !== undefined){
+                injectedResp.providers.forEach(async (p) => {
+                    if (p.isMetaMask)
+                        provider = p;
+                  });
+            } else {
+                provider = injectedResp
+            }
+            
+            await initProvider(provider);
+        } else {
+            setModalState(1)
+            console.log('Please install MetaMask!');
+        }        
+    }
+
+    const handleAccountsChanged = async(accounts) => {
+        if (accounts.length === 0) {
+            cancelConnection()
+        } else {
+            setSelectAddr(accounts[0].toLowerCase())
+            auth(accounts[0].toLowerCase())
+        }
+    }
+
+    const auth = (addr) => {
+        console.log(addr)
+          //-------------------------REQUEST AUTHENTICATION-------------------------/
+          if(firebase.auth().currentUser !== null && firebase.auth().currentUser.uid == addr){
             getDataOnceAuth(firebase.auth().currentUser.uid)
             handleConnectClose()
         } else {
@@ -271,13 +322,6 @@ const Navbar = () => {
             id: address
         })
 
-        var web3 = new Web3(window.ethereum)
-        dispatch({
-            type: 'SET_WEB3',
-            id: web3
-        })
-        
-            // console.log("cheching BBST balance...")
             var web3b = null
             if(bnb_web3Instance != undefined){
                 web3b = bnb_web3Instance
@@ -286,17 +330,12 @@ const Navbar = () => {
             }
             const bbst_contract = new web3b.eth.Contract(bbstAbi.bbstAbi, bbstAddr.bbstAddr);
             bbst_contract.methods.balanceOf(address).call().then(response => {
-                // console.log('response', response)
                 dispatch({
                     type: 'SET_BBST_BALANCE',
                     id: response
                 })
-                // console.log(response)
             }).catch(console.error)
         
-        
-        
-
         if (address != undefined) {
 
             getOne('profile', address, function(doc) {
@@ -319,26 +358,22 @@ const Navbar = () => {
         }
     }
 
-    const authenticateWithMetamask = async() => {
+
+    const authenticate = async() => {
+        let addr = selectAddr.toLowerCase()
         setShowSign(false)
 
         axios({
             method: 'post',
             url: 'https://europe-west1-crowdfunding-dev-5f802.cloudfunctions.net/getNonceToSign',
             data: {
-              address: ethereum.selectedAddress
+              address: addr
             }
           })
           .then(async(response) => {
             console.log(response.data);
             //----------SIGN NONCE---------//
-            ethereum.request({
-                method: 'personal_sign',
-                params: [
-                  `0x${toHex(response.data.nonce)}`,
-                  ethereum.selectedAddress,
-                ],
-            })
+            web3Instance.eth.personal.sign(`0x${toHex(response.data.nonce)}`, addr)
             .then(async(sig) => {
                 //--------------VERIFY SIG---------//
                 console.log(sig)
@@ -346,7 +381,7 @@ const Navbar = () => {
                     method: 'post',
                     url: 'https://europe-west1-crowdfunding-dev-5f802.cloudfunctions.net/verifySignedMessage',
                     data: {
-                      address: ethereum.selectedAddress,
+                      address: addr,
                       signature: sig
                     }
                 })
@@ -389,19 +424,16 @@ const Navbar = () => {
     }
 
     //Connect button handler
-    const connect = () => {
+    const connect = async() => {
         setModalState(0)
         handleConnectOpen()
     }
 
     const handleChainChanged = (_chainId) => {
-        // We recommend reloading the page, unless you must do otherwise
         dispatch({
             type: 'SET_CHAINID',
             id: _chainId
         })
-        // prompt CHANGE TO MAINNET ?!
-        //window.location.reload();
     }
 
     const isConnected = () => {
@@ -469,16 +501,18 @@ const Navbar = () => {
     }
 
     const switchToBNBTestnet = async() => {
-        if (window.ethereum.networkVersion !== "0x61") {
+        if (chainID != "0x61") {
+            console.log("first if")
             try {
-              await window.ethereum.request({
+              await web3Instance.currentProvider.request({
                 method: 'wallet_switchEthereumChain',
                 params: [{ chainId: "0x61" }]
               });
             } catch (err) {
+                console.log(err)
                 // This error code indicates that the chain has not been added to MetaMask
               if (err.code === 4902) {
-                await window.ethereum.request({
+                await web3Instance.currentProvider.request({
                   method: 'wallet_addEthereumChain',
                   params: [
                     {
@@ -519,7 +553,8 @@ const Navbar = () => {
 
     const showSignBtn = () => {
         if(showSign){
-            return  <Button onClick={authenticateWithMetamask} color="primary">
+            // return  <Button onClick={authenticateWithMetamask} color="primary">
+            return  <Button onClick={authenticate} color="primary">
             Accept & sign
         </Button>
         } else {
@@ -546,6 +581,13 @@ const Navbar = () => {
                                 </ListItemAvatar>
                                 <ListItemText primary="Wallet Connect" />
                             </ListItem>
+
+                            <ListItem autoFocus button onClick={() => initCoinbaseWalletProvider()}>
+                                <ListItemAvatar>
+                                    <Avatar src="/images/wallets/coinbasewallet.png" />
+                                </ListItemAvatar>
+                                <ListItemText primary="Coinbase Wallet" />
+                            </ListItem>
                         </List>
                     </div>
             case 1:
@@ -567,7 +609,7 @@ const Navbar = () => {
                         Address : {selectAddr}
                     </DialogContentText>
                     <DialogContentText id="alert-dialog-description">
-                        By connecting your wallet and using BlockBoosted, you agree to our Terms of Service and Privacy Policy. Please sign this message on Metamask to authenticate.
+                        By connecting your wallet and using BlockBoosted, you agree to our Terms of Service and Privacy Policy. Please sign this message to authenticate.
                     </DialogContentText>
                     
                     <DialogActions>
@@ -578,7 +620,6 @@ const Navbar = () => {
                     </DialogActions>
                     </DialogContent>
               </div>
-    
         }
     }
 
@@ -589,8 +630,6 @@ const Navbar = () => {
         })
         handleConnectClose()
     }
-
-
 
     const showProfile = () => {
         if(connected && currentUser != undefined){
@@ -619,19 +658,15 @@ const Navbar = () => {
                                     <a onClick={toggleNavbar} className="nav-link">Edit Profile</a>
                                 </Link>
                             </li>
+                            <li className="nav-item">
+                                    <a style={{cursor:'pointer'}} onClick={() => {onDisconnect(); toggleNavbar()}} className="nav-link">Log out</a>
+                            </li>
                         </ul>
                     </li>
                 </div>
-
-
                 {/* {showCurrNet()} */}
             </>
-
-
-
-            )
-                            
-            }
+            )}
         }
     }
 
@@ -686,18 +721,10 @@ const Navbar = () => {
         }
     }
 
-//#c679e3 purple
     return (
         
         <header id="header" className="headroom">
             {showSwitchNetworkBar()}
-            {/* <div className={classes.root}>
-                <AppBar position="static" style={{marginTop: -15, marginBottom:10, background:'#F3BA2F', justifyContent:'center', alignItems:'center'}}> 
-                    <Typography style={{color: 'white', fontSize: 14, marginTop: 3, marginBottom: 3}}>
-                        Alpha v0.2 running on BNB Smart Chain testnet !
-                    </Typography>
-                </AppBar>
-            </div> */}
             <div className="startp-nav">
                 <div className="container">
                     <nav className="navbar navbar-expand-md navbar-light">
@@ -769,13 +796,6 @@ const Navbar = () => {
                         </div>
 
                         <div className="others-option" style={{alignItems:'center'}}>
-
-                            {/* <Link href="/cart">
-                                <a className="cart-wrapper-btn">
-                                    <Icon.ShoppingCart /> 
-                                    <span>{cart.length}</span>
-                                </a>
-                            </Link> */}
 
                             <Link href="/form-campaign">
                                 <a className="btn btn-secondary btn-not-displayed">Create</a>

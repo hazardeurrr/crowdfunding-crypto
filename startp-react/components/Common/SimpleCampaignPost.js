@@ -285,13 +285,13 @@ const SimpleCampaignPost = (props) => {
 
     const showNetwork = () => {
         if(campaign.network == chain){
-            return <>
+            return <p>
                 Ethereum<img style={{height: 12, marginTop: -1, marginLeft: 5}} src={'/images/cryptoicons/smallethgray.svg'}/> 
-            </>
+            </p>
         } else if(campaign.network == bnb_chain){
-            return <div className="bnb-singlepost">
+            return <p className="bnb-singlepost">
                 <img style={{height: 12, marginTop: -1,marginLeft: 5}} src={'/images/cryptoicons/smallbnbgray.svg'}/>  
-            </div>
+            </p>
         }
     }
 
@@ -335,7 +335,7 @@ const SimpleCampaignPost = (props) => {
                 {displayProgressBar()}
                 <div style={{display:"flex", justifyContent:"space-between"}}>
                     <p><svg style={{marginTop: -2}} xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="feather feather-clock"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>   {timeLeft()}</p>
-                    <p>{showNetwork()}</p>
+                    {showNetwork()}
                 </div>
                 <Link href={{
                           pathname: "/Campaigns/[id]",
