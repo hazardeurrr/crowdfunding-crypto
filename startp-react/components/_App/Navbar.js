@@ -298,6 +298,7 @@ const Navbar = () => {
         console.log(addr)
           //-------------------------REQUEST AUTHENTICATION-------------------------/
           if(firebase.auth().currentUser !== null && firebase.auth().currentUser.uid == addr){
+            console.log("uid gathered", firebase.auth().currentUser.uid)
             getDataOnceAuth(firebase.auth().currentUser.uid)
             handleConnectClose()
         } else {

@@ -13,6 +13,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import Skeleton from '@material-ui/lab/Skeleton';
 import axios from 'axios';
 import { db } from 'firebase-crowdfund/index'
+import { RiContactsBookLine } from 'react-icons/ri';
 
 const ProfileForm = (props) => {
 
@@ -58,15 +59,32 @@ const ProfileForm = (props) => {
         });
     }
 
+    function testRules() {
+        const profile = { username: "", eth_address: "0x0fcf46697cdcb23ab8fdde200132409870c3b584", image: "", bio: "", twitter: "", 
+            liked: new Array() };
+
+        db.collection('profileTest').doc(profile.eth_address).update(profile).then(() => {
+			console.log("done upadaating rules not working")
+		}).catch((err) => {
+			console.log(err);
+		})
+    }
+
     function loadData() {
 
         if(currentUser != undefined) {
+
+            axios({
+                method: 'post',
+                url: 'https://europe-west1-crowdfunding-dev-5f802.cloudfunctions.net/getEmail',
+                data: {
+                  address: currentUser.eth_address
+                }
+              }).then((response) => {
+                console.log(response.data);
+              })
+
             setName(currentUser.username);
-            db.collection('profileTest').doc(currentUser.eth_address).collection("privacy").doc("personalData").get().then((doc) => {
-                setEmail(doc.data().email);
-            }).catch((err) => {
-                console.log(err);
-            })
             setImage(currentUser.image);
             setBio(currentUser.bio);
             setTwitter(currentUser.twitter);
@@ -102,27 +120,6 @@ const ProfileForm = (props) => {
             </div>    
             
             </DialogContent></div>
-    }
-
-    const createProfile = () => {
-        const user = { username: "", eth_address: "0xCE82601346578C58fFE5b5769a0A640d8d9Ed7C5".toLowerCase(), image: "", bio: "", twitter: "", liked: new Array() };
-        const privacy = { email: "" };
-
-        axios({
-            method: 'post',
-            url: 'https://europe-west1-crowdfunding-dev-5f802.cloudfunctions.net/assignProfile',
-            data: {
-                profile: user,
-                privacy: privacy
-            }
-        }).then(async(response) => {
-            console.log(response.data);
-            
-            dispatch({
-                type: 'SET_CURRENT_USER',
-                id: user
-            })
-        }).catch(console.log);
     }
 
     const updateProfile = () => {
@@ -236,12 +233,14 @@ const ProfileForm = (props) => {
                     </Dialog>
 
                     <div className="faq-contact">
+                        {/* <button className="btn btn-primary" onClick={() => {
+                                testRules()}}>Test</button> */}
                         <h3>Complete the information about your profile</h3>
                         <form action={`/User/${currentUser.eth_address}`} onSubmit={(event) => {
                             handleSubmit(event)
                         }
                         }>
-                            <div className="row">
+                        <div className="row">
                                 <p><i> Address : {currentUser.eth_address}</i><br/></p>
 
                                 <p><strong> Displayed name </strong><br/>Choose a name that will be displayed to the other users</p>
