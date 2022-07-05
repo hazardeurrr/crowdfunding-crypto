@@ -108,8 +108,10 @@ const Navbar = () => {
   async function removeListeners(){
     if(web3Instance !== undefined){
         if(web3Instance.currentProvider != undefined){
-            web3Instance.currentProvider.removeListener('accountsChanged', handleAccountsChanged);
-            web3Instance.currentProvider.removeListener('chainChanged', handleChainChanged);
+            if(web3Instance.currentProvider.removeListener){
+                web3Instance.currentProvider.removeListener('accountsChanged', handleAccountsChanged);
+                web3Instance.currentProvider.removeListener('chainChanged', handleChainChanged);
+            }
         }
     }
   }
@@ -500,6 +502,7 @@ const Navbar = () => {
     }
 
     const handleChainChanged = (_chainId) => {
+        console.log(_chainId)
         dispatch({
             type: 'SET_CHAINID',
             id: _chainId
