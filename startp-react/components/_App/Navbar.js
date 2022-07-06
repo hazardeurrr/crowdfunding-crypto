@@ -367,22 +367,14 @@ const Navbar = () => {
         // }).catch(console.log);
 
         db.collection('profileTest').doc(user.eth_address).set(user).then(() => {
-
-			if (privacy != undefined) {
-				db.collection('profileTest').doc(user.eth_address).collection("privacy").doc(user.eth_address).set(privacy).then(() => {
-					dispatch({
-                        type: 'SET_CURRENT_USER',
-                        id: user
-                    })
-				}).catch((err) => {
-					console.log(err);
-				})
-			} else {
-				dispatch({
+            db.collection('profileTest').doc(user.eth_address).collection("privacy").doc(user.eth_address).set(privacy).then(() => {
+                dispatch({
                     type: 'SET_CURRENT_USER',
                     id: user
                 })
-			}
+            }).catch((err) => {
+                console.log(err);
+            })
 		}).catch((err) => {
 			console.log(err);
 		})
