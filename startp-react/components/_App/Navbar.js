@@ -76,7 +76,6 @@ const Navbar = () => {
     const web3Instance = useSelector((state) => state.web3Instance);
 
     const handleConnectOpen = () => {
-        console.log("connect open")
         setOpenConnect(true);
     };
 
@@ -299,7 +298,7 @@ const Navbar = () => {
           }
 
         if(injectedResp){
-            if(injectedResp.providers !== undefined){
+            if(injectedResp.providers){
                 injectedResp.providers.forEach(async (p) => {
                     if (p.isMetaMask)
                         provider = p;
@@ -659,8 +658,13 @@ const Navbar = () => {
     const displayConnectModal = (x) => {
         switch(x) {
             case 0 : default:
-                return <div>
-                    <DialogTitle id="simple-dialog-title">Connect your wallet</DialogTitle>
+                return <div style={{padding : 15}}>
+                    {/* <DialogTitle id="simple-dialog-title">Connect your wallet</DialogTitle> */}
+                        <DialogContent>
+                            <DialogContentText id="alert-dialog-description">
+                                <b style={{fontSize: 25, color: "#2d2d2d"}}>Connect your wallet</b><br></br>
+                            Connect with one of our available wallet providers.
+                            </DialogContentText>
                         <List>                            
                             <ListItem autoFocus button onClick={() => initMetamaskProvider()}>
                                 <ListItemAvatar>
@@ -698,27 +702,32 @@ const Navbar = () => {
                             </ListItem>
 
                         </List>
+                        </DialogContent>
+
                     </div>
             case 1:
-                return <div>
+                return <div style={{paddingBottom: 15}}>
                 <DialogTitle id="alert-dialog-title">{"You don't have Metamask !"}</DialogTitle>
                     <DialogContent>
                     <DialogContentText id="alert-dialog-description">
                         You need to have Metamask installed to access this feature. Metamask is a plugin that serves as your browser Wallet.
-                        <br></br><br></br>Please install it at <b><a target="_blank" href="https://metamask.io/download.html">metamask.io</a></b>.
+                        <br></br>Please install it at <b><a target="_blank" href="https://metamask.io/download.html">metamask.io</a></b>.
                     </DialogContentText>
                     </DialogContent>
                 </div>
     
-            case 2:
-              return <div>
-              <DialogTitle id="alert-dialog-title">{"Welcome to BlockBoosted !"}</DialogTitle>
+            case 2: //border:"4px solid #45ce6e", 
+              return <div style={{justifyContent:'center', textAlign:'center', padding : 15}}>
+              <DialogTitle id="alert-dialog-title"><b>{"Welcome to BlockBoosted !"}</b></DialogTitle>
                     <DialogContent>
+                        <img style={{height: 65}} src="/images/bblogofull.png" />
+                        <br></br><br></br>
                     <DialogContentText id="alert-dialog-description">
-                        Address : {selectAddr}
+                        <i style={{fontSize: 12}}>Address : {selectAddr}</i>
                     </DialogContentText>
+
                     <DialogContentText id="alert-dialog-description">
-                        By connecting your wallet and using BlockBoosted, you agree to our Terms of Service and Privacy Policy. Please sign this message to authenticate.
+                        By connecting your wallet and using BlockBoosted, you agree to our <Link href="/terms-condition"><a>Terms of Service</a></Link> and <Link href="/privacy-policy"><a>Privacy Policy</a></Link>. Please sign this message to authenticate.
                     </DialogContentText>
                     
                     <DialogActions>
@@ -730,12 +739,12 @@ const Navbar = () => {
                     </DialogContent>
               </div>
              case 3:
-                return <div>
+                return <div style={{paddingBottom: 15}}>
                 <DialogTitle id="alert-dialog-title">{"You don't have Binance Wallet installed !"}</DialogTitle>
                     <DialogContent>
                     <DialogContentText id="alert-dialog-description">
                         You need the Binance Wallet extension to access this feature.
-                        <br></br><br></br>Please install it at <b><a target="_blank" href="https://www.bnbchain.org/en/binance-wallet">bnbchain.org/en/binance-wallet</a></b>.
+                        <br></br>Please install it at <b><a target="_blank" href="https://www.bnbchain.org/en/binance-wallet">bnbchain.org/en/binance-wallet</a></b>.
                     </DialogContentText>
                     </DialogContent>
                 </div>
