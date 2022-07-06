@@ -351,21 +351,42 @@ const Navbar = () => {
         const user = { username: "", eth_address: address, image: "", bio: "", twitter: "", liked: new Array() };
         const privacy = { email: "" };
 
-        axios({
-            method: 'post',
-            url: 'https://europe-west1-crowdfunding-dev-5f802.cloudfunctions.net/assignProfile',
-            data: {
-                profile: user,
-                privacy: privacy
-            }
-        }).then(async(response) => {
-            console.log(response.data);
+        // axios({
+        //     method: 'post',
+        //     url: 'https://europe-west1-crowdfunding-dev-5f802.cloudfunctions.net/assignProfile',
+        //     data: {
+        //         profile: user,
+        //         privacy: privacy
+        //     }
+        // }).then(async(response) => {
+        //     console.log(response.data);
             
-            dispatch({
-                type: 'SET_CURRENT_USER',
-                id: user
-            })
-        }).catch(console.log);
+        //     dispatch({
+        //         type: 'SET_CURRENT_USER',
+        //         id: user
+        //     })
+        // }).catch(console.log);
+
+        db.collection('profileTest').doc(user.eth_address).set(user).then(() => {
+
+			if (privacy != undefined) {
+				db.collection('profileTest').doc(user.eth_address).collection("privacy").doc(user.eth_address).set(privacy).then(() => {
+					dispatch({
+                        type: 'SET_CURRENT_USER',
+                        id: user
+                    })
+				}).catch((err) => {
+					console.log(err);
+				})
+			} else {
+				dispatch({
+                    type: 'SET_CURRENT_USER',
+                    id: user
+                })
+			}
+		}).catch((err) => {
+			console.log(err);
+		})
 
         return user;
     }

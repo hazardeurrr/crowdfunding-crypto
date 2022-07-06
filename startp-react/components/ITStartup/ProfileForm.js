@@ -60,7 +60,7 @@ const ProfileForm = (props) => {
     }
 
     function testRules() {
-        const profile = { username: "", eth_address: "0x0fcf46697cdcb23ab8fdde200132409870c3b584", image: "", bio: "", twitter: "", 
+        const profile = { username: "zefezfzfzefez", eth_address: "0x58a4f6605a99c5b708bcec7742a73a9d389477d2", image: "", bio: "", twitter: "", 
             liked: new Array() };
 
         db.collection('profileTest').doc(profile.eth_address).update(profile).then(() => {
@@ -74,15 +74,23 @@ const ProfileForm = (props) => {
 
         if(currentUser != undefined) {
 
-            axios({
-                method: 'post',
-                url: 'https://europe-west1-crowdfunding-dev-5f802.cloudfunctions.net/getEmail',
-                data: {
-                  address: currentUser.eth_address
-                }
-              }).then((response) => {
-                console.log(response.data);
-              })
+            // axios({
+            //     method: 'post',
+            //     url: 'https://europe-west1-crowdfunding-dev-5f802.cloudfunctions.net/getEmail',
+            //     data: {
+            //       address: currentUser.eth_address
+            //     }
+            // }).then((response) => {
+            //     console.log(response.data);
+            // })
+
+            const userAddr = firebase.auth().currentUser.uid;
+
+            db.collection('profileTest').doc(userAddr).collection("privacy").doc(userAddr).get().then((doc) => {
+                setEmail(doc.data().email);
+            }).catch((err) => {
+                console.log(err);
+            })
 
             setName(currentUser.username);
             setImage(currentUser.image);
@@ -129,17 +137,28 @@ const ProfileForm = (props) => {
             liked: tmpUser.liked };
         const privacy = { email: email };
 
-        axios({
-            method: 'post',
-            url: 'https://europe-west1-crowdfunding-dev-5f802.cloudfunctions.net/updateProfile',
-            data: {
-                profile: user,
-                privacy: privacy
-            }
-        }).then(async(response) => {
-            openDialog();
-            console.log(response.data);
-        }).catch(console.log);
+        // axios({
+        //     method: 'post',
+        //     url: 'https://europe-west1-crowdfunding-dev-5f802.cloudfunctions.net/updateProfile',
+        //     data: {
+        //         profile: user,
+        //         privacy: privacy
+        //     }
+        // }).then(async(response) => {
+        //     openDialog();
+        //     console.log(response.data);
+        // }).catch(console.log);
+
+        db.collection('profileTest').doc(user.eth_address).update(user).then(() => {
+			db.collection('profileTest').doc(user.eth_address).collection("privacy").doc(user.eth_address).update(privacy).then(() => {
+				openDialog();
+                console.log("user updated");
+			}).catch((err) => {
+				console.log(err);
+			})
+		}).catch((err) => {
+			console.log(err);
+		})
     }
 
     // function printPf() {
@@ -175,7 +194,7 @@ const ProfileForm = (props) => {
     }
 
     useEffect(() => {
-        loadData()
+        loadData();
     }, [props.currentUser] )
 
     const displayTwitter = () => {
