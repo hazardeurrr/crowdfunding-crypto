@@ -60,14 +60,27 @@ const ProfileForm = (props) => {
     }
 
     function testRules() {
-        const profile = { username: "zefezfzfzefez", eth_address: "0x58a4f6605a99c5b708bcec7742a73a9d389477d2", image: "", bio: "", twitter: "", 
-            liked: new Array() };
+        // const profile = { eth_address: "0x2136ea398111ce7ae5e5539046958a3cf5605dea",
+        //     liked: new Array() }; 0x0fcf46697cdcb23ab8fdde200132409870c3b584
 
-        db.collection('profileTest').doc(profile.eth_address).update(profile).then(() => {
-			console.log("done upadaating rules not working")
+        const profile = { username: "", eth_address: "0x2136ea398111ce7ae5e5539046958a3cf5605dea", image: "", bio: "", twitter: "", liked: new Array() };
+
+        db.collection('profileTest').doc(profile.eth_address).collection("privacy").doc(profile.eth_address).get().then((doc) => {
+			console.log(doc.data())
 		}).catch((err) => {
 			console.log(err);
 		})
+
+        // db.collection('profileTest').doc(profile.eth_address).set(profile).then(() => {
+		// 	// db.collection('profileTest').doc(profile.eth_address).collection("privacy").doc(profile.eth_address).update(privacy).then(() => {
+        //     //     console.log("user updated");
+		// 	// }).catch((err) => {
+		// 	// 	console.log(err);
+		// 	// })
+        //     console.log("updated");
+		// }).catch((err) => {
+		// 	console.log(err);
+		// }
     }
 
     function loadData() {
@@ -84,9 +97,9 @@ const ProfileForm = (props) => {
             //     console.log(response.data);
             // })
 
-            const userAddr = firebase.auth().currentUser.uid;
+            const uid = firebase.auth().currentUser.uid;
 
-            db.collection('profileTest').doc(userAddr).collection("privacy").doc(userAddr).get().then((doc) => {
+            db.collection('profileTest').doc(uid).collection("privacy").doc(uid).get().then((doc) => {
                 setEmail(doc.data().email);
             }).catch((err) => {
                 console.log(err);
@@ -148,6 +161,8 @@ const ProfileForm = (props) => {
         //     openDialog();
         //     console.log(response.data);
         // }).catch(console.log);
+
+        console.log(privacy);
 
         db.collection('profileTest').doc(user.eth_address).update(user).then(() => {
 			db.collection('profileTest').doc(user.eth_address).collection("privacy").doc(user.eth_address).update(privacy).then(() => {
@@ -252,8 +267,8 @@ const ProfileForm = (props) => {
                     </Dialog>
 
                     <div className="faq-contact">
-                        {/* <button className="btn btn-primary" onClick={() => {
-                                testRules()}}>Test</button> */}
+                        <button className="btn btn-primary" onClick={() => {
+                                testRules()}}>Test</button>
                         <h3>Complete the information about your profile</h3>
                         <form action={`/User/${currentUser.eth_address}`} onSubmit={(event) => {
                             handleSubmit(event)
