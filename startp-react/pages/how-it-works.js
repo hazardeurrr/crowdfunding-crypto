@@ -45,15 +45,23 @@ const ServiceDetails = () => {
                                             <AccordionItemHeading>
                                                 <AccordionItemButton>
                                                     <span>
-                                                        Connecting to Metamask
+                                                        Connecting your wallet
                                                     </span>
                                                 </AccordionItemButton>
                                             </AccordionItemHeading>
                                             <AccordionItemPanel>
                                                 <p>
-                                                    You need the browser wallet Metamask to use our features. If you don't have it, you can download this extension at&nbsp;
-                                                    <a href="https://metamask.io/"> metamask.io</a>. Once installed, click on the Connect Wallet button on the navigation bar of our site.
-                                                    Enter your credentials and confirm on the Metamask popup. You're now connected with your Metamask wallet, congratulations !
+                                                    To connect your wallet to our website, click the "Connect Wallet" button on our navigation bar & chose your provider.<br></br><br></br>
+
+                                                    We currently support : <ul>
+                                                        <li><a href="https://metamask.io/" target="_blank">Metamask</a> (recommended desktop option)</li>
+                                                        <li><a href="https://walletconnect.com/" target="_blank">Wallet Connect*</a> (recommended mobile option)</li>
+                                                        <li><a href="https://www.coinbase.com/fr/wallet" target="_blank">Coinbase Wallet</a></li>
+                                                        <li><a href="https://www.bnbchain.org/en/binance-wallet" target="_blank">Binance Wallet</a></li>
+                                                    </ul>
+                                                    *You can use Wallet Connect to connect to <a href="https://walletconnect.com/registry?type=wallet" target="_blank">+75 different compatible wallets</a> (such as Trust Wallet, Rainbow, Metamask (mobile)...).
+                                                    <br></br><br></br>
+                                                    Note that you will have to sign a message with your wallet to complete the authentication process ! Don't worry, it won't cost you anything :)
                                                 </p>
                                             </AccordionItemPanel>
                                         </AccordionItem>
@@ -85,7 +93,7 @@ const ServiceDetails = () => {
                                             <AccordionItemPanel>
                                                 <p>
                                                     Once you are on the page of an active campaign, press the button "Back this campaign" to access the checkout page.<br></br>
-                                                    Select your plan and confirm the transaction on the Metamask pop-up. Once the transaction is confirmed by the blockchain, it means that your donation is done !
+                                                    Select your plan and confirm the transaction with you wallet. Once the transaction is confirmed by the blockchain, it means that your donation is done !
                                                 </p>
                                             </AccordionItemPanel>
                                         </AccordionItem>
@@ -218,8 +226,8 @@ const ServiceDetails = () => {
                                             </AccordionItemHeading>
                                             <AccordionItemPanel>
                                                 <p>
-                                                    - If some features are missing, be sure to be connected to Metamask and be sure that it is your only browser extension that serves as a browser wallet.
-                                                    <br></br>- If you are connected to Metamask, be sure you have one of our supported network selected on the Metamask tab.
+                                                    - If some features are missing, make sure you are connected to our website.
+                                                    <br></br>- If you are connected to your wallet, make sure you have one of our supported network selected on your wallet.
                                                     <br></br>- If none of these work, try to reload the page or open it with another browser.
                                                     <br></br>- If none of these work, you can <Link href="/contact"><a>contact our support.</a></Link>
                                                 </p>
@@ -236,7 +244,7 @@ const ServiceDetails = () => {
                                             </AccordionItemHeading>
                                             <AccordionItemPanel>
                                                 <p>
-                                                Be sure you have enough money in the needed currency in your Metamask wallet, as well as enough BNB to pay the gas fee for the transaction. Transactions on the blockchain can take quite a long time. The less fee you want to pay, the longer it will take to get confirmed. 
+                                                Be sure you have enough money in the needed currency in your wallet, as well as enough BNB to pay the gas fee for the transaction. Transactions on the blockchain can take quite a long time. The less fee you want to pay, the longer it will take to get confirmed. 
                                                 </p>
                                             </AccordionItemPanel>
                                         </AccordionItem>
@@ -262,15 +270,23 @@ const ServiceDetails = () => {
                                                 <AccordionItemHeading>
                                                     <AccordionItemButton>
                                                         <span>
-                                                            Connecting to Metamask
+                                                            Connecting you wallet
                                                         </span>
                                                     </AccordionItemButton>
                                                 </AccordionItemHeading>
                                                 <AccordionItemPanel>
                                                     <p>
-                                                        You need the browser wallet Metamask to use our features. If you don't have it, you can download this extension at&nbsp;
-                                                        <a href="https://metamask.io/"> metamask.io</a>. Once installed, click on the Connect Wallet button on the navigation bar of our site.
-                                                        Enter your credentials and confirm on the Metamask popup. You're now connected with your Metamask wallet, congratulations !
+                                                        To connect your wallet to our website, click the "Connect Wallet" button on our navigation bar & chose your provider.<br></br><br></br>
+
+                                                        We currently support : <ul>
+                                                            <li><a href="https://metamask.io/" target="_blank">Metamask</a> (recommended desktop option)</li>
+                                                            <li><a href="https://walletconnect.com/" target="_blank">Wallet Connect*</a> (recommended mobile option)</li>
+                                                            <li><a href="https://www.coinbase.com/fr/wallet" target="_blank">Coinbase Wallet</a></li>
+                                                            <li><a href="https://www.bnbchain.org/en/binance-wallet" target="_blank">Binance Wallet</a></li>
+                                                        </ul>
+                                                        *You can use Wallet Connect to connect to <a href="https://walletconnect.com/registry?type=wallet" target="_blank">+75 different compatible wallets</a> (such as Trust Wallet, Rainbow, Metamask (mobile)...).
+                                                        <br></br><br></br>
+                                                        Note that you will have to sign a message with your wallet to complete the authentication process ! Don't worry, it won't cost you anything :)
                                                     </p>
                                                 </AccordionItemPanel>
                                             </AccordionItem>
@@ -285,9 +301,8 @@ const ServiceDetails = () => {
                                                 </AccordionItemHeading>
                                                 <AccordionItemPanel>
                                                     <p>
-                                                        You can create a campaign in a few steps clicking on the "Create" button on the navigation bar. You will need to be connected to Metamask to access this feature.
-                                                        You can link your twitter account to your profile so that, eventually, users put more trust in your campaign. This step usually takes few minutes.
-                                                        <br></br>Once it's done, you can finally access the creation page and fill the form as you wish to customize your campaign.
+                                                        You can create a campaign in a few steps clicking on the "Create" button on the navigation bar. Note that you will need to be connected to access this feature. <br></br>Fill the form as you wish to customize your campaign and click on the "Create my campaign" button to submit your campaign.<br></br>
+                                                        Confirm the blockchain transaction and wait for the upload of your campaign's data. Once it's done, your campaign is created !
                                                     </p>
                                                 </AccordionItemPanel>
                                             </AccordionItem>

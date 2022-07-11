@@ -99,6 +99,11 @@ const Navbar = () => {
     if(web3Instance.currentProvider.close) {
       await web3Instance.currentProvider.close();
     }
+
+    dispatch({
+        type: 'SET_PROVIDER',
+        id: undefined
+    })
    
     removeListeners()
     cancelConnection()
@@ -157,6 +162,12 @@ const Navbar = () => {
     async function initProvider(provider, legacy = false){
 
         console.log(legacy, "legacy")
+
+        dispatch({
+            type: 'SET_PROVIDER',
+            id: provider
+        })
+
         // Subscribe to accounts change
         provider.on("accountsChanged", (accounts) => {
             handleAccountsChanged(accounts);
@@ -457,7 +468,7 @@ const Navbar = () => {
           .then(async(response) => {
             console.log(response.data);
             //----------SIGN NONCE---------//
-            web3Instance.eth.personal.sign(`0x${toHex(response.data.nonce)}`, addr)
+            web3Instance.eth.personal.sign(`0x${toHex(response.data.message)}`, addr)
             .then(async(sig) => {
                 //--------------VERIFY SIG---------//
                 console.log(sig)

@@ -507,10 +507,10 @@ const Campaign = (props) => {
                         aria-labelledby="alert-dialog-title"
                         aria-describedby="alert-dialog-description"
                     >
-                        <DialogTitle id="alert-dialog-title">{"You are not connected to a supported network with Metamask"}</DialogTitle>
+                        <DialogTitle id="alert-dialog-title">{"You are not connected to a supported network"}</DialogTitle>
                         <DialogContent>
                         <DialogContentText id="alert-dialog-description">
-                            Please connect to Metamask. If you are already connected, be sure to select a supported network on the Metamask tab.
+                            Please connect your wallet. If you are already connected, be sure to select a supported network.
                         </DialogContentText>
                         </DialogContent>
                         <DialogActions>

@@ -19,7 +19,8 @@ const initialState = {
   bbstBalance: 0,
   web3Instance: undefined,
   eth_web3Instance: undefined,
-  bnb_web3Instance: undefined
+  bnb_web3Instance: undefined,
+  currentProvider: undefined,
 }
 
 // const reducerComp = (previous, current) => previous[1] + current[1];
@@ -69,6 +70,12 @@ const reducer = (state = initialState, action) => {
       return {
         ...state,
         bbstBalance: action.id
+      }
+
+    case 'SET_PROVIDER':
+      return {
+        ...state,
+        currentProvider: action.id
       }
 
     case 'SET_WEB3':

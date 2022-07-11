@@ -38,11 +38,11 @@ const FormCampaign = () => {
              <div className="container">
                 <div className="section-title">
                     <br/><br/>
-                    <h2>Please connect to Metamask</h2>
+                    <h2>Please connect your wallet</h2>
                     <br/>
                     <div className="bar"></div>
                     <br/>
-                    <p>To access this feature, please connect to Metamask and ensure you are connected to a supported network.</p>
+                    <p>To access this feature, please connect your wallet and ensure you are connected to a supported network.</p>
                 </div>
             </div>
             </div>

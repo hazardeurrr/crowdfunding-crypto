@@ -431,7 +431,7 @@ const PricingTiers = (props) => {
 
                     <CircularProgress style={{marginTop: 20, marginBottom: 20}}/>
                     <DialogContentText id="alert-dialog-description">
-                    Please confirm the transaction on Metamask to finalize your donation.</DialogContentText>
+                    Please confirm the transaction on your wallet to finalize your donation.</DialogContentText>
                 </DialogContent></div>
             default:
                 return <div style={{justifyContent:'center'}}>
@@ -568,7 +568,7 @@ const PricingTiers = (props) => {
                     <DialogTitle id="alert-dialog-title">{"You are not connected to the right network"}</DialogTitle>
                     <DialogContent>
                     <DialogContentText id="alert-dialog-description">
-                        Please connect to Metamask. If you are already connected, be sure to select the right network.
+                        Please connect your wallet. If you are already connected, be sure to select the right network.
                     </DialogContentText>
                     </DialogContent>
                     <DialogActions>

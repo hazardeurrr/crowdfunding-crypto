@@ -428,7 +428,7 @@ class MainForm extends React.Component {
         if(this.state.factoryInstance !== undefined){
             this.createContract()
         } else {
-            this.setState({ errorMsg : "Can't access Web3. Please check your metamask settings and that you don't have more than one provider installed. (Reload)"})
+            this.setState({ errorMsg : "Can't access Web3. Please check your wallet settings and that you don't have more than one provider installed. (Reload)"})
             this.openSnackbar()
         }
     }

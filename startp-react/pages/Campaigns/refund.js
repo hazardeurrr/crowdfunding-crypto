@@ -60,7 +60,7 @@ const Refund = (props) => {
                 await doRefund(campCtrInstance);
             else await doRefundERC20(campCtrInstance);
     } else {
-        setErrorMsg("Error : You're not connected. Please connect to Metamask on the right network")
+        setErrorMsg("Error : You're not connected. Please connect your wallet to the right network")
         openSnackbar()
         }
   }

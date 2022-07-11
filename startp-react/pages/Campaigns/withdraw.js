@@ -71,7 +71,7 @@ const Withdraw = (props) => {
             
              payCreator(ctrInstance);
         } else {
-                setErrorMsg("You're not connected. Please connect to Metamask on the right network")
+                setErrorMsg("You're not connected. Please connect your wallet to the right network")
                 openSnackbar()
             }
       }

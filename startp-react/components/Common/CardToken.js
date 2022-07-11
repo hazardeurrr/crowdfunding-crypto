@@ -135,7 +135,7 @@ const CardToken = () => {
 
             <CircularProgress style={{marginTop: 20, marginBottom: 20}}/>
             <DialogContentText id="alert-dialog-description" style={{marginTop: 15}}>
-            Please confirm the transaction on Metamask to withdraw your BBST</DialogContentText>
+            Please confirm the transaction on your wallet to withdraw your BBST</DialogContentText>
           </DialogContent></div>
        
         default:
@@ -236,11 +236,11 @@ const closeDialog = () => {
     </Card>
     </>     
     } else {
-      return   <Card elevation={3} style={{marginTop: 50, height: 100, borderRadius: 10, alignItems:'center', justifyContent:'center'}}>
-        <div>
+      return   <Card elevation={3} style={{marginTop: 50, borderRadius: 10, alignItems:'center', justifyContent:'center'}}>
+        <div style={{alignItems:"center"}}>
           <CardContent>
           <Typography component="h5" variant="h5" color="textSecondary">
-            Connect to <img style={{marginLeft: 1, marginRight: 5, marginTop: -3, height: 25}} src="/images/cryptoicons/smallbnbgray.svg"/>BNB Smart Chain <br></br>to claim your tokens
+            Connect to <img style={{marginLeft: 1, marginRight: 5, marginTop: -3, height: 25}} src="/images/cryptoicons/smallbnbgray.svg"/>BNB Smart Chain<br></br>to claim your tokens.
           </Typography>
           </CardContent>
           </div>

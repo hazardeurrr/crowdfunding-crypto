@@ -22,28 +22,30 @@ import MintToken from '@/components/Common/MintToken';
 const TokenDetails = () => {
 
     const chainID = useSelector((state) => state.chainID)
+    const provider = useSelector((state) => state.currentProvider)
+    const connected = useSelector((state) => state.metamask_connected)
 
     const addToMetamask = () => {
         {
-            ethereum
+            provider
             .request({
-              method: 'wallet_watchAsset',
-              params: {
+                method: 'wallet_watchAsset',
+                params: {
                 type: 'ERC20',
                 options: {
-                  address: bbstAddr,
-                  symbol: 'BBST',
-                  decimals: 18,
-                  image: "https://firebasestorage.googleapis.com/v0/b/crowdfunding-dev-5f802.appspot.com/o/gradlogowhite.png?alt=media&token=2e6382a3-5cec-4cfc-baaf-e4b2400cdbbe",
+                    address: bbstAddr,
+                    symbol: 'BBST',
+                    decimals: 18,
+                    image: "https://firebasestorage.googleapis.com/v0/b/crowdfunding-dev-5f802.appspot.com/o/gradlogowhite.png?alt=media&token=2e6382a3-5cec-4cfc-baaf-e4b2400cdbbe",
                 },
-              },
+                },
             })
         }
     }
 
     const addToMetamaskBtn = () => {
-        if(chainID == bnb_chain){
-            return <button style={{marginTop: 25}} className="btn btn-secondary" onClick={() => addToMetamask()}>Add BBST to Metamask</button>
+        if(chainID == bnb_chain && connected && provider){
+            return <button style={{marginTop: 25}} className="btn btn-secondary" onClick={() => addToMetamask()}>Add BBST to your Wallet</button>
         }
     }
 
@@ -64,7 +66,7 @@ const TokenDetails = () => {
 
 
 
-                <div className="features-area pt-80 bg-f7fafd" style={{marginTop: -100}}>
+                <div className="features-area pt-80 bg-f7fafd">
                     <div className="container">
                         <div className="section-title">
                             <h2 className="search-page-title">Mint Test BBST (BNB Smart Chain network)</h2>
@@ -190,8 +192,8 @@ const TokenDetails = () => {
                                                 <p>
                                                     You can claim your BBST rewards on top of this page.<br></br>
                                                     Every monday at 00:00 GMT+1, distribution occurs and balances are updated.<br></br>
-                                                    Connect to Metamask, click on the "Claim" button, and you'll see your BBST in your wallet once the transaction is confirmed !<br></br>
-                                                    <i>Note that you may need to import BBST to Metamask to be able to see your balance properly</i>
+                                                    Connect your wallet, click on the "Claim" button, and you'll see your BBST in your wallet once the transaction is confirmed !<br></br>
+                                                    <i>Note that you may need to import BBST to your wallet to be able to see your balance properly</i>
                                                 </p>
                                             </AccordionItemPanel>
                                         </AccordionItem>
