@@ -192,8 +192,6 @@ class MainForm extends React.Component {
         let amt = 0
         let tierAmountArray = []  
         
-        console.log(this.state.raisingMethod)
-
         if(this.state.raisingMethod != "ETH" && this.state.raisingMethod != "b_BNB"){
             let erc20Ctr = undefined
             if(this.state.raisingMethod == "USDC"){
@@ -671,7 +669,7 @@ class MainForm extends React.Component {
 
                         <div className="faq-contact">
                             <h3>Complete the information for your campaign</h3>
-                            <p><i>Creator address : {this.props.userAddr}</i></p>
+                            <p><i>Creator address : <span className='user-address2'>{this.props.userAddr}</span></i></p>
                             {this.showCurrentNetwork()}
                             <br></br>
 

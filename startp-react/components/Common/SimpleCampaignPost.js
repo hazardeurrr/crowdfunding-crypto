@@ -118,7 +118,7 @@ const SimpleCampaignPost = (props) => {
 
     const showCats = () => {
         if(campaign.categories.length > 1){
-            return <div style={{display:'flex'}}>{getCatIcon(campaign.categories[0])}{campaign.categories[0]} &ensp;|&ensp; {getCatIcon(campaign.categories[1])}{campaign.categories[1]}</div>
+            return <div className='cats_small_div'> <span style={{display:'flex'}}>{getCatIcon(campaign.categories[0])}{campaign.categories[0]}</span><span className="cats_separator">&nbsp; | &nbsp;</span><span style={{display:'flex'}}>{getCatIcon(campaign.categories[1])}{campaign.categories[1]}</span></div>
         } else if(campaign.categories.length != 0){
             return <span style={{display:'flex'}}>{getCatIcon(campaign.categories[0])}{campaign.categories[0]}</span>
         }
@@ -187,7 +187,7 @@ const SimpleCampaignPost = (props) => {
                             {/* <Icon.Bookmark/> */}
                             {/* {returnCurrencyIconWhite()} */}
                         {/* <img style={{height: 20}} src={'/images/cryptoicons/ethwhite.svg'}/>  */}
-                        <span>{showCats()}</span>
+                        {showCats()}
                         </div>
                     )
                 }

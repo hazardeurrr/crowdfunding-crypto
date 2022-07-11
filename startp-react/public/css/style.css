@@ -10775,6 +10775,10 @@ Go Top CSS
   color: #6084a4
 }
 
+.cats_small_div {
+  display: flex;
+}
+
 /* 6084a4 */
 @media only screen and (max-width: 767px){
 

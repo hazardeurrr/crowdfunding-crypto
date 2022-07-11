@@ -275,7 +275,7 @@ const ProfileForm = (props) => {
                         }
                         }>
                         <div className="row">
-                                <p><i> Address : {currentUser.eth_address}</i><br/></p>
+                                <p><i> Address : <span className='user-address2'>{currentUser.eth_address}</span></i><br/></p>
 
                                 <p><strong> Displayed name </strong><br/>Choose a name that will be displayed to the other users</p>
                                 <div className="col-lg-12 col-md-12">

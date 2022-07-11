@@ -2723,6 +2723,49 @@
   .chipusersmall {
     width: 88%;
   }
+
+  .user-address {
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+    width: 200px;
+    font-size: 12px;
+  }
+
+  .user-address2 {
+    display: inline-block;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    width:250px;
+    font-size: 12px;
+  }
+
+  .cats_small_div {
+    display: inline-block;
+  }
+
+  .cats_separator {
+    display: none;
+  }
+
+}
+
+@media only screen and (max-width: 320px){
+  .user-address2 {
+    display: inline-block;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    width:150px;
+    font-size: 12px;
+  }
+
+  .user-address {
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+    width: 150px;
+    font-size: 12px;
+  }
 }
 
 @media only screen and (min-width: 768px) and (max-width: 1200px){
