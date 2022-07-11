@@ -10783,6 +10783,10 @@ Go Top CSS
   width: 100px;
 }
 
+.go_to_line_small {
+  display: none;
+}
+
 /* 6084a4 */
 @media only screen and (max-width: 767px){
 

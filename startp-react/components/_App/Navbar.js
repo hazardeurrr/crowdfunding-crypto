@@ -715,7 +715,7 @@ const Navbar = () => {
                         <img style={{height: 65}} src="/images/bblogofull.png" />
                         <br></br><br></br>
                     <DialogContentText id="alert-dialog-description">
-                        <i style={{fontSize: 12}}>Address : {selectAddr}</i>
+                        <i style={{fontSize: 12}}>Address : <br className="go_to_line_small"></br><span className="user-address3">{selectAddr}</span></i>
                     </DialogContentText>
 
                     <DialogContentText id="alert-dialog-description">

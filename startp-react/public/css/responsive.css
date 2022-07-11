@@ -2740,6 +2740,18 @@
     font-size: 12px;
   }
 
+  .user-address3 {
+    display: inline-block;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    width:200px;
+    font-size: 12px;
+  }
+
+  .go_to_line_small {
+    display: inline-block;
+  }
+
   .cats_small_div {
     display: inline-block;
   }
@@ -2767,8 +2779,20 @@
     font-size: 12px;
   }
 
+  .user-address3 {
+    display: inline-block;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    width:150px;
+    font-size: 11px;
+  }
+
   .main_logo_navbar {
     width: 50px;
+  }
+
+  .single-blog-post .blog-image .date {
+    font-size: 10px;
   }
   
 }
