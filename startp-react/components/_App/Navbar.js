@@ -850,7 +850,7 @@ const Navbar = () => {
                     <nav className="navbar navbar-expand-md navbar-light">
                         <Link href="/">
                             <a onClick={toggleNavbar} className="navbar-brand">
-                                <img src="/images/logo_svg-cropped.svg" style={{width: 100}} alt="logo" />
+                                <img src="/images/logo_svg-cropped.svg" className="main_logo_navbar" alt="logo" />
                             </a>
                         </Link>
 

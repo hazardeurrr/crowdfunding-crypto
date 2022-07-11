@@ -10779,6 +10779,10 @@ Go Top CSS
   display: flex;
 }
 
+.main_logo_navbar {
+  width: 100px;
+}
+
 /* 6084a4 */
 @media only screen and (max-width: 767px){
 
