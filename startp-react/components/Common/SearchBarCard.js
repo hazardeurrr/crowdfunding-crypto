@@ -10,32 +10,55 @@ import Avatar from '@material-ui/core/Avatar';
 
 
 const useStyles = makeStyles({
+  
   root: {
     width: 400,
     height: 60,
     display: 'flex',
     alignItems: 'center',
+
+    "@media only screen and (max-width: 575px)" :{
+      width: 200,
+      height: 50
+    }
   },
   title: {
     fontSize: 13.5,
     marginTop: 6,
     fontWeight: 600,
+    "@media only screen and (max-width: 575px)" :{
+      fontSize: 10,
+      marginTop: 4
+    }
   },
   creator: {
     fontStyle: 'italic',
     fontSize : 11,
+    "@media only screen and (max-width: 575px)" :{
+      fontSize: 8,
+    }
   },
   creator2: {
     fontStyle: 'italic',
     fontSize : 10,
+    "@media only screen and (max-width: 575px)" :{
+      fontSize: 8,
+      textOverflow: 'ellipsis',
+      whiteSpace: 'nowrap',
+      overflow: 'hidden',
+      width: 80
+    }
   },
   pos: {
     marginBottom: 12,
   },
   media: {
-    height: '100%',
     width: '100%',
-    flex : 1,
+    height: '100%',
+    "@media only screen and (max-width: 575px)" :{
+      height: 28.8,
+      width: 51.2
+    }
   },
   creator_wrapper: {
     flexDirection: 'row',
@@ -50,7 +73,14 @@ const useStyles = makeStyles({
     width : 17,
     marginLeft: 4,
     marginRight: 2,
-    marginBottom: 2
+    marginBottom: 2,
+    "@media only screen and (max-width: 575px)" :{
+      height : 13,
+      width : 13,
+      marginLeft: 3,
+      marginRight: 2,
+      marginBottom: 1
+    }
   }
 });
 

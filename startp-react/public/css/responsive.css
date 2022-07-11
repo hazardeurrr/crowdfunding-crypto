@@ -18,9 +18,9 @@
   
   .autocomplete-container{
     display: flex;
-    width: 350px;
-    margin-top: 10px;
-    margin-bottom: 10px;
+    width: 150px;
+    margin-top: 15px;
+    margin-bottom: 15px;
   }
 
   .btn {
@@ -1665,7 +1665,7 @@
   }
 
   .startp-nav nav .others-option .btn-not-displayed {
-    display: none;
+    /* display: none; */
   }
 
   .startp-nav nav .others-option .cart-wrapper-btn {
@@ -1787,6 +1787,15 @@
 
 /* Min width 768px to Max width 991px */
 @media only screen and (min-width: 768px) and (max-width: 991px) {
+
+  .main_logo_navbar {
+    width: 30px;
+    content:url("/images/bbonlysmall.svg");
+  }
+
+  .autocomplete-container {
+    width: 120px;
+  }
 
   .main-banner {
     height: 100%;
@@ -2361,9 +2370,9 @@
     padding-bottom: 10px;
   }
   .startp-nav nav .navbar-nav .nav-item a {
-    font-size: 14px;
-    margin-left: 6px;
-    margin-right: 6px;
+    font-size: 13px;
+    margin-left: 10px;
+    margin-right: 10px;
   }
   .startp-nav nav .navbar-nav .nav-item .dropdown-menu {
     width: 200px;
@@ -2382,7 +2391,7 @@
     font-size: 10px;
   }
   .startp-nav nav .others-option .btn-not-displayed {
-    display: none;
+    /* display: none; */
   }
   .startp-nav nav .others-option .cart-wrapper-btn {
     margin-right: 25px;
@@ -2513,8 +2522,8 @@
     display: none;
   }
   .startp-nav nav .navbar-nav .nav-item a {
-    margin-left: 10px;
-    margin-right: 10px;
+    margin-left: 12px;
+    margin-right: 12px;
   }
   .navbar-style-three .startp-nav {
     padding-left: 0;
@@ -2760,6 +2769,14 @@
     display: none;
   }
 
+  .single-blog-post .blog-image .date {
+    font-size: 12px;
+  }
+
+  .main_logo_navbar {
+    width: 75px;
+  }
+
 }
 
 @media only screen and (max-width: 320px){
@@ -2810,6 +2827,20 @@
 @media only screen and (min-width: 992px) {
   .mainCarousel {
     padding-top: 100px;
+  }
+}
+
+@media only screen and (min-width: 992px) and (max-width: 1200px){
+  .single-blog-post .blog-image .date {
+    font-size: 12px;
+  }
+
+  .main_logo_navbar {
+    width: 85px;
+  }
+
+  .autocomplete-container{
+    width: 175px;
   }
 }
 

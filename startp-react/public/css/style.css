@@ -705,7 +705,7 @@ Navbar CSS
 }
 
 .startp-nav nav .others-option {
-  margin-left: 20px;
+  margin-left: 15px;
   display: flex;
 }
 
@@ -10802,4 +10802,8 @@ Go Top CSS
 
 .bnb-singlepost:before {
   content: "BNB Smart Chain";
+}
+
+.main_logo_navbar{
+	content:url("/images/logo_svg-cropped.svg");
 }

@@ -768,7 +768,7 @@ const Navbar = () => {
 
             return (
                 <>
-                <div style={{marginTop: -8}}>
+                <div style={{marginLeft: 2}}>
                     <li className="nav-item">
                     <Link href="#">
                         <a onClick={e => e.preventDefault()} className="nav-link">
@@ -803,7 +803,7 @@ const Navbar = () => {
 
     const showCurrNet = () => {
         return <li className="nav-item">
-        {/* <Chip variant="outlined" style={{marginTop: -8, height: 40, background:"none", border:"none"}} avatar={<Avatar sizes='medium' alt='avatar' src={"/images/cryptoicons/ethblack.svg"} />} label={<section style={{display:"flex"}}>
+        {/* <Chip variant="outlined" style={{height: 40, background:"none", border:"none"}} avatar={<Avatar sizes='medium' alt='avatar' src={"/images/cryptoicons/ethblack.svg"} />} label={<section style={{display:"flex"}}>
            <div style={{}}>Ethereum</div> 
            <Icon.ChevronDown />
 
@@ -886,7 +886,7 @@ const Navbar = () => {
                         <div className={classOne} id="navbarSupportedContent">
                         <div className="autocomplete-container"><SearchIcon style={{marginTop: 10, marginLeft: 5, marginRight: 5}}/><AutoCompleteSearchBar/></div>
 
-                            <ul className="navbar-nav ms-auto">
+                            <ul className="navbar-nav ms-auto" style={{alignContent:'center'}}>
 
                                 {/* //----------------CONNECT MODAL---------------// */}
 
