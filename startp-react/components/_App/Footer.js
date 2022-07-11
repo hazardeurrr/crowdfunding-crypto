@@ -92,7 +92,7 @@ const Footer = () => {
                                                 </Link>
                                             </li>
                                             <li>
-                                                <Link href="https://discord.gg/6QdBGMKSUn">
+                                                <Link href="https://discord.gg/G9CSA74aCV">
                                                     <a className="facebook" target="_blank"><FaDiscord /></a>
                                                 </Link>
                                             </li>
@@ -167,7 +167,7 @@ const Footer = () => {
                             <h3>Community</h3>
                             <ul className="list">
                                 <li>
-                                    <a href="https://discord.gg/6QdBGMKSUn">Discord</a>
+                                    <a href="https://discord.gg/G9CSA74aCV">Discord</a>
                                 </li>
                                 <li>
                                     <a href="https://twitter.com/blockboosted">Twitter</a>

@@ -50,19 +50,19 @@ const ServiceDetails = () => {
                                                 </AccordionItemButton>
                                             </AccordionItemHeading>
                                             <AccordionItemPanel>
-                                                <p>
-                                                    To connect your wallet to our website, click the "Connect Wallet" button on our navigation bar & chose your provider.<br></br><br></br>
+                                                    <p>
+                                                        To connect your wallet to our website, click the "Connect Wallet" button on our navigation bar & chose your provider.<br></br><br></br>
 
-                                                    We currently support : <ul>
-                                                        <li><a href="https://metamask.io/" target="_blank">Metamask</a> (recommended desktop option)</li>
-                                                        <li><a href="https://walletconnect.com/" target="_blank">Wallet Connect*</a> (recommended mobile option)</li>
-                                                        <li><a href="https://www.coinbase.com/fr/wallet" target="_blank">Coinbase Wallet</a></li>
-                                                        <li><a href="https://www.bnbchain.org/en/binance-wallet" target="_blank">Binance Wallet</a></li>
-                                                    </ul>
-                                                    *You can use Wallet Connect to connect to <a href="https://walletconnect.com/registry?type=wallet" target="_blank">+75 different compatible wallets</a> (such as Trust Wallet, Rainbow, Metamask (mobile)...).
-                                                    <br></br><br></br>
-                                                    Note that you will have to sign a message with your wallet to complete the authentication process ! Don't worry, it won't cost you anything :)
-                                                </p>
+                                                        We currently support : </p><ul>
+                                                            <li><p><a href="https://metamask.io/" target="_blank">Metamask</a> (recommended desktop option)</p></li>
+                                                            <li><p><a href="https://walletconnect.com/" target="_blank">Wallet Connect*</a> (recommended mobile option)</p></li>
+                                                            <li><p><a href="https://www.coinbase.com/fr/wallet" target="_blank">Coinbase Wallet</a></p></li>
+                                                            <li><p><a href="https://www.bnbchain.org/en/binance-wallet" target="_blank">Binance Wallet</a></p></li>
+                                                        </ul>
+                                                        <p>*You can use Wallet Connect to connect to <a href="https://walletconnect.com/registry?type=wallet" target="_blank">+75 different compatible wallets</a> (such as Trust Wallet, Rainbow, Metamask (mobile)...).
+                                                        <br></br><br></br>
+                                                        Note that you will have to sign a message with your wallet to complete the authentication process ! Don't worry, it won't cost you anything :)
+                                                    </p>
                                             </AccordionItemPanel>
                                         </AccordionItem>
 
@@ -278,13 +278,13 @@ const ServiceDetails = () => {
                                                     <p>
                                                         To connect your wallet to our website, click the "Connect Wallet" button on our navigation bar & chose your provider.<br></br><br></br>
 
-                                                        We currently support : <ul>
-                                                            <li><a href="https://metamask.io/" target="_blank">Metamask</a> (recommended desktop option)</li>
-                                                            <li><a href="https://walletconnect.com/" target="_blank">Wallet Connect*</a> (recommended mobile option)</li>
-                                                            <li><a href="https://www.coinbase.com/fr/wallet" target="_blank">Coinbase Wallet</a></li>
-                                                            <li><a href="https://www.bnbchain.org/en/binance-wallet" target="_blank">Binance Wallet</a></li>
+                                                        We currently support : </p><ul>
+                                                            <li><p><a href="https://metamask.io/" target="_blank">Metamask</a> (recommended desktop option)</p></li>
+                                                            <li><p><a href="https://walletconnect.com/" target="_blank">Wallet Connect*</a> (recommended mobile option)</p></li>
+                                                            <li><p><a href="https://www.coinbase.com/fr/wallet" target="_blank">Coinbase Wallet</a></p></li>
+                                                            <li><p><a href="https://www.bnbchain.org/en/binance-wallet" target="_blank">Binance Wallet</a></p></li>
                                                         </ul>
-                                                        *You can use Wallet Connect to connect to <a href="https://walletconnect.com/registry?type=wallet" target="_blank">+75 different compatible wallets</a> (such as Trust Wallet, Rainbow, Metamask (mobile)...).
+                                                        <p>*You can use Wallet Connect to connect to <a href="https://walletconnect.com/registry?type=wallet" target="_blank">+75 different compatible wallets</a> (such as Trust Wallet, Rainbow, Metamask (mobile)...).
                                                         <br></br><br></br>
                                                         Note that you will have to sign a message with your wallet to complete the authentication process ! Don't worry, it won't cost you anything :)
                                                     </p>

@@ -18,7 +18,7 @@ const ContactInfo = () => {
 
                 <div className="col-lg-4 col-md-6 col-sm-6">
                         <div className="contact-info-box" style={{border: '2px solid #c8ccce', borderRadius: 8}}>
-                        <a href="https://discord.gg/6QdBGMKSUn" target="_blank"><div className="icon">
+                        <a href="https://discord.gg/G9CSA74aCV" target="_blank"><div className="icon">
                                 <FaDiscord />
                             </div>
                             <h3>Discord</h3>
