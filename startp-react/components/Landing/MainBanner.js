@@ -94,7 +94,7 @@ const MainBanner = () => {
                                                 </Button>
                                             </a>
 
-                                            <a target="_blank" href="https://discord.gg/6QdBGMKSUn" >
+                                            <a target="_blank" href="https://discord.gg/G9CSA74aCV" >
                                                 <Button variant="contained" style={{color:'white', backgroundColor:'#5865F2', marginBottom: 10}} size="large" startIcon={<FaDiscord />}>
                                                     Discord
                                                 </Button>

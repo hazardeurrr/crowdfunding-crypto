@@ -49,7 +49,7 @@ const Footer = () => {
                                            </li>
 
                                            <li>
-                                               <Link href="https://discord.gg/6QdBGMKSUn">
+                                               <Link href="https://discord.gg/G9CSA74aCV">
                                                    <a className="facebook" target="_blank"><FaDiscord /></a>
                                                </Link>
                                            </li>
