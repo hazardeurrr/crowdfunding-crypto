@@ -23,6 +23,8 @@ import { erc20standardAbi } from '@/components/ContractRelated/ERC20standardABI'
 import { bbstAbi } from '@/components/ContractRelated/BbstAbi';
 import {bnb_busdAddr} from '@/components/ContractRelated/bnb_busdAddr';
 import {bnb_bbstAddr} from '@/components/ContractRelated/bnb_BbstAddr';
+import { GiConsoleController } from 'react-icons/gi';
+import axios from 'axios';
 
 function Alert(props) {
     return <MuiAlert elevation={6} variant="filled" {...props} />;
@@ -44,7 +46,7 @@ const Withdraw = (props) => {
   const [Tx, setTx] = React.useState("");
   const [totalBalance, setTotalBalance] = React.useState(0)
   const [ctrInstance, setCtrInstance] = React.useState(undefined)
-  const [subscribers, setSubscribers] = React.useState(undefined)
+  const [subscribers, setSubscribers] = React.useState([])
 
     const openDialog = () => {
         setDialogOpen(true)
@@ -87,19 +89,9 @@ const Withdraw = (props) => {
 
         // const result = getTiers()
 
-        getTokens().then(res => {
-            
-            let finalString = "Address,Email,Participation\n"
+        getTokens().then((response) => {
 
-            
-            // console.log(res)
-            for(let i = 0 ; i < res.length ; ++i){
-                
-                finalString += res[i]
-            }
-            // console.log(finalString)
-
-            let csvContent = "data:text/csv;charset=utf-8," + finalString;
+            var csvContent = response.data.content;
     
             var encodedUri = encodeURI(csvContent);
 
@@ -118,57 +110,50 @@ const Withdraw = (props) => {
     if(connected == true && chainID == campaign.network){
         console.log(ctr)
         ctr.methods.creationBlock.call().call().then((cblock) =>  {
-            console.log("creablock")
+            console.log("creablock", cblock)
             web3Instance.eth.getBlockNumber().then((currentBlock) => {
                 console.log(currentBlock)
-                let allEvents = []
+                // let allEvents = []
                 
                 for(let i = cblock; i < currentBlock; i += 5000) {
                     const _startBlock = i;
-                    const _endBlock = Math.min(currentBlock, i + 4999);
+                    const _endBlock = Math.min(currentBlock, parseInt(i) + parseInt(4999));
                     ctr.getPastEvents("Participation", ({fromBlock: _startBlock, toBlock: _endBlock}))
                     .then(function(events){
                         // console.log(events) // same results as the optional callback above
                         let eventsMapped = events.map(e => [e.returnValues.user.toLowerCase(), e.returnValues.indexTier])
                         // console.log(eventsMapped)
-                        allEvents = [...allEvents, ...eventsMapped]
+                        // allEvents = [...allEvents, ...eventsMapped]
+                        setSubscribers([...subscribers, ...eventsMapped]);
                     });
                   }
-                  console.log(allEvents)
-                  setSubscribers(allEvents)
+                //   console.log(allEvents)
+                //   setSubscribers(allEvents)
             })
         })
     }
   }
 
-  async function getTokens() {
+  function getTokens() {
 
-    const getUser = subscriber => db.collection('profile').doc(subscriber).get();
     let addressesArr = []
     
     let copySubs = [...subscribers];
-    let subSorted = copySubs.sort((a,b) => a[1].localeCompare(b[1]));
+    const subSorted = copySubs.sort((a,b) => a[1].localeCompare(b[1]));
 
     for(let i = 0 ; i < subSorted.length; ++i){
         addressesArr = addressesArr.concat(subSorted[i][0].toLowerCase())
     }
 
-    const promises = addressesArr.map(getUser);
-    const users = await Promise.all(promises);
-    return users.map((user, index) => user.data().eth_address + "," + nullOrMail(user.data().email) + "," + showTierExcel(subSorted[index][1]) + "\n")
-  }
-
-  const showTierExcel = (index) => {
-    if (index == 0) return "Free donation"
-    else return "Tier " + index + " : " + campaign.tiers[index-1].title
-  }
-
-  const nullOrMail = (v) => {
-    if(v == undefined || v == null || v == ""){
-        return "undefined"
-    } else {
-        return v
-    }
+    return axios({
+        method: 'post',
+        url: 'https://europe-west1-crowdfunding-dev-5f802.cloudfunctions.net/getEmails',
+        data: {
+          addresses: addressesArr,
+          sorted: subSorted,
+          camp: campaign
+        }
+      });
   }
 
   
@@ -303,6 +288,7 @@ const showScan = () => {
                     setTotalBalance(res)
                 })
             }
+        setSubscribers([]);
       }
     }
   }, [web3Instance, campaign])
