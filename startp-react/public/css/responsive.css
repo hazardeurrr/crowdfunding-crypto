@@ -1,5 +1,10 @@
 /* Max width 767px */
 @media only screen and (max-width: 767px) {
+
+  .create-only-big{
+    display: none
+  }
+
   .blog-details-desc .article-content iframe{
     width: 404.7px !important;
     height: 228px !important;
@@ -18,7 +23,9 @@
   
   .autocomplete-container{
     display: flex;
-    width: 150px;
+    width: 200px;
+    margin-left: auto;
+    margin-right: auto;
     margin-top: 15px;
     margin-bottom: 15px;
   }
@@ -1794,7 +1801,7 @@
   }
 
   .autocomplete-container {
-    width: 120px;
+    width: 150px;
   }
 
   .main-banner {
@@ -2721,6 +2728,10 @@
 } */
 
 @media only screen and (max-width: 575px){
+  .autocomplete-container{
+    width: 150px;
+  }
+
   .bnb-singlepost:before {
     content: "BSC";
   }
@@ -2828,6 +2839,13 @@
   .mainCarousel {
     padding-top: 100px;
   }
+}
+
+@media only screen and (min-width: 768px) {
+  .create-only-small {
+    display: none
+  }
+
 }
 
 @media only screen and (min-width: 992px) and (max-width: 1200px){

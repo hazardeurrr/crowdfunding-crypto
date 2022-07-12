@@ -21,7 +21,8 @@ const AutoCompleteSearchBar = () => {
  });
 
   const PopperMy = function (props) {
-    return <Popper {...props} style={styles.popper} placement="bottom-start" disablePortal/>;
+    return <Popper {...props} style={styles.popper}
+        placement="bottom" disablePortal/>;
  };
 
  const filterOptions = createFilterOptions({
@@ -45,8 +46,8 @@ const AutoCompleteSearchBar = () => {
       clearOnEscape
       options={campaigns}
       PopperComponent={PopperMy}
+      ListboxProps={{ style: { maxHeight: "150px" }}}
       filterOptions={filterOptions}
-
       getOptionLabel={({ title, creator }) => {
         // this is how our option will be displayed when selected
         // remove the `id` here

@@ -769,7 +769,7 @@ const Navbar = () => {
             return (
                 <>
                 <div style={{marginLeft: 2}}>
-                    <li className="nav-item">
+                    <li className="nav-item" style={{textAlign:"center"}}>
                     <Link href="#">
                         <a onClick={e => e.preventDefault()} className="nav-link">
                             <ProfileNav user={currentUser}/> 
@@ -886,7 +886,7 @@ const Navbar = () => {
                         <div className={classOne} id="navbarSupportedContent">
                         <div className="autocomplete-container"><SearchIcon style={{marginTop: 10, marginLeft: 5, marginRight: 5}}/><AutoCompleteSearchBar/></div>
 
-                            <ul className="navbar-nav ms-auto" style={{alignContent:'center'}}>
+                            <ul className="navbar-nav ms-auto" style={{alignItems:'center'}}>
 
                                 {/* //----------------CONNECT MODAL---------------// */}
 
@@ -896,20 +896,26 @@ const Navbar = () => {
 
                                 {/* //----------------CONNECT MODAL END---------------// */}
 
+                                <li className="nav-item create-only-small">
+                                    <Link href={"/form-campaign"} activeClassName="active">
+                                        <a onClick={toggleNavbar} className="nav-link">Create</a>
+                                    </Link>
+                                </li>
+
                                 <li className="nav-item">
-                                <Link href={"/token"} activeClassName="active">
+                                    <Link href={"/token"} activeClassName="active">
                                         <a onClick={toggleNavbar} className="nav-link">BBST Token</a>
                                     </Link>
                                 </li>
 
                                 <li className="nav-item">
-                                <Link href={"/how-it-works"} activeClassName="active">
+                                    <Link href={"/how-it-works"} activeClassName="active">
                                         <a onClick={toggleNavbar} className="nav-link">How it works</a>
                                     </Link>
                                 </li>
 
                                 <li className="nav-item">
-                                <Link href={{
+                                    <Link href={{
                                         pathname: "/SearchPage/",
                                         query: {
                                             id: "explore",
@@ -918,6 +924,7 @@ const Navbar = () => {
                                         <a onClick={toggleNavbar} className="nav-link">Explore</a>
                                     </Link>
                                 </li>
+                                
 
                                 {showProfile()}
 
@@ -929,7 +936,7 @@ const Navbar = () => {
                         <div className="others-option" style={{alignItems:'center'}}>
 
                             <Link href="/form-campaign">
-                                <a className="btn btn-secondary btn-not-displayed">Create</a>
+                                <a className="btn btn-secondary btn-not-displayed create-only-big">Create</a>
                             </Link>
 
                             {isConnected()}
