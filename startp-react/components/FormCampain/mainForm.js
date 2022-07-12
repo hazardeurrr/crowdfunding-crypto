@@ -19,7 +19,7 @@ import categoryList from '@/utils/CategoryList';
 import 'suneditor/dist/css/suneditor.min.css'; // Import Sun Editor's CSS File
 import MainPic from '@/components/ITStartup/MainPic.js'
 import Modal from '@material-ui/core/Modal';
-import PreviewCampaign from 'pages/PreviewCampaign';
+import PreviewCampaign from '@/components/Common/PreviewCampaign';
 import { ref } from "firebase/storage";
 import Dialog from '@material-ui/core/Dialog';
 import DialogContent from '@material-ui/core/DialogContent';

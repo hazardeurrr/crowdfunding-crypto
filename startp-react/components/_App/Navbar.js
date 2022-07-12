@@ -733,7 +733,7 @@ const Navbar = () => {
                     </DialogContentText>
 
                     <DialogContentText id="alert-dialog-description">
-                        By connecting your wallet and using BlockBoosted, you agree to our <Link href="/terms-condition"><a>Terms of Service</a></Link> and <Link href="/privacy-policy"><a>Privacy Policy</a></Link>. Please sign this message to authenticate.
+                        By connecting your wallet and using BlockBoosted, you agree to our <a href="https://blockboosted.com/terms">Terms of Service</a> and <a href="https://blockboosted.com/privacy">Privacy Policy</a>. Please sign this message to authenticate.
                     </DialogContentText>
                     
                     <DialogActions>
@@ -757,13 +757,6 @@ const Navbar = () => {
         }
     }
 
-    const cancelConnection = () => {
-        dispatch({
-            type: 'SET_CONNECTED',
-            id: false
-        })
-        handleConnectClose()
-    }
 
     const showProfile = () => {
         if(connected && currentUser != undefined){

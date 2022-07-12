@@ -177,16 +177,12 @@ const Footer = () => {
                         <div className="single-footer-widget" style={{marginTop: 25}}>
                             <h3>About</h3>
                             <ul className="list">
-                                {/* <li>
-                                    <Link href="/term-condition">
-                                        <a>Terms & Conditions</a>
-                                    </Link>
+                                <li>
+                                    <a href="https://blockboosted/terms">Terms & Conditions</a>
                                 </li>
                                 <li>
-                                    <Link href="/contact">
-                                        <a>Privacy policy</a>
-                                    </Link>
-                                </li> */}
+                                    <a href="https://blockboosted/privacy">Privacy policy</a>
+                                </li>
                                 <li>
                                     <Link href="/contact">
                                         <a>Contact Us</a>
