@@ -2791,6 +2791,11 @@
 }
 
 @media only screen and (max-width: 320px){
+  .main_logo_navbar {
+    width: 25px;
+    content:url("/images/bbonlysmall.svg");
+  }
+
   .user-address2 {
     display: inline-block;
     overflow: hidden;
@@ -2813,10 +2818,6 @@
     text-overflow: ellipsis;
     width:150px;
     font-size: 11px;
-  }
-
-  .main_logo_navbar {
-    width: 50px;
   }
 
   .single-blog-post .blog-image .date {
