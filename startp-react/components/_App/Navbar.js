@@ -282,6 +282,9 @@ const Navbar = () => {
               56:"https://bsc-dataseed.binance.org/"
               // ...
             },
+            chainId: 56
+            
+            // supportedChainIds: [97, 56]
           });
           
           try {
