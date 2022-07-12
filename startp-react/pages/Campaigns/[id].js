@@ -28,8 +28,8 @@ import {bnb_chain} from '@/utils/bnb_chain'
 import RaisedChecker from '@/components/Common/RaisedChecker';
 import { MdSentimentVerySatisfied } from 'react-icons/md';
 import campaignAbi from '@/components/ContractRelated/CampaignAbi';
-import Withdraw from './withdraw';
-import Refund from './refund';
+import Withdraw from '../../components/Common/withdraw';
+import Refund from '../../components/Common/refund';
 import Tooltip from '@material-ui/core/Tooltip';
 import Typography from '@material-ui/core/Typography';
 import Custom404 from 'pages/404';
@@ -228,12 +228,12 @@ const Campaign = (props) => {
             if(campaign.network == chainID){
                 if(campaign.end_date > now && campaign.start_date < now){
                     return <Link href={{
-                                pathname: "/Checkout/[id]",
+                                pathname: "/checkout/[id]",
                                 query: {
                                     id: prefixedAddress(campaign.network, campaign.contract_address),
                                     }
                                 }}
-                                    // as={`/Checkout/${campaign.contract_address}`}
+                                    // as={`/checkout/${campaign.contract_address}`}
                                     >
                             <a className="btn btn-primary">Back this campaign</a>
                             </Link>

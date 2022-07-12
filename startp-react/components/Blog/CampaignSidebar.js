@@ -113,12 +113,12 @@ const CampaignSidebar = (props) => {
                 } else
                 return <div>
                     <Link href={{
-                    pathname: "/Checkout/[id]",
+                    pathname: "/checkout/[id]",
                     query: {
                         id: prefixedAddress(campaign.network, campaign.contract_address),
                     }
                 }}
-                // as={`/Checkout/${campaign.contract_address}`}
+                // as={`/checkout/${campaign.contract_address}`}
                 >
                 
                     <a className="icon">
@@ -129,12 +129,12 @@ const CampaignSidebar = (props) => {
                 <div className="works-content">
                     <h3>
                         <Link href={{
-                            pathname: "/Checkout/[id]",
+                            pathname: "/checkout/[id]",
                             query: {
                                 id: prefixedAddress(campaign.network, campaign.contract_address),
                             }
                         }}
-                        // as={`/Checkout/${campaign.contract_address}`}
+                        // as={`/checkout/${campaign.contract_address}`}
                         >
                                 <a>Back this campaign !</a>
                         </Link>
@@ -172,12 +172,12 @@ const CampaignSidebar = (props) => {
             } else
             return <div>
                 <Link href={{
-                pathname: "/Checkout/[id]",
+                pathname: "/checkout/[id]",
                 query: {
                     id: prefixedAddress(campaign.network, campaign.contract_address),
                 }
             }}
-            // as={`/Checkout/${campaign.contract_address}`}
+            // as={`/checkout/${campaign.contract_address}`}
             >
             
                 <a className="icon">
@@ -188,12 +188,12 @@ const CampaignSidebar = (props) => {
             <div className="works-content">
                 <h3>
                     <Link href={{
-                        pathname: "/Checkout/[id]",
+                        pathname: "/checkout/[id]",
                         query: {
                             id: prefixedAddress(campaign.network, campaign.contract_address),
                         }
                     }}
-                    // as={`/Checkout/${campaign.contract_address}`}
+                    // as={`/checkout/${campaign.contract_address}`}
                     >
                             <a>Back this campaign !</a>
                     </Link>

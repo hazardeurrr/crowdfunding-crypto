@@ -1,5 +1,5 @@
 import React from 'react';
-import ITStartup from "./it-startup";
+import ITStartup from "./home";
 
 
 const Index = ({c}) => {

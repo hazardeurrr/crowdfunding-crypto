@@ -147,7 +147,7 @@ const ProfileForm = (props) => {
                 <div style={{justifyContent:'center'}}>
                 <h5 style={{marginBottom: 5}}>You can now go back to your profile to check your changes !</h5>
                     <Link href={{
-                        pathname: "/User/[id]",
+                        pathname: "/user/[id]",
                         query: {
                             id: addr,
                             }
@@ -181,6 +181,7 @@ const ProfileForm = (props) => {
         // }).catch(console.log);
 
         console.log(privacy);
+        console.log(user);
 
         db.collection('profileTest').doc(user.eth_address).update(user).then(() => {
 			db.collection('profileTest').doc(user.eth_address).collection("privacy").doc(user.eth_address).update(privacy).then(() => {
@@ -288,7 +289,7 @@ const ProfileForm = (props) => {
                         <button className="btn btn-primary" onClick={() => {
                                 testRules()}}>Test</button>
                         <h3>Complete the information about your profile</h3>
-                        <form action={`/User/${currentUser.eth_address}`} onSubmit={(event) => {
+                        <form action={`/user/${currentUser.eth_address}`} onSubmit={(event) => {
                             handleSubmit(event)
                         }
                         }>

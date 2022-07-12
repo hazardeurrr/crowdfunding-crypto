@@ -20,7 +20,7 @@ const CategoriesLight = () => {
                             </div>
                             {CategoryList[0]}
                             <Link href={{
-                                pathname: "SearchPage",
+                                pathname: "explore",
                                 query: {
                                     id: CategoryList[0],
                                 }
@@ -37,7 +37,7 @@ const CategoriesLight = () => {
                             </div>
                             {CategoryList[1]}
                             <Link href={{
-                                pathname: "SearchPage",
+                                pathname: "explore",
                                 query: {
                                     id: CategoryList[1],
                                 }
@@ -54,7 +54,7 @@ const CategoriesLight = () => {
                             </div>
                             {CategoryList[2]}
                             <Link href={{
-                                pathname: "SearchPage",
+                                pathname: "explore",
                                 query: {
                                     id: CategoryList[2],
                                 }
@@ -71,7 +71,7 @@ const CategoriesLight = () => {
                             </div>
                             {CategoryList[3]}
                             <Link href={{
-                                pathname: "SearchPage",
+                                pathname: "explore",
                                 query: {
                                     id: CategoryList[3],
                                 }
@@ -88,7 +88,7 @@ const CategoriesLight = () => {
                             </div>
                             {CategoryList[4]}
                             <Link href={{
-                                pathname: "SearchPage",
+                                pathname: "explore",
                                 query: {
                                     id: CategoryList[4],
                                 }
@@ -105,7 +105,7 @@ const CategoriesLight = () => {
                             </div>
                             {CategoryList[5]}
                             <Link href={{
-                                pathname: "SearchPage",
+                                pathname: "explore",
                                 query: {
                                     id: CategoryList[5],
                                 }
@@ -122,7 +122,7 @@ const CategoriesLight = () => {
                             </div>
                             {CategoryList[6]}
                             <Link href={{
-                                pathname: "SearchPage",
+                                pathname: "explore",
                                 query: {
                                     id: CategoryList[6],
                                 }
@@ -139,7 +139,7 @@ const CategoriesLight = () => {
                             </div>
                             {CategoryList[7]}
                             <Link href={{
-                                pathname: "SearchPage",
+                                pathname: "explore",
                                 query: {
                                     id: CategoryList[7],
                                 }
@@ -156,7 +156,7 @@ const CategoriesLight = () => {
                             </div>
                             {CategoryList[8]}
                             <Link href={{
-                                pathname: "SearchPage",
+                                pathname: "explore",
                                 query: {
                                     id: CategoryList[8],
                                 }
@@ -173,7 +173,7 @@ const CategoriesLight = () => {
                             </div>
                             {CategoryList[9]}
                             <Link href={{
-                                pathname: "SearchPage",
+                                pathname: "explore",
                                 query: {
                                     id: CategoryList[9],
                                 }

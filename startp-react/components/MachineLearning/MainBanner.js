@@ -37,13 +37,13 @@ const MainBanner = () => {
 													 <h5>Crowdfunding 3.0</h5><p style={{marginTop: 15}}>Less fees, more trust, community based.<br></br>Earn <Link href="/token"><a><img style={{height: 20, marginRight: 3}} src="/images/cryptoicons/bbstgrad.png"/>BBST</a></Link> while supporting great projects !
 													 <br></br>Raise and contribute in crypto on BNB Smart Chain.</p>
 
-											 <Link href="/form-campaign">
+											 <Link href="/create">
 												<a className="btn btn-primary">Create a campaign</a>
 											</Link>
 																		<Link href={{
-																								pathname: "SearchPage",
+																								pathname: "explore",
 																								query: {
-																										id: "explore",
+																										id: "all",
 																										}
 																								}} activeClassName="active">
 																								<a className="btn btn-light">Explore</a>

@@ -775,13 +775,13 @@ const Navbar = () => {
 
                         <ul className="dropdown-menu">
                             <li className="nav-item">
-                                <Link href={`/User/${userAddr}`} activeClassName="active">
+                                <Link href={`/user/${userAddr}`} activeClassName="active">
                                     <a onClick={toggleNavbar} className="nav-link">View Profile</a>
                                 </Link>
                             </li>
 
                             <li className="nav-item">
-                                <Link href="/setProfile" activeClassName="active">
+                                <Link href="/profile" activeClassName="active">
                                     <a onClick={toggleNavbar} className="nav-link">Edit Profile</a>
                                 </Link>
                             </li>
@@ -893,7 +893,7 @@ const Navbar = () => {
                                 {/* //----------------CONNECT MODAL END---------------// */}
 
                                 <li className="nav-item create-only-small">
-                                    <Link href={"/form-campaign"} activeClassName="active">
+                                    <Link href={"/create"} activeClassName="active">
                                         <a onClick={toggleNavbar} className="nav-link">Create</a>
                                     </Link>
                                 </li>
@@ -912,9 +912,9 @@ const Navbar = () => {
 
                                 <li className="nav-item">
                                     <Link href={{
-                                        pathname: "/SearchPage/",
+                                        pathname: "/explore/",
                                         query: {
-                                            id: "explore",
+                                            id: "all",
                                         }
                                     }} activeClassName="active">
                                         <a onClick={toggleNavbar} className="nav-link">Explore</a>
@@ -931,7 +931,7 @@ const Navbar = () => {
 
                         <div className="others-option" style={{alignItems:'center'}}>
 
-                            <Link href="/form-campaign">
+                            <Link href="/create">
                                 <a className="btn btn-secondary btn-not-displayed create-only-big">Create</a>
                             </Link>
 

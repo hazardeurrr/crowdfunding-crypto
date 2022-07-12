@@ -23,7 +23,7 @@ const GreenCheckbox = withStyles({
     checked: {},
   })((props) => <Checkbox color="default" {...props} />);
 
-class SearchPage extends React.Component {
+class Explore extends React.Component {
 
     constructor(props){
         super(props);
@@ -112,7 +112,7 @@ class SearchPage extends React.Component {
     componentDidMount(){
         //  this.allCampaigns = getCampaigns()
         //  this.setState({projects: this.allCampaigns})
-         if(this.props.cat != "explore"){
+         if(this.props.cat != "all"){
             const s = this.props.cat
             const i = categoryList.indexOf(s)
             this.addCategory(i)
@@ -245,7 +245,7 @@ const mapStateToProps = state => {
 
 export default connect(
     mapStateToProps   
-  )(SearchPage);
+  )(Explore);
 
 export async function getServerSideProps (context) {
     // console.log(context.query) 

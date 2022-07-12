@@ -93,12 +93,12 @@ const displayTitle = () => {
     if(campaign.title.length < 30){
         return <h5 className="carrousel-card-title-big">
             <Link href={{
-                pathname: "/Campaigns/[id]",
+                pathname: "/campaigns/[id]",
                 query: {
                     id: prefixedAddress(campaign.network, campaign.contract_address)
                 }
             }}
-            // as={`/Campaigns/${campaign.contract_address}`}
+            // as={`/campaigns/${campaign.contract_address}`}
             >
             <a>{campaign.title}</a>
         </Link>
@@ -106,12 +106,12 @@ const displayTitle = () => {
     } else {
         return <h5 className="carrousel-card-title-small">
             <Link href={{
-                pathname: "/Campaigns/[id]",
+                pathname: "/campaigns/[id]",
                 query: {
                     id: prefixedAddress(campaign.network, campaign.contract_address)
                 }
             }}
-            // as={`/Campaigns/${campaign.contract_address}`}
+            // as={`/campaigns/${campaign.contract_address}`}
             >
             <a>{campaign.title}</a>
         </Link>
@@ -154,12 +154,12 @@ const displayRaisedIcon = () => {
       <div className="single-blog-post-item">
         <div className="post-image">
             <Link href={{
-                        pathname: "/Campaigns/[id]",
+                        pathname: "/campaigns/[id]",
                         query: {
                             id: prefixedAddress(campaign.network, campaign.contract_address),
                         }
                     }}
-                    // as={`/Campaigns/${campaign.contract_address}`}
+                    // as={`/campaigns/${campaign.contract_address}`}
                     >
                     <a>
                         {displayProgressBar()}

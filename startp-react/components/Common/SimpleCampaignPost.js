@@ -300,12 +300,12 @@ const SimpleCampaignPost = (props) => {
             return <div className="single-blog-post">
             <div className="blog-image">
               <Link href={{
-                              pathname: "/Campaigns/[id]",
+                              pathname: "/campaigns/[id]",
                               query: {
                                   id: prefixedAddress(campaign.network, campaign.contract_address),
                               }
                           }}
-                        //   as={`/Campaigns/${campaign.contract_address}`}
+                        //   as={`/campaigns/${campaign.contract_address}`}
                           >
                       <a>
                           <img src={campaign.main_img} alt="image" />
@@ -316,12 +316,12 @@ const SimpleCampaignPost = (props) => {
             <div className="blog-post-content">
                     <h3>
                         <Link href={{
-                            pathname: "/Campaigns/[id]",
+                            pathname: "/campaigns/[id]",
                             query: {
                                 id: prefixedAddress(campaign.network, campaign.contract_address),
                             }
                         }}
-                        // as={`/Campaigns/${campaign.contract_address}`}
+                        // as={`/campaigns/${campaign.contract_address}`}
                         >
                             <a>{campaign.title}</a>
                         </Link>
@@ -338,12 +338,12 @@ const SimpleCampaignPost = (props) => {
                     {showNetwork()}
                 </div>
                 <Link href={{
-                          pathname: "/Campaigns/[id]",
+                          pathname: "/campaigns/[id]",
                           query: {
                               id: prefixedAddress(campaign.network, campaign.contract_address),
                           }
                       }}
-                    //   as={`/Campaigns/${campaign.contract_address}`}
+                    //   as={`/campaigns/${campaign.contract_address}`}
                       >
                     <a className="read-more-btn">
                         {SupportOrSee()} <Icon.ArrowRight />

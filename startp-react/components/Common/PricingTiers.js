@@ -603,7 +603,7 @@ const PricingTiers = (props) => {
 
                             <h3>You can't donate to your own campaign !</h3>
                             <Link href={{
-                            pathname: "/Campaigns/[id]",
+                            pathname: "/campaigns/[id]",
                             query: {
                                 id: prefixedAddress(campaign.network, campaign.contract_address),
                                 }

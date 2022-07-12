@@ -511,7 +511,7 @@ class MainForm extends React.Component {
                 //     <img src={this.image} alt='campaign image'/>
                 //     <div style={{justifyContent:'center'}}>
                 //         <Link href={{
-                //             pathname: "/Campaigns/[id]",
+                //             pathname: "/campaigns/[id]",
                 //             query: {
                 //                 id: this.state.new_contract_address,
                 //                 }
@@ -532,7 +532,7 @@ class MainForm extends React.Component {
                     <img src={this.image} alt='campaign image'/>
                     <div style={{justifyContent:'center'}}>
                         <Link href={{
-                            pathname: "/Campaigns/[id]",
+                            pathname: "/campaigns/[id]",
                             query: {
                                 id: prefixedAddress(this.props.chainID, this.state.new_contract_address),
                                 }

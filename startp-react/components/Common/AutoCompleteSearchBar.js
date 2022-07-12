@@ -63,12 +63,12 @@ const AutoCompleteSearchBar = () => {
       noOptionsText = 'No campaign or creator found'
       className="autocomplete"
       renderOption={(option) => <Link href={{
-                                      pathname: "/Campaigns/[id]",
+                                      pathname: "/campaigns/[id]",
                                       query: {
                                           id: prefixedAddress(option.network, option.contract_address),
                                       }
                                   }}
-                                  // as={`/Campaigns/${option.contract_address}`}
+                                  // as={`/campaigns/${option.contract_address}`}
                                   >
                                     <a><SearchBarCard campaign={option} user={creators.find(e => e.eth_address.toLowerCase() == option.creator.toLowerCase())}/></a>
                                 </Link>

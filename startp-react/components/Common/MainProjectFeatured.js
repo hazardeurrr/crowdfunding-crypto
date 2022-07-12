@@ -309,12 +309,12 @@ const MainProjectFeatured = (props) => {
             {displayProgressBar()}
 
               <Link href={{
-                              pathname: "/Campaigns/[id]",
+                              pathname: "/campaigns/[id]",
                               query: {
                                   id: prefixedAddress(campaign.network, campaign.contract_address),
                               }
                           }}
-                        //   as={`/Campaigns/${campaign.contract_address}`}
+                        //   as={`/campaigns/${campaign.contract_address}`}
                           >
                       <a>
                           <img src={campaign.main_img} alt="image" />
@@ -327,12 +327,12 @@ const MainProjectFeatured = (props) => {
             <div className="blog-post-content">
                     <h3>
                         <Link href={{
-                            pathname: "/Campaigns/[id]",
+                            pathname: "/campaigns/[id]",
                             query: {
                                 id: prefixedAddress(campaign.network, campaign.contract_address),
                             }
                         }}
-                        // as={`/Campaigns/${campaign.contract_address}`}
+                        // as={`/campaigns/${campaign.contract_address}`}
                         >
                             <a>{campaign.title}</a>
                         </Link>
@@ -349,12 +349,12 @@ const MainProjectFeatured = (props) => {
                     <p>{showNetwork()}</p>
                 </div>
                 <Link href={{
-                          pathname: "/Campaigns/[id]",
+                          pathname: "/campaigns/[id]",
                           query: {
                               id: campaign.contract_address,
                           }
                       }}
-                      as={`/Campaigns/${campaign.contract_address}`}>
+                      as={`/campaigns/${campaign.contract_address}`}>
                     <a className="read-more-btn">
                         {SupportOrSee()} <Icon.ArrowRight />
                     </a>
