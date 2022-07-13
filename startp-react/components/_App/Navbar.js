@@ -361,7 +361,7 @@ const Navbar = () => {
 
 
     const createProfile = (address) => {
-        const user = { username: "", eth_address: address, image: "", bio: "", twitter: "", liked: new Array() };
+        const user = { username: "", eth_address: address, image: "", bio: "", twitter: "", liked: new Array(), site: "" };
         const privacy = { email: "" };
 
         // axios({
@@ -775,7 +775,7 @@ const Navbar = () => {
 
                         <ul className="dropdown-menu">
                             <li className="nav-item">
-                                <Link href={`/user/${userAddr}`} activeClassName="active">
+                                <Link href={`/User/${userAddr}`} activeClassName="active">
                                     <a onClick={toggleNavbar} className="nav-link">View Profile</a>
                                 </Link>
                             </li>

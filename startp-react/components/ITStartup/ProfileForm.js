@@ -23,6 +23,7 @@ const ProfileForm = (props) => {
     const [bio, setBio] = useState('');
     const [twitter, setTwitter] = useState('');
     const[image, setImage] = useState('');
+    const [site, setSite] = useState('');
     const [dialogOpen, setDialog] = useState(false);
     const currentUser = props.currentUser;
 
@@ -127,6 +128,7 @@ const ProfileForm = (props) => {
             setImage(currentUser.image);
             setBio(currentUser.bio);
             setTwitter(currentUser.twitter);
+            setSite(currentUser.site);
         }
     }
 
@@ -147,7 +149,7 @@ const ProfileForm = (props) => {
                 <div style={{justifyContent:'center'}}>
                 <h5 style={{marginBottom: 5}}>You can now go back to your profile to check your changes !</h5>
                     <Link href={{
-                        pathname: "/user/[id]",
+                        pathname: "/User/[id]",
                         query: {
                             id: addr,
                             }
@@ -165,23 +167,11 @@ const ProfileForm = (props) => {
         let tmpUser = currentUser;
 
         const user = { username: name, eth_address: tmpUser.eth_address, image: image, bio: bio, twitter: twitter, 
-            liked: tmpUser.liked };
+            liked: tmpUser.liked, site: site };
         const privacy = { email: email };
 
-        // axios({
-        //     method: 'post',
-        //     url: 'https://europe-west1-crowdfunding-dev-5f802.cloudfunctions.net/updateProfile',
-        //     data: {
-        //         profile: user,
-        //         privacy: privacy
-        //     }
-        // }).then(async(response) => {
-        //     openDialog();
-        //     console.log(response.data);
-        // }).catch(console.log);
-
-        console.log(privacy);
-        console.log(user);
+        // console.log(privacy);
+        // console.log(user);
 
         db.collection('profileTest').doc(user.eth_address).update(user).then(() => {
 			db.collection('profileTest').doc(user.eth_address).collection("privacy").doc(user.eth_address).update(privacy).then(() => {
@@ -195,33 +185,8 @@ const ProfileForm = (props) => {
 		})
     }
 
-    // function printPf() {
-    //     db.collection('profileTest').doc("0xCE82601346578C58fFE5b5769a0A640d8d9Ed7C5".toLowerCase()).get().then((doc) => {
-	// 		db.collection('profileTest').doc("0xCE82601346578C58fFE5b5769a0A640d8d9Ed7C5".toLowerCase()).collection("privacy").doc("personalData").get().then((doc) => {
-    //             console.log("subcollection doc", doc.data());
-	// 		}).catch((err) => {
-	// 			console.log(err);
-	// 		})
-    //         console.log("doc gathered", doc.data());
-	// 	}).catch((err) => {
-	// 		console.log(err);
-	// 	})
-    // }
-
     function handleSubmit(event) {
         event.preventDefault();
-
-        // let user = currentUser
-
-        // user.username = name;
-        // user.email = email;
-        // user.image = image;
-        // user.bio = bio;
-        // user.twitter = twitter;
-
-        // updateDoc(user.eth_address, 'profile', user, function() {
-        //     openDialog();
-        // })
 
         updateProfile()
         
@@ -286,10 +251,10 @@ const ProfileForm = (props) => {
                     </Dialog>
 
                     <div className="faq-contact">
-                        <button className="btn btn-primary" onClick={() => {
-                                testRules()}}>Test</button>
+                        {/* <button className="btn btn-primary" onClick={() => {
+                                testRules()}}>Test</button> */}
                         <h3>Complete the information about your profile</h3>
-                        <form action={`/user/${currentUser.eth_address}`} onSubmit={(event) => {
+                        <form action={`/User/${currentUser.eth_address}`} onSubmit={(event) => {
                             handleSubmit(event)
                         }
                         }>
@@ -327,14 +292,29 @@ const ProfileForm = (props) => {
                                     </div>
                                 </div>
 
+                                <p><strong> Twitter account </strong><br/>Enter your twitter username</p>
+                                <div className="col-lg-12 col-md-12">
+                                    <div className="form-group">
+                                        <input type="text" placeholder="@" className="form-control" value={twitter} onChange={handleChangeTwitter}/>
+                                    </div>
+                                </div>
+
+                                <p><strong> Website </strong></p>
+                                <div className="col-lg-12 col-md-12">
+                                    <div className="form-group">
+                                        <input type="url" id="url" pattern="https://.*" placeholder="https://your-site.com" className="form-control" 
+                                        value={site} onChange={handleChangeSite}/>
+                                    </div>
+                                </div>
+
                     
-                                <p><strong> Twitter account </strong><br/>Connect to Twitter to link your account to your profile</p>
+                                {/* <p><strong> Twitter account </strong><br/>Connect to Twitter to link your account to your profile</p>
                                 <div className="col-lg-12 col-md-12">
                                     <div className="form-group">
                                         {displayTwitter()}
                                         
                                     </div>
-                                </div>
+                                </div> */}
 
                                 <div className="col-lg-12 col-md-12">
                                     <button className="btn btn-primary" type="submit" onClick={(event) => {
@@ -391,13 +371,27 @@ const ProfileForm = (props) => {
                                     </div>
                                 </div>
 
-                    
-                                <p><strong> Twitter account </strong><br/>Connect to Twitter to link your account to your profile</p>
+                                <p><strong> Twitter account </strong><br/>Enter your twitter username</p>
                                 <div className="col-lg-12 col-md-12">
                                     <div className="form-group">
                                         <Skeleton animation={false} variant="rect" height={45} />
                                     </div>
                                 </div>
+
+                                <p><strong> Website </strong></p>
+                                <div className="col-lg-12 col-md-12">
+                                    <div className="form-group">
+                                        <Skeleton animation={false} variant="rect" height={45} />
+                                    </div>
+                                </div>
+
+                    
+                                {/* <p><strong> Twitter account </strong><br/>Connect to Twitter to link your account to your profile</p>
+                                <div className="col-lg-12 col-md-12">
+                                    <div className="form-group">
+                                        <Skeleton animation={false} variant="rect" height={45} />
+                                    </div>
+                                </div> */}
                             </div>
                     </div>
                 </div>

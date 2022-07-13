@@ -136,9 +136,9 @@ const Campaign = (props) => {
     }
 
     const showWebsite = () => {
-        if(user.website != ""){
+        if(user.site != ""){
             return <li>
-            <Icon.Globe /> <a href={user.website} target="_blank">{user.website}</a>
+            <Icon.Globe /> <a href={user.site} target="_blank">{user.site}</a>
         </li>
         }
     }

@@ -64,7 +64,7 @@ const ChipUser = (props) => {
       } else {
         return <>
         <Link href={{
-          pathname: "/user/[id]",
+          pathname: "/User/[id]",
              query: {
                id: user.eth_address,
              }
