@@ -775,7 +775,7 @@ const Navbar = () => {
 
                         <ul className="dropdown-menu">
                             <li className="nav-item">
-                                <Link href={`/User/${userAddr}`} activeClassName="active">
+                                <Link href={`/user/${userAddr}`} activeClassName="active">
                                     <a onClick={toggleNavbar} className="nav-link">View Profile</a>
                                 </Link>
                             </li>

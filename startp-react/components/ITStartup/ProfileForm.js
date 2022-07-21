@@ -149,7 +149,7 @@ const ProfileForm = (props) => {
                 <div style={{justifyContent:'center'}}>
                 <h5 style={{marginBottom: 5}}>You can now go back to your profile to check your changes !</h5>
                     <Link href={{
-                        pathname: "/User/[id]",
+                        pathname: "/user/[id]",
                         query: {
                             id: addr,
                             }
@@ -254,7 +254,7 @@ const ProfileForm = (props) => {
                         {/* <button className="btn btn-primary" onClick={() => {
                                 testRules()}}>Test</button> */}
                         <h3>Complete the information about your profile</h3>
-                        <form action={`/User/${currentUser.eth_address}`} onSubmit={(event) => {
+                        <form action={`/user/${currentUser.eth_address}`} onSubmit={(event) => {
                             handleSubmit(event)
                         }
                         }>
@@ -295,11 +295,11 @@ const ProfileForm = (props) => {
                                 <p><strong> Twitter account </strong><br/>Enter your twitter username</p>
                                 <div className="col-lg-12 col-md-12">
                                     <div className="form-group">
-                                        <input type="text" placeholder="@" className="form-control" value={twitter} onChange={handleChangeTwitter}/>
+                                        <div style={{display:'flex', alignItems:'center'}}>@<input style={{marginLeft: 3}} type="text" placeholder="myusername" className="form-control" value={twitter} onChange={handleChangeTwitter}/></div>
                                     </div>
                                 </div>
 
-                                <p><strong> Website </strong></p>
+                                <p><strong> Website </strong><br/>Enter a link to your website</p>
                                 <div className="col-lg-12 col-md-12">
                                     <div className="form-group">
                                         <input type="url" id="url" pattern="https://.*" placeholder="https://your-site.com" className="form-control" 
