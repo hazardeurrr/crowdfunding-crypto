@@ -1,12 +1,12 @@
 import React from 'react';
-import Navbar from "@/components/_App/Navbar";
 import Footer from "@/components/_App/Footer";
 import PageBanner from '@/components/Common/PageBanner';
+import NavbarStyleTwo from '@/components/_App/NavbarStyleTwo';
  
 const PrivacyPolicy = () => {
     return (
         <>
-            <Navbar />
+            <NavbarStyleTwo />
 
             <PageBanner pageTitle="Privacy Policy" />
 
