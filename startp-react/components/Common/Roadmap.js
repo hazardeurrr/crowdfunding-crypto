@@ -154,6 +154,29 @@ const Roadmap = () => {
         </TimelineItem>
 
         <TimelineItem>
+            <TimelineOppositeContent>
+            <Typography variant="body2" color="textSecondary" >
+                Q1/Q2 2023
+            </Typography>
+            </TimelineOppositeContent>
+            <TimelineSeparator>
+            <TimelineDot>
+        
+            </TimelineDot>
+            <TimelineConnector />
+            </TimelineSeparator>
+            <TimelineContent>
+            <div style={{padding: '10px', width: '-moz-fit-content',display: 'inline-block', boxShadow: '0 2px 48px 0 rgb(0 0 0 / 8%)'}}>
+                <Typography variant="h6" component="h1">
+                    V2
+                </Typography>
+                <Typography>{t.v2launch}</Typography>
+            </div>
+            
+            </TimelineContent>
+        </TimelineItem>
+
+        <TimelineItem>
         <TimelineOppositeContent>
             <Typography variant="body2" color="textSecondary">
                 {t.q22}

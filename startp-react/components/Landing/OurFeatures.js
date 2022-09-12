@@ -30,8 +30,8 @@ const OurFeatures = () => {
                             <h3>
                                     {t.fees}
                             </h3>
-                            <p><b style={{fontSize: 17}}>{t.chargedFees}</b><br></br> {t.fees2}<br></br>
-                            <i style={{fontSize: 13}}>{t.fees3}</i></p>
+                            <p><b style={{fontSize: 17}}>{t.chargedFees}</b><br></br> {t.fees2}<br></br></p>
+                            <p><i style={{fontSize: 13, marginTop: 5}}>{t.fees3}</i></p>
                             {/* <p style={{fontSize: 10, marginTop: 20}}>*{t.repartition}</p> */}
                             {/* <p style={{fontSize: 10, marginTop: 10}}>*{t.fees4}</p> */}
 
@@ -52,33 +52,8 @@ const OurFeatures = () => {
                             {t.noFees2}
                             <br></br>
                             {t.noFees3}
-                            <br></br>
-                            <i style={{fontSize: 12}}>{t.charges}</i></p>
-                        </div>
-                    </div>
-
-                    <div className="col-lg-6 col-md-6">
-                        <div className="single-features">
-                            <div className="icon bg-eb6b3d">
-                                <RiHandCoinLine  size={30}/>
-                            </div>
-                            <h3>
-                                    {t.cashback}
-                            </h3>
-                            <p>{t.boostCampaign}</p>
-                        </div>
-                    </div>
-                
-
-                    <div className="col-lg-6 col-md-6">
-                        <div className="single-features">
-                            <div className="icon bg-eb6b3d">
-                                <FaVoteYea size={30} />
-                            </div>
-                            <h3>
-                                  {t.governance}  
-                            </h3>
-                            <p>{t.power}</p>
+                            <br></br></p>
+                            <p><i style={{fontSize: 12, marginTop: 5}}>{t.charges}</i></p>
                         </div>
                     </div>
 
@@ -90,7 +65,8 @@ const OurFeatures = () => {
                             <h3>
                                     {t.raise}{t.raiseCrypto}
                             </h3>
-                            <p>{t.raising}</p>
+                            <p>{t.raising}<br></br>
+                            <i style={{fontSize: 12, marginTop: -10}}>{t.v2coming}</i></p>
                         </div>
                     </div>
 
@@ -105,6 +81,37 @@ const OurFeatures = () => {
                             <p>{t.fast}</p>
                         </div>
                     </div>
+
+                    <div className="col-lg-6 col-md-6">
+                        <div className="single-features">
+                            <div className="icon bg-eb6b3d">
+                                <RiHandCoinLine  size={30}/>
+                            </div>
+                            <h3>
+                                    {t.cashback}
+                            </h3>
+                            <p>{t.boostCampaign}</p>
+                            <p><i style={{fontSize: 13, marginTop: 5}}>{t.rewardsv2}</i></p>
+
+                        </div>
+                    </div>
+                
+
+                    <div className="col-lg-6 col-md-6">
+                        <div className="single-features">
+                            <div className="icon bg-eb6b3d">
+                                <FaVoteYea size={30} />
+                            </div>
+                            <h3>
+                                  {t.governance}  
+                            </h3>
+                            <p>{t.power}</p>
+                            <p><i style={{fontSize: 13, marginTop: 5}}>{t.boostv2}</i></p>
+
+                        </div>
+                    </div>
+
+                   
 
                     
                 </div>

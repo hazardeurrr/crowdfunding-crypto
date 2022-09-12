@@ -19,7 +19,7 @@ const LandingPage = () => {
             <FunFactsArea />
 
             <OurFeatures />
-            <ServicesArea />
+            {/* <ServicesArea /> */}
             <Roadmap />
             {/* <RecentWorks /> */}
             {/* <Team /> */}

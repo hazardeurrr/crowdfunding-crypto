@@ -78,7 +78,7 @@ const FunFactsArea = () => {
                         <div className="funfact">
                             <h3>0%</h3>
                             <p>{t.platformf}</p>
-                            <p style={{fontStyle:'italic', fontSize: 10, marginTop: -15}}>({t.inbbst})</p>
+                            {/* <p style={{fontStyle:'italic', fontSize: 10, marginTop: -15}}>({t.inbbst})</p> */}
                         </div>
                     </div>
 
@@ -92,7 +92,7 @@ const FunFactsArea = () => {
                     <div className="col-lg-3 col-md-3 col-6">
                         <div className="funfact">
                             <h3>3</h3>
-                            <p>{t.currenciesn}</p>
+                            <p>{t.currencies}</p>
                         </div>
                     </div>
 
@@ -100,8 +100,8 @@ const FunFactsArea = () => {
                         <div className="funfact">
                             <h3>{t.rewardsevery}</h3>
                             <p>{t.everyweek}</p>
-                            {/* <p style={{fontStyle:'italic', fontSize: 10, marginTop: -15}}>(BBST rewards)</p> */}
-                        </div>
+                            <p style={{fontStyle:'italic', fontSize: 10, marginTop: -15}}>(coming with V2)</p>
+                            </div>
                     </div>
 
                     
