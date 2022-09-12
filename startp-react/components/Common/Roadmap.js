@@ -105,28 +105,7 @@ const Roadmap = () => {
             </TimelineContent>
         </TimelineItem>
 
-        <TimelineItem>
-            <TimelineOppositeContent>
-            <Typography variant="body2" color="textSecondary" >
-                Q3/Q4 2022
-            </Typography>
-            </TimelineOppositeContent>
-            <TimelineSeparator>
-            <TimelineDot>
         
-            </TimelineDot>
-            <TimelineConnector />
-            </TimelineSeparator>
-            <TimelineContent>
-            <div style={{padding: '10px', width: '-moz-fit-content',display: 'inline-block', boxShadow: '0 2px 48px 0 rgb(0 0 0 / 8%)'}}>
-                <Typography variant="h6" component="h1">
-                    BBST Launch
-                </Typography>
-                <Typography>{t.sale}</Typography>
-            </div>
-            
-            </TimelineContent>
-        </TimelineItem>
 
        
         <TimelineItem>
@@ -148,6 +127,29 @@ const Roadmap = () => {
                 </Typography>
                 <Typography>{t.mainnet}</Typography>
             </div>
+            </TimelineContent>
+        </TimelineItem>
+
+        <TimelineItem>
+            <TimelineOppositeContent>
+            <Typography variant="body2" color="textSecondary" >
+                Q1/Q2 2023
+            </Typography>
+            </TimelineOppositeContent>
+            <TimelineSeparator>
+            <TimelineDot>
+        
+            </TimelineDot>
+            <TimelineConnector />
+            </TimelineSeparator>
+            <TimelineContent>
+            <div style={{padding: '10px', width: '-moz-fit-content',display: 'inline-block', boxShadow: '0 2px 48px 0 rgb(0 0 0 / 8%)'}}>
+                <Typography variant="h6" component="h1">
+                    BBST Launch
+                </Typography>
+                <Typography>{t.sale}</Typography>
+            </div>
+            
             </TimelineContent>
         </TimelineItem>
 
