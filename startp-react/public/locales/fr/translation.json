@@ -38,7 +38,7 @@
     "cashback":"Les récompenses pour les contributeurs",
     "boostCampaign":"Les contributeurs qui boostent des projets sur Blockboosted recevront des tokens BBST, en fonction de leur contribution !",
     "boostv2":"Disponible avec la V2.",
-    "rewardsv2": "Vous ne pourrez pas récupérer les récompenses en BBST avant la V2. Mais ne vous inquiétez pas, elles seront rétroactives !",
+    "rewardsv2": "Disponible avec la V2 👀 (rétroactif)",
     "governance":"La gouvernance pour les stakers",
     "power": "Rendons le pouvoir aux utilisateurs ! Les stakers de BBST peuvent voter pour les améliorations de la plateforme, les airdrops, ainsi que les campagnes mises en avant.",
     "raise": "Levez des fonds en crypto",
@@ -94,7 +94,7 @@
     "t.byBBSTTeam": "par l'équipe BBST",
     "newsletter": "Inscrivez vous à notre newsletter",
     "news": "Soyez au courant des dernières nouvelles du projet et du BBST IDO",
-    "exp1": "Nouvelles fonctionnalités",
+    "exp1": "Déploiement multi-chain",
     "exp2": "Service dédié aux associations",
     "exp3": "Plateforme dédiée aux créateurs de contenu"
 }

@@ -36,7 +36,7 @@
     "rewardsevery": "Rewards",
     "everyweek": "Every week",
     "v2launch":"BBST integration, governance & rewards",
-    "rewardsv2": "You won't be able to get your BBST rewards before V2. But don't worry, they will be retroactive !",
+    "rewardsv2": "This feature will be avaiable in V2 👀 (retroactive) !",
     "v2coming":"(BBST will also be available in V2)",
 
     "charges": "Crowdfunding platforms usually charge a 3 to 5% payment fee for their payment provider on top of the platform fee.",
@@ -95,7 +95,7 @@
     "t.byBBSTTeam": "by the BBST Team",
     "newsletter": "Subscribe to our newsletter",
     "news": "Get the latest news on the project and the BBST IDO.",
-    "exp1": "New features",
+    "exp1": "Multichain deployment",
     "exp2": "Dedicated service for charities",
     "exp3": "Dedicated platform for content creators"
 }
