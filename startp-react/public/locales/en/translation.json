@@ -12,7 +12,7 @@
     "currenciesn": "Cryptocurrencies",
     "upto" : "Up to",
     "keep" : "Keep in touch !",
-    "getnews" : "Get the news on the project and IDO.",
+    "getnews" : "Get the news on the project.",
 
     "hero": "Crowdfunding reinvented with BlockBoosted !",
     "heroDesc":"Less fees, more trust, better user experience and rewards for contributors.",
@@ -24,7 +24,7 @@
     "title": "Fair Crowdfunding",
     "subtitle": "We make crowdfunding fairer for raisers and contributors.",
     "fees": "No platform fee",
-    "chargedFees": "We charge 0% fee on your campaign.",
+    "chargedFees": "We charge 0% fee.",
     "fees2": "We will not charge any fee whatever the currency you choose to raise money in. Keep it all !",
     "fees3": "Crowdfunding platforms usually charge a 5% platform fee.",
     "repartition": "0% for campaigns in BBST, 3.5% for successfuls campaigns in BNB and BUSD",
@@ -94,7 +94,7 @@
     "t.doneWith": "Made with",
     "t.byBBSTTeam": "by the BBST Team",
     "newsletter": "Subscribe to our newsletter",
-    "news": "Get the latest news on the project and the BBST IDO.",
+    "news": "Get the latest news on the project.",
     "exp1": "Multichain deployment",
     "exp2": "Dedicated service for charities",
     "exp3": "Dedicated platform for content creators"
