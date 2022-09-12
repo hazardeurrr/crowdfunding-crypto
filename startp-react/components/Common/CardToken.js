@@ -249,8 +249,21 @@ const closeDialog = () => {
     }
   }
 
+  const displayCardContentV1 = () => {
+    return   <Card elevation={3} style={{marginTop: 50, borderRadius: 10, alignItems:'center', justifyContent:'center'}}>
+        <div style={{alignItems:"center"}}>
+          <CardContent>
+            <Typography component="h5" variant="h5" color="textSecondary">
+              Claim will begin in V2<br></br><i style={{fontSize: 20}}>Note that rewards will be retroactive</i>
+            </Typography>
+          </CardContent>
+          </div>
+
+    </Card>
+  }
+
   return (
-    displayCardContent()
+    displayCardContentV1()
   );
 }
 

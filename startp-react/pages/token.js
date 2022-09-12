@@ -53,7 +53,7 @@ const TokenDetails = () => {
         <>
             <Navbar />
 
-            <PageBanner pageTitle="BBST Token" />
+            {/* <PageBanner pageTitle="BBST Token" /> */}
             
             {/* <div style={{margin: '0 auto', textAlign: 'center'}}>
                 <form>
@@ -63,33 +63,19 @@ const TokenDetails = () => {
                     </div>
                 </form>
             </div> */}
-
-
-
-                <div className="features-area pt-80 bg-f7fafd">
-                    <div className="container">
-                        <div className="section-title">
-                            <h2 className="search-page-title">Mint Test BBST (BNB Smart Chain network)</h2>
-                            <div className="bar"></div>
-                            <p>Test BBST can be used on our test platform (on BNB Smart Chain network). Feel free to mint some to try our platform !</p>
-                            <MintToken style={{marginTop: 80}}/>
-                            {addToMetamaskBtn()}
-                        </div>
-                    </div>
-                </div>
-
+{/* 
            <div className="features-area pt-80 bg-f7fafd">
-                    <div className="container">
-                        <div className="section-title">
-                            <h2 className="search-page-title">Claim your tokens</h2>
-                            <div className="bar"></div>
-                            <p>Contribute to campaigns to earn BBST.</p>
-                            <p><Icon.AlertTriangle />During Alpha period, rewards are distributed every day instead of every week for test purposes.</p>
-                            <CardToken style={{marginTop: 80}}/>
-                            {addToMetamaskBtn()}
-                        </div>
+                <div className="container">
+                    <div className="section-title">
+                        <h2 className="search-page-title">Claim your tokens</h2>
+                        <div className="bar"></div>
+                        <p>Contribute to campaigns to earn BBST.<br></br>Balances are updated every week.</p><br></br>
+                        <p><Icon.AlertTriangle /> Claim will be available in V2. <br></br>Note that rewards will be retroactive.</p>
+                        <CardToken style={{marginTop: 80}}/>
+                        {addToMetamaskBtn()}
                     </div>
                 </div>
+            </div> */}
 
             <div className="services-details-area ptb-80">
                 <div className="container">
@@ -110,9 +96,25 @@ const TokenDetails = () => {
                             />
                         </div>
                     </div> */}
+
+                    <div className="features-area pt-80 bg-f7fafd">
+                        <div className="container">
+                            <div className="section-title">
+                                <h2 className="search-page-title">Claim your tokens</h2>
+                                <div className="bar"></div>
+                                <p>Contribute to campaigns to earn BBST.<br></br>Balances are updated every week.</p><br></br>
+                                {/* <p><Icon.AlertTriangle /> Claim will be available in V2. <br></br><i>Note that rewards will be retroactive.</i></p> */}
+                                <CardToken style={{marginTop: 80}}/>
+                                {/* {addToMetamaskBtn()} */}
+                            </div>
+                        </div>
+                    </div>
+
                     <ServicesArea />
 
-                    <div className="separate"></div>
+                    
+
+                    {/* <div className="separate"></div>
 
                     <div className="row align-items-center">
                         <div className="col-lg-6 services-details-image">
@@ -204,9 +206,8 @@ const TokenDetails = () => {
                             </div>
                         </div>
 
-                        {/* <div className="separate"></div> */}
- 
-                    </div>
+                        
+                    </div> */}
                 </div>
             </div>
 

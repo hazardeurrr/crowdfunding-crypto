@@ -604,20 +604,20 @@ class MainForm extends React.Component {
                 <input type="radio" id="bnb_busd" name="bnb_radio-group" value="b_BUSD" checked={this.state.raisingMethod == "b_BUSD"} onChange={(event) => {
                     this.setState({raisingMethod: event.target.value})
                 }}/>
-                <label htmlFor="bnb_busd">BUSD (3.5% fee)</label>
+                <label htmlFor="bnb_busd">BUSD</label>
             </p>
             <p>
                 <input type="radio" id="bnb_bnb" name="bnb_radio-group" value="b_BNB" checked={this.state.raisingMethod == "b_BNB"} onChange={(event) => {
                     this.setState({raisingMethod: event.target.value})
                 }}/>
-                <label htmlFor="bnb_bnb">BNB (3.5% fee)</label>
+                <label htmlFor="bnb_bnb">BNB</label>
             </p>
-            <p>
+            {/* <p>
                 <input type="radio" id="bnb_bbst" name="bnb_radio-group" value="b_BBST" checked={this.state.raisingMethod == "b_BBST"} onChange={(event) => {
                     this.setState({raisingMethod: event.target.value})
                 }}/>
                 <label htmlFor="bnb_bbst">BBST (0% fee)</label>
-            </p>
+            </p> */}
         </div>
         }
     }

@@ -54,7 +54,7 @@ const ServicesArea = () => {
                             <div className="section-title">
                                 <div style={{display : "flex"}}><img src="/images/cryptoicons/bbstgrad.png" style={{height: 35, marginRight: 10}}/><h2 style={{marginTop: "auto", marginBottom:"auto"}}>{t.bbstoken}</h2></div>
                                 <div className="bar"></div>
-                                <h5>{t.partners}</h5><br></br><p>{t.descToken}</p>
+                                <h5>{t.partners}</h5><p><i>Coming soon with BlockBoosted v2 👀</i></p>
                                 
                             </div>
 

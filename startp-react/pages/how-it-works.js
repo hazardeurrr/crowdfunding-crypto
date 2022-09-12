@@ -157,12 +157,12 @@ const ServiceDetails = () => {
                                                 <p>
                                                     If you contributed to a campaign chosing a plan with a reward, you will soon be contacted by the campaign's creator.
                                                     When the campaign ends, we transfer all the needed information of your profile to the creator so he can send you the relevant reward. <br></br>
-                                                    <Icon.AlertTriangle/> Be sure to fill your profile (at least your email address) so the creator will be able to contact you. 
+                                                    <Icon.AlertTriangle/> Make sure to fill your profile (at least your email address) so the creator will be able to contact you. 
                                                 </p>
                                             </AccordionItemPanel>
                                         </AccordionItem>
 
-                                        <AccordionItem uuid="g">
+                                        {/* <AccordionItem uuid="g">
                                             <AccordionItemHeading>
                                                 <AccordionItemButton>
                                                     <span>
@@ -171,13 +171,11 @@ const ServiceDetails = () => {
                                                 </AccordionItemButton>
                                             </AccordionItemHeading>
                                             <AccordionItemPanel>
-                                                <p>
-                                                    When you contribute to a campaign, you will also earn BBST as rewards. BBST is the token powering our ecosystem. It has value and give you power on the platform. Learn more about it and claim your due on the dedicated page <Link href="/token"><a>BBST Token</a></Link>. The amount
+                                                <p> When you contribute to a campaign, you will also earn BBST as rewards. BBST is the token powering our ecosystem. It has value and give you power on the platform. Learn more about it and claim your due on the dedicated page <Link href="/token"><a>BBST Token</a></Link>. The amount
                                                     of BBST you'll get depends on the amount of the contributions you've made.<br></br> Each week, up to 15 000 BBST are given to the community as rewards.<br></br>
-                                                    {/* <Icon.AlertTriangle/>Note that reward balances are updated every monday at 00:00 GMT+1. */}
                                                 </p>
                                             </AccordionItemPanel>
-                                        </AccordionItem>
+                                        </AccordionItem> */}
 
                                         {/* <AccordionItem uuid="g">
                                             <AccordionItemHeading>
@@ -209,7 +207,7 @@ const ServiceDetails = () => {
                                                 <p>
                                                     The easiest way to get assets on BNB Smart Chain (BSC) is to make a withdrawal of your selected currency from Binance or any other exchanges that supports BSC. <b>Make sure to select BNB Smart Chain (BSC) as selected network when you make your withdrawal !</b><br></br><br></br>
                                                     If you have assets on other chains and want to bridge them to the BSC network, please use <a href="https://www.bnbchain.org/en/bridge">the BNB Smart Chain Bridge</a><br></br><br></br>
-                                                    If you already have some crypto on BSC network, you can directly use it on our platform (BNB, BUSD or BBST)
+                                                    If you already have some crypto on BSC network, you can directly use it on our platform (BNB or BUSD)
                                                     or swap it on a DEX/CEX that supports BSC.
                                                     <br></br><br></br><Icon.AlertTriangle />&nbsp;<i>Note that you will need BNB to pay the gas fees once using the BNB Smart Chain network.</i>
                                                 </p>
@@ -311,6 +309,21 @@ const ServiceDetails = () => {
                                                 <AccordionItemHeading>
                                                     <AccordionItemButton>
                                                         <span>
+                                                            What are the fees ?
+                                                        </span>
+                                                    </AccordionItemButton>
+                                                </AccordionItemHeading>
+                                                <AccordionItemPanel>
+                                                    <p>
+                                                        None ! We don't charge any fee for this version of the platform. You can keep everything you manage to raise !
+                                                    </p>
+                                                </AccordionItemPanel>
+                                            </AccordionItem>    
+
+                                            <AccordionItem uuid="b2">
+                                                <AccordionItemHeading>
+                                                    <AccordionItemButton>
+                                                        <span>
                                                             What are the supported networks ?
                                                         </span>
                                                     </AccordionItemButton>
@@ -347,7 +360,7 @@ const ServiceDetails = () => {
                                                 </AccordionItemHeading>
                                                 <AccordionItemPanel>
                                                     <p>
-                                                       Yes you can! Just check the corresponding checkbox on the campaign creation form. You can have up to 5 different tiers to offer. For each tier, you can set its own price as well as its maximum amount if you want it to be limited in quantity.
+                                                       Yes you can ! Just check the corresponding checkbox on the campaign creation form. You can have up to 5 different tiers to offer. For each tier, you can set its own price as well as its maximum amount if you want it to be limited in quantity.
                                                     </p>
                                                 </AccordionItemPanel>
                                             </AccordionItem>
@@ -362,7 +375,7 @@ const ServiceDetails = () => {
                                                 </AccordionItemHeading>
                                                 <AccordionItemPanel>
                                                     <p>
-                                                        We currently support 3 cryptocurrencies : BNB, BUSD or BBST.
+                                                        We currently support 2 cryptocurrencies : BNB and BUSD.
                                                     </p>
                                                 </AccordionItemPanel>
                                             </AccordionItem>
@@ -412,7 +425,7 @@ const ServiceDetails = () => {
                                                 </AccordionItemPanel>
                                             </AccordionItem>
 
-                                            <AccordionItem uuid="i">
+                                            {/* <AccordionItem uuid="i">
                                                 <AccordionItemHeading>
                                                     <AccordionItemButton>
                                                         <span>
@@ -427,7 +440,7 @@ const ServiceDetails = () => {
                                                         get likes from the BlockBoosted community !
                                                     </p>
                                                 </AccordionItemPanel>
-                                            </AccordionItem>
+                                            </AccordionItem> */}
 
                                             
                                         </Accordion>
