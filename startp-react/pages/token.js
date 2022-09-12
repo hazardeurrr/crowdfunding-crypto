@@ -97,22 +97,22 @@ const TokenDetails = () => {
                         </div>
                     </div> */}
 
+                 
+
+                    <ServicesArea />
+
                     <div className="features-area pt-80 bg-f7fafd">
                         <div className="container">
                             <div className="section-title">
-                                <h2 className="search-page-title">Claim your tokens</h2>
+                                <h2 className="search-page-title">BBST Rewards</h2>
                                 <div className="bar"></div>
                                 <p>Contribute to campaigns to earn BBST.<br></br>Balances are updated every week.</p><br></br>
                                 {/* <p><Icon.AlertTriangle /> Claim will be available in V2. <br></br><i>Note that rewards will be retroactive.</i></p> */}
-                                <CardToken style={{marginTop: 80}}/>
+                                <CardToken style={{marginTop: 0}}/>
                                 {/* {addToMetamaskBtn()} */}
                             </div>
                         </div>
                     </div>
-
-                    <ServicesArea />
-
-                    
 
                     {/* <div className="separate"></div>
 

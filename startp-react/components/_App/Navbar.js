@@ -413,13 +413,27 @@ const Navbar = () => {
             } else {
                 web3b = new Web3(new Web3.providers.HttpProvider("https://data-seed-prebsc-1-s1.binance.org:8545/"))
             }
-            const bbst_contract = new web3b.eth.Contract(bbstAbi.bbstAbi, bbstAddr.bbstAddr);
-            bbst_contract.methods.balanceOf(address).call().then(response => {
-                dispatch({
-                    type: 'SET_BBST_BALANCE',
-                    id: response
-                })
-            }).catch(console.error)
+
+
+            //--------------------------------BBST BALANCE CHECKER-------------------------------//
+
+            // const bbst_contract = new web3b.eth.Contract(bbstAbi.bbstAbi, bbstAddr.bbstAddr);
+            // bbst_contract.methods.balanceOf(address).call().then(response => {
+            //     dispatch({
+            //         type: 'SET_BBST_BALANCE',
+            //         id: response
+            //     })
+            // }).catch(console.error)
+
+            dispatch({
+                type: 'SET_BBST_BALANCE',
+                id: 0
+            })
+
+
+
+
+
         
         if (address != undefined) {
 

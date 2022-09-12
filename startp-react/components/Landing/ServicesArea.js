@@ -47,7 +47,7 @@ const ServicesArea = () => {
       
     return (
         <>
-           <div className="services-area ptb-80 bg-f7fafd">
+           <div className="services-area bg-f7fafd" style={{marginTop: 75, paddingTop: 15}}>
                 <div className="container">
                     <div className="row justify-content-center align-items-center">
                         <div className="col-lg-6 col-md-12 services-content">
