@@ -36,6 +36,7 @@ import Custom404 from 'pages/404';
 import DOMPurify from 'isomorphic-dompurify';
 
 import { prefixedAddress } from '@/utils/prefix';
+import { NoBscProviderError } from '@binance-chain/bsc-connector';
 
 
 const useStyles = makeStyles((theme) => ({
@@ -344,7 +345,14 @@ const Campaign = (props) => {
 
     const displayCurrency = () => {
         if(raisedRetrieve)
-            return <div style={{marginLeft : 5}}>{showCurrencyWoPrefix()} raised / {parseFloat(campaign.objective)} {showCurrencyWoPrefix()}</div>
+            // return <div style={{marginLeft : 5}}>{showCurrencyWoPrefix()} raised / {parseFloat(campaign.objective)} {showCurrencyWoPrefix()}</div>
+            return <div>&nbsp;{showCurrencyWoPrefix()}</div>
+    }
+
+    const displayObjective = () => {
+        if(raisedRetrieve)
+            // return <div style={{marginLeft : 5}}>{showCurrencyWoPrefix()} raised / {parseFloat(campaign.objective)} {showCurrencyWoPrefix()}</div>
+            return <p className="justandtextcenter" style={{marginTop: -10, marginBottom: 7}}>raised out of {parseFloat(campaign.objective)} {showCurrencyWoPrefix()}</p>
     }
 
     const showNetwork = () => {
@@ -464,15 +472,15 @@ const Campaign = (props) => {
 
                                     
                                         <p style={{fontSize: 15, marginBottom: 30}}>{campaign.small_description}</p>
-                                        <h5 style={{display:"flex"}}>{displayRaised()} {displayCurrency()}</h5> 
-                                        
+                                        <h5 className="justandtextcenter" style={{display:"flex"}}>{displayRaised()} {displayCurrency()}</h5> 
+                                        {displayObjective()}
                                         {displayProgressBar()}
-                                        <div className="blog-details-desc">
+                                        <div className="blog-details-desc justandtextcenter">
                                             <div className="article-content">
                                                 <div className="entry-meta">
                                                       
                                                     <ul>
-                                                        <li>
+                                                        <li style={{color:'#6084a4'}}>
                                                             <Icon.Clock /> {timeLeft()}
                                                         </li>
                                                         {/* <li>
@@ -487,7 +495,7 @@ const Campaign = (props) => {
                                             </div>
                                         </div>
 
-                                        <div style={{display: "flex"}}>
+                                        <div className="justandtextcenter" style={{display: "flex"}}>
                                             {BackButton()}
                                             {/* {RefundButton()} */}
 

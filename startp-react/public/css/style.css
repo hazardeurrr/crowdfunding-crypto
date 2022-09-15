@@ -10807,3 +10807,8 @@ Go Top CSS
 .main_logo_navbar{
 	content:url("/images/logo_svg-cropped.svg");
 }
+
+.justandtextcenter {
+  justify-content: center;
+  text-align:center;
+}

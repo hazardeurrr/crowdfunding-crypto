@@ -56,7 +56,7 @@ const ShareIcons = (props) => {
   };
 
     return (
-      <div style={{display: 'flex', flexDirection: 'row'}}>
+      <div style={{display: 'flex', flexDirection: 'row'}} className="shareicons">
         <TwitterShareButton className="share-icon"
           title={`Boost the crowdfunding campaign "${props.campaign.title}" with crypto on @blockboosted`}
           url={pageURL}
