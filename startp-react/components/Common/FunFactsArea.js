@@ -127,6 +127,7 @@ const FunFactsArea = () => {
 
 
                                 <Dialog
+                                    className='dialogResponsive'
                                     open={inBase}
                                     onClose={handleClosed}
                                     aria-labelledby="alert-dialog-title"
@@ -141,6 +142,7 @@ const FunFactsArea = () => {
                                 </Dialog>
 
                                 <Dialog
+                                    className='dialogResponsive'
                                     open={open}
                                     onClose={handleClose}
                                     aria-labelledby="alert-dialog-title"

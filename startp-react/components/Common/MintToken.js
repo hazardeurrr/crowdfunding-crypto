@@ -112,6 +112,7 @@ const closeDialog = () => {
         </Snackbar>
 
         <Dialog
+          className='dialogResponsive'
             open={dialogOpen}
             onClose={(_, reason) => {
                 if (reason !== "backdropClick") {
@@ -189,7 +190,7 @@ const closeDialog = () => {
 
             <DialogContentText id="alert-dialog-description">
             Transaction Hash : </DialogContentText>
-            <DialogContentText id="alert-dialog-description"><a href={`https://testnet.bscscan.com/tx/${Tx}`} target="_blank">{Tx}</a></DialogContentText>
+            <DialogContentText id="alert-dialog-description"><a className="responsiveLinkTx" href={`https://testnet.bscscan.com/tx/${Tx}`} target="_blank">{Tx}</a></DialogContentText>
             </DialogContent></div>
         case 1:
             return <div style={{justifyContent:'center'}}>
@@ -197,7 +198,7 @@ const closeDialog = () => {
             <DialogContent>
             <DialogContentText id="alert-dialog-description" style={{marginTop: 15}}>
             Transaction confirmed : </DialogContentText>
-            <DialogContentText id="alert-dialog-description"><a href={`https://testnet.bscscan.com/tx/${Tx}`} target="_blank">{Tx}</a></DialogContentText>
+            <DialogContentText id="alert-dialog-description"><a className="responsiveLinkTx" href={`https://testnet.bscscan.com/tx/${Tx}`} target="_blank">{Tx}</a></DialogContentText>
             <div style={{justifyContent:'center'}}>
                         <Link href={{
                             pathname: "/"

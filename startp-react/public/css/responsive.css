@@ -2797,6 +2797,10 @@
     content:url("/images/bbonlysmall.svg");
   }
 
+  .chipusersmall {
+    width: 70%;
+  }
+
   .user-address2 {
     display: inline-block;
     overflow: hidden;

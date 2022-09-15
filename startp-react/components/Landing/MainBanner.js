@@ -110,6 +110,7 @@ const MainBanner = () => {
                                 <p style={{fontSize: 20}}>{t.joinrevolution}</p><p style={{fontSize:18}}>Powered by BBST.</p>
                                 {/* <p>{t.subscribe}</p> */}
                                 {/* <Dialog
+                                    className='dialogResponsive'
                                     open={inBase}
                                     onClose={handleClosed}
                                     aria-labelledby="alert-dialog-title"
@@ -124,6 +125,7 @@ const MainBanner = () => {
                                 </Dialog>
 
                                 <Dialog
+                                    className='dialogResponsive'
                                     open={open}
                                     onClose={handleClose}
                                     aria-labelledby="alert-dialog-title"

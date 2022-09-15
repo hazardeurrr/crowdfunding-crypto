@@ -362,9 +362,9 @@ const PricingTiers = (props) => {
 
       const showScan = () => {
         if(campaign.network == chain){
-            return <a href={`https://goerli.etherscan.io/tx/${Tx}`} target="_blank">{Tx}</a>
+            return <a className="responsiveLinkTx" href={`https://goerli.etherscan.io/tx/${Tx}`} target="_blank">{Tx}</a>
         } else if(campaign.network == bnb_chain){
-            return <a href={`https://testnet.bscscan.com/tx/${Tx}`} target="_blank">{Tx}</a>
+            return <a className="responsiveLinkTx" href={`https://testnet.bscscan.com/tx/${Tx}`} target="_blank">{Tx}</a>
         }
     }
 
@@ -388,7 +388,7 @@ const PricingTiers = (props) => {
                 <div style={{display: 'flex', justifyContent:'center', alignItems:'center', flexDirection:'column'}}>
                     <h5>You supported succesfully :</h5>
                     <h4 style={{marginBottom: 5}}>{campaign.title}</h4>
-                    <img width={320} height={180} src={campaign.main_img} alt='campaign image'/>
+                    <img width={320} src={campaign.main_img} alt='campaign image'/>
                     <DialogContentText id="alert-dialog-description">
                     <Link href={{
                                 pathname: "/"
@@ -530,6 +530,7 @@ const PricingTiers = (props) => {
             </Snackbar>
 
             <Dialog
+                className='dialogResponsive'
                 open={dialogOpen}
                 onClose={(_, reason) => {
                     if (reason !== "backdropClick") {
@@ -560,6 +561,7 @@ const PricingTiers = (props) => {
                 {showPlans()}
                 
                 <Dialog
+                    className='dialogResponsive'
                     open={open}
                     onClose={handleClose}
                     aria-labelledby="alert-dialog-title"

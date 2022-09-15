@@ -19,7 +19,6 @@ import { prefixedAddress } from '@/utils/prefix';
 
 const useStyles = makeStyles({
     root: {
-      minWidth: 275,
     },
     bullet: {
       display: 'inline-block',

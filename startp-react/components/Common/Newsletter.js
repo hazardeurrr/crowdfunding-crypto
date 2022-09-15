@@ -79,6 +79,7 @@ const Newsletter = () => {
                         <div className="free-trial-content">
                             <h2>{t.newsletter}</h2>
                             <Dialog
+                                    className='dialogResponsive'
                                     open={inBase}
                                     onClose={handleClosed}
                                     aria-labelledby="alert-dialog-title"
@@ -93,6 +94,7 @@ const Newsletter = () => {
                                 </Dialog>
 
                                 <Dialog
+                                    className='dialogResponsive'
                                     open={open}
                                     onClose={handleClose}
                                     aria-labelledby="alert-dialog-title"

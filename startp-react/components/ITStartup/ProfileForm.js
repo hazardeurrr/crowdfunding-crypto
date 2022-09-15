@@ -232,6 +232,7 @@ const ProfileForm = (props) => {
                     {/* <button onClick={showAddress}>Show address</button>
                      */}
                      <Dialog
+                        className='dialogResponsive'
                         open={dialogOpen}
                         onClose={(_, reason) => {
                             if (reason !== "backdropClick") {

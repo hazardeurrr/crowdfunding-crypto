@@ -171,16 +171,19 @@ const Campaign = (props) => {
     const displayRaised = () => {
         // if(metamask_connected){
             // if(chainID == chain){
-                return  <HtmlTooltip
-                placement="top"
-                title={
-                  <React.Fragment>
-                    <i>Exact amount : {campaign.raised} {showCurrencyWoPrefix()}</i>
-                  </React.Fragment>
-                }
-              >
-                <div><RaisedChecker campaign={campaign} callback={setRaised} decToShow={returnDecToShow()}/></div>
-              </HtmlTooltip>
+                return  <RaisedChecker campaign={campaign} callback={setRaised} decToShow={returnDecToShow()}/>
+                // <HtmlTooltip
+                //     placement="top"
+                //     title={
+                //     <React.Fragment>
+                //         <i>Exact amount : {campaign.raised} {showCurrencyWoPrefix()}</i>
+                //     </React.Fragment>
+                //     }
+                // >
+                //      <div><RaisedChecker campaign={campaign} callback={setRaised} decToShow={returnDecToShow()}/></div>
+                // </HtmlTooltip>
+            
+            
             // }
             // else
             //     return "Connect to the right network to see more"
@@ -510,6 +513,7 @@ const Campaign = (props) => {
                     </div>
 
                     <Dialog
+                        className='dialogResponsive'
                         open={open}
                         onClose={handleClose}
                         aria-labelledby="alert-dialog-title"
@@ -644,7 +648,7 @@ const Campaign = (props) => {
                         <div className="col-lg-4 col-md-12">
                             <div className="widget-area" id="secondary">
                                 <div className="widget widget_startp_posts_thumb">
-                                    <div style={{minWidth: 270}}>
+                                    <div>
 
                                         <h3 className="widget-title"><Skeleton variant="text" animation='pulse'/></h3>
                                         <Skeleton variant="rect" animation='pulse' height={150}/>

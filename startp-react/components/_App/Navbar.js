@@ -950,7 +950,7 @@ const Navbar = () => {
 
                                 {/* //----------------CONNECT MODAL---------------// */}
 
-                                <Dialog onClose={handleConnectClose} aria-labelledby="simple-dialog-title" open={openConnect}>
+                                <Dialog className="dialogResponsive" onClose={handleConnectClose} aria-labelledby="simple-dialog-title" open={openConnect}>
                                     {displayConnectModal(modalState)}
                                 </Dialog>
 

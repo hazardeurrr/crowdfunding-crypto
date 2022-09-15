@@ -251,9 +251,9 @@ const Withdraw = (props) => {
 const showScan = () => {
     if(campaign !== undefined){
         if(campaign.network == chain){
-            return <a href={`https://goerli.etherscan.io/tx/${Tx}`} target="_blank">{Tx}</a>
+            return <a className="responsiveLinkTx" href={`https://goerli.etherscan.io/tx/${Tx}`} target="_blank">{Tx}</a>
         } else if(campaign.network == bnb_chain){
-            return <a href={`https://testnet.bscscan.com/tx/${Tx}`} target="_blank">{Tx}</a>
+            return <a className="responsiveLinkTx" href={`https://testnet.bscscan.com/tx/${Tx}`} target="_blank">{Tx}</a>
         }
     }
 }
@@ -313,6 +313,7 @@ const showScan = () => {
             </Snackbar>
 
             <Dialog
+                className='dialogResponsive'
                 open={dialogOpen}
                 onClose={(_, reason) => {
                     if (reason !== "backdropClick") {

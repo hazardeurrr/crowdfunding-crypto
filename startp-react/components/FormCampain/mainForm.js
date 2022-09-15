@@ -473,9 +473,9 @@ class MainForm extends React.Component {
 
     explorerLink = () => {
         if(this.props.chainID == chain){
-            return <a href={`https://goerli.etherscan.io/tx/${this.state.Tx}`} target="_blank">{this.state.Tx}</a>
+            return <a className="responsiveLinkTx" href={`https://goerli.etherscan.io/tx/${this.state.Tx}`} target="_blank">{this.state.Tx}</a>
         } else if(this.props.chainID == bnb_chain){
-            return <a href={`https://testnet.bscscan.com/tx/${this.state.Tx}`} target="_blank">{this.state.Tx}</a>
+            return <a className="responsiveLinkTx" href={`https://testnet.bscscan.com/tx/${this.state.Tx}`} target="_blank">{this.state.Tx}</a>
         }
     }
 
@@ -552,7 +552,7 @@ class MainForm extends React.Component {
                     <CircularProgress style={{marginTop: 20, marginBottom: 20}}/>
                     <DialogContentText id="alert-dialog-description">
                 Transaction confirmed : </DialogContentText>
-                <DialogContentText id="alert-dialog-description"><a href={this.explorerLink()} target="_blank">{this.state.Tx}</a></DialogContentText>
+                <DialogContentText id="alert-dialog-description">{this.explorerLink()}</DialogContentText>
                 </DialogContent></div>
             default:
                 return <div style={{justifyContent:'center'}}>
@@ -639,6 +639,7 @@ class MainForm extends React.Component {
                 </Snackbar>
 
                 <Dialog
+                    className='dialogResponsive'
                     open={this.state.dialogOpen}
                     onClose={(_, reason) => {
                         if (reason !== "backdropClick") {
@@ -830,6 +831,7 @@ class MainForm extends React.Component {
             </Snackbar>
 
             <Dialog
+                className='dialogResponsive'
                 open={this.state.dialogOpen}
                 onClose={(_, reason) => {
                     if (reason !== "backdropClick") {

@@ -10812,3 +10812,15 @@ Go Top CSS
   justify-content: center;
   text-align:center;
 }
+
+.dialogResponsive {
+  margin-top:115px;
+  max-height:80%
+}
+
+.responsiveLinkTx {
+  text-overflow: ellipsis;
+  overflow: hidden;
+  font-size: 14;
+  display: block;
+}
