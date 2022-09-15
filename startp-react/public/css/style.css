@@ -9431,7 +9431,7 @@ ML Projects CSS
   position: relative;
   overflow: hidden;
   z-index: 1;
-  padding-bottom: 25px;
+  /* padding-bottom: 25px; */
 }
 
 .ml-projects-area .section-title {

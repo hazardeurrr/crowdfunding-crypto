@@ -54,8 +54,7 @@
   }
   .main-banner {
     height: 100%;
-    margin-top: 150px;
-    /* padding-bottom: 80px; */
+    padding-top: 125px;
     background-position: center;
   }
   .main-banner .hero-content {
@@ -1806,7 +1805,7 @@
 
   .main-banner {
     height: 100%;
-    margin-top: 150px;
+    padding-top: 125px;
     /* padding-bottom: 80px; */
     background-position: center;
   }
@@ -2370,10 +2369,10 @@
     margin-right: auto;
   }
   #header.headroom {
-    padding: 10px 0;
+    /* padding: 10px 0; */
   }
   #header.headroom.is-sticky {
-    padding-top: 10px;
+    /* padding-top: 10px; */
     padding-bottom: 10px;
   }
   .startp-nav nav .navbar-nav .nav-item a {
@@ -2423,9 +2422,9 @@
 
   .main-banner {
     height: 100%;
-    /* margin-top: 35px; */
     background-position: center;
-    /* padding-top: 150px; */
+    padding-bottom: 40px;
+    padding-top: 100px;
   }
 
   .main-banner .hero-content h1 {
@@ -2649,7 +2648,8 @@
 @media only screen and (min-width: 1550px) {
 
   .main-banner {
-    /* margin-top: 150px; */
+    padding-top: 100px; 
+    padding-bottom: 40px;
     height:100%;
     background-position: center;
   }
@@ -2688,10 +2688,10 @@
   }
 
   .main-banner {
-    /* margin-top: 20px; */
+    padding-top: 100px;
     background-position: center;
     height: 100%;
-    /* margin-bottom: -135px; */
+    padding-bottom: 40px;
   }
 
   .blog-details-desc .article-content iframe{
@@ -2712,10 +2712,10 @@
 
 
   .main-banner {
-    /* margin-top: 20px; */
+    padding-top: 100px;
     height:100%;
     background-position: center;
-    /* margin-bottom: -135px; */
+    padding-bottom: 40px;
   }
 
 
@@ -2836,9 +2836,16 @@
   }
 }
 
-@media only screen and (min-width: 992px) {
+/* @media only screen and (min-width: 992px) {
   .mainCarousel {
     padding-top: 100px;
+  }
+} */
+
+@media only screen and (min-width: 992px) {
+  .bannerleft {
+    padding-top: 85px;
+    padding-bottom: 85px;
   }
 }
 

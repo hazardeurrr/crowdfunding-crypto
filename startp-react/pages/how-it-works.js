@@ -59,7 +59,7 @@ const ServiceDetails = () => {
                                                             <li><p><a href="https://www.coinbase.com/fr/wallet" target="_blank">Coinbase Wallet</a></p></li>
                                                             <li><p><a href="https://www.bnbchain.org/en/binance-wallet" target="_blank">Binance Wallet</a></p></li>
                                                         </ul>
-                                                        <p>*You can use Wallet Connect to connect to <a href="https://walletconnect.com/registry?type=wallet" target="_blank">+75 different compatible wallets</a> (such as Trust Wallet, Metamask (mobile)...).
+                                                        <p>*You can use Wallet Connect to connect to <a href="https://explorer.walletconnect.com/" target="_blank">+75 different compatible wallets</a> (such as Trust Wallet, Metamask (mobile)...).
                                                         <br></br><br></br>
                                                         Note that you will have to sign a message with your wallet to complete the authentication process ! Don't worry, it won't cost you anything :)
                                                     </p>
@@ -305,7 +305,7 @@ const ServiceDetails = () => {
                                                 </AccordionItemPanel>
                                             </AccordionItem>
 
-                                            <AccordionItem uuid="b2">
+                                            <AccordionItem uuid="b22">
                                                 <AccordionItemHeading>
                                                     <AccordionItemButton>
                                                         <span>

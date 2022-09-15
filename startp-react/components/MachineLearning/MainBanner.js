@@ -14,8 +14,11 @@ const MainBanner = () => {
         if(projectList.length > 0){
             return <div className="mainCarousel"><MainProjectFeaturedCarousel /></div>
 						    // return <div style={{marginTop: 50}}><MainProjectFeatured project={projectList[0]} /></div>
-        }
-    }
+        }	
+				// else {
+				// 	return <img src="/images/ml-banner-image/ml-main-pic-2bnb.png"/>
+				// } 
+	    }
 
 		const carouselCSS = () => {
 			return <div className="col-lg-5">
@@ -30,7 +33,7 @@ const MainBanner = () => {
 				<div className="d-table-cell">
 					<div className="container">
 						<div className="row h-100 justify-content-center align-items-center">
-							<div className="col-lg-5">
+							<div className="col-lg-5 bannerleft">
 								<div className="hero-content">
 								<h1>A new way to raise funds</h1>
                            

@@ -60,13 +60,13 @@ const MainProjectFeaturedCarousel = ({p}) => {
             </OwlCarousel> : ''}
         </div>
 
-        }
+        } 
     }
 
     
     
     return (
-        <div className="ml-projects-area pt-0 ptb-80">
+        <div className="ml-projects-area pt-0">
             {displayContent()}
         </div>
     );

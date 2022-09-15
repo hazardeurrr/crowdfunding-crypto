@@ -21,6 +21,8 @@ import bbstAddr from '@/components/ContractRelated/BbstAddr'
 import {chain} from '@/utils/chain'
 import {bnb_chain} from '@/utils/bnb_chain'
 import AppBar from '@material-ui/core/AppBar';
+import IconButton from '@material-ui/core/IconButton';
+import CancelIcon from '@material-ui/icons/Clear';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import ChipUser from "../Common/ChipUser";
@@ -74,6 +76,7 @@ const Navbar = () => {
     const [showSign, setShowSign] = React.useState(true);
     const connected = useSelector((state) => state.metamask_connected);
     const web3Instance = useSelector((state) => state.web3Instance);
+    const [showAppBar, setShowAppBar] = React.useState(true)
 
     const handleConnectOpen = () => {
         setOpenConnect(true);
@@ -851,20 +854,67 @@ const Navbar = () => {
     const classTwo = menu ? 'navbar-toggler navbar-toggler-right collapsed' : 'navbar-toggler navbar-toggler-right';
 
     const showSwitchNetworkBar = () => {
-        if(chainID != bnb_chain && connected){
+        if(switchBarShouldBeShown()){
+            if(showAppBar){
+                return <div className={classes.root}>
+                <AppBar position="static" style={{marginTop: -10, marginBottom:10, background:'#F3BA2F', justifyContent:'center', alignItems:'center'}}> 
+                    <Typography style={{color: 'white', padding: "6px 3px", fontSize: 13, textAlign: 'center'}}>
+                        You aren't connected to a supported network. Please <b><a style={{textDecoration: "underline", cursor: "pointer"}} onClick={() => switchToBNBTestnet()}>switch to BNB Smart Chain Testnet</a></b>.
+                    </Typography>
+                </AppBar>
+            </div>
+            } else {
+                return <div className={classes.root}>
+                <AppBar position="static" style={{marginTop: -15, marginBottom:10, background:'#F3BA2F', justifyContent:'center', alignItems:'center'}}> 
+                    <Typography style={{color: 'white', padding: "6px 3px", fontSize: 13, textAlign: 'center'}}>
+                        You aren't connected to a supported network. Please <b><a style={{textDecoration: "underline", cursor: "pointer"}} onClick={() => switchToBNBTestnet()}>switch to BNB Smart Chain Testnet</a></b>.
+                    </Typography>
+                </AppBar>
+            </div>
+            }
+            
+        }
+    }
+
+    const switchBarShouldBeShown = () => {
+        return (chainID != bnb_chain && connected)
+    }
+
+    const showAppBarFct = () => {
+        if(showAppBar){
             return <div className={classes.root}>
-            <AppBar position="static" style={{marginTop: -15, marginBottom:10, background:'#F3BA2F', justifyContent:'center', alignItems:'center'}}> 
-                <Typography style={{color: 'white', fontSize: 14, marginTop: 3, marginBottom: 3}}>
-                    You aren't connected to a supported network. Please <b><a style={{textDecoration: "underline", cursor: "pointer"}} onClick={() => switchToBNBTestnet()}>switch to BNB Smart Chain Testnet</a></b>.
-                </Typography>
+            <AppBar position="static" style={{marginTop: -15, marginBottom:10, background:'#44ce6f', justifyContent:'center', alignItems:'center'}}> 
+                
+                <div style={{display:"flex", justifyContent:'center', alignItems:'center'}}>
+                    <Typography style={{color: 'white', padding: "6px 3px", fontSize: 13, textAlign: 'center'}}>
+                    <b>Welcome to <a target="_blank" href="https://medium.com/@blockboosted"style={{color:'white', textDecoration: "underline", cursor: "pointer"}}>BLOCKBOOSTED V1</a></b> 🎉
+                    </Typography>
+                    <div style={{marginLeft: 10, width: 17}}>
+                        <CancelIcon style={{color:"inherit", cursor: 'pointer', height: '100%', width: '100%'}} onClick={() => setShowAppBar(false)}/>
+                    </div>
+                </div>
+                
             </AppBar>
         </div>
         }
     }
 
+    const addBottomMargin = () => {
+        if(showAppBar && !switchBarShouldBeShown() || switchBarShouldBeShown() && !showAppBar){
+            return <div style={{marginBottom: 31.5}}>
+            </div>
+        } else if(showAppBar && switchBarShouldBeShown()){
+            return <div style={{marginBottom: 63}}>
+            </div>
+        }
+    }
+
     return (
-        
-        <header id="header" className="headroom">
+        //#c679e3
+        //#44ce6f
+        <>
+        <header id="header" className="headroom" style={{marginBottom:50}}>
+            {showAppBarFct()}
             {showSwitchNetworkBar()}
             <div className="startp-nav">
                 <div className="container">
@@ -955,6 +1005,9 @@ const Navbar = () => {
                 </div>
             </div>
         </header>
+
+        {addBottomMargin()}
+        </>
     );
 }
 
