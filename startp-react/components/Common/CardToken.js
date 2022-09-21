@@ -57,18 +57,18 @@ const CardToken = () => {
   const [errorMsg, setErrorMsg] = React.useState("");
 
   React.useEffect(() => {
-    if(web3Instance != undefined && connected && chainID == bnb_chain){
+    if(web3Instance != undefined && connected && chainID == bnb_chain && address != undefined){
       var bnb_ctr = new web3Instance.eth.Contract(bnb_rewardAbi, bnb_rewardAddr);
       setBnbContract(bnb_ctr);
       setToBeClaimed(0);
       getClaim(bnb_ctr);
     }
-  }, [web3Instance])   // address ?
+  }, [web3Instance, address])   // address ?
 
   const getClaim = async(ctr) => {
     console.log(address)
     console.log(ctr)
-    ctr.methods.getClaim(address).call().then((nb) => setToBeClaimed(parseFloat(web3Instance.utils.fromWei(nb))))
+    ctr.methods.getClaim(address).call().then((nb) => {console.log(nb); setToBeClaimed(parseFloat(web3Instance.utils.fromWei(nb)))})
   }
 
   const claimTokens = async() => {
