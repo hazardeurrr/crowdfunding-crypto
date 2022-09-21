@@ -411,7 +411,7 @@ const PricingTiers = (props) => {
                             pathname: "/how-it-works"
                             }}
                             >
-                        <a style={{marginTop: 15}}>More information about BEP20 allowance here</a>
+                        <a target="_blank" style={{marginTop: 15}}>More information about BEP20 allowance here</a>
                         </Link>.</i>
                 </div>
 

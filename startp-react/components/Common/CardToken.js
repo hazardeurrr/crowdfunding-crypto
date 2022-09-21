@@ -63,9 +63,10 @@ const CardToken = () => {
       setToBeClaimed(0);
       getClaim(bnb_ctr);
     }
-  }, [web3Instance])
+  }, [web3Instance])   // address ?
 
   const getClaim = async(ctr) => {
+    console.log(address)
     ctr.methods.getClaim(address).call().then((nb) => setToBeClaimed(parseFloat(web3Instance.utils.fromWei(nb))))
   }
 

@@ -185,6 +185,19 @@ const campaignFactoryAbi = [
 	{
 		"inputs": [
 			{
+				"internalType": "address",
+				"name": "addr",
+				"type": "address"
+			}
+		],
+		"name": "setBBSTAddr",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
 				"internalType": "uint256",
 				"name": "index",
 				"type": "uint256"
@@ -226,7 +239,6 @@ const campaignFactoryAbi = [
 		"type": "function"
 	}
 ]
-
 module.exports = {
   campaignFactoryAbi
 }
