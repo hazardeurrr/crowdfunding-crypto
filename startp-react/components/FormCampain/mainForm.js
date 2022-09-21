@@ -612,12 +612,12 @@ class MainForm extends React.Component {
                 }}/>
                 <label htmlFor="bnb_bnb">BNB</label>
             </p>
-            {/* <p>
+            <p>
                 <input type="radio" id="bnb_bbst" name="bnb_radio-group" value="b_BBST" checked={this.state.raisingMethod == "b_BBST"} onChange={(event) => {
                     this.setState({raisingMethod: event.target.value})
                 }}/>
                 <label htmlFor="bnb_bbst">BBST (0% fee)</label>
-            </p> */}
+            </p>
         </div>
         }
     }
