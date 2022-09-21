@@ -18,6 +18,7 @@ import DialogTitle from '@material-ui/core/DialogTitle';
 import DialogActions from '@material-ui/core/DialogActions';
 import bbstAbi from '@/components/ContractRelated/BbstAbi'
 import bbstAddr from '@/components/ContractRelated/BbstAddr'
+import bnb_bbstAddr from '@/components/ContractRelated/bnb_BbstAddr'
 import {chain} from '@/utils/chain'
 import {bnb_chain} from '@/utils/bnb_chain'
 import AppBar from '@material-ui/core/AppBar';
@@ -418,20 +419,22 @@ const Navbar = () => {
             }
 
 
-            //--------------------------------BBST BALANCE CHECKER-------------------------------//
+            //--------------------------------BBST BALANCE CHECKER-------------------------------
 
-            // const bbst_contract = new web3b.eth.Contract(bbstAbi.bbstAbi, bbstAddr.bbstAddr);
-            // bbst_contract.methods.balanceOf(address).call().then(response => {
-            //     dispatch({
-            //         type: 'SET_BBST_BALANCE',
-            //         id: response
-            //     })
-            // }).catch(console.error)
+            const bbst_contract = new web3b.eth.Contract(bbstAbi.bbstAbi, bnb_bbstAddr.bnb_bbstAddr);
+            bbst_contract.methods.balanceOf(address).call().then(response => {
+                dispatch({
+                    type: 'SET_BBST_BALANCE',
+                    id: response
+                })
+            }).catch(console.error)
 
-            dispatch({
-                type: 'SET_BBST_BALANCE',
-                id: 0
-            })
+            
+
+            // dispatch({
+            //     type: 'SET_BBST_BALANCE',
+            //     id: 0
+            // })
 
 
 

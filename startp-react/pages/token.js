@@ -5,6 +5,8 @@ import PageBanner from '@/components/Common/PageBanner';
 import ServicesArea from "@/components/Landing/ServicesArea";
 import * as Icon from 'react-feather';
 import {bbstAddr} from '@/components/ContractRelated/BbstAddr'
+import {bnb_bbstAddr} from '@/components/ContractRelated/bnb_BbstAddr'
+
 import { useSelector, useDispatch } from 'react-redux'
 import {bnb_chain} from '@/utils/bnb_chain'
 
@@ -33,7 +35,7 @@ const TokenDetails = () => {
                 params: {
                 type: 'ERC20',
                 options: {
-                    address: bbstAddr,
+                    address: bnb_bbstAddr,
                     symbol: 'BBST',
                     decimals: 18,
                     image: "https://firebasestorage.googleapis.com/v0/b/crowdfunding-dev-5f802.appspot.com/o/gradlogowhite.png?alt=media&token=2e6382a3-5cec-4cfc-baaf-e4b2400cdbbe",
