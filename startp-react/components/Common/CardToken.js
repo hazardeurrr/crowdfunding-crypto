@@ -264,7 +264,7 @@ const closeDialog = () => {
   }
 
   return (
-    displayCardContentV1()
+    displayCardContent()
   );
 }
 
