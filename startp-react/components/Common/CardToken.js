@@ -67,6 +67,7 @@ const CardToken = () => {
 
   const getClaim = async(ctr) => {
     console.log(address)
+    console.log(ctr)
     ctr.methods.getClaim(address).call().then((nb) => setToBeClaimed(parseFloat(web3Instance.utils.fromWei(nb))))
   }
 
