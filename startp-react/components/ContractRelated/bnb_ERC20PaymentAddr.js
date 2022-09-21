@@ -1,4 +1,4 @@
-const bnb_erc20PaymentAddr = "0x34C6B2B339613cF74d359B5160490A940FDf18eb"
+const bnb_erc20PaymentAddr = "0x031865572E39441a58e7C7423EC52E3DbFb1E555"
 
 module.exports = {
   bnb_erc20PaymentAddr
