@@ -76,6 +76,10 @@ const TokenDetails = () => {
                     </div>
                 </div>
             </div> */}
+                <div>
+                    <MintToken style={{marginTop: 80}}/>
+                        {addToMetamaskBtn()}
+                </div>
 
             <div className="services-details-area ptb-80">
                 <div className="container">
