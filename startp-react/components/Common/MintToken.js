@@ -16,6 +16,8 @@ import Snackbar from '@material-ui/core/Snackbar';
 import MuiAlert from "@material-ui/lab/Alert";
 import {bbstAbi} from '@/components/ContractRelated/BbstAbi';
 import {bbstAddr} from '@/components/ContractRelated/BbstAddr';
+import {bnb_bbstAddr} from '@/components/ContractRelated/bnb_BbstAddr';
+
 import * as IconFeather from 'react-feather';
 import Link from 'next/link';
 
@@ -64,9 +66,9 @@ const closeDialog = () => {
   const mintTokens = () => {
     if(web3Instance != undefined){
         let amount = web3Instance.utils.toWei(valueRef.current.value.toString())
-        let erc20Ctr = new web3Instance.eth.Contract(bbstAbi, bbstAddr)
+        let bep20Ctr = new web3Instance.eth.Contract(bbstAbi, bnb_bbstAddr)
         
-        erc20Ctr.methods.mint(amount)
+        bep20Ctr.methods.mint(amount)
         .send({ from : userAddr, value: 0 })
         .on('transactionHash', function(hash){
             openDialog()
