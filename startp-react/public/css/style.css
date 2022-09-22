@@ -10824,3 +10824,8 @@ Go Top CSS
   font-size: 14;
   display: block;
 }
+
+.cardTokenFlex {
+  align-items: center;
+  display: flex;
+}

@@ -153,7 +153,7 @@ const CardToken = () => {
 
 const showBalance = () => {
     if(web3Instance != undefined)
-      return parseFloat(parseFloat(web3Instance.utils.fromWei(bbstbal.toString())).toFixed(6))
+      return parseFloat(parseFloat(web3Instance.utils.fromWei(bbstbal.toString())).toFixed(3))
   }
 
   const openSnackbar = () => {
@@ -203,7 +203,7 @@ const closeDialog = () => {
         </Dialog>
 
         <Card elevation={3} style={{marginTop: 50, borderRadius: 10}}>
-      <div style={{display:'flex', alignItems:'center'}}>
+      <div className="cardTokenFlex">
         <div style={{flex : 2}}>
           <CardContent>
 
@@ -225,7 +225,7 @@ const closeDialog = () => {
             </Typography>
             
             <Typography display="inline" component="h5" variant="h5">
-                {toBeClaimed} BBST
+                {toBeClaimed.toFixed(3)} BBST
               </Typography>
           </CardContent>
         </div>

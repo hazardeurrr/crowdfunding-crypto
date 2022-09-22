@@ -1,6 +1,10 @@
 /* Max width 767px */
 @media only screen and (max-width: 767px) {
 
+  .cardTokenFlex{
+    display: block;
+  }
+
   .create-only-big{
     display: none
   }
