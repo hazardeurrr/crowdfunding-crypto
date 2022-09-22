@@ -10,37 +10,6 @@ const campaignAbi = [
 			{
 				"indexed": false,
 				"internalType": "address",
-				"name": "creator",
-				"type": "address"
-			},
-			{
-				"indexed": false,
-				"internalType": "uint256",
-				"name": "timestamp",
-				"type": "uint256"
-			},
-			{
-				"indexed": false,
-				"internalType": "uint256",
-				"name": "goal",
-				"type": "uint256"
-			},
-			{
-				"indexed": false,
-				"internalType": "address",
-				"name": "token",
-				"type": "address"
-			}
-		],
-		"name": "CampaignCreated",
-		"type": "event"
-	},
-	{
-		"anonymous": false,
-		"inputs": [
-			{
-				"indexed": false,
-				"internalType": "address",
 				"name": "campaignAddress",
 				"type": "address"
 			},
@@ -288,6 +257,11 @@ const campaignAbi = [
 			{
 				"internalType": "address",
 				"name": "token_",
+				"type": "address"
+			},
+			{
+				"internalType": "address",
+				"name": "bbstAdr_",
 				"type": "address"
 			},
 			{

@@ -1,4 +1,4 @@
-const bnb_campaignAddr = "0xA3696Bd14bFa07d94040F079F5fD17341c0d728e"
+const bnb_campaignAddr = "0xc8bCd9c7878ab35Bcac70316493d0b7e1C6064Cd"
 
 module.exports = {
   bnb_campaignAddr
