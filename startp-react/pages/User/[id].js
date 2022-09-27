@@ -89,7 +89,7 @@ const User = (props, {data}) => {
                       <Avatar alt="user_avatar" src={user.image} className={classes.large}/>
                     </div>
 
-                      <h2>{user.username}</h2>
+                      <h2>{user.username}&nbsp;<VerifTooltip toBeChecked={user.verified}/></h2>
                       <a href={`https://testnet.bscscan.com/address/${user.eth_address}`} target="_blank"><h6 className="user-address">{user.eth_address}</h6></a>
                       <div className="blog-details-desc">
                         <div className="article-content">

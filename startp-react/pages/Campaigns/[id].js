@@ -442,9 +442,11 @@ const Campaign = (props) => {
                                                         
                                                         <li>     
                                                             <Icon.User />
-                                                            <ChipUser user={user}/>
-                                                                                             
+                                                            <ChipUser style={{marginRight: 0}}user={user}/>
+                   
                                                         </li>
+                                                        {/* <VerifTooltip toBeChecked={user.verified}/> */}
+
                                                         
                                                   
                                                         {/* {showTwitter()} */}

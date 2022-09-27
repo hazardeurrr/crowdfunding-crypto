@@ -3,6 +3,7 @@ import Link from '@/utils/ActiveLink'
 import { makeStyles } from '@material-ui/core/styles';
 import Avatar from '@material-ui/core/Avatar';
 import Chip from '@material-ui/core/Chip';
+import VerifTooltip from './VerifTooltip';
 
 
 
@@ -33,7 +34,8 @@ const useStyles = makeStyles((theme) => ({
   },
   sec:{
       lineHeight : '14.5px',
-      marginTop: '2.4px'
+      marginTop: '2.4px',
+      width: '88%'
   },
 
 }));
@@ -70,10 +72,10 @@ const ChipUser = (props) => {
              }
            }}>
                           
-          <a className='chipusersmall'> <Chip className='chipusersmall' avatar={<Avatar alt='avatar' src={user.image} />} label={<section className={classes.sec}>
+          <a className='chipusersmall'> <Chip className='chipusersmall' avatar={<Avatar alt='avatar' src={user.image} />} label={<div style={{display:"flex", alignItems:'center'}}><section className={classes.sec}>
               <div className={classes.pchip1}>{user.username}</div>
               <div className={classes.pchip2}>{user.eth_address}</div>
-              </section>} onClick={handleClick} />
+              </section><VerifTooltip fontSize={15} marginLeft={5} toBeChecked={user.verified}/></div>} onClick={handleClick} />
           </a>
         </Link>
     </>
