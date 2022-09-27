@@ -107,10 +107,12 @@ const Navbar = () => {
     const handleNotifModalClose = () => {
         setOpenNotifModal(false);
 
-        let notifsUpdated = notifs
-        notifsUpdated.forEach(a => a.read = true)
-        setNotifs(notifsUpdated)
-        db.collection('profileTest').doc(currentUser.eth_address).collection("privacy").doc(currentUser.eth_address).update({notifications: notifsUpdated})
+        if(notifs.filter(a => a.read == false).length > 0){
+            let notifsUpdated = notifs
+            notifsUpdated.forEach(a => a.read = true)
+            setNotifs(notifsUpdated)
+            db.collection('profileTest').doc(currentUser.eth_address).collection("privacy").doc(currentUser.eth_address).update({notifications: notifsUpdated})
+        }
     }
 
     const handleNotifModalOpen = () => {
@@ -990,21 +992,28 @@ const Navbar = () => {
         aria-describedby="scroll-dialog-description"
       >
         <DialogTitle id="scroll-dialog-title">Notifications</DialogTitle>
-        <DialogContent>
-          {/* <DialogContentText
-            id="scroll-dialog-description"
-            // ref={descriptionElementRef}
-            tabIndex={-1}
-          > */}
-            {notifs.sort((a, b) => b.date - a.date).map(
-                (e) => <SimpleNotifCard key={e.date} notif={e}/>
-              )}
-          {/* </DialogContentText> */}
-        </DialogContent>
+        {showNotifContent()}
+        
         <DialogActions>
           <Button onClick={handleNotifModalClose}>Cancel</Button>
         </DialogActions>
       </Dialog>
+    }
+
+    const showNotifContent = () => {
+        if(notifs.length == 0){
+            return <DialogContent>
+            <DialogContentText>
+                You have no notifications.
+            </DialogContentText>
+          </DialogContent>
+        } else {
+            return <DialogContent>
+              {notifs.sort((a, b) => b.date - a.date).map(
+                  (e) => <SimpleNotifCard key={e.date} notif={e}/>
+                )}
+          </DialogContent>
+        }
     }
 
     return (
