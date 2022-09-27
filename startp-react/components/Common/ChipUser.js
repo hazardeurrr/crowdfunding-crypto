@@ -35,8 +35,13 @@ const useStyles = makeStyles((theme) => ({
   sec:{
       lineHeight : '14.5px',
       marginTop: '2.4px',
-      width: '88%'
+      width: '100%'
   },
+  secVerif:{
+    lineHeight : '14.5px',
+    marginTop: '2.4px',
+    width: '88%'
+},
 
 }));
 
@@ -44,15 +49,30 @@ const useStyles = makeStyles((theme) => ({
 
 const ChipUser = (props) => {
 
-  
+  const classes = useStyles();
+
+  const user = props.user
+
   const handleClick = () => {
     console.info('You clicked the Chip.');
   };
 
+  const displaySection = () => {
+    if(user.verified){
+      return <section className={classes.secVerif}>
+      <div className={classes.pchip1}>{user.username}</div>
+      <div className={classes.pchip2}>{user.eth_address}</div>
+    </section>
+    } else {
+        return <section className={classes.sec}>
+        <div className={classes.pchip1}>{user.username}</div>
+        <div className={classes.pchip2}>{user.eth_address}</div>
+      </section>
+    }
 
-  const classes = useStyles();
+  }
 
-    const user = props.user
+
 
     const display = () => {
       if(user === undefined){
@@ -72,10 +92,7 @@ const ChipUser = (props) => {
              }
            }}>
                           
-          <a className='chipusersmall'> <Chip className='chipusersmall' avatar={<Avatar alt='avatar' src={user.image} />} label={<div style={{display:"flex", alignItems:'center'}}><section className={classes.sec}>
-              <div className={classes.pchip1}>{user.username}</div>
-              <div className={classes.pchip2}>{user.eth_address}</div>
-              </section><VerifTooltip fontSize={15} marginLeft={5} toBeChecked={user.verified}/></div>} onClick={handleClick} />
+          <a className='chipusersmall'> <Chip className='chipusersmall' avatar={<Avatar alt='avatar' src={user.image} />} label={<div style={{display:"flex", alignItems:'center'}}>{displaySection()}<VerifTooltip fontSize={15} marginLeft={5} toBeChecked={user.verified}/></div>} onClick={handleClick} />
           </a>
         </Link>
     </>
