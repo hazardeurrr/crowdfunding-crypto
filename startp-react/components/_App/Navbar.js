@@ -154,6 +154,17 @@ const Navbar = () => {
     cancelConnection()
   }
 
+  const cancelConnection = () => {
+    dispatch({
+        type: 'SET_CONNECTED',
+        id: false
+    })
+    dispatch({
+        type: 'SET_CURRENT_USER',
+        id: undefined
+    })
+  }
+
   async function removeListeners(){
     if(web3Instance !== undefined){
         if(web3Instance.currentProvider != undefined){
@@ -390,14 +401,7 @@ const Navbar = () => {
             getDataOnceAuth(firebase.auth().currentUser.uid)
             handleConnectClose()
         } else {
-            dispatch({
-                type: 'SET_CONNECTED',
-                id: false
-            })
-            dispatch({
-                type: 'SET_CURRENT_USER',
-                id: undefined
-            })
+            cancelConnection()
             setModalState(2)
             handleConnectOpen()
         }
@@ -807,7 +811,7 @@ const Navbar = () => {
                     
                     <DialogActions>
                         {showSignBtn()}
-                        <Button onClick={() => cancelConnection()} color="primary">
+                        <Button onClick={() => {cancelConnection(); handleConnectClose()}} color="primary">
                             Cancel
                         </Button>
                     </DialogActions>
@@ -826,9 +830,6 @@ const Navbar = () => {
         }
     }
 
-    const showNotifs = () => {
-        handleNotifModalOpen()
-    }
 
 
     const showProfile = () => {
@@ -864,7 +865,7 @@ const Navbar = () => {
 
                             <li className="nav-item">
                                 <StyledBadgeDrop badgeContent={nb}>
-                                    <a onClick={showNotifs} style={{cursor:'pointer'}} className="nav-link">Notifications</a>
+                                    <a onClick={handleNotifModalOpen} style={{cursor:'pointer'}} className="nav-link">Notifications</a>
                                 </StyledBadgeDrop>
                             </li>
 
