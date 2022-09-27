@@ -107,7 +107,8 @@ const Navbar = () => {
     const handleNotifModalClose = () => {
         setOpenNotifModal(false);
 
-        let notifsUpdated = notifs.map(a => a.read = true)
+        let notifsUpdated = notifs
+        notifsUpdated.forEach(a => a.read = true)
         setNotifs(notifsUpdated)
         db.collection('profileTest').doc(currentUser.eth_address).collection("privacy").doc(currentUser.eth_address).update({notifications: notifsUpdated})
     }
@@ -995,7 +996,7 @@ const Navbar = () => {
             tabIndex={-1}
           > */}
             {notifs.sort((a, b) => b.date - a.date).map(
-                (e) => <SimpleNotifCard notif={e}/>
+                (e) => <SimpleNotifCard key={e.date} notif={e}/>
               )}
           {/* </DialogContentText> */}
         </DialogContent>
