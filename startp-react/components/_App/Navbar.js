@@ -44,7 +44,9 @@ import Portis from '@portis/web3';
 import { BscConnector } from '@binance-chain/bsc-connector'
 
 import { db } from '../../firebase-crowdfund/index'
-
+import Badge from '@material-ui/core/Badge';
+import NotificationsNoneIcon from '@material-ui/icons/NotificationsNone';
+import { withStyles } from '@material-ui/core/styles';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -60,10 +62,28 @@ const useStyles = makeStyles((theme) => ({
     },
   }));
 
+  const StyledBadge = withStyles((theme) => ({
+    badge: {
+      right: 3,
+      top: 5,
+      backgroundColor:"#44cf6e",
+      color: "white"
+    },
+  }))(Badge);
+
+  const StyledBadgeDrop = withStyles((theme) => ({
+    badge: {
+      top: 17,
+      backgroundColor:"#44cf6e",
+      color:"white"
+    },
+  }))(Badge);
+
 const Navbar = () => {
 
     const classes = useStyles();
 
+    const [notifs, setNotifs] = React.useState([])
     const [menu, setMenu] = React.useState(true)
     const dispatch = useDispatch()
     const userAddr = useSelector((state) => state.address)
@@ -366,7 +386,7 @@ const Navbar = () => {
 
     const createProfile = (address) => {
         const user = { username: "", eth_address: address, image: "", bio: "", twitter: "", liked: new Array(), site: "" };
-        const privacy = { email: "" };
+        const privacy = { email: "", notifications: [] };
 
         // axios({
         //     method: 'post',
@@ -469,6 +489,12 @@ const Navbar = () => {
                         type: 'SET_CURRENT_USER',
                         id: doc.data()
                     })
+
+                    //----------------GET NOTIFS-------------//
+                    db.collection('profileTest').doc(address).collection("privacy").doc(address).get().then((doc) => {
+                        setNotifs(doc.data().notifications)
+                    })
+
                 } else {
                     createProfile(address);
                 }
@@ -779,18 +805,32 @@ const Navbar = () => {
         }
     }
 
+    const showNotifs = () => {
+        
+    }
+
+    const showNotifNumber = () => {
+        let nb = notifs.filter(a => a.read == false).length
+            return   <Badge badgeContent={nb} color="secondary">
+            <NotificationsNoneIcon />
+          </Badge>
+    }
+
 
     const showProfile = () => {
         if(connected && currentUser != undefined){
             if(currentUser.eth_address === userAddr){
-
+                let nb = notifs.filter(a => a.read == false).length
             return (
                 <>
-                <div style={{marginLeft: 2}}>
+                <div style={{marginLeft: 2, display:'flex', alignItems:'center'}}>
                     <li className="nav-item" style={{textAlign:"center"}}>
                     <Link href="#">
                         <a onClick={e => e.preventDefault()} className="nav-link">
-                            <ProfileNav user={currentUser}/> 
+                        <StyledBadge badgeContent={nb}>
+                            <ProfileNav user={currentUser}/>                     
+                        </StyledBadge>
+
                             {/* <Icon.ChevronDown /> */}
                         </a>
                     </Link>
@@ -807,11 +847,22 @@ const Navbar = () => {
                                     <a onClick={toggleNavbar} className="nav-link">Edit Profile</a>
                                 </Link>
                             </li>
+
+                            <li className="nav-item">
+                                <StyledBadgeDrop badgeContent={nb}>
+                                    <a onClick={showNotifs()} style={{cursor:'pointer'}} className="nav-link">Notifications</a>
+                                </StyledBadgeDrop>
+                            </li>
+
                             <li className="nav-item">
                                     <a style={{cursor:'pointer'}} onClick={() => {onDisconnect(); toggleNavbar()}} className="nav-link">Log out</a>
                             </li>
                         </ul>
                     </li>
+
+                    {/* <li className="nav-item" style={{textAlign:"center"}}>
+                        {showNotifNumber()}
+                    </li> */}
                 </div>
                 {/* {showCurrNet()} */}
             </>
@@ -861,7 +912,7 @@ const Navbar = () => {
     const showSwitchNetworkBar = () => {
         if(switchBarShouldBeShown()){
             if(showAppBar){
-                return <div className={classes.root}>
+                return <div>
                 <AppBar position="static" style={{marginTop: -10, marginBottom:10, background:'#F3BA2F', justifyContent:'center', alignItems:'center'}}> 
                     <Typography style={{color: 'white', padding: "6px 3px", fontSize: 13, textAlign: 'center'}}>
                         You aren't connected to a supported network. Please <b><a style={{textDecoration: "underline", cursor: "pointer"}} onClick={() => switchToBNBTestnet()}>switch to BNB Smart Chain Testnet</a></b>.
@@ -869,7 +920,7 @@ const Navbar = () => {
                 </AppBar>
             </div>
             } else {
-                return <div className={classes.root}>
+                return <div>
                 <AppBar position="static" style={{marginTop: -15, marginBottom:10, background:'#F3BA2F', justifyContent:'center', alignItems:'center'}}> 
                     <Typography style={{color: 'white', padding: "6px 3px", fontSize: 13, textAlign: 'center'}}>
                         You aren't connected to a supported network. Please <b><a style={{textDecoration: "underline", cursor: "pointer"}} onClick={() => switchToBNBTestnet()}>switch to BNB Smart Chain Testnet</a></b>.
@@ -887,7 +938,7 @@ const Navbar = () => {
 
     const showAppBarFct = () => {
         if(showAppBar){
-            return <div className={classes.root}>
+            return <div>
             <AppBar position="static" style={{marginTop: -15, marginBottom:10, background:'#44ce6f', justifyContent:'center', alignItems:'center'}}> 
                 
                 <div style={{display:"flex", justifyContent:'center', alignItems:'center'}}>
