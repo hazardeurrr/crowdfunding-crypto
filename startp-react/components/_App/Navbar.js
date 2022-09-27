@@ -47,6 +47,7 @@ import { db } from '../../firebase-crowdfund/index'
 import Badge from '@material-ui/core/Badge';
 import NotificationsNoneIcon from '@material-ui/icons/NotificationsNone';
 import { withStyles } from '@material-ui/core/styles';
+import SimpleNotifCard from "../Common/SimpleNotifCard";
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -99,6 +100,25 @@ const Navbar = () => {
     const web3Instance = useSelector((state) => state.web3Instance);
     const [showAppBar, setShowAppBar] = React.useState(true)
 
+    //--------------NOTIF MODAL---------------//
+    const [openNotifModal, setOpenNotifModal] = React.useState(false);
+    const [scroll, setScroll] = React.useState('paper');
+
+    const handleNotifModalClose = () => {
+        setOpenNotifModal(false);
+
+        let notifsUpdated = notifs.map(a => a.read = true)
+        setNotifs(notifsUpdated)
+        db.collection('profileTest').doc(currentUser.eth_address).collection("privacy").doc(currentUser.eth_address).update({notifications: notifsUpdated})
+    }
+
+    const handleNotifModalOpen = () => {
+        setOpenNotifModal(true);
+    }
+    
+
+
+    //---CONECTION MODAL--//
     const handleConnectOpen = () => {
         setOpenConnect(true);
     };
@@ -385,7 +405,7 @@ const Navbar = () => {
 
 
     const createProfile = (address) => {
-        const user = { username: "", eth_address: address, image: "", bio: "", twitter: "", liked: new Array(), site: "" };
+        const user = { username: "", eth_address: address, image: "", bio: "", twitter: "", liked: new Array(), site: "", verified: false };
         const privacy = { email: "", notifications: [] };
 
         // axios({
@@ -806,14 +826,7 @@ const Navbar = () => {
     }
 
     const showNotifs = () => {
-        
-    }
-
-    const showNotifNumber = () => {
-        let nb = notifs.filter(a => a.read == false).length
-            return   <Badge badgeContent={nb} color="secondary">
-            <NotificationsNoneIcon />
-          </Badge>
+        handleNotifModalOpen()
     }
 
 
@@ -850,7 +863,7 @@ const Navbar = () => {
 
                             <li className="nav-item">
                                 <StyledBadgeDrop badgeContent={nb}>
-                                    <a onClick={showNotifs()} style={{cursor:'pointer'}} className="nav-link">Notifications</a>
+                                    <a onClick={showNotifs} style={{cursor:'pointer'}} className="nav-link">Notifications</a>
                                 </StyledBadgeDrop>
                             </li>
 
@@ -965,6 +978,33 @@ const Navbar = () => {
         }
     }
 
+    const dialogNotifs = () => {
+        return <Dialog
+        style={{marginTop:85}}
+        open={openNotifModal}
+        onClose={handleNotifModalClose}
+        scroll={scroll}
+        aria-labelledby="scroll-dialog-title"
+        aria-describedby="scroll-dialog-description"
+      >
+        <DialogTitle id="scroll-dialog-title">Notifications</DialogTitle>
+        <DialogContent>
+          {/* <DialogContentText
+            id="scroll-dialog-description"
+            // ref={descriptionElementRef}
+            tabIndex={-1}
+          > */}
+            {notifs.sort((a, b) => b.date - a.date).map(
+                (e) => <SimpleNotifCard notif={e}/>
+              )}
+          {/* </DialogContentText> */}
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={handleNotifModalClose}>Cancel</Button>
+        </DialogActions>
+      </Dialog>
+    }
+
     return (
         //#c679e3
         //#44ce6f
@@ -1011,6 +1051,10 @@ const Navbar = () => {
                                 </Dialog>
 
                                 {/* //----------------CONNECT MODAL END---------------// */}
+
+
+
+                                {dialogNotifs()}
 
                                 <li className="nav-item create-only-small">
                                     <Link href={"/create"} activeClassName="active">
