@@ -46,6 +46,16 @@ import {chain} from '@/utils/chain'
 import {bnb_chain} from '@/utils/bnb_chain'
 import { prefixedAddress } from '@/utils/prefix';
 
+import Stepper from '@material-ui/core/Stepper';
+import Step from '@material-ui/core/Step';
+import StepLabel from '@material-ui/core/StepLabel';
+import StepContent from '@material-ui/core/StepContent';
+import { makeStyles } from '@material-ui/core/styles';
+import Paper from '@material-ui/core/Paper';
+import Typography from '@material-ui/core/Typography';
+import { CheckCircle } from '@material-ui/icons';
+import CircularProgressWithLabel from '../Common/CircularProgressWithLabel';
+
 const Web3 = require('web3');
 const BN = require('bn.js');
 
@@ -61,8 +71,11 @@ function Alert(props) {
     return <MuiAlert elevation={6} variant="filled" {...props} />;
   }
 
+
+  
+  
+  
 class MainForm extends React.Component {
-    
 
     constructor(props){
         super(props);
@@ -76,11 +89,12 @@ class MainForm extends React.Component {
             errorMsg: "",
             snackbarOpen: false,
             dialogOpen : false,
-            creationState: 0,
+            creationState: 10,
             new_contract_address: '',
             initializationProgress: 0,
             imageProgress: 0,
-            raisingMethod: this.getStartRaisingMethod()     
+            raisingMethod: this.getStartRaisingMethod(),
+            activeStep:0
         }
 
         this.handleCloseSnackbar.bind(this);
@@ -100,6 +114,7 @@ class MainForm extends React.Component {
         this.tiersNumber = 0,
         this.objective = 0,
         this.objectiveError = ''
+        this.steps = this.getSteps()
     }
 
     getStartRaisingMethod(){
@@ -174,6 +189,7 @@ class MainForm extends React.Component {
 
     closeDialog(){
         this.setState({dialogOpen: false})
+        this.setState({activeStep: 0})
     }
 
     openSnackbar() {
@@ -213,7 +229,7 @@ class MainForm extends React.Component {
                     // console.log(tierAmountArray)
                 })
             } else {
-                throw "erc20 contract instance not define"
+                throw "erc20 contract instance not defined"
             }
         } else {        // <=> campagne en ETH ou MATIC
             tierAmountArray = this.tiersArray.map(a => this.props.web3Instance.utils.toWei(a.threshold.toString()))
@@ -270,8 +286,9 @@ class MainForm extends React.Component {
     }
 
     createFirebaseObject(contract_addr){
+        this.handleNext()
 
-        this.setState({ creationState: 3 });    // etat "push to bdd"
+        // this.setState({ creationState: 3 });    // etat "push to bdd"
         if(!this.state.dialogOpen){
             this.openDialog()
         }
@@ -311,7 +328,8 @@ class MainForm extends React.Component {
     }
 
     createHTMLAndPush = (contract_address, imageURL) => {
-        this.setState({ creationState: 1 });    // etat "push to bdd"
+        this.handleNext()
+        // this.setState({ creationState: 1 });    // etat "push to bdd"
         if(!this.state.dialogOpen){
             this.openDialog()
         }
@@ -385,7 +403,9 @@ class MainForm extends React.Component {
                 if (this.cats.length < 1) {return}
                 db.collection('campaignsTest').doc(this.prefixedAddress(contract_address)).set(campainInfos).then(x => {
                     // console.log('document written with : ' + campainInfos.title)
-                    this.setState({ creationState: 2 }); // etat fini
+
+                    this.handleNext()
+                    // this.setState({ creationState: 2 }); // etat fini
                     if(!this.state.dialogOpen){
                         this.openDialog()
                     }
@@ -427,6 +447,8 @@ class MainForm extends React.Component {
     checkContractCanBeCreated(){
         if(this.state.factoryInstance !== undefined){
             this.createContract()
+            this.setState({ creationState: 10 })
+            this.openDialog()
         } else {
             this.setState({ errorMsg : "Can't access Web3. Please check your wallet settings and that you don't have more than one provider installed. (Reload)"})
             this.openSnackbar()
@@ -478,6 +500,65 @@ class MainForm extends React.Component {
             return <a className="responsiveLinkTx" href={`https://testnet.bscscan.com/tx/${this.state.Tx}`} target="_blank">{this.state.Tx}</a>
         }
     }
+
+    
+    //---------------STEPPER----------------/
+    getSteps = () => {
+        return ['Create smart-contract instance', 'Upload campaign data 1/2', 'Upload campaign data 2/2'];
+      }
+      
+    getStepContent = (step) => {
+        switch (step) {
+          case 0:
+            return `Please confirm the transaction on your wallet and wait for blockchain confirmation. This is the only blockchain transaction you will need to do.`;
+          case 1:
+            return `Your contract is created ! We are uploading your campaign's data (1/2).`;
+          case 2:
+            return `Almost there ! We are uploading your campaign's data (2/2).`;
+          default:
+            return 'Unknown step';
+        }
+      }
+
+      handleNext = () => {
+        this.setState({activeStep: this.state.activeStep + 1});
+      };
+      
+      getLabelIcon = (i) => {
+        if(i === this.state.activeStep && i===0) return <CircularProgress style={{color:'black', width: 25, height:25}}/>
+        else if(i === this.state.activeStep && i === 1) return <CircularProgressWithLabel style={{color:'black', width: 25, height:25}} value={this.state.imageProgress}/>
+        else if(i === this.state.activeStep && i === 2) return <CircularProgressWithLabel style={{color:'black', width: 25, height:25}} value={this.state.initializationProgress}/>
+        else if(i < this.state.activeStep) return <CheckCircle/>
+        else if(i > this.state.activeStep) return i+1
+
+      }
+
+      displayStepper = () => {
+        return (
+            <div >
+              <Stepper activeStep={this.state.activeStep} orientation="vertical">
+                {this.steps.map((label, index) => (
+                  <Step key={label}>
+                    <StepLabel icon={this.getLabelIcon(index)}>{label}</StepLabel>
+                    <StepContent>
+                      <p>{this.getStepContent(index)}</p>
+                    </StepContent>
+                  </Step>
+                ))}
+              </Stepper>
+              {this.state.activeStep === this.steps.length && (
+                <Paper style={{marginTop: 15, textAlign:'center'}} square elevation={0}>
+                  <h5>Upload complete 🎉</h5><p>Our team will review your campaign as soon as possible. You will receive a notification once it's published.</p>
+                  <Link style={{marginTop: 15}} href="/"><Button
+                    style={{backgroundColor: 'black', color:'white'}}
+                    variant="contained"
+                    >Finish
+                    </Button></Link>
+                </Paper>
+                
+              )}
+            </div>
+      )}
 
     displayConfirmModal = (x) => {
         switch(x) {
@@ -553,6 +634,16 @@ class MainForm extends React.Component {
                     <DialogContentText id="alert-dialog-description">
                 Transaction confirmed : </DialogContentText>
                 <DialogContentText id="alert-dialog-description">{this.explorerLink()}</DialogContentText>
+                </DialogContent></div>
+
+            case 10:
+                return  <div style={{justifyContent:'center'}}>
+                <DialogTitle id="alert-dialog-title">Campaign creation</DialogTitle>
+                <DialogContent>
+                    {this.displayStepper()}
+                    <DialogContentText style={{marginTop: 15, marginBottom: 0}} id="alert-dialog-description">Transaction hash :</DialogContentText>
+                    <p>{this.explorerLink()}</p>
+
                 </DialogContent></div>
             default:
                 return <div style={{justifyContent:'center'}}>
@@ -683,7 +774,7 @@ class MainForm extends React.Component {
                                     <MainPic onImageChange={this.handleChangeImage.bind(this)} ratio="ratio" resolutionWidth={1920} resolutionHeight={1080} />
                                     <br></br>
 
-                                    <p style={{marginTop: 10}}><strong> Fundraising Duration </strong><br/> Projects with shorter durations have higher success rates. You won’t be able to adjust your duration after you launch.</p>
+                                    <p style={{marginTop: 20}}><strong> Fundraising Duration </strong><br/> Projects with shorter durations have higher success rates. You won’t be able to adjust your duration after you launch.</p>
                                     <div className="col-lg-12 col-md-12">
                                         <div className="form-group">
                                             {/* <DatePicker onChange={e => {
@@ -795,7 +886,7 @@ class MainForm extends React.Component {
                                         </div>
                                     </div> */}
                                     
-                                    <h4 style={{marginTop: "15px", marginBottom: "20px"}}>Optionnal</h4>
+                                    <h4 style={{marginTop: "15px", marginBottom: "20px"}}>Optional</h4>
 
                                     <p><strong> Rewards tiers </strong><br/> Add reward tiers depending on the value of contributions.</p>
 
