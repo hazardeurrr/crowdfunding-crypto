@@ -8,6 +8,8 @@ import Typography from '@material-ui/core/Typography';
 import Avatar from '@material-ui/core/Avatar';
 
 
+import Parser from 'html-react-parser';
+import DOMPurify from 'isomorphic-dompurify';
 
 const useStyles = makeStyles({
   
@@ -29,7 +31,7 @@ const useStyles = makeStyles({
   },
   date: {
     fontSize: 10,
-    marginTop: 3,
+    marginTop: 10,
     fontStyle:'italic',
     fontWeight: 200,
   },
@@ -38,6 +40,13 @@ const useStyles = makeStyles({
 
 const SimpleNotifCard = (props) => {
 
+      
+  const sanitizeAndParseHtml = (htmlString) => {
+    const cleanHtmlString = DOMPurify.sanitize(htmlString);
+    const html = Parser(cleanHtmlString);
+    return html;
+}
+
   // console.log(props)
   let notif = props.notif
   const classes = useStyles();
@@ -45,13 +54,9 @@ const SimpleNotifCard = (props) => {
 
   const showText = () => {
     if(notif.read){
-      return <Typography className={classes.textRead} gutterBottom>
-      {notif.text}
-    </Typography>  
+      return <p style={{lineHeight: 1.4}}>{sanitizeAndParseHtml(notif.text)}</p>
     } else {
-      return <Typography className={classes.text} gutterBottom>
-      {notif.text}
-    </Typography>  
+      return <h6 style={{lineHeight: 1.4}}>{sanitizeAndParseHtml(notif.text)}</h6>
     }
   }
 
@@ -64,7 +69,7 @@ const SimpleNotifCard = (props) => {
 
           
           <Typography className={classes.date} gutterBottom>
-            {date.toString()}
+            {date.toLocaleString()}
           </Typography>         
         
         </CardContent>

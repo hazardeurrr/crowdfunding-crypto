@@ -49,6 +49,7 @@ import NotificationsNoneIcon from '@material-ui/icons/NotificationsNone';
 import { withStyles } from '@material-ui/core/styles';
 import SimpleNotifCard from "../Common/SimpleNotifCard";
 
+
 const useStyles = makeStyles((theme) => ({
     root: {
         color: "green"
@@ -118,7 +119,6 @@ const Navbar = () => {
     const handleNotifModalOpen = () => {
         setOpenNotifModal(true);
     }
-    
 
 
     //---CONECTION MODAL--//
@@ -412,9 +412,10 @@ const Navbar = () => {
 
 
     const createProfile = (address) => {
+        let ts = parseInt(Math.round(Date.now() / 1000))
         const user = { username: "", eth_address: address, image: "", bio: "", twitter: "", liked: new Array(), site: "", verified: false };
-        const privacy = { email: "", notifications: [] };
-
+        const privacy = { email: "", notifications: [{date: ts, text: `Hi there 👋 Welcome to BlockBoosted ! <br>Feel free to <b><a target="_blank" href="https://discord.gg/G9CSA74aCV">join our fabulous Discord community</a></b>. If you have any question, we're here to help 😃`, read:false}] };
+        setNotifs([{date: ts, text: `Hi there 👋 Welcome to BlockBoosted ! <br>Feel free to <b><a target="_blank" href="https://discord.gg/G9CSA74aCV">join our fabulous Discord community</a></b>. If you have any question, we're here to help 😃`, read:false}])
         // axios({
         //     method: 'post',
         //     url: 'https://europe-west1-crowdfunding-dev-5f802.cloudfunctions.net/assignProfile',

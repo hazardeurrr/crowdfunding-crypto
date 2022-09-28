@@ -40,7 +40,7 @@ const useStyles = makeStyles((theme) => ({
   secVerif:{
     lineHeight : '14.5px',
     marginTop: '2.4px',
-    width: '88%'
+    width: '90%'
 },
 
 }));

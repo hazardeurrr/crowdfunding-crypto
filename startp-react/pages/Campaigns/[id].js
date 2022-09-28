@@ -440,7 +440,7 @@ const Campaign = (props) => {
                                                 <div className="entry-meta">
                                                     <ul>
                                                         
-                                                        <li>     
+                                                        <li style={{maxWidth: '100%'}}>     
                                                             <Icon.User />
                                                             <ChipUser style={{marginRight: 0}}user={user}/>
                    

@@ -24,7 +24,7 @@ const useStyles = makeStyles({
   },
   title: {
     fontSize: 13.5,
-    marginTop: 6,
+    marginTop: 8,
     fontWeight: 600,
     textOverflow:'ellipsis',
     overflow:'hidden',
