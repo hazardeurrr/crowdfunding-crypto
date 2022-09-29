@@ -42,7 +42,14 @@ const SimpleNotifCard = (props) => {
 
       
   const sanitizeAndParseHtml = (htmlString) => {
-    const cleanHtmlString = DOMPurify.sanitize(htmlString, { USE_PROFILES: { html: true } });
+    DOMPurify.addHook('afterSanitizeAttributes', function (node) {
+      // set all elements owning target to target=_blank
+      if ('target' in node) {
+        node.setAttribute('target', '_blank');
+        node.setAttribute('rel', 'noopener');
+      }
+    });
+    const cleanHtmlString = DOMPurify.sanitize(htmlString,  { USE_PROFILES: { html: true } });
     const html = Parser(cleanHtmlString);
     return html;
 }
