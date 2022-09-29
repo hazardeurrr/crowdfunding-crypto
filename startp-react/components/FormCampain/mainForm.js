@@ -393,7 +393,7 @@ class MainForm extends React.Component {
                     main_img: imageURL,
                     raised: 0,
                     likedTupleMap: {},
-                    confirmed: true
+                    confirmed: null
                 }
                 // console.log(campainInfos)
         

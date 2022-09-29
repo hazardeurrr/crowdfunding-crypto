@@ -49,7 +49,7 @@ const SimpleNotifCard = (props) => {
         node.setAttribute('rel', 'noopener');
       }
     });
-    const cleanHtmlString = DOMPurify.sanitize(htmlString,  { USE_PROFILES: { html: true } });
+    const cleanHtmlString = DOMPurify.sanitize(htmlString, { USE_PROFILES: { html: true } });
     const html = Parser(cleanHtmlString);
     return html;
 }
