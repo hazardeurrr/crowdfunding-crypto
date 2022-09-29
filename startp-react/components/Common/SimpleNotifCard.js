@@ -42,7 +42,7 @@ const SimpleNotifCard = (props) => {
 
       
   const sanitizeAndParseHtml = (htmlString) => {
-    const cleanHtmlString = DOMPurify.sanitize(htmlString);
+    const cleanHtmlString = DOMPurify.sanitize(htmlString, { USE_PROFILES: { html: true } });
     const html = Parser(cleanHtmlString);
     return html;
 }
