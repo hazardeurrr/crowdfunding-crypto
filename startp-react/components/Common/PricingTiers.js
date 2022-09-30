@@ -66,7 +66,6 @@ const PricingTiers = (props) => {
   //  const currentUser = useSelector((state) => state.currentUser)
     const campaign = props.project
 
-    const [open, setOpen] = React.useState(false);
     const [errorMsg, setErrorMsg] = React.useState("");
     const [dialogOpen, setDialogOpen] = React.useState(false);
     const [snackbarOpen, setSnackbarOpen] = React.useState(false);
@@ -92,13 +91,6 @@ const PricingTiers = (props) => {
             return 0.000000000000000001
     }
 
-    const handleDialogOpen = () => {
-        setOpen(true);
-    };
-
-    const handleClose = () => {
-        setOpen(false);
-    };
 
     React.useEffect(() => {
         
@@ -570,25 +562,6 @@ const PricingTiers = (props) => {
 
                 {showPlans()}
                 
-                <Dialog
-                    className='dialogResponsive'
-                    open={open}
-                    onClose={handleClose}
-                    aria-labelledby="alert-dialog-title"
-                    aria-describedby="alert-dialog-description"
-                >
-                    <DialogTitle id="alert-dialog-title">{"You are not connected to the right network"}</DialogTitle>
-                    <DialogContent>
-                    <DialogContentText id="alert-dialog-description">
-                        Please connect your wallet. If you are already connected, be sure to select the right network.
-                    </DialogContentText>
-                    </DialogContent>
-                    <DialogActions>
-                    <Button onClick={handleClose} color="primary">
-                        Close
-                    </Button>
-                    </DialogActions>
-                </Dialog>
             </div>
 
             {/* Shape Images */}
