@@ -33,6 +33,16 @@ import { bbstAbi } from '../ContractRelated/BbstAbi';
 import firebase from '../../firebase-crowdfund/index';
 import { prefixedAddress } from '@/utils/prefix';
 
+import Stepper from '@material-ui/core/Stepper';
+import Step from '@material-ui/core/Step';
+import StepLabel from '@material-ui/core/StepLabel';
+import StepContent from '@material-ui/core/StepContent';
+import { makeStyles } from '@material-ui/core/styles';
+import Paper from '@material-ui/core/Paper';
+import Typography from '@material-ui/core/Typography';
+import { CheckCircle } from '@material-ui/icons';
+import CircularProgressWithLabel from '../Common/CircularProgressWithLabel';
+
 const Web3 = require('web3');
 
 // async function selectPlan(amount){
@@ -60,9 +70,11 @@ const PricingTiers = (props) => {
     const [errorMsg, setErrorMsg] = React.useState("");
     const [dialogOpen, setDialogOpen] = React.useState(false);
     const [snackbarOpen, setSnackbarOpen] = React.useState(false);
-    const [creationState, setCreationState] = React.useState(0);
+    const [creationState, setCreationState] = React.useState(10);
     const [Tx, setTx] = React.useState("");
     const [subsLength, setSubsLength] = React.useState("");
+
+    const [activeStep, setActiveStep] = React.useState(0)
 
     var globalERC20Addr
     if(campaign.network == chain){
@@ -71,6 +83,15 @@ const PricingTiers = (props) => {
         globalERC20Addr = bnb_erc20PaymentAddr
     }
 
+
+    const getNbrStep = () => {                    
+        if(campaign.currency == "USDC")
+            return 0.000001
+        if(campaign.currency == "ETH" || campaign.currency == "b_BNB")
+            return 0.000000000000000001
+        if(campaign.currency == "BBST" || campaign.currency == "b_BBST" || campaign.currency == "b_BUSD")
+            return 0.000000000000000001
+    }
 
     const handleDialogOpen = () => {
         setOpen(true);
@@ -91,6 +112,7 @@ const PricingTiers = (props) => {
 
     const closeDialog = () => {
         setDialogOpen(false)
+        setActiveStep(0)
     }
 
     const openSnackbar = () => {
@@ -101,6 +123,83 @@ const PricingTiers = (props) => {
     const handleCloseSnackbar = () => {
         setSnackbarOpen(false)
     }
+
+     //---------------STEPPER----------------/
+      const handleNext = () => {
+        console.log("oldStep", activeStep)
+        let nextStep = activeStep + 1
+        console.log("nextStep", nextStep)
+
+        setActiveStep(nextStep);
+      };
+      
+      const getLabelIcon = (i) => {
+        if(i === activeStep) return <CircularProgress style={{color:'black', width: 25, height:25}}/>
+        else if(i < activeStep) return <CheckCircle/>
+        else if(i > activeStep) return i+1
+      }
+
+      const displayStepper = () => {
+        console.log(activeStep)
+        if(campaign.currency == "ETH" || campaign.currency == "b_BNB"){
+            return <div >
+            <Stepper activeStep={activeStep} orientation="vertical">
+                <Step key={0}>
+                  <StepLabel icon={getLabelIcon(0)}>Confirm transaction</StepLabel>
+                  <StepContent>
+                    <p>Please confirm the transaction on your wallet and wait for blockchain confirmation.</p>
+                  </StepContent>
+                </Step>
+            </Stepper>
+            {activeStep === 1 && (
+              <Paper style={{marginTop: 15, textAlign:'center'}} square elevation={0}>
+                <h5>Transaction complete 🎉</h5><p>Thank you for your donation 💚</p>
+                <Link style={{marginTop: 15}} href="/"><Button
+                  style={{backgroundColor: 'black', color:'white'}}
+                  variant="contained"
+                  >Finish
+                  </Button></Link>
+              </Paper>
+              
+            )}
+          </div>
+        } else {
+        return (
+            <div >
+              <Stepper activeStep={activeStep} orientation="vertical">
+                <Step key={0}>
+                  <StepLabel icon={getLabelIcon(0)}>Token approval</StepLabel>
+                  <StepContent>
+                    <p>Please approve the use of {showCurrencyWoPrefix()} on our platform. You will only need to do this once. <br></br>
+                        <Link href={{
+                            pathname: "/how-it-works"
+                            }}
+                            >
+                            <a target="_blank" style={{marginTop: 15}}>More information about BEP20 allowance here</a>
+                        </Link>.</p>
+                  </StepContent>
+                </Step>
+                <Step key={1}>
+                  <StepLabel icon={getLabelIcon(1)}>Confirm transaction</StepLabel>
+                  <StepContent>
+                    <p>Please confirm the transaction on your wallet and wait for blockchain confirmation.</p>
+                  </StepContent>
+                </Step>
+              </Stepper>
+              {activeStep === 2 && (
+                <Paper style={{marginTop: 15, textAlign:'center'}} square elevation={0}>
+                    <h5>Transaction complete 🎉</h5><p>Thank you for your donation 💚</p>
+                    <Link style={{marginTop: 15}} href="/"><Button
+                        style={{backgroundColor: 'black', color:'white'}}
+                        variant="contained"
+                        >Finish
+                        </Button></Link>
+                </Paper>
+                
+              )}
+            </div>
+      )}}
+
 
  
     const monitortransacDB = async(index) => {
@@ -125,12 +224,15 @@ const PricingTiers = (props) => {
 
 
     async function participateInETH(isFreeDonation, contractInstance, v, indexTier) {
+        
+       openDialog()
+
        let ind = isFreeDonation ? 0 : indexTier + 1
 
        contractInstance.methods.participateInETH(ind)
             .send({from : userAddr, value: web3Instance.utils.toWei(v)})
             .on('transactionHash', function(hash){
-                openDialog()
+                // openDialog()
                 console.log("hash :" + hash)
                 setTx(hash);
      
@@ -145,7 +247,8 @@ const PricingTiers = (props) => {
                 
             })
             .then(() => {
-                setCreationState(1)
+                // setCreationState(1)
+                handleNext()
                 
             }).catch(() => {
                 console.log("error in the transac")
@@ -161,7 +264,8 @@ const PricingTiers = (props) => {
     }
 
     async function participateInERC20(isFreeDonation, contractInstance, v, indexTier){
-        console.log("participatinginERC20")
+        openDialog()
+
         let erc20Ctr = undefined
 
         const max = new BN("115792089237316195423570985008687907853269984665640564039457584007913129639935");
@@ -197,8 +301,8 @@ const PricingTiers = (props) => {
 
                         erc20Ctr.methods.approve(globalERC20Addr, max).send({from : userAddr, value: 0})
                         .on('transactionHash', function(hash){
-                            setCreationState(2)
-                            openDialog()
+                            // setCreationState(2)
+                            // openDialog()
                             console.log("hash :" + hash)
                             setTx(hash);
                         })
@@ -207,7 +311,7 @@ const PricingTiers = (props) => {
                             openSnackbar()    
                         })
                         .then(() => {
-                            setCreationState(3)
+                            // setCreationState(3)
                             payInERC(isFreeDonation, contractInstance, amt, indexTier);
                         })
                         .catch((err) => {
@@ -221,7 +325,8 @@ const PricingTiers = (props) => {
     
 
     async function payInERC(isFreeDonation, contractInstance, v, indexTier){
-
+            
+            handleNext()
        
             let ind = isFreeDonation ? 0 : indexTier + 1;
 
@@ -241,8 +346,8 @@ const PricingTiers = (props) => {
             contractInstance.methods.participateInERC20(ind, v)
                 .send({from : userAddr, value: 0})
                 .on('transactionHash', function(hash){
-                    setCreationState(0)
-                    openDialog()
+                    // setCreationState(0)
+                    // openDialog()
                     console.log("hash :" + hash)
                     setTx(hash);
                 })
@@ -257,7 +362,8 @@ const PricingTiers = (props) => {
     
                 })
                 .then((a) => {
-                    setCreationState(1)
+                    // setCreationState(1)
+                    handleNext()
                     // console.log(a.events)
                 })
     }
@@ -271,6 +377,8 @@ const PricingTiers = (props) => {
             var ind = parseInt(index)
 
             monitortransacDB(ind);
+            openDialog()
+
 
             // add to Followed projects
         } else {
@@ -433,6 +541,16 @@ const PricingTiers = (props) => {
                     <DialogContentText id="alert-dialog-description">
                     Please confirm the transaction on your wallet to finalize your donation.</DialogContentText>
                 </DialogContent></div>
+              case 10:
+                return  <div style={{justifyContent:'center'}}>
+                <DialogTitle id="alert-dialog-title">Your donation to "{campaign.title}"</DialogTitle>
+                <DialogContent>
+                    {displayStepper()}
+                    <DialogContentText style={{marginTop: 15, marginBottom: 0}} id="alert-dialog-description">active step : {activeStep}</DialogContentText>
+                    <DialogContentText style={{marginTop: 15, marginBottom: 0}} id="alert-dialog-description">Transaction hash :</DialogContentText>
+                    <p>{showScan()}</p>
+
+                </DialogContent></div>
             default:
                 return <div style={{justifyContent:'center'}}>
                 <DialogTitle id="alert-dialog-title">Waiting for confirmation...</DialogTitle>
@@ -476,7 +594,7 @@ const PricingTiers = (props) => {
                         InputLabelProps={{
                             shrink: true,
                         }}
-                        inputProps={{ min: 0}}
+                        inputProps={{ min: 0, step:getNbrStep()}}
                         /></span>
                     </div>
                     
@@ -541,7 +659,7 @@ const PricingTiers = (props) => {
                 aria-labelledby="alert-dialog-title"
                 aria-describedby="alert-dialog-description"
             >
-                {displayConfirmModal(creationState)}
+                {displayConfirmModal(10)}
                 {/* <DialogActions>
                 <Button onClick={this.closeDialog} color="primary">
                     Close
