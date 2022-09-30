@@ -205,7 +205,7 @@ const PricingTiers = (props) => {
        let ind = isFreeDonation ? 0 : indexTier + 1
 
        contractInstance.methods.participateInETH(ind)
-            .send({from : userAddr, value: web3Instance.utils.toWei(v)})
+            .send({from : userAddr, value: web3Instance.utils.toWei(v)})            // CATCH ERREUR DU TOWEI
             .on('transactionHash', function(hash){
                 console.log("hash :" + hash)
                 setTx(hash);
@@ -259,36 +259,41 @@ const PricingTiers = (props) => {
         if(erc20Ctr != undefined){
             erc20Ctr.methods.decimals().call().then((decimals) => {
                 console.log(decimals)
-                const amt = toBaseUnit(v.toString(), decimals.toString(), web3Instance.utils.BN)     
-                console.log(amt.toString())
-
-                checkAllowed(erc20Ctr).then(res => {
-                    let bnres = new BN(res.toString())
-                    console.log(bnres)
-                    // console.log(amt)
-                    if(bnres.gte(amt)){
-                         console.log("allowance OK")
-                        payInERC(isFreeDonation, contractInstance, amt, indexTier)
-                    } else {
-                        console.log("approve to do")
-
-                        erc20Ctr.methods.approve(globalERC20Addr, max).send({from : userAddr, value: 0})
-                        .on('transactionHash', function(hash){
-                            console.log("hash :" + hash)
-                            setTx(hash);
-                        })
-                        .on("error", function(error) {
-                            setErrorMsg(error.code + " : " + error.message)
-                            openSnackbar()    
-                        })
-                        .then(() => {
-                            payInERC(isFreeDonation, contractInstance, amt, indexTier);
-                        })
-                        .catch((err) => {
-                            console.log(err)
-                        })
-                    }
-                })
+                try{ 
+                    const amt = toBaseUnit(v.toString(), decimals.toString(), web3Instance.utils.BN)
+                    checkAllowed(erc20Ctr).then(res => {
+                        let bnres = new BN(res.toString())
+                        console.log(bnres)
+                        // console.log(amt)
+                        if(bnres.gte(amt)){
+                             console.log("allowance OK")
+                            payInERC(isFreeDonation, contractInstance, amt, indexTier)
+                        } else {
+                            console.log("approve to do")
+    
+                            erc20Ctr.methods.approve(globalERC20Addr, max).send({from : userAddr, value: 0})
+                            .on('transactionHash', function(hash){
+                                console.log("hash :" + hash)
+                                setTx(hash);
+                            })
+                            .on("error", function(error) {
+                                setErrorMsg(error.code + " : " + error.message)
+                                openSnackbar()    
+                            })
+                            .then(() => {
+                                payInERC(isFreeDonation, contractInstance, amt, indexTier);
+                            })
+                            .catch((err) => {
+                                console.log(err)
+                            })
+                        }
+                    })
+                }
+                catch(err) {
+                    console.log(err)
+                    setErrorMsg(err.message)
+                    openSnackbar()
+                }               
             })
         }            
     }
@@ -478,7 +483,7 @@ const PricingTiers = (props) => {
                         InputLabelProps={{
                             shrink: true,
                         }}
-                        inputProps={{ min: 0, step:getNbrStep()}}
+                        inputProps={{ min: 0}}
                         /></span>
                     </div>
                     
