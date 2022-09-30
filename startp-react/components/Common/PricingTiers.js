@@ -225,8 +225,9 @@ const PricingTiers = (props) => {
         .then(() => {
             handleNext(1)
             
-        }).catch(() => {
-            console.log("error in the transac")
+        }).catch((err) => {
+            setErrorMsg(err.message)
+            openSnackbar()
         })
        } catch(err){
         setErrorMsg(err.message)
