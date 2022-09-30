@@ -70,7 +70,6 @@ const PricingTiers = (props) => {
     const [errorMsg, setErrorMsg] = React.useState("");
     const [dialogOpen, setDialogOpen] = React.useState(false);
     const [snackbarOpen, setSnackbarOpen] = React.useState(false);
-    const [creationState, setCreationState] = React.useState(10);
     const [Tx, setTx] = React.useState("");
     const [subsLength, setSubsLength] = React.useState("");
 
@@ -125,12 +124,8 @@ const PricingTiers = (props) => {
     }
 
      //---------------STEPPER----------------/
-      const handleNext = () => {
-        console.log("oldStep", activeStep)
-        let nextStep = activeStep + 1
-        console.log("nextStep", nextStep)
-
-        setActiveStep(nextStep);
+      const handleNext = (step) => {
+        setActiveStep(step);
       };
       
       const getLabelIcon = (i) => {
@@ -203,17 +198,6 @@ const PricingTiers = (props) => {
 
  
     const monitortransacDB = async(index) => {
-
-       
-            // TX Metamask
-            // onSuccess => retire du [] pending et on le met dans [] subscribers
-            // onFailure => retire du [] pending
-
-            // var userDoc = db.collection("profile").doc(userAddr);
-            // // Atomically add a new region to the "participated" array field.
-            // userDoc.update({
-            //     participated: firebase.firestore.FieldValue.arrayUnion(campaign.contract_address)
-            // })
                             
             const campCtrInstance = new web3Instance.eth.Contract(campaignAbi.campaignAbi, campaign.contract_address)
                 if(campaign.currency == "ETH" || campaign.currency == "b_BNB")
@@ -224,15 +208,13 @@ const PricingTiers = (props) => {
 
 
     async function participateInETH(isFreeDonation, contractInstance, v, indexTier) {
-        
-       openDialog()
+        openDialog()
 
        let ind = isFreeDonation ? 0 : indexTier + 1
 
        contractInstance.methods.participateInETH(ind)
             .send({from : userAddr, value: web3Instance.utils.toWei(v)})
             .on('transactionHash', function(hash){
-                // openDialog()
                 console.log("hash :" + hash)
                 setTx(hash);
      
@@ -247,8 +229,7 @@ const PricingTiers = (props) => {
                 
             })
             .then(() => {
-                // setCreationState(1)
-                handleNext()
+                handleNext(1)
                 
             }).catch(() => {
                 console.log("error in the transac")
@@ -301,8 +282,6 @@ const PricingTiers = (props) => {
 
                         erc20Ctr.methods.approve(globalERC20Addr, max).send({from : userAddr, value: 0})
                         .on('transactionHash', function(hash){
-                            // setCreationState(2)
-                            // openDialog()
                             console.log("hash :" + hash)
                             setTx(hash);
                         })
@@ -311,7 +290,6 @@ const PricingTiers = (props) => {
                             openSnackbar()    
                         })
                         .then(() => {
-                            // setCreationState(3)
                             payInERC(isFreeDonation, contractInstance, amt, indexTier);
                         })
                         .catch((err) => {
@@ -326,7 +304,7 @@ const PricingTiers = (props) => {
 
     async function payInERC(isFreeDonation, contractInstance, v, indexTier){
             
-            handleNext()
+            handleNext(1)
        
             let ind = isFreeDonation ? 0 : indexTier + 1;
 
@@ -346,10 +324,9 @@ const PricingTiers = (props) => {
             contractInstance.methods.participateInERC20(ind, v)
                 .send({from : userAddr, value: 0})
                 .on('transactionHash', function(hash){
-                    // setCreationState(0)
-                    // openDialog()
                     console.log("hash :" + hash)
                     setTx(hash);
+
                 })
                 .on('confirmation', function(confirmationNumber, receipt){
         
@@ -361,10 +338,8 @@ const PricingTiers = (props) => {
                     console.log(error)
     
                 })
-                .then((a) => {
-                    // setCreationState(1)
-                    handleNext()
-                    // console.log(a.events)
+                .then(() => {
+                    handleNext(2)
                 })
     }
 
@@ -377,7 +352,6 @@ const PricingTiers = (props) => {
             var ind = parseInt(index)
 
             monitortransacDB(ind);
-            openDialog()
 
 
             // add to Followed projects
@@ -397,12 +371,6 @@ const PricingTiers = (props) => {
     async function handleClickFree(e) {    
         let amount = valueRef.current.value
         if(amount > 0){
-            // var userDoc = db.collection("profile").doc(userAddr);
-            // console.log(userDoc)
-            // // Atomically add a new region to the "participated" array field.
-            // userDoc.update({
-            //     participated: firebase.firestore.FieldValue.arrayUnion(campaign.contract_address)
-            // }).then(res => console.log(res));
             
             const campCtrInstance = new web3Instance.eth.Contract(campaignAbi.campaignAbi, campaign.contract_address)
                 if(campaign.currency == "ETH" || campaign.currency == "b_BNB")
@@ -416,7 +384,6 @@ const PricingTiers = (props) => {
         if(web3Instance != undefined && chainID == campaign.network){
             const campCtrInstance = new web3Instance.eth.Contract(campaignAbi.campaignAbi, campaign.contract_address)
             campCtrInstance.methods.getStock().call().then(res => {
-                // console.log(res)
                 setSubsLength(res);
             })
         }
@@ -476,92 +443,17 @@ const PricingTiers = (props) => {
         }
     }
 
-     const displayConfirmModal = (x) => {
-        switch(x) {
-            case 0:
-                return <div style={{justifyContent:'center'}}>
-                <DialogTitle id="alert-dialog-title">Waiting for confirmation...</DialogTitle>
-                <DialogContent>
-
-                    <CircularProgress style={{marginTop: 20, marginBottom: 20}}/>
-
-                <DialogContentText id="alert-dialog-description">
-                Transaction Hash : </DialogContentText>
-                <DialogContentText id="alert-dialog-description">{showScan()}</DialogContentText>
-                </DialogContent></div>
-            case 1:
-                return <div style={{justifyContent:'center'}}>
-                <DialogTitle id="alert-dialog-title">Thanks for your participation ! <IconFeather.Heart/></DialogTitle>
-                <DialogContent>    
-                <div style={{display: 'flex', justifyContent:'center', alignItems:'center', flexDirection:'column'}}>
-                    <h5>You supported succesfully :</h5>
-                    <h4 style={{marginBottom: 5}}>{campaign.title}</h4>
-                    <img width={320} src={campaign.main_img} alt='campaign image'/>
-                    <DialogContentText id="alert-dialog-description">
-                    <Link href={{
-                                pathname: "/"
-                                }}
-                                >
-                            <a style={{marginTop: 15}} className="btn btn-primary">Discover other projects </a>
-                            </Link>  </DialogContentText>
-                    <i>Make sure to fill your profile if you are waiting for a counterpart. The creator will contact you by email if needed.</i>
-                </div>
-                <DialogContentText id="alert-dialog-description" style={{marginTop: 15}}>
-                Transaction confirmed : </DialogContentText>
-                <DialogContentText id="alert-dialog-description">{showScan()}</DialogContentText>
-                </DialogContent></div>
-            case 2:
-                return <div style={{justifyContent:'center'}}>
-                <DialogTitle id="alert-dialog-title">Waiting for approval...</DialogTitle>
-                <div style={{display: 'flex', justifyContent:'center', alignItems:'center', flexDirection:'column'}}>
-                    <i>You only need to do this once in order to use this token on our platform.<br></br>
-                        <Link href={{
-                            pathname: "/how-it-works"
-                            }}
-                            >
-                        <a target="_blank" style={{marginTop: 15}}>More information about BEP20 allowance here</a>
-                        </Link>.</i>
-                </div>
-
-                <DialogContent>
-
-                    <CircularProgress style={{marginTop: 20, marginBottom: 20}}/>
-
-                <DialogContentText id="alert-dialog-description">
-                Transaction Hash : </DialogContentText>
-                <DialogContentText id="alert-dialog-description">{showScan()}</DialogContentText>
-                </DialogContent></div>
-            case 3:
-                return <div style={{justifyContent:'center'}}>
-                <DialogTitle id="alert-dialog-title">Approval confirmed</DialogTitle>
-
-                <DialogContent>
-
-                    <CircularProgress style={{marginTop: 20, marginBottom: 20}}/>
-                    <DialogContentText id="alert-dialog-description">
-                    Please confirm the transaction on your wallet to finalize your donation.</DialogContentText>
-                </DialogContent></div>
-              case 10:
+     const displayConfirmModal = () => {
                 return  <div style={{justifyContent:'center'}}>
                 <DialogTitle id="alert-dialog-title">Your donation to "{campaign.title}"</DialogTitle>
                 <DialogContent>
                     {displayStepper()}
-                    <DialogContentText style={{marginTop: 15, marginBottom: 0}} id="alert-dialog-description">active step : {activeStep}</DialogContentText>
                     <DialogContentText style={{marginTop: 15, marginBottom: 0}} id="alert-dialog-description">Transaction hash :</DialogContentText>
                     <p>{showScan()}</p>
 
                 </DialogContent></div>
-            default:
-                return <div style={{justifyContent:'center'}}>
-                <DialogTitle id="alert-dialog-title">Waiting for confirmation...</DialogTitle>
-                <DialogContent>
-                
-                <CircularProgress style={{marginTop: 20, marginBottom: 20}}/>
-                </DialogContent></div>
-
         }
-    }
-
+    
     const showNetwork = () => {
         if(campaign.network == chain){
             return <>
@@ -659,7 +551,7 @@ const PricingTiers = (props) => {
                 aria-labelledby="alert-dialog-title"
                 aria-describedby="alert-dialog-description"
             >
-                {displayConfirmModal(10)}
+                {displayConfirmModal()}
                 {/* <DialogActions>
                 <Button onClick={this.closeDialog} color="primary">
                     Close
