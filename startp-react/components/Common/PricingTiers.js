@@ -204,28 +204,34 @@ const PricingTiers = (props) => {
 
        let ind = isFreeDonation ? 0 : indexTier + 1
 
-       contractInstance.methods.participateInETH(ind)
-            .send({from : userAddr, value: web3Instance.utils.toWei(v)})            // CATCH ERREUR DU TOWEI
-            .on('transactionHash', function(hash){
-                console.log("hash :" + hash)
-                setTx(hash);
-     
-            })
-            .on('confirmation', function(confirmationNumber, receipt){ 
-    
-                // console.log("Confirmation number:" + confirmationNumber)
-            })
-            .on("error", function(error) {
-                setErrorMsg(error.code + " : " + error.message)
-                openSnackbar()
-                
-            })
-            .then(() => {
-                handleNext(1)
-                
-            }).catch(() => {
-                console.log("error in the transac")
-            })
+       try {
+        let amt = web3Instance.utils.toWei(v)
+        contractInstance.methods.participateInETH(ind)
+        .send({from : userAddr, value: amt})            // CATCH ERREUR DU TOWEI
+        .on('transactionHash', function(hash){
+            console.log("hash :" + hash)
+            setTx(hash);
+ 
+        })
+        .on('confirmation', function(confirmationNumber, receipt){ 
+
+            // console.log("Confirmation number:" + confirmationNumber)
+        })
+        .on("error", function(error) {
+            setErrorMsg(error.code + " : " + error.message)
+            openSnackbar()
+            
+        })
+        .then(() => {
+            handleNext(1)
+            
+        }).catch(() => {
+            console.log("error in the transac")
+        })
+       } catch(err){
+        setErrorMsg(err.message)
+        openSnackbar()
+       }
     }
 
 
