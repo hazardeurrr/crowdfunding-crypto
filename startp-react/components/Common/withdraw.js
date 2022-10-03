@@ -120,6 +120,7 @@ const Withdraw = (props) => {
                     const _endBlock = Math.min(currentBlock, parseInt(i) + parseInt(4999));
                     ctr.getPastEvents("Participation", ({fromBlock: _startBlock, toBlock: _endBlock}))
                     .then(function(events){
+                        console.log(events)
                         // console.log(events) // same results as the optional callback above
                         let eventsMapped = events.map(e => [e.returnValues.user.toLowerCase(), e.returnValues.indexTier])
                         // console.log(eventsMapped)
@@ -224,19 +225,20 @@ const Withdraw = (props) => {
             </DialogContent></div>
         case 1:
             return <div style={{justifyContent:'center'}}>
-            <DialogTitle id="alert-dialog-title">Withdrawal successful ! <IconFeather.Smile/></DialogTitle>
-            <DialogContent>    
-                <DialogContentText id="alert-dialog-description">
-                <Link href={{
-                            pathname: "/",
-                            }}
-                            >
-                <a className="btn btn-primary">Back to main page</a>
-                </Link>  </DialogContentText>
-            <DialogContentText id="alert-dialog-description" style={{marginTop: 15}}>
+            <DialogTitle id="alert-dialog-title">Transaction confirmed ✔️</DialogTitle>
+            <DialogContent style={{textAlign:'center', marginTop: 15}}>    
+            <h5>Withdrawal complete 🎉</h5><p>Thank you for choosing BlockBoosted 💚</p>
+                    <Link style={{marginTop: 25}} href="/"><Button
+                        style={{backgroundColor: 'black', color:'white'}}
+                        variant="contained"
+                        >Back to main page
+                        </Button></Link>
+            <DialogContentText id="alert-dialog-description" style={{marginTop: 35, textAlign:'left'}}>
             Transaction confirmed : </DialogContentText>
-            <DialogContentText id="alert-dialog-description">{showScan()}</DialogContentText>
-            </DialogContent></div>
+            <DialogContentText id="alert-dialog-description" style={{textAlign:'left'}}>{showScan()}</DialogContentText>
+            </DialogContent>
+
+            </div>
         default:
             return <div style={{justifyContent:'center'}}>
             <DialogTitle id="alert-dialog-title">Waiting for confirmation...</DialogTitle>

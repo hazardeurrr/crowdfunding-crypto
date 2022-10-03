@@ -469,22 +469,22 @@ const Navbar = () => {
 
             //--------------------------------BBST BALANCE CHECKER-------------------------------
 
-            const bbst_contract = new web3b.eth.Contract(bbstAbi.bbstAbi, bnb_bbstAddr.bnb_bbstAddr);
-            bbst_contract.methods.balanceOf(address).call().then(response => {
-                console.log(address)
-                console.log(response)
-                dispatch({
-                    type: 'SET_BBST_BALANCE',
-                    id: response
-                })
-            }).catch(console.error)
+            // const bbst_contract = new web3b.eth.Contract(bbstAbi.bbstAbi, bnb_bbstAddr.bnb_bbstAddr);
+            // bbst_contract.methods.balanceOf(address).call().then(response => {
+            //     console.log(address)
+            //     console.log(response)
+            //     dispatch({
+            //         type: 'SET_BBST_BALANCE',
+            //         id: response
+            //     })
+            // }).catch(console.error)
 
             
 
-            // dispatch({
-            //     type: 'SET_BBST_BALANCE',
-            //     id: 0
-            // })
+            dispatch({
+                type: 'SET_BBST_BALANCE',
+                id: 0
+            })
 
 
 
