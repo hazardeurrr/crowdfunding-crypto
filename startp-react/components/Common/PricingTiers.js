@@ -146,6 +146,7 @@ const PricingTiers = (props) => {
                   variant="contained"
                   >Finish
                   </Button></Link>
+                  <p style={{marginTop: 25}}><i>NB : if you are waiting for a counterpart from the creator, please make sure your email address is filled in your profile.</i></p>
               </Paper>
               
             )}
@@ -181,6 +182,8 @@ const PricingTiers = (props) => {
                         variant="contained"
                         >Finish
                         </Button></Link>
+                        <p style={{marginTop: 25}}><i>NB : if you are waiting for a counterpart from the creator, please make sure your email address is filled in your profile.</i></p>
+
                 </Paper>
                 
               )}
