@@ -94,7 +94,8 @@ Every donation/interaction not made through the Site to/with the campaign’s co
 
 <h5>Campaigns display</h5>
 <p>Creating an offensive or inappropriate campaign on BlockBoosted app will result in the immediate deletion of the campaign from the platform.
-<br></br>Note that each campaign needs to be reviewed by our team before it’s accessible on our platform. If a campaign doesn’t respect these Terms of Use, we reserve ourselves the right to unapprove it. An unapproved campaign will not be displayed on our platform, hence we won’t provide any interface to access its smart-contract, nor show its description, images, or any other related data. Creators will be informed by notification about the status of their campaign.
+<br></br>Note that each campaign needs to be reviewed by our team before it’s accessible on our platform. If a campaign doesn’t respect these Terms of Use, we reserve ourselves the right to unapprove it at any given time. An unapproved campaign will not be displayed on our platform, hence we won’t provide any interface to access its smart-contract, nor show its description, images, or any other related data. Creators will be informed by notification about the status of their campaign. In case of an unapproved campaign, the creator has up to one month to contest our decision, or the data linked to the campaign will be definitely removed from our database.
+
 <br></br>As mentioned throughout theses Terms of Use, an offensive, racist, illegal or sexual related campaign will not be displayed on our platform. BlockBoosted has the right to remove this campaign at any moment if it does not fit the terms and conditions specified.
 <br></br><br></br>
 Campaigns are ranked & displayed depending on their status and “like score”. Ongoing campaigns will be displayed first, followed by future campaigns and finished campaigns. The “like score” increases each time a user likes a campaign. 
