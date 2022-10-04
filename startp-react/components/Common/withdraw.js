@@ -46,7 +46,7 @@ const Withdraw = (props) => {
   const [Tx, setTx] = React.useState("");
   const [totalBalance, setTotalBalance] = React.useState(0)
   const [ctrInstance, setCtrInstance] = React.useState(undefined)
-  const [subscribers, setSubscribers] = React.useState([])
+  const [dataState, setDataState] = React.useState(0)
 
     const openDialog = () => {
         setDialogOpen(true)
@@ -79,82 +79,87 @@ const Withdraw = (props) => {
       }
   }
 
-  const downloadData = () => {
+  async function downloadData(){
+    setDataState(1)
 
-    // if(campaign.tiers.length == 0) {
-    //     //alert ("You didn't put any tiers in your campaign !")
-    //     setErrorMsg("You didn't put any tiers in your campaign! Can't retrieve data.")
-    //     openSnackbar()
-    // } else {
-
-        // const result = getTiers()
-
-        getTokens().then((response) => {
-
-            var csvContent = response.data.content;
+    ctrInstance.methods.creationBlock.call().call().then((cblock) =>  {
+        console.log("creablock", cblock)
+        web3Instance.eth.getBlockNumber().then(async (currentBlock) => {
+            console.log(currentBlock)
+            
+            let subs = await loop(cblock, currentBlock, ctrInstance).catch((error) => {
+                setErrorMsg(error.code + " : " + error.message)
+                openSnackbar()
+                setDataState(0)
+            })    
+            console.log(subs)
+            let addressesArr = []
     
-            var encodedUri = encodeURI(csvContent);
+            const subSorted = subs.sort((a,b) => a[1].localeCompare(b[1]));
+        
+            for(let i = 0 ; i < subSorted.length; ++i){
+                addressesArr = addressesArr.concat(subSorted[i][0].toLowerCase())
+            }
+            setDataState(2)
 
-            var link = document.createElement("a");
-            link.setAttribute("href", encodedUri);
-            link.setAttribute("download", campaign.title+"_subscribers.csv");
-            document.body.appendChild(link); // Required for FF
+            axios({
+                method: 'post',
+                url: 'https://europe-west1-crowdfunding-dev-5f802.cloudfunctions.net/getEmails',
+                data: {
+                  addresses: addressesArr,
+                  sorted: subSorted,
+                  camp: campaign
+                }
+              }).then((response) => {
+                console.log(response)
+    
+                var csvContent = response.data.content;
+        
+                var encodedUri = encodeURI(csvContent);
+    
+                var link = document.createElement("a");
+                link.setAttribute("href", encodedUri);
+                link.setAttribute("download", campaign.title+"_subscribers.csv");
+                document.body.appendChild(link); // Required for FF
+    
+                link.click(); // This will download the data file named "tiers_subscribers.csv".
+                setDataState(0)
 
-            link.click(); // This will download the data file named "tiers_subscribers.csv".
+            }).catch((error) => {
+                setErrorMsg(error.code + " : " + error.message)
+                openSnackbar()
+                setDataState(0)
+            })
+        // };
 
         })
-    // }
+    })    
+
   }
 
-  function getSubsEvent(ctr) {
-    if(connected == true && chainID == campaign.network){
-        console.log(ctr)
-        ctr.methods.creationBlock.call().call().then((cblock) =>  {
-            console.log("creablock", cblock)
-            web3Instance.eth.getBlockNumber().then((currentBlock) => {
-                console.log(currentBlock)
-                // let allEvents = []
+ 
+  async function loop(cblock, currentBlock, ctr){
+    let allEvents = []
                 
-                for(let i = cblock; i < currentBlock; i += 5000) {
+                for(let i = parseInt(cblock); i < parseInt(currentBlock); i += 5000) {
+                    // console.log("entering boucle itération : " + i)
                     const _startBlock = i;
                     const _endBlock = Math.min(currentBlock, parseInt(i) + parseInt(4999));
-                    ctr.getPastEvents("Participation", ({fromBlock: _startBlock, toBlock: _endBlock}))
+                    // console.log("start : " + _startBlock + " / endblock : " + _endBlock)
+                    // console.log("currentBlock" + currentBlock + " / currentblock+5000 : " + (i+5000))
+                    await ctr.getPastEvents("Participation", ({fromBlock: _startBlock, toBlock: _endBlock}))
                     .then(function(events){
-                        console.log(events)
+                        // console.log(events)
                         // console.log(events) // same results as the optional callback above
                         let eventsMapped = events.map(e => [e.returnValues.user.toLowerCase(), e.returnValues.indexTier])
                         // console.log(eventsMapped)
-                        // allEvents = [...allEvents, ...eventsMapped]
-                        setSubscribers([...subscribers, ...eventsMapped]);
+                        allEvents = allEvents.concat(eventsMapped)
+                        // console.log(allEvents)
+
+                        // setSubscribers([...subscribers, ...eventsMapped]);
                     });
                   }
-                //   console.log(allEvents)
-                //   setSubscribers(allEvents)
-            })
-        })
-    }
-  }
-
-  function getTokens() {
-
-    let addressesArr = []
-    
-    let copySubs = [...subscribers];
-    const subSorted = copySubs.sort((a,b) => a[1].localeCompare(b[1]));
-
-    for(let i = 0 ; i < subSorted.length; ++i){
-        addressesArr = addressesArr.concat(subSorted[i][0].toLowerCase())
-    }
-
-    return axios({
-        method: 'post',
-        url: 'https://europe-west1-crowdfunding-dev-5f802.cloudfunctions.net/getEmails',
-        data: {
-          addresses: addressesArr,
-          sorted: subSorted,
-          camp: campaign
-        }
-      });
+    return allEvents
   }
 
   
@@ -263,12 +268,14 @@ const showScan = () => {
 
 
   React.useEffect(() => {
+    // setDataState(0)
+
       if(web3Instance != undefined && campaign !== undefined){
         if(connected == true && chainID == campaign.network){
             //connect to Metamask and check for a refund
             const campCtrInstance = new web3Instance.eth.Contract(campaignAbi.campaignAbi, campaign.contract_address)
             setCtrInstance(campCtrInstance)
-            getSubsEvent(campCtrInstance)
+            // getSubsEvent(campCtrInstance)
       //      campCtrInstance.methods.totalBalance.call().call().then(res => {setTotalBalance(res)})
             if(campaign.currency == "ETH" || campaign.currency == "b_BNB"){
                 web3Instance.eth.getBalance(campaign.contract_address).then(res => {
@@ -290,7 +297,7 @@ const showScan = () => {
                     setTotalBalance(res)
                 })
             }
-        setSubscribers([]);
+        // setSubscribers([]);
       }
     }
   }, [web3Instance, campaign])
@@ -300,6 +307,27 @@ const showScan = () => {
     if(totalBalance > 0)
         return <button className="btn btn-primary" onClick={withdrawMoney}>Withdraw</button>
 
+  }
+
+
+  const showBtn = () => {
+    switch(dataState){
+        case 0:
+            return "Download Data"
+        case 1:
+            return <div style={{alignItems:'center', justifyContent:'center', display:'flex'}}><CircularProgress style={{color:'black', width: 25, height: 25}}/> <span style={{marginLeft: 10}}>Retrieving data...</span></div>
+        case 2:
+            return <div style={{alignItems:'center', justifyContent:'center', display:'flex'}}><CircularProgress style={{color:'black', width: 25, height: 25}}/> <span style={{marginLeft: 10}}>Processing data...</span></div>
+        default:
+            return "Download Data"
+    }
+  }
+
+  const displayBtnsOrNot = () => {
+    if(ctrInstance != undefined && ctrInstance != null && campaign.network == chainID && connected){
+        return <div style={{marginTop:10, marginBottom: 15}}>{displayWithdrawBtn()}
+        <button className="btn btn-light" onClick={downloadData}>{showBtn()}</button></div>
+    }
   }
 
   return <div>
@@ -330,8 +358,7 @@ const showScan = () => {
             </Dialog>
 
             <h4>Your campaign has ended successfully!</h4>
-            {displayWithdrawBtn()}
-            <button className="btn btn-light" onClick={downloadData}>Download data</button>
+            {displayBtnsOrNot()}
         </div>
 }
 
