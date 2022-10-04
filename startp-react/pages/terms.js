@@ -52,6 +52,7 @@ As a user of the Site, you agree not to:
 <li>Attempt to bypass any measures of the Site designed to prevent or restrict access to the Site, or any portion of the Site.</li>
 <li>Copy or adapt the Site’s software.</li>
 <li>Use a buying agent or purchasing agent to make purchases on the Site.</li>
+<li>Create campaigns that trick or mislead other users</li>
 <li>Create or display illegal content, such as content that may involve child sexual exploitation, sexual, racist or offensive content.</li>
 <li>Create or display campaigns that promote suicide or self-harm, incites hate or violence against others, or doxes another individual.</li>
 <li>Use the Site for money laundering, terrorist financing, or other illicit financing;</li>
@@ -93,6 +94,7 @@ Every donation/interaction not made through the Site to/with the campaign’s co
 
 <h5>Campaigns display</h5>
 <p>Creating an offensive or inappropriate campaign on BlockBoosted app will result in the immediate deletion of the campaign from the platform.
+<br></br>Note that each campaign needs to be reviewed by our team before it’s accessible on our platform. If a campaign doesn’t respect these Terms of Use, we reserve ourselves the right to unapprove it. An unapproved campaign will not be displayed on our platform, hence we won’t provide any interface to access its smart-contract, nor show its description, images, or any other related data. Creators will be informed by notification about the status of their campaign.
 <br></br>As mentioned throughout theses Terms of Use, an offensive, racist, illegal or sexual related campaign will not be displayed on our platform. BlockBoosted has the right to remove this campaign at any moment if it does not fit the terms and conditions specified.
 <br></br><br></br>
 Campaigns are ranked & displayed depending on their status and “like score”. Ongoing campaigns will be displayed first, followed by future campaigns and finished campaigns. The “like score” increases each time a user likes a campaign. 
