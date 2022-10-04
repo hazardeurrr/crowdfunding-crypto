@@ -139,7 +139,7 @@ const ServiceDetails = () => {
                                             </AccordionItemHeading>
                                             <AccordionItemPanel>
                                                 <p>
-                                                    In order to use BEP20 tokens on our platform, you must allow our smart contracts to access them. It's a security feature of the ERC20 standard. You only need to do the approval
+                                                    In order to use BEP20 tokens on our platform, you must allow our smart contracts to access them. It's a security feature of the BEP20/ERC20 standard. You only need to do the approval
                                                     once per token.
                                                 </p>
                                             </AccordionItemPanel>
