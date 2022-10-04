@@ -703,12 +703,12 @@ class MainForm extends React.Component {
                 }}/>
                 <label htmlFor="bnb_bnb">BNB</label>
             </p>
-            <p>
+            {/* <p>
                 <input type="radio" id="bnb_bbst" name="bnb_radio-group" value="b_BBST" checked={this.state.raisingMethod == "b_BBST"} onChange={(event) => {
                     this.setState({raisingMethod: event.target.value})
                 }}/>
                 <label htmlFor="bnb_bbst">BBST (0% fee)</label>
-            </p>
+            </p> */}
         </div>
         }
     }
@@ -756,7 +756,7 @@ class MainForm extends React.Component {
                             <h2>Campaign</h2>
                             <div className="bar"></div>
                             <p>Here is the place where you can create your campaign and start raising funds for your project.</p>
-                            <br /><p><i>Beware : if your campaign promote or contains offensive, inappropriate or illegal content, it might get suspended. Thank you for your comprehension.</i></p>
+                            {/* <br /><p><i>Beware : if your campaign promote or contains offensive, inappropriate or illegal content, it might get suspended. Thank you for your comprehension.</i></p> */}
                         </div>
 
                         <div className="faq-contact">
