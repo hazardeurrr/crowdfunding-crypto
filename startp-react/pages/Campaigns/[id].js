@@ -94,13 +94,13 @@ const Campaign = (props) => {
 
         // console.log(props)
 
-        getOne('campaignsTest', props.address, function(doc) {
+        getOne('campaignsBNB', props.address, function(doc) {
           if (doc.exists) {
             setCampaign(doc.data())
             displayHTMLTxt(doc.data().long_desc)
             // console.log(campaign)
             var addr = doc.data().creator
-            getOne('profileTest', addr.toLowerCase(), function(docs) {
+            getOne('profile', addr.toLowerCase(), function(docs) {
                 if (docs.exists) {
                     setUser(docs.data())
                 } else {

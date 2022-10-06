@@ -112,7 +112,7 @@ const Navbar = () => {
             let notifsUpdated = notifs
             notifsUpdated.forEach(a => a.read = true)
             setNotifs(notifsUpdated)
-            db.collection('profileTest').doc(currentUser.eth_address).collection("privacy").doc(currentUser.eth_address).update({notifications: notifsUpdated})
+            db.collection('profile').doc(currentUser.eth_address).collection("privacy").doc(currentUser.eth_address).update({notifications: notifsUpdated})
         }
     }
 
@@ -432,8 +432,8 @@ const Navbar = () => {
         //     })
         // }).catch(console.log);
 
-        db.collection('profileTest').doc(user.eth_address).set(user).then(() => {
-            db.collection('profileTest').doc(user.eth_address).collection("privacy").doc(user.eth_address).set(privacy).then(() => {
+        db.collection('profile').doc(user.eth_address).set(user).then(() => {
+            db.collection('profile').doc(user.eth_address).collection("privacy").doc(user.eth_address).set(privacy).then(() => {
                 dispatch({
                     type: 'SET_CURRENT_USER',
                     id: user
@@ -511,7 +511,7 @@ const Navbar = () => {
             //     }
             // })
 
-            db.collection('profileTest').doc(address).get().then((doc) => {
+            db.collection('profile').doc(address).get().then((doc) => {
                 if (doc.exists) {
                     dispatch({
                         type: 'SET_CURRENT_USER',
@@ -519,7 +519,7 @@ const Navbar = () => {
                     })
 
                     //----------------GET NOTIFS-------------//
-                    db.collection('profileTest').doc(address).collection("privacy").doc(address).get().then((doc) => {
+                    db.collection('profile').doc(address).collection("privacy").doc(address).get().then((doc) => {
                         setNotifs(doc.data().notifications)
                     })
 
@@ -961,7 +961,7 @@ const Navbar = () => {
                 
                 <div style={{display:"flex", justifyContent:'center', alignItems:'center'}}>
                     <Typography style={{color: 'white', padding: "6px 3px", fontSize: 13, textAlign: 'center'}}>
-                    <b>Welcome to <a target="_blank" href="https://medium.com/@blockboosted"style={{color:'white', textDecoration: "underline", cursor: "pointer"}}>BLOCKBOOSTED V1</a></b> 🎉
+                    <b>Welcome to <a target="_blank" href="https://medium.com/@blockboosted"style={{color:'white', textDecoration: "underline", cursor: "pointer"}}>BLOCKBOOSTED ALPHA</a></b> 🎉
                     </Typography>
                     <div style={{marginLeft: 10, width: 17}}>
                         <CancelIcon style={{color:"inherit", cursor: 'pointer', height: '100%', width: '100%'}} onClick={() => setShowAppBar(false)}/>

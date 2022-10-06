@@ -67,20 +67,20 @@ const ProfileForm = (props) => {
 
         const profile = { username: "", eth_address: "0x2136ea398111ce7ae5e5539046958a3cf5605dea", image: "", bio: "", twitter: "", liked: new Array() };
 
-        // db.collection('profileTest').doc(profile.eth_address).collection("privacy").doc(profile.eth_address).get().then((doc) => {
+        // db.collection('profile').doc(profile.eth_address).collection("privacy").doc(profile.eth_address).get().then((doc) => {
 		// 	console.log(doc.data())
 		// }).catch((err) => {
 		// 	console.log(err);
 		// })
 
-        const req = db.collection('profileTest').doc(profile.eth_address).collection("privacy").doc(profile.eth_address).get();
+        const req = db.collection('profile').doc(profile.eth_address).collection("privacy").doc(profile.eth_address).get();
 
         req.then((doc) => {
             console.log();
         })
 
-        // db.collection('profileTest').doc(profile.eth_address).get().then((doc) => {
-        //     db.collection('profileTest').doc(profile.eth_address).collection("privacy").doc(profile.eth_address).get().then((docu) => {
+        // db.collection('profile').doc(profile.eth_address).get().then((doc) => {
+        //     db.collection('profile').doc(profile.eth_address).collection("privacy").doc(profile.eth_address).get().then((docu) => {
         //         let t = {profile: doc.data(), privacy: docu.data()}
         //         console.log(t);
         //     }).catch((err) => {
@@ -90,8 +90,8 @@ const ProfileForm = (props) => {
         //     console.log(err);
         // });
 
-        // db.collection('profileTest').doc(profile.eth_address).set(profile).then(() => {
-		// 	// db.collection('profileTest').doc(profile.eth_address).collection("privacy").doc(profile.eth_address).update(privacy).then(() => {
+        // db.collection('profile').doc(profile.eth_address).set(profile).then(() => {
+		// 	// db.collection('profile').doc(profile.eth_address).collection("privacy").doc(profile.eth_address).update(privacy).then(() => {
         //     //     console.log("user updated");
 		// 	// }).catch((err) => {
 		// 	// 	console.log(err);
@@ -118,7 +118,7 @@ const ProfileForm = (props) => {
 
             const uid = firebase.auth().currentUser.uid;
 
-            db.collection('profileTest').doc(uid).collection("privacy").doc(uid).get().then((doc) => {
+            db.collection('profile').doc(uid).collection("privacy").doc(uid).get().then((doc) => {
                 setEmail(doc.data().email);
             }).catch((err) => {
                 console.log(err);
@@ -173,8 +173,8 @@ const ProfileForm = (props) => {
         // console.log(privacy);
         // console.log(user);
 
-        db.collection('profileTest').doc(user.eth_address).update(user).then(() => {
-			db.collection('profileTest').doc(user.eth_address).collection("privacy").doc(user.eth_address).update({email: email}).then(() => {
+        db.collection('profile').doc(user.eth_address).update(user).then(() => {
+			db.collection('profile').doc(user.eth_address).collection("privacy").doc(user.eth_address).update({email: email}).then(() => {
 				openDialog();
                 console.log("user updated");
 			}).catch((err) => {

@@ -13,7 +13,7 @@ const DonationCheckout = (props, {c}) => {
 
 
     React.useEffect(() => {
-        getOne('campaignsTest', props.address.toLowerCase(), function(docs) {
+        getOne('campaignsBNB', props.address.toLowerCase(), function(docs) {
             if (docs.exists) {
                 setCampaign(docs.data())
             } else {

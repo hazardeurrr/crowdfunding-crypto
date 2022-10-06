@@ -16,7 +16,7 @@ const Layout = ({ children }, {c, crea}) => {
         var creators = []
 
 
-        db.collection('campaignsTest').where("confirmed", "==", true)
+        db.collection('campaignsBNB').where("confirmed", "==", true)
         .get()
         .then((docs) => {
             docs.forEach(element => {
@@ -29,7 +29,7 @@ const Layout = ({ children }, {c, crea}) => {
                 //     }
                 // });
 
-                db.collection('profileTest').doc(element.data().creator.toLowerCase()).get().then((doc) => {
+                db.collection('profile').doc(element.data().creator.toLowerCase()).get().then((doc) => {
                     if (doc.exists) {
                         creators.push(doc.data())
                     }

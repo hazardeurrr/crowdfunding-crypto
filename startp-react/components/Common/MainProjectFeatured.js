@@ -54,7 +54,7 @@ const MainProjectFeatured = (props) => {
       }, [creator])
     
     const setCreaProf = (creator) => {
-        db.collection('profileTest').doc(creator.toLowerCase()).get().then((crea) => {
+        db.collection('profile').doc(creator.toLowerCase()).get().then((crea) => {
 
             setUser(crea.data());
         }).catch((error) => {
