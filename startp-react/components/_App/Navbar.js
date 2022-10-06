@@ -809,7 +809,7 @@ const Navbar = () => {
                     </DialogContentText>
 
                     <DialogContentText id="alert-dialog-description">
-                        By connecting your wallet and using BlockBoosted, you agree to our <a href="https://blockboosted.com/terms">Terms of Service</a> and <a href="https://blockboosted.com/privacy">Privacy Policy</a>. Please sign this message to authenticate.
+                        By connecting your wallet and using BlockBoosted, you agree to our <a target="_blank" href="https://blockboosted.com/terms">Terms of Service</a> and <a target="_blank" href="https://blockboosted.com/privacy">Privacy Policy</a>. Please sign this message to authenticate.
                     </DialogContentText>
                     
                     <DialogActions>
