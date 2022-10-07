@@ -169,10 +169,10 @@ const Footer = () => {
                             <h3>Community</h3>
                             <ul className="list">
                                 <li>
-                                    <a href="https://discord.gg/G9CSA74aCV">Discord</a>
+                                    <a target="_blank" href="https://discord.gg/G9CSA74aCV">Discord</a>
                                 </li>
                                 <li>
-                                    <a href="https://twitter.com/blockboosted">Twitter</a>
+                                    <a target="_blank" href="https://twitter.com/blockboosted">Twitter</a>
                                 </li>
                             </ul>
                         </div>
@@ -180,10 +180,10 @@ const Footer = () => {
                             <h3>About</h3>
                             <ul className="list">
                                 <li>
-                                    <a href="https://blockboosted.com/terms">Terms & Conditions</a>
+                                    <a target="_blank" href="https://blockboosted.com/terms">Terms & Conditions</a>
                                 </li>
                                 <li>
-                                    <a href="https://blockboosted.com/privacy">Privacy policy</a>
+                                    <a target="_blank" href="https://blockboosted.com/privacy">Privacy policy</a>
                                 </li>
                                 <li>
                                     <Link href="/contact">

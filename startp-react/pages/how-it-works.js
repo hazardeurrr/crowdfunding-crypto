@@ -300,7 +300,7 @@ const ServiceDetails = () => {
                                                 <AccordionItemPanel>
                                                     <p>
                                                         You can create a campaign in a few steps clicking on the "Create" button on the navigation bar. Note that you will need to be connected to access this feature. <br></br>Fill the form as you wish to customize your campaign and click on the "Create my campaign" button to submit your campaign.<br></br>
-                                                        Confirm the blockchain transaction and wait for the upload of your campaign's data. Once it's done, your campaign is created ! Our team will review it to make sure it respects our <a href="https://blockboosted.com/terms">Terms of Use</a> (can take up to 2/3 business days). You will receive a notification on your profile once your campaign is approved.
+                                                        Confirm the blockchain transaction and wait for the upload of your campaign's data. Once it's done, your campaign is created ! Our team will review it to make sure it respects our <a target="_blank" href="https://blockboosted.com/terms">Terms of Use</a> (can take up to 2/3 business days). You will receive a notification on your profile once your campaign is approved.
                                                     </p>
                                                 </AccordionItemPanel>
                                             </AccordionItem>
@@ -435,7 +435,7 @@ const ServiceDetails = () => {
                                                 </AccordionItemHeading>
                                                 <AccordionItemPanel>
                                                     <p>
-                                                        A campaign can get unapproved if it doesn't respect our <a href="https://blockboosted.com/terms">Terms of Use</a>. If your campaign got unapproved by our team, you will receive a notification on your profile. If you think we made a mistake, you have up to one month to <Link href="/contact"><a>contact us</a></Link> and contest the decision.
+                                                        A campaign can get unapproved if it doesn't respect our <a target="_blank" href="https://blockboosted.com/terms">Terms of Use</a>. If your campaign got unapproved by our team, you will receive a notification on your profile. If you think we made a mistake, you have up to one month to <Link href="/contact"><a>contact us</a></Link> and contest the decision.
                                                     </p>
                                                 </AccordionItemPanel>
                                             </AccordionItem>
