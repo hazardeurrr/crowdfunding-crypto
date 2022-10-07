@@ -84,7 +84,8 @@
     "dvpt2": "Development of the platform and smart contracts",
 
     "sale": "BBST Token Sale",
-    "alpha": "Alpha of the platform on Testnet",
+    "alpha": "Alpha v0.1 of the platform on BSC Testnet",
+    "alpha2": "Alpha v0.2 of the platform on BSC Testnet",
     "mainnet": "Release of V1 on Mainnet",
     "q22": "Q2 2023 & More",
     "improvment": "Expansion",

@@ -1,0 +1,8 @@
+{
+  "firebase": {
+    "projectId": "crowdfunding-dev-5f802",
+    "databaseURL": "https://crowdfunding-dev-5f802-default-rtdb.europe-west1.firebasedatabase.app",
+    "storageBucket": "crowdfunding-dev-5f802.appspot.com",
+    "locationId": "europe-west"
+  }
+}
