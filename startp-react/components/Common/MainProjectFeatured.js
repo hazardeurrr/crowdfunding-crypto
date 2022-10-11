@@ -310,12 +310,11 @@ const MainProjectFeatured = (props) => {
 
               <Link href={{
                               pathname: "/campaigns/[id]",
-                              as: `/campaigns/${prefixedAddress(campaign.network, campaign.contract_address)}`,
                               query: {
                                   id: prefixedAddress(campaign.network, campaign.contract_address),
                               }
                           }}
-                        //   as={`/campaigns/${campaign.contract_address}`}
+                          as= {`/campaigns/${prefixedAddress(campaign.network, campaign.contract_address)}`}
                           >
                       <a>
                           <img src={campaign.main_img} alt="image" />
