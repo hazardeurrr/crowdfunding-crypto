@@ -21,6 +21,7 @@ const initialState = {
   eth_web3Instance: undefined,
   bnb_web3Instance: undefined,
   currentProvider: undefined,
+  showWelcome: true,
 }
 
 // const reducerComp = (previous, current) => previous[1] + current[1];
@@ -65,6 +66,13 @@ const initialState = {
 
 const reducer = (state = initialState, action) => {
   switch (action.type) {
+
+    case 'SET_SHOWWELCOME':
+      return {
+        ...state,
+        showWelcome: action.id
+      }
+
 
     case 'SET_BBST_BALANCE':
       return {

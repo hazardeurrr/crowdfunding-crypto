@@ -99,7 +99,8 @@ const Navbar = () => {
     const [showSign, setShowSign] = React.useState(true);
     const connected = useSelector((state) => state.metamask_connected);
     const web3Instance = useSelector((state) => state.web3Instance);
-    const [showAppBar, setShowAppBar] = React.useState(true)
+    // const [showAppBar, setShowAppBar] = React.useState(true)
+    const showAppBar = useSelector((state) => state.showWelcome)
 
     //--------------NOTIF MODAL---------------//
     const [openNotifModal, setOpenNotifModal] = React.useState(false);
@@ -156,6 +157,13 @@ const Navbar = () => {
     cancelConnection()
   }
 
+  const setShowAppBar = (bool) => {
+    dispatch({
+        type: 'SET_SHOWWELCOME',
+        id: bool
+    })
+  }
+
   const cancelConnection = () => {
     dispatch({
         type: 'SET_CONNECTED',
@@ -187,6 +195,11 @@ const Navbar = () => {
 
     
     React.useEffect(() => {
+        console.log(connected, "connected")
+        if (connected && currentUser !== null) {
+            auth(currentUser.eth_address)
+        }
+        console.log("navbar useEffect")
         let elementId = document.getElementById("header");
         document.addEventListener("scroll", () => {
             if (window.scrollY > 170) {
