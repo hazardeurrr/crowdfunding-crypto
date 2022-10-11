@@ -310,6 +310,7 @@ const MainProjectFeatured = (props) => {
 
               <Link href={{
                               pathname: "/campaigns/[id]",
+                              as: `/campaigns/[${prefixedAddress(campaign.network, campaign.contract_address)}]`,
                               query: {
                                   id: prefixedAddress(campaign.network, campaign.contract_address),
                               }
