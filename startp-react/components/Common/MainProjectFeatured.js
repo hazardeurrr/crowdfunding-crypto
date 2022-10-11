@@ -315,6 +315,7 @@ const MainProjectFeatured = (props) => {
                               }
                           }}
                           as= {`/campaigns/${prefixedAddress(campaign.network, campaign.contract_address)}`}
+                          shallow
                           >
                       <a>
                           <img src={campaign.main_img} alt="image" />
