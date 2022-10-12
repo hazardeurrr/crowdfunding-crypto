@@ -185,7 +185,7 @@ class Explore extends React.Component {
         
         return (
             <>
-                <Navbar />
+                {/* <Navbar /> */}
                 <div className="features-area pt-80 bg-f7fafd">
                     <div className="container">
                         <div className="section-title">

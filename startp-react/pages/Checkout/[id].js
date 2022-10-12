@@ -30,7 +30,7 @@ const DonationCheckout = (props, {c}) => {
         const displayContent = () => {
             if(campaign == undefined){
                 return <>
-                <Navbar />
+                {/* <Navbar /> */}
     
                 <CircularProgress/>
     
@@ -40,7 +40,7 @@ const DonationCheckout = (props, {c}) => {
             } else {
                 if(now > campaign.end_date || now < campaign.start_date || !campaign.confirmed){
                     return  <>
-                        <Navbar />
+                        {/* <Navbar /> */}
         
                         <Custom404 />
         
@@ -49,7 +49,7 @@ const DonationCheckout = (props, {c}) => {
                     } else {
                         return (
                             <>
-                                <Navbar />
+                                {/* <Navbar /> */}
                     
                                 <PageBanner pageTitle = "You are supporting :"/>
                     

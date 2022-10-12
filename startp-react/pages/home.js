@@ -12,7 +12,7 @@ import Partner from '@/components/Common/Partner';
 const ITStartup = () => {
     return (
         <>
-            <Navbar />
+            {/* <Navbar /> */}
             <MainBanner />
             {/* <Features /> */}
             {/* <FeaturedProjectCarrousel/> */}

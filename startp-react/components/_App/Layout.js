@@ -4,6 +4,7 @@ import GoTop from './GoTop'
 import { useSelector, useDispatch } from 'react-redux'
 import {getAll, getOne} from '../../firebase-crowdfund/queries';
 import {db} from '../../firebase-crowdfund/index'
+import Navbar from './Navbar';
 
 const Layout = ({ children }, {c, crea}) => {
 
@@ -69,6 +70,7 @@ const Layout = ({ children }, {c, crea}) => {
                 <meta name="description" content="BlockBoosted App · Create your campaign and start raising funds in crypto · Get rewarded in BBST for your donations · Support projects that make sense with 0% fee · Crypto crowdfunding" />
 
             </Head>
+            <Navbar />
             {children}
 
             <GoTop scrollStepInPx="100" delayInMs="10.50" />

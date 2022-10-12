@@ -53,7 +53,7 @@ const TokenDetails = () => {
 
     return (
         <>
-            <Navbar />
+            {/* <Navbar /> */}
 
             {/* <PageBanner pageTitle="BBST Token" /> */}
             

@@ -115,7 +115,7 @@ const User = (props, {data}) => {
 
     return (
         <>
-            <Navbar />
+            {/* <Navbar /> */}
             
             {/* <PageBanner pageTitle={campaign.title}/> */}
 

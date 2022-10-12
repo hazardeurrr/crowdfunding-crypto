@@ -9,7 +9,7 @@ import ContactForm from '@/components/Contact/ContactForm';
 const Contact = () => {
     return (
         <>
-            <Navbar />
+            {/* <Navbar /> */}
 
             <PageBanner pageTitle="Contact Us" />
 

@@ -19,7 +19,7 @@ import {
 const ServiceDetails = () => {
     return (
         <>
-            <Navbar />
+            {/* <Navbar /> */}
 
             <PageBanner pageTitle="How it works" />
  
