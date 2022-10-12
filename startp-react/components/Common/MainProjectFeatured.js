@@ -333,6 +333,8 @@ const MainProjectFeatured = (props) => {
                                 id: prefixedAddress(campaign.network, campaign.contract_address),
                             }
                         }}
+                        shallow={true}
+
                         // as={`/campaigns/${campaign.contract_address}`}
                         >
                             <a>{campaign.title}</a>
