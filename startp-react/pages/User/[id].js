@@ -133,7 +133,7 @@ const User = (props, {data}) => {
                 </div>
               </div>
 
-            {/* <Footer /> */}
+            <Footer />
         </>
     )
 }

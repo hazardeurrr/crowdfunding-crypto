@@ -35,7 +35,7 @@ const DonationCheckout = (props, {c}) => {
                 <CircularProgress/>
     
     
-                {/* <Footer /> */}
+                <Footer />
             </>
             } else {
                 if(now > campaign.end_date || now < campaign.start_date || !campaign.confirmed){
@@ -44,7 +44,7 @@ const DonationCheckout = (props, {c}) => {
         
                         <Custom404 />
         
-                        {/* <Footer /> */}
+                        <Footer />
                     </>
                     } else {
                         return (
@@ -55,7 +55,7 @@ const DonationCheckout = (props, {c}) => {
                     
                                 <PricingTiers project = {campaign} />
                     
-                                {/* <Footer /> */}
+                                <Footer />
                             </>
                         )
                     }

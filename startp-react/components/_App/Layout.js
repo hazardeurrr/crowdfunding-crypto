@@ -72,8 +72,7 @@ const Layout = ({ children }, {c, crea}) => {
 
             </Head>
             <Navbar />
-            <main>{children}</main>
-            <Footer />
+            {children}
 
             <GoTop scrollStepInPx="100" delayInMs="10.50" />
         </>

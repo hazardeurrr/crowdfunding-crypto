@@ -54,7 +54,7 @@ const SetProfile = (props) => {
         <>
             {/* <Navbar /> */}
             {showForm()}
-            {/* <Footer /> */}
+            <Footer />
         </>
     )
 }

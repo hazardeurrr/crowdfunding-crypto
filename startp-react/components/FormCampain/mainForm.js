@@ -905,7 +905,7 @@ class MainForm extends React.Component {
                     </div>
                 </div>
 
-                {/* <Footer /> */}
+                <Footer />
             </> 
         } else {
             return <>

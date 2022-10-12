@@ -614,7 +614,7 @@ const ServiceDetails = () => {
                 </div>
             </div>
 
-            {/* <Footer /> */}
+            <Footer />
         </>
     )
 }
