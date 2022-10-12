@@ -309,7 +309,7 @@ const MainProjectFeatured = (props) => {
             {displayProgressBar()}
 
               <Link href={{
-                              pathname: "/campaigns/[id]",
+                              pathname: `/campaigns/${prefixedAddress(campaign.network, campaign.contract_address)}`,
                               query: {
                                   id: prefixedAddress(campaign.network, campaign.contract_address),
                               }
