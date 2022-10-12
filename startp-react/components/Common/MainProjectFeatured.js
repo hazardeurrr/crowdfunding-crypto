@@ -309,7 +309,7 @@ const MainProjectFeatured = (props) => {
             {displayProgressBar()}
 
               <Link href={{
-                              pathname: `/campaigns/[id]`,
+                              pathname: `/Campaigns/[id]`,
                               query: {
                                   id: prefixedAddress(campaign.network, campaign.contract_address),
                               }
@@ -327,7 +327,7 @@ const MainProjectFeatured = (props) => {
             <div className="blog-post-content">
                     <h3>
                         <Link href={{
-                            pathname: "/campaigns/[id]",
+                            pathname: "/Campaigns/[id]",
                             query: {
                                 id: prefixedAddress(campaign.network, campaign.contract_address),
                             }
