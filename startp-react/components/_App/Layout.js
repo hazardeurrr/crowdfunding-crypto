@@ -5,6 +5,7 @@ import { useSelector, useDispatch } from 'react-redux'
 import {getAll, getOne} from '../../firebase-crowdfund/queries';
 import {db} from '../../firebase-crowdfund/index'
 import Navbar from './Navbar';
+import Footer from './Footer';
 
 const Layout = ({ children }, {c, crea}) => {
 
@@ -71,7 +72,8 @@ const Layout = ({ children }, {c, crea}) => {
 
             </Head>
             <Navbar />
-            {children}
+            <main>{children}</main>
+            <Footer />
 
             <GoTop scrollStepInPx="100" delayInMs="10.50" />
         </>

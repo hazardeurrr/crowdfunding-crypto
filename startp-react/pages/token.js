@@ -221,7 +221,7 @@ const TokenDetails = () => {
                 </div>
             </div>
 
-            <Footer />
+            {/* <Footer /> */}
         </>
     )
 }

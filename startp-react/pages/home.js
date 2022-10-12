@@ -30,7 +30,7 @@ const ITStartup = () => {
             <Partner /> */}
             {/* <CategoriesMainPage /> */}
 
-            <Footer />
+            {/* <Footer /> */}
         </>
     )
 }

@@ -680,7 +680,7 @@ const Campaign = (props) => {
             
             {displayContent()}
 
-            <Footer />
+            {/* <Footer /> */}
         </>
     )
 }

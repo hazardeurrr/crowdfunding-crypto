@@ -53,7 +53,7 @@ const FormCampaign = () => {
         <>
             {/* <Navbar /> */}
             {showForm()}
-            <Footer />
+            {/* <Footer /> */}
         </>
     )
 }
