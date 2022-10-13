@@ -55,6 +55,7 @@ import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
 import { CheckCircle } from '@material-ui/icons';
 import CircularProgressWithLabel from '../Common/CircularProgressWithLabel';
+import Footer from '../_App/Footer';
 
 const Web3 = require('web3');
 const BN = require('bn.js');
