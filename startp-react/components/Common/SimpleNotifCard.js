@@ -6,6 +6,7 @@ import CardMedia from '@material-ui/core/CardMedia';
 
 import Typography from '@material-ui/core/Typography';
 import Avatar from '@material-ui/core/Avatar';
+import { useSelector, useDispatch } from 'react-redux'
 
 
 import parse from 'html-react-parser';
@@ -41,6 +42,13 @@ const useStyles = makeStyles({
 
 const SimpleNotifCard = (props) => {
 
+  const closeNotif = () => {
+    dispatch({
+        type: 'SET_OPENNOTIF',
+        id: false
+    })
+}
+
       
   const sanitizeAndParseHtml = (htmlString) => {
     console.log(htmlString)
@@ -55,7 +63,7 @@ const SimpleNotifCard = (props) => {
     console.log(cleanHtmlString)
     const html = parse(cleanHtmlString, {replace: ({ attribs }) => {
       if(attribs && attribs.id === 'toLinkCampaign')
-        return <Link href={{pathname: "/campaigns/[id]", query:{id:attribs.campaignpath}}}><a><b>See it here !</b></a></Link>
+        return <Link href={{pathname: "/campaigns/[id]", query:{id:attribs.campaignpath}}}><a onClick={closeNotif}><b>See it here !</b></a></Link>
     }})
     
     return html;

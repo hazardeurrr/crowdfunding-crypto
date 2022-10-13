@@ -22,6 +22,7 @@ const initialState = {
   bnb_web3Instance: undefined,
   currentProvider: undefined,
   showWelcome: true,
+  openNotif: false,
 }
 
 // const reducerComp = (previous, current) => previous[1] + current[1];
@@ -71,6 +72,12 @@ const reducer = (state = initialState, action) => {
       return {
         ...state,
         showWelcome: action.id
+      }
+
+      case 'SET_OPENNOTIF':
+      return {
+        ...state,
+        openNotif: action.id
       }
 
 

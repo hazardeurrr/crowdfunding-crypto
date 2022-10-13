@@ -103,8 +103,17 @@ const Navbar = () => {
     const showAppBar = useSelector((state) => state.showWelcome)
 
     //--------------NOTIF MODAL---------------//
-    const [openNotifModal, setOpenNotifModal] = React.useState(false);
+    // const [openNotifModal, setOpenNotifModal] = React.useState(false);
     const [scroll, setScroll] = React.useState('paper');
+
+    const openNotifModal = useSelector((state) => state.openNotif)
+
+    const setOpenNotifModal = (bool) => {
+        dispatch({
+            type: 'SET_OPENNOTIF',
+            id: bool
+        })
+    }
 
     const handleNotifModalClose = () => {
         setOpenNotifModal(false);
