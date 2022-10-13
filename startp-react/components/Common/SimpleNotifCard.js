@@ -8,8 +8,9 @@ import Typography from '@material-ui/core/Typography';
 import Avatar from '@material-ui/core/Avatar';
 
 
-import Parser from 'html-react-parser';
+import parse from 'html-react-parser';
 import DOMPurify from 'isomorphic-dompurify';
+import Link from 'next/link';
 
 const useStyles = makeStyles({
   
@@ -42,6 +43,7 @@ const SimpleNotifCard = (props) => {
 
       
   const sanitizeAndParseHtml = (htmlString) => {
+    console.log(htmlString)
     DOMPurify.addHook('afterSanitizeAttributes', function (node) {
       // set all elements owning target to target=_blank
       if (node.hasAttribute('target')){
@@ -49,8 +51,13 @@ const SimpleNotifCard = (props) => {
         node.setAttribute('rel', 'noopener');
       }
     });
-    const cleanHtmlString = DOMPurify.sanitize(htmlString, { USE_PROFILES: { html: true }, ADD_ATTR: ['target'] });
-    const html = Parser(cleanHtmlString);
+    const cleanHtmlString = DOMPurify.sanitize(htmlString, { USE_PROFILES: { html: true }, ADD_ATTR: ['target', "campaignpath"], ADD_TAGS: ['LINK'] });
+    console.log(cleanHtmlString)
+    const html = parse(cleanHtmlString, {replace: ({ attribs }) => {
+      if(attribs && attribs.id === 'toLinkCampaign')
+        return <Link href={{pathname: "/campaigns/[id]", query:{id:attribs.campaignpath}}}><a><b>See it here !</b></a></Link>
+    }})
+    
     return html;
 }
 
