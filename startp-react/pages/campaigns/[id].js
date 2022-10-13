@@ -340,8 +340,14 @@ const Campaign = (props) => {
     }
 
     const sanitizeAndParseHtml = (htmlString) => {
-        const cleanHtmlString = DOMPurify.sanitize(htmlString, { ADD_TAGS: ["iframe"]}, { ADD_ATTR: ['allow', 'allowfullscreen', 'frameborder', 'scrolling'] },
-          { USE_PROFILES: { html: true } });
+        DOMPurify.addHook('afterSanitizeAttributes', function (node) {
+            // set all elements owning target to target=_blank
+            if (node.hasAttribute('target')){
+              node.setAttribute('target', '_blank')
+              node.setAttribute('rel', 'noopener');
+            }
+          });
+          const cleanHtmlString = DOMPurify.sanitize(htmlString, { USE_PROFILES: { html: true }, ADD_ATTR: ['target', 'allow', 'allowfullscreen', 'frameborder', 'scrolling'], ADD_TAGS: ["iframe"] });
         const html = Parser(cleanHtmlString);
         return html;
 }

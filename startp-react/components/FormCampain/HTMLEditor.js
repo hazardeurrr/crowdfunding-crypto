@@ -19,6 +19,7 @@ function HTMLEditor(props) {
           onKeyUp={handleChange}
           ref={editorRef}
           setOptions={{
+            imageHeightShow:false,
             videoResizing: false,
             videoHeightShow: false,
             videoRatioShow: false,
