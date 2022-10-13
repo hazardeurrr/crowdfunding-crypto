@@ -309,12 +309,11 @@ const MainProjectFeatured = (props) => {
             {displayProgressBar()}
 
               <Link href={{
-                              pathname: `/Campaigns/[id]`,
-                              query: {
+                            pathname: "/campaigns/[id]",
+                            query: {
                                   id: prefixedAddress(campaign.network, campaign.contract_address),
                               }
                           }}
-                          shallow
                           >
                       <a>
                           <img src={campaign.main_img} alt="image" />
@@ -327,13 +326,11 @@ const MainProjectFeatured = (props) => {
             <div className="blog-post-content">
                     <h3>
                         <Link href={{
-                            pathname: "/Campaigns/[id]",
+                            pathname: "/campaigns/[id]",
                             query: {
                                 id: prefixedAddress(campaign.network, campaign.contract_address),
                             }
                         }}
-                        shallow={true}
-
                         // as={`/campaigns/${campaign.contract_address}`}
                         >
                             <a>{campaign.title}</a>
