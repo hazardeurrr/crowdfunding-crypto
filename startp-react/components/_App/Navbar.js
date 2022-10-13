@@ -1101,7 +1101,7 @@ const Navbar = () => {
 
                                 <li className="nav-item">
                                     <Link href={{
-                                        pathname: "/explore/",
+                                        pathname: "/explore",
                                         query: {
                                             id: "all",
                                         }

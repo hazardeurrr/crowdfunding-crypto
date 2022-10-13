@@ -44,7 +44,7 @@ const MainBanner = () => {
 												<a className="btn btn-primary">Create a campaign</a>
 											</Link>
 																		<Link href={{
-																								pathname: "explore",
+																								pathname: "/explore",
 																								query: {
 																										id: "all",
 																										}

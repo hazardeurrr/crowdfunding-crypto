@@ -137,7 +137,7 @@ const Footer = () => {
                             <ul className="list">
                                 <li>
                                     <Link href={{
-                                        pathname: "/explore/",
+                                        pathname: "/explore",
                                         query: {
                                             id: "all",
                                         }

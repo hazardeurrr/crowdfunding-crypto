@@ -44,7 +44,7 @@ const ProjectGridMain = () => {
                                         <div className="pagination-area">
                                             <nav aria-label="Page navigation">
                                             <Link href={{
-                                                    pathname: "explore",
+                                                    pathname: "/explore",
                                                     query: {
                                                         id: "all",
                                                     }
