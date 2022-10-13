@@ -224,7 +224,7 @@ class Explore extends React.Component {
                                         </div>
                                     </div> */}
 
-                                    <Pagination count={Math.ceil(this.state.projects.length / this.nbByPage)} page={this.state.page} onChange={this.handlePaginationChange.bind(this)} color="primary" />
+                                    <Pagination count={Math.ceil(this.state.projects.length / this.nbByPage)} page={this.state.page} onChange={this.handlePaginationChange.bind(this)} color="standard" />
 
 
 
