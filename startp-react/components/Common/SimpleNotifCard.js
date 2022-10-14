@@ -9,7 +9,7 @@ import Avatar from '@material-ui/core/Avatar';
 import { useSelector, useDispatch } from 'react-redux'
 
 
-import parse from 'html-react-parser';
+import Parser from 'html-react-parser';
 import DOMPurify from 'isomorphic-dompurify';
 import Link from 'next/link';
 
@@ -51,7 +51,7 @@ const SimpleNotifCard = (props) => {
 
       
   const sanitizeAndParseHtml = (htmlString) => {
-    console.log(htmlString)
+    // console.log(htmlString)
     DOMPurify.addHook('afterSanitizeAttributes', function (node) {
       // set all elements owning target to target=_blank
       if (node.hasAttribute('target')){
@@ -60,13 +60,17 @@ const SimpleNotifCard = (props) => {
       }
     });
     const cleanHtmlString = DOMPurify.sanitize(htmlString, { USE_PROFILES: { html: true }, ADD_ATTR: ['target', "campaignpath"], ADD_TAGS: ['LINK'] });
-    console.log(cleanHtmlString)
-    const html = parse(cleanHtmlString, {replace: ({ attribs }) => {
-      if(attribs && attribs.id === 'toLinkCampaign')
-        return <Link href={{pathname: "/campaigns/[id]", query:{id:attribs.campaignpath}}}><a onClick={closeNotif}><b>See it here !</b></a></Link>
+    // console.log(cleanHtmlString)
+    const html = Parser(cleanHtmlString, {replace: ({ attribs }) => {
+
+      if(attribs && attribs.id === 'toLinkCampaign'){
+        console.log(attribs)
+        console.log(attribs.campaignpath)
+        console.log(attribs.campaignpath.toString())
+        return <Link href={{pathname: "/campaigns/[id]", query:{id:"bnb_0xb8c1d3906831f500779379f2610376828bf4961b"}}}>Here</Link>
+      }
     }})
-    
-    return html;
+    return html
 }
 
   // console.log(props)
