@@ -42,15 +42,13 @@ const useStyles = makeStyles({
 
 const SimpleNotifCard = (props) => {
 
+  const dispatch = useDispatch()
+
   const closeNotif = () => {
     dispatch({
         type: 'SET_OPENNOTIF',
         id: false
     })
-}
-
-const getPath = (path) => {
-  return path.toString("utf8")
 }
       
   const sanitizeAndParseHtml = (htmlString) => {
@@ -67,11 +65,8 @@ const getPath = (path) => {
     const html = Parser(cleanHtmlString, {replace: ({ attribs }) => {
 
       if(attribs && attribs.id === 'toLinkCampaign'){
-        console.log(attribs)
-        console.log(attribs.campaignpath)
-        console.log(attribs.campaignpath.toString())
         let path = attribs.campaignpath
-        return <Link href={{pathname: "/campaigns/[id]", query:{id:getPath(path)}}}>Here</Link>
+        return <Link href={{pathname: "/campaigns/[id]", query:{id:path}}}><a onClick={closeNotif}><b>See it here</b></a></Link>
       }
     }})
     return html
