@@ -49,6 +49,9 @@ const SimpleNotifCard = (props) => {
     })
 }
 
+const getPath = (path) => {
+  return path.toString("utf8")
+}
       
   const sanitizeAndParseHtml = (htmlString) => {
     // console.log(htmlString)
@@ -67,7 +70,8 @@ const SimpleNotifCard = (props) => {
         console.log(attribs)
         console.log(attribs.campaignpath)
         console.log(attribs.campaignpath.toString())
-        return <Link href={{pathname: "/campaigns/[id]", query:{id:"bnb_0xb8c1d3906831f500779379f2610376828bf4961b"}}}>Here</Link>
+        let path = attribs.campaignpath
+        return <Link href={{pathname: "/campaigns/[id]", query:{id:getPath(path)}}}>Here</Link>
       }
     }})
     return html
