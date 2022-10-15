@@ -14,15 +14,14 @@ const AutoCompleteSearchBar = () => {
   const campaigns = useSelector((state) => state.allCampaigns);
   const creators = useSelector((state) => state.allCreators);
 
-//   const styles = (theme) => ({
-//     popper: {
-//        width: "fit-content"
-//     }
-//  });
+  const styles = (theme) => ({
+    popper: {
+       width: "fit-content"
+    }
+ });
 
   const PopperMy = function (props) {
-    return <Popper {...props} 
-      // style={styles.popper}
+    return <Popper {...props} style={styles.popper}
         placement="bottom" disablePortal/>;
  };
 
