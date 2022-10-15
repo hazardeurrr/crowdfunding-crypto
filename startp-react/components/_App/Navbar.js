@@ -986,7 +986,7 @@ const Navbar = () => {
                     <b>Welcome to <a target="_blank" href="https://medium.com/@blockboosted"style={{color:'white', textDecoration: "underline", cursor: "pointer"}}>BLOCKBOOSTED ALPHA</a></b> 🎉
                     </Typography>
                     <div style={{marginLeft: 10, width: 17}}>
-                        <CancelIcon style={{color:"inherit", cursor: 'pointer', height: '100%', width: '100%'}} onClick={() => setShowAppBar(false)}/>
+                        <div style={{color:"white", cursor: 'pointer', height: '100%', width: '100%'}} onClick={() => setShowAppBar(false)}>✖</div>
                     </div>
                 </div>
                 
