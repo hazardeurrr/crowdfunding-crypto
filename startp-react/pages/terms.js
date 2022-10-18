@@ -2,7 +2,8 @@ import React from 'react';
 import Footer from "@/components/_App/Footer";
 import PageBanner from '@/components/Common/PageBanner';
 import NavbarStyleTwo from '@/components/_App/NavbarStyleTwo';
- 
+import Link from 'next/link'
+
 const TermCondition = () => {
     return (
         <>
@@ -132,7 +133,7 @@ Reward system</h5>
 
 <h2>7. PRIVACY POLICY</h2>
 
-<p>We care about data privacy and security. Please review our Privacy Policy: <a href="https://blockboosted.com/privacy">https://blockboosted.com/privacy</a>. By using the Site, you agree to be bound by our Privacy Policy, which is incorporated into these Terms of Use. Please be advised the Site is hosted in France. If you access the Site from any other region of the world with laws or other requirements governing personal data collection, use, or disclosure that differ from applicable laws in France, then through your continued use of the Site, you are transferring your data to France, and you agree to have your data transferred to and processed in France.
+<p>We care about data privacy and security. Please review our Privacy Policy: <Link href="/privacy"><a>https://blockboosted.com/privacy</a></Link>. By using the Site, you agree to be bound by our Privacy Policy, which is incorporated into these Terms of Use. Please be advised the Site is hosted in France. If you access the Site from any other region of the world with laws or other requirements governing personal data collection, use, or disclosure that differ from applicable laws in France, then through your continued use of the Site, you are transferring your data to France, and you agree to have your data transferred to and processed in France.
 </p>
 
 <h2>8. Legal Notices</h2>
@@ -158,7 +159,7 @@ contact@blockboosted.com<br></br>
                 </div>
             </div>
  
-            <Footer />
+            {/* <Footer /> */}
         </>
     )
 }
