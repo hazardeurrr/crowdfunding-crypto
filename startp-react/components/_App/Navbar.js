@@ -973,7 +973,7 @@ const Navbar = () => {
     }
 
     const switchBarShouldBeShown = () => {
-        return (chainID != bnb_chain && connected)
+        return (chainID != "0x38" && connected)
     }
 
     const showAppBarFct = () => {
