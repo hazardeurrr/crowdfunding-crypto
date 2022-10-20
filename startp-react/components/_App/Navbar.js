@@ -955,7 +955,7 @@ const Navbar = () => {
                 return <div>
                 <AppBar position="static" style={{marginTop: -10, marginBottom:10, background:'#F3BA2F', justifyContent:'center', alignItems:'center'}}> 
                     <Typography style={{color: 'white', padding: "6px 3px", fontSize: 13, textAlign: 'center'}}>
-                        You aren't connected to a supported network. Please <b><a style={{textDecoration: "underline", cursor: "pointer"}} onClick={() => switchToBNB()}>switch to BNB Smart Chain</a></b>.
+                        You aren't connected to a supported network. Please <b><a style={{textDecoration: "underline", cursor: "pointer"}} onClick={() => switchToBNBTestnet()}>switch to BNB Smart Chain Testnet</a></b>.
                     </Typography>
                 </AppBar>
             </div>
@@ -963,7 +963,7 @@ const Navbar = () => {
                 return <div>
                 <AppBar position="static" style={{marginTop: -15, marginBottom:10, background:'#F3BA2F', justifyContent:'center', alignItems:'center'}}> 
                     <Typography style={{color: 'white', padding: "6px 3px", fontSize: 13, textAlign: 'center'}}>
-                        You aren't connected to a supported network. Please <b><a style={{textDecoration: "underline", cursor: "pointer"}} onClick={() => switchToBNB()}>switch to BNB Smart Chain</a></b>.
+                        You aren't connected to a supported network. Please <b><a style={{textDecoration: "underline", cursor: "pointer"}} onClick={() => switchToBNBTestnet()}>switch to BNB Smart Chain Testnet</a></b>.
                     </Typography>
                 </AppBar>
             </div>
@@ -973,7 +973,7 @@ const Navbar = () => {
     }
 
     const switchBarShouldBeShown = () => {
-        return (chainID != "0x38" && connected)
+        return (chainID != bnb_chain && connected)
     }
 
     const showAppBarFct = () => {
