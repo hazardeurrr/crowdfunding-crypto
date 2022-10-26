@@ -251,11 +251,19 @@ export async function getServerSideProps (context) {
     // console.log(context.query) 
     // returns { id: episode.itunes.episode, title: episode.title}
     
-  
-    //you can make DB queries using the data in context.query
-    return {
+    if(context.query.id !== undefined && context.query.id !== null){
+      return {
         props: { 
            cat: context.query.id //pass it to the page props
         }
+      }
+    } else {
+      return {
+        props: { 
+           cat: "all" //pass it to the page props
+        }
+      }
     }
+    //you can make DB queries using the data in context.query
+    
   }

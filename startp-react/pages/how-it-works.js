@@ -77,7 +77,7 @@ const ServiceDetails = () => {
                                             <AccordionItemPanel>
                                                 <p>
                                                     The easiest way to access a campaign is by searching for its name on the searchbar. You can also search its creator there by its username.
-                                                    Otherwise, you can explore all the campaigns sorted by categories or network in our "Explore" tab.
+                                                    Otherwise, you can explore all the campaigns sorted by categories or network in our <Link href="/explore">Explore</Link> tab.
                                                 </p>
                                             </AccordionItemPanel>
                                         </AccordionItem>

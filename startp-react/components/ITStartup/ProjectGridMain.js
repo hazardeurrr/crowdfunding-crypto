@@ -45,9 +45,9 @@ const ProjectGridMain = () => {
                                             <nav aria-label="Page navigation">
                                             <Link href={{
                                                     pathname: "/explore",
-                                                    query: {
-                                                        id: "all",
-                                                    }
+                                                    // query: {
+                                                    //     id: "all",
+                                                    // }
                                                 }} activeClassName="active">
                                                 <a className="btn btn-primary">Explore more...</a>
                                             </Link>

@@ -45,9 +45,9 @@ const MainBanner = () => {
 											</Link>
 																		<Link href={{
 																								pathname: "/explore",
-																								query: {
-																										id: "all",
-																										}
+																								// query: {
+																								// 		id: "all",
+																								// 		}
 																								}} activeClassName="active">
 																								<a className="btn btn-light">Explore</a>
 																		</Link>

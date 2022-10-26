@@ -1111,9 +1111,9 @@ const Navbar = () => {
                                 <li className="nav-item">
                                     <Link href={{
                                         pathname: "/explore",
-                                        query: {
-                                            id: "all",
-                                        }
+                                        // query: {
+                                        //     id: "all",
+                                        // }
                                     }} activeClassName="active">
                                         <a onClick={toggleNavbar} className="nav-link">Explore</a>
                                     </Link>
