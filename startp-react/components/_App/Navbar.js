@@ -1033,7 +1033,7 @@ const Navbar = () => {
         } else {
             return <DialogContent>
               {notifs.sort((a, b) => b.date - a.date).map(
-                  (e) => <SimpleNotifCard key={e.date} notif={e}/>
+                  (e) => <SimpleNotifCard onCloseModal={handleNotifModalClose} key={e.date} notif={e}/>
                 )}
           </DialogContent>
         }

@@ -66,7 +66,7 @@ const SimpleNotifCard = (props) => {
 
       if(attribs && attribs.id === 'toLinkCampaign'){
         let path = attribs.campaignpath
-        return <Link href={{pathname: "/campaigns/[id]", query:{id:path}}}><a onClick={closeNotif}><b>See it here</b></a></Link>
+        return <Link href={{pathname: "/campaigns/[id]", query:{id:path}}}><a onClick={props.onCloseModal}><b>See it here</b></a></Link>
       }
     }})
     return html
