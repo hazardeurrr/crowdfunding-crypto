@@ -1,5 +1,5 @@
 const baseUrl = process.env.NODE_ENV === "production" 
-? 'https://startp-react.envytheme.com' 
+? 'https://app.blockboosted.com' 
 : 'http://localhost:3000';
 
 export default baseUrl;
