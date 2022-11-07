@@ -35,9 +35,10 @@ const MainBanner = () => {
 						<div className="row h-100 justify-content-center align-items-center">
 							<div className="col-lg-5 bannerleft">
 								<div className="hero-content">
+								<h5 style={{color:"#6084a4", fontWeight: 350}}>Crowdfunding 3.0</h5>
 								<h1>A new way to raise funds</h1>
                            
-													 <h5>Crowdfunding 3.0</h5><p style={{marginTop: 15}}>Less fees, more trust, community based.<br></br>Earn <Link href="/token"><a><img style={{height: 20, marginRight: 3}} src="/images/cryptoicons/bbstgrad.png"/>BBST</a></Link> while supporting great projects !
+													 <h5 style={{marginTop: 25}}>0% fee | 100% free</h5><p style={{marginTop: 10}}>No fee, more trust, community based.<br></br>Earn <Link href="/token"><a><img style={{height: 20, marginRight: 3}} src="/images/cryptoicons/bbstgrad.png"/>BBST</a></Link> while supporting great projects !
 													 <br></br>Raise and contribute in crypto on BNB Smart Chain.</p>
 
 											 <Link href="/create">
