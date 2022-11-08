@@ -10722,6 +10722,10 @@ Go Top CSS
   background-color: #42BC62;
 }
 
+.bg-purple {
+  background-color: #c47be4;
+}
+
 .bg-eth {
   background-color: #4c64d8;
 }
@@ -10828,4 +10832,14 @@ Go Top CSS
 .cardTokenFlex {
   align-items: center;
   display: flex;
+}
+
+.preBlock {
+  border: 2px solid #45cf6f; 
+  align-items:center;
+  border-radius: 15px;
+  padding: 10px;
+  margin-bottom: 30px;
+  display:flex;
+  justify-content:space-evenly
 }

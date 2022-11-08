@@ -2866,6 +2866,14 @@
   .shareicons {
     justify-content: center;
   }
+
+  .preBlock {
+    display: grid
+  }
+
+  .preBtns {
+    margin-top: 5px;
+  }
 }
 
 

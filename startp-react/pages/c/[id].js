@@ -158,20 +158,25 @@ const PreCampaign = (props) => {
       return  campaign.raised
     }
 
+    const contactCreator = () => {
+
+    }
+
 
     const BackButton = () => {
       return <>
-      <p><Icon.Frown /> This campaign is not on BlockBoosted yet.</p>
-      <div style={{display:'flex', justifyContent:'space-evenly'}}>
+      <h6 style={{marginBottom: 0}}><Icon.Frown /> This campaign is not available on BlockBoosted yet.</h6>
+      <p onClick={contactCreator} style={{textDecoration:'underline', cursor:"pointer", fontWeight: 500}}>Ask the creator to activate it in two clicks !</p>
+      {/* <div style={{display:'flex', justifyContent:'space-evenly'}}>
         <Button startIcon={<SendIcon />} size="big" style={{textTransform: 'inherit', color:'white', backgroundColor:'#c47be4'}} variant="contained">Contact creator</Button>
         <Button style={{textTransform: 'inherit'}} startIcon={<AssignmentIndIcon />} size="small" variant="contained">I'm the creator</Button>
-      </div>
+      </div> */}
       </>
     }
 
 
     const displayProgressBar = () => {         
-      return <ProgressBar style={{color: '#c47be4'}} now={(campaign.raised / campaign.objective) * 100}/>
+      return <ProgressBar variant="purple" now={(campaign.raised / campaign.objective) * 100}/>
     }
 
     const showCats = () => {
@@ -247,9 +252,12 @@ const PreCampaign = (props) => {
                         <div className="container-fluid">
                             <div className="row align-items-center">
 
-                              <div style={{border:"2px solid #45cf6f", alignItems:'center', borderRadius: 15, padding: 10, marginBottom: 30, display:"flex", justifyContent:'space-evenly'}}>
-                                <div><Icon.AlertCircle /> &nbsp; Unfortunately, the creator has not enabled crypto donations yet.</div>
-                                <Button style={{textTransform: 'inherit'}} startIcon={<AssignmentIndIcon />} size="small" variant="contained">I'm the creator</Button>
+                              <div className="preBlock">
+                                <div style={{flex: 1.5, textAlign:"center"}}><Icon.AlertCircle /> &nbsp; Unfortunately, the creator has not enabled crypto donations yet.</div>
+                                <div className="preBtns" style={{display:'flex', justifyContent:'space-around', flex:1 }}>
+                                    <Button onClick={contactCreator} startIcon={<SendIcon />} size="big" style={{marginRight: 7.5, textTransform: 'inherit', color:'white', backgroundColor:'#c47be4'}} variant="contained">Contact creator</Button>
+                                    <Button style={{textTransform: 'inherit', marginLeft: 7.5}} startIcon={<AssignmentIndIcon />} size="small" variant="outlined">I'm the creator</Button>
+                                </div>
                               </div>
 
                                 <div className="col-lg-6 col-md-12">
