@@ -155,7 +155,7 @@ const PreCampaign = (props) => {
     }
 
     const displayRaised = () => { 
-      return  campaign.raised
+      return  parseInt(campaign.raised)
     }
 
     const contactCreator = () => {
@@ -189,7 +189,7 @@ const PreCampaign = (props) => {
 
     async function displayHTMLTxt(data){
         // console.log(data)
-        let txt = await fetch('https://cors-serv.herokuapp.com/'+data).then(r => {
+        let txt = await fetch(data).then(r => {
             let b = r.blob().then((a) => a.text().then(h => setHTMLTxt(h)))
     });
     }
@@ -227,7 +227,7 @@ const PreCampaign = (props) => {
     }
 
     const displayObjective = () => {
-            return <p className="justandtextcenter" style={{marginTop: -10, marginBottom: 7}}>raised out of {parseFloat(campaign.objective)} {showCurrencyWoPrefix()}</p>
+            return <p className="justandtextcenter" style={{marginTop: -10, marginBottom: 7}}>raised out of {parseInt(campaign.objective)} {showCurrencyWoPrefix()}</p>
     }
 
     const showNetwork = () => {
@@ -255,7 +255,7 @@ const PreCampaign = (props) => {
                               <div className="preBlock">
                                 <div style={{flex: 1.5, textAlign:"center"}}><Icon.AlertCircle /> &nbsp; Unfortunately, the creator has not enabled crypto donations yet.</div>
                                 <div className="preBtns" style={{display:'flex', justifyContent:'space-around', flex:1 }}>
-                                    <Button onClick={contactCreator} startIcon={<SendIcon />} size="big" style={{marginRight: 7.5, textTransform: 'inherit', color:'white', backgroundColor:'#c47be4'}} variant="contained">Contact creator</Button>
+                                    <Button onClick={contactCreator} startIcon={<SendIcon />} size="large" style={{marginRight: 7.5, textTransform: 'inherit', color:'white', backgroundColor:'#c47be4'}} variant="contained">Contact creator</Button>
                                     <Button style={{textTransform: 'inherit', marginLeft: 7.5}} startIcon={<AssignmentIndIcon />} size="small" variant="outlined">I'm the creator</Button>
                                 </div>
                               </div>

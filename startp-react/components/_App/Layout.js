@@ -15,7 +15,21 @@ const Layout = ({ children }, {c, crea}) => {
 
     React.useEffect(() => {
         var campaigns = []
+        var precamps = []
         var creators = []
+
+        db.collection('preCampaignsTest')
+                .get()
+                .then((ds) => {
+                    ds.forEach(element => {
+                        precamps.push(element.data())
+
+                    })
+
+                changePreState(precamps)      
+
+        })
+
 
 
         db.collection('campaignsBNB').where("confirmed", "==", true)
@@ -39,9 +53,13 @@ const Layout = ({ children }, {c, crea}) => {
                     console.log(err);
                 })
 
+                
                 changeUserState(creators)
 
                 changeState(campaigns);
+                
+
+                
             })
         }).catch((error) => {
             console.log("Error getting document:", error);
@@ -49,6 +67,7 @@ const Layout = ({ children }, {c, crea}) => {
     }, [c, crea])
     
     const changeState = (campaigns) => {
+        console.log(campaigns)
         dispatch({
             type: 'SET_ALL_CAMPAIGNS',
             id: campaigns
@@ -59,6 +78,13 @@ const Layout = ({ children }, {c, crea}) => {
         dispatch({
             type: 'SET_ALL_CREATORS',
             id: creators
+        })
+    }
+
+    const changePreState = (campaigns) => {
+        dispatch({
+            type: 'SET_ALL_PRECAMPAIGNS',
+            id: campaigns
         })
     }
 

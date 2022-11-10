@@ -2,6 +2,8 @@ import React from 'react';
 import Navbar from "@/components/_App/Navbar";
 import Footer from "@/components/_App/Footer";
 import SimpleCampaignPost from '@/components/Common/SimpleCampaignPost';
+import SimplePreCampaignPost from '@/components/Common/SimplePreCampaignPost';
+
 import CategoryList from '@/utils/CategoryList';
 import Checkbox from '@material-ui/core/Checkbox';
 import categoryList from '@/utils/CategoryList';
@@ -12,6 +14,7 @@ import Pagination from '@material-ui/lab/Pagination';
 import {connect} from 'react-redux'
 import {chain} from '@/utils/chain'
 import {bnb_chain} from '@/utils/bnb_chain'
+import { campaignAbi } from '@/components/ContractRelated/CampaignAbi';
 
 const GreenCheckbox = withStyles({
     root: {
@@ -38,7 +41,8 @@ class Explore extends React.Component {
             projects: this.props.allCampaigns,
             checked: this.populateCheckArray(),
             network_checked: [chain, bnb_chain],
-            page: 1
+            page: 1,
+            preprojects: this.props.allPreCampaigns
         }
         this.addCategory = this.addCategory.bind(this);
         this.removeCategory = this.removeCategory.bind(this);
@@ -122,7 +126,9 @@ class Explore extends React.Component {
 
     componentDidUpdate(prevProps) {
         // Utilisation classique (pensez bien à comparer les props) :
-        if (this.props.allCampaigns !== prevProps.allCampaigns) {
+        console.log("didupdatecalled")
+        if (this.props.allCampaigns !== prevProps.allCampaigns || this.props.allPreCampaigns !== prevProps.allPreCampaigns) {
+          console.log("new load")
           this.loadProjects();
         }
       }
@@ -134,15 +140,27 @@ class Explore extends React.Component {
 
         return this.props.allCampaigns.filter(p => p.categories.some(r=> this.categoriesSelected.includes(r)))
       }
+
+    dynamicSearchPre(){
+        // console.log(this.categoriesSelected)
+        //return this.allCampaigns.filter(p => p.categories.some(r=> this.categoriesSelected.includes(r)))
+
+        return this.props.allPreCampaigns.filter(p => p.categories.some(r=> this.categoriesSelected.includes(r)))
+      }
+
+
     
     loadProjects(){
         this.setState({page: 1})
-        if(this.categoriesSelected.length == 0)
+        if(this.categoriesSelected.length == 0){
         //   this.setState({projects: this.allCampaigns})
             this.setState({projects: this.props.allCampaigns})
-        else
+            this.setState({preprojects: this.props.allPreCampaigns})
+        }
+        else{
           this.setState({projects: this.dynamicSearch()})
-
+          this.setState({preprojects: this.dynamicSearchPre()})
+        }
       }
 
       
@@ -163,18 +181,28 @@ class Explore extends React.Component {
       };
 
     displayProjects = () => {
+      
         var rows = [];
         // var lproj = this.state.projects.filter(p => this.state.network_checked.includes(p.network))
-        var lproj = this.state.projects
+        var lproj = this.state.projects.concat(this.state.preprojects)
+        var lproj_old = this.state.projects
+        var allPreCampaigns = this.state.preprojects
         
         //[0 ... 20[ [20 ... 40[
         var len = lproj.length < (this.state.page) * this.nbByPage ? lproj.length : (this.state.page) * this.nbByPage;
         // console.log("len : " + len + " / print page : " + this.state.page)
         for (var i = (this.state.page - 1) * this.nbByPage; i < len; i++) {
+          if(lproj[i].currency == "$" || lproj[i].currency == "€"){
+            rows.push( <div key={i} className="col-lg-4 col-md-6">
+            <SimplePreCampaignPost project={lproj[i]}/>
+            </div>)
+          }
+          else {  
             rows.push( <div key={i} className="col-lg-4 col-md-6">
             <SimpleCampaignPost project={lproj[i]} creator={lproj[i].creator}
             />
-        </div>);
+            </div>)
+          };
         }
         return rows;
       }
@@ -238,8 +266,10 @@ class Explore extends React.Component {
 }
 
 const mapStateToProps = state => {
+  console.log(state.allPreCampaigns)
     return {
-        allCampaigns: state.allCampaigns
+        allCampaigns: state.allCampaigns,
+        allPreCampaigns: state.allPreCampaigns
     }
 }
 

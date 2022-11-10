@@ -304,7 +304,7 @@ const Campaign = (props) => {
 
     async function displayHTMLTxt(data){
         // console.log(data)
-        let txt = await fetch('https://cors-serv.herokuapp.com/'+data).then(r => {
+        let txt = await fetch(data).then(r => {
             let b = r.blob().then((a) => a.text().then(h => setHTMLTxt(h)))
     });
     }

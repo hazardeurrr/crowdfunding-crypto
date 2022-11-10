@@ -23,6 +23,7 @@ const initialState = {
   currentProvider: undefined,
   showWelcome: true,
   openNotif: false,
+  allPreCampaigns: []
 }
 
 // const reducerComp = (previous, current) => previous[1] + current[1];
@@ -109,6 +110,13 @@ const reducer = (state = initialState, action) => {
       return {
         ...state,
         bnb_web3Instance: action.id
+    }
+
+    case 'SET_ALL_PRECAMPAIGNS':
+      console.log(action.id)
+      return {
+        ...state,
+        allPreCampaigns: action.id
     }
 
     case 'SET_ALL_CAMPAIGNS':
