@@ -227,7 +227,7 @@ const Navbar = () => {
     }, [])
 
     async function initApp(){
-        var web3bnb = new Web3(new Web3.providers.HttpProvider("https://data-seed-prebsc-1-s1.binance.org:8545/"))
+        var web3bnb = new Web3(new Web3.providers.HttpProvider("https://data-seed-prebsc-1-s3.binance.org:8545/"))
             dispatch({
                 type:'SET_WEB3BNB',
                 id: web3bnb
@@ -317,7 +317,7 @@ const Navbar = () => {
 
           console.log("coinbase");
           try {
-            provider = await coinbaseWallet.makeWeb3Provider("https://data-seed-prebsc-1-s1.binance.org:8545/", 97)
+            provider = await coinbaseWallet.makeWeb3Provider("https://data-seed-prebsc-1-s3.binance.org:8545/", 97)
             console.log(provider)
           } catch(e) {
             console.log("Could not get a wallet connection", e);
@@ -330,7 +330,7 @@ const Navbar = () => {
     //----------------PORTIS---------------//
     async function initPortisProvider(){
           const bscProvider = {
-            nodeUrl: "https://data-seed-prebsc-1-s1.binance.org:8545/",
+            nodeUrl: "https://data-seed-prebsc-1-s3.binance.org:8545/",
             chainId: 97,
           };
           const portis = new Portis('e03ef7e1-2dad-4cb1-ae22-a400dd63143f', bscProvider);
@@ -358,7 +358,7 @@ const Navbar = () => {
     async function initWalletConnectProvider(){
         const provider = new WalletConnectProvider({
             rpc: {
-              97: "https://data-seed-prebsc-1-s1.binance.org:8545/",
+              97: "https://data-seed-prebsc-1-s3.binance.org:8545/",
               56:"https://bsc-dataseed.binance.org/"
               // ...
             },
@@ -485,7 +485,7 @@ const Navbar = () => {
             if(bnb_web3Instance != undefined){
                 web3b = bnb_web3Instance
             } else {
-                web3b = new Web3(new Web3.providers.HttpProvider("https://data-seed-prebsc-1-s1.binance.org:8545/"))
+                web3b = new Web3(new Web3.providers.HttpProvider("https://data-seed-prebsc-1-s3.binance.org:8545/"))
             }
 
 
@@ -716,7 +716,7 @@ const Navbar = () => {
                       chainName: 'BNB Smart Chain Testnet',
                       chainId: "0x61",
                       nativeCurrency: { name: 'Binance Coin', decimals: 18, symbol: 'BNB' },
-                      rpcUrls: ["https://data-seed-prebsc-1-s1.binance.org:8545/"],
+                      rpcUrls: ["https://data-seed-prebsc-1-s3.binance.org:8545/"],
                       blockExplorerUrls: ['https://testnet.bscscan.com']
                     }
                   ]

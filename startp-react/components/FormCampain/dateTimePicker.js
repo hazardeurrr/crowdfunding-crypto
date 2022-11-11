@@ -16,7 +16,7 @@ export default function DateValidPicker(props) {
   return (
     <LocalizationProvider dateAdapter={AdapterDateFns}>
         <DateTimePicker
-          renderInput={(params) => <TextField {...params} />}
+          renderInput={(params) => <TextField style={{marginRight:10, marginTop: 5, marginBottom:5}} {...params} />}
           label="Select start date"
           value={valueStart}
           onChange={(newValue) => {
@@ -27,7 +27,7 @@ export default function DateValidPicker(props) {
         />
 
         <DateTimePicker
-          renderInput={(params) => <TextField style={{marginLeft: 15}} {...params} />}
+          renderInput={(params) => <TextField style={{marginRight: 10, marginTop: 5, marginBottom:5}} {...params} />}
           label="Select end date"
           value={valueEnd}
           onChange={(newValue) => {
