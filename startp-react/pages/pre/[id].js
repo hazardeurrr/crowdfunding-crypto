@@ -90,6 +90,7 @@ const HtmlTooltip = withStyles((theme) => ({
 const PreCampaign = (props) => {
 
     const classes = useStyles();
+    const dispatch = useDispatch();
 
     const [open, setOpen] = React.useState(false);
     const [campaign, setCampaign] = React.useState(undefined)
@@ -137,9 +138,6 @@ const PreCampaign = (props) => {
           }
         })
     }, [])
-
-
-    
 
 
     const handleDialogOpen = () => {
@@ -302,24 +300,9 @@ const PreCampaign = (props) => {
         }
     }
 
-    const steps = ['Select duration', 'Set currency & objective', 'Create smart-contract instance', 'Upload data', 'Update profile']
+    const steps = ['Select duration', 'Set currency & objective', 'Create smart-contract instance', 'Upload data']
     const getStepContent = (step) => {
         switch (step) {
-          case 4:
-            return <StepContent>
-            <p>Click on the button to update your profile as displayed</p>
-            <Chip style={{maxWidth:'100%'}} avatar={<Avatar alt='avatar' src={campaign.creator_img} />} label={<div style={{
-                                                          alignItems:'center',
-                                                          width: '100%',
-                                                          whiteSpace: 'nowrap',
-                                                          overflow: 'hidden',
-                                                          textOverflow: 'ellipsis',
-                                                          fontSize : "14px",
-                                                          fontStyle: 'italic'
-                                                      }}>{campaign.creator_name} </div>}/>
-            <Button variant="contained" onClick={updateProfile}>Update</Button>
-            <Button onClick={skip}>Skip</Button>
-          </StepContent>
           case 0:
             return <StepContent>
             <p>Select the duration of your campaign</p>
@@ -340,7 +323,6 @@ const PreCampaign = (props) => {
             {showNextBtnMethods()}
           </StepContent>
           case 2:
-            console.log("in2")
             return <StepContent>
             <p>Please confirm the transaction on your wallet and wait for blockchain confirmation. This is the only blockchain transaction you will need to do.</p>
             {showCreateCampBtn()}
@@ -349,6 +331,21 @@ const PreCampaign = (props) => {
             return <StepContent>
             <p>Please wait during upload...</p>
           </StepContent>
+        //   case 4:
+        //     return <StepContent>
+        //     <p>Click on the button to update your profile as displayed</p>
+        //     <Chip style={{marginTop:-5, maxWidth:'100%'}} avatar={<Avatar alt='avatar' src={campaign.creator_img} />} label={<div style={{
+        //                                                   alignItems:'center',
+        //                                                   width: '100%',
+        //                                                   whiteSpace: 'nowrap',
+        //                                                   overflow: 'hidden',
+        //                                                   textOverflow: 'ellipsis',
+        //                                                   fontSize : "14px",
+        //                                                   fontStyle: 'italic'
+        //                                               }}>{campaign.creator_name} </div>}/>
+        //     <div style={{marginTop: 10}} ><Button variant="contained" onClick={updateProfile}>Update</Button>
+        //     <Button onClick={skip}>Skip</Button></div>
+        //   </StepContent>
           default:
             return <StepContent>
             <p>Unknown step</p>
@@ -363,6 +360,7 @@ const PreCampaign = (props) => {
       }
 
       const handleNext = () => {
+        console.log(activeStep)
         setActiveStep(activeStep + 1);
       };
       
@@ -468,8 +466,15 @@ const PreCampaign = (props) => {
 
     const updateProfile = () => {
        
-        db.collection('profile').doc(eth_address).update({username:campaign.creator_name, image:campaign.creator_img}).then(() => {
-			handleNext()
+        db.collection('profile').doc(userAddr).update({username:campaign.creator_name, image:campaign.creator_img}).then(() => {
+            let newus = currentUser
+            newus.username = campaign.creator_name
+            newus.image = campaign.creator_img
+            setActiveStep(4)
+            dispatch({
+                type: 'SET_CURRENT_USER',
+                id: newus
+            })
 		}).catch((err) => {
 			console.log(err);
 		})
@@ -529,13 +534,13 @@ const PreCampaign = (props) => {
              )
              .send({from : userAddr, value: 0})
              .on('transactionHash', function(hash){
-                 console.log("hash :" + hash)
+                //  console.log("hash :" + hash)
                  setTx(hash);
                  // ethInstance.getTransactionReceipt(hash).then(console.log);
              })
              .on('confirmation', function(confirmationNumber, receipt){
      
-                 console.log("Confirmation number:" + confirmationNumber)
+                //  console.log("Confirmation number:" + confirmationNumber)
              })
              .on("error", function(error) {
                 //  context.setState({ errorMsg: error.code + " : " + error.message})
@@ -560,8 +565,6 @@ const PreCampaign = (props) => {
 
     const createFirebaseObject = (contract_address) => {
         handleNext()
-
-        console.log(contract_address)
     
                 const campainInfos = {
                     title: campaign.title,
@@ -583,8 +586,11 @@ const PreCampaign = (props) => {
                     creator: userAddr
                 }
                                
-                db.collection('campaignsBNB').doc(prefixedAddress(contract_address)).set(campainInfos).then(() => {
-                    handleNext()                    
+                db.collection('campaignsBNB').doc(prefixedAddress(chainID, contract_address)).set(campainInfos).then(() => {
+                    updateProfile()
+                    // handleNext()    
+                    // setActiveStep(4)
+
                 }).catch((err) => console.log(err.message))
     }
 

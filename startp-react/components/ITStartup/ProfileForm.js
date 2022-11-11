@@ -18,6 +18,8 @@ import { GiConsoleController } from 'react-icons/gi';
 
 const ProfileForm = (props) => {
 
+    const dispatch = useDispatch()
+
     const [name, setName] = useState('');
     const [email, setEmail] = useState('');
     const [bio, setBio] = useState('');
@@ -183,6 +185,12 @@ const ProfileForm = (props) => {
 		}).catch((err) => {
 			console.log(err);
 		})
+
+        
+        dispatch({
+            type: 'SET_CURRENT_USER',
+            id: user
+        })
     }
 
     function handleSubmit(event) {
