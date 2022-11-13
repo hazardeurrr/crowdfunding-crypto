@@ -400,7 +400,7 @@ class MainForm extends React.Component {
                     network: this.props.chainID,
                     main_img: imageURL,
                     raised: 0,
-                    likedTupleMap: {},
+                    // likedTupleMap: {},
                     confirmed: null,
                     like_score: 0,
                     live:true

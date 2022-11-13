@@ -581,10 +581,11 @@ const PreCampaign = (props) => {
                     network: chainID,
                     main_img: campaign.main_img,
                     raised: 0,
-                    likedTupleMap: {},
+                    // likedTupleMap: {},
                     confirmed: null,
                     creator: userAddr,
-                    like_score: 0
+                    like_score: 0,
+                    live: true
                 }
                                
                 db.collection('campaignsBNBTest').doc(prefixedAddress(chainID, contract_address)).set(campainInfos).then(() => {

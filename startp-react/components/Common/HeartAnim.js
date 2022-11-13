@@ -10,6 +10,8 @@ import { GiConsoleController } from 'react-icons/gi';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import {chain} from '@/utils/chain'
 import {bnb_chain} from '@/utils/bnb_chain'
+import {db} from '../../firebase-crowdfund/index'
+import firebase from 'firebase/app';
 
 const HeartAnim = (props) => {
 
@@ -77,31 +79,38 @@ const HeartAnim = (props) => {
        setShowModal(true)
        arrayLiked = arrayLiked.filter((e => e != documentAddress))
        if(currentUser == undefined || currentUser == null){return}
-        let u = currentUser;
-        u.liked = arrayLiked;
-        updateDoc(currentUser.eth_address, 'profile', u)
+        
+        // updateDoc(currentUser.eth_address, 'profile', u)
+        db.collection("profile").doc(currentUser.eth_address).update({"liked": arrayLiked})
+
 
           // Change weight depending on BBST balance. Retrieve BBST balance.
-          let c = campaign;
-          delete c.likedTupleMap[currentUser.eth_address]
-          updateDoc(documentAddress, 'campaignsBNBTest', c)
+          // let c = campaign;
+          // delete c.likedTupleMap[currentUser.eth_address]
+          // updateDoc(documentAddress, 'campaignsBNBTest', c)
+          db.collection("campaignsBNBTest").doc(documentAddress).update("like_score", firebase.firestore.FieldValue.increment(-1))
+
   
     } else {
       setChecked(true)
       setShowModal(true)
       arrayLiked.push(documentAddress)
       if(currentUser == undefined || currentUser == null){return}
-        let u = currentUser;
-        u.liked = arrayLiked;
-        updateDoc(currentUser.eth_address, 'profile', u)
+        // let u = currentUser;
+        // u.liked = arrayLiked;
+        // updateDoc(currentUser.eth_address, 'profile', u)
+        db.collection("profile").doc(currentUser.eth_address).update({"liked": arrayLiked})
 
         // Change weight depending on BBST balance. Retrieve BBST balance.
-        let c = campaign;
-        let bbstamount = bbstbal === undefined ? 0 : parseInt(web3Instance.utils.fromWei(bbstbal.toString()))
-        let baseLikeAmount = 10;
-        let totalLikeAmount = baseLikeAmount + bbstamount / 10;
-        c.likedTupleMap[currentUser.eth_address] = totalLikeAmount
-        updateDoc(documentAddress, 'campaignsBNBTest', c)
+        // let c = campaign;
+        // let bbstamount = bbstbal === undefined ? 0 : parseInt(web3Instance.utils.fromWei(bbstbal.toString()))
+        // let baseLikeAmount = 10;
+        // let totalLikeAmount = baseLikeAmount + bbstamount / 10;
+        // c.likedTupleMap[currentUser.eth_address] = totalLikeAmount
+        // updateDoc(documentAddress, 'campaignsBNBTest', c)
+
+        db.collection("campaignsBNBTest").doc(documentAddress).update("like_score", firebase.firestore.FieldValue.increment(1))
+
 
         // CHANGER ARRAY PAR UNE MAP
     }
