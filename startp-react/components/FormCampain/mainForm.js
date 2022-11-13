@@ -374,7 +374,7 @@ class MainForm extends React.Component {
             console.log("uplaod finished")
             // Handle successful uploads on complete
             // For instance, get the download URL: https://firebasestorage.googleapis.com/...
-            storage.ref('campaignsBNB')
+            storage.ref('campaignsBNBTest')
              .child(this.prefixedAddress(contract_address))
              .getDownloadURL().then((downloadURL) => {
                 // console.log('File available at', downloadURL);
@@ -401,7 +401,9 @@ class MainForm extends React.Component {
                     main_img: imageURL,
                     raised: 0,
                     likedTupleMap: {},
-                    confirmed: null
+                    confirmed: null,
+                    like_score: 0,
+                    live:true
                 }
                 // console.log(campainInfos)
         
@@ -409,7 +411,7 @@ class MainForm extends React.Component {
                 const creator_address = this.props.userAddr
                 campainInfos['creator'] = creator_address
                 if (this.cats.length < 1) {return}
-                db.collection('campaignsBNB').doc(this.prefixedAddress(contract_address)).set(campainInfos).then(x => {
+                db.collection('campaignsBNBTest').doc(this.prefixedAddress(contract_address)).set(campainInfos).then(x => {
                     // console.log('document written with : ' + campainInfos.title)
 
                     this.handleNext()

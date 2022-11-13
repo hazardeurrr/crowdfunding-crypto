@@ -15,6 +15,8 @@ import {connect} from 'react-redux'
 import {chain} from '@/utils/chain'
 import {bnb_chain} from '@/utils/bnb_chain'
 import { campaignAbi } from '@/components/ContractRelated/CampaignAbi';
+import { db } from 'firebase-crowdfund/index';
+import { Button } from '@material-ui/core';
 
 const GreenCheckbox = withStyles({
     root: {
@@ -36,16 +38,19 @@ class Explore extends React.Component {
         this.categoriesSelected = [];
         this.networksSelected = [];
         this.nbByPage = 9;
+        this.lastDoc = this.props.lastFirstDoc;
 
         this.state = {
-            projects: this.props.allCampaigns,
+            projects: this.props.firstCampaigns,
             checked: this.populateCheckArray(),
             network_checked: [chain, bnb_chain],
-            page: 1,
-            preprojects: this.props.allPreCampaigns
+            page: 0,
+            lastBatch: false
+            // preprojects: this.props.allPreCampaigns
         }
         this.addCategory = this.addCategory.bind(this);
         this.removeCategory = this.removeCategory.bind(this);
+        this.showMore = this.showMore.bind(this);
     }
 
     
@@ -127,18 +132,36 @@ class Explore extends React.Component {
     componentDidUpdate(prevProps) {
         // Utilisation classique (pensez bien à comparer les props) :
         console.log("didupdatecalled")
-        if (this.props.allCampaigns !== prevProps.allCampaigns || this.props.allPreCampaigns !== prevProps.allPreCampaigns) {
+        if (this.props.firstCampaigns !== prevProps.firstCampaigns || this.props.allPreCampaigns !== prevProps.allPreCampaigns) {
           console.log("new load")
           this.loadProjects();
         }
       }
 
 
-    dynamicSearch(){
+    async dynamicSearch(){
         // console.log(this.categoriesSelected)
         //return this.allCampaigns.filter(p => p.categories.some(r=> this.categoriesSelected.includes(r)))
+        // return this.props.allCampaigns.filter(p => p.categories.some(r=> this.categoriesSelected.includes(r)))
+        var newArr = []
+        await db.collection("campaignsBNBTest").where("confirmed", "==", true).where("categories", "array-contains-any", this.categoriesSelected).orderBy("live", "desc").orderBy("like_score", "desc").limit(this.nbByPage)
+        .get()
+        .then((ds) => {
+            ds.forEach(element => {
+                newArr.push(element.data())
+            })
+            console.log(ds)
+            if(ds.docs.length > 0){
+              console.log(ds.docs[ds.docs.length - 1])
+              this.lastDoc = ds.docs[ds.docs.length-1]
+            }
+            if(ds.docs.length < this.nbByPage){
+              this.setState({lastBatch: true})
+            }
+          })
+            console.log(newArr)
+        return newArr
 
-        return this.props.allCampaigns.filter(p => p.categories.some(r=> this.categoriesSelected.includes(r)))
       }
 
     dynamicSearchPre(){
@@ -151,17 +174,54 @@ class Explore extends React.Component {
 
     
     loadProjects(){
-        this.setState({page: 1})
+        this.setState({page: 0})
+        this.setState({lastBatch: false})
+        this.lastDoc = this.props.lastFirstDoc
+        
         if(this.categoriesSelected.length == 0){
         //   this.setState({projects: this.allCampaigns})
-            this.setState({projects: this.props.allCampaigns})
-            this.setState({preprojects: this.props.allPreCampaigns})
+            this.setState({projects: this.props.firstCampaigns})
+            // this.setState({preprojects: this.props.allPreCampaigns})
         }
         else{
-          this.setState({projects: this.dynamicSearch()})
-          this.setState({preprojects: this.dynamicSearchPre()})
+          this.dynamicSearch().then((res) => {
+            this.setState({projects: res})
+          })
+          // this.setState({preprojects: this.dynamicSearchPre()})
         }
       }
+      
+    async getQuery(){
+      if(this.categoriesSelected.length > 0){
+        return db.collection("campaignsBNBTest").where("confirmed", "==", true).where("categories", "array-contains-any", this.categoriesSelected).orderBy("live", "desc").orderBy("like_score", "desc").startAfter(this.lastDoc).limit(this.nbByPage)
+        .get()
+      } else {
+        return db.collection("campaignsBNBTest").where("confirmed", "==", true).orderBy("live", "desc").orderBy("like_score", "desc").startAfter(this.lastDoc).limit(this.nbByPage)
+        .get()
+      }
+    }
+
+    async showMore(){
+      var newArr = []
+        await this.getQuery()
+        .then((ds) => {
+            ds.forEach(element => {
+                newArr.push(element.data())
+            })
+            if(ds.docs.length > 0){
+              console.log(ds.docs[ds.docs.length - 1])
+              this.lastDoc = ds.docs[ds.docs.length-1]
+            }
+            if(ds.docs.length < this.nbByPage){
+              this.setState({lastBatch: true})
+            }
+          })
+        console.log(newArr)
+        let nnA = this.state.projects.concat(newArr)
+        this.setState({page: this.state.page + 1})
+        this.setState({projects: nnA})
+      
+    }
 
       
     
@@ -184,29 +244,39 @@ class Explore extends React.Component {
       
         var rows = [];
         // var lproj = this.state.projects.filter(p => this.state.network_checked.includes(p.network))
-        var lproj = this.state.projects.concat(this.state.preprojects)
-        var lproj_old = this.state.projects
-        var allPreCampaigns = this.state.preprojects
+        // var lproj = this.state.projects.concat(this.state.preprojects)
+        var lproj = this.state.projects
+        // var allPreCampaigns = this.state.preprojects
         
         //[0 ... 20[ [20 ... 40[
-        var len = lproj.length < (this.state.page) * this.nbByPage ? lproj.length : (this.state.page) * this.nbByPage;
+        // var len = lproj.length < (this.state.page) * this.nbByPage ? lproj.length : (this.state.page) * this.nbByPage;
         // console.log("len : " + len + " / print page : " + this.state.page)
-        for (var i = (this.state.page - 1) * this.nbByPage; i < len; i++) {
-          if(lproj[i].currency == "$" || lproj[i].currency == "€"){
-            rows.push( <div key={i} className="col-lg-4 col-md-6">
-            <SimplePreCampaignPost project={lproj[i]}/>
-            </div>)
-          }
-          else {  
-            rows.push( <div key={i} className="col-lg-4 col-md-6">
-            <SimpleCampaignPost project={lproj[i]} creator={lproj[i].creator}
-            />
-            </div>)
-          };
-        }
+        // for (var i = (this.state.page - 1) * this.nbByPage; i < len; i++) {
+        //   if(lproj[i].currency == "$" || lproj[i].currency == "€"){
+        //     rows.push( <div key={i} className="col-lg-4 col-md-6">
+        //     <SimplePreCampaignPost project={lproj[i]}/>
+        //     </div>)
+        //   }
+        //   else {  
+        //     rows.push( <div key={i} className="col-lg-4 col-md-6">
+        //     <SimpleCampaignPost project={lproj[i]} creator={lproj[i].creator}
+        //     />
+        //     </div>)
+        //   };
+        // }
+
+        lproj.forEach(e => {rows.push( <div key={e.title} className="col-lg-4 col-md-6">
+        <SimpleCampaignPost project={e} creator={e.creator}/>
+        </div>)})
+        
         return rows;
       }
 
+      displayShowMoreBtn(){
+        if(!this.state.lastBatch){
+          return <Button onClick={this.showMore}>Show more</Button>
+        }
+      }
 
 
     render(){
@@ -252,9 +322,8 @@ class Explore extends React.Component {
                                         </div>
                                     </div> */}
 
-                                    <Pagination count={Math.ceil(this.state.projects.length / this.nbByPage)} page={this.state.page} onChange={this.handlePaginationChange.bind(this)} color="standard" />
-
-
+                                    {/* <Pagination count={Math.ceil(this.state.projects.length / this.nbByPage)} page={this.state.page} onChange={this.handlePaginationChange.bind(this)} color="standard" /> */}
+                                    {this.displayShowMoreBtn()}
 
                                 </div>
                             </div>
@@ -269,7 +338,9 @@ const mapStateToProps = state => {
   console.log(state.allPreCampaigns)
     return {
         allCampaigns: state.allCampaigns,
-        allPreCampaigns: state.allPreCampaigns
+        allPreCampaigns: state.allPreCampaigns,
+        firstCampaigns: state.firstCampaigns,
+        lastFirstDoc: state.lastFirstDoc
     }
 }
 

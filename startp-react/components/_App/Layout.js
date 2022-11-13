@@ -7,7 +7,7 @@ import {db} from '../../firebase-crowdfund/index'
 import Navbar from './Navbar';
 import Footer from './Footer';
 
-const Layout = ({ children }, {c, crea}) => {
+const Layout = ({ children }) => {
 
     
     const dispatch = useDispatch()
@@ -31,45 +31,69 @@ const Layout = ({ children }, {c, crea}) => {
         })
 
 
-
-        db.collection('campaignsBNB').where("confirmed", "==", true)
+        let now = parseInt(Date.now() / 1000)
+        console.log(now)
+        db.collection('campaignsBNBTest').where("confirmed", "==", true).orderBy("live", "desc").orderBy("like_score", "desc").limit(9)
         .get()
         .then((docs) => {
+            console.log(docs)
             docs.forEach(element => {
 
-                campaigns.push(element.data())
-
-                // getOne('profile', element.data().creator.toLowerCase(), function(doc) {
-                //     if (doc.exists) {
-                //         creators.push(doc.data())
-                //     }
-                // });
-
-                db.collection('profile').doc(element.data().creator.toLowerCase()).get().then((doc) => {
-                    if (doc.exists) {
-                        creators.push(doc.data())
-                    }
-                }).catch((err) => {
-                    console.log(err);
-                })
-
+                    campaigns.push(element.data())
                 
-                changeUserState(creators)
-
-                changeState(campaigns);
-                
-
-                
+                    
             })
+
+            if(docs.docs.length > 0){
+                console.log(docs.docs[docs.docs.length - 1])
+                dispatch({
+                    type: 'SET_LAST_FIRST_DOC',
+                    id: docs.docs[docs.docs.length-1]
+                })
+              }
+
+            changeState(campaigns)
+
         }).catch((error) => {
             console.log("Error getting document:", error);
         });
-    }, [c, crea])
+
+
+
+        //----------------------/// OLD 
+        // db.collection('campaignsBNBTest').where("confirmed", "==", true).where("startDate", "<=", now).where("endDate", ">=", now)
+        // .get()
+        // .then((docs) => {
+        //     docs.forEach(element => {
+
+        //         campaigns.push(element.data())
+
+        //         db.collection('profile').doc(element.data().creator.toLowerCase()).get().then((doc) => {
+        //             if (doc.exists) {
+        //                 creators.push(doc.data())
+        //             }
+        //         }).catch((err) => {
+        //             console.log(err);
+        //         })
+
+                
+        //         changeUserState(creators)
+
+        //         changeState(campaigns);
+                
+
+                
+        //     })
+        // }).catch((error) => {
+        //     console.log("Error getting document:", error);
+        // });
+
+    }, [])
     
     const changeState = (campaigns) => {
-        console.log(campaigns)
+        // console.log(campaigns)
         dispatch({
-            type: 'SET_ALL_CAMPAIGNS',
+            type: 'SET_FIRST_CAMPAIGNS',
             id: campaigns
         })
     }

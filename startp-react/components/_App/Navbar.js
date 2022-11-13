@@ -1074,7 +1074,7 @@ const Navbar = () => {
                                         
 
                         <div className={classOne} id="navbarSupportedContent">
-                        <div className="autocomplete-container"><SearchIcon style={{marginTop: 10, marginLeft: 5, marginRight: 5}}/><AutoCompleteSearchBar/></div>
+                        {/* <div className="autocomplete-container"><SearchIcon style={{marginTop: 10, marginLeft: 5, marginRight: 5}}/><AutoCompleteSearchBar/></div> */}
 
                             <ul className="navbar-nav ms-auto" style={{alignItems:'center'}}>
 

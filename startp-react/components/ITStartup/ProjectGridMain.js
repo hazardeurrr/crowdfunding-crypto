@@ -11,12 +11,15 @@ import {db, firebase} from '../../firebase-crowdfund/index'
 const ProjectGridMain = () => {
     
 
-    const projectList = useSelector((state) => state.allCampaigns)
+    const projectList = useSelector((state) => state.firstCampaigns)
 
+    React.useEffect(() => {
+      }, [projectList]);
     // const [user, setUser] = React.useState(undefined);
 
     const displayProjects = () => {
-        const len = projectList.length > 9 ? 9 : projectList.length
+        console.log(projectList)
+        const len = projectList.length > 6 ? 6 : projectList.length
         var rows = [];
         for (var i = 0; i < len; i++) {
                     rows.push( <div key={i} className="col-lg-4 col-md-6">

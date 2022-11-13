@@ -3,28 +3,49 @@ import SimpleCampaignPost from '@/components/Common/SimpleCampaignPost'
 import {connect} from 'react-redux'
 import { bnb_chain } from '@/utils/bnb_chain';
 import { chain } from '@/utils/chain';
-
+import { db } from '../../firebase-crowdfund/index'
 
 class CreatedAndLiked extends Component {
 
     constructor(props){
       super(props)
       this.user = props.user
-      if(this.user != undefined){
+      
+      this.state = {
+        created: [],
+      }
+
+      this.getCreated()
+    if(this.user != undefined){
         this.liked = this.user.liked
-        this.created = this.props.allCampaigns.filter(e => e.creator.toLowerCase() == this.user.eth_address.toLowerCase())
+        // this.props.allCampaigns.filter(e => e.creator.toLowerCase() == this.user.eth_address.toLowerCase())
         // console.log(this.liked)
       }
     }
 
+    async getCreated(){
+        if(this.user != undefined){
+            let newArr = []
+            await db.collection('campaignsBNBTest').where("confirmed", "==", true).where("creator", "==", this.user.eth_address.toLowerCase())
+            .get()
+            .then((docs) => {
+                console.log(docs)
+                docs.forEach(element => {
+                        newArr.push(element.data())
+                })
+            this.setState({created: newArr})
+            })
+        }
+    }
+
     displayCreatedProjects = () => {
       var rows = [];
-      for (var i = 0; i < this.created.length; i++) {
-          rows.push( <div key={i} className="col-lg-4 col-md-6">
-          <SimpleCampaignPost project={this.created[i]}
-          />
-      </div>);
-      }
+      this.state.created.forEach((e) => {
+        rows.push( <div key={e.title} className="col-lg-4 col-md-6">
+        <SimpleCampaignPost project={e}
+        />
+        </div>)
+      })
       return rows;
     }
 

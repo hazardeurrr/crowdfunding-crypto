@@ -583,10 +583,11 @@ const PreCampaign = (props) => {
                     raised: 0,
                     likedTupleMap: {},
                     confirmed: null,
-                    creator: userAddr
+                    creator: userAddr,
+                    like_score: 0
                 }
                                
-                db.collection('campaignsBNB').doc(prefixedAddress(chainID, contract_address)).set(campainInfos).then(() => {
+                db.collection('campaignsBNBTest').doc(prefixedAddress(chainID, contract_address)).set(campainInfos).then(() => {
                     updateProfile()
                     // handleNext()    
                     // setActiveStep(4)

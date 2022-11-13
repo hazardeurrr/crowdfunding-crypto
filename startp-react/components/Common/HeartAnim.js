@@ -84,7 +84,7 @@ const HeartAnim = (props) => {
           // Change weight depending on BBST balance. Retrieve BBST balance.
           let c = campaign;
           delete c.likedTupleMap[currentUser.eth_address]
-          updateDoc(documentAddress, 'campaignsBNB', c)
+          updateDoc(documentAddress, 'campaignsBNBTest', c)
   
     } else {
       setChecked(true)
@@ -101,7 +101,7 @@ const HeartAnim = (props) => {
         let baseLikeAmount = 10;
         let totalLikeAmount = baseLikeAmount + bbstamount / 10;
         c.likedTupleMap[currentUser.eth_address] = totalLikeAmount
-        updateDoc(documentAddress, 'campaignsBNB', c)
+        updateDoc(documentAddress, 'campaignsBNBTest', c)
 
         // CHANGER ARRAY PAR UNE MAP
     }

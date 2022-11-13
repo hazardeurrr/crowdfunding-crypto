@@ -17,7 +17,7 @@ const OwlCarousel = dynamic(import('react-owl-carousel3'));
 const MainProjectFeaturedCarousel = ({p}) => {
     const [display, setDisplay] = React.useState(false);
 
-    const projects = useSelector((state) => state.allCampaigns)
+    const projects = useSelector((state) => state.firstCampaigns)
 
     React.useEffect(() => {
         setDisplay(true);

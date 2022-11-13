@@ -8,7 +8,7 @@ import MainProjectFeaturedCarousel from '../Common/MainProjectFeaturedCarousel';
 import MainProjectFeatured from '../Common/MainProjectFeatured';
 
 const MainBanner = () => {
-    const projectList = useSelector((state) => state.allCampaigns)
+    const projectList = useSelector((state) => state.firstCampaigns)
 
     const showProject = () => {
         if(projectList.length > 0){

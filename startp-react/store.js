@@ -14,6 +14,7 @@ const initialState = {
   metamask_connected: false,
   chainID: chain,
   allCampaigns: [],
+  firstCampaigns:[],
   allCreators: [],
   currentUser: undefined,
   bbstBalance: 0,
@@ -23,7 +24,8 @@ const initialState = {
   currentProvider: undefined,
   showWelcome: true,
   openNotif: false,
-  allPreCampaigns: []
+  allPreCampaigns: [],
+  lastFirstDoc: null
 }
 
 // const reducerComp = (previous, current) => previous[1] + current[1];
@@ -75,6 +77,12 @@ const reducer = (state = initialState, action) => {
         showWelcome: action.id
       }
 
+    case 'SET_LAST_FIRST_DOC':
+      return {
+        ...state,
+        lastFirstDoc: action.id
+      }
+
       case 'SET_OPENNOTIF':
       return {
         ...state,
@@ -113,10 +121,16 @@ const reducer = (state = initialState, action) => {
     }
 
     case 'SET_ALL_PRECAMPAIGNS':
-      console.log(action.id)
       return {
         ...state,
         allPreCampaigns: action.id
+    }
+
+    case 'SET_FIRST_CAMPAIGNS':
+      console.log(action.id)
+      return {
+        ...state,
+        firstCampaigns: action.id
     }
 
     case 'SET_ALL_CAMPAIGNS':
