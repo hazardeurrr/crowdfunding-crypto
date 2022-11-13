@@ -16,7 +16,7 @@ const Projects = ({p}) => {
     const [display, setDisplay] = React.useState(false);
     // const [projects, setProjects] = React.useState(undefined)
 
-    const projects = useSelector((state) => state.allCampaigns)
+    const projects = []
 
    {/* React.useEffect(() => {
         setDisplay(true);

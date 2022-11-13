@@ -29,7 +29,6 @@ const MainProjectFeatured = (props) => {
     const chainID = useSelector((state) => state.chainID)
 
   
-    // const creators = useSelector((state) => state.allCreators)
 
     // const u = useSelector((state) => selectCreatorByAdd(state, campaign.creator)));
 

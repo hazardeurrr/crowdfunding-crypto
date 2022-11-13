@@ -218,7 +218,6 @@ class CreatedAndLiked extends Component {
 
 const mapStateToProps = state => {
     return {
-        allCampaigns: state.allCampaigns,
         address: state.address
     }
 }

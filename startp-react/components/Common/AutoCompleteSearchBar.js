@@ -11,8 +11,8 @@ import { prefixedAddress } from '@/utils/prefix';
 const AutoCompleteSearchBar = () => {
 
  // const campaigns = getCampaigns()
-  const campaigns = useSelector((state) => state.allCampaigns);
-  const creators = useSelector((state) => state.allCreators);
+  const campaigns = []
+  const creators = []
 
   const styles = (theme) => ({
     popper: {

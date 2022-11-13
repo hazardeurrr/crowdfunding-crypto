@@ -32,7 +32,6 @@ class Explore extends React.Component {
 
     constructor(props){
         super(props);
-        // console.log(this.props.allCampaigns)
         this.props = props
         this.languagesSelected = ["EN"];
         this.categoriesSelected = [];
@@ -119,8 +118,6 @@ class Explore extends React.Component {
       }
 
     componentDidMount(){
-        //  this.allCampaigns = getCampaigns()
-        //  this.setState({projects: this.allCampaigns})
          if(this.props.cat != "all"){
             const s = this.props.cat
             const i = categoryList.indexOf(s)
@@ -141,8 +138,6 @@ class Explore extends React.Component {
 
     async dynamicSearch(){
         // console.log(this.categoriesSelected)
-        //return this.allCampaigns.filter(p => p.categories.some(r=> this.categoriesSelected.includes(r)))
-        // return this.props.allCampaigns.filter(p => p.categories.some(r=> this.categoriesSelected.includes(r)))
         var newArr = []
         await db.collection("campaignsBNBTest").where("confirmed", "==", true).where("categories", "array-contains-any", this.categoriesSelected).orderBy("live", "desc").orderBy("like_score", "desc").limit(this.nbByPage)
         .get()
@@ -166,7 +161,6 @@ class Explore extends React.Component {
 
     dynamicSearchPre(){
         // console.log(this.categoriesSelected)
-        //return this.allCampaigns.filter(p => p.categories.some(r=> this.categoriesSelected.includes(r)))
 
         return this.props.allPreCampaigns.filter(p => p.categories.some(r=> this.categoriesSelected.includes(r)))
       }
@@ -179,9 +173,7 @@ class Explore extends React.Component {
         this.lastDoc = this.props.lastFirstDoc
         
         if(this.categoriesSelected.length == 0){
-        //   this.setState({projects: this.allCampaigns})
             this.setState({projects: this.props.firstCampaigns})
-            // this.setState({preprojects: this.props.allPreCampaigns})
         }
         else{
           this.dynamicSearch().then((res) => {
@@ -337,7 +329,6 @@ class Explore extends React.Component {
 const mapStateToProps = state => {
   console.log(state.allPreCampaigns)
     return {
-        allCampaigns: state.allCampaigns,
         allPreCampaigns: state.allPreCampaigns,
         firstCampaigns: state.firstCampaigns,
         lastFirstDoc: state.lastFirstDoc

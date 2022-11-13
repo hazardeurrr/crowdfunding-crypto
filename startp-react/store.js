@@ -13,9 +13,7 @@ const initialState = {
   address: undefined,
   metamask_connected: false,
   chainID: chain,
-  allCampaigns: [],
   firstCampaigns:[],
-  allCreators: [],
   currentUser: undefined,
   bbstBalance: 0,
   web3Instance: undefined,
@@ -127,51 +125,10 @@ const reducer = (state = initialState, action) => {
     }
 
     case 'SET_FIRST_CAMPAIGNS':
-      console.log(action.id)
       return {
         ...state,
         firstCampaigns: action.id
     }
-
-    case 'SET_ALL_CAMPAIGNS':
-      let campaigns = action.id
-      var now = Date.now() / 1000
-
-      let current = [];
-      let ended = [];
-      let future = [];
-
-      for (let elem of campaigns) {
-        if (elem.end_date < now) {
-          ended.push(elem)
-        }
-        else if (elem.start_date > now) {
-          future.push(elem)
-        }
-        else current.push(elem)
-      }
-
-      current.sort((x, y) => compare(x,y))
-      future.sort((x, y) => compare(x,y))
-      ended.sort((x, y) => compare(x,y))
-
-      let tmp = current.concat(future)
-
-      campaigns = tmp.concat(ended);
-
-
-
-      // console.log(campaigns)
-      return {
-        ...state,
-        allCampaigns: campaigns
-      }
-
-      case 'SET_ALL_CREATORS':
-        return {
-          ...state,
-          allCreators: action.id
-        }
 
     case 'SET_ADDRESS':
       return {
