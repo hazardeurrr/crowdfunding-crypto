@@ -182,6 +182,10 @@ const Navbar = () => {
         type: 'SET_CURRENT_USER',
         id: undefined
     })
+    dispatch({
+        type: 'SET_ADDRESS',
+        id: undefined
+    })
   }
 
   async function removeListeners(){

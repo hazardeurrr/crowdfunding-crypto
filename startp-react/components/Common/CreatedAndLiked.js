@@ -4,23 +4,27 @@ import {connect} from 'react-redux'
 import { bnb_chain } from '@/utils/bnb_chain';
 import { chain } from '@/utils/chain';
 import { db } from '../../firebase-crowdfund/index'
+import firebase from 'firebase/app';
+import { Button } from '@material-ui/core';
 
 class CreatedAndLiked extends Component {
 
     constructor(props){
       super(props)
       this.user = props.user
-      
+      this.showIndex = 0
+
       this.state = {
         created: [],
+        liked:[],
+        lastBatch: false
       }
 
       this.getCreated()
-    if(this.user != undefined){
-        this.liked = this.user.liked
-        // this.props.allCampaigns.filter(e => e.creator.toLowerCase() == this.user.eth_address.toLowerCase())
-        // console.log(this.liked)
-      }
+      this.getLiked()
+
+      this.getLiked = this.getLiked.bind(this)
+
     }
 
     async getCreated(){
@@ -35,6 +39,43 @@ class CreatedAndLiked extends Component {
                 })
             this.setState({created: newArr})
             })
+        }
+    }
+
+    async getLiked(){
+        console.log("innliked1")
+        if(this.user != undefined){
+            if(this.user.eth_address == this.props.address){
+                console.log("innliked2")
+
+                let nbByPage = 10
+                let endInd = this.user.liked.length > nbByPage*this.showIndex + nbByPage ? nbByPage*this.showIndex + nbByPage : this.user.liked.length
+                let likedArr = this.user.liked.slice(nbByPage*this.showIndex, endInd)
+                if(likedArr.length > 0){
+                    let newArr = []
+                    await db.collection('campaignsBNBTest').where("confirmed", "==", true).where(firebase.firestore.FieldPath.documentId(), "in", likedArr)
+                    .get()
+                    .then((docs) => {
+                        console.log(docs)
+                        docs.forEach(element => {
+                                newArr.push(element.data())
+                        })
+                    
+                        if(docs.docs.length < nbByPage - 1){
+                            console.log("lastB")
+                            this.setState({lastBatch: true})
+                          }
+                    this.showIndex++
+                    this.setState({liked: this.state.liked.concat(newArr)})
+                    })
+                }
+            }
+        }
+    }
+
+    componentDidUpdate(prevProps){
+        if(prevProps.address !== this.props.address){
+            this.getLiked()
         }
     }
 
@@ -58,15 +99,12 @@ class CreatedAndLiked extends Component {
     }
 
     displayLikedProjects = () => {
-      var rows = [];
-      for (var i = 0; i < this.user.liked.length; i++) {
-          let proj = this.props.allCampaigns.find(e => this.getPrefixedAddr(e) == this.liked[i])
-          if(proj !== undefined){
-            rows.push( <div key={i} className="col-lg-4 col-md-6">
-            <SimpleCampaignPost project={proj}/>
+      var rows = [];        
+        this.state.liked.forEach((e) => {
+            rows.push( <div key={e.title} className="col-lg-4 col-md-6">
+            <SimpleCampaignPost project={e}/>
             </div>);
-          }
-      }
+          })
       return rows;
     }
  
@@ -84,6 +122,19 @@ class CreatedAndLiked extends Component {
 
         document.getElementById(tabNmae).style.display = "block";
         evt.currentTarget.className += "current";
+    }
+
+    showFollowed = () => {
+        if(this.user.eth_address == this.props.address){
+            return <li onClick={(e) => this.openTabSection(e, 'tab2')}>
+            Followed
+        </li>
+        }
+    }
+
+    showMoreBtn = () => {
+        if(!this.state.lastBatch)
+         return <Button onClick={this.getLiked}>Show more</Button>
     }
 
     render() {
@@ -104,9 +155,7 @@ class CreatedAndLiked extends Component {
                                 Created
                             </li>
                             
-                            <li onClick={(e) => this.openTabSection(e, 'tab2')}>
-                                Followed
-                            </li>
+                            {this.showFollowed()}
                         </ul>
 
                         <div className="tab_content">
@@ -133,6 +182,7 @@ class CreatedAndLiked extends Component {
                                             <div className="row justify-content-center">
                                             {this.displayLikedProjects()}
                                             </div>
+                                            {this.showMoreBtn()}
                                         </div>
                                     </div>
                                   </div>
@@ -168,7 +218,8 @@ class CreatedAndLiked extends Component {
 
 const mapStateToProps = state => {
     return {
-        allCampaigns: state.allCampaigns
+        allCampaigns: state.allCampaigns,
+        address: state.address
     }
 }
 
