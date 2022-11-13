@@ -65,7 +65,7 @@ const NavbarStyleTwo = () => {
                         </div>
 
                         <a target="_blank" href="https://app.blockboosted.com/" className="btn btn-primary">
-                                        LAUNCH ALPHA
+                                        LAUNCH APP
                         </a>
 
                         {/* <div className="others-option"> */}

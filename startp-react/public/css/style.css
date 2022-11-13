@@ -291,6 +291,18 @@ textarea.form-control {
   z-index: -1;
 }
 
+.btn2::after, .btn2::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  height: 100%;
+  width: 0;
+  -webkit-transition: 0.5s;
+  transition: 0.5s;
+  background: #d5dce3;
+  z-index: -1;
+}
+
 .btn::after {
   left: 0;
   border-radius: 4px 0 0 4px;

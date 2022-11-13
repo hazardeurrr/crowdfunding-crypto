@@ -83,19 +83,19 @@ const MainBanner = () => {
                                    
                                         <div className="landing-btns">
                                             <a target="_blank" href="https://twitter.com/intent/user?screen_name=blockboosted" >
-                                                <Button variant="contained" style={{color:'white', backgroundColor:'#1d9bf0', marginRight : 20, marginBottom: 10}} size="large" startIcon={<FaTwitter />}>
+                                                <Button variant="contained" style={{color:'white', backgroundColor:'#1d9bf0', marginRight : 20, marginBottom: 0}} size="medium" startIcon={<FaTwitter />}>
                                                     Twitter
                                                 </Button>
                                             </a>
                                         
                                             <a target="_blank" href="https://blockboosted.medium.com" >
-                                                <Button variant="contained" style={{color:'white', backgroundColor:'black', marginRight:20, marginBottom: 10}} size="large" startIcon={<FaMediumM />}>
+                                                <Button variant="contained" style={{color:'white', backgroundColor:'black', marginRight:20, marginBottom: 0}} size="medium" startIcon={<FaMediumM />}>
                                                     Medium
                                                 </Button>
                                             </a>
 
                                             <a target="_blank" href="https://discord.gg/G9CSA74aCV" >
-                                                <Button variant="contained" style={{color:'white', backgroundColor:'#5865F2', marginBottom: 10}} size="large" startIcon={<FaDiscord />}>
+                                                <Button variant="contained" style={{color:'white', backgroundColor:'#5865F2', marginBottom: 0}} size="medium" startIcon={<FaDiscord />}>
                                                     Discord
                                                 </Button>
                                             </a>
@@ -112,9 +112,15 @@ const MainBanner = () => {
                                   <div style={{display:'flex'}}><Icon.CheckCircle style={{marginLeft : 50, marginRight: 20}}/> <h4>{t.transparent}</h4></div>
 
                                   {/* <h4>{t.heroDesc}</h4> */}
+                                    <div style={{textAlign:'center'}}>
+                                  <a target="_blank" href="https://app.blockboosted.com/" className="btn btn2 btn-light" style={{marginTop: 25, color:"black", backgroundColor:"#f8f9fa", border: "2px solid #8b949d6e", boxShadow: "0px 8px 15px rgb(0 0 0 / 25%)"}}>
+                                        LAUNCH V1 🎉
+                                    </a></div>
 
                                 <br></br><br></br>
                                 <p style={{fontSize: 20}}>{t.joinrevolution}</p><p style={{fontSize:18}}>Powered by BBST & BNB Smart Chain.</p>
+
+                                
                                 {/* <p>{t.subscribe}</p> */}
                                 {/* <Dialog
                                     open={inBase}
