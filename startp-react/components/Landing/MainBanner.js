@@ -115,10 +115,12 @@ const MainBanner = () => {
                                     <div style={{textAlign:'center'}}>
                                   <a target="_blank" href="https://app.blockboosted.com/" className="btn btn2 btn-light" style={{marginTop: 25, color:"black", backgroundColor:"#f8f9fa", border: "2px solid #8b949d6e", boxShadow: "0px 8px 15px rgb(0 0 0 / 25%)"}}>
                                         LAUNCH V1 🎉
-                                    </a></div>
-
-                                <br></br><br></br>
+                                    </a>
+                                    <br></br><br></br>
                                 <p style={{fontSize: 20}}>{t.joinrevolution}</p><p style={{fontSize:18}}>Powered by BBST & BNB Smart Chain.</p>
+                                    </div>
+
+                               
 
                                 
                                 {/* <p>{t.subscribe}</p> */}

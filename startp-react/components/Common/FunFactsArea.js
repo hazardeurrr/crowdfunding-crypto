@@ -108,7 +108,7 @@ const FunFactsArea = () => {
                 </div>
                 
 
-                <div className="landing-email">
+                {/* <div className="landing-email">
                     <div style={{flex: 1, marginTop: 23, marginRight: 10}}>
                         <h3 style={{fontSize: 20}}>{t.keep}</h3>
                         <p>{t.getnews}</p>
@@ -122,7 +122,7 @@ const FunFactsArea = () => {
                             </form>
                         </div>
                     </div>
-                </div>
+                </div> */}
 
 
 
