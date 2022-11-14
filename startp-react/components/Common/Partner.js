@@ -4,24 +4,22 @@ import Link from 'next/link'
 const Partner = () => {
     return (
         <>
-            <div className="ready-to-talk">
+            <div className="ready-to-talk" style={{paddingBottom: 80}}>
                 <div className="container">
-                    <h3>Ready to talk?</h3>
-                    <p>Our team is here to answer your question about StartP</p>
-                    
-                    <Link href="/contact">
-                        <a className="btn btn-primary">Contact Us</a>
-                    </Link>
+                    <h3>Ready to try ?</h3>
+                    <p>Create your fundraising campaign or donate to meaningful projects.</p>
+                            <a href="https://app.blockboosted.com" className="btn btn-primary" style={{marginRight:10, marginLeft:10}}>Create</a>
+                            <a href="https://app.blockboosted.com" className="btn btn-light" style={{marginRight:10, marginLeft:10}}>Donate</a>
 
-                    <span>
+                    {/* <span>
                         <Link href="#">
                             <a>Or, get started now with a free trial</a>
                         </Link>
-                    </span>
+                    </span> */}
                 </div>
             </div>
 
-            <div className="partner-area partner-section">
+            {/* <div className="partner-area partner-section">
                 <div className="container">
                     <h5>More that 1.5 million businesses and organizations use StartP</h5>
 
@@ -189,9 +187,9 @@ const Partner = () => {
                                 </Link>
                             </div>
                         </div>
-                    </div>
+                    </div> 
                 </div>
-            </div>
+            </div>*/}
         </>
     )
  
