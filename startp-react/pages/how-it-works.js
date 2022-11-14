@@ -25,14 +25,13 @@ const ServiceDetails = () => {
  
             <div className="services-details-area ptb-80">
                 <div className="container">
-                        
 
                     <div className="row align-items-center">
                         <div className="col-lg-6 services-details-image">
                             
                         <img src="/images/bigdata-analytics/sharedGoals.svg" alt="image" />
                            {/* <iframe src="https://www.youtube.com/embed/-2gl53Dnd38" title="YouTube video player" frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowFullScreen></iframe> */}
-                           
+                           <iframe style={{width: '100%', aspectRatio: "16/9", marginTop: 35}} src="https://www.youtube.com/embed/5ZlpPdEHG9Y" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
                         </div>
                         
 
@@ -63,6 +62,7 @@ const ServiceDetails = () => {
                                                         <br></br><br></br>
                                                         Note that you will have to sign a message with your wallet to complete the authentication process ! Don't worry, it won't cost you anything :)
                                                     </p>
+                                                    <iframe style={{width: '100%', aspectRatio: "16/9"}} src="https://www.youtube.com/embed/1vyedrpuHVw" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
                                             </AccordionItemPanel>
                                         </AccordionItem>
 
@@ -286,6 +286,7 @@ const ServiceDetails = () => {
                                                         <br></br><br></br>
                                                         Note that you will have to sign a message with your wallet to complete the authentication process ! Don't worry, it won't cost you anything :)
                                                     </p>
+                                                    <iframe style={{width: '100%', aspectRatio: "16/9"}} src="https://www.youtube.com/embed/1vyedrpuHVw" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
                                                 </AccordionItemPanel>
                                             </AccordionItem>
 
@@ -471,6 +472,8 @@ const ServiceDetails = () => {
                                 />  
                                 <iframe src="https://www.youtube.com/embed/-2gl53Dnd38" title="YouTube video player" frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowFullScreen></iframe> */}
                                 <img src="/images/bigdata-analytics/launcher.svg" alt="image" />
+                                <iframe style={{width: '100%', aspectRatio: "16/9", marginTop: 35}} src="https://www.youtube.com/embed/-rMjGZBrijI" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
 
                             </div>
                         </div>
