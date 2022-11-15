@@ -6,10 +6,15 @@ const Partner = () => {
         <>
             <div className="ready-to-talk" style={{paddingBottom: 80}}>
                 <div className="container">
-                    <h3>Ready to try ?</h3>
-                    <p>Create your fundraising campaign or donate to meaningful projects.</p>
-                            <a href="https://app.blockboosted.com" className="btn btn-primary" style={{marginRight:10, marginLeft:10}}>Create</a>
-                            <a href="https://app.blockboosted.com" className="btn btn-light" style={{marginRight:10, marginLeft:10}}>Donate</a>
+                    <div className="section-title">
+
+                    <h3>Discover & Donate</h3>
+                    <div className="bar"></div>
+
+                    <p>Browse campaigns & support meaningful projects.<br></br></p>
+                    </div>
+                            {/* <a href="https://app.blockboosted.com" className="btn btn-primary" style={{marginRight:10, marginLeft:10}}>Create</a> */}
+                            <a href="https://app.blockboosted.com/explore" className="btn btn-primary" style={{marginRight:10, marginLeft:10, marginTop: -10}}>Explore</a>
 
                     {/* <span>
                         <Link href="#">

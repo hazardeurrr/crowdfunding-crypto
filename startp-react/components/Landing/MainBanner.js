@@ -83,19 +83,19 @@ const MainBanner = () => {
                                    
                                         <div className="landing-btns">
                                             <a target="_blank" href="https://twitter.com/intent/user?screen_name=blockboosted" >
-                                                <Button variant="contained" style={{color:'white', backgroundColor:'#1d9bf0', marginRight : 20, marginBottom: 0}} size="medium" startIcon={<FaTwitter />}>
+                                                <Button variant="contained" style={{color:'white', backgroundColor:'#1d9bf0', marginRight : 20, marginBottom: 10}} size="medium" startIcon={<FaTwitter />}>
                                                     Twitter
                                                 </Button>
                                             </a>
                                         
                                             <a target="_blank" href="https://blockboosted.medium.com" >
-                                                <Button variant="contained" style={{color:'white', backgroundColor:'black', marginRight:20, marginBottom: 0}} size="medium" startIcon={<FaMediumM />}>
+                                                <Button variant="contained" style={{color:'white', backgroundColor:'black', marginRight:20, marginBottom: 10}} size="medium" startIcon={<FaMediumM />}>
                                                     Medium
                                                 </Button>
                                             </a>
 
                                             <a target="_blank" href="https://discord.gg/G9CSA74aCV" >
-                                                <Button variant="contained" style={{color:'white', backgroundColor:'#5865F2', marginBottom: 0}} size="medium" startIcon={<FaDiscord />}>
+                                                <Button variant="contained" style={{color:'white', backgroundColor:'#5865F2', marginBottom: 10}} size="medium" startIcon={<FaDiscord />}>
                                                     Discord
                                                 </Button>
                                             </a>

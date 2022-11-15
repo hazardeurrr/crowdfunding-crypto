@@ -12,16 +12,22 @@ import Partner from '@/components/Common/Partner';
 import DiscoverArea from '@/components/ITStartup/DiscoverArea';
 import RecentWorks from '@/components/Common/RecentWorks';
 import CreateDeleteBtn from '@/components/Common/CreateDeleteBtn';
+import ImgAndTxt from '@/components/Common/ImgAndTxt';
+import ImgAndTxtDonate from '@/components/Common/ImgAndTxtDonate';
 const LandingPage = () => {
     return (
         <>
             <NavbarStyleTwo />
             <MainBanner />
             <FunFactsArea />
+            <ImgAndTxt />
+            {/* <ImgAndTxtDonate /> */}
+            <Partner />
 
             <OurFeatures />
+
+
             {/* <Partner /> */}
-            {/* <CreateDeleteBtn /> */}
             {/* <ServicesArea /> */}
             <Roadmap />
             {/* <RecentWorks />
