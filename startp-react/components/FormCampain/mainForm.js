@@ -367,18 +367,42 @@ class MainForm extends React.Component {
             console.log(error)
         }, 
         () => {
-            console.log("upload finished")
+            console.log("Upload finished")
             // Handle successful uploads on complete
             // For instance, get the download URL: https://firebasestorage.googleapis.com/...
             storage.ref('campaignsBNBTest')
              .child(this.prefixedAddress(contract_address))
-             .getDownloadURL().then((downloadURL) => {
+             .getDownloadURL().then(async(downloadURL) => {
                 // console.log('File available at', downloadURL);
                 let precategs = this.cats.filter(a => a !== "---").filter(function (value, index, array) { 
                     return array.indexOf(value) === index;
                 })
 
                 let categs = precategs.length == 0 ? ["Diverse"] : precategs
+
+                
+                const requestOptions = {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ 
+                        "dynamicLinkInfo": {
+                            "domainUriPrefix": "blb.st",
+                            "link": `https://app.blockboosted.com/campaigns/${this.prefixedAddress(contract_address)}`,
+                            "socialMetaTagInfo": {
+                                "socialTitle":this.title,
+                                "socialDescription": this.small_description,
+                                "socialImageLink": this.imageURL
+                            }
+                        },
+                        "suffix": {
+                            "option": "SHORT"
+                        }
+                    })
+                };
+                const response = await fetch('https://firebasedynamiclinks.googleapis.com/v1/shortLinks?key=AIzaSyAxLDH4sjj2Cdtf-ylbdwAcqoQwKnViACM', requestOptions);
+                const data = await response.json();
+
+                let shortURL = data.shortLink ? data.shortLink : null
     
                 const campainInfos = {
                     title: this.title,
@@ -398,7 +422,8 @@ class MainForm extends React.Component {
                     // likedTupleMap: {},
                     confirmed: null,
                     like_score: 0,
-                    live:true
+                    live:true,
+                    shortURL: shortURL
                 }
                 // console.log(campainInfos)
         
