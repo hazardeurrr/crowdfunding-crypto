@@ -66,9 +66,7 @@ const CardToken = () => {
   }, [web3Instance, address])   // address ?
 
   const getClaim = async(ctr) => {
-    console.log(address)
-    console.log(ctr)
-    ctr.methods.getClaim(address).call().then((nb) => {console.log(nb); setToBeClaimed(parseFloat(web3Instance.utils.fromWei(nb)))})
+    ctr.methods.getClaim(address).call().then((nb) => {setToBeClaimed(parseFloat(web3Instance.utils.fromWei(nb)))})
   }
 
   const claimTokens = async() => {
@@ -94,7 +92,7 @@ const CardToken = () => {
         setCreationState(1)
         
     }).catch(() => {
-        console.log("error in the transac")
+        console.log("error in the transaction")
     })
   }
 

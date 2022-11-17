@@ -33,7 +33,6 @@ class CreatedAndLiked extends Component {
             await db.collection('campaignsBNBTest').where("confirmed", "==", true).where("creator", "==", this.user.eth_address.toLowerCase())
             .get()
             .then((docs) => {
-                console.log(docs)
                 docs.forEach(element => {
                         newArr.push(element.data())
                 })
@@ -43,10 +42,8 @@ class CreatedAndLiked extends Component {
     }
 
     async getLiked(){
-        console.log("innliked1")
         if(this.user != undefined){
             if(this.user.eth_address == this.props.address){
-                console.log("innliked2")
 
                 let nbByPage = 10
                 let endInd = this.user.liked.length > nbByPage*this.showIndex + nbByPage ? nbByPage*this.showIndex + nbByPage : this.user.liked.length
@@ -56,13 +53,11 @@ class CreatedAndLiked extends Component {
                     await db.collection('campaignsBNBTest').where("confirmed", "==", true).where(firebase.firestore.FieldPath.documentId(), "in", likedArr)
                     .get()
                     .then((docs) => {
-                        console.log(docs)
                         docs.forEach(element => {
                                 newArr.push(element.data())
                         })
                     
                         if(docs.docs.length < nbByPage - 1){
-                            console.log("lastB")
                             this.setState({lastBatch: true})
                           }
                     this.showIndex++

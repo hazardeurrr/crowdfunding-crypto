@@ -70,7 +70,6 @@ const Refund = (props) => {
         .send({from : userAddr, value: 0})
         .on('transactionHash', function(hash){
             openDialog()
-            console.log("hash :" + hash)
             setTx(hash);
 
         })
@@ -95,7 +94,6 @@ const Refund = (props) => {
         .send({from : userAddr, value: 0})
         .on('transactionHash', function(hash){
             openDialog()
-            console.log("hash :" + hash)
             setTx(hash);
 
         })

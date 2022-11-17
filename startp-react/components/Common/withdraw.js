@@ -83,16 +83,13 @@ const Withdraw = (props) => {
     setDataState(1)
 
     ctrInstance.methods.creationBlock.call().call().then((cblock) =>  {
-        console.log("creablock", cblock)
         web3Instance.eth.getBlockNumber().then(async (currentBlock) => {
-            console.log(currentBlock)
             
             let subs = await loop(cblock, currentBlock, ctrInstance).catch((error) => {
                 setErrorMsg(error.code + " : " + error.message)
                 openSnackbar()
                 setDataState(0)
             })    
-            console.log(subs)
             let addressesArr = []
     
             const subSorted = subs.sort((a,b) => a[1].localeCompare(b[1]));
@@ -111,7 +108,6 @@ const Withdraw = (props) => {
                   camp: campaign
                 }
               }).then((response) => {
-                console.log(response)
     
                 var csvContent = response.data.content;
         
@@ -171,7 +167,6 @@ const Withdraw = (props) => {
         .send({from : userAddr, value: 0})
         .on('transactionHash', function(hash){
             openDialog()
-            console.log("hash :" + hash)
             setTx(hash);
 
         })
@@ -193,7 +188,6 @@ const Withdraw = (props) => {
         .send({from : userAddr, value: 0})
         .on('transactionHash', function(hash){
             openDialog()
-            console.log("hash :" + hash)
             setTx(hash);
 
         })

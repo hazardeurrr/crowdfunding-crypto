@@ -360,7 +360,6 @@ const PreCampaign = (props) => {
       }
 
       const handleNext = () => {
-        console.log(activeStep)
         setActiveStep(activeStep + 1);
       };
       

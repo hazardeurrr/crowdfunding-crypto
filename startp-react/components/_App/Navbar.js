@@ -208,11 +208,9 @@ const Navbar = () => {
 
     
     React.useEffect(() => {
-        console.log(connected, "connected")
         if (connected && currentUser !== null) {
             auth(currentUser.eth_address)
         }
-        console.log("navbar useEffect")
         let elementId = document.getElementById("header");
         document.addEventListener("scroll", () => {
             if (window.scrollY > 170) {
@@ -245,8 +243,6 @@ const Navbar = () => {
 
     async function initProvider(provider, legacy = false){
 
-        console.log(legacy, "legacy")
-
         dispatch({
             type: 'SET_PROVIDER',
             id: provider
@@ -270,8 +266,6 @@ const Navbar = () => {
             id: web3
         })
 
-        console.log("Web3 instance is", web3);
-        console.log(provider)
         let chainId
         // Get connected chain id from Ethereum node
         if(!legacy){
@@ -291,7 +285,6 @@ const Navbar = () => {
         if(legacy){
             web3.eth.getAccounts()
             .then((value) => {
-                console.log(value)
                 handleAccountsChanged(value)
             })
             .catch((err) => {
@@ -300,7 +293,6 @@ const Navbar = () => {
         } else {
             provider.request({ method: "eth_requestAccounts" })
             .then((value) => {
-                console.log(value)
                 handleAccountsChanged(value)
             })
             .catch((err) => {
@@ -319,10 +311,8 @@ const Navbar = () => {
 
           let provider
 
-          console.log("coinbase");
           try {
             provider = await coinbaseWallet.makeWeb3Provider("https://data-seed-prebsc-1-s3.binance.org:8545/", 97)
-            console.log(provider)
           } catch(e) {
             console.log("Could not get a wallet connection", e);
             return;
@@ -422,10 +412,8 @@ const Navbar = () => {
     }
 
     const auth = (addr) => {
-        console.log(addr)
           //-------------------------REQUEST AUTHENTICATION-------------------------/
           if(firebase.auth().currentUser !== null && firebase.auth().currentUser.uid == addr){
-            console.log("uid gathered", firebase.auth().currentUser.uid)
             getDataOnceAuth(firebase.auth().currentUser.uid)
             handleConnectClose()
         } else {
@@ -571,12 +559,10 @@ const Navbar = () => {
             }
           })
           .then(async(response) => {
-            console.log(response.data);
             //----------SIGN NONCE---------//
             web3Instance.eth.personal.sign(`0x${toHex(response.data.message)}`, addr)
             .then(async(sig) => {
                 //--------------VERIFY SIG---------//
-                console.log(sig)
                 axios({
                     method: 'post',
                     url: 'https://europe-west1-crowdfunding-dev-5f802.cloudfunctions.net/verifySignedMessage',
@@ -589,7 +575,6 @@ const Navbar = () => {
                     //---------SIGN WITH TOKEN-------//
                     firebase.auth().signInWithCustomToken(tokenResp.data.token)
                     .then((result) => {
-                        console.log(result)
                         getDataOnceAuth(result.user.uid)
                         handleConnectClose()
 
@@ -630,7 +615,6 @@ const Navbar = () => {
     }
 
     const handleChainChanged = (_chainId) => {
-        console.log(_chainId)
         dispatch({
             type: 'SET_CHAINID',
             id: _chainId
@@ -703,7 +687,6 @@ const Navbar = () => {
 
     const switchToBNBTestnet = async() => {
         if (chainID != "0x61") {
-            console.log("first if")
             try {
               await web3Instance.currentProvider.request({
                 method: 'wallet_switchEthereumChain',

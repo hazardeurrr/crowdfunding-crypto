@@ -243,8 +243,6 @@ class MainForm extends React.Component {
         let amountArray = am0.concat(tierAmountArray)
         let stockArray = st0.concat(tierStockArray)
         let tokenAdd = this.tokenIndex(this.state.raisingMethod)
-        console.log(tokenAdd)
-        console.log(this.state.raisingMethod)
         const ethInstance = this.props.web3Instance.eth;
         // [0, tiersArray[0].threshold, tiersArray[1].threshold]
         return await this.state.factoryInstance.methods.createCampaign(
@@ -259,13 +257,12 @@ class MainForm extends React.Component {
         .send({from : this.props.userAddr, value: 0})
         .on('transactionHash', function(hash){
             context.openDialog()
-            console.log("hash :" + hash)
             context.setState({ Tx: hash });
             // ethInstance.getTransactionReceipt(hash).then(console.log);
         })
         .on('confirmation', function(confirmationNumber, receipt){
 
-            console.log("Confirmation number:" + confirmationNumber)
+            // console.log("Confirmation number:" + confirmationNumber)
         })
         .on("error", function(error) {
             context.setState({ errorMsg: error.code + " : " + error.message})
@@ -273,7 +270,6 @@ class MainForm extends React.Component {
             console.log(error);
         })
         .then(a => {
-            console.log(a);
             this.setState({new_contract_address: a.events.CampaignCreated.returnValues[0].toLowerCase()})
             this.createFirebaseObject(a.events.CampaignCreated.returnValues[0].toLowerCase())
             }
@@ -371,14 +367,13 @@ class MainForm extends React.Component {
             console.log(error)
         }, 
         () => {
-            console.log("uplaod finished")
+            console.log("upload finished")
             // Handle successful uploads on complete
             // For instance, get the download URL: https://firebasestorage.googleapis.com/...
             storage.ref('campaignsBNBTest')
              .child(this.prefixedAddress(contract_address))
              .getDownloadURL().then((downloadURL) => {
                 // console.log('File available at', downloadURL);
-                console.log("inside")
                 let precategs = this.cats.filter(a => a !== "---").filter(function (value, index, array) { 
                     return array.indexOf(value) === index;
                 })

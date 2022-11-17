@@ -127,7 +127,6 @@ const PricingTiers = (props) => {
       }
 
       const displayStepper = () => {
-        console.log(activeStep)
         if(campaign.currency == "ETH" || campaign.currency == "b_BNB"){
             return <div >
             <Stepper activeStep={activeStep} orientation="vertical">
@@ -212,7 +211,6 @@ const PricingTiers = (props) => {
         contractInstance.methods.participateInETH(ind)
         .send({from : userAddr, value: amt})            // CATCH ERREUR DU TOWEI
         .on('transactionHash', function(hash){
-            console.log("hash :" + hash)
             setTx(hash);
  
         })
@@ -241,7 +239,6 @@ const PricingTiers = (props) => {
 
 
     async function checkAllowed(contractInstance){
-        console.log(globalERC20Addr)
        return await contractInstance.methods.allowance(userAddr, globalERC20Addr).call()
       
     }
@@ -263,27 +260,17 @@ const PricingTiers = (props) => {
             erc20Ctr = new web3Instance.eth.Contract(erc20standardAbi, bnb_bbstAddr)
         }
 
-        console.log(v)
-
-
         if(erc20Ctr != undefined){
             erc20Ctr.methods.decimals().call().then((decimals) => {
-                console.log(decimals)
                 try{ 
                     const amt = toBaseUnit(v.toString(), decimals.toString(), web3Instance.utils.BN)
                     checkAllowed(erc20Ctr).then(res => {
                         let bnres = new BN(res.toString())
-                        console.log(bnres)
-                        // console.log(amt)
                         if(bnres.gte(amt)){
-                             console.log("allowance OK")
                             payInERC(isFreeDonation, contractInstance, amt, indexTier)
-                        } else {
-                            console.log("approve to do")
-    
+                        } else {    
                             erc20Ctr.methods.approve(globalERC20Addr, max).send({from : userAddr, value: 0})
                             .on('transactionHash', function(hash){
-                                console.log("hash :" + hash)
                                 setTx(hash);
                             })
                             .on("error", function(error) {
@@ -326,12 +313,9 @@ const PricingTiers = (props) => {
 
             // console.log(ind)
             // console.log(v)
-            console.log(v.toString())
-
             contractInstance.methods.participateInERC20(ind, v)
                 .send({from : userAddr, value: 0})
                 .on('transactionHash', function(hash){
-                    console.log("hash :" + hash)
                     setTx(hash);
 
                 })

@@ -18,7 +18,6 @@ const ProjectGridMain = () => {
     // const [user, setUser] = React.useState(undefined);
 
     const displayProjects = () => {
-        console.log(projectList)
         const len = projectList.length > 6 ? 6 : projectList.length
         var rows = [];
         for (var i = 0; i < len; i++) {

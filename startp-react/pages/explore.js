@@ -128,9 +128,7 @@ class Explore extends React.Component {
 
     componentDidUpdate(prevProps) {
         // Utilisation classique (pensez bien à comparer les props) :
-        console.log("didupdatecalled")
         if (this.props.firstCampaigns !== prevProps.firstCampaigns || this.props.allPreCampaigns !== prevProps.allPreCampaigns) {
-          console.log("new load")
           this.loadProjects();
         }
       }
@@ -145,16 +143,13 @@ class Explore extends React.Component {
             ds.forEach(element => {
                 newArr.push(element.data())
             })
-            console.log(ds)
             if(ds.docs.length > 0){
-              console.log(ds.docs[ds.docs.length - 1])
               this.lastDoc = ds.docs[ds.docs.length-1]
             }
             if(ds.docs.length < this.nbByPage){
               this.setState({lastBatch: true})
             }
           })
-            console.log(newArr)
         return newArr
 
       }
@@ -201,14 +196,12 @@ class Explore extends React.Component {
                 newArr.push(element.data())
             })
             if(ds.docs.length > 0){
-              console.log(ds.docs[ds.docs.length - 1])
               this.lastDoc = ds.docs[ds.docs.length-1]
             }
             if(ds.docs.length < this.nbByPage){
               this.setState({lastBatch: true})
             }
           })
-        console.log(newArr)
         let nnA = this.state.projects.concat(newArr)
         this.setState({page: this.state.page + 1})
         this.setState({projects: nnA})
@@ -327,7 +320,6 @@ class Explore extends React.Component {
 }
 
 const mapStateToProps = state => {
-  console.log(state.allPreCampaigns)
     return {
         allPreCampaigns: state.allPreCampaigns,
         firstCampaigns: state.firstCampaigns,

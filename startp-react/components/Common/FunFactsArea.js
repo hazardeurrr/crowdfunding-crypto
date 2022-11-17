@@ -26,7 +26,6 @@ const FunFactsArea = () => {
 
     const router = useRouter()
     const  {locale} = router
-    console.log('locale',locale)
     const t = locale === 'en' ? en : fr
 
     const handleSubmit = (event) => {
@@ -54,7 +53,6 @@ const FunFactsArea = () => {
             if (res == false) {
                 db.collection('newsletter').doc(firebase.database().ref().push().key).set({email: email}).then(x => {
                     setOpen(true);
-                    console.log('document written with : ' + email)
                 }).catch(err => {
                     console.error(err)
                 })

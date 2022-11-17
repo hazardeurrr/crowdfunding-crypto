@@ -178,7 +178,6 @@ const ProfileForm = (props) => {
         db.collection('profile').doc(user.eth_address).update(user).then(() => {
 			db.collection('profile').doc(user.eth_address).collection("privacy").doc(user.eth_address).update({email: email}).then(() => {
 				openDialog();
-                console.log("user updated");
 			}).catch((err) => {
 				console.log(err);
 			})

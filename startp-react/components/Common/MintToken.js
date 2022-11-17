@@ -72,7 +72,6 @@ const closeDialog = () => {
         .send({ from : userAddr, value: 0 })
         .on('transactionHash', function(hash){
             openDialog()
-            console.log("hash :" + hash)
             setTx(hash);
             
         })
@@ -89,7 +88,7 @@ const closeDialog = () => {
             setCreationState(1)
             
         }).catch(() => {
-            console.log("error in the transac")
+            console.log("error in the transaction")
         })
         
     }

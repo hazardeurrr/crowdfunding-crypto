@@ -31,12 +31,9 @@ const Layout = ({ children }) => {
         })
 
 
-        let now = parseInt(Date.now() / 1000)
-        console.log(now)
         db.collection('campaignsBNBTest').where("confirmed", "==", true).orderBy("live", "desc").orderBy("like_score", "desc").limit(9)
         .get()
         .then((docs) => {
-            console.log(docs)
             docs.forEach(element => {
 
                     campaigns.push(element.data())
@@ -45,7 +42,6 @@ const Layout = ({ children }) => {
             })
 
             if(docs.docs.length > 0){
-                console.log(docs.docs[docs.docs.length - 1])
                 dispatch({
                     type: 'SET_LAST_FIRST_DOC',
                     id: docs.docs[docs.docs.length-1]

@@ -48,7 +48,6 @@ const Footer = () => {
             if (res == false) {
                 db.collection('newsletter').doc(firebase.database().ref().push().key).set({email: email}).then(x => {
                     setOpen(true);
-                    console.log('document written with : ' + email)
                 }).catch(err => {
                     console.error(err)
                 })
