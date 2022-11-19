@@ -391,7 +391,7 @@ class MainForm extends React.Component {
                             "socialMetaTagInfo": {
                                 "socialTitle":this.title,
                                 "socialDescription": this.small_description,
-                                "socialImageLink": this.imageURL
+                                "socialImageLink": imageURL
                             }
                         },
                         "suffix": {

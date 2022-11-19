@@ -970,7 +970,7 @@ const Navbar = () => {
                 
                 <div style={{display:"flex", justifyContent:'center', alignItems:'center'}}>
                     <Typography style={{color: 'white', padding: "6px 3px", fontSize: 13, textAlign: 'center'}}>
-                    <b>Welcome to <a target="_blank" href="https://medium.com/@blockboosted"style={{color:'white', textDecoration: "underline", cursor: "pointer"}}>BLOCKBOOSTED ALPHA</a></b> 🎉
+                    <b>Welcome to <a target="_blank" href="https://medium.com/@blockboosted"style={{color:'white', textDecoration: "underline", cursor: "pointer"}}>BLOCKBOOSTED V1</a></b> 🎉
                     </Typography>
                     <div style={{marginLeft: 10, width: 17}}>
                         <div style={{color:"white", cursor: 'pointer', height: '100%', width: '100%'}} onClick={() => setShowAppBar(false)}>✖</div>

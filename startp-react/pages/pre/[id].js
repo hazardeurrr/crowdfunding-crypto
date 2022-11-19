@@ -562,9 +562,31 @@ const PreCampaign = (props) => {
             return 2
     }
 
-    const createFirebaseObject = (contract_address) => {
+    const createFirebaseObject = async(contract_address) => {
         handleNext()
     
+        const requestOptions = {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ 
+                "dynamicLinkInfo": {
+                    "domainUriPrefix": "blb.st",
+                    "link": `https://app.blockboosted.com/campaigns/${prefixedAddress(chainID, contract_address)}`,
+                    "socialMetaTagInfo": {
+                        "socialTitle":campaign.title,
+                        "socialDescription": campaign.small_description,
+                        "socialImageLink": campaign.main_img
+                    }
+                },
+                "suffix": {
+                    "option": "SHORT"
+                }
+            })
+        };
+        const response = await fetch('https://firebasedynamiclinks.googleapis.com/v1/shortLinks?key=AIzaSyAxLDH4sjj2Cdtf-ylbdwAcqoQwKnViACM', requestOptions);
+        const data = await response.json();
+
+        let shortURL = data.shortLink ? data.shortLink : null
                 const campainInfos = {
                     title: campaign.title,
                     start_date: startDate,
@@ -584,7 +606,8 @@ const PreCampaign = (props) => {
                     confirmed: null,
                     creator: userAddr,
                     like_score: 0,
-                    live: true
+                    live: true,
+                    shortURL: shortURL
                 }
                                
                 db.collection('campaignsBNBTest').doc(prefixedAddress(chainID, contract_address)).set(campainInfos).then(() => {
