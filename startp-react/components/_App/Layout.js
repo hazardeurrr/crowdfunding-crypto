@@ -6,11 +6,14 @@ import {getAll, getOne} from '../../firebase-crowdfund/queries';
 import {db} from '../../firebase-crowdfund/index'
 import Navbar from './Navbar';
 import Footer from './Footer';
+// import router from 'next/router';
+import { useRouter } from 'next/router'
 
 const Layout = ({ children }) => {
 
     
     const dispatch = useDispatch()
+    const router = useRouter()
 
 
     React.useEffect(() => {
@@ -108,6 +111,14 @@ const Layout = ({ children }) => {
         })
     }
 
+    const showNavBar = () => {
+        // if(router.pathname !='/campaigns/widget/[id]')  {
+            return (
+              <Navbar />
+            )
+        // }
+    }
+
     return(
         <>
             <Head>
@@ -117,7 +128,7 @@ const Layout = ({ children }) => {
                 <meta name="description" content="BlockBoosted App · Create your campaign and start raising funds in crypto · Get rewarded in BBST for your donations · Support projects that make sense with 0% fee · Crypto crowdfunding" />
 
             </Head>
-            <Navbar />
+            {showNavBar()}
             {children}
 
             <GoTop scrollStepInPx="100" delayInMs="10.50" />

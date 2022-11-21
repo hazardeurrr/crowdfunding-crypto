@@ -315,7 +315,7 @@ const MainProjectFeatured = (props) => {
                           }}
                           >
                       <a>
-                          <img src={campaign.main_img} alt="image" />
+                          <img style={{width: '100%'}} src={campaign.main_img} alt="image" />
                       </a>
                   </Link>
                 {cat()}

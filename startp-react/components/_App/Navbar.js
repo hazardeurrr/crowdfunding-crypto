@@ -48,7 +48,7 @@ import Badge from '@material-ui/core/Badge';
 import NotificationsNoneIcon from '@material-ui/icons/NotificationsNone';
 import { withStyles } from '@material-ui/core/styles';
 import SimpleNotifCard from "../Common/SimpleNotifCard";
-
+import { useRouter } from "next/router";
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -84,6 +84,7 @@ const useStyles = makeStyles((theme) => ({
 const Navbar = () => {
 
     const classes = useStyles();
+    const router = useRouter()
 
     const [notifs, setNotifs] = React.useState([])
     const [menu, setMenu] = React.useState(true)
@@ -1026,10 +1027,11 @@ const Navbar = () => {
         }
     }
 
-    return (
-        //#c679e3
+    const displayNavbar = () => {
+        if(router.pathname !='/campaigns/widget/[id]')  {
+//#c679e3
         //#44ce6f
-        <>
+        return <>
         <header id="header" className="headroom" style={{marginBottom:50}}>
             {showAppBarFct()}
             {showSwitchNetworkBar()}
@@ -1129,6 +1131,13 @@ const Navbar = () => {
 
         {addBottomMargin()}
         </>
+        } else {
+            return null
+        }
+    }
+
+    return (
+        displayNavbar()
     );
 }
 

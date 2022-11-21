@@ -427,7 +427,7 @@ const Campaign = (props) => {
 
                                 <div className="col-lg-6 col-md-12">
                                     <div className="ml-about-img">
-                                        <img src={campaign.main_img} alt="image" />
+                                        <img style={{width: '100%'}} src={campaign.main_img} alt="image" />
                                         
                                     </div>
                                 </div>

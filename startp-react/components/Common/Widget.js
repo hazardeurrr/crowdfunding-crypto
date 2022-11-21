@@ -1,65 +1,78 @@
-import React, {useEffect, useRef} from 'react';
+import React from 'react';
+import Navbar from "@/components/_App/Navbar";
+import Footer from "@/components/_App/Footer";
 import * as Icon from 'react-feather';
-import Link from 'next/link';
+import Parser from 'html-react-parser';
+import Link from '@/utils/ActiveLink'
 import ProgressBar from 'react-bootstrap/ProgressBar';
-import ChipUser from '@/components/Common/ChipUser'
-import {getOne } from '../../firebase-crowdfund/queries' 
-import RaisedChecker from './RaisedChecker';
+import CampaignSidebar from '@/components/Blog/CampaignSidebar';
+import VerifTooltip from '@/components/Common/VerifTooltip';
+import { makeStyles, withStyles } from '@material-ui/core/styles';
+import ChipUser from '@/components/Common/ChipUser';
+import Dialog from '@material-ui/core/Dialog';
+import DialogActions from '@material-ui/core/DialogActions';
+import DialogContent from '@material-ui/core/DialogContent';
+import DialogContentText from '@material-ui/core/DialogContentText';
+import DialogTitle from '@material-ui/core/DialogTitle';
 import { useSelector, useDispatch } from 'react-redux';
+import Button from '@material-ui/core/Button';
+import FlexibleTooltip from '@/components/Common/FlexibleTooltip';
+import ShareIcons from '@/components/Common/ShareIcons';
+import HeartAnim from '@/components/Common/HeartAnim';
+import CircularProgress from '@material-ui/core/CircularProgress';
+import Skeleton from '@material-ui/lab/Skeleton';
 import {chain} from '@/utils/chain'
 import {bnb_chain} from '@/utils/bnb_chain'
-import {db, firebase} from '../../firebase-crowdfund/index'
+
+import RaisedChecker from '@/components/Common/RaisedChecker';
+import { MdSentimentVerySatisfied } from 'react-icons/md';
+import campaignAbi from '@/components/ContractRelated/CampaignAbi';
+import Tooltip from '@material-ui/core/Tooltip';
+import Typography from '@material-ui/core/Typography';
+import Custom404 from 'pages/404';
+import DOMPurify from 'isomorphic-dompurify';
+
 import { prefixedAddress } from '@/utils/prefix';
+import { NoBscProviderError } from '@binance-chain/bsc-connector';
+import { Avatar, Chip } from '@material-ui/core';
 
 
-const SimpleCampaignPost = (props) => {
-    const campaign = props.project
-    const creator = campaign.creator
-    const objective = campaign.objective
+const useStyles = makeStyles((theme) => ({
+    root: {
+      display: 'flex',
+      '& > *': {
+        margin: theme.spacing(1),
+      },
+    },
+    small: {
+        width: theme.spacing(3),
+        height: theme.spacing(3),
+      }
+  }));
+
+  
+const HtmlTooltip = withStyles((theme) => ({
+    tooltip: {
+        backgroundColor: '#f5f5f9',
+        color: 'rgba(0, 0, 0, 0.87)',
+        fontSize: theme.typography.pxToRem(12),
+        border: '1px solid #dadde9',
+    },
+  }))(Tooltip);
+
+
+const WidgetComponent = (props) => {
     
-    var start_date = campaign.start_date;
-    var end_date = campaign.end_date;
     var now = Date.now() / 1000;
     const [raised, setRaised] = React.useState(0)
     const [raisedRetrieve, setRaisedRetrieve] = React.useState(false)
-    const metamask_connected = useSelector((state) => state.metamask_connected)
-    const chainID = useSelector((state) => state.chainID)
-
+    var campaign = props.campaign
+    var widgetWidth = props.width ? props.width : 250
   
 
-    // const u = useSelector((state) => selectCreatorByAdd(state, campaign.creator)));
-
-    
-    const [state, updateState] = React.useState();
-    // const forceUpdate = React.useCallback(() => updateState({state}), []);
-
-    const [user, setUser] = React.useState()
-
-    // const user = props.creator;
-
-
-    useEffect(() => {
-
-        // console.log(campaign.title, " creator :", creator)
-        // getOne('profile', creator.toLowerCase(), (docs) => {
-        //     setUser(docs.data())
-        // })
-        // setCreaProf(creator)
-        // console.log(user)
-        //console.log("used with", creator)
-      }, [creator])
-    
-    const setCreaProf = (creator) => {
-        db.collection('profile').doc(creator.toLowerCase()).get().then((crea) => {
-
-            setUser(crea.data());
-        }).catch((error) => {
-            console.log(error)
-        })
-    }
-
     const timeLeft = () => {
-        
+        let end_date = campaign.end_date
+        let start_date = campaign.start_date
         let timeLeft = end_date - now;
         let days = Math.floor(timeLeft / 86400); 
         let hours = Math.floor((timeLeft - (days * 86400)) / 3600);
@@ -99,21 +112,12 @@ const SimpleCampaignPost = (props) => {
     }
 
     const SupportOrSee = () => {
-        if(end_date < now || start_date > now){
+        if(campaign.end_date < now || campaign.start_date > now){
             return "See this campaign"
         } else {
-            return "Support this campaign"
+            return <div style={{border: "2px solid black"}}>Support on<br></br>BlockBoosted</div>
         }
     }
-
-
-    // const showCats = () => {
-    //     if(campaign.categories.length > 1){
-    //         return campaign.categories[0] + " | " + campaign.categories[1]
-    //     } else if(campaign.categories.length != 0){
-    //         return campaign.categories[0]
-    //     }
-    // }
 
     const showCats = () => {
         if(campaign.categories.length > 1){
@@ -273,11 +277,11 @@ const SimpleCampaignPost = (props) => {
 
     const displayProgressBar = () => {
         if(raisedRetrieve){
-            if(end_date > now && start_date < now){
+            if(campaign.end_date > now && campaign.start_date < now){
                 
-                return <ProgressBar variant="green" animated now={(raised / objective) * 100}/>
+                return <ProgressBar variant="green" animated now={(raised / campaign.objective) * 100}/>
             } else {
-                return <ProgressBar variant="down" now={(raised / objective) * 100}/>
+                return <ProgressBar variant="down" now={(raised / campaign.objective) * 100}/>
             }
         }
     }
@@ -285,83 +289,74 @@ const SimpleCampaignPost = (props) => {
     const showNetwork = () => {
         if(campaign.network == chain){
             return <p>
-                Ethereum<img style={{height: 12, marginTop: -1, marginLeft: 5}} src={'/images/cryptoicons/smallethgray.svg'}/> 
+                ETH<img style={{height: 12, marginTop: -1, marginLeft: 5}} src={'/images/cryptoicons/smallethgray.svg'}/> 
             </p>
         } else if(campaign.network == bnb_chain){
-            return <p className="bnb-singlepost">
-                <img style={{height: 12, marginTop: -1,marginLeft: 5}} src={'/images/cryptoicons/smallbnbgray.svg'}/>  
+            return <p>
+                BSC<img style={{height: 12, marginTop: -1,marginLeft: 5}} src={'/images/cryptoicons/smallbnbgray.svg'}/>  
             </p>
         }
     }
 
+    const getLabel = () => {
+        if(widgetWidth >= 250){
+            return <p>Donate on BlockBoosted</p>
+        } else {
+            return <p>Donate</p>
+        }
+    }
+
+    const returnTitle = () => {
+    if(campaign.title.length < 25){
+      return <h3 style={{}}>
+      {campaign.title}
+      </h3>
+    } else {
+        return <h3 style={{lineHeight:"20px", fontSize:16}}>
+        {campaign.title}
+        </h3>
+      }
+    }
+
     const displayContent = () => {
-        if(user != undefined && user.eth_address.toLowerCase() == creator.toLowerCase()){
-            return <div className="single-blog-post">
+        if(campaign){
+            return <div className="single-blog-post" style={{width: 250}}>
             <div className="blog-image">
-              <Link href={{
-                              pathname: "/campaigns/[id]",
-                              query: {
-                                  id: prefixedAddress(campaign.network, campaign.contract_address),
-                              }
-                          }}
-                        //   as={`/campaigns/${campaign.contract_address}`}
-                          >
-                      <a>
+              
+                      <a target='_parent' href={`https://app.blockboosted.com/campaigns/${prefixedAddress(campaign.network, campaign.contract_address)}`}>
                           <img style={{width: '100%'}} src={campaign.main_img} alt="image" />
                       </a>
-                  </Link>
-                {cat()}
             </div>
-            <div className="blog-post-content">
-                    <h3>
-                        <Link href={{
-                            pathname: "/campaigns/[id]",
-                            query: {
-                                id: prefixedAddress(campaign.network, campaign.contract_address),
-                            }
-                        }}
-                        // as={`/campaigns/${campaign.contract_address}`}
-                        >
-                            <a>{campaign.title}</a>
-                        </Link>
-                    </h3>
-                <span width="10">
-                    By &nbsp;
-                    <ChipUser user={user}/>
-                </span>
-                <p>{displayDesc()}</p>
+            <div className="blog-post-content" style={{paddingTop: 5, paddingLeft: 15, paddingRight: 15, paddingBottom: 10, textAlign:'center'}}>
+                    <a style={{height: 65, justifyContent:'center', alignItems: 'center', display:'flex'}} target='_parent' href={`https://app.blockboosted.com/campaigns/${prefixedAddress(campaign.network, campaign.contract_address)}`}>
+                      {returnTitle()}
+                    </a>
+               
+                {/* <p>{displayDesc()}</p> */}
                 <b style={{fontSize: 16.5, marginTop: 2}}><div style={{display:"flex"}}>{displayRaised()} {displayCurrency()}</div></b>
                 {displayProgressBar()}
                 <div style={{display:"flex", justifyContent:"space-between"}}>
                     <p><svg style={{marginTop: -2}} xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="feather feather-clock"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>   {timeLeft()}</p>
                     {showNetwork()}
                 </div>
-                <Link href={{
-                          pathname: "/campaigns/[id]",
-                          query: {
-                              id: prefixedAddress(campaign.network, campaign.contract_address),
-                          }
-                      }}
-                    //   as={`/campaigns/${campaign.contract_address}`}
-                      >
-                    <a className="read-more-btn">
-                        {SupportOrSee()} <Icon.ArrowRight />
+                
+                    <a target='_parent' href={`https://app.blockboosted.com/campaigns/${prefixedAddress(campaign.network, campaign.contract_address)}`} style={{maxWidth: '90%', marginLeft:'auto', marginRight:'auto', justifyContent:'center'}}>
+                       <Chip style={{width: '100%', cursor:"pointer"}} variant='outlined' avatar={<Avatar alt='avatar' src={"/images/logobb.png"} />} label={getLabel()} />
                     </a>
-                </Link>
             </div>
-          </div>            
-  
+          </div>   
         } else {
-            setCreaProf(creator);
+            return <Skeleton variant="rect" style={{width: '100%', height:'100%'}} animation='pulse' />
+               
         }
     }
 
 
     return (
-        <>
+        <div style={{width: '100%'}}>
         {displayContent()}
-        </>
+        </div>
     )
 }
 
-export default SimpleCampaignPost;
+export default WidgetComponent
