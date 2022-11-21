@@ -9,7 +9,8 @@ export default function DateValidPicker(props) {
   const [valueStart, setValueStart] = React.useState(null);
   const [valueEnd, setValueEnd] = React.useState(null);
   var now = new Date();
-  const maxVal = new Date(now.setMonth(now.getMonth()+6));
+  let maxStart = new Date(now.getTime() + 8 * 1000 * 86400)
+  const maxVal = new Date(maxStart.setMonth(maxStart.getMonth()+6));
   // var now2 = new Date();
   // const minVal = new Date(now2.setDate(now2.getDate()+1));
 
@@ -23,7 +24,8 @@ export default function DateValidPicker(props) {
             setValueStart(newValue);
             props.handleDateChange(newValue, valueEnd)
           }}
-          minDateTime={new Date()}
+          minDateTime={new Date(now.getTime() + 1000 * 86400)}
+          maxDateTime={new Date(now.getTime() + 8 * 1000 * 86400)}
         />
 
         <DateTimePicker
