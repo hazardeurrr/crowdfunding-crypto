@@ -157,14 +157,16 @@ const PreCampaign = (props) => {
     }
 
     const contactCreator = () => {
-
+        
     }
 
 
     const BackButton = () => {
       return <>
       <h6 style={{marginBottom: 0}}><Icon.Frown /> This campaign is not available on BlockBoosted yet.</h6>
-      <p onClick={contactCreator} style={{textDecoration:'underline', cursor:"pointer", fontWeight: 500}}>Ask the creator to activate it in two clicks !</p>
+      <a href={campaign.origin}>
+        <p onClick={contactCreator} style={{textDecoration:'underline', cursor:"pointer", fontWeight: 500}}>Ask the creator to activate it in two clicks !</p>
+      </a>
       {/* <div style={{display:'flex', justifyContent:'space-evenly'}}>
         <Button startIcon={<SendIcon />} size="big" style={{textTransform: 'inherit', color:'white', backgroundColor:'#c47be4'}} variant="contained">Contact creator</Button>
         <Button style={{textTransform: 'inherit'}} startIcon={<AssignmentIndIcon />} size="small" variant="contained">I'm the creator</Button>
@@ -244,13 +246,34 @@ const PreCampaign = (props) => {
             switch(dialogState){
             
                 case 0:
-                    return <><DialogTitle id="alert-dialog-title">Campaign activation</DialogTitle>
-                    <DialogContent>
-                        {displayStepper()}
-                        <DialogContentText style={{marginTop: 15, marginBottom: 0}} id="alert-dialog-description">Transaction hash :</DialogContentText>
-                        <p>{explorerLink()}</p>
-    
-                    </DialogContent></>
+                if(userAddr){
+                    if(campaign.whitelist_address.toLowerCase() == userAddr.toLowerCase()){
+                        return <><DialogTitle id="alert-dialog-title">Campaign activation</DialogTitle>
+                        <DialogContent>
+                            {displayStepper()}
+                            <DialogContentText style={{marginTop: 15, marginBottom: 0}} id="alert-dialog-description">Transaction hash :</DialogContentText>
+                            <p>{explorerLink()}</p>
+        
+                        </DialogContent></>
+                    } else {
+                        return <><DialogTitle id="alert-dialog-title">{"Campaign activation"}</DialogTitle>
+                        <DialogContent>
+                        <DialogContentText id="alert-dialog-description">
+                            If you are the creator of the original campaign and want to accept crypto donation on BlockBoosted,
+                            please contact us at <a href={`mailto:contact@blockboosted.com?subject=[Activation]-${campaign.id}`}>contact@blockboosted.com</a> with the subject "[Activation]-{campaign.id}". To prevent impersonation, you can't activate this campaign 
+                            until your address is whitelisted.
+                        </DialogContentText>
+                        </DialogContent>
+                        <DialogActions>
+                        <Button onClick={handleClose} color="primary">
+                            Close
+                        </Button>
+                        </DialogActions></>
+                    }
+                } else {
+                    return null
+                }
+                    
             }
         }
     }
@@ -631,7 +654,9 @@ const PreCampaign = (props) => {
                               <div className="preBlock">
                                 <div style={{flex: 1.5, textAlign:"center"}}><Icon.AlertCircle /> &nbsp; Unfortunately, the creator has not enabled crypto donations yet.</div>
                                 <div className="preBtns" style={{display:'flex', justifyContent:'space-around', flex:1 }}>
+                                <a href={campaign.origin}>
                                     <Button onClick={contactCreator} startIcon={<SendIcon />} size="large" style={{marginRight: 7.5, textTransform: 'inherit', color:'white', backgroundColor:'#c47be4'}} variant="contained">Contact creator</Button>
+                                </a>
                                     <Button onClick={imCreator} style={{textTransform: 'inherit', marginLeft: 7.5}} startIcon={<AssignmentIndIcon />} size="small" variant="outlined">I'm the creator</Button>
                                 </div>
                               </div>
