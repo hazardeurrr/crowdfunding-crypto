@@ -157,16 +157,15 @@ const PreCampaign = (props) => {
     }
 
     const contactCreator = () => {
-        
+        setDialogState(1)
+        handleDialogOpen()
     }
 
 
     const BackButton = () => {
       return <>
       <h6 style={{marginBottom: 0}}><Icon.Frown /> This campaign is not available on BlockBoosted yet.</h6>
-      <a href={campaign.origin}>
         <p onClick={contactCreator} style={{textDecoration:'underline', cursor:"pointer", fontWeight: 500}}>Ask the creator to activate it in two clicks !</p>
-      </a>
       {/* <div style={{display:'flex', justifyContent:'space-evenly'}}>
         <Button startIcon={<SendIcon />} size="big" style={{textTransform: 'inherit', color:'white', backgroundColor:'#c47be4'}} variant="contained">Contact creator</Button>
         <Button style={{textTransform: 'inherit'}} startIcon={<AssignmentIndIcon />} size="small" variant="contained">I'm the creator</Button>
@@ -230,7 +229,7 @@ const PreCampaign = (props) => {
     }
 
     const insideDialog = () => {
-        if(!(metamask_connected && chainID == bnb_chain)){
+        if(!(metamask_connected && chainID == bnb_chain) && dialogState != 1){
             return <><DialogTitle id="alert-dialog-title">{"You are not connected to a supported network"}</DialogTitle>
             <DialogContent>
             <DialogContentText id="alert-dialog-description">
@@ -245,7 +244,7 @@ const PreCampaign = (props) => {
         } else {
             switch(dialogState){
             
-                case 0:
+            case 0:
                 if(userAddr){
                     if(campaign.whitelist_address.toLowerCase() == userAddr.toLowerCase()){
                         return <><DialogTitle id="alert-dialog-title">Campaign activation</DialogTitle>
@@ -272,9 +271,61 @@ const PreCampaign = (props) => {
                     }
                 } else {
                     return null
-                }
-                    
+                }  
+                
+                case 1:
+                    return <><DialogTitle id="alert-dialog-title">{"Contact creator"}</DialogTitle>
+                    <DialogContent>
+                    <DialogContentText id="alert-dialog-description">
+                       Contact the creator of this fundraiser. Ask him to activate his BlockBoosted page to accept crypto donations without any fee !
+                    </DialogContentText>
+                    {showSocials()}
+                    </DialogContent>
+                    <DialogActions>
+                    <Button onClick={handleClose} color="primary">
+                        Close
+                    </Button>
+                    </DialogActions></>
             }
+        }
+    }
+
+    const showSocials = () => {
+        if(campaign.socials.length == 0){
+            return <div style={{marginTop: 15}}><Icon.Globe /><a href={campaign.origin}>Contact {campaign.creator_name} on the original campaign</a></div>
+        } else {
+            return <div style={{marginTop: 15}}>
+                <ul style={{listStyleType: 'none'}}>
+                    {showSocialLink("email")}
+                    {showSocialLink("twitter")}
+                    {showSocialLink("facebook")}
+                    {showSocialLink("linkedin")}
+                </ul>
+            </div>
+        }
+    }
+
+    const showSocialLink = (social) => {
+        switch(social){
+            case "twitter":
+                if(campaign.socials.twitter){
+                    return <li><Icon.Twitter />
+                    <a target="_about" href={`https://twitter.com/intent/tweet?text=@${campaign.socials.twitter}%20Hello,%20I%20saw%20your%20fundraiser%20and%20wanted%20to%20let%20you%20know%20that%20the%20crypto%20community%20would%20love%20to%20help%20:)%20You%20should%20activate%20your%20@blockboosted%20page%20to%20accept%20crypto%20donations%20here%20https://app.blockboosted.com/pre/${campaign.id}`}>
+                    {/* <a href="https://twitter.com/intent/tweet?text=Hello%20world"> */}
+                  &nbsp;&nbsp;Contact {campaign.creator_name} on Twitter</a></li>
+                } else return null
+            case "email":
+                if(campaign.socials.email){
+                    return <li><Icon.Mail /><a href={`mailto:${campaign.socials.email}?subject=Crypto donations for your fundraiser&body=Hello, I saw your fundraising campaign and would love to make a donation in cryptocurrency. I saw the page referring to your fundraiser on BlockBoosted https://app.blockboosted.com/pre/${campaign.id}, you should activate it so you'll be able to raise in crypto without any fee ! The crypto community would love to help you :) Kind regards.`}>&nbsp;&nbsp;Contact {campaign.creator_name} by email</a></li>
+                } else return null
+            case "facebook":
+                if(campaign.socials.facebook){
+                    return <li><Icon.Facebook /><a target="_about" href={campaign.socials.facebook}>&nbsp;&nbsp;Contact {campaign.creator_name} on Facebook</a></li>
+                } else return null
+            case "linkedin":
+                if(campaign.socials.linkedin){
+                    return <li><Icon.Linkedin /><a target="_about" href={campaign.socials.linkedin}>&nbsp;&nbsp;Contact {campaign.creator_name} on Linkedin</a></li>
+                } else return null
         }
     }
 
@@ -654,9 +705,7 @@ const PreCampaign = (props) => {
                               <div className="preBlock">
                                 <div style={{flex: 1.5, textAlign:"center"}}><Icon.AlertCircle /> &nbsp; Unfortunately, the creator has not enabled crypto donations yet.</div>
                                 <div className="preBtns" style={{display:'flex', justifyContent:'space-around', flex:1 }}>
-                                <a href={campaign.origin}>
                                     <Button onClick={contactCreator} startIcon={<SendIcon />} size="large" style={{marginRight: 7.5, textTransform: 'inherit', color:'white', backgroundColor:'#c47be4'}} variant="contained">Contact creator</Button>
-                                </a>
                                     <Button onClick={imCreator} style={{textTransform: 'inherit', marginLeft: 7.5}} startIcon={<AssignmentIndIcon />} size="small" variant="outlined">I'm the creator</Button>
                                 </div>
                               </div>
