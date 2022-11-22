@@ -62,6 +62,7 @@ import { erc20standardAbi } from '@/components/ContractRelated/ERC20standardABI'
 import { db } from 'firebase-crowdfund/index'
 import { toBaseUnit } from '@/utils/bnConverter';
 import { bbstAbi } from '@/components/ContractRelated/BbstAbi';
+import Tiers from '@/components/FormCampain/tiers';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -105,6 +106,7 @@ const PreCampaign = (props) => {
     const [goal, setGoal] = React.useState(0)
     const [Tx, setTx] = React.useState("")
     const [onCreation, setOnCreation] = React.useState(false)
+    const [tiersArray, setTiersArray] = React.useState([])
 
     // const campaign = projectList.find(e => e.contract_address == props.address)
     // const raised = Math.random()*100
@@ -119,7 +121,6 @@ const PreCampaign = (props) => {
     const metamask_connected = useSelector((state) => state.metamask_connected)
     const userAddr = useSelector((state) => state.address)
     const web3Instance = useSelector((state) => state.web3Instance)
-    
 
 
     React.useEffect(() => {
@@ -276,7 +277,7 @@ const PreCampaign = (props) => {
                 case 1:
                     return <><DialogTitle id="alert-dialog-title">{"Contact creator"}</DialogTitle>
                     <DialogContent>
-                    <DialogContentText id="alert-dialog-description">
+                    <DialogContentText id="alert-dialog-description" style={{color:'black'}}>
                        Contact the creator of this fundraiser. Ask him to activate his BlockBoosted page to accept crypto donations without any fee !
                     </DialogContentText>
                     {showSocials()}
@@ -374,7 +375,8 @@ const PreCampaign = (props) => {
         }
     }
 
-    const steps = ['Select duration', 'Set currency & objective', 'Create smart-contract instance', 'Upload data']
+
+    const steps = ['Select duration', 'Set currency & objective', 'Set rewards tiers', 'Create smart-contract instance', 'Upload data']
     const getStepContent = (step) => {
         switch (step) {
           case 0:
@@ -398,10 +400,18 @@ const PreCampaign = (props) => {
           </StepContent>
           case 2:
             return <StepContent>
-            <p>Please confirm the transaction on your wallet and wait for blockchain confirmation. This is the only blockchain transaction you will need to do.</p>
-            {showCreateCampBtn()}
+            <p>Add rewards tiers (optional)</p>
+            <Tiers step={getNbrStep()} onTiersChange={e => {
+                                        setTiersArray(e)
+                                    }}/>
+            <Button style={{marginTop: 10}} variant="contained" onClick={handleNext}>Next</Button>
           </StepContent>
           case 3:
+                return <StepContent>
+                <p>Please confirm the transaction on your wallet and wait for blockchain confirmation. This is the only blockchain transaction you will need to do.</p>
+                {showCreateCampBtn()}
+              </StepContent>
+          case 4:
             return <StepContent>
             <p>Please wait during upload...</p>
           </StepContent>
@@ -439,7 +449,7 @@ const PreCampaign = (props) => {
       
       const getLabelIcon = (i) => {
         if(i === activeStep){
-            if(i == 2 && onCreation || i == 3){
+            if(i == 3 && onCreation || i == 4){
                 return <CircularProgress style={{color:'black', width: 25, height:25}}/>
             } else {
                 return i+1
@@ -543,7 +553,8 @@ const PreCampaign = (props) => {
             let newus = currentUser
             newus.username = campaign.creator_name
             newus.image = campaign.creator_img
-            setActiveStep(4)
+           
+            setActiveStep(5)
             dispatch({
                 type: 'SET_CURRENT_USER',
                 id: newus
@@ -577,18 +588,18 @@ const PreCampaign = (props) => {
                          amt = toBaseUnit(goal.toString(), decimals, web3Instance.utils.BN)               
                          // console.log("amount", amt)
                        //  tierAmountArray = this.tiersArray.map(a => a.threshold * 10**decimals) 
-                         tierAmountArray = campaign.tiers.map(a => toBaseUnit(a.threshold.toString(), decimals, web3Instance.utils.BN))
+                         tierAmountArray = tiersArray.map(a => toBaseUnit(a.threshold.toString(), decimals, web3Instance.utils.BN))
                          // console.log(tierAmountArray)
                      })
                  } else {
                      throw "erc20 contract instance not defined"
                  }
              } else {        // <=> campagne en ETH ou MATIC
-                 tierAmountArray = campaign.tiers.map(a => web3Instance.utils.toWei(a.threshold.toString()))
+                 tierAmountArray = tiersArray.map(a => web3Instance.utils.toWei(a.threshold.toString()))
                  amt = web3Instance.utils.toWei(goal.toString())
              }
      
-             let tierStockArray = campaign.tiers.map(a => a.maxClaimers)
+             let tierStockArray = tiersArray.map(a => a.maxClaimers)
              let am0 = [0]
              let st0 = [-1]
              let amountArray = am0.concat(tierAmountArray)
@@ -672,7 +683,7 @@ const PreCampaign = (props) => {
                     long_desc: campaign.long_desc,
                     currency: raisingMethod,
                  //   flexible: this.flexible,
-                    tiers: campaign.tiers,
+                    tiers: tiersArray,
                     network: chainID,
                     main_img: campaign.main_img,
                     raised: 0,
