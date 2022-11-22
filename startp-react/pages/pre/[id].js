@@ -291,8 +291,8 @@ const PreCampaign = (props) => {
     }
 
     const showSocials = () => {
-        if(campaign.socials.length == 0){
-            return <div style={{marginTop: 15}}><Icon.Globe /><a href={campaign.origin}>Contact {campaign.creator_name} on the original campaign</a></div>
+        if(Object.keys(campaign.socials).length == 0){
+            return <div style={{marginTop: 15}}><Icon.Globe /><a href={campaign.origin}>&nbsp;&nbsp;Contact {campaign.creator_name} on the original campaign</a></div>
         } else {
             return <div style={{marginTop: 15}}>
                 <ul style={{listStyleType: 'none'}}>
