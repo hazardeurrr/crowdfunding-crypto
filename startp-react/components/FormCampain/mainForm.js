@@ -800,7 +800,7 @@ class MainForm extends React.Component {
                                     <Title onChange={e => {this.title = e}}/>
                                     {this.state.titleError !== '' ? <p style={{color: 'red'}}>{this.state.titleError}</p>: null}
                                     <p><strong> Image Banner </strong><br/> Insert the best image for your project</p>
-                                    <p>Size : max 3MB / Format : JPG, PNG or GIF / Resolution : 16:9 (ex: 1920x1080, 1280x720, 1024x576...)</p>
+                                    <p>Size : max 1MB / Format : JPG, PNG or GIF / Resolution : 16:9 (ex: 1920x1080, 1280x720, 1024x576...)</p>
                                     <MainPic onImageChange={this.handleChangeImage.bind(this)} ratio="ratio" resolutionWidth={1920} resolutionHeight={1080} />
                                     <br></br>
 

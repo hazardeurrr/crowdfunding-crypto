@@ -55,7 +55,7 @@ const MainPic = (props) => {
             </Snackbar>
             <ImageUploading
                 acceptType={['jpg', 'gif', 'png']}
-                maxFileSize={3000e3}
+                maxFileSize={1000e3}
                 resolutionType={props.ratio}
                 resolutionWidth={props.resolutionWidth}
                 resolutionHeight={props.resolutionHeight}
