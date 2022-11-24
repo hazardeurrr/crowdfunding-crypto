@@ -430,7 +430,6 @@ class MainForm extends React.Component {
                 // campaign address to be retrieved from the solidity smart contract
                 const creator_address = this.props.userAddr
                 campainInfos['creator'] = creator_address
-                if (this.cats.length < 1) {return}
                 db.collection('campaignsBNBTest').doc(this.prefixedAddress(contract_address)).set(campainInfos).then(x => {
                     // console.log('document written with : ' + campainInfos.title)
 
@@ -861,7 +860,7 @@ class MainForm extends React.Component {
                                         </div>
                                     </div>
 
-                                    <p><strong> Project Goal </strong><br/> Your goal should reflect the minimum amount of funds you need to complete your project and send out rewards, and include a buffer for payments processing fees.<br></br><i>⚠ Amount should be specified in the currency chosen above</i></p>
+                                    <p><strong> Project Goal </strong><br/> Your goal should reflect the amount you wish to raise with your campaign.<br></br><i>⚠ Amount should be specified in the currency chosen above</i></p>
                                     <div className="col-lg-12 col-md-12" >
                                         <div className="form-group">
                                         <input type="number" placeholder="Goal" min="0" step={this.getNbrStep()} className="form-control" onChange={(event) => {
