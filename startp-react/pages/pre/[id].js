@@ -229,6 +229,22 @@ const PreCampaign = (props) => {
       return <li><Icon.ExternalLink /> <a target="_blank" href={`${campaign.origin}`}>See original campaign</a></li>
     }
 
+    const returnDialog = () => {  
+        return <><DialogTitle id="alert-dialog-title">{"Campaign activation"}</DialogTitle>
+            <DialogContent>
+            <DialogContentText id="alert-dialog-description">
+                If you are the creator of the original campaign and want to accept crypto donation on BlockBoosted,
+                please contact us at <a href={`mailto:contact@blockboosted.com?subject=[Activation]-${campaign.id}`}>contact@blockboosted.com</a> with the subject "[Activation]-{campaign.id}". To prevent impersonation, you can't activate this campaign 
+                until your address is whitelisted.
+            </DialogContentText>
+            </DialogContent>
+            <DialogActions>
+            <Button onClick={handleClose} color="primary">
+                Close
+            </Button>
+        </DialogActions></>
+    }
+
     const insideDialog = () => {
         if(!(metamask_connected && chainID == bnb_chain) && dialogState != 1){
             return <><DialogTitle id="alert-dialog-title">{"You are not connected to a supported network"}</DialogTitle>
@@ -244,34 +260,25 @@ const PreCampaign = (props) => {
             </DialogActions></>
         } else {
             switch(dialogState){
-            
             case 0:
                 if(userAddr){
-                    if(campaign.whitelist_address.toLowerCase() == userAddr.toLowerCase()){
-                        return <><DialogTitle id="alert-dialog-title">Campaign activation</DialogTitle>
-                        <DialogContent>
-                            {displayStepper()}
-                            <DialogContentText style={{marginTop: 15, marginBottom: 0}} id="alert-dialog-description">Transaction hash :</DialogContentText>
-                            <p>{explorerLink()}</p>
-        
-                        </DialogContent></>
+                    if(campaign.whitelist_address){
+                        if(campaign.whitelist_address.toLowerCase() == userAddr.toLowerCase()){
+                            return <><DialogTitle id="alert-dialog-title">Campaign activation</DialogTitle>
+                            <DialogContent>
+                                {displayStepper()}
+                                <DialogContentText style={{marginTop: 15, marginBottom: 0}} id="alert-dialog-description">Transaction hash :</DialogContentText>
+                                <p>{explorerLink()}</p>
+            
+                            </DialogContent></>
+                        } else {
+                          return returnDialog()
+                        }
                     } else {
-                        return <><DialogTitle id="alert-dialog-title">{"Campaign activation"}</DialogTitle>
-                        <DialogContent>
-                        <DialogContentText id="alert-dialog-description">
-                            If you are the creator of the original campaign and want to accept crypto donation on BlockBoosted,
-                            please contact us at <a href={`mailto:contact@blockboosted.com?subject=[Activation]-${campaign.id}`}>contact@blockboosted.com</a> with the subject "[Activation]-{campaign.id}". To prevent impersonation, you can't activate this campaign 
-                            until your address is whitelisted.
-                        </DialogContentText>
-                        </DialogContent>
-                        <DialogActions>
-                        <Button onClick={handleClose} color="primary">
-                            Close
-                        </Button>
-                        </DialogActions></>
+                        return returnDialog()
                     }
                 } else {
-                    return null
+                    return returnDialog()
                 }  
                 
                 case 1:

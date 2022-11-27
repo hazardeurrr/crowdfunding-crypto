@@ -521,7 +521,7 @@ class preForm extends React.Component {
                                     <div className="col-lg-12 col-md-12" >
                                         <div className="form-group">
                                         <input type="text" placeholder="Twitter" className="form-control" onChange={(event) => {
-                                            this.origin = event.target.value
+                                            this.twitter = event.target.value
                                         }}/>
                                         </div>
                                     </div>
