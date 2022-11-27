@@ -41,14 +41,15 @@ const useStyles = makeStyles({
   
   
 
-const PreCampaignSidebar = (props) => {
+const PreviewSidebar = (props) => {
 
     
-    const campaign = props.project
+    const tiers = props.tiers
+    const currency = props.currency
     const classes = useStyles();
 
     const Title = () => {
-        // if(campaign.tiers.length != 0){
+        // if(tiers.length != 0){
             return <h3 className="widget-title">What you get with your contribution</h3>
         // }
     }
@@ -56,7 +57,7 @@ const PreCampaignSidebar = (props) => {
     const BackText = () => {
             return <div className="works-content">
             <h3>
-                <Icon.Frown /> The creator hasn't enabled crypto donations yet.
+                <Icon.AlertCircle /> The campaign will start soon.
             </h3>
         </div>
     }
@@ -72,10 +73,10 @@ const PreCampaignSidebar = (props) => {
     }
 
     const showCurrencyWoPrefix = () => {
-        if(campaign.currency.includes('_'))
-            return campaign.currency.substring(campaign.currency.indexOf('_') + 1);
+        if(currency.includes('_'))
+            return currency.substring(currency.indexOf('_') + 1);
         else
-            return campaign.currency
+            return currency
     }
 
     return (
@@ -109,7 +110,7 @@ const PreCampaignSidebar = (props) => {
                             </GridListTile>
 
 
-                            {campaign.tiers.map((tile, index) => (
+                            {tiers.map((tile, index) => (
                                 <GridListTile style={{height:'auto'}} key={index} cols={1}>
 
                                 <div className="single-works">
@@ -153,4 +154,4 @@ const PreCampaignSidebar = (props) => {
 
 
 
-export default PreCampaignSidebar;  
+export default PreviewSidebar;  

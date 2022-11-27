@@ -6,6 +6,7 @@ import ProgressBar from 'react-bootstrap/ProgressBar';
 import Parser from 'html-react-parser';
 import * as Icon from 'react-feather';
 import DOMPurify from 'isomorphic-dompurify';
+import PreviewSidebar from "../Blog/PreviewSidebar";
 
 const PreviewCampaign = (props) => {
 
@@ -23,6 +24,47 @@ const PreviewCampaign = (props) => {
         return html;
     }
 
+    const showCurrencyWoPrefix = () => {
+        if(props.currency){
+         if(props.currency.includes('_'))
+            return props.currency.substring(props.currency.indexOf('_') + 1);
+         else
+            return props.currency
+        } else {
+            return ''
+        }
+        
+    }
+
+    const returnImg = () => {
+        if(props.image){
+            return <img src={props.image}/>
+        } else {
+            return <Skeleton animation={false} variant="rect" height={300} />
+        }
+    }
+
+    const returnTitle = () => {
+        if(props.title){
+            return props.title
+        } else {
+            return "Title"
+        }
+    }
+
+    const showCats = () => {
+        let precategs = props.cats.filter(a => a !== "---").filter(function (value, index, array) { 
+            return array.indexOf(value) === index;
+        })
+
+        let categs = precategs.length == 0 ? ["Diverse"] : precategs
+        if(categs.length == 1){
+            return categs[0]
+        } else if(categs.length != 0){
+            return `${categs[0]} & ${categs[1]}`
+        }
+    }
+
   const content = props.content == undefined ? '' : props.content
   return <div>
       <div className="blog-details-area ptb-80">
@@ -32,20 +74,18 @@ const PreviewCampaign = (props) => {
                             <div className="row align-items-center">
                                 <div className="col-lg-6 col-md-12">
                                     <div className="ml-about-img">
-                                      <Skeleton animation={false} variant="rect" height={350} />
-
-                                        
+                                        {returnImg()}                                       
                                     </div>
                                 </div>
 
                                 <div className="col-lg-6 col-md-12">
                                     <div className="ml-about-content">
 
-                                        <span className="sub-title">Categories</span>
-                                        <Skeleton animation={false} variant="text" height={50}/>
+                                        <span className="sub-title">{showCats()}</span>
+                                        {/* <Skeleton animation={false} variant="text" height={50}/> */}
 
-                                        <h2 style={{marginTop: 20, marginBottom: 10}}>Title</h2>
-                                        <div className="blog-details-desc">
+                                        <h2 style={{marginTop: 20, marginBottom: 10}}>{returnTitle()}</h2>
+                                        {/* <div className="blog-details-desc">
                                             <div className="article-content">
                                                 <div className="entry-meta">
                                                     <ul>
@@ -56,12 +96,15 @@ const PreviewCampaign = (props) => {
                                                     </ul>
                                                 </div>              
                                             </div>
-                                        </div>
+                                        </div> */}
                                         <div className="bar"></div>
 
                                     
-                                        <p style={{fontSize: 15, marginBottom: 30}}><Skeleton animation={false} variant="text" /><Skeleton animation={false} variant="text" /><Skeleton animation={false} variant="text" /></p>
-                                        <h5>X... raised / X...</h5> 
+                                        <p style={{fontSize: 15, marginBottom: 30}}>
+                                            {/* <Skeleton animation={false} variant="text" /><Skeleton animation={false} variant="text" /><Skeleton animation={false} variant="text" /> */}
+                                            {props.desc}
+                                        </p>
+                                        <h5>X {showCurrencyWoPrefix()} raised / {props.obj} {showCurrencyWoPrefix()}</h5> 
                                         <ProgressBar animated now={30}/>
                                         <div className="blog-details-desc">
                                             <div className="article-content">
@@ -75,17 +118,18 @@ const PreviewCampaign = (props) => {
                                             </div>
                                         </div>
 
-                                        {/* <div style={{display: "flex"}}>
+                                        <div style={{display: "flex"}}>
                                       
-                                          <a className="btn btn-primary">Back this campaign</a>
+                                          <button disabled className="btn btn-primary">Back this campaign</button>
                                           <UseAnimations
+                                          disabled
                                             size={40}
                                             wrapperStyle={{ marginTop: '15px', marginLeft: '20px' }}
                                             animation={heart}
                                           />
                                             
 
-                                        </div> */}
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -111,12 +155,13 @@ const PreviewCampaign = (props) => {
                             <div className="widget widget_startp_posts_thumb">
                                 <div style={{minWidth: 270}}>
 
-                                    <h3 className="widget-title">What you get with your contribution</h3>
-                                    <Skeleton variant="rect" animation={false} height={150}/>
+                                    {/* <h3 className="widget-title">What you get with your contribution</h3> */}
+                                    <PreviewSidebar currency={props.currency} tiers={props.tiers}/>
+                                    {/* <Skeleton variant="rect" animation={false} height={150}/>
                                     <br></br>
                                     <Skeleton variant="rect" animation={false} height={150}/>
                                     <br></br>
-                                    <Skeleton variant="rect" animation={false} height={150}/>
+                                    <Skeleton variant="rect" animation={false} height={150}/> */}
                                   </div>
                                 </div>
                             </div>

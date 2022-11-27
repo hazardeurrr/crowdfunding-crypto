@@ -74,9 +74,9 @@ const CampaignSidebar = (props) => {
     const classes = useStyles();
 
     const Title = () => {
-        if(campaign.tiers.length != 0){
+        // if(campaign.tiers.length != 0){
             return <h3 className="widget-title">What you get with your contribution</h3>
-        }
+        // }
     }
 
     const BackText = (tier, index) => {

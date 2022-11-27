@@ -95,25 +95,32 @@ class MainForm extends React.Component {
             initializationProgress: 0,
             imageProgress: 0,
             raisingMethod: this.getStartRaisingMethod(),
-            activeStep:0
+            activeStep:0,
+            title: null,
+            image: null, 
+            cats: ['---', '---'],
+            small_description:'',
+            objective:0,
+            tiersArray:[],
+
         }
 
         this.handleCloseSnackbar.bind(this);
         this.closeDialog.bind(this);
 
-        this.tiers = [];
-        this.tiersArray = [];
-        this.cats = ['---', '---'];
-        this.html = '';
-        this.image = undefined;
+        // this.tiers = [];
+        // this.tiersArray = [];
+        // this.cats = ['---', '---'];
+        // this.html = '';
+        // this.image = undefined;
    //     this.flexible = true;
-        this.title = undefined;
+        // this.title = undefined;
         this.startDate = undefined, 
         this.endDate = undefined, 
-        this.small_description = '',
+        // this.small_description = '',
         // this.raisingMethod = this.getStartRaisingMethod(),
-        this.tiersNumber = 0,
-        this.objective = 0,
+        // this.tiersNumber = 0,
+        // this.objective = 0,
         this.objectiveError = ''
         this.steps = this.getSteps()
     }
@@ -223,21 +230,21 @@ class MainForm extends React.Component {
 
             if(erc20Ctr != undefined){
                 await erc20Ctr.methods.decimals().call().then((decimals) => {     
-                    amt = toBaseUnit(this.objective.toString(), decimals, this.props.web3Instance.utils.BN)               
+                    amt = toBaseUnit(this.state.objective.toString(), decimals, this.props.web3Instance.utils.BN)               
                     // console.log("amount", amt)
                   //  tierAmountArray = this.tiersArray.map(a => a.threshold * 10**decimals) 
-                    tierAmountArray = this.tiersArray.map(a => toBaseUnit(a.threshold.toString(), decimals, this.props.web3Instance.utils.BN))
+                    tierAmountArray = this.state.tiersArray.map(a => toBaseUnit(a.threshold.toString(), decimals, this.props.web3Instance.utils.BN))
                     // console.log(tierAmountArray)
                 })
             } else {
                 throw "erc20 contract instance not defined"
             }
         } else {        // <=> campagne en ETH ou MATIC
-            tierAmountArray = this.tiersArray.map(a => this.props.web3Instance.utils.toWei(a.threshold.toString()))
-            amt = this.props.web3Instance.utils.toWei(this.objective.toString())
+            tierAmountArray = this.state.tiersArray.map(a => this.props.web3Instance.utils.toWei(a.threshold.toString()))
+            amt = this.props.web3Instance.utils.toWei(this.state.objective.toString())
         }
 
-        let tierStockArray = this.tiersArray.map(a => a.maxClaimers)
+        let tierStockArray = this.state.tiersArray.map(a => a.maxClaimers)
         let am0 = [0]
         let st0 = [-1]
         let amountArray = am0.concat(tierAmountArray)
@@ -298,7 +305,7 @@ class MainForm extends React.Component {
 
         let contract_address = contract_addr.toLowerCase()
 
-        let uploadTaskImg = postImage('mainPic', this.image, this.prefixedAddress(contract_address))
+        let uploadTaskImg = postImage('mainPic', this.state.image, this.prefixedAddress(contract_address))
         uploadTaskImg.on('state_changed', 
         (snapshot) => {
             // Observe state change events such as progress, pause, and resume
@@ -338,7 +345,7 @@ class MainForm extends React.Component {
         }
 
         // console.log("CreatingFirebaseObject")
-        var blob = new Blob([this.sanitizeAndParseHtml(this.html)], {
+        var blob = new Blob([this.sanitizeAndParseHtml(this.state.html)], {
             type: "text/plain",
           });
         let uploadTask = postHTMLPage(blob, this.prefixedAddress(contract_address))
@@ -374,7 +381,7 @@ class MainForm extends React.Component {
              .child(this.prefixedAddress(contract_address))
              .getDownloadURL().then(async(downloadURL) => {
                 // console.log('File available at', downloadURL);
-                let precategs = this.cats.filter(a => a !== "---").filter(function (value, index, array) { 
+                let precategs = this.state.cats.filter(a => a !== "---").filter(function (value, index, array) { 
                     return array.indexOf(value) === index;
                 })
 
@@ -389,8 +396,8 @@ class MainForm extends React.Component {
                             "domainUriPrefix": "blb.st",
                             "link": `https://app.blockboosted.com/campaigns/${this.prefixedAddress(contract_address)}`,
                             "socialMetaTagInfo": {
-                                "socialTitle":this.title,
-                                "socialDescription": this.small_description,
+                                "socialTitle":this.state.title,
+                                "socialDescription": this.state.small_description,
                                 "socialImageLink": imageURL
                             }
                         },
@@ -405,17 +412,17 @@ class MainForm extends React.Component {
                 let shortURL = data.shortLink ? data.shortLink : null
     
                 const campainInfos = {
-                    title: this.title,
+                    title: this.state.title,
                     start_date: this.startDate,
                     end_date: this.endDate,
                     contract_address: contract_address,
-                    small_description: this.small_description,
+                    small_description: this.state.small_description,
                     categories: categs,
-                    objective: this.objective,
+                    objective: this.state.objective,
                     long_desc: downloadURL,
                     currency: this.state.raisingMethod,
                  //   flexible: this.flexible,
-                    tiers: this.tiersArray,
+                    tiers: this.state.tiersArray,
                     network: this.props.chainID,
                     main_img: imageURL,
                     raised: 0,
@@ -455,7 +462,7 @@ class MainForm extends React.Component {
     }
 
     checkCampaignIsValid = () => {
-        if(this.image != undefined && this.html != '' && this.title != undefined && this.startDate != undefined && this.endDate != undefined && this.objective > 0){
+        if(this.state.image != null && this.state.html != '' && this.state.title != null && this.startDate != undefined && this.endDate != undefined && this.state.objective > 0){
             return true
         }
         return false
@@ -485,11 +492,11 @@ class MainForm extends React.Component {
     }
     
     handleHTML(dataFromChild) {
-        this.html = dataFromChild
+        this.setState({html: dataFromChild})
     }
 
     handleChangeImage(dataFromImage) {
-        this.image = dataFromImage
+        this.setState({image: dataFromImage})
     }
 
 
@@ -638,8 +645,8 @@ class MainForm extends React.Component {
                 <DialogContent>
                 
                 <div style={{display: 'flex', justifyContent:'center', alignItems:'center', flexDirection:'column'}}>
-                    <h5 style={{marginBottom: 5}}>{this.title}</h5>
-                    <img src={this.image} alt='campaign image'/>
+                    <h5 style={{marginBottom: 5}}>{this.state.title}</h5>
+                    <img src={this.state.image} alt='campaign image'/>
                     <div style={{justifyContent:'center'}}>
                         <Link href={{
                             pathname: "/campaigns/[id]",
@@ -796,7 +803,7 @@ class MainForm extends React.Component {
 
                             <form id="formCampaign" onSubmit={this.handleCampaign}>
                                 <div className="row">
-                                    <Title onChange={e => {this.title = e}}/>
+                                    <Title onChange={e => {this.setState({title: e})}}/>
                                     {this.state.titleError !== '' ? <p style={{color: 'red'}}>{this.state.titleError}</p>: null}
                                     <p><strong> Image Banner </strong><br/> Insert the best image for your project</p>
                                     <p>Size : max 1MB / Format : JPG, PNG or GIF / Resolution : 16:9 (ex: 1920x1080, 1280x720, 1024x576...)</p>
@@ -822,7 +829,7 @@ class MainForm extends React.Component {
                                     </div>
 
                                     <Description onChange={e => {
-                                        this.small_description = e
+                                        this.setState({small_description : e})
                                     }}/>
 
                                     <p><strong> Project Category </strong><br/> Choose a category that describes your project.</p>
@@ -831,7 +838,10 @@ class MainForm extends React.Component {
                                         
                                             <div className="select-box">
                                                 <select className="form-select" required onChange={(event) => {
-                                                    this.cats[0] = event.target.value
+                                                    let newArr = this.state.cats
+                                                    newArr[0] = event.target.value
+                                                    this.setState({cats: newArr})
+                                                    // this.cats[0] = event.target.value
                                                 }}>
                                                     {this.displayCategories()}
                                                 </select>
@@ -844,7 +854,10 @@ class MainForm extends React.Component {
                                         
                                             <div className="select-box">
                                                 <select className="form-select" onChange={(event) => {
-                                                    this.cats[1] = event.target.value
+                                                     let newArr = this.state.cats
+                                                     newArr[1] = event.target.value
+                                                     this.setState({cats: newArr})
+                                                    // this.cats[1] = event.target.value
                                                 }}>
                                                     {this.displayCategories()}
                                                 </select>
@@ -864,7 +877,7 @@ class MainForm extends React.Component {
                                     <div className="col-lg-12 col-md-12" >
                                         <div className="form-group">
                                         <input type="number" placeholder="Goal" min="0" step={this.getNbrStep()} className="form-control" onChange={(event) => {
-                                            this.objective = event.target.value
+                                            this.setState({objective: event.target.value})
                                         }}/>
                                         {this.state.objectiveError !== '' ? <p style={{color: 'red'}}>{this.state.objectiveError}</p>: null}
                                         </div>
@@ -897,7 +910,7 @@ class MainForm extends React.Component {
                                         <div style={{margin: "auto", width : "90%", backgroundColor:'white'}}>
                                             <Button variant="contained" style={{position: 'fixed', bottom: 17}} onClick={this.handleCloseModal}>Close preview</Button>
 
-                                            <PreviewCampaign content={this.html}/>
+                                            <PreviewCampaign tiers={this.state.tiersArray} cats={this.state.cats} currency={this.state.raisingMethod} image={this.state.image} title={this.state.title} desc={this.state.small_description} obj={this.state.objective} content={this.state.html}/>
 
                                         </div>
                                     </Modal>
@@ -924,7 +937,7 @@ class MainForm extends React.Component {
                                     <p><strong> Rewards tiers </strong><br/> Add reward tiers depending on the value of contributions.</p>
 
                                     <Tiers step={this.getNbrStep()} onTiersChange={e => {
-                                        this.tiersArray = e
+                                        this.setState({tiersArray: e})
                                         // console.log(this.tiersArray, "mainForm tiersArray")
                                     }}/>
                                     

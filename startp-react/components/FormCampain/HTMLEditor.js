@@ -19,13 +19,13 @@ function HTMLEditor(props) {
           onKeyUp={handleChange}
           ref={editorRef}
           setOptions={{
-            imageHeightShow:false,
-            videoResizing: false,
-            videoHeightShow: false,
-            videoRatioShow: false,
+            // imageHeightShow:false,
+            // videoResizing: false,
+            // videoHeightShow: false,
+            // videoRatioShow: false,
             height: 500,
-            imageWidth: "100%",
-            videoWidth:"100%",
+            // imageWidth: "100%",
+            // videoWidth:"100%",
             buttonList:// You can specify the arrangement of buttons according to the screen size in advance.
             // Responsive settings start with a percent sign.("%").
             // %510(Number based on "px")
