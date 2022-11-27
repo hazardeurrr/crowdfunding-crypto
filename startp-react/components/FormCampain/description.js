@@ -22,7 +22,7 @@ class Description extends React.Component {
 
         return (
             <>
-            <p><strong> Project Description </strong><br/> Make a short description of your project to make it more attractive.</p>
+            <p><strong> Project Description </strong><br/> Make a short description of your project to make it more attractive (max. 150 characters)</p>
             <div className="col-lg-12 col-md-12">
                 <div className="form-group">
                     <textarea name="message" cols="30" rows="6" placeholder="Description" className="form-control" maxLength="150" onChange={e => {

@@ -25,7 +25,7 @@ class Title extends React.Component {
         var characterCount = currentText.length;
         var remainingChar = 50 - characterCount
         if (remainingChar < 0) {
-            this.setState({charLeft: "Too many characters, cannot exceed 150 characters", editable: true})
+            this.setState({charLeft: "Too many characters, cannot exceed 50 characters", editable: true})
         } else {
             this.setState({charLeft: remainingChar, editable: false})
 
@@ -37,7 +37,7 @@ class Title extends React.Component {
 
         return (
             <>
-            <p><strong> Fundraiser Name </strong><br/>Give a name to your project to make it searchable for the users.</p>
+            <p><strong> Fundraiser Name </strong><br/>Give a name to your campaign (max. 50 characters)</p>
             <div className="col-lg-12 col-md-12">
                 <div className="form-group">
                     <input type="text" placeholder="Title" className="form-control" maxLength="50" onChange={e => {

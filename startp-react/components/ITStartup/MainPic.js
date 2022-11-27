@@ -18,7 +18,7 @@ const MainPic = (props) => {
 
     const onError = (errors, files) => {   
         if(errors.resolution){
-            setSnackText("Wrong resolution")
+            setSnackText("Wrong resolution. Please resize your image to a 16:9 resolution before uploading.")
         } else if(errors.maxFileSize){
             setSnackText("File size exceeded the limit")
         } else {
