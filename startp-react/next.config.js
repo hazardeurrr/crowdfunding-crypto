@@ -9,4 +9,8 @@ module.exports = {
         locales: ['en', 'fr'],
         defaultLocale: 'en',
     },
+    compiler: {
+        // Enables the styled-components SWC transform
+        styledComponents: true
+      }
 }

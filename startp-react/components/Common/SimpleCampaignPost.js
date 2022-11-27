@@ -47,6 +47,11 @@ const SimpleCampaignPost = (props) => {
         // setCreaProf(creator)
         // console.log(user)
         //console.log("used with", creator)
+        return () => {
+            setUser(null); // This worked for me
+            setRaised(null);
+            setRaisedRetrieve(null)
+          };
       }, [creator])
     
     const setCreaProf = (creator) => {

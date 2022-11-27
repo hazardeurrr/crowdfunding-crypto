@@ -16,6 +16,7 @@ import { campaignAbi } from '@/components/ContractRelated/CampaignAbi';
 import { db } from 'firebase-crowdfund/index';
 import { Button } from '@material-ui/core';
 
+
 class Explore extends React.Component {
 
     constructor(props){
@@ -35,7 +36,8 @@ class Explore extends React.Component {
             page: 0,
             lastBatch: false,
             lastPreBatch: false,
-            preProjects: []
+            preProjects: [],
+            disabled: false
         }
         this.addCategory = this.addCategory.bind(this);
         this.removeCategory = this.removeCategory.bind(this);
@@ -81,7 +83,7 @@ class Explore extends React.Component {
         var rows = [];
         for (var i = 0; i < CategoryList.length; i++) {
             rows.push(<FormControlLabel key={i}
-              control={<Checkbox checked={this.state.checked[i]} onChange={this.handleChange} name={i.toString()} />}
+              control={<Checkbox disabled={this.state.disabled} color="default" checked={this.state.checked[i]} onChange={this.handleChange} name={i.toString()} />}
               label={CategoryList[i]}
             />);
         }
@@ -146,7 +148,7 @@ class Explore extends React.Component {
             })
           return newArr
         } else {
-          return []
+          return this.props.firstCampaigns
         }
       }
 
@@ -175,6 +177,7 @@ class Explore extends React.Component {
 
     
     loadProjects(){
+        this.setState({disabled: true})
         this.setState({page: 0})
         this.setState({lastBatch: false})
         this.setState({lastPreBatch: false})
@@ -183,10 +186,12 @@ class Explore extends React.Component {
         if(this.categoriesSelected.length == 0){
             this.setState({projects: this.props.firstCampaigns})
             this.setState({preProjects: []})
+            this.setState({disabled: false})
         }
         else{
           this.dynamicSearch().then((res) => {
             this.setState({projects: res})
+            this.setState({disabled: false})
           })
           // this.setState({preprojects: this.dynamicSearchPre()})
         }
