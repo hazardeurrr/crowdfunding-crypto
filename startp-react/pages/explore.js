@@ -7,8 +7,6 @@ import SimplePreCampaignPost from '@/components/Common/SimplePreCampaignPost';
 import CategoryList from '@/utils/CategoryList';
 import Checkbox from '@material-ui/core/Checkbox';
 import categoryList from '@/utils/CategoryList';
-import { withStyles } from '@material-ui/core/styles';
-import { green } from '@material-ui/core/colors';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Pagination from '@material-ui/lab/Pagination';
 import {connect} from 'react-redux'
@@ -17,16 +15,6 @@ import {bnb_chain} from '@/utils/bnb_chain'
 import { campaignAbi } from '@/components/ContractRelated/CampaignAbi';
 import { db } from 'firebase-crowdfund/index';
 import { Button } from '@material-ui/core';
-
-// const GreenCheckbox = withStyles({
-//     root: {
-//       color: green[400],
-//       '&$checked': {
-//         color: green[600],
-//       },
-//     },
-//     checked: {},
-//   })((props) => <Checkbox color="default" {...props} />);
 
 class Explore extends React.Component {
 
@@ -93,7 +81,7 @@ class Explore extends React.Component {
         var rows = [];
         for (var i = 0; i < CategoryList.length; i++) {
             rows.push(<FormControlLabel key={i}
-              control={<Checkbox color="default" checked={this.state.checked[i]} onChange={this.handleChange} name={i.toString()} />}
+              control={<Checkbox checked={this.state.checked[i]} onChange={this.handleChange} name={i.toString()} />}
               label={CategoryList[i]}
             />);
         }
@@ -101,22 +89,22 @@ class Explore extends React.Component {
       }
 
       networkCheckboxes = () => {
-        var rows = [];
-        rows.push(<FormControlLabel key={0}
-          control={<Checkbox color="primary" checked={this.state.network_checked.includes(bnb_chain)} onChange={this.handleChangeNetwork} name={bnb_chain} />}
-          label={<section>
-            BNB Chain 
-            {/* <img style={{height: 17}} src="/images/cryptoicons/bnb.svg"/> */}
-          </section>}
-        />);
-        rows.push(<FormControlLabel key={1}
-          control={<Checkbox color="primary" checked={this.state.network_checked.includes(chain)} onChange={this.handleChangeNetwork} name={chain} />}
-          label={<section>
-            Ethereum 
-            {/* <img style={{height: 17}} src="/images/cryptoicons/eth.svg"/> */}
-          </section>}
-        />);
-        return rows;
+        // var rows = [];
+        // rows.push(<FormControlLabel key={0}
+        //   control={<Checkbox color="primary" checked={this.state.network_checked.includes(bnb_chain)} onChange={this.handleChangeNetwork} name={bnb_chain} />}
+        //   label={<section>
+        //     BNB Chain 
+        //     {/* <img style={{height: 17}} src="/images/cryptoicons/bnb.svg"/> */}
+        //   </section>}
+        // />);
+        // rows.push(<FormControlLabel key={1}
+        //   control={<Checkbox color="primary" checked={this.state.network_checked.includes(chain)} onChange={this.handleChangeNetwork} name={chain} />}
+        //   label={<section>
+        //     Ethereum 
+        //     {/* <img style={{height: 17}} src="/images/cryptoicons/eth.svg"/> */}
+        //   </section>}
+        // />);
+        // return rows;
       }
 
     componentDidMount(){
@@ -138,28 +126,32 @@ class Explore extends React.Component {
 
     async dynamicSearch(){
         // console.log(this.categoriesSelected)
-        var newArr = []
-        await db.collection("campaignsBNBTest").where("confirmed", "==", true).where("categories", "array-contains-any", this.categoriesSelected).orderBy("live", "desc").orderBy("like_score", "desc").limit(this.nbByPage)
-        .get()
-        .then((ds) => {
-            ds.forEach(element => {
-                newArr.push(element.data())
-            })
-            if(ds.docs.length > 0){
-              this.lastDoc = ds.docs[ds.docs.length-1]
-            }
-            if(ds.docs.length < this.nbByPage){
-              this.setState({lastBatch: true})
-              this.searchPre(this.nbByPage - ds.docs.length).then((res) => {
-                this.setState({preProjects: res})
+        if(this.categoriesSelected.length > 0){
+          var newArr = []
+          await db.collection("campaignsBNBTest").where("confirmed", "==", true).where("categories", "array-contains-any", this.categoriesSelected).orderBy("live", "desc").orderBy("like_score", "desc").limit(this.nbByPage)
+          .get()
+          .then(async (ds) => {
+              ds.forEach(element => {
+                  newArr.push(element.data())
               })
-            }
-          })
-        return newArr
-
+              if(ds.docs.length > 0){
+                this.lastDoc = ds.docs[ds.docs.length-1]
+              }
+              if(ds.docs.length < this.nbByPage){
+                this.setState({lastBatch: true})
+                this.searchPre(this.nbByPage - ds.docs.length).then((res) => {
+                  this.setState({preProjects: res})
+                })
+              }
+            })
+          return newArr
+        } else {
+          return []
+        }
       }
 
     async searchPre(nb){
+      if(this.categoriesSelected.length > 0){
         var newArr = []
         await db.collection("preCampaignsTest").where("categories", "array-contains-any", this.categoriesSelected).orderBy("id").limit(nb)
         .get()
@@ -174,7 +166,10 @@ class Explore extends React.Component {
               this.setState({lastPreBatch: true})
             }
           })
-        return newArr      
+        return newArr     
+      } else {
+        return []
+      }
     }
 
 
