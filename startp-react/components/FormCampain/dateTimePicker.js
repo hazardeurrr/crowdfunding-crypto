@@ -31,6 +31,7 @@ export default function DateValidPicker(props) {
         <DateTimePicker
           renderInput={(params) => <TextField style={{marginRight: 10, marginTop: 5, marginBottom:5}} {...params} />}
           label="Select end date"
+          disabled={valueStart == null}
           value={valueEnd}
           onChange={(newValue) => {
             setValueEnd(newValue);
