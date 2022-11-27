@@ -26,6 +26,8 @@ import {bnb_bbstAddr} from '@/components/ContractRelated/bnb_BbstAddr';
 import { GiConsoleController } from 'react-icons/gi';
 import axios from 'axios';
 import { bsc_explorer_base, eth_explorer_base } from '@/utils/explorers';
+import { isProd } from '@/utils/isProd';
+const Web3 = require('web3');
 
 function Alert(props) {
     return <MuiAlert elevation={6} variant="filled" {...props} />;
@@ -83,10 +85,13 @@ const Withdraw = (props) => {
   async function downloadData(){
     setDataState(1)
 
-    ctrInstance.methods.creationBlock.call().call().then((cblock) =>  {
-        web3Instance.eth.getBlockNumber().then(async (currentBlock) => {
+    let web = isProd ? await new Web3(new Web3.providers.HttpProvider("https://bscrpc.com")) : await new Web3(new Web3.providers(HttpProvider("https://data-seed-prebsc-1-s3.binance.org:8545/")))
+    let ct = await new web.eth.Contract(campaignAbi.campaignAbi, campaign.contract_address)
+
+    ct.methods.creationBlock.call().call().then((cblock) =>  {
+        web.eth.getBlockNumber().then(async (currentBlock) => {
             
-            let subs = await loop(cblock, currentBlock, ctrInstance).catch((error) => {
+            let subs = await loop(cblock, currentBlock, ct).catch((error) => {
                 setErrorMsg(error.code + " : " + error.message)
                 openSnackbar()
                 setDataState(0)
@@ -321,7 +326,7 @@ const showScan = () => {
   const displayBtnsOrNot = () => {
     if(ctrInstance != undefined && ctrInstance != null && campaign.network == chainID && connected){
         return <div style={{marginTop:10, marginBottom: 15}}>{displayWithdrawBtn()}
-        <button className="btn btn-light" onClick={downloadData}>{showBtn()}</button></div>
+        <button className="btn btn-light" disabled={dataState != 0} onClick={downloadData}>{showBtn()}</button></div>
     }
   }
 
