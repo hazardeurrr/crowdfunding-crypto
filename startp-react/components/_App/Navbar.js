@@ -913,7 +913,7 @@ const Navbar = () => {
         }
     }
 
-    const showSwitch = () => {
+    const returnSwitch = () => {
         if(isProd){
             return switchToBNB()                   // !!!!!!!!!!!!!!!!!!!!!!!!!!! CHANGER TO SWITCH TO BNB !!!!!!!!!!!
         } else {
