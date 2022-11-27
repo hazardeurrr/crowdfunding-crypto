@@ -375,7 +375,9 @@ const PreCampaign = (props) => {
 
     const showNextBtnDate = () => {
         if(startDate !== null && endDate !== null){
-            return <Button variant="contained" onClick={handleNext}>Next</Button>
+            if(startDate < endDate){
+                return <Button variant="contained" onClick={handleNext}>Next</Button>
+            }
         }
     }
 

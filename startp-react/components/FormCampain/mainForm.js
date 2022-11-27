@@ -479,6 +479,9 @@ class MainForm extends React.Component {
 
     checkCampaignIsValid = () => {
         if(this.state.image != null && this.state.html != '' && this.state.title != null && this.startDate != undefined && this.endDate != undefined && this.state.objective > 0){
+            if(this.startDate >= this.endDate){
+                return false
+            }
             return true
         }
         return false
