@@ -123,7 +123,13 @@ class MainForm extends React.Component {
         // this.objective = 0,
         this.objectiveError = ''
         this.steps = this.getSteps()
+
     }
+
+    onUnload = e => { // the method that will be used for both add and remove event
+        e.preventDefault();
+        e.returnValue = '';
+     }
 
     getStartRaisingMethod(){
         if(this.props.chainID == chain){
@@ -132,6 +138,14 @@ class MainForm extends React.Component {
             return "b_BUSD"
         }
     }
+
+    componentDidMount() {
+        window.addEventListener("beforeunload", this.onUnload);
+     }
+ 
+     componentWillUnmount() {
+         window.removeEventListener("beforeunload", this.onUnload);
+     }
 
     
      UNSAFE_componentWillMount() {
