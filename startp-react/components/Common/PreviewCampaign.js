@@ -75,7 +75,7 @@ const PreviewCampaign = (props) => {
                                             </div>
                                         </div>
 
-                                        <div style={{display: "flex"}}>
+                                        {/* <div style={{display: "flex"}}>
                                       
                                           <a className="btn btn-primary">Back this campaign</a>
                                           <UseAnimations
@@ -85,7 +85,7 @@ const PreviewCampaign = (props) => {
                                           />
                                             
 
-                                        </div>
+                                        </div> */}
                                     </div>
                                 </div>
                             </div>

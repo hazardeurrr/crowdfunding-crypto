@@ -892,9 +892,13 @@ class MainForm extends React.Component {
                                         open={this.state.modal}
                                         onClose={this.handleCloseModal}
                                         style={{ overflow: 'scroll' }}
-                                    >
+                                    >   
+
                                         <div style={{margin: "auto", width : "90%", backgroundColor:'white'}}>
+                                            <Button variant="contained" style={{position: 'fixed', bottom: 17}} onClick={this.handleCloseModal}>Close preview</Button>
+
                                             <PreviewCampaign content={this.html}/>
+
                                         </div>
                                     </Modal>
                                     
