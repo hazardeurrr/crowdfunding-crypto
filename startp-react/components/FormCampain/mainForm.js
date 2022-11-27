@@ -125,13 +125,19 @@ class MainForm extends React.Component {
         // this.objective = 0,
         this.objectiveError = ''
         this.steps = this.getSteps()
-
+        this.warningText = 'Are you sure you want to leave this page ? All your unsaved changes will be lost.';
     }
 
     onUnload = e => { // the method that will be used for both add and remove event
         e.preventDefault();
-        e.returnValue = '';
+        return (e.returnValue = this.warningText);
      }
+
+     handleBrowseAway = () => {
+        if (window.confirm(this.warningText)) return;
+        router.events.emit('routeChangeError');
+        throw 'routeChange aborted.';
+      };
 
     getStartRaisingMethod(){
         if(this.props.chainID == chain){
@@ -143,11 +149,14 @@ class MainForm extends React.Component {
 
     componentDidMount() {
         window.addEventListener("beforeunload", this.onUnload);
+        router.events.on('routeChangeStart', this.handleBrowseAway);
      }
  
      componentWillUnmount() {
          window.removeEventListener("beforeunload", this.onUnload);
+         router.events.off('routeChangeStart', this.handleBrowseAway);
      }
+
 
     
      UNSAFE_componentWillMount() {
