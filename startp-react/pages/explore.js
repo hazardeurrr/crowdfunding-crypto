@@ -15,6 +15,7 @@ import {bnb_chain} from '@/utils/bnb_chain'
 import { campaignAbi } from '@/components/ContractRelated/CampaignAbi';
 import { db } from 'firebase-crowdfund/index';
 import { Button } from '@material-ui/core';
+import { campaignsCollection, preCampaignsCollection } from '@/utils/collections';
 
 
 class Explore extends React.Component {
@@ -120,7 +121,7 @@ class Explore extends React.Component {
 
     componentDidUpdate(prevProps) {
         // Utilisation classique (pensez bien à comparer les props) :
-        if (this.props.firstCampaigns !== prevProps.firstCampaigns || this.props.allPreCampaigns !== prevProps.allPreCampaigns) {
+        if (this.props.firstCampaigns !== prevProps.firstCampaigns) {
           this.loadProjects();
         }
       }
@@ -130,7 +131,7 @@ class Explore extends React.Component {
         // console.log(this.categoriesSelected)
         if(this.categoriesSelected.length > 0){
           var newArr = []
-          await db.collection("campaignsBNBTest").where("confirmed", "==", true).where("categories", "array-contains-any", this.categoriesSelected).orderBy("live", "desc").orderBy("like_score", "desc").limit(this.nbByPage)
+          await db.collection(campaignsCollection).where("confirmed", "==", true).where("categories", "array-contains-any", this.categoriesSelected).orderBy("live", "desc").orderBy("like_score", "desc").limit(this.nbByPage)
           .get()
           .then(async (ds) => {
               ds.forEach(element => {
@@ -155,7 +156,7 @@ class Explore extends React.Component {
     async searchPre(nb){
       if(this.categoriesSelected.length > 0){
         var newArr = []
-        await db.collection("preCampaignsTest").where("categories", "array-contains-any", this.categoriesSelected).orderBy("id").limit(nb)
+        await db.collection(preCampaignsCollection).where("categories", "array-contains-any", this.categoriesSelected).orderBy("id").limit(nb)
         .get()
         .then((ds) => {
             ds.forEach(element => {
@@ -199,20 +200,20 @@ class Explore extends React.Component {
       
     async getQuery(){
       if(this.categoriesSelected.length > 0){
-        return db.collection("campaignsBNBTest").where("confirmed", "==", true).where("categories", "array-contains-any", this.categoriesSelected).orderBy("live", "desc").orderBy("like_score", "desc").startAfter(this.lastDoc).limit(this.nbByPage)
+        return db.collection(campaignsCollection).where("confirmed", "==", true).where("categories", "array-contains-any", this.categoriesSelected).orderBy("live", "desc").orderBy("like_score", "desc").startAfter(this.lastDoc).limit(this.nbByPage)
         .get()
       } else {
-        return db.collection("campaignsBNBTest").where("confirmed", "==", true).orderBy("live", "desc").orderBy("like_score", "desc").startAfter(this.lastDoc).limit(this.nbByPage)
+        return db.collection(campaignsCollection).where("confirmed", "==", true).orderBy("live", "desc").orderBy("like_score", "desc").startAfter(this.lastDoc).limit(this.nbByPage)
         .get()
       }
     }
 
     async getPreQuery(nb){
       if(this.categoriesSelected.length > 0){
-        return db.collection("preCampaignsTest").where("categories", "array-contains-any", this.categoriesSelected).orderBy("id").startAfter(this.lastPreDoc).limit(nb)
+        return db.collection(preCampaignsCollection).where("categories", "array-contains-any", this.categoriesSelected).orderBy("id").startAfter(this.lastPreDoc).limit(nb)
         .get()
       } else {
-        return db.collection("preCampaignsTest").orderBy("id").startAfter(this.lastPreDoc).limit(nb)
+        return db.collection(preCampaignsCollection).orderBy("id").startAfter(this.lastPreDoc).limit(nb)
         .get()
       }
     }

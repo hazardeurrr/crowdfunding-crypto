@@ -6,6 +6,7 @@ import PricingTiers from '@/components/Common/PricingTiers';
 import Custom404 from 'pages/404';
 import {getOne} from 'firebase-crowdfund/queries';
 import CircularProgress from '@material-ui/core/CircularProgress';
+import { campaignsCollection } from '@/utils/collections';
  
 const DonationCheckout = (props, {c}) => {
    
@@ -13,7 +14,7 @@ const DonationCheckout = (props, {c}) => {
 
 
     React.useEffect(() => {
-        getOne('campaignsBNBTest', props.address.toLowerCase(), function(docs) {
+        getOne(campaignsCollection, props.address.toLowerCase(), function(docs) {
             if (docs.exists) {
                 setCampaign(docs.data())
             } else {

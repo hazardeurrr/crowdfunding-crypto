@@ -22,7 +22,6 @@ const initialState = {
   currentProvider: undefined,
   showWelcome: true,
   openNotif: false,
-  allPreCampaigns: [],
   lastFirstDoc: null
 }
 
@@ -116,12 +115,6 @@ const reducer = (state = initialState, action) => {
       return {
         ...state,
         bnb_web3Instance: action.id
-    }
-
-    case 'SET_ALL_PRECAMPAIGNS':
-      return {
-        ...state,
-        allPreCampaigns: action.id
     }
 
     case 'SET_FIRST_CAMPAIGNS':

@@ -39,6 +39,7 @@ import { prefixedAddress } from '@/utils/prefix';
 import { NoBscProviderError } from '@binance-chain/bsc-connector';
 import { Avatar, Chip } from '@material-ui/core';
 import WidgetComponent from '@/components/Common/Widget';
+import { campaignsCollection } from '@/utils/collections';
 
 const Widget = (props) => {
     
@@ -46,7 +47,7 @@ const Widget = (props) => {
 
     React.useEffect(() => {
  
-         getOne('campaignsBNBTest', props.address, function(doc) {
+         getOne(campaignsCollection, props.address, function(doc) {
            if (doc.exists) {
              setCampaign(doc.data())
              // console.log(campaign)

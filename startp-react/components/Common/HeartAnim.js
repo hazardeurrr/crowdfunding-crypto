@@ -12,6 +12,7 @@ import {chain} from '@/utils/chain'
 import {bnb_chain} from '@/utils/bnb_chain'
 import {db} from '../../firebase-crowdfund/index'
 import firebase from 'firebase/app';
+import { campaignsCollection } from '@/utils/collections';
 
 const HeartAnim = (props) => {
 
@@ -88,7 +89,7 @@ const HeartAnim = (props) => {
           // let c = campaign;
           // delete c.likedTupleMap[currentUser.eth_address]
           // updateDoc(documentAddress, 'campaignsBNBTest', c)
-          db.collection("campaignsBNBTest").doc(documentAddress).update("like_score", firebase.firestore.FieldValue.increment(-1))
+          db.collection(campaignsCollection).doc(documentAddress).update("like_score", firebase.firestore.FieldValue.increment(-1))
 
   
     } else {
@@ -109,7 +110,7 @@ const HeartAnim = (props) => {
         // c.likedTupleMap[currentUser.eth_address] = totalLikeAmount
         // updateDoc(documentAddress, 'campaignsBNBTest', c)
 
-        db.collection("campaignsBNBTest").doc(documentAddress).update("like_score", firebase.firestore.FieldValue.increment(1))
+        db.collection(campaignsCollection).doc(documentAddress).update("like_score", firebase.firestore.FieldValue.increment(1))
 
 
         // CHANGER ARRAY PAR UNE MAP

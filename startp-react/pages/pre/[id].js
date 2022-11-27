@@ -63,6 +63,8 @@ import { db } from 'firebase-crowdfund/index'
 import { toBaseUnit } from '@/utils/bnConverter';
 import { bbstAbi } from '@/components/ContractRelated/BbstAbi';
 import Tiers from '@/components/FormCampain/tiers';
+import { campaignsCollection, preCampaignsCollection } from '@/utils/collections';
+import { bsc_explorer_base, eth_explorer_base } from '@/utils/explorers';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -129,7 +131,7 @@ const PreCampaign = (props) => {
 
         // console.log(props)
 
-        getOne('preCampaignsTest', props.address, function(doc) {
+        getOne(preCampaignsCollection, props.address, function(doc) {
           if (doc.exists) {
             setCampaign(doc.data())
             displayHTMLTxt(doc.data().long_desc)
@@ -340,9 +342,9 @@ const PreCampaign = (props) => {
 
     const explorerLink = () => {
         if(chainID == chain){
-            return <a className="responsiveLinkTx" href={`https://goerli.etherscan.io/tx/${Tx}`} target="_blank">{Tx}</a>
+            return <a className="responsiveLinkTx" href={`https://${eth_explorer_base}/tx/${Tx}`} target="_blank">{Tx}</a>
         } else if(chainID == bnb_chain){
-            return <a className="responsiveLinkTx" href={`https://testnet.bscscan.com/tx/${Tx}`} target="_blank">{Tx}</a>
+            return <a className="responsiveLinkTx" href={`https://${bsc_explorer_base}/tx/${Tx}`} target="_blank">{Tx}</a>
         }
     }
 
@@ -703,7 +705,7 @@ const PreCampaign = (props) => {
                     shortURL: shortURL
                 }
                                
-                db.collection('campaignsBNBTest').doc(prefixedAddress(chainID, contract_address)).set(campainInfos).then(() => {
+                db.collection(campaignsCollection).doc(prefixedAddress(chainID, contract_address)).set(campainInfos).then(() => {
                     updateProfile()
                     // handleNext()    
                     // setActiveStep(4)

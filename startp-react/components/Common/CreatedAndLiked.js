@@ -6,6 +6,7 @@ import { chain } from '@/utils/chain';
 import { db } from '../../firebase-crowdfund/index'
 import firebase from 'firebase/app';
 import { Button } from '@material-ui/core';
+import { campaignsCollection } from '@/utils/collections';
 
 class CreatedAndLiked extends Component {
 
@@ -30,7 +31,7 @@ class CreatedAndLiked extends Component {
     async getCreated(){
         if(this.user != undefined){
             let newArr = []
-            await db.collection('campaignsBNBTest').where("confirmed", "==", true).where("creator", "==", this.user.eth_address.toLowerCase())
+            await db.collection(campaignsCollection).where("confirmed", "==", true).where("creator", "==", this.user.eth_address.toLowerCase())
             .get()
             .then((docs) => {
                 docs.forEach(element => {
@@ -50,7 +51,7 @@ class CreatedAndLiked extends Component {
                 let likedArr = this.user.liked.slice(nbByPage*this.showIndex, endInd)
                 if(likedArr.length > 0){
                     let newArr = []
-                    await db.collection('campaignsBNBTest').where("confirmed", "==", true).where(firebase.firestore.FieldPath.documentId(), "in", likedArr)
+                    await db.collection(campaignsCollection).where("confirmed", "==", true).where(firebase.firestore.FieldPath.documentId(), "in", likedArr)
                     .get()
                     .then((docs) => {
                         docs.forEach(element => {

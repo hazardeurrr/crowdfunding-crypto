@@ -20,6 +20,7 @@ import {bnb_bbstAddr} from '@/components/ContractRelated/bnb_BbstAddr';
 
 import * as IconFeather from 'react-feather';
 import Link from 'next/link';
+import { bsc_explorer_base } from '@/utils/explorers';
 
 
 function Alert(props) {
@@ -191,7 +192,7 @@ const closeDialog = () => {
 
             <DialogContentText id="alert-dialog-description">
             Transaction Hash : </DialogContentText>
-            <DialogContentText id="alert-dialog-description"><a className="responsiveLinkTx" href={`https://testnet.bscscan.com/tx/${Tx}`} target="_blank">{Tx}</a></DialogContentText>
+            <DialogContentText id="alert-dialog-description"><a className="responsiveLinkTx" href={`https://${bsc_explorer_base}/tx/${Tx}`} target="_blank">{Tx}</a></DialogContentText>
             </DialogContent></div>
         case 1:
             return <div style={{justifyContent:'center'}}>
@@ -199,7 +200,7 @@ const closeDialog = () => {
             <DialogContent>
             <DialogContentText id="alert-dialog-description" style={{marginTop: 15}}>
             Transaction confirmed : </DialogContentText>
-            <DialogContentText id="alert-dialog-description"><a className="responsiveLinkTx" href={`https://testnet.bscscan.com/tx/${Tx}`} target="_blank">{Tx}</a></DialogContentText>
+            <DialogContentText id="alert-dialog-description"><a className="responsiveLinkTx" href={`https://${bsc_explorer_base}/tx/${Tx}`} target="_blank">{Tx}</a></DialogContentText>
             <div style={{justifyContent:'center'}}>
                         <Link href={{
                             pathname: "/"

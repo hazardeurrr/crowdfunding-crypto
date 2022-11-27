@@ -49,6 +49,7 @@ import NotificationsNoneIcon from '@material-ui/icons/NotificationsNone';
 import { withStyles } from '@material-ui/core/styles';
 import SimpleNotifCard from "../Common/SimpleNotifCard";
 import { useRouter } from "next/router";
+import { isProd } from "@/utils/isProd";
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -230,12 +231,12 @@ const Navbar = () => {
     }, [])
 
     async function initApp(){
-        var web3bnb = new Web3(new Web3.providers.HttpProvider("https://data-seed-prebsc-1-s3.binance.org:8545/"))
+        var web3bnb = isProd ? new Web3(new Web3.providers.HttpProvider("https://bsc-dataseed.binance.org/")) : new Web3(new Web3.providers.HttpProvider("https://data-seed-prebsc-1-s3.binance.org:8545/"))
             dispatch({
                 type:'SET_WEB3BNB',
                 id: web3bnb
             })
-            var web3eth = new Web3(new Web3.providers.HttpProvider("https://goerli.infura.io/v3/391e7c4cd5274ef8a269414b4833bade"))
+            var web3eth = isProd ? new Web3(new Web3.providers.HttpProvider("https://mainnet.infura.io/v3/391e7c4cd5274ef8a269414b4833bade")) : new Web3(new Web3.providers.HttpProvider("https://goerli.infura.io/v3/391e7c4cd5274ef8a269414b4833bade"))
             dispatch({
                 type:'SET_WEB3ETH',
                 id: web3eth
@@ -313,7 +314,11 @@ const Navbar = () => {
           let provider
 
           try {
-            provider = await coinbaseWallet.makeWeb3Provider("https://data-seed-prebsc-1-s3.binance.org:8545/", 97)
+            if(isProd){
+                provider = await coinbaseWallet.makeWeb3Provider("https://bsc-dataseed.binance.org/", 56)
+            } else {
+                provider = await coinbaseWallet.makeWeb3Provider("https://data-seed-prebsc-1-s3.binance.org:8545/", 97)
+            }
           } catch(e) {
             console.log("Could not get a wallet connection", e);
             return;
@@ -324,7 +329,10 @@ const Navbar = () => {
 
     //----------------PORTIS---------------//
     async function initPortisProvider(){
-          const bscProvider = {
+          const bscProvider = isProd ? {
+            nodeUrl: "https://bsc-dataseed.binance.org/",
+            chainId: 56,
+          } : {
             nodeUrl: "https://data-seed-prebsc-1-s3.binance.org:8545/",
             chainId: 97,
           };
@@ -335,8 +343,10 @@ const Navbar = () => {
 
      //----------------BINANCE WALLET---------------//
      async function initBNBWalletProvider(){
-        const bsc = new BscConnector({
-            supportedChainIds: [56, 97]
+        const bsc = isProd ? new BscConnector({
+            supportedChainIds: [56]
+            }) : new BscConnector({
+            supportedChainIds: [97]
             })
             const bsc_provider = await bsc.getProvider()
 
@@ -351,15 +361,16 @@ const Navbar = () => {
 
     //----------------WALLET CONNECT---------------//
     async function initWalletConnectProvider(){
-        const provider = new WalletConnectProvider({
+        const provider = isProd ? new WalletConnectProvider({
             rpc: {
-              97: "https://data-seed-prebsc-1-s3.binance.org:8545/",
               56:"https://bsc-dataseed.binance.org/"
-              // ...
             },
             chainId: 56
-            
-            // supportedChainIds: [97, 56]
+          }) : new WalletConnectProvider({
+            rpc: {
+              97: "https://data-seed-prebsc-1-s3.binance.org:8545/",
+            },
+            chainId: 97
           });
           
           try {
@@ -478,7 +489,11 @@ const Navbar = () => {
             if(bnb_web3Instance != undefined){
                 web3b = bnb_web3Instance
             } else {
-                web3b = new Web3(new Web3.providers.HttpProvider("https://data-seed-prebsc-1-s3.binance.org:8545/"))
+                if(isProd){
+                    web3b = new Web3(new Web3.providers.HttpProvider("https://bsc-dataseed.binance.org/"))
+                } else {
+                    web3b = new Web3(new Web3.providers.HttpProvider("https://data-seed-prebsc-1-s3.binance.org:8545/"))
+                }
             }
 
 
@@ -898,6 +913,14 @@ const Navbar = () => {
         }
     }
 
+    const showSwitch = () => {
+        if(isProd){
+            return switchToBNB()                   // !!!!!!!!!!!!!!!!!!!!!!!!!!! CHANGER TO SWITCH TO BNB !!!!!!!!!!!
+        } else {
+            return switchToBNBTestnet()
+        }
+    }
+
     const showCurrNet = () => {
         return <li className="nav-item">
         {/* <Chip variant="outlined" style={{height: 40, background:"none", border:"none"}} avatar={<Avatar sizes='medium' alt='avatar' src={"/images/cryptoicons/ethblack.svg"} />} label={<section style={{display:"flex"}}>
@@ -912,7 +935,7 @@ const Navbar = () => {
                     <Link href="#">
                     <a onClick={e => {
                         e.preventDefault();
-                        switchToBNBTestnet()                   // !!!!!!!!!!!!!!!!!!!!!!!!!!! CHANGER TO SWITCH TO BNB !!!!!!!!!!!
+                        {returnSwitch()}
                         }} className="nav-link">
                         <div style={{display:"flex"}}><img style={{height: 18, marginTop: 1}} src="/images/cryptoicons/smallbnbgray.svg" /> <span style={{marginLeft: 5}}>BNB Smart Chain</span></div>
                     </a>
@@ -943,7 +966,7 @@ const Navbar = () => {
                 return <div>
                 <AppBar position="static" style={{marginTop: -10, marginBottom:10, background:'#F3BA2F', justifyContent:'center', alignItems:'center'}}> 
                     <Typography style={{color: 'white', padding: "6px 3px", fontSize: 13, textAlign: 'center'}}>
-                        You aren't connected to a supported network. Please <b><a style={{textDecoration: "underline", cursor: "pointer"}} onClick={() => switchToBNBTestnet()}>switch to BNB Smart Chain Testnet</a></b>.
+                        You aren't connected to a supported network. Please <b><a style={{textDecoration: "underline", cursor: "pointer"}} onClick={() => returnSwitch()}>switch to BNB Smart Chain</a></b>.
                     </Typography>
                 </AppBar>
             </div>
@@ -951,7 +974,7 @@ const Navbar = () => {
                 return <div>
                 <AppBar position="static" style={{marginTop: -15, marginBottom:10, background:'#F3BA2F', justifyContent:'center', alignItems:'center'}}> 
                     <Typography style={{color: 'white', padding: "6px 3px", fontSize: 13, textAlign: 'center'}}>
-                        You aren't connected to a supported network. Please <b><a style={{textDecoration: "underline", cursor: "pointer"}} onClick={() => switchToBNBTestnet()}>switch to BNB Smart Chain Testnet</a></b>.
+                        You aren't connected to a supported network. Please <b><a style={{textDecoration: "underline", cursor: "pointer"}} onClick={() => returnSwitch()}>switch to BNB Smart Chain</a></b>.
                     </Typography>
                 </AppBar>
             </div>

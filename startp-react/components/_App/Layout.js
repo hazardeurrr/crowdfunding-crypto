@@ -8,6 +8,7 @@ import Navbar from './Navbar';
 import Footer from './Footer';
 // import router from 'next/router';
 import { useRouter } from 'next/router'
+import { campaignsCollection } from '@/utils/collections';
 
 const Layout = ({ children }) => {
 
@@ -18,23 +19,9 @@ const Layout = ({ children }) => {
 
     React.useEffect(() => {
         var campaigns = []
-        var precamps = []
-        var creators = []
-
-        db.collection('preCampaignsTest')
-                .get()
-                .then((ds) => {
-                    ds.forEach(element => {
-                        precamps.push(element.data())
-
-                    })
-
-                changePreState(precamps)      
-
-        })
 
 
-        db.collection('campaignsBNBTest').where("confirmed", "==", true).orderBy("live", "desc").orderBy("like_score", "desc").limit(9)
+        db.collection(campaignsCollection).where("confirmed", "==", true).orderBy("live", "desc").orderBy("like_score", "desc").limit(9)
         .get()
         .then((docs) => {
             docs.forEach(element => {
@@ -57,36 +44,6 @@ const Layout = ({ children }) => {
             console.log("Error getting document:", error);
         });
 
-
-
-        //----------------------/// OLD 
-        // db.collection('campaignsBNBTest').where("confirmed", "==", true).where("startDate", "<=", now).where("endDate", ">=", now)
-        // .get()
-        // .then((docs) => {
-        //     docs.forEach(element => {
-
-        //         campaigns.push(element.data())
-
-        //         db.collection('profile').doc(element.data().creator.toLowerCase()).get().then((doc) => {
-        //             if (doc.exists) {
-        //                 creators.push(doc.data())
-        //             }
-        //         }).catch((err) => {
-        //             console.log(err);
-        //         })
-
-                
-        //         changeUserState(creators)
-
-        //         changeState(campaigns);
-                
-
-                
-        //     })
-        // }).catch((error) => {
-        //     console.log("Error getting document:", error);
-        // });
-
     }, [])
     
     const changeState = (campaigns) => {
@@ -101,13 +58,6 @@ const Layout = ({ children }) => {
         dispatch({
             type: 'SET_ALL_CREATORS',
             id: creators
-        })
-    }
-
-    const changePreState = (campaigns) => {
-        dispatch({
-            type: 'SET_ALL_PRECAMPAIGNS',
-            id: campaigns
         })
     }
 

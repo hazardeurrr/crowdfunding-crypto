@@ -56,6 +56,8 @@ import Typography from '@material-ui/core/Typography';
 import { CheckCircle } from '@material-ui/icons';
 import CircularProgressWithLabel from '../Common/CircularProgressWithLabel';
 import Footer from '../_App/Footer';
+import { campaignsCollection } from '@/utils/collections';
+import { bsc_explorer_base, eth_explorer_base } from '@/utils/explorers';
 
 const Web3 = require('web3');
 const BN = require('bn.js');
@@ -391,7 +393,7 @@ class MainForm extends React.Component {
             console.log("Upload finished")
             // Handle successful uploads on complete
             // For instance, get the download URL: https://firebasestorage.googleapis.com/...
-            storage.ref('campaignsBNBTest')
+            storage.ref(campaignsCollection)
              .child(this.prefixedAddress(contract_address))
              .getDownloadURL().then(async(downloadURL) => {
                 // console.log('File available at', downloadURL);
@@ -451,7 +453,7 @@ class MainForm extends React.Component {
                 // campaign address to be retrieved from the solidity smart contract
                 const creator_address = this.props.userAddr
                 campainInfos['creator'] = creator_address
-                db.collection('campaignsBNBTest').doc(this.prefixedAddress(contract_address)).set(campainInfos).then(x => {
+                db.collection(campaignsCollection).doc(this.prefixedAddress(contract_address)).set(campainInfos).then(x => {
                     // console.log('document written with : ' + campainInfos.title)
 
                     this.handleNext()
@@ -545,9 +547,9 @@ class MainForm extends React.Component {
 
     explorerLink = () => {
         if(this.props.chainID == chain){
-            return <a className="responsiveLinkTx" href={`https://goerli.etherscan.io/tx/${this.state.Tx}`} target="_blank">{this.state.Tx}</a>
+            return <a className="responsiveLinkTx" href={`https://${eth_explorer_base}/tx/${this.state.Tx}`} target="_blank">{this.state.Tx}</a>
         } else if(this.props.chainID == bnb_chain){
-            return <a className="responsiveLinkTx" href={`https://testnet.bscscan.com/tx/${this.state.Tx}`} target="_blank">{this.state.Tx}</a>
+            return <a className="responsiveLinkTx" href={`https://${bsc_explorer_base}/tx/${this.state.Tx}`} target="_blank">{this.state.Tx}</a>
         }
     }
 

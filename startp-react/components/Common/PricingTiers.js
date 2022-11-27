@@ -42,6 +42,7 @@ import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
 import { CheckCircle } from '@material-ui/icons';
 import CircularProgressWithLabel from '../Common/CircularProgressWithLabel';
+import { bsc_explorer_base, eth_explorer_base } from '@/utils/explorers';
 
 const Web3 = require('web3');
 
@@ -428,9 +429,9 @@ const PricingTiers = (props) => {
 
       const showScan = () => {
         if(campaign.network == chain){
-            return <a className="responsiveLinkTx" href={`https://goerli.etherscan.io/tx/${Tx}`} target="_blank">{Tx}</a>
+            return <a className="responsiveLinkTx" href={`https://${eth_explorer_base}/tx/${Tx}`} target="_blank">{Tx}</a>
         } else if(campaign.network == bnb_chain){
-            return <a className="responsiveLinkTx" href={`https://testnet.bscscan.com/tx/${Tx}`} target="_blank">{Tx}</a>
+            return <a className="responsiveLinkTx" href={`https://${bsc_explorer_base}/tx/${Tx}`} target="_blank">{Tx}</a>
         }
     }
 

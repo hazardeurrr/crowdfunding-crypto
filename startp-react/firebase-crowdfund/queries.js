@@ -1,3 +1,4 @@
+import { campaignsCollection } from '@/utils/collections';
 import {db, storage} from './index'
 
 export function getAll(collection, callback) {
@@ -34,7 +35,7 @@ export function postImage(folder, image, name) {
 }
 
 export function postHTMLPage(blob, id) {
-    let uploadTask = storage.ref('campaignsBNBTest/'+id).put(blob);
+    let uploadTask = storage.ref(campaignsCollection+'/'+id).put(blob);
 
     // 'file' comes from the Blob or File API
     

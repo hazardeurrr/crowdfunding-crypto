@@ -15,6 +15,7 @@ import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import Button from '@material-ui/core/Button';
 import * as IconFeather from 'react-feather';
+import { eth_explorer_base } from '@/utils/explorers';
 
 function Alert(props) {
     return <MuiAlert elevation={6} variant="filled" {...props} />;
@@ -124,7 +125,7 @@ const Refund = (props) => {
 
               <DialogContentText id="alert-dialog-description">
               Transaction Hash : </DialogContentText>
-              <DialogContentText id="alert-dialog-description"><a className="responsiveLinkTx" href={`https://goerli.etherscan.io/tx/${Tx}`} target="_blank">{Tx}</a></DialogContentText>
+              <DialogContentText id="alert-dialog-description"><a className="responsiveLinkTx" href={`https://${eth_explorer_base}/tx/${Tx}`} target="_blank">{Tx}</a></DialogContentText>
               </DialogContent></div>
           case 1:
               return <div style={{justifyContent:'center'}}>
@@ -140,7 +141,7 @@ const Refund = (props) => {
                   </Link>  </DialogContentText>
               <DialogContentText id="alert-dialog-description" style={{marginTop: 15}}>
               Transaction confirmed : </DialogContentText>
-              <DialogContentText id="alert-dialog-description"><a className="responsiveLinkTx" href={`https://goerli.etherscan.io/tx/${Tx}`} target="_blank">{Tx}</a></DialogContentText>
+              <DialogContentText id="alert-dialog-description"><a className="responsiveLinkTx" href={`https://${eth_explorer_base}/tx/${Tx}`} target="_blank">{Tx}</a></DialogContentText>
               </DialogContent></div>
           default:
               return <div style={{justifyContent:'center'}}>

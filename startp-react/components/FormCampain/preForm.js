@@ -56,6 +56,7 @@ import Typography from '@material-ui/core/Typography';
 import { CheckCircle } from '@material-ui/icons';
 import CircularProgressWithLabel from '../Common/CircularProgressWithLabel';
 import Footer from '../_App/Footer';
+import { preCampaignsCollection } from '@/utils/collections';
 
 const Web3 = require('web3');
 const BN = require('bn.js');
@@ -214,7 +215,7 @@ class preForm extends React.Component {
         var blob = new Blob([this.sanitizeAndParseHtml(this.html)], {
             type: "text/plain",
           });
-        let uploadTask = storage.ref('preCampaignsTest/'+this.id.toString()).put(blob);
+        let uploadTask = storage.ref(preCampaignsCollection+'/'+this.id.toString()).put(blob);
             // Register three observers:
     // 1. 'state_changed' observer, called any time the state changes
     // 2. Error observer, called on failure
@@ -244,7 +245,7 @@ class preForm extends React.Component {
             console.log("Upload finished")
             // Handle successful uploads on complete
             // For instance, get the download URL: https://firebasestorage.googleapis.com/...
-            storage.ref('preCampaignsTest')
+            storage.ref(preCampaignsCollection)
              .child(this.id.toString())
              .getDownloadURL().then(async(downloadURL) => {
                 // console.log('File available at', downloadURL);
@@ -276,7 +277,7 @@ class preForm extends React.Component {
                 }
                 // console.log(campainInfos)
 
-                db.collection('preCampaignsTest').doc(this.id.toString()).set(campainInfos).then(x => {
+                db.collection(preCampaignsCollection).doc(this.id.toString()).set(campainInfos).then(x => {
                     this.setState({endTxt: "Creation successful ✅"})
 
                     // this.setState({ creationState: 2 }); // etat fini

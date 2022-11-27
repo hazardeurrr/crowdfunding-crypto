@@ -24,6 +24,7 @@ import axios from 'axios';
 import secrets from "../../../startp-react/secrets.json";
 import {db, firebase} from '../../firebase-crowdfund/index'
 import { GiConsoleController } from 'react-icons/gi';
+import { bsc_explorer_base } from '@/utils/explorers';
 
 // Required for side-effects
 require("firebase/functions");
@@ -107,7 +108,7 @@ const CardToken = () => {
 
             <DialogContentText id="alert-dialog-description">
             Transaction Hash : </DialogContentText>
-            <DialogContentText id="alert-dialog-description"><a className="responsiveLinkTx" href={`https://testnet.bscscan.com/tx/${Tx}`} target="_blank">{Tx}</a></DialogContentText>
+            <DialogContentText id="alert-dialog-description"><a className="responsiveLinkTx" href={`https://${bsc_explorer_base}/tx/${Tx}`} target="_blank">{Tx}</a></DialogContentText>
             </DialogContent></div>
         case 1:
             return <div style={{justifyContent:'center'}}>
@@ -125,7 +126,7 @@ const CardToken = () => {
                 </div> 
             <DialogContentText id="alert-dialog-description" style={{marginTop: 15}}>
             Transaction confirmed : </DialogContentText>
-            <DialogContentText id="alert-dialog-description"><a className="responsiveLinkTx" href={`https://testnet.bscscan.com/tx/${Tx}`} target="_blank">{Tx}</a></DialogContentText>
+            <DialogContentText id="alert-dialog-description"><a className="responsiveLinkTx" href={`https://${bsc_explorer_base}}/tx/${Tx}`} target="_blank">{Tx}</a></DialogContentText>
             </DialogContent></div>
 
         case 2:

@@ -8,6 +8,7 @@ import VerifTooltip from '@/components/Common/VerifTooltip';
 import { getOne } from 'firebase-crowdfund/queries'
 import CreatedAndLiked from '@/components/Common/CreatedAndLiked'
 import CircularProgress from '@material-ui/core/CircularProgress';
+import { bsc_explorer_base } from '@/utils/explorers';
 
 
 const useStyles = makeStyles((theme) => ({
@@ -90,7 +91,7 @@ const User = (props, {data}) => {
                     </div>
 
                       <h2>{user.username}&nbsp;<VerifTooltip toBeChecked={user.verified}/></h2>
-                      <a href={`https://testnet.bscscan.com/address/${user.eth_address}`} target="_blank"><h6 className="user-address">{user.eth_address}</h6></a>
+                      <a href={`https://${bsc_explorer_base}/address/${user.eth_address}`} target="_blank"><h6 className="user-address">{user.eth_address}</h6></a>
                       <div className="blog-details-desc">
                         <div className="article-content">
                            <div className="entry-meta">

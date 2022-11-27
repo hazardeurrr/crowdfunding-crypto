@@ -25,6 +25,7 @@ import {bnb_busdAddr} from '@/components/ContractRelated/bnb_busdAddr';
 import {bnb_bbstAddr} from '@/components/ContractRelated/bnb_BbstAddr';
 import { GiConsoleController } from 'react-icons/gi';
 import axios from 'axios';
+import { bsc_explorer_base, eth_explorer_base } from '@/utils/explorers';
 
 function Alert(props) {
     return <MuiAlert elevation={6} variant="filled" {...props} />;
@@ -252,9 +253,9 @@ const Withdraw = (props) => {
 const showScan = () => {
     if(campaign !== undefined){
         if(campaign.network == chain){
-            return <a className="responsiveLinkTx" href={`https://goerli.etherscan.io/tx/${Tx}`} target="_blank">{Tx}</a>
+            return <a className="responsiveLinkTx" href={`https://${eth_explorer_base}/tx/${Tx}`} target="_blank">{Tx}</a>
         } else if(campaign.network == bnb_chain){
-            return <a className="responsiveLinkTx" href={`https://testnet.bscscan.com/tx/${Tx}`} target="_blank">{Tx}</a>
+            return <a className="responsiveLinkTx" href={`https://${bsc_explorer_base}/tx/${Tx}`} target="_blank">{Tx}</a>
         }
     }
 }

@@ -37,6 +37,8 @@ import DOMPurify from 'isomorphic-dompurify';
 
 import { prefixedAddress } from '@/utils/prefix';
 import { NoBscProviderError } from '@binance-chain/bsc-connector';
+import { campaignsCollection } from '@/utils/collections';
+import { bsc_explorer_base, eth_explorer_base } from '@/utils/explorers';
 
 
 const useStyles = makeStyles((theme) => ({
@@ -94,7 +96,7 @@ const Campaign = (props) => {
 
         // console.log(props)
 
-        getOne('campaignsBNBTest', props.address, function(doc) {
+        getOne(campaignsCollection, props.address, function(doc) {
           if (doc.exists) {
             setCampaign(doc.data())
             displayHTMLTxt(doc.data().long_desc)
@@ -403,11 +405,11 @@ const Campaign = (props) => {
     const showScan = () => {
         if(campaign.network == chain){
             return <li>
-            <Icon.ExternalLink /> <a target="_blank" href={`https://goerli.etherscan.io/address/${campaign.contract_address}`}>See on Etherscan</a>
+            <Icon.ExternalLink /> <a target="_blank" href={`https://${eth_explorer_base}/address/${campaign.contract_address}`}>See on Etherscan</a>
             </li>
         } else if(campaign.network == bnb_chain){
             return <li>
-            <Icon.ExternalLink /> <a target="_blank" href={`https://testnet.bscscan.com/address/${campaign.contract_address}`}>See on BscScan</a>
+            <Icon.ExternalLink /> <a target="_blank" href={`https://${bsc_explorer_base}/address/${campaign.contract_address}`}>See on BscScan</a>
             </li>
         }
     }
