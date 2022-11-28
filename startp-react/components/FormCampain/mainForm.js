@@ -58,7 +58,7 @@ import CircularProgressWithLabel from '../Common/CircularProgressWithLabel';
 import Footer from '../_App/Footer';
 import { campaignsCollection } from '@/utils/collections';
 import { bsc_explorer_base, eth_explorer_base } from '@/utils/explorers';
-
+import router from 'next/router';
 const Web3 = require('web3');
 const BN = require('bn.js');
 
