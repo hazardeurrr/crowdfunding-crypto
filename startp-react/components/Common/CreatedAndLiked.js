@@ -45,7 +45,6 @@ class CreatedAndLiked extends Component {
     async getLiked(){
         if(this.user != undefined){
             if(this.user.eth_address == this.props.address){
-
                 let nbByPage = 10
                 let endInd = this.user.liked.length > nbByPage*this.showIndex + nbByPage ? nbByPage*this.showIndex + nbByPage : this.user.liked.length
                 let likedArr = this.user.liked.slice(nbByPage*this.showIndex, endInd)
@@ -64,6 +63,8 @@ class CreatedAndLiked extends Component {
                     this.showIndex++
                     this.setState({liked: this.state.liked.concat(newArr)})
                     })
+                } else {
+                    this.setState({lastBatch:true})
                 }
             }
         }
@@ -130,7 +131,7 @@ class CreatedAndLiked extends Component {
 
     showMoreBtn = () => {
         if(!this.state.lastBatch)
-         return <Button onClick={this.getLiked}>Show more</Button>
+         return <button className='btn btn2 btn-light' onClick={this.getLiked}>Show more</button>
     }
 
     render() {
