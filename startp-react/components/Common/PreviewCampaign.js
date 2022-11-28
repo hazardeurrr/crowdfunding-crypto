@@ -38,7 +38,7 @@ const PreviewCampaign = (props) => {
 
     const returnImg = () => {
         if(props.image){
-            return <img src={props.image}/>
+            return <img style={{width: '100%'}} src={props.image}/>
         } else {
             return <Skeleton animation={false} variant="rect" height={300} />
         }
