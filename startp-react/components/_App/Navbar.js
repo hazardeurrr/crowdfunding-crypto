@@ -231,7 +231,7 @@ const Navbar = () => {
     }, [])
 
     async function initApp(){
-        var web3bnb = isProd ? new Web3(new Web3.providers.HttpProvider("https://bscrpc.com")) : new Web3(new Web3.providers.HttpProvider("https://data-seed-prebsc-1-s3.binance.org:8545/"))
+        var web3bnb = isProd ? new Web3(new Web3.providers.HttpProvider("https://bsc-dataseed.binance.org")) : new Web3(new Web3.providers.HttpProvider("https://data-seed-prebsc-1-s3.binance.org:8545/"))
             dispatch({
                 type:'SET_WEB3BNB',
                 id: web3bnb
@@ -315,7 +315,7 @@ const Navbar = () => {
 
           try {
             if(isProd){
-                provider = await coinbaseWallet.makeWeb3Provider("https://bscrpc.com", 56)
+                provider = await coinbaseWallet.makeWeb3Provider("https://bsc-dataseed.binance.org", 56)
             } else {
                 provider = await coinbaseWallet.makeWeb3Provider("https://data-seed-prebsc-1-s3.binance.org:8545/", 97)
             }
@@ -330,7 +330,7 @@ const Navbar = () => {
     //----------------PORTIS---------------//
     async function initPortisProvider(){
           const bscProvider = isProd ? {
-            nodeUrl: "https://bscrpc.com",
+            nodeUrl: "https://bsc-dataseed.binance.org",
             chainId: 56,
           } : {
             nodeUrl: "https://data-seed-prebsc-1-s3.binance.org:8545/",
@@ -363,7 +363,7 @@ const Navbar = () => {
     async function initWalletConnectProvider(){
         const provider = isProd ? new WalletConnectProvider({
             rpc: {
-              56:"https://bscrpc.com"
+              56:"https://bsc-dataseed.binance.org"
             },
             chainId: 56
           }) : new WalletConnectProvider({
@@ -490,7 +490,7 @@ const Navbar = () => {
                 web3b = bnb_web3Instance
             } else {
                 if(isProd){
-                    web3b = new Web3(new Web3.providers.HttpProvider("https://bscrpc.com"))
+                    web3b = new Web3(new Web3.providers.HttpProvider("https://bsc-dataseed.binance.org"))
                 } else {
                     web3b = new Web3(new Web3.providers.HttpProvider("https://data-seed-prebsc-1-s3.binance.org:8545/"))
                 }
@@ -691,7 +691,7 @@ const Navbar = () => {
                       chainName: 'BNB Smart Chain Mainnet',
                       chainId: "0x38",
                       nativeCurrency: { name: 'Binance Coin', decimals: 18, symbol: 'BNB' },
-                      rpcUrls: ["https://bscrpc.com"],
+                      rpcUrls: ["https://bsc-dataseed.binance.org"],
                       blockExplorerUrls: ['https://bscscan.com']
                     }
                   ]
