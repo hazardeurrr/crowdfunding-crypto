@@ -27,6 +27,7 @@ const HeartAnim = (props) => {
     const web3Instance = useSelector((state) => state.web3Instance)
     const ethaddress = useSelector((state) => state.address)
 
+    const dispatch = useDispatch()
 
     const getNetworkPrefix = () => {
       if(campaign.network == bnb_chain){
@@ -79,10 +80,16 @@ const HeartAnim = (props) => {
        setChecked(false)
        setShowModal(true)
        arrayLiked = arrayLiked.filter((e => e != documentAddress))
+       let newUser = currentUser
+       newUser.liked = arrayLiked
+       dispatch({
+        type: 'SET_CURRENT_USER',
+        id: newUser
+      })
        if(currentUser == undefined || currentUser == null){return}
         
         // updateDoc(currentUser.eth_address, 'profile', u)
-        db.collection("profile").doc(currentUser.eth_address).update({"liked": arrayLiked})
+        db.collection("profile").doc(currentUser.eth_address).update({"liked": firebase.firestore.FieldValue.arrayRemove(documentAddress)})
 
 
           // Change weight depending on BBST balance. Retrieve BBST balance.
@@ -96,11 +103,17 @@ const HeartAnim = (props) => {
       setChecked(true)
       setShowModal(true)
       arrayLiked.push(documentAddress)
+      let newUser = currentUser
+      newUser.liked = arrayLiked
+      dispatch({
+       type: 'SET_CURRENT_USER',
+       id: newUser
+     })
       if(currentUser == undefined || currentUser == null){return}
         // let u = currentUser;
         // u.liked = arrayLiked;
         // updateDoc(currentUser.eth_address, 'profile', u)
-        db.collection("profile").doc(currentUser.eth_address).update({"liked": arrayLiked})
+        db.collection("profile").doc(currentUser.eth_address).update({ "liked": firebase.firestore.FieldValue.arrayUnion(documentAddress)})
 
         // Change weight depending on BBST balance. Retrieve BBST balance.
         // let c = campaign;
