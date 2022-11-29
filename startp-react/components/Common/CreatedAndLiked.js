@@ -130,7 +130,7 @@ class CreatedAndLiked extends Component {
     }
 
     showMoreBtn = () => {
-        if(!this.state.lastBatch)
+        if(!this.state.lastBatch && this.props.user.length > 0)
          return <button className='btn btn2 btn-light' onClick={this.getLiked}>Show more</button>
     }
 
