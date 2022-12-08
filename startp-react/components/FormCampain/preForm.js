@@ -57,6 +57,7 @@ import { CheckCircle } from '@material-ui/icons';
 import CircularProgressWithLabel from '../Common/CircularProgressWithLabel';
 import Footer from '../_App/Footer';
 import { preCampaignsCollection } from '@/utils/collections';
+import OldPreview from '../Common/OldPreview';
 
 const Web3 = require('web3');
 const BN = require('bn.js');
@@ -569,7 +570,7 @@ class preForm extends React.Component {
                                         style={{ overflow: 'scroll' }}
                                     >
                                         <div style={{margin: "auto", width : "90%", backgroundColor:'white'}}>
-                                            <PreviewCampaign content={this.html}/>
+                                            <OldPreview content={this.html}/>
                                         </div>
                                     </Modal>
                                     
