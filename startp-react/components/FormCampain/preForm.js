@@ -379,9 +379,7 @@ class preForm extends React.Component {
                     className='dialogResponsive'
                     open={this.state.dialogOpen}
                     onClose={(_, reason) => {
-                        if (reason !== "backdropClick") {
                           this.closeDialog();
-                        }
                       }}
                     
                     aria-labelledby="alert-dialog-title"
