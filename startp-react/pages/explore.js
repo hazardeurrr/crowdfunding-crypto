@@ -304,7 +304,7 @@ class Explore extends React.Component {
         // }
 
         lproj.forEach((e, index) => {
-          if(e.currency == "$"){
+          if(e.currency == "$" || e.currency == "€"){
             rows.push( <div key={index} className="col-lg-4 col-md-6">
             <SimplePreCampaignPost project={e}/>
             </div>)
