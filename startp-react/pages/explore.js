@@ -26,7 +26,7 @@ class Explore extends React.Component {
         this.languagesSelected = ["EN"];
         this.categoriesSelected = [];
         this.networksSelected = [];
-        this.nbByPage = 9;
+        this.nbByPage = 6;
         this.lastDoc = this.props.lastFirstDoc;
         this.lastPreDoc = null;
 

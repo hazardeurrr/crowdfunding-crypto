@@ -129,14 +129,16 @@ class MainForm extends React.Component {
     }
 
     onUnload = e => { // the method that will be used for both add and remove event
-        e.preventDefault();
-        return (e.returnValue = this.warningText);
+            e.preventDefault();
+            return this.state.activeStep !== this.steps.length ? (e.returnValue = this.warningText) : null;
      }
 
      handleBrowseAway = () => {
-        if (window.confirm(this.warningText)) return;
-        router.events.emit('routeChangeError');
-        throw 'routeChange aborted.';
+        if(this.state.activeStep !== this.steps.length){
+            if (window.confirm(this.warningText)) return;
+            router.events.emit('routeChangeError');
+            throw 'routeChange aborted.';
+        }
       };
 
     getStartRaisingMethod(){
