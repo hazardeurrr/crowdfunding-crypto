@@ -499,7 +499,7 @@ const Campaign = (props) => {
                                                         {/* <li>
                                                             <Icon.Globe /> Network : {showNetwork()}
                                                         </li> */}
-                                                            {showScan()}
+                                                            {/* {showScan()} */}
                                                         
                                                     </ul>                                                 
 
