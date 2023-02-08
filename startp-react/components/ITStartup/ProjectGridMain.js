@@ -21,10 +21,17 @@ const ProjectGridMain = () => {
         const len = projectList.length > 6 ? 6 : projectList.length
         var rows = [];
         for (var i = 0; i < len; i++) {
-                    rows.push( <div key={i} className="col-lg-4 col-md-6">
-            <SimpleCampaignPost project={projectList[i]}
-                />
-            </div>);
+            if(i == 0){
+                rows.push( <div key={i} className="col-lg-4 col-md-6">
+                <SimpleCampaignPost featured={true} project={projectList[i]}
+                    />
+                </div>)
+            } else {
+                rows.push( <div key={i} className="col-lg-4 col-md-6">
+                <SimpleCampaignPost project={projectList[i]}
+                    />
+                </div>)
+            }
         }
         return rows;
       }

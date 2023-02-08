@@ -301,6 +301,62 @@ const SimpleCampaignPost = (props) => {
 
     const displayContent = () => {
         if(user != undefined && user.eth_address.toLowerCase() == creator.toLowerCase()){
+            if(props.featured) {
+                return <div className="single-blog-post" style={{boxShadow: "0 0 10px #000000"}}>
+            <div className="blog-image">
+              <Link href={{
+                              pathname: "/campaigns/[id]",
+                              query: {
+                                  id: prefixedAddress(campaign.network, campaign.contract_address),
+                              }
+                          }}
+                        //   as={`/campaigns/${campaign.contract_address}`}
+                          >
+                      <a>
+                          <img style={{width: '100%'}} src={campaign.main_img} alt="image" />
+                      </a>
+                  </Link>
+                {cat()}
+            </div>
+            <div className="blog-post-content">
+                    <h3>
+                        <Link href={{
+                            pathname: "/campaigns/[id]",
+                            query: {
+                                id: prefixedAddress(campaign.network, campaign.contract_address),
+                            }
+                        }}
+                        // as={`/campaigns/${campaign.contract_address}`}
+                        >
+                            <a>{campaign.title}</a>
+                        </Link>
+                    </h3>
+                <span width="10">
+                    By &nbsp;
+                    <ChipUser user={user}/>
+                </span>
+                <p>{displayDesc()}</p>
+                <b style={{fontSize: 16.5, marginTop: 2}}><div style={{display:"flex"}}>{displayRaised()} {displayCurrency()}</div></b>
+                {displayProgressBar()}
+                <div style={{display:"flex", justifyContent:"space-between"}}>
+                    <p><svg style={{marginTop: -2}} xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="feather feather-clock"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>   {timeLeft()}</p>
+                    {showNetwork()}
+                </div>
+                <Link href={{
+                          pathname: "/campaigns/[id]",
+                          query: {
+                              id: prefixedAddress(campaign.network, campaign.contract_address),
+                          }
+                      }}
+                    //   as={`/campaigns/${campaign.contract_address}`}
+                      >
+                    <a className="read-more-btn">
+                        {SupportOrSee()} <Icon.ArrowRight />
+                    </a>
+                </Link>
+            </div>
+          </div>     
+        } else {
             return <div className="single-blog-post">
             <div className="blog-image">
               <Link href={{
@@ -355,6 +411,8 @@ const SimpleCampaignPost = (props) => {
                 </Link>
             </div>
           </div>            
+  
+        }       
   
         } else {
             setCreaProf(creator);
