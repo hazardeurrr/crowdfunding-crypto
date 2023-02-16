@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import {FaFacebook, FaInstagram, FaSpotify, FaSoundcloud, FaTwitch, FaTwitter, FaYoutube, FaGlobe} from 'react-icons/fa'
+import {FaFacebook, FaTiktok, FaInstagram, FaSpotify, FaSoundcloud, FaTwitch, FaTwitter, FaYoutube, FaGlobe} from 'react-icons/fa'
 import {SiTiktok} from 'react-icons/si'
 const SocialMediaList = (props) => {
 
@@ -41,7 +41,7 @@ const SocialMediaList = (props) => {
         
         
       case "tiktok":
-        return <a href={`https://tiktok.com/@${campaign.social.tiktok}`} target='_about'><SiTiktok size={'100%'}/></a>
+        return <a href={`https://tiktok.com/@${campaign.social.tiktok}`} target='_about'><FaTiktok size={'100%'}/></a>
       case "spotify":
         return <a href={`https://open.spotify.com/artist/${campaign.social.spotify}`} target='_about'><FaSpotify size={'100%'} color="#1fd660"/></a>
       case "soundclound":

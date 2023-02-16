@@ -33,7 +33,7 @@ import Custom404 from 'pages/404';
 import DOMPurify from 'isomorphic-dompurify';
 import TagListCreaPage from '@/components/Common/TagListCreaPage';
 import SocialMediaList from '@/components/Common/SocialMediaList';
-import SocialFeed from '@/components/Common/SocialFeed';
+// import SocialFeed from '@/components/Common/SocialFeed';
 import Withdraw from '@/components/Common/withdraw';
 
 const useStyles = makeStyles((theme) => ({
@@ -87,20 +87,21 @@ const Creators = (props) => {
 
     React.useEffect(() => {
 
-       // console.log(props.address)
-
-      
-
-        getOne('creatorPage', props.address, function(doc) {
-          if (doc.exists) {
-            setCampaign(doc.data())
-            displayHTMLTxt(doc.data().long_desc)
-          } else {
-              console.log("Document not found")
-          }
-        })
-    }, [])
-
+        // console.log(props.address)
+ 
+         // console.log(props)
+ 
+         getOne("creatorPage", props.address, function(doc) {
+           if (doc.exists) {
+             setCampaign(doc.data())
+             displayHTMLTxt(doc.data().long_desc)
+             // console.log(campaign)
+             var addr = doc.data().creator
+           } else {
+               console.log("Document not found")
+           }
+         })
+     }, [])
 
     
 
@@ -221,17 +222,19 @@ const Creators = (props) => {
                                     }
                                 }}
                                     as={`/Checkout/${campaign.contract_address}`}>
-                            <a className="btn btn-primary">Tip this creator</a>
+                            <a className="btn btn2 btn-primary-crea">Tip this creator</a>
                             </Link>
             } else {
                 return <>
-                    <p><Icon.AlertTriangle /> You are not connected to the right network.<br></br>Please switch to {showNetwork()} to back this campaign.</p>
+                    <button disabled className="btn btn2 btn-primary-crea">Tip this creator</button>
+                    <p><Icon.AlertTriangle /> You are not connected to the right network.<br></br>Please switch to {showNetwork()} to donate.</p>
                 </>
             }
             
         } else {
             return <>
-            <p><Icon.AlertTriangle /> Connect your wallet to donate to this campaign !</p>
+                <button disabled className="btn btn2 btn-primary-crea">Tip this creator</button>
+            <p><Icon.AlertTriangle /> Connect your wallet to donate !</p>
             </>
         }
     }
@@ -285,7 +288,7 @@ const Creators = (props) => {
 
     async function displayHTMLTxt(data){
         // console.log(data)
-        let txt = await fetch('https://cors-serv.herokuapp.com/'+data).then(r => {
+        let txt = await fetch(data).then(r => {
             let b = r.blob().then((a) => a.text().then(h => setHTMLTxt(h)))
     });
     }
@@ -321,8 +324,14 @@ const Creators = (props) => {
     }
 
     const sanitizeAndParseHtml = (htmlString) => {
-        const cleanHtmlString = DOMPurify.sanitize(htmlString, { ADD_TAGS: ["iframe"]}, { ADD_ATTR: ['allow', 'allowfullscreen', 'frameborder', 'scrolling'] },
-          { USE_PROFILES: { html: true } });
+        DOMPurify.addHook('afterSanitizeAttributes', function (node) {
+            // set all elements owning target to target=_blank
+            if (node.hasAttribute('target')){
+              node.setAttribute('target', '_blank')
+              node.setAttribute('rel', 'noopener');
+            }
+          });
+          const cleanHtmlString = DOMPurify.sanitize(htmlString, { USE_PROFILES: { html: true }, ADD_ATTR: ['target', 'allow', 'allowfullscreen', 'frameborder', 'scrolling'], ADD_TAGS: ["iframe"] });
         const html = Parser(cleanHtmlString);
         return html;
 }
@@ -398,7 +407,7 @@ const Creators = (props) => {
                                     </div>
                                 </div>
 
-                                <div className="col-lg-4 col-md-12">
+                                <div className="col-lg-4 col-md-12" style={{textalign : 'center'}}>
                                     <div className="ml-about-content">
                                     {/* <TagListCreaPage campaign={campaign}/> */}
 
@@ -475,7 +484,7 @@ const Creators = (props) => {
                             <CampaignSidebar project = {campaign}/>
 
                             <div style={{marginTop: 35}}>
-                                <SocialFeed project = {campaign}/>
+                                {/* <SocialFeed project = {campaign}/> */}
                             </div>
                         </div>
                     </div>
