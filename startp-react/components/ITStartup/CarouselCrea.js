@@ -5,7 +5,7 @@ import ProjectsCrea from '@/components/MachineLearning/ProjectsCrea'
 
 const CarouselCrea = () => {
     return (
-        <div className="boxes-area" style={{marginTop: 30, paddingBottom: 0}}>
+        <div className="boxes-area" style={{marginTop: 130, paddingBottom: 0}}>
 			<div className="container">
 				<div className="row">
 

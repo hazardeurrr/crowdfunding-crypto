@@ -144,39 +144,46 @@ const displayRaisedIcon = () => {
             return <svg xmlns="http://www.w3.org/2000/svg" width="16" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="feather feather-activity"><polyline points="17 11 12 6 7 11"></polyline><polyline points="17 18 12 13 7 18"></polyline></svg>
         }
     }
+    const displayContent = () => {
 
-    
-    return (
-      <div className="single-blog-post-item">
-        <div className="post-image">
-            <Link href={{
-                        pathname: "/Campaigns/[id]",
+        return <div className="single-box box-crea">
+                    <Link href={{
+                        pathname: "/creators/[id]",
                         query: {
                             id: campaign.contract_address,
                         }
                     }}
-                    as={`/Campaigns/${campaign.contract_address}`}>
-                    <a>
-                        {/* {displayProgressBar()} */}
-                        <img src={campaign.main_img} alt="image" />
-                    </a>               
-            </Link>
-        </div>
+                    as={`/creators/${campaign.contract_address}`}>
+                    <a style={{width: '100%'}}>
+                          <img style={{borderRadius: '50%', top: -70, width: 125, left:0, right:0, marginLeft: 'auto', marginRight: 'auto', position: 'absolute'}} src={campaign.main_img} alt="image" />
+                    
+                <div style={{marginTop: 50, justifyContent:'center', alignItems:'center'}}>
+                    <h3 style={{textAlign:'center'}}>
+                            {campaign.name}
+                    </h3>
+                {/* <p style={{fontSize: 12}}>{displayDesc()}</p> */}
+                
+                {/* <b style={{fontSize: 16.5, marginTop: 2}}><div style={{display:"flex"}}>{displayRaised()} {displayCurrency()}</div></b> */}
+                {/* {displayProgressBar()}
+                <div style={{display:"flex", justifyContent:"space-between"}}>
+                    <p><svg style={{marginTop: -2}} xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="feather feather-clock"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>   {timeLeft()}</p>
+                    <p>{showNetwork()}</p>
+                </div> */}
+                
+                    <p className="read-more-btn" style={{textAlign:'center'}}>
+                        Support this creator
+                        <Icon.ArrowRight />
+                    </p>
+                </div>
+                </a>
+                </Link> 
+            </div>           
+    }
 
-        <div className="post-content">
-            
-            {/* <ul className="post-meta">
-                <li><p><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="feather feather-clock"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg> {timeLeft()}</p></li>
-                <li>{displayRaisedIcon()}
- {displayRaised()} {displayCurrency()}</li>
-            </ul> */}
-                    {displayTitle()}
-                    {/* <p className="read-more-btn" >Tip !</p> */}
-
-                    {/* {cat()} */}
-        </div>
-      </div>
-    );
+    
+    return (
+        displayContent()
+    )
 }
 
 export default SingleCardCarrouselCrea;

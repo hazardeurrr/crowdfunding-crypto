@@ -216,6 +216,11 @@ textarea.form-control {
   background: #44ce6f;
 }
 
+.owl-carousel .owl-stage-outer {
+  overflow-x : clip !important ; 
+  overflow-y : inherit !important;
+}
+
 /* btn btn-primary */
 .btn-primary {
   color: #ffffff;
@@ -1464,6 +1469,10 @@ Boxes CSS
   visibility: hidden;
   -webkit-transition: 0.5s;
   transition: 0.5s;
+}
+
+.box-crea::before {
+  background: linear-gradient(135deg, #cb3841 0%, #cb3841 100%)
 }
 
 .single-box p {
@@ -4001,6 +4010,10 @@ Discover CSS
   background: linear-gradient(135deg, #43e794 0%, #23bdb8 100%);
 }
 
+.discover-area-crea {
+  background: linear-gradient(135deg, #ab1c24 0%, #bd3845 100%)
+}
+
 .discover-image {
   position: relative;
   padding-bottom: 100px;
@@ -4120,6 +4133,10 @@ Industries Serve CSS
   position: relative;
   z-index: 1;
   background: linear-gradient(135deg, #43e794 0%, #23bdb8 100%);
+}
+
+.serve-crea {
+  background: linear-gradient(135deg, #ab1c24 0%, #bd3845 100%)
 }
 
 .industries-serve-area .section-title h2 {

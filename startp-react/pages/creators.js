@@ -8,6 +8,8 @@ import DiscoverArea from '@/components/ITStartup/DiscoverArea';
 import Partner from '@/components/Common/Partner';
 import CarouselCrea from '@/components/ITStartup/CarouselCrea';
 import ProjectGridMainCrea from '@/components/ITStartup/ProjectGridMainCrea';
+import CategoriesLightCrea from '@/components/ITStartup/CategoriesLightCrea';
+import DiscoverAreaCrea from '@/components/ITStartup/DiscoverAreaCrea';
 
 
 const ITStartup = () => {
@@ -17,11 +19,11 @@ const ITStartup = () => {
             <MainBannerCrea />
             {/* <Features /> */}
             <CarouselCrea/>
-            <CategoriesLight />
-            <ProjectGridMainCrea />
+            <CategoriesLightCrea />
+            {/* <ProjectGridMainCrea /> */}
             {/* <Partner /> */}
 
-            <DiscoverArea />
+            <DiscoverAreaCrea />
             {/* <ServicesArea />
             <OurFeatures />
             <Team />

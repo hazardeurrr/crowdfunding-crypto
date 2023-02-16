@@ -31,18 +31,18 @@ const MainBannerCrea = () => {
         <div className="main-banner" >  
 			<div className="d-table">
 				<div className="d-table-cell">
-					<div className="container" style={{textAlign: 'center'}}>
+					<div className="container" style={{textAlign: 'center', marginTop: 35}}>
 						<div className="row h-100 justify-content-center align-items-center">
 								<div className="hero-content">
 								<h5 style={{color:"#6084a4", fontWeight: 350}}>BlockBoosted For Creators</h5>
 								<h1>The donation hub for content creators</h1>
                            
-													 {/* <h5 style={{marginTop: 25}}>0% fee | 100% free</h5> */}
+													 <h5 style={{marginTop: 25}}>Show the power of the community</h5>
 													 <p style={{marginTop: 10}}>Tip content creators directly in crypto.
 													 <br></br>Get rewarded with exclusive NFTs and other counterparts.</p>
 
 											 <Link href="/create">
-												<a className="btn btn-primary-crea">Create my page</a>
+												<a className="btn btn2 btn-primary-crea">Create my page</a>
 											</Link>
 																		<Link href={{
 																								pathname: "/explore",
@@ -50,7 +50,7 @@ const MainBannerCrea = () => {
 																								// 		id: "all",
 																								// 		}
 																								}} activeClassName="active">
-																								<a className="btn btn-light">Explore</a>
+																								<a className="btn btn2 btn-light">Explore</a>
 																		</Link>
 								</div>
 							</div>

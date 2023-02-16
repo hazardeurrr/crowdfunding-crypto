@@ -37,9 +37,9 @@ const ProjectsCrea = ({p}) => {
     }, [])
 
     const options = {
-        loop: false,
+        loop: true,
         nav: false,
-        dots: true,
+        dots: false,
         autoplay: true,
         smartSpeed: 1000,
         margin: 30,
@@ -49,16 +49,16 @@ const ProjectsCrea = ({p}) => {
                 items: 1,
             },
             576:{
-                items: 2,
+                items: 1,
             },
             768:{
-                items: 3,
+                items: 2,
             },
             1024:{
-                items: 4,
+                items: 3,
             },
             1200:{
-                items: 5,
+                items: 4,
             }
         },
     }
@@ -80,7 +80,7 @@ const ProjectsCrea = ({p}) => {
         if(projects != undefined && projects.length != 0){
             return <div className="container-fluid">
             {display ? <OwlCarousel 
-                className="ml-projects-slides owl-carousel owl-theme"
+                className="ml-projects-slides owl-carousel owl-theme" 
                 {...options}
             >  
             {ShowProjects()}
@@ -93,7 +93,7 @@ const ProjectsCrea = ({p}) => {
     
     
     return (
-        <div className="ml-projects-area pt-0 ptb-80">
+        <div className="ml-projects-area pt-0 ptb-80" style={{overflow:'visible'}}>
             {displayContent()}
             {/* Shape Images */}
             <div className="shape1">
