@@ -23,6 +23,7 @@ import {getOne} from '../../firebase-crowdfund/queries';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import Skeleton from '@material-ui/lab/Skeleton';
 import {chain} from '@/utils/chain'
+import {bnb_chain} from '@/utils/bnb_chain'
 
 import RaisedChecker from '@/components/Common/RaisedChecker';
 import { MdSentimentVerySatisfied } from 'react-icons/md';
@@ -35,6 +36,7 @@ import TagListCreaPage from '@/components/Common/TagListCreaPage';
 import SocialMediaList from '@/components/Common/SocialMediaList';
 // import SocialFeed from '@/components/Common/SocialFeed';
 import Withdraw from '@/components/Common/withdraw';
+import CampaignSidebarCrea from '@/components/Blog/CampaignSidebarCrea';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -215,7 +217,7 @@ const Creators = (props) => {
     const BackButton = () => {
         if(metamask_connected){
             if(campaign.networks.includes(chainID)){
-                    return <Link href={{
+                    return <div style={{textAlign:'center'}}><Link href={{
                                 pathname: "/Checkout/[id]",
                                 query: {
                                     id: campaign.contract_address,
@@ -223,19 +225,19 @@ const Creators = (props) => {
                                 }}
                                     as={`/Checkout/${campaign.contract_address}`}>
                             <a className="btn btn2 btn-primary-crea">Tip this creator</a>
-                            </Link>
+                            </Link></div>
             } else {
-                return <>
+                return <div style={{textAlign:'center'}}>
                     <button disabled className="btn btn2 btn-primary-crea">Tip this creator</button>
-                    <p><Icon.AlertTriangle /> You are not connected to the right network.<br></br>Please switch to {showNetwork()} to donate.</p>
-                </>
+                    <p style={{marginTop: 5}}><Icon.AlertTriangle /> You are not connected to the right network.<br></br>Please switch to {showNetwork()} to donate.</p>
+                </div>
             }
             
         } else {
-            return <>
+            return <div style={{textAlign:'center'}}>
                 <button disabled className="btn btn2 btn-primary-crea">Tip this creator</button>
-            <p><Icon.AlertTriangle /> Connect your wallet to donate !</p>
-            </>
+            <p style={{marginTop: 5}}><Icon.AlertTriangle /> Connect your wallet to donate !</p>
+            </div>
         }
     }
 
@@ -294,7 +296,7 @@ const Creators = (props) => {
     }
 
     const displayOwnerButtons = () => {
-        if(currentUser !== undefined && campaign !== undefined && metamask_connected && chainID == chain){
+        if(currentUser !== undefined && campaign !== undefined && metamask_connected && chainID == bnb_chain){
             if(userAddr.toLowerCase() === campaign.creator.toLowerCase()){
                 if(raisedRetrieve){
                     if(campaign.end_date < now){
@@ -411,7 +413,7 @@ const Creators = (props) => {
                                     <div className="ml-about-content">
                                     {/* <TagListCreaPage campaign={campaign}/> */}
 
-                                        <div style={{justifyContent:'center', alignItems:'center'}}>
+                                        <div style={{justifyContent:'center', alignItems:'center', textAlign:'center'}}>
                                             <SocialMediaList campaign={campaign}/>
                                             </div>
                                             <div style={{marginTop: 15}}>
@@ -481,7 +483,7 @@ const Creators = (props) => {
                         </div>
 
                         <div className="col-lg-4 col-md-12">
-                            <CampaignSidebar project = {campaign}/>
+                            <CampaignSidebarCrea project = {campaign}/>
 
                             <div style={{marginTop: 35}}>
                                 {/* <SocialFeed project = {campaign}/> */}

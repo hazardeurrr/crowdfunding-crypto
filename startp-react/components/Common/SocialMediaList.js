@@ -1,6 +1,9 @@
 import React, {useEffect, useState} from 'react';
-import {FaFacebook, FaTiktok, FaInstagram, FaSpotify, FaSoundcloud, FaTwitch, FaTwitter, FaYoutube, FaGlobe} from 'react-icons/fa'
+import {FaFacebook, FaInstagram, FaSpotify, FaSoundcloud, FaTwitch, FaTwitter, FaYoutube, FaGlobe} from 'react-icons/fa'
 import {SiTiktok} from 'react-icons/si'
+import Grid from '@material-ui/core/Grid';
+
+
 const SocialMediaList = (props) => {
 
   const campaign = props.campaign
@@ -9,11 +12,9 @@ const SocialMediaList = (props) => {
 
   const showSocial = () => {
     var rows = [];
-    console.log(Object.keys(campaign.social))
     let keyList = Object.keys(campaign.social)
     for (var i = 0; i < keyList.length; i++) {
-        console.log(keyList[i])
-        rows.push(<div style={{margin: 5}}><div style={{width:35, height: 35}}>{socialIcon(keyList[i])}</div></div>);
+        rows.push(<div style={{marginLeft: 5, width:30 , marginRight: 5}}>{socialIcon(keyList[i])}</div>);
     }
     return rows;
   }
@@ -41,7 +42,7 @@ const SocialMediaList = (props) => {
         
         
       case "tiktok":
-        return <a href={`https://tiktok.com/@${campaign.social.tiktok}`} target='_about'><FaTiktok size={'100%'}/></a>
+        return <a href={`https://tiktok.com/@${campaign.social.tiktok}`} target='_about'><SiTiktok color="#000000" size={'100%'}/></a>
       case "spotify":
         return <a href={`https://open.spotify.com/artist/${campaign.social.spotify}`} target='_about'><FaSpotify size={'100%'} color="#1fd660"/></a>
       case "soundclound":
@@ -58,7 +59,7 @@ const SocialMediaList = (props) => {
   }
 
     return (
-      <div style={{display: 'flex', flexDirection: 'row', flexWrap:'wrap'}}>
+      <div style={{display: 'flex', flexDirection: 'row', flexWrap:'wrap', justifyContent:"center", alignItems:'center'}}>
         {showSocial()}
       </div>
     )

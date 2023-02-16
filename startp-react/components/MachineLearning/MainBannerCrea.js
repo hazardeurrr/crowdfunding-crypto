@@ -37,7 +37,7 @@ const MainBannerCrea = () => {
 								<h5 style={{color:"#6084a4", fontWeight: 350}}>BlockBoosted For Creators</h5>
 								<h1>The donation hub for content creators</h1>
                            
-													 <h5 style={{marginTop: 25}}>Show the power of the community</h5>
+													 <h5 style={{marginTop: 25}}>Show the power of community</h5>
 													 <p style={{marginTop: 10}}>Tip content creators directly in crypto.
 													 <br></br>Get rewarded with exclusive NFTs and other counterparts.</p>
 
