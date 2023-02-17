@@ -14,7 +14,7 @@ const DonationCheckout = (props, {c}) => {
 
 
     React.useEffect(() => {
-        getOne(campaignsCollection, props.address.toLowerCase(), function(docs) {
+        getOne("creatorPage", props.address.toLowerCase(), function(docs) {
             if (docs.exists) {
                 setCampaign(docs.data())
             } else {
@@ -32,9 +32,31 @@ const DonationCheckout = (props, {c}) => {
             if(campaign == undefined){
                 return <>
                 {/* <Navbar /> */}
-    
-                <CircularProgress/>
-    
+
+                <PageBanner pageTitle = "Loading..."/>
+
+                <>
+                <div className="pricing-area pt-80 pb-50 bg-f9f6f6" style={{paddingTop: 20, marginTop: -20}}>
+                    <div className="container">
+                        <div style={{textAlign:'center', alignItems:'center', justifyContent:'center'}}><CircularProgress/></div>
+
+                    </div>
+
+                    {/* Shape Images */}
+                    <div className="shape8 rotateme">
+                        <img src="/images/shape2.svg" alt="shape" />
+                    </div>
+                    <div className="shape2 rotateme">
+                        <img src="/images/shape2.svg" alt="shape" />
+                    </div>
+                    <div className="shape7">
+                        <img src="/images/shape4.svg" alt="shape" />
+                    </div>
+                    <div className="shape4">
+                        <img src="/images/shape4.svg" alt="shape" />
+                    </div>
+                    </div>
+            </>
     
                 <Footer />
             </>

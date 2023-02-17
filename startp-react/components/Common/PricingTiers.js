@@ -437,7 +437,7 @@ const PricingTiers = (props) => {
 
      const displayConfirmModal = () => {
                 return  <div style={{justifyContent:'center'}}>
-                <DialogTitle id="alert-dialog-title">Your donation to "{campaign.title}"</DialogTitle>
+                <DialogTitle id="alert-dialog-title">Your donation to "{campaign.name}"</DialogTitle>
                 <DialogContent>
                     {displayStepper()}
                     <DialogContentText style={{marginTop: 15, marginBottom: 0}} id="alert-dialog-description">Transaction hash :</DialogContentText>
@@ -484,7 +484,7 @@ const PricingTiers = (props) => {
                     
                     <div className="pricing-features">
                         <ul>
-                            <li className="active">Thanks for supporting this campaign !</li>
+                            <li className="active">Thanks for supporting this creator !</li>
                         </ul>
                     </div>
                     
@@ -502,7 +502,7 @@ const PricingTiers = (props) => {
     }
 
     const showChoose = () => {
-        if(chainID == campaign.network){
+        if(campaign.network == chainID){
             return <h3 style={{marginTop: 10}}>Choose the plan you want and the amount you wish to donate !</h3>                    
         } else if(connected) {
             return <div style={{marginTop: 30}}>
@@ -519,7 +519,7 @@ const PricingTiers = (props) => {
 
     const displayContent = () => {
         if(userAddr != campaign.creator){
-            return <div className="pricing-area pt-80 pb-50 bg-f9f6f6">
+            return <div className="pricing-area pt-80 pb-50 bg-f9f6f6" style={{marginTop: -20, paddingTop: 20}}>
 
             <Snackbar
                 open={snackbarOpen}
@@ -553,7 +553,8 @@ const PricingTiers = (props) => {
 
             <div className="container">
                 <div className="section-title">
-                    <h2>{campaign.title}</h2>
+                    <img src={campaign.main_img} style={{border: "3px solid rgb(216, 75, 83)", borderRadius: '50%', width: 75, height: 75, marginBottom: 5}} />
+                    <h2>{campaign.name}</h2>
                     <p style={{marginTop: 5}}>{campaign.small_description}</p>
                     <div className="bar"></div>
                     {/* <p>Network : {showNetwork()}</p> */}
@@ -586,7 +587,7 @@ const PricingTiers = (props) => {
                             <h2>Access forbidden</h2>
                             <div className="bar"></div>
 
-                            <h3>You can't donate to your own campaign !</h3>
+                            <h3>You can't donate to your own page !</h3>
                             <Link href={{
                             pathname: "/campaigns/[id]",
                             query: {
@@ -594,7 +595,7 @@ const PricingTiers = (props) => {
                                 }
                             }}
                             >
-                            <a style={{marginTop: 15}} className="btn btn-primary">Back to your campaign</a>
+                            <a style={{marginTop: 15}} className="btn btn-primary">Back to your creator page</a>
                             </Link>  
                         </div>
                     </div>

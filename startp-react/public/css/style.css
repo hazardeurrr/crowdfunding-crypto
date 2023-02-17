@@ -2876,7 +2876,7 @@ Pricing CSS
   width: 100%;
   height: 100%;
   border-radius: 5px 5px 0 0;
-  background: linear-gradient(135deg, #23bdb8 0%, #43e794 100%);
+  background: linear-gradient(135deg, #934e6f 0%, #dc3545 100%);
   opacity: 0;
   visibility: hidden;
   -webkit-transition: 0.5s;
@@ -2956,13 +2956,13 @@ Pricing CSS
 }
 
 .pricing-table.active-plan .btn-primary {
-  background: #b9c1ca;
+  background: #d84b53;
   -webkit-box-shadow: 0 13px 27px 0 rgba(198, 121, 227, 0.25);
           box-shadow: 0 13px 27px 0 rgba(198, 121, 227, 0.25);
 }
 
 .pricing-table.active-plan .btn-primary::after, .pricing-table.active-plan .btn-primary::before {
-  background: #d84b53;
+  background: #b9c1ca;
   -webkit-box-shadow: 0 13px 27px 0 rgba(68, 206, 111, 0.25);
           box-shadow: 0 13px 27px 0 rgba(68, 206, 111, 0.25);
 }

@@ -216,21 +216,17 @@ const Creators = (props) => {
 
     const BackButton = () => {
         if(metamask_connected){
-            if(campaign.networks.includes(chainID)){
+            if(campaign.network == chainID){
                     return <div style={{textAlign:'center'}}><Link href={{
-                                pathname: "/Checkout/[id]",
+                                pathname: "/checkout/[id]",
                                 query: {
                                     id: campaign.contract_address,
                                     }
                                 }}
-                                    as={`/Checkout/${campaign.contract_address}`}>
+                                    as={`/checkout/${campaign.contract_address}`}>
                             <a className="btn btn2 btn-primary-crea">Tip this creator</a>
                             </Link></div>
             } else {
-                return <div style={{textAlign:'center'}}>
-                    <button disabled className="btn btn2 btn-primary-crea">Tip this creator</button>
-                    <p style={{marginTop: 5}}><Icon.AlertTriangle /> You are not connected to the right network.<br></br>Please switch to {showNetwork()} to donate.</p>
-                </div>
             }
             
         } else {

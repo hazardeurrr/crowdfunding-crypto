@@ -14,14 +14,13 @@ const SocialMediaList = (props) => {
     var rows = [];
     let keyList = Object.keys(campaign.social)
     for (var i = 0; i < keyList.length; i++) {
-        rows.push(<div style={{marginLeft: 5, width:30 , marginRight: 5}}>{socialIcon(keyList[i])}</div>);
+        rows.push(<div key={i} style={{marginLeft: 5, width:30 , marginRight: 5}}>{socialIcon(keyList[i])}</div>);
     }
     return rows;
   }
 
   const socialIcon = (media) => {
     
-    console.log(media)
     switch(media){
       case "facebook":
         return <a href={`https://www.facebook.com/${campaign.social.facebook}`} target='_about'><FaFacebook size={'100%'} color="#426298"/></a>
@@ -29,11 +28,11 @@ const SocialMediaList = (props) => {
         return <a href={`https://instagram.com/${campaign.social.instagram}`} target='_about'><div style={{width: {baseWidth}, height: {baseHeight}}}>
           <svg width="0" height="0">
   <radialGradient id="rg" r="150%" cx="30%" cy="107%">
-    <stop stop-color="#fdf497" offset="0" />
+    <stop stopColor="#fdf497" offset="0" />
     {/* <stop stop-color="#fdf497" offset="0.05" /> */}
-    <stop stop-color="#fd5949" offset="0.45" />
-    <stop stop-color="#d6249f" offset="0.6" />
-    <stop stop-color="#285AEB" offset="0.9" />
+    <stop stopColor="#fd5949" offset="0.45" />
+    <stop stopColor="#d6249f" offset="0.6" />
+    <stop stopColor="#285AEB" offset="0.9" />
   </radialGradient>
 </svg>
 
