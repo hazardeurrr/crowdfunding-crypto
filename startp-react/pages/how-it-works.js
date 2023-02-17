@@ -29,7 +29,7 @@ const ServiceDetails = () => {
                     <div className="row align-items-center">
                         <div className="col-lg-6 services-details-image">
                             
-                        <img src="/images/bigdata-analytics/sharedGoals.svg" alt="image" />
+                        <img src="/images/bigdata-analytics/sharedGoals_crea.svg" alt="image" />
                            {/* <iframe src="https://www.youtube.com/embed/-2gl53Dnd38" title="YouTube video player" frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowFullScreen></iframe> */}
                            <iframe style={{width: '100%', aspectRatio: "16/9", marginTop: 35}} src="https://www.youtube.com/embed/5ZlpPdEHG9Y" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
                         </div>
@@ -471,7 +471,7 @@ const ServiceDetails = () => {
                                     alt="image" 
                                 />  
                                 <iframe src="https://www.youtube.com/embed/-2gl53Dnd38" title="YouTube video player" frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowFullScreen></iframe> */}
-                                <img src="/images/bigdata-analytics/launcher.svg" alt="image" />
+                                <img src="/images/bigdata-analytics/launcher_crea.svg" alt="image" />
                                 <iframe style={{width: '100%', aspectRatio: "16/9", marginTop: 35}} src="https://www.youtube.com/embed/-rMjGZBrijI" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
 

@@ -387,14 +387,14 @@ const Creators = (props) => {
             return <div>
             <div className="blog-details-area ptb-80">
                 <div style={{height: '17vw', position: "relative"}}>
-                    <div style={{position: "absolute", width: '100%', height:'100%', overflow:'hidden'}}>
+                    <div className="banner_crea" style={{position: "absolute", width: '100%', height:'100%', overflow:'hidden'}}>
                         <div style={{width: '100%', height:'100%', borderBottom: '4px solid #d04646', borderTop:'4px solid #d04646' ,backgroundSize:"cover", backgroundImage:`url(${campaign.backgroundImage})`}}>
                             
                         </div>
                     </div>
                 </div>
                 <div style={{position:'relative'}}>
-                    <img src={campaign.main_img} style={{position: 'absolute', border: '5px solid #d04646', height:150, top: -75, borderRadius: '50%', left: 0, right: 0, marginRight: 'auto', marginLeft:'auto'}}/>
+                    <img src={campaign.main_img} className="pp_crea"/>
                 </div>
                 <div className="container">
                     <div className="about-area ptb-80">

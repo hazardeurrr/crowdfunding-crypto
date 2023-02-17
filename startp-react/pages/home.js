@@ -1,26 +1,29 @@
 import React from 'react';
 import Navbar from "@/components/_App/Navbar";
-import MainBanner from "@/components/MachineLearning/MainBanner";
+import MainBannerCrea from "@/components/MachineLearning/MainBannerCrea";
 import Footer from "@/components/_App/Footer";
 import CategoriesLight from "@/components/ITStartup/CategoriesLight";
 import ProjectGridMain from "@/components/ITStartup/ProjectGridMain";
 import DiscoverArea from '@/components/ITStartup/DiscoverArea';
-import FeaturedProjectCarrousel from '@/components/ITStartup/FeaturedProjectCarrousel';
 import Partner from '@/components/Common/Partner';
+import CarouselCrea from '@/components/ITStartup/CarouselCrea';
+import ProjectGridMainCrea from '@/components/ITStartup/ProjectGridMainCrea';
+import CategoriesLightCrea from '@/components/ITStartup/CategoriesLightCrea';
+import DiscoverAreaCrea from '@/components/ITStartup/DiscoverAreaCrea';
 
 
 const ITStartup = () => {
     return (
         <>
             {/* <Navbar /> */}
-            <MainBanner />
+            <MainBannerCrea />
             {/* <Features /> */}
-            {/* <FeaturedProjectCarrousel/> */}
-            <CategoriesLight />
-            <ProjectGridMain />
+            <CarouselCrea/>
+            <CategoriesLightCrea />
+            {/* <ProjectGridMainCrea /> */}
             {/* <Partner /> */}
 
-            <DiscoverArea />
+            <DiscoverAreaCrea />
             {/* <ServicesArea />
             <OurFeatures />
             <Team />

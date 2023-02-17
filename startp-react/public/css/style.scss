@@ -799,11 +799,28 @@ Navbar CSS
 }
 
 // Mobile and iPad Navbar
-@media only screen and (max-width: 991px) {
+@media only screen and (max-width: 767px) {
     #header {
         padding: {
             top: 15px;
             bottom: 15px;
+        };
+        &.headroom {
+            border-bottom: 1px solid #eeeeee;
+
+            &.is-sticky {
+                border-bottom: none;
+            }
+        }
+    }
+}
+
+// Mobile and iPad Navbar
+@media only screen and (min-width: 768px) and (max-width: 991px) {
+    #header {
+        padding: {
+            top: 15px;
+            bottom: 10px;
         };
         &.headroom {
             border-bottom: 1px solid #eeeeee;

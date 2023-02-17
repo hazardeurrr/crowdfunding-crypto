@@ -70,7 +70,7 @@ const Footer = () => {
                                     <div className="logo">
                                 <Link href="/">
                                     <a>
-                                        <img src="/images/logo_svg-cropped.svg" style={{width: 100}} alt="logo" />
+                                        <img src="/images/logo1png.png" style={{width: 100}} alt="logo" />
                                     </a>
                                 </Link>
                             </div>
@@ -134,6 +134,7 @@ const Footer = () => {
                         <div className="single-footer-widget pl-5">
                             <h3>BlockBoosted</h3>
                             <ul className="list">
+                                
                                 <li>
                                     <Link href={{
                                         pathname: "/explore",
@@ -155,8 +156,13 @@ const Footer = () => {
                                     </Link>
                                 </li>
                                 <li>
-                                    <Link href="/token">
+                                    <Link href="https://blockboosted.com/token">
                                         <a>BBST Token</a>
+                                    </Link>
+                                </li>
+                                <li>
+                                    <Link href="https://blockboosted.com/">
+                                        <a>Fundraising</a>
                                     </Link>
                                 </li>
                             </ul>

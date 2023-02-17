@@ -990,7 +990,7 @@ const Navbar = () => {
     const showAppBarFct = () => {
         if(showAppBar){
             return <div>
-            <AppBar position="static" style={{marginTop: -15, marginBottom:10, background:'#44ce6f', justifyContent:'center', alignItems:'center'}}> 
+            <AppBar position="static" style={{marginTop: -15, marginBottom:10, background:'#d84b53', justifyContent:'center', alignItems:'center'}}> 
                 
                 <div style={{display:"flex", justifyContent:'center', alignItems:'center'}}>
                     <Typography style={{color: 'white', padding: "6px 3px", fontSize: 13, textAlign: 'center'}}>
@@ -1063,7 +1063,9 @@ const Navbar = () => {
                     <nav className="navbar navbar-expand-md navbar-light">
                         <Link href="/">
                             <a onClick={toggleNavbar} className="navbar-brand">
-                                <img src="/images/logo_svg-cropped.svg" className="main_logo_navbar" alt="logo" />
+                                {/* <img src="/images/logo_svg-cropped_crea.svg" className="main_logo_navbar" alt="logo" /> */}
+                                <img src="/images/logo1png.png" className="main_logo_navbar" alt="logo" />
+
                             </a>
                         </Link>
 
@@ -1109,7 +1111,13 @@ const Navbar = () => {
                                 </li>
 
                                 <li className="nav-item">
-                                    <Link href={"/token"} activeClassName="active">
+                                    <Link href={"https://blockboosted.com"} activeClassName="active">
+                                        <a onClick={toggleNavbar} className="nav-link">Fundraising</a>
+                                    </Link>
+                                </li>
+
+                                <li className="nav-item">
+                                    <Link href={"https://blockboosted.com/token"} activeClassName="active">
                                         <a onClick={toggleNavbar} className="nav-link">BBST Token</a>
                                     </Link>
                                 </li>

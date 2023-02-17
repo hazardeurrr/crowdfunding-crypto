@@ -74,8 +74,8 @@ const Layout = ({ children }) => {
             <Head>
                 <meta charSet="utf-8" />
                 <meta name="viewport" content="width=device-width, initial-scale=1" />
-                <title>BlockBoosted App - Boost your project with crypto</title>
-                <meta name="description" content="BlockBoosted App · Create your campaign and start raising funds in crypto · Get rewarded in BBST for your donations · Support projects that make sense with 0% fee · Crypto crowdfunding" />
+                <title>BlockBoosted Tip - Tip your favorite content creators with crypto</title>
+                <meta name="description" content="BlockBoosted Tip · Create your page and enhance the power of community · Get tips in crypto · Rewards and exclusive NFTs for your community · Crypto crowdfunding" />
 
             </Head>
             {showNavBar()}

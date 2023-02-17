@@ -14,13 +14,13 @@ const TagListCreaPage = (props) => {
     var rows = [];
     for (var i = 0; i < campaign.categories.length; i++) {
         rows.push(<span className="sub-title" key={i}    
-          style={{marginRight: 5}}>{campaign.categories[i]}</span>);
+          style={{marginRight: 5, marginBottom: 10}}>{campaign.categories[i]}</span>);
     }
     return rows;
   }
 
     return (
-      <div style={{display: 'flex', flexDirection: 'row', flexWrap: 'wrap'}}>
+      <div className="tagList" style={{display: 'flex', flexDirection: 'row', flexWrap: 'wrap'}}>
         {showTags()}
       </div>
     )
