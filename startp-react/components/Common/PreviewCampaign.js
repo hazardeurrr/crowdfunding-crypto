@@ -38,9 +38,15 @@ const PreviewCampaign = (props) => {
 
     const returnImg = () => {
         if(props.image){
-            return <img style={{width: '100%'}} src={props.image}/>
+            return <img src={props.image} className="pp_crea"/>
+        }
+    }
+
+    const returnBanner = () => {
+        if(props.banner){
+            return <img src={props.banner} className="pp_crea"/>
         } else {
-            return <Skeleton animation={false} variant="rect" height={300} />
+            return <Skeleton animation={false} variant="rect" />
         }
     }
 
@@ -66,70 +72,44 @@ const PreviewCampaign = (props) => {
     }
 
   const content = props.content == undefined ? '' : props.content
-  return <div>
+  return <div style={{marginTop: 50}}>
       <div className="blog-details-area ptb-80">
+                <div style={{height: '17vw', position: "relative"}}>
+                    <div className="banner_crea" style={{position: "absolute", width: '100%', height:'100%', overflow:'hidden'}}>
+                        <div style={{width: '100%', height:'100%', borderBottom: '4px solid #d04646', borderTop:'4px solid #d04646' ,backgroundSize:"cover", backgroundImage:`url(${props.banner})`}}>
+                            
+                        </div>
+                    </div>
+                </div>
+                <div style={{position:'relative'}}>
+                    {returnImg()}
+                </div>
                 <div className="container">
                     <div className="about-area ptb-80">
                         <div className="container-fluid">
                             <div className="row align-items-center">
-                                <div className="col-lg-6 col-md-12">
-                                    <div className="ml-about-img">
-                                        {returnImg()}                                       
-                                    </div>
+                                <div className="col-lg-8 col-md-12">
+                                    <div className="ml-about-content">
+                                        <h1>{props.name}</h1>   
+                                        {/* <TagListCreaPage campaign={campaign}/> */}
+                                        <div className="bar"></div>
+                                        {props.desc}                                    
+                                        </div>
                                 </div>
 
-                                <div className="col-lg-6 col-md-12">
+                                <div className="col-lg-4 col-md-12" style={{textalign : 'center'}}>
                                     <div className="ml-about-content">
+                                    {/* <TagListCreaPage campaign={campaign}/> */}
 
-                                        <span className="sub-title">{showCats()}</span>
-                                        {/* <Skeleton animation={false} variant="text" height={50}/> */}
-
-                                        <h2 style={{marginTop: 20, marginBottom: 10}}>{returnTitle()}</h2>
-                                        {/* <div className="blog-details-desc">
-                                            <div className="article-content">
-                                                <div className="entry-meta">
-                                                    <ul>
-                                                        
-                                                      <Skeleton animation={false} variant="text" />
-                                                      <Skeleton animation={false} variant="text" />
-
-                                                    </ul>
-                                                </div>              
+                                        <div style={{justifyContent:'center', alignItems:'center', textAlign:'center'}}>
+                                            {/* <SocialMediaList campaign={campaign}/> */}
                                             </div>
-                                        </div> */}
-                                        <div className="bar"></div>
-
-                                    
-                                        <p style={{fontSize: 15, marginBottom: 30}}>
-                                            {/* <Skeleton animation={false} variant="text" /><Skeleton animation={false} variant="text" /><Skeleton animation={false} variant="text" /> */}
-                                            {props.desc}
-                                        </p>
-                                        <h5>X {showCurrencyWoPrefix()} raised / {props.obj} {showCurrencyWoPrefix()}</h5> 
-                                        <ProgressBar animated now={30}/>
-                                        <div className="blog-details-desc">
-                                            <div className="article-content">
-                                                <div className="entry-meta">
-                                                    <ul>
-                                                        <li>
-                                                            <Icon.Clock /> X days left
-                                                        </li>
-                                                    </ul>
-                                                </div>              
+                                            <div style={{marginTop: 25}}>
+                                            <button disabled className="btn btn-primary">Tip this creator</button>
                                             </div>
-                                        </div>
+                                        {/* <ShareIcons campaign={campaign}/> */}
 
-                                        <div style={{display: "flex"}}>
-                                      
-                                          <button disabled className="btn btn-primary">Back this campaign</button>
-                                          <UseAnimations
-                                          disabled
-                                            size={40}
-                                            wrapperStyle={{ marginTop: '15px', marginLeft: '20px' }}
-                                            animation={heart}
-                                          />
-                                            
-
-                                        </div>
+                                       
                                     </div>
                                 </div>
                             </div>

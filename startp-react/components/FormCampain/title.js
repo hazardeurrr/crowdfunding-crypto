@@ -4,7 +4,7 @@ class Title extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
-            charLeft: 50,
+            charLeft: 30,
             editable: false
         }
     }
@@ -23,9 +23,9 @@ class Title extends React.Component {
         var currentText = e.target.value;
         //Now we need to recalculate the number of characters that have been typed in so far
         var characterCount = currentText.length;
-        var remainingChar = 50 - characterCount
+        var remainingChar = 30 - characterCount
         if (remainingChar < 0) {
-            this.setState({charLeft: "Too many characters, cannot exceed 50 characters", editable: true})
+            this.setState({charLeft: "Too many characters, cannot exceed 30 characters", editable: true})
         } else {
             this.setState({charLeft: remainingChar, editable: false})
 
@@ -37,14 +37,14 @@ class Title extends React.Component {
 
         return (
             <>
-            <p><strong> Fundraiser Name </strong><br/>Give a name to your campaign (max. 50 characters)</p>
+            <p><strong> Creator Name </strong><br/>Write your creator name (max. 30 characters)</p>
             <div className="col-lg-12 col-md-12">
                 <div className="form-group">
-                    <input type="text" placeholder="Title" className="form-control" maxLength="50" onChange={e => {
+                    <input type="text" placeholder="Your creator name" className="form-control" maxLength="30" onChange={e => {
                         this.wordCount.bind(this)
                         this.props.onChange(e.target.value)
                         }}/>
-                    {this.state.charLeft !== 50 ? <p>{this.state.charLeft} characters left</p> : null}
+                    {this.state.charLeft !== 30 ? <p>{this.state.charLeft} characters left</p> : null}
                 </div>
             </div>
             </>

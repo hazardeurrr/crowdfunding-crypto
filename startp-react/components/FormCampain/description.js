@@ -22,10 +22,10 @@ class Description extends React.Component {
 
         return (
             <>
-            <p><strong> Project Description </strong><br/> Make a short description of your project to make it more attractive (max. 150 characters)</p>
+            <p style={{marginTop: 25}}><strong> Brief Description </strong><br/> Write a short description of you / what you do. Make it quick and catchy ! (max. 150 characters)</p>
             <div className="col-lg-12 col-md-12">
                 <div className="form-group">
-                    <textarea name="message" cols="30" rows="6" placeholder="Description" className="form-control" maxLength="150" onChange={e => {
+                    <textarea name="message" cols="30" rows="6" placeholder="Short Description" className="form-control" maxLength="150" onChange={e => {
                         this.wordCount.bind(this)
                         this.props.onChange(e.target.value)
                         }}></textarea>

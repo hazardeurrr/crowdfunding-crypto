@@ -59,6 +59,15 @@ import Footer from '../_App/Footer';
 import { campaignsCollection } from '@/utils/collections';
 import { bsc_explorer_base, eth_explorer_base } from '@/utils/explorers';
 import router from 'next/router';
+import TagList from './tagList';
+import {FaFacebook, FaInstagram, FaSpotify, FaSoundcloud, FaTwitch, FaTwitter, FaYoutube, FaGlobe, FaGoogleDrive, FaTiktok} from 'react-icons/fa'
+import {SiTiktok} from 'react-icons/si'
+import TextField from '@material-ui/core/TextField';
+import InputAdornment from '@material-ui/core/InputAdornment';
+import InputLabel from '@material-ui/core/InputLabel';
+import ProfilePicCrea from '../ITStartup/ProfilePicCrea';
+import BannerPic from '../ITStartup/BannerPic';
+
 const Web3 = require('web3');
 const BN = require('bn.js');
 
@@ -98,13 +107,23 @@ class MainForm extends React.Component {
             imageProgress: 0,
             raisingMethod: this.getStartRaisingMethod(),
             activeStep:0,
-            title: null,
+            name: null,
             image: null, 
             cats: ['---', '---'],
             small_description:'',
             objective:0,
             tiersArray:[],
-
+            youtube: '',
+            instagram: '',
+            facebook:'',
+            twitter:'',
+            site:'',
+            spotify:'',
+            soundcloud:'',
+            twitch:'',
+            tiktok:'',
+            profile_pic: '',
+            banner: ''
         }
 
         this.handleCloseSnackbar.bind(this);
@@ -126,6 +145,27 @@ class MainForm extends React.Component {
         this.objectiveError = ''
         this.steps = this.getSteps()
         this.warningText = 'Are you sure you want to leave this page ? All your unsaved changes will be lost.';
+    }
+
+    handleChangeYoutube = (event) => this.setState({youtube: event.target.value});
+    handleChangeInstagram = (event) => this.setState({instagram: event.target.value});
+    handleChangeFacebook = (event) => this.setState({facebook: event.target.value});
+    handleChangeTwitter = (event) => this.setState({twitter: event.target.value});
+    handleChangeSite = (event) => this.setState({site: event.target.value});
+    handleChangeSpotify = (event) => this.setState({spotify: event.target.value});
+    handleChangeSoundcloud = (event) => this.setState({soundcloud: event.target.value});
+    handleChangeTwitch = (event) => this.setState({twitch: event.target.value});
+    handleChangeTiktok = (event) => this.setState({tiktok: event.target.value});
+
+    handleChangeImage = (image) => {
+        // console.log("image changed")
+        this.setState({profile_pic: image});
+    }
+
+    
+    handleChangeBanner = (image) => {
+        // console.log("image changed")
+        this.setState({banner: image});
     }
 
     onUnload = e => { // the method that will be used for both add and remove event
@@ -489,7 +529,7 @@ class MainForm extends React.Component {
     }
 
     checkCampaignIsValid = () => {
-        if(this.state.image != null && this.state.html != '' && this.state.title != null && this.startDate != undefined && this.endDate != undefined && this.state.objective > 0){
+        if(this.state.image != null && this.state.html != '' && this.state.name != null && this.startDate != undefined && this.endDate != undefined && this.state.objective > 0){
             if(this.startDate >= this.endDate){
                 return false
             }
@@ -675,7 +715,7 @@ class MainForm extends React.Component {
                 <DialogContent>
                 
                 <div style={{display: 'flex', justifyContent:'center', alignItems:'center', flexDirection:'column'}}>
-                    <h5 style={{marginBottom: 5}}>{this.state.title}</h5>
+                    <h5 style={{marginBottom: 5}}>{this.state.name}</h5>
                     <img src={this.state.image} alt='campaign image'/>
                     <div style={{justifyContent:'center'}}>
                         <Link href={{
@@ -730,6 +770,10 @@ class MainForm extends React.Component {
         } else {
             return <div style={{display:"flex"}}><p>Selected network : <Icon.AlertCircle/> <span style={{marginLeft: 5}}>Unsupported. Please switch network.</span></p></div>
         }
+    }
+
+    getSocialsAsObject(){
+        return {website: this.state.website, youtube: this.state.youtube, spotify: this.state.spotify, twitter: this.state.twitter, instagram: this.state.instagram, facebook: this.state.facebook, tiktok: this.state.tiktok, twitch: this.state.twitch, soundcloud: this.state.soundcloud}
     }
 
     displayRaisingMethods(){
@@ -819,54 +863,199 @@ class MainForm extends React.Component {
                 <div className="services-area-two pt-80 pb-50 bg-f9f6f6">
                     <div className="container">
                         <div className="section-title">
-                            <h2>Campaign</h2>
+                            <h2>Creator page</h2>
                             <div className="bar"></div>
-                            <p>Here is the place where you can create your campaign and start raising funds for your project.</p>
+                            <p>Here is the place where you can create your creator permanent page to collect crypto donations.</p>
                             {/* <br /><p><i>Beware : if your campaign promote or contains offensive, inappropriate or illegal content, it might get suspended. Thank you for your comprehension.</i></p> */}
                         </div>
 
                         <div className="faq-contact">
-                            <h3>Complete the information for your campaign</h3>
+                            <h3>Complete the information for your creator page</h3>
                             <p><i>Creator address : <span className='user-address2'>{this.props.userAddr}</span></i></p>
                             {this.showCurrentNetwork()}
                             <br></br>
 
                             <form id="formCampaign" onSubmit={this.handleCampaign}>
                                 <div className="row">
-                                    <Title onChange={e => {this.setState({title: e})}}/>
+                                    <Title onChange={e => {this.setState({name: e})}}/>
                                     {this.state.titleError !== '' ? <p style={{color: 'red'}}>{this.state.titleError}</p>: null}
-                                    <p><strong> Image Banner </strong><br/> Insert the best image for your project</p>
-                                    <p>Size : max 1MB / Format : JPG, PNG or GIF / Resolution : 16:9 (ex: 1920x1080, 1280x720, 1024x576...)</p>
-                                    <MainPic onImageChange={this.handleChangeImage.bind(this)} ratio="ratio" resolutionWidth={1920} resolutionHeight={1080} />
-                                    <br></br>
 
-                                    <p style={{marginTop: 20}}><strong> Fundraising Duration </strong><br/> Projects with shorter durations have higher success rates. You won’t be able to adjust your duration after you launch.</p>
+                                    <p><strong> Profile Pic </strong><br/>Choose a profile picture to represent your page</p>
+                                    <p><i style={{fontSize: 12}}>Size : max 600kb / Format : JPG, PNG or GIF</i></p>
                                     <div className="col-lg-12 col-md-12">
                                         <div className="form-group">
-                                            {/* <DatePicker onChange={e => {
-                                                if (e.endDate !== null){
-                                                    console.log(new Date(e.startDate._d))
-                                                    
-                                                    // this.startDate = Math.floor(Date.now() / 1000);
-                                                    this.startDate = Math.floor(new Date(e.startDate._d).getTime() / 1000)
-                                                    // this.endDate = Math.floor(new Date(e.endDate._d).getTime() / 1000)
-                                                    this.endDate = 1646233800
-                                                }
-                                            }}/> */}
-
-                                            <DateValidPicker handleDateChange={this.handleDateChange.bind(this)}/>
+                                            <ProfilePicCrea onImageChange={this.handleChangeImage} />
                                         </div>
                                     </div>
 
+                                    <p><strong> Image Banner </strong><br/> Insert the best banner for your page</p>
+                                    <p>Size : max 1MB / Format : JPG, PNG or GIF / Resolution : 1500x255</p>
+                                    <BannerPic onImageChange={this.handleChangeBanner.bind(this)} ratio="ratio" resolutionWidth={1500} resolutionHeight={255} />
+                                    <br></br>
+
+                                    {/* //*-----------------------SOCIAL MEDIA LIST-------------------------//* */}
+
+                                    <p style={{marginTop: 15}}><strong> Social Media </strong><br/>Enter your social links</p>
+                                    <div className="col-lg-12 col-md-12">
+                                        <div style={{display:'flex', alignItems:'center'}}>
+                                            <FaGlobe size={25} style={{marginRight:10}} />
+                                            <TextField
+                                            label="Website (full URL)"
+                                            id="website"
+                                            fullWidth
+                                            placeholder='https://mywebsite.com'
+                                            onChange={this.handleChangeSite}
+                                            value={this.state.site}
+                                            // InputProps={{
+                                            //     startAdornment: <InputAdornment position="start">@</InputAdornment>,
+                                            // }}
+                                            variant="filled"
+                                            size="small"
+                                        /></div>
+                                        <div style={{display:'flex', alignItems:'center'}}>
+                                            <FaYoutube size={25} style={{marginRight:10}} />
+                                            <TextField
+                                            label="Youtube (full URL)"
+                                            id="youtube"
+                                            fullWidth
+                                            placeholder='https://www.youtube.com/mychannel'
+                                            onChange={this.handleChangeYoutube}
+                                            value={this.state.youtube}
+                                            // InputProps={{
+                                            //     startAdornment: <InputAdornment position="start">@</InputAdornment>,
+                                            // }}
+                                            variant="filled"
+                                            size="small"
+                                        /></div>
+
+                                        <div style={{display:'flex', alignItems:'center'}}>
+                                            <FaSpotify size={25} style={{marginRight:10}} />
+                                            <TextField
+                                            label="Spotify (full URL)"
+                                            id="spotify"
+                                            fullWidth
+                                            placeholder='https://open.spotify.com/xxxxxxx'
+                                            onChange={this.handleChangeSpotify}
+                                            value={this.state.spotify}
+                                            // InputProps={{
+                                            //     startAdornment: <InputAdornment position="start">@</InputAdornment>,
+                                            // }}
+                                            variant="filled"
+                                            size="small"
+                                        /></div>
+
+                                        <div style={{display:'flex', alignItems:'center'}}>
+                                            <FaTwitter size={25} style={{marginRight:10}} />
+                                            <TextField
+                                            label="Twitter"
+                                            id="twitter"
+                                            fullWidth
+                                            placeholder='username'
+                                            onChange={this.handleChangeTwitter}
+                                            value={this.state.twitter}
+                                            InputProps={{
+                                                startAdornment: <InputAdornment position="start">twitter.com/</InputAdornment>,
+                                            }}
+                                            variant="filled"
+                                            size="small"
+                                        /></div>
+
+                                        <div style={{display:'flex', alignItems:'center'}}>
+                                            <FaFacebook size={25} style={{marginRight:10}} />
+                                            <TextField
+                                            label="Facebook"
+                                            id="facebook"
+                                            fullWidth
+                                            placeholder='username'
+                                            onChange={this.handleChangeFacebook}
+                                            value={this.state.facebook}
+                                            InputProps={{
+                                                startAdornment: <InputAdornment position="start">facebook.com/</InputAdornment>,
+                                            }}
+                                            variant="filled"
+                                            size="small"
+                                        /></div>
+                                        
+
+                                        <div style={{display:'flex', alignItems:'center'}}>
+                                            <FaInstagram size={25} style={{marginRight:10}} />
+                                            <TextField
+                                            label="Instagram"
+                                            id="instagram"
+                                            fullWidth
+                                            placeholder='username'
+                                            onChange={this.handleChangeInstagram}
+                                            value={this.state.instagram}
+                                            InputProps={{
+                                                startAdornment: <InputAdornment position="start">instagram.com/</InputAdornment>,
+                                            }}
+                                            variant="filled"
+                                            size="small"
+                                        /></div>
+
+                                        <div style={{display:'flex', alignItems:'center'}}>
+                                            <SiTiktok size={25} style={{marginRight:10}} />
+                                            <TextField
+                                            label="TikTok"
+                                            id="tiktok"
+                                            fullWidth
+                                            placeholder='username'
+                                            onChange={this.handleChangeTiktok}
+                                            value={this.state.tiktok}
+                                            InputProps={{
+                                                startAdornment: <InputAdornment position="start">tiktok.com/@</InputAdornment>,
+                                            }}
+                                            variant="filled"
+                                            size="small"
+                                        /></div>
+
+
+                                        <div style={{display:'flex', alignItems:'center'}}>
+                                            <FaTwitch size={25} style={{marginRight:10}} />
+                                            <TextField
+                                            label="Twitch"
+                                            id="twitch"
+                                            fullWidth
+                                            placeholder='username'
+                                            onChange={this.handleChangeTwitch}
+                                            value={this.state.twitch}
+                                            InputProps={{
+                                                startAdornment: <InputAdornment position="start">twitch.tv/</InputAdornment>,
+                                            }}
+                                            variant="filled"
+                                            size="small"
+                                        /></div>
+                                        
+
+                                        <div style={{display:'flex', alignItems:'center'}}>
+                                            <FaSoundcloud size={25} style={{marginRight:10}} />
+                                            <TextField
+                                            label="Soundcloud"
+                                            id="soundcloud"
+                                            fullWidth
+                                            placeholder='username'
+                                            onChange={this.handleChangeSoundcloud}
+                                            value={this.state.soundcloud}
+                                            InputProps={{
+                                                startAdornment: <InputAdornment position="start">soundcloud.com/</InputAdornment>,
+                                            }}
+                                            variant="filled"
+                                            size="small"
+                                        /></div>
+                                    </div>
+
+                                    {/* //*-----------------------------------------------------------------//* */}
+
+                                  
                                     <Description onChange={e => {
                                         this.setState({small_description : e})
                                     }}/>
 
-                                    <p><strong> Project Category </strong><br/> Choose a category that describes your project.</p>
+                                    <p><strong> Tags </strong><br/> Choose the tags that describe your content the best.</p>
                                     <div className="col-lg-12 col-md-12">
                                         <div className="form-group">
                                         
-                                            <div className="select-box">
+                                            {/* <div className="select-box">
                                                 <select className="form-select" required onChange={(event) => {
                                                     let newArr = this.state.cats
                                                     newArr[0] = event.target.value
@@ -875,26 +1064,14 @@ class MainForm extends React.Component {
                                                 }}>
                                                     {this.displayCategories()}
                                                 </select>
-                                            </div>
+                                            </div> */}
+
+                                            <TagList />
+
                                         </div>
                                     </div>
-                                     <p><strong> Second Project Category </strong><br/> Choose a second category to describe your project.</p>
-                                    <div className="col-lg-12 col-md-12">
-                                        <div className="form-group">
-                                        
-                                            <div className="select-box">
-                                                <select className="form-select" onChange={(event) => {
-                                                     let newArr = this.state.cats
-                                                     newArr[1] = event.target.value
-                                                     this.setState({cats: newArr})
-                                                    // this.cats[1] = event.target.value
-                                                }}>
-                                                    {this.displayCategories()}
-                                                </select>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <p><strong> Raising Method </strong><br/>Give a raising currency for your crowdfunding project.</p>
+                                 
+                                    <p><strong> Raising Method </strong><br/>Choose in which currency will you accept donations.</p>
                                     <div className="col-lg-12 col-md-12">
                                         <div className="form-group">
                                             <div className="order-details">
@@ -903,7 +1080,7 @@ class MainForm extends React.Component {
                                         </div>
                                     </div>
 
-                                    <p><strong> Project Goal </strong><br/> Your goal should reflect the amount you wish to raise with your campaign.<br></br><i>⚠ Amount should be specified in the currency chosen above</i></p>
+                                    {/* <p><strong> Project Goal </strong><br/> Your goal should reflect the amount you wish to raise with your campaign.<br></br><i>⚠ Amount should be specified in the currency chosen above</i></p>
                                     <div className="col-lg-12 col-md-12" >
                                         <div className="form-group">
                                         <input type="number" placeholder="Goal" min="0" step={this.getNbrStep()} className="form-control" onChange={(event) => {
@@ -911,9 +1088,9 @@ class MainForm extends React.Component {
                                         }}/>
                                         {this.state.objectiveError !== '' ? <p style={{color: 'red'}}>{this.state.objectiveError}</p>: null}
                                         </div>
-                                    </div>
+                                    </div> */}
                                     
-                                    <p><strong> Page of the project </strong><br/>Give an aspect to your page to make it more visual for the users.</p>
+                                    <p><strong> Your page </strong><br/>Give an aspect to your page to make it more visual for the users.</p>
                                     <div className="col-lg-12 col-md-12">
                                         <div className="form-group">
                                         <HTMLEditor onSelectHTML={this.handleHTML.bind(this)}/>
@@ -940,7 +1117,8 @@ class MainForm extends React.Component {
                                         <div style={{margin: "auto", width : "90%", backgroundColor:'white'}}>
                                             <Button variant="contained" style={{position: 'fixed', bottom: 17}} onClick={this.handleCloseModal}>Close preview</Button>
 
-                                            <PreviewCampaign tiers={this.state.tiersArray} cats={this.state.cats} currency={this.state.raisingMethod} image={this.state.image} title={this.state.title} desc={this.state.small_description} obj={this.state.objective} content={this.state.html}/>
+                                            <PreviewCampaign socials={this.getSocialsAsObject()} tiers={this.state.tiersArray} cats={this.state.cats} currency={this.state.raisingMethod} banner={this.state.banner} image={this.state.profile_pic} name={this.state.name} desc={this.state.small_description} content={this.state.html}
+                                            />
 
                                         </div>
                                     </Modal>
@@ -1021,10 +1199,10 @@ class MainForm extends React.Component {
             <div className="services-area-two pt-80 pb-50 bg-f9f6f6">
                 <div className="container">
                     <div className="section-title">
-                        <h2>Campaign</h2>
+                        <h2>Creator page</h2>
                         <div className="bar"></div>
-                        <p>Here is the place where you can create your campaign and start raising funds for your project.</p>
-                        <br /><p><i>Beware : if your campaign promote or contains offensive, inappropriate or illegal content, it might get suspended. Thank you for your comprehension.</i></p>
+                        <p>Here is the place where you can create your creator permanent page to collect crypto donations.</p>
+                        {/* <br /><p><i>Beware : if your campaign promote or contains offensive, inappropriate or illegal content, it might get suspended. Thank you for your comprehension.</i></p> */}
                     </div>
 
                     <div className="faq-contact">

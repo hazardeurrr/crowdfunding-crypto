@@ -412,7 +412,7 @@ const Creators = (props) => {
                                         <div style={{justifyContent:'center', alignItems:'center', textAlign:'center'}}>
                                             <SocialMediaList campaign={campaign}/>
                                             </div>
-                                            <div style={{marginTop: 15}}>
+                                            <div style={{marginTop: 25}}>
                                             {BackButton()}
                                             </div>
                                         {/* <ShareIcons campaign={campaign}/> */}
@@ -490,79 +490,55 @@ const Creators = (props) => {
             </div>
         </div>
         }
-    } else {
+    } else 
+            {
                 // return <CircularProgress style={{marginTop: 100}}/>
                 return <div>
-            <div className="blog-details-area ptb-80">
-                <div className="container">
-                    <div className="about-area ptb-80">
-                        <div className="container-fluid">
-                            <div className="row align-items-center">
-                                <div className="col-lg-6 col-md-12">
-                                    <div className="ml-about-img">
-                                        <Skeleton animation='pulse' variant="rect" height={350} />
+                <div className="blog-details-area ptb-80">
+                    <div style={{height: '17vw', position: "relative"}}>
+                        <div className="banner_crea" style={{position: "absolute", width: '100%', height:'100%', overflow:'hidden'}}>
+                            <div style={{width: '100%', height:'100%', borderBottom: '2px solid #d0464657', borderTop:'2px solid #d0464657'}}>
+                                <Skeleton variant="rect" style={{width: '100%', height:'100%'}} animation="pulse" />
+                            </div>
+                        </div>
+                    </div>
+                    {/* <div style={{position:'relative'}}>
+                        <Skeleton variant="circle" animation="pulse" style={{width: 50, height: 50}} />
+                    </div> */}
+                    <div className="container">
+                        <div className="about-area ptb-80">
+                            <div className="container-fluid">
+                                <div className="row align-items-center">
+                                    <div className="col-lg-8 col-md-12">
+                                        <div className="ml-about-content">
+                                            <Skeleton variant="text" animation="pulse" />
 
-                                        
+                                            <div className="bar"></div>
+                                            <Skeleton variant="text" animation="pulse" />
+                                            <Skeleton variant="text" animation="pulse" />
+                                            <Skeleton variant="text" animation="pulse" />
+                                        </div>
                                     </div>
-                                </div>
+    
+                                    <div className="col-lg-4 col-md-12" style={{textalign : 'center'}}>
+                                        <div className="ml-about-content">
+                                        {/* <TagListCreaPage campaign={campaign}/> */}
+    
+                                            <div style={{justifyContent:'center', alignItems:'center', textAlign:'center'}}>
 
-                                <div className="col-lg-6 col-md-12">
-                                    <div className="ml-about-content">
+                                                <Skeleton variant="rect" style={{height: 65}} animation="pulse" />                                                </div>
+                                                <div style={{marginTop: 25}}>
+                                                <Skeleton variant="rect" animation="pulse" />                                                </div>
 
-                                        <span className="sub-title">
-                                            <Skeleton animation='pulse' variant="text" width={100}/>
-                                        </span>
-                                        {/* <ShareIcons campaign={campaign}/> */}
-
-                                        <h2 style={{marginTop: 20, marginBottom: 10}}><Skeleton animation='pulse' variant="text"/></h2>
-                                         <div className="blog-details-desc">
-                                            <div className="article-content">
-                                                <div className="entry-meta">
-                                                    <ul>
-                                                        
-                                                        {/* <li>     
-                                                            <Icon.User />
-                                                            <ChipUser user={user}/>
-                                                                                             
-                                                        </li> */}
-                                                        
-                                                  
-                                                        <Skeleton animation='pulse' variant="text" />
-                                                        <Skeleton animation='pulse' variant="text" />
-                                                    </ul>
-                                                </div>              
-                                            </div>
-                                        </div>
-                                        <div className="bar"></div>
-
-                                    
-                                        <p style={{fontSize: 15, marginBottom: 30}}><Skeleton animation='pulse' variant="text" /><Skeleton animation='pulse' variant="text" /><Skeleton animation='pulse' variant="text" /></p>
-                                        <h5><Skeleton animation='pulse' variant="text" /></h5> 
-                                        <ProgressBar animated now={0}/>
-                                        <div className="blog-details-desc">
-                                            <div className="article-content">
-                                                <div className="entry-meta">
-                                                    <ul>
-                                                        <li>
-                                                            <Skeleton animation='pulse' variant="text" width={50}/>
-                                                        </li>
-                                                    </ul>
-                                                </div>              
-                                            </div>
-                                        </div>
-
-                                        <div style={{display: "flex"}}>
-                                            {/* {BackButton()}
-                                            {RefundButton()}
-                                            
-                                            {showHeart()}          */}
-
+                                                </div>
+                                            {/* <ShareIcons campaign={campaign}/> */}
+                                        
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                    </div>                   
+    
 
                     <div className="row">
                         <div className="col-lg-8 col-md-12">
@@ -595,7 +571,6 @@ const Creators = (props) => {
                         </div>
                     </div>
                 </div>
-            </div>
         }
     }
 

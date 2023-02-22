@@ -2,7 +2,8 @@ import React, {useEffect, useState} from 'react';
 import {FaFacebook, FaInstagram, FaSpotify, FaSoundcloud, FaTwitch, FaTwitter, FaYoutube, FaGlobe} from 'react-icons/fa'
 import {SiTiktok} from 'react-icons/si'
 import Grid from '@material-ui/core/Grid';
-
+import Chip from '@material-ui/core/Chip';
+import LanguageIcon from '@material-ui/icons/Language';
 
 const SocialMediaList = (props) => {
 
@@ -12,7 +13,7 @@ const SocialMediaList = (props) => {
 
   const showSocial = () => {
     var rows = [];
-    let keyList = Object.keys(campaign.social)
+    let keyList = Object.keys(campaign.social).filter(e => e != "website")
     for (var i = 0; i < keyList.length; i++) {
         rows.push(<div key={i} style={{marginLeft: 5, width:30 , marginRight: 5}}>{socialIcon(keyList[i])}</div>);
     }
@@ -57,10 +58,23 @@ const SocialMediaList = (props) => {
     }
   }
 
+  const displayWebsite = () => {
+    if(campaign.social.website){
+      var regex = /\/\/([^\/,\s]+\.[^\/,\s]+?)(?=\/|,|\s|$|\?|#)/g;
+      let res = regex.exec(campaign.social.website)
+            
+      return <a href={campaign.social.website} target='_about'><Chip variant="outlined" style={{cursor:'pointer', marginTop: 10}} label={<><b>{res[1]}</b></>} icon={<LanguageIcon />} /></a>
+    }
+  }
+
     return (
+      <>
       <div style={{display: 'flex', flexDirection: 'row', flexWrap:'wrap', justifyContent:"center", alignItems:'center'}}>
         {showSocial()}
       </div>
+      {displayWebsite()}
+
+      </>
     )
 }
 
