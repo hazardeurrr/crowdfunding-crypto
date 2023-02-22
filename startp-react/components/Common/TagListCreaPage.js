@@ -8,13 +8,13 @@ import Chip from '@material-ui/core/Chip'
 
 const TagListCreaPage = (props) => {
 
-  const campaign = props.campaign
+  const tags = props.tags ? props.tags : props.campaign.categories
 
   const showTags = () => {
     var rows = [];
-    for (var i = 0; i < campaign.categories.length; i++) {
+    for (var i = 0; i < tags.length; i++) {
         rows.push(<span className="sub-title" key={i}    
-          style={{marginRight: 5, marginBottom: 10}}>{campaign.categories[i]}</span>);
+          style={{marginRight: 5, marginBottom: 10}}>{tags[i]}</span>);
     }
     return rows;
   }

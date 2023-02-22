@@ -45,7 +45,7 @@ const useStyles = makeStyles((theme) => ({
       },
   }));
 
-export default function TagList() {
+export default function TagList(props) {
     const classes = useStyles();
 
     const [baseTags, setBaseTags] = React.useState([])
@@ -55,15 +55,18 @@ export default function TagList() {
     const handleDelete = (label) => {
         let filtered = tags.filter(e => e != label)
         setTags(filtered)
+        props.onTagChange(filtered)
         if(categoryListCrea.includes(label)){
             setBaseTags(oldArray => [...oldArray,label] );
         }
     };
-  
+
     const handleClick = (label) => {
         let filtered = baseTags.filter(e => e != label)
         setBaseTags(filtered)
-        setTags(oldArray => [...oldArray,label] );
+        let tagCopy = tags
+        props.onTagChange(tagCopy.concat(label))
+        setTags(oldArray => [...oldArray,label]);
     };
 
     React.useEffect(() => {
@@ -89,6 +92,8 @@ export default function TagList() {
     const handleCustomTag = () => {
         let c = customTag
         if(c !== "" && !tags.includes(c) && !baseTags.includes(c)){
+            let tagCopy = tags
+            props.onTagChange(tagCopy.concat(c))
             setTags(oldArray => [...oldArray,c] );
             setCustomTag("")
         }
@@ -99,7 +104,7 @@ export default function TagList() {
       };
 
     const displayAddTag = () => {
-        return  <Paper component="form" className={classes.root2}>
+        return  <Paper  className={classes.root2}>
         {/* <IconButton className={classes.iconButton} aria-label="menu">
           <MenuIcon />
         </IconButton> */}
@@ -133,7 +138,7 @@ export default function TagList() {
             {displayBaseTags()}
             {/* <div style={{display:'flex', alignItems:'center'}}><TextField id="standard-basic" label="Custom tag" size="small" /><Button size='small' variant="outlined">Add Tag</Button></div> */}
             {displayAddTag()}
-            <p style={{marginTop: 25}}>Your tags : {displayTags()}</p>
+            <div style={{marginTop: 25, color:"#6084a4"}}>Your tags : {displayTags()}</div>
         </div>
     );
   }

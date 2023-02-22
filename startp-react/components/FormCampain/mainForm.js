@@ -123,7 +123,8 @@ class MainForm extends React.Component {
             twitch:'',
             tiktok:'',
             profile_pic: '',
-            banner: ''
+            banner: '',
+            tags: []
         }
 
         this.handleCloseSnackbar.bind(this);
@@ -773,7 +774,17 @@ class MainForm extends React.Component {
     }
 
     getSocialsAsObject(){
-        return {website: this.state.website, youtube: this.state.youtube, spotify: this.state.spotify, twitter: this.state.twitter, instagram: this.state.instagram, facebook: this.state.facebook, tiktok: this.state.tiktok, twitch: this.state.twitch, soundcloud: this.state.soundcloud}
+        let r_site = this.state.site != '' ? this.state.site : null
+        let r_youtube = this.state.youtube != '' ? this.state.youtube : null
+        let r_spotify = this.state.spotify != '' ? this.state.spotify : null
+        let r_twitter = this.state.twitter != '' ? this.state.twitter : null
+        let r_facebook = this.state.facebook != '' ? this.state.facebook : null
+        let r_instagram = this.state.instagram != '' ? this.state.instagram : null
+        let r_tiktok = this.state.tiktok != '' ? this.state.tiktok : null
+        let r_twitch = this.state.twitch != '' ? this.state.twitch : null
+        let r_soundcloud = this.state.soundcloud != '' ? this.state.soundcloud : null
+        let res = {website: r_site, youtube: r_youtube, spotify: r_spotify, twitter: r_twitter, instagram: r_instagram, facebook: r_facebook, tiktok: r_tiktok, twitch: r_twitch, soundcloud: r_soundcloud}
+        return res
     }
 
     displayRaisingMethods(){
@@ -881,7 +892,7 @@ class MainForm extends React.Component {
                                     {this.state.titleError !== '' ? <p style={{color: 'red'}}>{this.state.titleError}</p>: null}
 
                                     <p><strong> Profile Pic </strong><br/>Choose a profile picture to represent your page</p>
-                                    <p><i style={{fontSize: 12}}>Size : max 600kb / Format : JPG, PNG or GIF</i></p>
+                                    <p>Size : max 600kb / Format : JPG, PNG or GIF</p>
                                     <div className="col-lg-12 col-md-12">
                                         <div className="form-group">
                                             <ProfilePicCrea onImageChange={this.handleChangeImage} />
@@ -890,7 +901,9 @@ class MainForm extends React.Component {
 
                                     <p><strong> Image Banner </strong><br/> Insert the best banner for your page</p>
                                     <p>Size : max 1MB / Format : JPG, PNG or GIF / Resolution : 1500x255</p>
-                                    <BannerPic onImageChange={this.handleChangeBanner.bind(this)} ratio="ratio" resolutionWidth={1500} resolutionHeight={255} />
+                                    <BannerPic onImageChange={this.handleChangeBanner.bind(this)} 
+                                        // ratio="ratio" resolutionWidth={1500} resolutionHeight={255} 
+                                    />
                                     <br></br>
 
                                     {/* //*-----------------------SOCIAL MEDIA LIST-------------------------//* */}
@@ -1066,7 +1079,7 @@ class MainForm extends React.Component {
                                                 </select>
                                             </div> */}
 
-                                            <TagList />
+                                            <TagList onTagChange={arr => {console.log(arr);this.setState({tags: arr})}}/>
 
                                         </div>
                                     </div>
@@ -1114,10 +1127,10 @@ class MainForm extends React.Component {
                                         style={{ overflow: 'scroll' }}
                                     >   
 
-                                        <div style={{margin: "auto", width : "90%", backgroundColor:'white'}}>
-                                            <Button variant="contained" style={{position: 'fixed', bottom: 17}} onClick={this.handleCloseModal}>Close preview</Button>
+                                        <div style={{margin: 13, backgroundColor:'white'}}>
+                                            <Button variant="contained" style={{position: 'fixed', outline:'2px solid #d84b53', bottom: 17}} onClick={this.handleCloseModal}>Close preview</Button>
 
-                                            <PreviewCampaign socials={this.getSocialsAsObject()} tiers={this.state.tiersArray} cats={this.state.cats} currency={this.state.raisingMethod} banner={this.state.banner} image={this.state.profile_pic} name={this.state.name} desc={this.state.small_description} content={this.state.html}
+                                            <PreviewCampaign socials={this.getSocialsAsObject()} tiers={this.state.tiersArray} tags={this.state.tags} currency={this.state.raisingMethod} banner={this.state.banner} image={this.state.profile_pic} name={this.state.name} desc={this.state.small_description} content={this.state.html}
                                             />
 
                                         </div>
@@ -1150,7 +1163,7 @@ class MainForm extends React.Component {
                                     }}/>
                                     
                                     <div className="col-lg-12 col-md-12">
-                                        <button className="btn btn-primary" type="submit" >Create my campain !</button>
+                                        <button className="btn btn-primary" type="submit" >Create my page !</button>
                                     </div>
                                 </div>
                             </form>

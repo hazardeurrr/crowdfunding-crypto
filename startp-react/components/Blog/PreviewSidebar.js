@@ -57,7 +57,7 @@ const PreviewSidebar = (props) => {
     const BackText = () => {
             return <div className="works-content">
             <h3>
-                <Icon.AlertCircle /> The campaign will start soon.
+                <Icon.AlertCircle /> The page will be available soon.
             </h3>
         </div>
     }
@@ -101,7 +101,7 @@ const PreviewSidebar = (props) => {
                                             adjective
                                             </Typography> */}
                                             <Typography variant="body2" component="p">
-                                            Give what you want to support this campaign
+                                            Give what you want to support this creator
                                             </Typography>
                                         </CardContent>
                                     </Card>

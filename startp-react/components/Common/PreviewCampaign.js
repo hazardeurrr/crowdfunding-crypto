@@ -7,6 +7,8 @@ import Parser from 'html-react-parser';
 import * as Icon from 'react-feather';
 import DOMPurify from 'isomorphic-dompurify';
 import PreviewSidebar from "../Blog/PreviewSidebar";
+import SocialMediaList from "./SocialMediaList";
+import TagListCreaPage from "./TagListCreaPage";
 
 const PreviewCampaign = (props) => {
 
@@ -49,25 +51,13 @@ const PreviewCampaign = (props) => {
             return <Skeleton animation={false} variant="rect" />
         }
     }
+    
 
     const returnTitle = () => {
-        if(props.title){
-            return props.title
+        if(props.name){
+            return props.name
         } else {
-            return "Title"
-        }
-    }
-
-    const showCats = () => {
-        let precategs = props.cats.filter(a => a !== "---").filter(function (value, index, array) { 
-            return array.indexOf(value) === index;
-        })
-
-        let categs = precategs.length == 0 ? ["Diverse"] : precategs
-        if(categs.length == 1){
-            return categs[0]
-        } else if(categs.length != 0){
-            return `${categs[0]} & ${categs[1]}`
+            return "Your name"
         }
     }
 
@@ -90,10 +80,10 @@ const PreviewCampaign = (props) => {
                             <div className="row align-items-center">
                                 <div className="col-lg-8 col-md-12">
                                     <div className="ml-about-content">
-                                        <h1>{props.name}</h1>   
-                                        {/* <TagListCreaPage campaign={campaign}/> */}
+                                        <h1>{returnTitle()}</h1>   
+                                        <TagListCreaPage tags={props.tags}/>
                                         <div className="bar"></div>
-                                        {props.desc}                                    
+                                        <p>{props.desc}</p>                                 
                                         </div>
                                 </div>
 
@@ -102,9 +92,9 @@ const PreviewCampaign = (props) => {
                                     {/* <TagListCreaPage campaign={campaign}/> */}
 
                                         <div style={{justifyContent:'center', alignItems:'center', textAlign:'center'}}>
-                                            {/* <SocialMediaList campaign={campaign}/> */}
+                                            <SocialMediaList socials={props.socials}/>
                                             </div>
-                                            <div style={{marginTop: 25}}>
+                                            <div style={{marginTop: 25, textAlign:'center'}}>
                                             <button disabled className="btn btn-primary">Tip this creator</button>
                                             </div>
                                         {/* <ShareIcons campaign={campaign}/> */}

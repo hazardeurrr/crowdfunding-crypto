@@ -36,6 +36,15 @@ const ProfilePicCrea = (props) => {
      };
    
 
+     const showClickHere = (upload_fct) => {
+        if(images.length == 0){
+            return <button className="btn btn-light" type="button"
+            onClick={upload_fct}
+            >
+            Click here
+            </button>
+        }
+     }
 
 
     return (
@@ -71,11 +80,7 @@ const ProfilePicCrea = (props) => {
                 }) => (
                 // write your building UI
                 <div className="upload__image-wrapper">
-                    <button className="btn btn-light" type="button"
-                    onClick={onImageUpload}
-                    >
-                    Click here
-                    </button>
+                    {showClickHere(onImageUpload)}
                     {/* &nbsp; */}
                     {imageList.map((image, index) => (
                     <div key={index} className="image-item">

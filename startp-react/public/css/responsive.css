@@ -1718,6 +1718,7 @@
 
   .pp_crea {
       height: 100px;
+      width: 100px;
       border-width: 3px;
       top: -25px;
   }
@@ -2750,6 +2751,7 @@
 
   .pp_crea {
     height: 80px;
+    width: 80px;
     border-width: 2px;
     top: -20px;
   }
@@ -2819,6 +2821,7 @@
 @media only screen and (max-width: 320px){
   .pp_crea {
     height: 50px;
+    width: 50px;
     border-width: 2px;
     top: 25px;
   }
@@ -2942,6 +2945,7 @@
 @media only screen and (min-width: 768px) and (max-width: 991px){
   .pp_crea {
     height: 100px;
+    width: 100px;
     border-width: 3px;
     top: -50px;
   }

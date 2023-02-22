@@ -10883,8 +10883,10 @@ Go Top CSS
 
 .pp_crea {
   position: absolute;
+  object-fit: cover;
   border: 5px solid #d04646;
   height:150px;
+  width: 150px;
   top: -75px;
   border-radius: 50%; 
   left: 0;

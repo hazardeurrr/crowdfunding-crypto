@@ -18,7 +18,7 @@ const BannerPic = (props) => {
 
     const onError = (errors, files) => {   
         if(errors.resolution){
-            setSnackText("Wrong resolution. Please resize your image to a 16:9 resolution before uploading.")
+            setSnackText("Wrong resolution. Please resize your image to a 1500x255 (or equivalent ratio) resolution before uploading.")
         } else if(errors.maxFileSize){
             setSnackText("File size exceeded the limit")
         } else {
@@ -36,7 +36,15 @@ const BannerPic = (props) => {
      };
    
 
-
+     const showClickHere = (upload_fct) => {
+        if(images.length == 0){
+            return <button className="btn btn-light" type="button"
+            onClick={upload_fct}
+            >
+            Click here
+            </button>
+        }
+     }
 
     return (
         <div>
@@ -74,11 +82,7 @@ const BannerPic = (props) => {
                 }) => (
                 // write your building UI
                 <div className="upload__image-wrapper">
-                    <button className="btn btn-light" type="button"
-                    onClick={onImageUpload}
-                    >
-                    Click here
-                    </button>
+                    {showClickHere(onImageUpload)}
                     {/* &nbsp; */}
                     {imageList.map((image, index) => (
                     <div key={index} className="image-item">
