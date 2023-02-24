@@ -17,7 +17,7 @@ const DiscoverAreaCrea = () => {
                     <div className="col-lg-6 col-md-12">
                         <div className="discover-content">
                             <h2>Making use of the blockchain to connect creators and contributors</h2>
-                            <p>Creators can easily create a campaign to raise funds in BNB, BUSD or BBST. Contributors can then see it and finance the project in two clicks, thanks to the power of blockchain.</p>
+                            <p>Creators can easily create a page to receive donations in BNB or BUSD. Enhance the power of community thanks to blockchain technology.</p>
 
                             <Link href="/how-it-works">
                                 <a className="btn btn2 btn-primary">Learn more about how it works</a>
