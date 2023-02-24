@@ -323,12 +323,12 @@ const WidgetComponent = (props) => {
             return <div className="single-blog-post" style={{width: 250}}>
             <div className="blog-image">
               
-                      <a target='_parent' href={`https://app.blockboosted.com/campaigns/${prefixedAddress(campaign.network, campaign.contract_address)}`}>
+                      <a target='_parent' href={`https://blockboosted.com/campaigns/${prefixedAddress(campaign.network, campaign.contract_address)}`}>
                           <img style={{width: '100%'}} src={campaign.main_img} alt="image" />
                       </a>
             </div>
             <div className="blog-post-content" style={{paddingTop: 5, paddingLeft: 15, paddingRight: 15, paddingBottom: 10, textAlign:'center'}}>
-                    <a style={{height: 65, justifyContent:'center', alignItems: 'center', display:'flex'}} target='_parent' href={`https://app.blockboosted.com/campaigns/${prefixedAddress(campaign.network, campaign.contract_address)}`}>
+                    <a style={{height: 65, justifyContent:'center', alignItems: 'center', display:'flex'}} target='_parent' href={`https://blockboosted.com/campaigns/${prefixedAddress(campaign.network, campaign.contract_address)}`}>
                       {returnTitle()}
                     </a>
                
@@ -340,7 +340,7 @@ const WidgetComponent = (props) => {
                     {showNetwork()}
                 </div>
                 
-                    <a target='_parent' href={`https://app.blockboosted.com/campaigns/${prefixedAddress(campaign.network, campaign.contract_address)}`} style={{maxWidth: '90%', marginLeft:'auto', marginRight:'auto', justifyContent:'center'}}>
+                    <a target='_parent' href={`https://blockboosted.com/campaigns/${prefixedAddress(campaign.network, campaign.contract_address)}`} style={{maxWidth: '90%', marginLeft:'auto', marginRight:'auto', justifyContent:'center'}}>
                        <Chip style={{width: '100%', cursor:"pointer"}} variant='outlined' avatar={<Avatar alt='avatar' src={"/images/logobb.png"} />} label={getLabel()} />
                     </a>
             </div>

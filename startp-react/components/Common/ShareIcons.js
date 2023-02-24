@@ -87,13 +87,13 @@ const ShareIcons = (props) => {
 
   const returnWidget = () => {
     if(selectedValue == "button"){
-      return <div style={{textAlign:"center"}}><TextField label="Simple <a> link"  style={{width: '100%', marginBottom: 10}}  multiline rowsMax={3} value={`<a href="https://app.blockboosted.com/campaigns/${prefixedAddress(props.campaign.network, props.campaign.contract_address)}" >Donate 💚</a>`}/>
-      <a style={{fontSize: 15, marginBottom: 10}} href={`https://app.blockboosted.com/campaigns/${prefixedAddress(props.campaign.network, props.campaign.contract_address)}`}>Donate 💚</a>
-      <TextField label="Button example"  style={{width: '100%', marginTop: 25, marginBottom: 10}}  multiline rowsMax={3} value={`<a href="https://app.blockboosted.com/campaigns/${prefixedAddress(props.campaign.network, props.campaign.contract_address)}"><div style="font-size: 17px; padding: 5px 15px; border: 2px solid black; border-radius: 25px; color: black;">Donate 💚</div></a>`}/>
-      <a href={`https://app.blockboosted.com/campaigns/${prefixedAddress(props.campaign.network, props.campaign.contract_address)}`}><div style={{fontSize: 17, color:"black", padding:"5px 15px 5px 15px", border:"2px solid black", borderRadius:"25px"}}>Donate 💚</div></a>
+      return <div style={{textAlign:"center"}}><TextField label="Simple <a> link"  style={{width: '100%', marginBottom: 10}}  multiline rowsMax={3} value={`<a href="https://blockboosted.com/campaigns/${prefixedAddress(props.campaign.network, props.campaign.contract_address)}" >Donate 💚</a>`}/>
+      <a style={{fontSize: 15, marginBottom: 10}} href={`https://blockboosted.com/campaigns/${prefixedAddress(props.campaign.network, props.campaign.contract_address)}`}>Donate 💚</a>
+      <TextField label="Button example"  style={{width: '100%', marginTop: 25, marginBottom: 10}}  multiline rowsMax={3} value={`<a href="https://blockboosted.com/campaigns/${prefixedAddress(props.campaign.network, props.campaign.contract_address)}"><div style="font-size: 17px; padding: 5px 15px; border: 2px solid black; border-radius: 25px; color: black;">Donate 💚</div></a>`}/>
+      <a href={`https://blockboosted.com/campaigns/${prefixedAddress(props.campaign.network, props.campaign.contract_address)}`}><div style={{fontSize: 17, color:"black", padding:"5px 15px 5px 15px", border:"2px solid black", borderRadius:"25px"}}>Donate 💚</div></a>
       </div>
     } else if(selectedValue == "widget"){
-      return  <div><TextField style={{width: '100%', marginBottom: 10}} variant="outlined" multiline rowsMax={3} value={`<iframe width="250" height="330" src="https://app.blockboosted.com/campaigns/widget/${prefixedAddress(props.campaign.network, props.campaign.contract_address)}" frameborder="0" scrolling="no"></iframe>`}/>
+      return  <div><TextField style={{width: '100%', marginBottom: 10}} variant="outlined" multiline rowsMax={3} value={`<iframe width="250" height="330" src="https://blockboosted.com/campaigns/widget/${prefixedAddress(props.campaign.network, props.campaign.contract_address)}" frameborder="0" scrolling="no"></iframe>`}/>
       <WidgetComponent campaign={props.campaign}/></div>
     }
   }

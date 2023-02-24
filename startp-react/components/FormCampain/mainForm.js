@@ -421,7 +421,7 @@ class MainForm extends React.Component {
                     body: JSON.stringify({ 
                         "dynamicLinkInfo": {
                             "domainUriPrefix": "blb.st",
-                            "link": `https://app.blockboosted.com/campaigns/${this.prefixedAddress(contract_address)}`,
+                            "link": `https://blockboosted.com/campaigns/${this.prefixedAddress(contract_address)}`,
                             "socialMetaTagInfo": {
                                 "socialTitle":this.state.title,
                                 "socialDescription": this.state.small_description,

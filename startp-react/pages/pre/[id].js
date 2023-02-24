@@ -321,13 +321,13 @@ const PreCampaign = (props) => {
             case "twitter":
                 if(campaign.socials.twitter){
                     return <li><Icon.Twitter />
-                    <a target="_about" href={`https://twitter.com/intent/tweet?text=@${campaign.socials.twitter}%20Hello,%20I%20saw%20your%20fundraiser%20and%20wanted%20to%20let%20you%20know%20that%20the%20crypto%20community%20would%20love%20to%20help%20:)%20You%20should%20activate%20your%20@blockboosted%20page%20to%20accept%20crypto%20donations%20here%20https://app.blockboosted.com/pre/${campaign.id}`}>
+                    <a target="_about" href={`https://twitter.com/intent/tweet?text=@${campaign.socials.twitter}%20Hello,%20I%20saw%20your%20fundraiser%20and%20wanted%20to%20let%20you%20know%20that%20the%20crypto%20community%20would%20love%20to%20help%20:)%20You%20should%20activate%20your%20@blockboosted%20page%20to%20accept%20crypto%20donations%20here%20https://blockboosted.com/pre/${campaign.id}`}>
                     {/* <a href="https://twitter.com/intent/tweet?text=Hello%20world"> */}
                   &nbsp;&nbsp;Contact {campaign.creator_name} on Twitter</a></li>
                 } else return null
             case "email":
                 if(campaign.socials.email){
-                    return <li><Icon.Mail /><a href={`mailto:${campaign.socials.email}?subject=Crypto donations for your fundraiser&body=Hello, I saw your fundraising campaign and would love to make a donation in cryptocurrency. I saw the page referring to your fundraiser on BlockBoosted https://app.blockboosted.com/pre/${campaign.id}, you should activate it so you'll be able to raise in crypto without any fee ! The crypto community would love to help you :) Kind regards.`}>&nbsp;&nbsp;Contact {campaign.creator_name} by email</a></li>
+                    return <li><Icon.Mail /><a href={`mailto:${campaign.socials.email}?subject=Crypto donations for your fundraiser&body=Hello, I saw your fundraising campaign and would love to make a donation in cryptocurrency. I saw the page referring to your fundraiser on BlockBoosted https://blockboosted.com/pre/${campaign.id}, you should activate it so you'll be able to raise in crypto without any fee ! The crypto community would love to help you :) Kind regards.`}>&nbsp;&nbsp;Contact {campaign.creator_name} by email</a></li>
                 } else return null
             case "facebook":
                 if(campaign.socials.facebook){
@@ -668,7 +668,7 @@ const PreCampaign = (props) => {
             body: JSON.stringify({ 
                 "dynamicLinkInfo": {
                     "domainUriPrefix": "blb.st",
-                    "link": `https://app.blockboosted.com/campaigns/${prefixedAddress(chainID, contract_address)}`,
+                    "link": `https://blockboosted.com/campaigns/${prefixedAddress(chainID, contract_address)}`,
                     "socialMetaTagInfo": {
                         "socialTitle":campaign.title,
                         "socialDescription": campaign.small_description,

@@ -179,10 +179,14 @@ const Footer = () => {
                             <h3>About</h3>
                             <ul className="list">
                                 <li>
-                                    <a target="_blank" href="https://blockboosted.com/terms">Terms & Conditions</a>
+                                    <Link href="/terms">
+                                        <a>Terms & Conditions</a>
+                                    </Link>
                                 </li>
                                 <li>
-                                    <a target="_blank" href="https://blockboosted.com/privacy">Privacy policy</a>
+                                    <Link href="/privacy">
+                                        <a>Privacy policy</a>
+                                    </Link>
                                 </li>
                                 <li>
                                     <Link href="/contact">
