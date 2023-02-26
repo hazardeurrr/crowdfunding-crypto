@@ -21,7 +21,7 @@ const Layout = ({ children }) => {
         var campaigns = []
 
 
-        db.collection(campaignsCollection).where("confirmed", "==", true).orderBy("live", "desc").orderBy("like_score", "desc").limit(9)
+        db.collection(campaignsCollection).where("confirmed", "==", true).limit(6)
         .get()
         .then((docs) => {
             docs.forEach(element => {

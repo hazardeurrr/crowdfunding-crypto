@@ -16,25 +16,26 @@ const ProjectsCrea = ({p}) => {
     // const [projects, setProjects] = React.useState(undefined)
     const dispatch = useDispatch()
 
-    const [projects, setProjects] = React.useState([])   
+    const projects = useSelector((state) => state.firstCampaigns)
+ 
     var campaigns = []
 
     React.useEffect(() => {
-        db.collection("creatorPage")
-        .get()
-        .then((docs) => {
-            docs.forEach(element => {
-                    campaigns.push(element.data())
-            })
+        // db.collection("creatorPage")
+        // .get()
+        // .then((docs) => {
+        //     docs.forEach(element => {
+        //             campaigns.push(element.data())
+        //     })
     
-            setProjects(campaigns)
+        //     setProjects(campaigns)
     
-        }).catch((error) => {
-            console.log("Error getting document:", error);
-        });
+        // }).catch((error) => {
+        //     console.log("Error getting document:", error);
+        // });
         setDisplay(true);
 
-    }, [])
+    }, [projects])
 
     const options = {
         loop: true,
@@ -66,9 +67,7 @@ const ProjectsCrea = ({p}) => {
     const ShowProjects = () => {
         const len = projects.length > 6 ? 6 : projects.length
         var rows = [];
-        console.log(projects)
         for (var i = 0; i < len; i++) {
-            console.log(i)
             rows.push(<div key={i} className="single-ml-projects-box">
             <SingleCardCarrouselCrea project={projects[i]}
                 /></div>)

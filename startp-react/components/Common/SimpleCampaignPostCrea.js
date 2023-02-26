@@ -49,47 +49,7 @@ const SimpleCampaignPostCrea = (props) => {
         //console.log("used with", creator)
       }, [])
     
-    const setCreaProf = (creator) => {
-        db.collection('profile').doc(creator.toLowerCase()).get().then((crea) => {
-
-            setUser(crea.data());
-        }).catch((error) => {
-            console.log(error)
-        })
-    }
-
-    const timeLeft = () => {
-        
-        let timeLeft = end_date - now;
-        let days = Math.floor(timeLeft / 86400); 
-        let hours = Math.floor((timeLeft - (days * 86400)) / 3600);
-        let minutes = Math.floor((timeLeft - (days * 86400) - (hours * 3600 )) / 60);
-        if(start_date > now){
-            let timeTilStart = start_date - now;
-            let daysTilStart = Math.floor(timeTilStart / 86400);
-            if(daysTilStart > 0)
-                return "Starts in " + daysTilStart.toString() + " day" + SorNot(daysTilStart)
-            else
-                return "Starts soon !"
-        } else if(days > 0){
-                return days.toString() + " day" + SorNot(days) +" left"
-            } else if(days == 0 && hours > 0){                
-                return hours.toString() + " hour" + SorNot(hours) + " left"
-            } else if(days == 0 && hours == 0 && minutes >= 0){
-                return minutes.toString() + " minute" + SorNot(minutes) + " left"
-            } else {
-                return "Ended " + Math.abs(days.toString()) + " day" + SorNot(days) + " ago"
-            }
-        }
-
-    const SorNot = (nb) => {
-        if(nb != 0 && nb != -1 && nb != 1){
-            return "s"
-        } else {
-            return ""
-        }
-    }
-
+   
     const displayDesc = () => {
         if(campaign.small_description.length > 130){
             return campaign.small_description.substring(0, 130) + " [...]"
@@ -113,108 +73,11 @@ const SimpleCampaignPostCrea = (props) => {
     //     }
     // }
 
-    const showCats = () => {
-        if(campaign.categories.length > 1){
-            return <div style={{display:'flex'}}>{getCatIcon(campaign.categories[0])}{campaign.categories[0]} &ensp;|&ensp; {getCatIcon(campaign.categories[1])}{campaign.categories[1]}</div>
-        } else if(campaign.categories.length != 0){
-            return <span style={{display:'flex'}}>{getCatIcon(campaign.categories[0])}{campaign.categories[0]}</span>
-        }
-    }
 
-    const getCatIcon = (cat) => {
-        if(cat == "Art"){
-            return <div className="icon simpleCa">
-                <i className='bx bx-paint'></i>
-            </div>
-        }
-        if(cat == "Charity"){
-            return <div className="icon simpleCa">
-                <i className='bx bx-donate-heart'></i>
-            </div>
-        }
-        if(cat == "Healthcare"){
-            return <div className="icon simpleCa">
-                <i className='bx bx-health'></i>
-            </div>
-        }
-        if(cat == "Green"){
-            return <div className="icon simpleCa">
-                <i className='bx bx-world'></i>
-            </div>           
-        }
-        if(cat == "Cryptocurrency"){
-            return <div className="icon simpleCa">
-                <i className='bx bx-bitcoin'></i>
-            </div>        
-        }
-        if(cat == "Games"){
-            return <div className="icon simpleCa">
-                <i className='bx bx-game'></i>
-            </div>    
-        }
-        if(cat == "Technology"){
-            return <div className="icon simpleCa">
-                <i className='bx bx-chip'></i>
-            </div> 
-        }
-        if(cat == "Innovation"){
-            return <div className="icon simpleCa">
-                <i className='bx bx-bulb'></i>
-            </div> 
-        }
-        if(cat == "Special Event"){
-            return <div className="icon simpleCa">
-                <i className='bx bx-star'></i>
-            </div>
-        }
-        if(cat == "Diverse"){
-            return <div className="icon simpleCa">
-                <i className='bx bx-unite'></i>
-            </div>
-        }
 
-    }
 
-    const cat = () => {
-            if(campaign.network == chain){
-                if(campaign.categories.length > 0){
-
-                    return (
-                        <div className="date">
-                            {/* <Icon.Bookmark/> */}
-                            {/* {returnCurrencyIconWhite()} */}
-                        {/* <img style={{height: 20}} src={'/images/cryptoicons/ethwhite.svg'}/>  */}
-                        <span>{showCats()}</span>
-                        </div>
-                    )
-                }
-            }
-    }
-
-    const returnCurrencyIconWhite = () => {
-        if(campaign.currency == "USDC" || campaign.currency == "p_USDC"){
-            return <img style={{height: 20}} src={'/images/cryptoicons/usdcwhite.svg'}/>
-        } else if(campaign.currency == "BBST" || campaign.currency == "p_BBST"){
-            return <img style={{height: 20}} src={'/images/cryptoicons/bbstwhite.svg'}/>
-        } else if(campaign.currency == "ETH") {
-            return <img style={{height: 20}} src={'/images/cryptoicons/ethwhite.svg'}/>
-        } else if(campaign.currency == "p_MATIC"){
-            return <img style={{height: 20}} src={'/images/cryptoicons/maticwhite.svg'}/>
-        }
-    }
-
-    const returnCurrencyIcon = () => {
-        if(campaign.currency == "USDC" || campaign.currency == "p_USDC"){
-            return <img style={{height: 17, marginTop: -2}} src={'/images/cryptoicons/usdc.svg'}/>
-        } else if(campaign.currency == "BBST" || campaign.currency == "p_BBST"){
-            return <img style={{height: 17, marginTop: -2}} src={'/images/cryptoicons/bbst.png'}/>
-        } else if(campaign.currency == "ETH") {
-            return <img style={{height: 17, marginTop: -2}} src={'/images/cryptoicons/eth.svg'}/>
-        } else if(campaign.currency == "p_MATIC"){
-            return <img style={{height: 17, marginTop: -2}} src={'/images/cryptoicons/matic.svg'}/>
-        }
-    }
-
+   
+   
     const returnDecToShow = () => {
         if(campaign.currency == "USDC" || campaign.currency == "p_USDC"){
             return 4
@@ -248,21 +111,7 @@ const SimpleCampaignPostCrea = (props) => {
             return campaign.currency
     }
 
-    const setRaisedCallback = (r) => {
-        setRaisedRetrieve(true)
-        setRaised(r)
-    }
 
-    const displayProgressBar = () => {
-        if(raisedRetrieve){
-            if(end_date > now && start_date < now){
-                
-                return <ProgressBar variant="green" animated now={(raised / objective) * 100}/>
-            } else {
-                return <ProgressBar variant="down" now={(raised / objective) * 100}/>
-            }
-        }
-    }
 
     const showNetwork = () => {
         if(campaign.network == chain){
@@ -274,14 +123,14 @@ const SimpleCampaignPostCrea = (props) => {
 
     const displayContent = () => {
 
-        return <div className="single-box">
+        return <div className="single-box" style={{marginTop: 60, marginBottom: 60}}>
                     <Link href={{
-                        pathname: "/Campaigns/[id]",
+                        pathname: "/creators/[id]",
                         query: {
                             id: campaign.contract_address,
                         }
                     }}
-                    as={`/Campaigns/${campaign.contract_address}`}>
+                    as={`/creators/${campaign.contract_address}`}>
                     <a style={{width: '100%'}}>
                           <img style={{borderRadius: '50%', top: -70, width: 125, left:0, right:0, marginLeft: 'auto', marginRight: 'auto', position: 'absolute'}} src={campaign.main_img} alt="image" />
                     
@@ -289,7 +138,7 @@ const SimpleCampaignPostCrea = (props) => {
                     <h3 style={{textAlign:'center'}}>
                             {campaign.name}
                     </h3>
-                {/* <p style={{fontSize: 12}}>{displayDesc()}</p> */}
+                <p style={{fontSize: 12}}>{displayDesc()}</p>
                 
                 {/* <b style={{fontSize: 16.5, marginTop: 2}}><div style={{display:"flex"}}>{displayRaised()} {displayCurrency()}</div></b> */}
                 {/* {displayProgressBar()}

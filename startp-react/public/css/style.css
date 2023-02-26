@@ -1463,7 +1463,7 @@ Boxes CSS
   width: 100%;
   border-radius: 5px;
   height: 100%;
-  background: linear-gradient(135deg, #23bdb8 0%, #43e794 100%);
+  background: linear-gradient(135deg, #d84b53 0%, #d84b53 100%);
   z-index: -1;
   opacity: 0;
   visibility: hidden;
@@ -1669,7 +1669,7 @@ Why Choose US CSS
   width: 100%;
   border-radius: 5px;
   height: 100%;
-  background: linear-gradient(135deg, #23bdb8 0%, #43e794 100%);
+  background: linear-gradient(135deg, #d84b53 0%, #d84b53 100%);
   z-index: -1;
   opacity: 0;
   visibility: hidden;
@@ -1754,7 +1754,7 @@ Services CSS
   top: 0;
   height: 100%;
   width: 100%;
-  background: linear-gradient(135deg, #23bdb8 0%, #43e794 100%);
+  background: linear-gradient(135deg, #d84b53 0%, #d84b53 100%);
   opacity: 0;
   visibility: hidden;
   position: absolute;
@@ -2558,7 +2558,7 @@ Team CSS
 }
 
 .single-team .team-info {
-  background: linear-gradient(135deg, #23bdb8 0%, #43e794 100%);
+  background: linear-gradient(135deg, #d84b53 0%, #d84b53 100%);
   padding: 10px 15px;
   border-radius: 75px;
   margin-bottom: 25px;
@@ -2619,7 +2619,7 @@ Works CSS
   top: 0;
   width: 100%;
   height: 100%;
-  background: linear-gradient(135deg, #23bdb8 0%, #43e794 100%);
+  background: linear-gradient(135deg, #d84b53 0%, #d84b53 100%);
   -webkit-transition: 0.5s;
   transition: 0.5s;
   opacity: 0;
@@ -3445,7 +3445,7 @@ Feedback CSS
   top: 0;
   width: 100%;
   height: 100%;
-  background: linear-gradient(135deg, #23bdb8 0%, #43e794 100%);
+  background: linear-gradient(135deg, #d84b53 0%, #d84b53 100%);
   opacity: 0;
   visibility: hidden;
   -webkit-transition: 0.5s;
@@ -3626,7 +3626,7 @@ Feedback CSS
 }
 
 .agency-portfolio-feedback-slides.owl-theme .owl-dots .owl-dot:hover span, .agency-portfolio-feedback-slides.owl-theme .owl-dots .owl-dot.active span {
-  background: linear-gradient(135deg, #23bdb8 0%, #43e794 100%);
+  background: linear-gradient(135deg, #d84b53 0%, #d84b53 100%);
 }
 
 .agency-portfolio-feedback-item {
@@ -3713,7 +3713,7 @@ Feedback CSS
   top: -25px;
   left: -25px;
   color: #ffffff;
-  background: linear-gradient(135deg, #43e794 0%, #23bdb8 100%);
+  background: linear-gradient(135deg, #d84b53 0%, #d84b53 100%);
   width: 60px;
   height: 60px;
   line-height: 60px;
@@ -3766,7 +3766,7 @@ Ready To Talk CSS
   position: relative;
   padding-top: 80px;
   padding-bottom: 160px;
-  background: linear-gradient(135deg, #23bdb8 0%, #43e794 100%);
+  background: linear-gradient(135deg, #d84b53 0%, #d84b53 100%);
 }
 
 .ready-to-talk h3 {
@@ -3862,7 +3862,7 @@ Big Data Analytics Banner CSS
   right: 0;
   bottom: 0;
   border-radius: 5px;
-  background: linear-gradient(135deg, #23bdb8 0%, #43e794 100%);
+  background: linear-gradient(135deg, #d84b53 0%, #d84b53 100%);
   z-index: -1;
   opacity: 0;
   margin: -1px;
@@ -3961,7 +3961,7 @@ What We Do CSS
   border-radius: 5px;
   color: #ffffff;
   text-align: center;
-  background: linear-gradient(135deg, #23bdb8 0%, #43e794 100%);
+  background: linear-gradient(135deg, #d84b53 0%, #d84b53 100%);
 }
 
 .single-what-we-do-box .icon i {
@@ -4007,7 +4007,7 @@ Discover CSS
 .discover-area {
   position: relative;
   z-index: 1;
-  background: linear-gradient(135deg, #43e794 0%, #23bdb8 100%);
+  background: linear-gradient(135deg, #d84b53 0%, #d84b53 100%);
 }
 
 .discover-area-crea {
@@ -4132,7 +4132,7 @@ Industries Serve CSS
   padding-bottom: 50px;
   position: relative;
   z-index: 1;
-  background: linear-gradient(135deg, #43e794 0%, #23bdb8 100%);
+  background: linear-gradient(135deg, #d84b53 0%, #d84b53 100%);
 }
 
 .serve-crea {
@@ -4244,7 +4244,7 @@ Blog CSS
   position: absolute;
   left: 20px;
   bottom: -20px;
-  background: linear-gradient(135deg, #23bdb8 0%, #43e794 100%);
+  background: linear-gradient(135deg, #d84b53 0%, #d84b53 100%);
   color: #ffffff;
   padding: 8px 16px;
   font-size: 13px;
@@ -4517,7 +4517,7 @@ Blog CSS
 }
 
 .blog-slides.owl-theme .owl-dots .owl-dot:hover span, .blog-slides.owl-theme .owl-dots .owl-dot.active span {
-  background: linear-gradient(135deg, #23bdb8 0%, #43e794 100%);
+  background: linear-gradient(135deg, #d84b53 0%, #d84b53 100%);
 }
 
 .single-blog-post-item {
@@ -7495,7 +7495,7 @@ Coming Soon CSS
 CTA CSS
 =================================================*/
 .cta-area {
-  background: linear-gradient(135deg, #23bdb8 0%, #43e794 100%);
+  background: linear-gradient(135deg, #d84b53 0%, #d84b53 100%);
 }
 
 .cta-area .container {
@@ -7717,7 +7717,7 @@ Repair About CSS
   top: 0;
   height: 100%;
   width: 100%;
-  background: linear-gradient(135deg, #23bdb8 0%, #43e794 100%);
+  background: linear-gradient(135deg, #d84b53 0%, #d84b53 100%);
   opacity: 0;
   visibility: hidden;
   position: absolute;
@@ -7854,7 +7854,7 @@ Repair Services CSS
   left: 0;
   width: 100%;
   height: 100%;
-  background: linear-gradient(135deg, #23bdb8 0%, #43e794 100%);
+  background: linear-gradient(135deg, #d84b53 0%, #d84b53 100%);
   z-index: -1;
   opacity: 0;
   visibility: hidden;
@@ -7996,7 +7996,7 @@ Repair Why Choose Us CSS
 .repair-why-choose-us {
   position: relative;
   z-index: 1;
-  background: linear-gradient(135deg, #23bdb8 0%, #43e794 100%);
+  background: linear-gradient(135deg, #d84b53 0%, #d84b53 100%);
 }
 
 .repair-why-choose-us .section-title h2 {
@@ -8383,7 +8383,7 @@ Iot Services CSS
   left: 0;
   width: 100%;
   height: 100%;
-  background: linear-gradient(135deg, #23bdb8 0%, #43e794 100%);
+  background: linear-gradient(135deg, #d84b53 0%, #d84b53 100%);
   z-index: -1;
   opacity: 0;
   visibility: hidden;
@@ -8523,7 +8523,7 @@ IoT Why Choose Us CSS
 .iot-why-choose-us {
   position: relative;
   z-index: 1;
-  background: linear-gradient(135deg, #23bdb8 0%, #43e794 100%);
+  background: linear-gradient(135deg, #d84b53 0%, #d84b53 100%);
 }
 
 .iot-why-choose-us .section-title h2 {
@@ -9457,7 +9457,7 @@ Newsletter CSS
   right: 0;
   bottom: 0;
   z-index: -1;
-  background: linear-gradient(135deg, #23bdb8 0%, #43e794 100%);
+  background: linear-gradient(135deg, #d84b53 0%, #d84b53 100%);
   display: none;
 }
 

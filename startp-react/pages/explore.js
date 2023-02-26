@@ -4,9 +4,8 @@ import Footer from "@/components/_App/Footer";
 import SimpleCampaignPost from '@/components/Common/SimpleCampaignPost';
 import SimplePreCampaignPost from '@/components/Common/SimplePreCampaignPost';
 
-import CategoryList from '@/utils/CategoryList';
+import CategoryListCrea from '@/utils/CategoryListCrea';
 import Checkbox from '@material-ui/core/Checkbox';
-import categoryList from '@/utils/CategoryList';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Pagination from '@material-ui/lab/Pagination';
 import {connect} from 'react-redux'
@@ -16,6 +15,7 @@ import { campaignAbi } from '@/components/ContractRelated/CampaignAbi';
 import { db } from 'firebase-crowdfund/index';
 import { Button } from '@material-ui/core';
 import { campaignsCollection, preCampaignsCollection } from '@/utils/collections';
+import SimpleCampaignPostCrea from '@/components/Common/SimpleCampaignPostCrea';
 
 
 class Explore extends React.Component {
@@ -49,7 +49,7 @@ class Explore extends React.Component {
 
     populateCheckArray(){
         let arr = []
-        categoryList.forEach(e => arr.push(false))
+        CategoryListCrea.forEach(e => arr.push(false))
         return arr
     }
 
@@ -82,10 +82,10 @@ class Explore extends React.Component {
     
     showCheckboxes = () => {
         var rows = [];
-        for (var i = 0; i < CategoryList.length; i++) {
+        for (var i = 0; i < CategoryListCrea.length; i++) {
             rows.push(<FormControlLabel key={i}
               control={<Checkbox disabled={this.state.disabled} color="default" checked={this.state.checked[i]} onChange={this.handleChange} name={i.toString()} />}
-              label={CategoryList[i]}
+              label={CategoryListCrea[i]}
             />);
         }
         return rows;
@@ -113,7 +113,7 @@ class Explore extends React.Component {
     componentDidMount(){
          if(this.props.cat != "all"){
             const s = this.props.cat
-            const i = categoryList.indexOf(s)
+            const i = CategoryListCrea.indexOf(s)
             this.addCategory(i)
             this.setState({checked: this.CheckedArrayChanged(i)})
          }
@@ -131,7 +131,7 @@ class Explore extends React.Component {
         // console.log(this.categoriesSelected)
         if(this.categoriesSelected.length > 0){
           var newArr = []
-          await db.collection(campaignsCollection).where("confirmed", "==", true).where("categories", "array-contains-any", this.categoriesSelected).orderBy("live", "desc").orderBy("like_score", "desc").limit(this.nbByPage)
+          await db.collection(campaignsCollection).where("confirmed", "==", true).where("categories", "array-contains-any", this.categoriesSelected).limit(this.nbByPage)
           .get()
           .then(async (ds) => {
               ds.forEach(element => {
@@ -200,10 +200,10 @@ class Explore extends React.Component {
       
     async getQuery(){
       if(this.categoriesSelected.length > 0){
-        return db.collection(campaignsCollection).where("confirmed", "==", true).where("categories", "array-contains-any", this.categoriesSelected).orderBy("live", "desc").orderBy("like_score", "desc").startAfter(this.lastDoc).limit(this.nbByPage)
+        return db.collection(campaignsCollection).where("confirmed", "==", true).where("categories", "array-contains-any", this.categoriesSelected).startAfter(this.lastDoc).limit(this.nbByPage)
         .get()
       } else {
-        return db.collection(campaignsCollection).where("confirmed", "==", true).orderBy("live", "desc").orderBy("like_score", "desc").startAfter(this.lastDoc).limit(this.nbByPage)
+        return db.collection(campaignsCollection).where("confirmed", "==", true).startAfter(this.lastDoc).limit(this.nbByPage)
         .get()
       }
     }
@@ -265,12 +265,12 @@ class Explore extends React.Component {
     
 
     addCategory(i){
-        this.categoriesSelected.push(categoryList[i]);
+        this.categoriesSelected.push(CategoryListCrea[i]);
         this.loadProjects();
     }
 
     removeCategory(i){
-        this.categoriesSelected = this.categoriesSelected.filter(x => x != categoryList[i])
+        this.categoriesSelected = this.categoriesSelected.filter(x => x != CategoryListCrea[i])
         this.loadProjects();
     }
 
@@ -310,7 +310,7 @@ class Explore extends React.Component {
             </div>)
           } else {
             rows.push( <div key={index} className="col-lg-4 col-md-6">
-            <SimpleCampaignPost project={e} creator={e.creator}/>
+            <SimpleCampaignPostCrea project={e}/>
             </div>)
           }
          })
@@ -335,7 +335,7 @@ class Explore extends React.Component {
                         <div className="section-title">
                             <h2 className="search-page-title">Discover projects that need you !</h2>
                             <div className="bar"></div>
-                            {/* <CheckboxList alreadyChecked = {categoryList.indexOf(this.props.cat)} addCat = {this.addCategory} removeCat = {this.removeCategory} /> */}
+                            {/* <CheckboxList alreadyChecked = {CategoryListCrea.indexOf(this.props.cat)} addCat = {this.addCategory} removeCat = {this.removeCategory} /> */}
                             {/* {this.networkCheckboxes()}
                             <br></br> */}
                             {this.showCheckboxes()}

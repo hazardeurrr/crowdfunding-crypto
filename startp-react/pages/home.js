@@ -10,6 +10,8 @@ import CarouselCrea from '@/components/ITStartup/CarouselCrea';
 import ProjectGridMainCrea from '@/components/ITStartup/ProjectGridMainCrea';
 import CategoriesLightCrea from '@/components/ITStartup/CategoriesLightCrea';
 import DiscoverAreaCrea from '@/components/ITStartup/DiscoverAreaCrea';
+import MainPageArea from '@/components/ITStartup/MainPageArea';
+import TestimonialsCrea from '@/components/ITStartup/TestimonialsCrea';
 
 
 const ITStartup = () => {
@@ -22,6 +24,8 @@ const ITStartup = () => {
             <CategoriesLightCrea />
             {/* <ProjectGridMainCrea /> */}
             {/* <Partner /> */}
+            <MainPageArea />
+            {/* <TestimonialsCrea /> */}
 
             <DiscoverAreaCrea />
             {/* <ServicesArea />
