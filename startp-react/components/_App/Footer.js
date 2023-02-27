@@ -162,7 +162,7 @@ const Footer = () => {
                                 </li>
                                 <li>
                                     <Link href="https://blockboosted.com/">
-                                        <a>Fundraising</a>
+                                        <a>Crowdfunding</a>
                                     </Link>
                                 </li>
                             </ul>

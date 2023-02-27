@@ -51,11 +51,11 @@ const SimpleCampaignPostCrea = (props) => {
     
    
     const displayDesc = () => {
-        if(campaign.small_description.length > 130){
-            return campaign.small_description.substring(0, 130) + " [...]"
-        } else {
+        // if(campaign.small_description.length > 130){
+        //     return campaign.small_description.substring(0, 130) + " [...]"
+        // } else {
             return campaign.small_description
-        }
+        // }
     }
 
     const SupportOrSee = () => {

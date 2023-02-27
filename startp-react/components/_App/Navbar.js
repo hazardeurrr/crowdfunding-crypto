@@ -994,7 +994,7 @@ const Navbar = () => {
                 
                 <div style={{display:"flex", justifyContent:'center', alignItems:'center'}}>
                     <Typography style={{color: 'white', padding: "6px 3px", fontSize: 13, textAlign: 'center'}}>
-                    <b>Welcome to <a target="_blank" href="https://medium.com/@blockboosted"style={{color:'white', textDecoration: "underline", cursor: "pointer"}}>BLOCKBOOSTED V1</a></b> 🎉
+                    <b>Welcome to <a target="_blank" href="https://medium.com/@blockboosted"style={{color:'white', textDecoration: "underline", cursor: "pointer"}}>BLOCKBOOSTED TIP</a></b> 🎉
                     </Typography>
                     <div style={{marginLeft: 10, width: 17}}>
                         <div style={{color:"white", cursor: 'pointer', height: '100%', width: '100%'}} onClick={() => setShowAppBar(false)}>✖</div>
@@ -1112,7 +1112,7 @@ const Navbar = () => {
 
                                 <li className="nav-item">
                                     <Link href={"https://blockboosted.com"} activeClassName="active">
-                                        <a onClick={toggleNavbar} className="nav-link">Fundraising</a>
+                                        <a onClick={toggleNavbar} className="nav-link">Crowdfunding</a>
                                     </Link>
                                 </li>
 

@@ -28,6 +28,7 @@ const ITStartup = () => {
             {/* <TestimonialsCrea /> */}
 
             <DiscoverAreaCrea />
+            {/* <CategoriesLight /> */}
             {/* <ServicesArea />
             <OurFeatures />
             <Team />

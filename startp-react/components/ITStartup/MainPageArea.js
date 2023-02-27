@@ -89,8 +89,19 @@ const MainPageArea = () => {
                             </div>
                         </div>
                     </div>
+                    {/* <div className="funfacts-area ptb-80">
+            <div className='container'> */}
+                <div className='contact-cta-box'>
+                    <div style={{display:'flex', alignItems:'center'}}><img src="images/logo_crowd.png" style={{width: 30, height: 30, marginRight: 10, marginBottom: 5}}/><h3>BlockBoosted Crowdfunding</h3></div>
+                    <p>Raise crypto for a specific cause or project in a limited period of time on our dedicated crowdfunding platform.</p>
+                    <a href="https://blockboosted.com" className="btn btn-primary">Try it</a>
+                {/* </div>
+            </div> */}
+                </div>
                 </div>
             </div>
+
+            
     )
 }
 
