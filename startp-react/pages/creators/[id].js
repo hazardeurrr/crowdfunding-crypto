@@ -37,6 +37,7 @@ import SocialMediaList from '@/components/Common/SocialMediaList';
 // import SocialFeed from '@/components/Common/SocialFeed';
 import Withdraw from '@/components/Common/withdraw';
 import CampaignSidebarCrea from '@/components/Blog/CampaignSidebarCrea';
+import CarouselNFT from '@/components/ITStartup/CarouselNFT';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -443,7 +444,11 @@ const Creators = (props) => {
                         </DialogActions>
                     </Dialog>
 
-                   
+                    {/* <div className="row">
+                        NFT Shop
+                        <CarouselNFT />
+                    </div> */}
+                    <CarouselNFT />
 
                     <div className="row">
                         {/* <div className="col-lg-3 col-md-12">
