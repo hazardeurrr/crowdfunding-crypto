@@ -127,10 +127,10 @@ const SimpleCampaignPostCrea = (props) => {
                     <Link href={{
                         pathname: "/creators/[id]",
                         query: {
-                            id: campaign.contract_address,
+                            id: prefixedAddress(campaign.network, campaign.contract_address),
                         }
                     }}
-                    as={`/creators/${campaign.contract_address}`}>
+                    as={`/creators/${prefixedAddress(campaign.network, campaign.contract_address)}`}>
                     <a style={{width: '100%'}}>
                           <img style={{borderRadius: '50%', top: -70, width: 125,  height:125, objectFit:'cover', left:0, right:0, marginLeft: 'auto', marginRight: 'auto', position: 'absolute'}} src={campaign.main_img} alt="image" />
                     

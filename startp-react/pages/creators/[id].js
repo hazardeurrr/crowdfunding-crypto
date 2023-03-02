@@ -221,10 +221,10 @@ const Creators = (props) => {
                     return <div style={{textAlign:'center'}}><Link href={{
                                 pathname: "/checkout/[id]",
                                 query: {
-                                    id: campaign.contract_address,
+                                    id: prefixedAddress(campaign.network, campaign.contract_address),
                                     }
                                 }}
-                                    as={`/checkout/${campaign.contract_address}`}>
+                                    as={`/checkout/${prefixedAddress(campaign.network, campaign.contract_address)}`}>
                             <a className="btn btn2 btn-primary-crea">Tip this creator</a>
                             </Link></div>
             } else {
