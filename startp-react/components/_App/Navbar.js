@@ -880,7 +880,7 @@ const Navbar = () => {
 
                         <ul className="dropdown-menu">
                             <li className="nav-item">
-                                <Link href={`/user/${userAddr}`} activeClassName="active">
+                                <Link href={`https://blockboosted.com/user/${userAddr}`} activeClassName="active">
                                     <a onClick={toggleNavbar} className="nav-link">View Profile</a>
                                 </Link>
                             </li>
