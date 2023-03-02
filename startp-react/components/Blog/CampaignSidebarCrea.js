@@ -75,7 +75,7 @@ const CampaignSidebarCrea = (props) => {
 
     const Title = () => {
         // if(campaign.tiers.length != 0){
-            return <h3 className="widget-title">What you get with your contribution</h3>
+            return <h3 className="widget-title">Select a plan to support {campaign.name}</h3>
         // }
     }
 

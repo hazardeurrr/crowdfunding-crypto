@@ -469,12 +469,6 @@ const campaignAbi = isProd ?
 			},
 			{
 				"indexed": false,
-				"internalType": "uint256",
-				"name": "goal",
-				"type": "uint256"
-			},
-			{
-				"indexed": false,
 				"internalType": "address",
 				"name": "token",
 				"type": "address"
@@ -482,6 +476,19 @@ const campaignAbi = isProd ?
 		],
 		"name": "CampaignCreation",
 		"type": "event"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "address",
+				"name": "newOwner",
+				"type": "address"
+			}
+		],
+		"name": "changeOwner",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
 	},
 	{
 		"anonymous": false,
@@ -503,173 +510,6 @@ const campaignAbi = isProd ?
 		"type": "event"
 	},
 	{
-		"anonymous": false,
-		"inputs": [
-			{
-				"indexed": true,
-				"internalType": "address",
-				"name": "user",
-				"type": "address"
-			},
-			{
-				"indexed": false,
-				"internalType": "uint256",
-				"name": "amount",
-				"type": "uint256"
-			},
-			{
-				"indexed": false,
-				"internalType": "address",
-				"name": "campaign",
-				"type": "address"
-			},
-			{
-				"indexed": false,
-				"internalType": "uint256",
-				"name": "indexTier",
-				"type": "uint256"
-			}
-		],
-		"name": "Participation",
-		"type": "event"
-	},
-	{
-		"inputs": [],
-		"name": "BBSTAddr",
-		"outputs": [
-			{
-				"internalType": "address",
-				"name": "",
-				"type": "address"
-			}
-		],
-		"stateMutability": "view",
-		"type": "function"
-	},
-	{
-		"inputs": [
-			{
-				"internalType": "uint256",
-				"name": "",
-				"type": "uint256"
-			}
-		],
-		"name": "amounts",
-		"outputs": [
-			{
-				"internalType": "uint256",
-				"name": "",
-				"type": "uint256"
-			}
-		],
-		"stateMutability": "view",
-		"type": "function"
-	},
-	{
-		"inputs": [],
-		"name": "campaign_address",
-		"outputs": [
-			{
-				"internalType": "address",
-				"name": "",
-				"type": "address"
-			}
-		],
-		"stateMutability": "view",
-		"type": "function"
-	},
-	{
-		"inputs": [],
-		"name": "campaign_id",
-		"outputs": [
-			{
-				"internalType": "uint256",
-				"name": "",
-				"type": "uint256"
-			}
-		],
-		"stateMutability": "view",
-		"type": "function"
-	},
-	{
-		"inputs": [
-			{
-				"internalType": "address",
-				"name": "newOwner",
-				"type": "address"
-			}
-		],
-		"name": "changeOwner",
-		"outputs": [],
-		"stateMutability": "nonpayable",
-		"type": "function"
-	},
-	{
-		"inputs": [],
-		"name": "creationBlock",
-		"outputs": [
-			{
-				"internalType": "uint256",
-				"name": "",
-				"type": "uint256"
-			}
-		],
-		"stateMutability": "view",
-		"type": "function"
-	},
-	{
-		"inputs": [],
-		"name": "creator",
-		"outputs": [
-			{
-				"internalType": "address payable",
-				"name": "",
-				"type": "address"
-			}
-		],
-		"stateMutability": "view",
-		"type": "function"
-	},
-	{
-		"inputs": [],
-		"name": "endTimestamp",
-		"outputs": [
-			{
-				"internalType": "uint256",
-				"name": "",
-				"type": "uint256"
-			}
-		],
-		"stateMutability": "view",
-		"type": "function"
-	},
-	{
-		"inputs": [],
-		"name": "getStock",
-		"outputs": [
-			{
-				"internalType": "int256[]",
-				"name": "",
-				"type": "int256[]"
-			}
-		],
-		"stateMutability": "view",
-		"type": "function"
-	},
-	{
-		"inputs": [],
-		"name": "goal",
-		"outputs": [
-			{
-				"internalType": "uint256",
-				"name": "",
-				"type": "uint256"
-			}
-		],
-		"stateMutability": "view",
-		"type": "function"
-	},
-	{
 		"inputs": [
 			{
 				"internalType": "address payable",
@@ -679,21 +519,6 @@ const campaignAbi = isProd ?
 			{
 				"internalType": "uint256",
 				"name": "campaign_id_",
-				"type": "uint256"
-			},
-			{
-				"internalType": "uint256",
-				"name": "goal_",
-				"type": "uint256"
-			},
-			{
-				"internalType": "uint256",
-				"name": "startTimestamp_",
-				"type": "uint256"
-			},
-			{
-				"internalType": "uint256",
-				"name": "endTimestamp_",
 				"type": "uint256"
 			},
 			{
@@ -707,6 +532,11 @@ const campaignAbi = isProd ?
 				"type": "address"
 			},
 			{
+				"internalType": "address",
+				"name": "feesAddr_",
+				"type": "address"
+			},
+			{
 				"internalType": "uint256[]",
 				"name": "amounts_",
 				"type": "uint256[]"
@@ -715,6 +545,16 @@ const campaignAbi = isProd ?
 				"internalType": "int256[]",
 				"name": "stock_",
 				"type": "int256[]"
+			},
+			{
+				"internalType": "uint256",
+				"name": "baseFeeRate_",
+				"type": "uint256"
+			},
+			{
+				"internalType": "uint256",
+				"name": "bbstFeeRate_",
+				"type": "uint256"
 			}
 		],
 		"name": "initialize",
@@ -766,6 +606,37 @@ const campaignAbi = isProd ?
 		"type": "function"
 	},
 	{
+		"anonymous": false,
+		"inputs": [
+			{
+				"indexed": true,
+				"internalType": "address",
+				"name": "user",
+				"type": "address"
+			},
+			{
+				"indexed": false,
+				"internalType": "uint256",
+				"name": "amount",
+				"type": "uint256"
+			},
+			{
+				"indexed": false,
+				"internalType": "address",
+				"name": "campaign",
+				"type": "address"
+			},
+			{
+				"indexed": false,
+				"internalType": "uint256",
+				"name": "indexTier",
+				"type": "uint256"
+			}
+		],
+		"name": "Participation",
+		"type": "event"
+	},
+	{
 		"inputs": [],
 		"name": "payCreator",
 		"outputs": [],
@@ -780,8 +651,18 @@ const campaignAbi = isProd ?
 		"type": "function"
 	},
 	{
-		"inputs": [],
-		"name": "raised",
+		"stateMutability": "payable",
+		"type": "receive"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "uint256",
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"name": "amounts",
 		"outputs": [
 			{
 				"internalType": "uint256",
@@ -793,26 +674,117 @@ const campaignAbi = isProd ?
 		"type": "function"
 	},
 	{
-		"inputs": [
-			{
-				"internalType": "address",
-				"name": "addr",
-				"type": "address"
-			}
-		],
-		"name": "setBBSTAddr",
-		"outputs": [],
-		"stateMutability": "nonpayable",
-		"type": "function"
-	},
-	{
 		"inputs": [],
-		"name": "startTimestamp",
+		"name": "baseFeeRate",
 		"outputs": [
 			{
 				"internalType": "uint256",
 				"name": "",
 				"type": "uint256"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [],
+		"name": "BBSTAddr",
+		"outputs": [
+			{
+				"internalType": "address",
+				"name": "",
+				"type": "address"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [],
+		"name": "bbstFeeRate",
+		"outputs": [
+			{
+				"internalType": "uint256",
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [],
+		"name": "campaign_address",
+		"outputs": [
+			{
+				"internalType": "address",
+				"name": "",
+				"type": "address"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [],
+		"name": "campaign_id",
+		"outputs": [
+			{
+				"internalType": "uint256",
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [],
+		"name": "creationBlock",
+		"outputs": [
+			{
+				"internalType": "uint256",
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [],
+		"name": "creator",
+		"outputs": [
+			{
+				"internalType": "address payable",
+				"name": "",
+				"type": "address"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [],
+		"name": "feesAddress",
+		"outputs": [
+			{
+				"internalType": "address payable",
+				"name": "",
+				"type": "address"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [],
+		"name": "getStock",
+		"outputs": [
+			{
+				"internalType": "int256[]",
+				"name": "",
+				"type": "int256[]"
 			}
 		],
 		"stateMutability": "view",
@@ -849,10 +821,6 @@ const campaignAbi = isProd ?
 		],
 		"stateMutability": "view",
 		"type": "function"
-	},
-	{
-		"stateMutability": "payable",
-		"type": "receive"
 	}
 ]
 

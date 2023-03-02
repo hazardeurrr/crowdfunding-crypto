@@ -553,7 +553,7 @@ const PricingTiers = (props) => {
 
             <div className="container">
                 <div className="section-title">
-                    <img src={campaign.main_img} style={{border: "3px solid rgb(216, 75, 83)", borderRadius: '50%', width: 75, height: 75, marginBottom: 5}} />
+                    <img src={campaign.main_img} style={{border: "3px solid rgb(216, 75, 83)", borderRadius: '50%', width: 75, height: 75, marginBottom: 5, objectFit:'cover'}} />
                     <h2>{campaign.name}</h2>
                     <p style={{marginTop: 5}}>{campaign.small_description}</p>
                     <div className="bar"></div>

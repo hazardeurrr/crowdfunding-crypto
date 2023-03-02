@@ -108,7 +108,6 @@ class MainForm extends React.Component {
             raisingMethod: this.getStartRaisingMethod(),
             activeStep:0,
             name: null,
-            image: null, 
             cats: ['---', '---'],
             small_description:'',
             objective:0,
@@ -122,8 +121,8 @@ class MainForm extends React.Component {
             soundcloud:'',
             twitch:'',
             tiktok:'',
-            profile_pic: '',
-            banner: '',
+            profile_pic: null,
+            banner: null,
             tags: []
         }
 
@@ -281,7 +280,6 @@ class MainForm extends React.Component {
    //     const bigMultiplier = new BN('1000000000000000000')
 
         let context = this
-        let amt = 0
         let tierAmountArray = []  
         
         if(this.state.raisingMethod != "ETH" && this.state.raisingMethod != "b_BNB"){
@@ -297,19 +295,14 @@ class MainForm extends React.Component {
             }
 
             if(erc20Ctr != undefined){
-                await erc20Ctr.methods.decimals().call().then((decimals) => {     
-                    amt = toBaseUnit(this.state.objective.toString(), decimals, this.props.web3Instance.utils.BN)               
-                    // console.log("amount", amt)
-                  //  tierAmountArray = this.tiersArray.map(a => a.threshold * 10**decimals) 
+                await erc20Ctr.methods.decimals().call().then((decimals) => {
                     tierAmountArray = this.state.tiersArray.map(a => toBaseUnit(a.threshold.toString(), decimals, this.props.web3Instance.utils.BN))
-                    // console.log(tierAmountArray)
                 })
             } else {
                 throw "erc20 contract instance not defined"
             }
         } else {        // <=> campagne en ETH ou MATIC
             tierAmountArray = this.state.tiersArray.map(a => this.props.web3Instance.utils.toWei(a.threshold.toString()))
-            amt = this.props.web3Instance.utils.toWei(this.state.objective.toString())
         }
 
         let tierStockArray = this.state.tiersArray.map(a => a.maxClaimers)
@@ -321,9 +314,6 @@ class MainForm extends React.Component {
         const ethInstance = this.props.web3Instance.eth;
         // [0, tiersArray[0].threshold, tiersArray[1].threshold]
         return await this.state.factoryInstance.methods.createCampaign(
-        amt, // WEI for ETH, x 10^decimals
-        parseInt(this.startDate), 
-        parseInt(this.endDate), 
       //  this.flexible, 
         parseInt(tokenAdd),
         amountArray,
@@ -373,7 +363,7 @@ class MainForm extends React.Component {
 
         let contract_address = contract_addr.toLowerCase()
 
-        let uploadTaskImg = postImage('mainPic', this.state.image, this.prefixedAddress(contract_address))
+        let uploadTaskImg = postImage('mainPicCrea', this.state.profile_pic, this.prefixedAddress(contract_address))
         uploadTaskImg.on('state_changed', 
         (snapshot) => {
             // Observe state change events such as progress, pause, and resume
@@ -397,15 +387,50 @@ class MainForm extends React.Component {
         () => {
             // Handle successful uploads on complete
             // For instance, get the download URL: https://firebasestorage.googleapis.com/...
-            storage.ref('mainPic')
+            storage.ref('mainPicCrea')
              .child(this.prefixedAddress(contract_address))
-             .getDownloadURL().then((downloadURL) => {
-                 this.createHTMLAndPush(contract_address, downloadURL)
+             .getDownloadURL().then((imageURL) => {
+
+                //-----------------------------BANNER UPLOAD-----------------//
+                let contract_address = contract_addr.toLowerCase()
+                this.handleNext()
+
+                let uploadTaskImg = postImage('bannerCrea', this.state.banner, this.prefixedAddress(contract_address))
+                uploadTaskImg.on('state_changed', 
+                (snapshot) => {
+                    // Observe state change events such as progress, pause, and resume
+                    // Get task progress, including the number of bytes uploaded and the total number of bytes to be uploaded
+                    const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+                    // console.log('Upload is ' + progress + '% done');
+                    this.setState({imageProgress: progress})
+                    switch (snapshot.state) {
+                    case 'paused':
+                        console.log('Upload is paused');
+                        break;
+                    case 'running':
+                        console.log('Upload is running');
+                        break;
+                    }
+                }, 
+                (error) => {
+                    // Handle unsuccessful uploads
+                    console.log(error)
+                }, 
+                () => {
+                    // Handle successful uploads on complete
+                    // For instance, get the download URL: https://firebasestorage.googleapis.com/...
+                    storage.ref('bannerCrea')
+                     .child(this.prefixedAddress(contract_address))
+                     .getDownloadURL().then((bannerURL) => {
+                         this.createHTMLAndPush(contract_address, imageURL, bannerURL)
+                     }).catch(console.error)
+                })
+                //  this.createHTMLAndPush(contract_address, imageURL)
              }).catch(console.error)
         })
     }
 
-    createHTMLAndPush = (contract_address, imageURL) => {
+    createHTMLAndPush = (contract_address, imageURL, bannerURL) => {
         this.handleNext()
         // this.setState({ creationState: 1 });    // etat "push to bdd"
         if(!this.state.dialogOpen){
@@ -449,56 +474,49 @@ class MainForm extends React.Component {
              .child(this.prefixedAddress(contract_address))
              .getDownloadURL().then(async(downloadURL) => {
                 // console.log('File available at', downloadURL);
-                let precategs = this.state.cats.filter(a => a !== "---").filter(function (value, index, array) { 
-                    return array.indexOf(value) === index;
-                })
-
-                let categs = precategs.length == 0 ? ["Diverse"] : precategs
 
                 
-                const requestOptions = {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ 
-                        "dynamicLinkInfo": {
-                            "domainUriPrefix": "blb.st",
-                            "link": `https://app.blockboosted.com/campaigns/${this.prefixedAddress(contract_address)}`,
-                            "socialMetaTagInfo": {
-                                "socialTitle":this.state.title,
-                                "socialDescription": this.state.small_description,
-                                "socialImageLink": imageURL
-                            }
-                        },
-                        "suffix": {
-                            "option": "SHORT"
-                        }
-                    })
-                };
-                const response = await fetch('https://firebasedynamiclinks.googleapis.com/v1/shortLinks?key=AIzaSyAxLDH4sjj2Cdtf-ylbdwAcqoQwKnViACM', requestOptions);
-                const data = await response.json();
+                // const requestOptions = {
+                //     method: 'POST',
+                //     headers: { 'Content-Type': 'application/json' },
+                //     body: JSON.stringify({ 
+                //         "dynamicLinkInfo": {
+                //             "domainUriPrefix": "blb.st",
+                //             "link": `https://tip.blockboosted.com/pages/${this.prefixedAddress(contract_address)}`,
+                //             "socialMetaTagInfo": {
+                //                 "socialTitle":this.state.title,
+                //                 "socialDescription": this.state.small_description,
+                //                 "socialImageLink": imageURL
+                //             }
+                //         },
+                //         "suffix": {
+                //             "option": "SHORT"
+                //         }
+                //     })
+                // };
+                // const response = await fetch('https://firebasedynamiclinks.googleapis.com/v1/shortLinks?key=AIzaSyAxLDH4sjj2Cdtf-ylbdwAcqoQwKnViACM', requestOptions);
+                // const data = await response.json();
 
-                let shortURL = data.shortLink ? data.shortLink : null
+
+                // let shortURL = data.shortLink ? data.shortLink : null
+                let shortURL = null
     
                 const campainInfos = {
-                    title: this.state.title,
-                    start_date: this.startDate,
-                    end_date: this.endDate,
+                    name: this.state.name,
                     contract_address: contract_address,
                     small_description: this.state.small_description,
-                    categories: categs,
-                    objective: this.state.objective,
+                    categories: this.state.tags,
                     long_desc: downloadURL,
                     currency: this.state.raisingMethod,
-                 //   flexible: this.flexible,
                     tiers: this.state.tiersArray,
                     network: this.props.chainID,
                     main_img: imageURL,
-                    raised: 0,
-                    // likedTupleMap: {},
+                    backgroundImage: bannerURL,
                     confirmed: null,
-                    like_score: 0,
+                    // like_score: 0,
                     live:true,
-                    shortURL: shortURL
+                    shortURL: shortURL,
+                    social: this.getSocialsAsObject()
                 }
                 // console.log(campainInfos)
         
@@ -530,10 +548,7 @@ class MainForm extends React.Component {
     }
 
     checkCampaignIsValid = () => {
-        if(this.state.image != null && this.state.html != '' && this.state.name != null && this.startDate != undefined && this.endDate != undefined && this.state.objective > 0){
-            if(this.startDate >= this.endDate){
-                return false
-            }
+        if(this.state.profile_pic != null && this.state.banner != null && this.state.html != '' && this.state.name != null){
             return true
         }
         return false
@@ -567,7 +582,11 @@ class MainForm extends React.Component {
     }
 
     handleChangeImage(dataFromImage) {
-        this.setState({image: dataFromImage})
+        this.setState({profile_pic: dataFromImage})
+    }
+
+    handleChangeBanner(dataFromImage) {
+        this.setState({banner: dataFromImage})
     }
 
 
@@ -611,7 +630,7 @@ class MainForm extends React.Component {
     
     //---------------STEPPER----------------/
     getSteps = () => {
-        return ['Create smart-contract instance', 'Upload campaign data 1/2', 'Upload campaign data 2/2'];
+        return ['Create smart-contract instance', 'Uploading image 1/2', 'Uploading image 2/2', 'Upload campaign data 2/2'];
       }
       
     getStepContent = (step) => {
@@ -621,6 +640,8 @@ class MainForm extends React.Component {
           case 1:
             return `Your contract is created ! We are uploading your campaign's data (1/2).`;
           case 2:
+                return `Your contract is created ! We are uploading your campaign's data (2/2).`;
+          case 3:
             return `Almost there ! We are uploading your campaign's data (2/2).`;
           default:
             return 'Unknown step';
@@ -633,8 +654,8 @@ class MainForm extends React.Component {
       
       getLabelIcon = (i) => {
         if(i === this.state.activeStep && i===0) return <CircularProgress style={{color:'black', width: 25, height:25}}/>
-        else if(i === this.state.activeStep && i === 1) return <CircularProgressWithLabel style={{color:'black', width: 25, height:25}} value={this.state.imageProgress}/>
-        else if(i === this.state.activeStep && i === 2) return <CircularProgressWithLabel style={{color:'black', width: 25, height:25}} value={this.state.initializationProgress}/>
+        else if(i === this.state.activeStep && (i === 1 || i === 3)) return <CircularProgressWithLabel style={{color:'black', width: 25, height:25}} value={this.state.imageProgress}/>
+        else if(i === this.state.activeStep && i === 3) return <CircularProgressWithLabel style={{color:'black', width: 25, height:25}} value={this.state.initializationProgress}/>
         else if(i < this.state.activeStep) return <CheckCircle/>
         else if(i > this.state.activeStep) return i+1
 
@@ -655,7 +676,7 @@ class MainForm extends React.Component {
               </Stepper>
               {this.state.activeStep === this.steps.length && (
                 <Paper style={{marginTop: 15, textAlign:'center'}} square elevation={0}>
-                  <h5>Upload complete 🎉</h5><p>Our team will review your campaign as soon as possible. You will receive a notification once it's published.</p>
+                  <h5>Upload complete 🎉</h5><p>Our team will review your page as soon as possible. You will receive a notification once it's published.</p>
                   <Link style={{marginTop: 15}} href="/"><Button
                     style={{backgroundColor: 'black', color:'white'}}
                     variant="contained"
@@ -717,7 +738,7 @@ class MainForm extends React.Component {
                 
                 <div style={{display: 'flex', justifyContent:'center', alignItems:'center', flexDirection:'column'}}>
                     <h5 style={{marginBottom: 5}}>{this.state.name}</h5>
-                    <img src={this.state.image} alt='campaign image'/>
+                    <img src={this.state.profile_pic} alt='campaign image'/>
                     <div style={{justifyContent:'center'}}>
                         <Link href={{
                             pathname: "/campaigns/[id]",
@@ -745,7 +766,7 @@ class MainForm extends React.Component {
 
             case 10:
                 return  <div style={{justifyContent:'center'}}>
-                <DialogTitle id="alert-dialog-title">Campaign creation</DialogTitle>
+                <DialogTitle id="alert-dialog-title">Page creation</DialogTitle>
                 <DialogContent>
                     {this.displayStepper()}
                     <DialogContentText style={{marginTop: 15, marginBottom: 0}} id="alert-dialog-description">Transaction hash :</DialogContentText>

@@ -132,7 +132,7 @@ const SimpleCampaignPostCrea = (props) => {
                     }}
                     as={`/creators/${campaign.contract_address}`}>
                     <a style={{width: '100%'}}>
-                          <img style={{borderRadius: '50%', top: -70, width: 125, left:0, right:0, marginLeft: 'auto', marginRight: 'auto', position: 'absolute'}} src={campaign.main_img} alt="image" />
+                          <img style={{borderRadius: '50%', top: -70, width: 125,  height:125, objectFit:'cover', left:0, right:0, marginLeft: 'auto', marginRight: 'auto', position: 'absolute'}} src={campaign.main_img} alt="image" />
                     
                 <div style={{marginTop: 50, justifyContent:'center', alignItems:'center'}}>
                     <h3 style={{textAlign:'center'}}>
