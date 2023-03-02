@@ -37,7 +37,7 @@ class Title extends React.Component {
 
         return (
             <>
-            <p><strong> Creator Name </strong><br/>Write your creator name (max. 30 characters)</p>
+            <p><strong> Creator Name </strong><br/>The name (max. 30 characters) that will be displayed on your page</p>
             <div className="col-lg-12 col-md-12">
                 <div className="form-group">
                     <input type="text" placeholder="Your creator name" className="form-control" maxLength="30" onChange={e => {
