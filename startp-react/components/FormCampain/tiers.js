@@ -1,4 +1,5 @@
 import React from 'react';
+import NFTTier from '../ITStartup/NFTTier';
 import Claimers from './claimers';
 
 class Tiers extends React.Component {
@@ -7,6 +8,7 @@ class Tiers extends React.Component {
         this.state = {
             tiers: [],
             tiersInfos: [],
+            nfts:[]
         }
         this.tiers = []
     }
@@ -14,32 +16,13 @@ class Tiers extends React.Component {
     handleTiers(event) {
         event.preventDefault()
         let listTiers = this.state.tiers
-        // for(let j = 0 ; j < this.tiers.length ; ++j){
-        //     this.tiers[j]["title"] = ""
-        //     this.tiers[j]["threshold"] = 0
-        //     this.tiers[j]["description"] = ""
-        //     this.tiers[j]["maxClaimers"] = -1
-        // }
-        // this.tiers = []
-        // console.log(event.target.value)
-        // for (var i = 1; i <= event.target.value; i++) {
-        //     listTiers.push({index: i, description: ''})
-        //     this.tiers.push({
-        //         title: "",
-        //         threshold: 0,
-        //         description: "",
-        //         maxClaimers: -1,
-        //     })
-        // }
-        // console.log(event.target.value, "targetvalue")
-        // console.log(this.tiers.length, "tiersLength")
-
+        let nfts = this.state.nfts
         
         if(event.target.value > this.tiers.length){
             var length = this.tiers.length;
             for (var i = 0; i < event.target.value - length; i++) {
                     listTiers.push({index: i, description: ''})
-
+                    nfts.push(null)
                     this.tiers.push({
                         title: "",
                         threshold: 0,
@@ -51,11 +34,23 @@ class Tiers extends React.Component {
             // console.log("removing")
             listTiers = listTiers.slice(0, event.target.value)
             this.tiers = this.tiers.slice(0, event.target.value)
+            nfts = nfts.slice(0, event.target.value)
         }
       //  console.log(this.tiers)
         this.setState({tiers: listTiers})
         this.props.onTiersChange(this.tiers)
+        this.setState({nfts: nfts})
+        this.props.onTiersChange(nfts)
     }
+
+    handleNFTUpload = (image, index) => {
+        // console.log("image changed")
+        let newArr = this.state.nfts
+        newArr[index] = image
+        this.props.onNFTsChange(newArr)
+        this.setState({nfts: newArr});
+    }
+
 
     render() {
 
@@ -117,6 +112,9 @@ class Tiers extends React.Component {
                                         this.tiers[index]["maxClaimers"] = parseInt(e)
                                         this.props.onTiersChange(this.tiers)
                                     }} />
+
+                                <p>Add a custom NFT as a reward for your backers chosing this tier</p>
+                                <NFTTier tier={index} onImageChange={this.handleNFTUpload.bind(this)}/>
 
                                 
                             </div>

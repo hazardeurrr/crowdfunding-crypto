@@ -38,6 +38,7 @@ import SocialMediaList from '@/components/Common/SocialMediaList';
 import Withdraw from '@/components/Common/withdraw';
 import CampaignSidebarCrea from '@/components/Blog/CampaignSidebarCrea';
 import CarouselNFT from '@/components/ITStartup/CarouselNFT';
+import { prefixedAddress } from '@/utils/prefix';
 
 const useStyles = makeStyles((theme) => ({
     root: {

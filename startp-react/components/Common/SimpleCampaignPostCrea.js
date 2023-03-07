@@ -8,6 +8,7 @@ import RaisedChecker from './RaisedChecker';
 import { useSelector, useDispatch } from 'react-redux';
 import {chain} from '@/utils/chain'
 import {db, firebase} from '../../firebase-crowdfund/index'
+import { prefixedAddress } from '@/utils/prefix';
 
 
 

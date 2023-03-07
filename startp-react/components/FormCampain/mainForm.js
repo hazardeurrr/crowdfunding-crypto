@@ -67,9 +67,15 @@ import InputAdornment from '@material-ui/core/InputAdornment';
 import InputLabel from '@material-ui/core/InputLabel';
 import ProfilePicCrea from '../ITStartup/ProfilePicCrea';
 import BannerPic from '../ITStartup/BannerPic';
+import dynamic from 'next/dynamic';
+import mime from 'mime';
+
+// read the API key from an environment variable. You'll need to set this before running the example!
 
 const Web3 = require('web3');
 const BN = require('bn.js');
+
+const API_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJkaWQ6ZXRocjoweDFiRDE0N2I1NjlGQTA3OEFhZGUyODJkZmY5NjVjMGMxMjJGZmY5QjAiLCJpc3MiOiJuZnQtc3RvcmFnZSIsImlhdCI6MTY3ODEyMjgxODkxNiwibmFtZSI6IlRpcCJ9.flLUvAPGjJ1VLGSLA4l8nDQFng9CZOpqFC8YTaAhC84"
 
 const mapStateToProps = state => {
     return {
@@ -112,6 +118,8 @@ class MainForm extends React.Component {
             small_description:'',
             objective:0,
             tiersArray:[],
+            nftImgArray:[],
+            nftImgUris:[],
             youtube: '',
             instagram: '',
             facebook:'',
@@ -276,7 +284,7 @@ class MainForm extends React.Component {
         this.setState({snackbarOpen: false})
     }
 
-    async createContract(){
+    async createContract(nftURIs){
    //     const bigMultiplier = new BN('1000000000000000000')
 
         let context = this
@@ -308,16 +316,24 @@ class MainForm extends React.Component {
         let tierStockArray = this.state.tiersArray.map(a => a.maxClaimers)
         let am0 = [0]
         let st0 = [-1]
+        let nftURI0 = ["ipfs://bafyreihzl75rryjggx3bjrdn5yzcuccmeqmgglh7bgisvwldckrmhynj54/metadata.json"]
+        let nftURIsFixed = nftURI0.concat(nftURIs)
         let amountArray = am0.concat(tierAmountArray)
         let stockArray = st0.concat(tierStockArray)
         let tokenAdd = this.tokenIndex(this.state.raisingMethod)
+
         const ethInstance = this.props.web3Instance.eth;
+        console.log(parseInt(tokenAdd))
+        console.log(amountArray)
+        console.log(stockArray)
+        console.log(nftURIsFixed)
         // [0, tiersArray[0].threshold, tiersArray[1].threshold]
         return await this.state.factoryInstance.methods.createCampaign(
       //  this.flexible, 
         parseInt(tokenAdd),
         amountArray,
-        stockArray
+        stockArray,
+        nftURIsFixed
         )
         .send({from : this.props.userAddr, value: 0})
         .on('transactionHash', function(hash){
@@ -558,7 +574,9 @@ class MainForm extends React.Component {
         event.preventDefault();
 
         if(this.checkCampaignIsValid()){
-            this.checkContractCanBeCreated()
+            this.setState({ creationState: 10 })
+            this.openDialog()
+            this.handleNFTAndCtr()
         } else {
             this.setState({errorMsg: "Invalid input, please check you filled everything correctly."})
             this.openSnackbar()
@@ -566,11 +584,59 @@ class MainForm extends React.Component {
 
     }
 
-    checkContractCanBeCreated(){
+    async handleNFTAndCtr(){
+        import('nft.storage/dist/bundle.esm.min.js').then(async(obj) => {
+            const client = new obj.NFTStorage({ token: API_KEY })
+            let nftURIs = []
+            for(let i = 0; i < this.state.nftImgArray.length; ++i){
+                let indexTier = i
+                let data = await fetch(this.state.nftImgArray[indexTier])
+                    .then(res => res.blob())
+                    .then(async(imageBlob) => {
+                        console.log(imageBlob)
+                        const attributes = indexTier != -1 ? [{"trait_type": "Tier", "value": indexTier.toString()}] : []
+                        const nft = {
+                        image: imageBlob, // use image Blob as `image` field
+                        name: `${this.state.name} Supporter`,
+                        description: `You supported ${this.state.name} on BlockBoosted Tip <3`,
+                        attributes: attributes,
+                        }
+
+                        const metadata = await client.store(nft)
+
+                        return metadata
+                    })
+                nftURIs.push(data)
+                console.log(data)
+            }
+            console.log(nftURIs)
+
+            let ipfsURIs = nftURIs.map(a => a.url) // REMPLACER PAR .IPNFT ET SET BASE + EXTENSION DANS LE CONTRAT POUR ECO GAS
+            console.log(ipfsURIs)
+            this.checkContractCanBeCreated(ipfsURIs)
+
+        })
+    }
+
+    async storeNFT(indexTier = -1, client) {
+        // console.log(this.state.profile_pic)
+        // const type = mime.getType(this.state.profile_pic)
+        // console.log(type)
+        // const imageBlob = new Blob([this.state.profile_pic], {
+        //    type,
+        //   });
+        
+    return null
+        
+        
+    }
+
+
+
+    checkContractCanBeCreated(nftURIs){
         if(this.state.factoryInstance !== undefined){
-            this.createContract()
-            this.setState({ creationState: 10 })
-            this.openDialog()
+            this.handleNext()
+            this.createContract(nftURIs)
         } else {
             this.setState({ errorMsg : "Can't access Web3. Please check your wallet settings and that you don't have more than one provider installed. (Reload)"})
             this.openSnackbar()
@@ -630,18 +696,20 @@ class MainForm extends React.Component {
     
     //---------------STEPPER----------------/
     getSteps = () => {
-        return ['Create smart-contract instance', 'Uploading image 1/2', 'Uploading image 2/2', 'Upload campaign data 2/2'];
+        return ['Uploading NFTs data', 'Create smart-contract instance', 'Uploading image 1/2', 'Uploading image 2/2', 'Upload campaign data'];
       }
       
     getStepContent = (step) => {
         switch (step) {
           case 0:
-            return `Please confirm the transaction on your wallet and wait for blockchain confirmation. This is the only blockchain transaction you will need to do.`;
+            return `We're uploading your NFTs metadata to IPFS`;
           case 1:
-            return `Your contract is created ! We are uploading your campaign's data (1/2).`;
+            return `Please confirm the transaction on your wallet and wait for blockchain confirmation. This is the only blockchain transaction you will need to do.`;
           case 2:
-                return `Your contract is created ! We are uploading your campaign's data (2/2).`;
+            return `Your contract is created ! We are uploading your campaign's data (1/2).`;
           case 3:
+                return `Your contract is created ! We are uploading your campaign's data (2/2).`;
+          case 4:
             return `Almost there ! We are uploading your campaign's data (2/2).`;
           default:
             return 'Unknown step';
@@ -653,9 +721,9 @@ class MainForm extends React.Component {
       };
       
       getLabelIcon = (i) => {
-        if(i === this.state.activeStep && i===0) return <CircularProgress style={{color:'black', width: 25, height:25}}/>
-        else if(i === this.state.activeStep && (i === 1 || i === 3)) return <CircularProgressWithLabel style={{color:'black', width: 25, height:25}} value={this.state.imageProgress}/>
-        else if(i === this.state.activeStep && i === 3) return <CircularProgressWithLabel style={{color:'black', width: 25, height:25}} value={this.state.initializationProgress}/>
+        if(i === this.state.activeStep && (i===0 || i === 1)) return <CircularProgress style={{color:'black', width: 25, height:25}}/>
+        else if(i === this.state.activeStep && (i === 2 || i === 3)) return <CircularProgressWithLabel style={{color:'black', width: 25, height:25}} value={this.state.imageProgress}/>
+        else if(i === this.state.activeStep && i === 4) return <CircularProgressWithLabel style={{color:'black', width: 25, height:25}} value={this.state.initializationProgress}/>
         else if(i < this.state.activeStep) return <CheckCircle/>
         else if(i > this.state.activeStep) return i+1
 
@@ -1180,8 +1248,13 @@ class MainForm extends React.Component {
 
                                     <Tiers step={this.getNbrStep()} onTiersChange={e => {
                                         this.setState({tiersArray: e})
-                                        // console.log(this.tiersArray, "mainForm tiersArray")
-                                    }}/>
+                                    }}
+                                    
+                                    onNFTsChange={e => {
+                                        this.setState({nftImgArray: e})
+                                        console.log(this.state.nftImgArray)
+                                    }}
+                                    />
                                     
                                     <div className="col-lg-12 col-md-12">
                                         <button className="btn btn-primary" type="submit" >Create my page !</button>
