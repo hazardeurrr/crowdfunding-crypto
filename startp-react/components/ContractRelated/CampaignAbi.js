@@ -738,6 +738,19 @@ const campaignAbi = isProd ?
 	},
 	{
 		"inputs": [],
+		"name": "contractURI",
+		"outputs": [
+			{
+				"internalType": "string",
+				"name": "",
+				"type": "string"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [],
 		"name": "creationBlock",
 		"outputs": [
 			{
@@ -757,6 +770,19 @@ const campaignAbi = isProd ?
 				"internalType": "address payable",
 				"name": "",
 				"type": "address"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [],
+		"name": "ctrURI",
+		"outputs": [
+			{
+				"internalType": "string",
+				"name": "",
+				"type": "string"
 			}
 		],
 		"stateMutability": "view",
@@ -802,6 +828,19 @@ const campaignAbi = isProd ?
 				"internalType": "int256[]",
 				"name": "",
 				"type": "int256[]"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [],
+		"name": "getURIs",
+		"outputs": [
+			{
+				"internalType": "string[]",
+				"name": "",
+				"type": "string[]"
 			}
 		],
 		"stateMutability": "view",
@@ -858,6 +897,11 @@ const campaignAbi = isProd ?
 				"internalType": "string[]",
 				"name": "tokenURIs_",
 				"type": "string[]"
+			},
+			{
+				"internalType": "string",
+				"name": "contractURI_",
+				"type": "string"
 			}
 		],
 		"name": "initialize",

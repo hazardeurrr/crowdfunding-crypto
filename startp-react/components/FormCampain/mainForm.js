@@ -76,6 +76,7 @@ const Web3 = require('web3');
 const BN = require('bn.js');
 
 const API_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJkaWQ6ZXRocjoweDFiRDE0N2I1NjlGQTA3OEFhZGUyODJkZmY5NjVjMGMxMjJGZmY5QjAiLCJpc3MiOiJuZnQtc3RvcmFnZSIsImlhdCI6MTY3ODEyMjgxODkxNiwibmFtZSI6IlRpcCJ9.flLUvAPGjJ1VLGSLA4l8nDQFng9CZOpqFC8YTaAhC84"
+const BASE_NFT_IMG = "https://firebasestorage.googleapis.com/v0/b/crowdfunding-dev-5f802.appspot.com/o/coinbb.png?alt=media&token=9bb5befd-20a6-49d0-8aa0-c564a8ce0814"
 
 const mapStateToProps = state => {
     return {
@@ -284,7 +285,7 @@ class MainForm extends React.Component {
         this.setState({snackbarOpen: false})
     }
 
-    async createContract(nftURIs){
+    async createContract(nftURIs, contractMetadata){
    //     const bigMultiplier = new BN('1000000000000000000')
 
         let context = this
@@ -316,24 +317,24 @@ class MainForm extends React.Component {
         let tierStockArray = this.state.tiersArray.map(a => a.maxClaimers)
         let am0 = [0]
         let st0 = [-1]
-        let nftURI0 = ["ipfs://bafyreihzl75rryjggx3bjrdn5yzcuccmeqmgglh7bgisvwldckrmhynj54/metadata.json"]
-        let nftURIsFixed = nftURI0.concat(nftURIs)
         let amountArray = am0.concat(tierAmountArray)
         let stockArray = st0.concat(tierStockArray)
         let tokenAdd = this.tokenIndex(this.state.raisingMethod)
 
         const ethInstance = this.props.web3Instance.eth;
-        console.log(parseInt(tokenAdd))
-        console.log(amountArray)
-        console.log(stockArray)
-        console.log(nftURIsFixed)
+        // console.log(parseInt(tokenAdd))
+        // console.log(amountArray)
+        // console.log(stockArray)
+        // console.log(nftURIsFixed)
+        console.log(contractMetadata)
         // [0, tiersArray[0].threshold, tiersArray[1].threshold]
         return await this.state.factoryInstance.methods.createCampaign(
       //  this.flexible, 
         parseInt(tokenAdd),
         amountArray,
         stockArray,
-        nftURIsFixed
+        nftURIs,
+        contractMetadata
         )
         .send({from : this.props.userAddr, value: 0})
         .on('transactionHash', function(hash){
@@ -584,20 +585,48 @@ class MainForm extends React.Component {
 
     }
 
+    getTierAttribute(indexTier){
+        return indexTier == 0 ? "Free donation" : indexTier.toString()
+    }
+
+    getTierName(indexTier){
+        return indexTier == 0 ? "Free donation" : `Tier ${indexTier.toString()}`
+    }
+
     async handleNFTAndCtr(){
         import('nft.storage/dist/bundle.esm.min.js').then(async(obj) => {
             const client = new obj.NFTStorage({ token: API_KEY })
-            let nftURIs = []
-            for(let i = 0; i < this.state.nftImgArray.length; ++i){
-                let indexTier = i
-                let data = await fetch(this.state.nftImgArray[indexTier])
+            let nftURIs = []  
+            
+            let d = await fetch(this.state.profile_pic)
+                .then(res => res.blob())
+                .then(async(imageBlob) => {
+                    // console.log(imageBlob)
+                    let ctr = {
+                        name: `${this.state.name}'s collection`,
+                        description: `Collect NFTs and support ${this.state.name} on BlockBoosted Tip.`,
+                        image: imageBlob,
+                        external_link: `https://tip.blockboosted.com/`,
+                        seller_fee_basis_points: 0, // no seller fees
+                        fee_recipient: this.props.userAddr
+                    }
+                    const contractMetadata = await client.store(ctr)
+                    return contractMetadata
+                }) 
+
+            let imgURI0 = [BASE_NFT_IMG]
+            let imgURIs = imgURI0.concat(this.state.nftImgArray)
+            for(let i = 0; i < imgURIs.length; ++i){
+                let img = imgURIs[i] ? imgURIs[i] : BASE_NFT_IMG
+                let indexTier = i    // i + 1
+                let data = await fetch(img)
                     .then(res => res.blob())
                     .then(async(imageBlob) => {
-                        console.log(imageBlob)
-                        const attributes = indexTier != -1 ? [{"trait_type": "Tier", "value": indexTier.toString()}] : []
+                        // console.log(imageBlob)
+                        const attributes = [{"trait_type": "Tier", "value": this.getTierAttribute(indexTier)}]
                         const nft = {
                         image: imageBlob, // use image Blob as `image` field
-                        name: `${this.state.name} Supporter`,
+                        name: `${this.state.name} - ${this.getTierName(indexTier)} reward`,
                         description: `You supported ${this.state.name} on BlockBoosted Tip <3`,
                         attributes: attributes,
                         }
@@ -607,36 +636,19 @@ class MainForm extends React.Component {
                         return metadata
                     })
                 nftURIs.push(data)
-                console.log(data)
+                // console.log(data)
             }
-            console.log(nftURIs)
-
             let ipfsURIs = nftURIs.map(a => a.url) // REMPLACER PAR .IPNFT ET SET BASE + EXTENSION DANS LE CONTRAT POUR ECO GAS
             console.log(ipfsURIs)
-            this.checkContractCanBeCreated(ipfsURIs)
-
+            this.checkContractCanBeCreated(ipfsURIs, d.url)
+                
         })
     }
 
-    async storeNFT(indexTier = -1, client) {
-        // console.log(this.state.profile_pic)
-        // const type = mime.getType(this.state.profile_pic)
-        // console.log(type)
-        // const imageBlob = new Blob([this.state.profile_pic], {
-        //    type,
-        //   });
-        
-    return null
-        
-        
-    }
-
-
-
-    checkContractCanBeCreated(nftURIs){
+    checkContractCanBeCreated(nftURIs, contractMetadata){
         if(this.state.factoryInstance !== undefined){
             this.handleNext()
-            this.createContract(nftURIs)
+            this.createContract(nftURIs, contractMetadata)
         } else {
             this.setState({ errorMsg : "Can't access Web3. Please check your wallet settings and that you don't have more than one provider installed. (Reload)"})
             this.openSnackbar()
