@@ -261,11 +261,11 @@ const CampaignSidebarCrea = (props) => {
 
     const showFreeDonationNFT = () => {
         if(imgURIs){
-            return <div style={{textAlign: 'center', alignItems:'center', marginLeft: 10, marginRight: 10}}><div style={{textAlign: 'center', alignItems:'center', maxWidth:85, display:'inherit'}}>
+            return <div style={{textAlign: 'center', alignItems:'center', marginTop: 5, marginLeft: 10, marginRight: 10}}><div style={{textAlign: 'center', alignItems:'center', maxWidth:85, display:'inherit'}}>
                 {/* <i>Unlock exclusive NFT<br></br>with this tier</i><br></br> */}
                 <img src={imgURIs[0]}/>
             </div>
-            <i style={{color:'gray', fontSize: 11, lineHeight:'0.1'}}>NFT Reward</i></div>
+            <i style={{color:'gray', fontSize: 10}}>NFT Reward</i></div>
         }
     }
 
