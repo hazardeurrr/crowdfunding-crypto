@@ -50,6 +50,7 @@ const CampaignSidebarCrea = (props) => {
     const bnb_web3Instance = useSelector((state) => state.bnb_web3Instance)
     const eth_web3Instance = useSelector((state) => state.eth_web3Instance)
     const [imgURIs, setImgURIs] = React.useState(null)
+    const [NFTnames, setNFTNames] = React.useState(null)
 
     React.useEffect(() => {
         getSubsLength();
@@ -78,6 +79,7 @@ const CampaignSidebarCrea = (props) => {
 
     async function setNFTImages(nftURIs){
         let arr = []
+        let names = []
         for(let i = 0 ; i < nftURIs.length ; ++i){      /// REMETTRE A 0 JSUTE POUR TEST PARCE QUE 0 = '' et pas de fichier .json pour l'instant
             let woprefix = nftURIs[i].substring(7)
             let newurl = "https://nftstorage.link/ipfs/" + woprefix
@@ -88,8 +90,11 @@ const CampaignSidebarCrea = (props) => {
             let imgwoprefix = img.substring(7)
             let imgnewurl = "https://nftstorage.link/ipfs/" + imgwoprefix
             arr.push(imgnewurl)
+            names.push(json.name)
         }
         console.log(arr)
+        console.log(names)
+        setNFTNames(names)
         setImgURIs(arr)
     }
 
@@ -246,9 +251,21 @@ const CampaignSidebarCrea = (props) => {
     const showNFT = (index) => {
         console.log(index)
         if(imgURIs){
-            return <><hr></hr><div style={{textAlign: 'center', marginTop: 5}}><i>Unlock exclusive NFT</i><br></br>
+            return <>
+            <hr></hr>
+            <div style={{textAlign: 'center', marginTop: 5}}><i style={{fontSize: 12, color:'gray'}}>Exclusive NFT Reward</i><br></br><span>{NFTnames[index]}</span><br></br>
                 <img src={imgURIs[index]} style={{marginTop: 10, maxWidth: 125, maxHeight: 125}}/>
             </div></>
+        }
+    }
+
+    const showFreeDonationNFT = () => {
+        if(imgURIs){
+            return <div style={{textAlign: 'center', alignItems:'center', marginLeft: 10, marginRight: 10}}><div style={{textAlign: 'center', alignItems:'center', maxWidth:85, display:'inherit'}}>
+                {/* <i>Unlock exclusive NFT<br></br>with this tier</i><br></br> */}
+                <img src={imgURIs[0]}/>
+            </div>
+            <i style={{color:'gray', fontSize: 11, lineHeight:'0.1'}}>NFT Reward</i></div>
         }
     }
 
@@ -267,7 +284,7 @@ const CampaignSidebarCrea = (props) => {
                                 <div className="single-works">
                                     <Card className={classes.root} variant="outlined">
                                         <CardContent>
-                                            <Typography variant="h5" component="h2" gutterBottom>
+                                           <div style={{display:'flex', alignItems:'center', justifyContent:'space-between'}}><div><Typography variant="h5" component="h2" gutterBottom>
                                                 Free donation
                                             </Typography>
                                             {/* <Typography className={classes.pos} color="textSecondary">
@@ -275,8 +292,9 @@ const CampaignSidebarCrea = (props) => {
                                             </Typography> */}
                                             <Typography variant="body2" component="p">
                                             Give what you want to support this creator
-                                            </Typography>
-                                            {showNFT(0)}
+                                            </Typography></div> 
+                                            {showFreeDonationNFT()}
+                                            </div> 
                                         </CardContent>
                                     </Card>
                                     {BackTextFreeDonation()}    

@@ -35,7 +35,15 @@ const NFTTier = (props) => {
      setOpenSnack(false);
      };
    
-
+     const showClickHere = (upload_fct) => {
+        if(images.length == 0){
+            return <button className="btn btn-light" type="button"
+            onClick={upload_fct}
+            >
+            Click here
+            </button>
+        }
+     }
 
 
     return (
@@ -74,18 +82,14 @@ const NFTTier = (props) => {
                 }) => (
                 // write your building UI
                 <div className="upload__image-wrapper">
-                    <button className="btn btn-light" type="button"
-                    onClick={onImageUpload}
-                    >
-                    Click here
-                    </button>
+                    {showClickHere(onImageUpload)}
                     {/* &nbsp; */}
                     {imageList.map((image, index) => (
                     <div key={index} className="image-item">
                         <img src={image.data_url} alt="" width="100" style={{marginTop: 10}}/>
                         <div className="image-item__btn-wrapper">
-                        <button className="btn btn-primary" type="button" onClick={() => onImageUpdate(index)}>Update</button>
-                        <button style={{marginLeft: 10}} className="btn btn-primary" type="button" onClick={() => onImageRemove(index)}>Remove</button>
+                        <button style={{border:"2px solid #c6c0c0"}} className="btn btn2" type="button" onClick={() => onImageUpdate(index)}>Update</button>
+                        <button style={{marginLeft: 10, border:"2px solid #c6c0c0"}} className="btn btn2" type="button" onClick={() => onImageRemove(index)}>Remove</button>
                         </div>
                     </div>
                     ))}

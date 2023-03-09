@@ -2,13 +2,18 @@ import React from 'react';
 import NFTTier from '../ITStartup/NFTTier';
 import Claimers from './claimers';
 
+const BASE_NFT_IMG = "https://firebasestorage.googleapis.com/v0/b/crowdfunding-dev-5f802.appspot.com/o/coinbb.png?alt=media&token=9bb5befd-20a6-49d0-8aa0-c564a8ce0814"
+
+
 class Tiers extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
             tiers: [],
             tiersInfos: [],
-            nfts:[]
+            nfts:[],
+            nftsName: [],
+            nftradio: "nonft"
         }
         this.tiers = []
     }
@@ -17,12 +22,14 @@ class Tiers extends React.Component {
         event.preventDefault()
         let listTiers = this.state.tiers
         let nfts = this.state.nfts
+        let nftsName = this.state.nftsName
         
         if(event.target.value > this.tiers.length){
             var length = this.tiers.length;
             for (var i = 0; i < event.target.value - length; i++) {
                     listTiers.push({index: i, description: ''})
                     nfts.push(null)
+                    nftsName.push(null)
                     this.tiers.push({
                         title: "",
                         threshold: 0,
@@ -35,12 +42,15 @@ class Tiers extends React.Component {
             listTiers = listTiers.slice(0, event.target.value)
             this.tiers = this.tiers.slice(0, event.target.value)
             nfts = nfts.slice(0, event.target.value)
+            nftsName = nftsName.slice(0, event.target.value)
         }
       //  console.log(this.tiers)
         this.setState({tiers: listTiers})
         this.props.onTiersChange(this.tiers)
         this.setState({nfts: nfts})
-        this.props.onTiersChange(nfts)
+        this.props.onNFTsChange(nfts)
+        this.setState({nftsName: nftsName})
+        this.props.onNFTsNameChange(nftsName)
     }
 
     handleNFTUpload = (image, index) => {
@@ -49,6 +59,30 @@ class Tiers extends React.Component {
         newArr[index] = image
         this.props.onNFTsChange(newArr)
         this.setState({nfts: newArr});
+    }
+
+    handleNFTNameChange = (name, index) => {
+        // console.log("image changed")
+        let newArr = this.state.nftsName
+        newArr[index] = name
+        this.props.onNFTsNameChange(newArr)
+        this.setState({nftsName: newArr});
+    }
+
+    showNFT(index) {
+        if(this.state.nftradio == "customnft"){
+            return <div>
+                <p style={{marginTop: 10, marginBottom: 0}}>Title :</p> <input type="text" id={`nftname${index}`} placeholder={`Tier ${index+1} reward`} className="form-control"
+                    onChange={e => {
+                       this.handleNFTNameChange(e.target.value, index)
+                    }}
+                />
+                <p style={{marginTop: 20, marginBottom: 0}}>Upload the artwork (JPG, PNG or GIF) for your custom NFT :</p><NFTTier tier={index} onImageChange={this.handleNFTUpload.bind(this)}/>
+                
+            </div>
+        } else if(this.state.nftradio == "bbstnft"){
+            return <img src={BASE_NFT_IMG} style={{maxWidth: 125, maxHeight: 125}}/>
+        }
     }
 
 
@@ -68,7 +102,7 @@ class Tiers extends React.Component {
                         return (
                             <div key={`tier${index+1}`}>
                                 <strong>Tier {index + 1}</strong>
-                                <p>Title for the tier<br/>
+                                <p><b>Title for the tier</b><br/>
                                 Give us a description of the tier :
                                 </p>
                                 <div className="col-lg-12 col-md-12">
@@ -79,8 +113,8 @@ class Tiers extends React.Component {
                                     }}/>
                                 </div>
 
-                                <p>
-                                Amount :
+                                <p><b>
+                                Amount :</b>
                                 </p>
                                 <div className="col-lg-12 col-md-12">
                                     <div className="form-group">
@@ -92,31 +126,60 @@ class Tiers extends React.Component {
                                     </div>
                                 </div>
                                 </div>
-                                <p>Advantage<br/>
-                                Give us a description of the tier :
+                                <p><b>Advantage</b><br/>
+                                Give us a description of the tier. Tell us what will people get :
                                 </p>
                                 <div className="col-lg-12 col-md-12">
                                     <div className="form-group">
-                                    <input type="textarea" id={`"tiersDescription${index + 1}`} placeholder="Description" maxLength="350" className="form-control"
+                                    <textarea id={`"tiersDescription${index + 1}`} placeholder="Description" rows="3" maxLength="350" className="form-control"
                                     onChange={e => {
                                         this.tiers[index]["description"] = e.target.value
                                         this.props.onTiersChange(this.tiers)
                                     }}/>
                                     </div>
                                 </div>
-                                <p>Quantity<br/>
+                              
+                                <b><p>NFT Reward</p></b>
+                                <p>Reward the backers of this tier with an exclusive NFT.</p>
+                                <div className="col-lg-12 col-md-12">
+                                    <div className="form-group">
+                                        <div className="order-details">
+                                            <div className="payment-method">
+                                                <p>
+                                                    <input type="radio" id={`nonft/${index}`} name={`nftradio/${index}`} defaultChecked value="nonft" onChange={(event) => {
+                                                            this.setState({nftradio : event.target.value})
+                                                        }}/>
+                                                    <label htmlFor={`nonft/${index}`}>No NFT Reward</label>
+                                                </p>
+                                                <p>
+                                                    <input type="radio" id={`bbstnft/${index}`} name={`nftradio/${index}`}  value="bbstnft" onChange={(event) => {
+                                                            this.setState({nftradio : event.target.value})
+                                                        }}/>
+                                                    <label htmlFor={`bbstnft/${index}`}>BlockBoosted NFT Reward</label>
+                                                </p>
+                                                <p>
+                                                    <input type="radio" id={`customnft/${index}`} name={`nftradio/${index}`} value="customnft" onChange={(event) => {
+                                                            this.setState({nftradio : event.target.value})
+                                                        }}/>
+                                                    <label htmlFor={`customnft/${index}`}>Custom NFT Reward</label>
+                                                </p>
+                                                
+                                            </div>
+                                            {this.showNFT(index)}
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <p><b>Quantity</b> <br/>
                                 Do you want to restreint the number of claimers for this plan ? :
                                 </p>
 
                                 <Claimers index={index} onClaimersChange={e => {
-                                        this.tiers[index]["maxClaimers"] = parseInt(e)
-                                        this.props.onTiersChange(this.tiers)
-                                    }} />
+                                    this.tiers[index]["maxClaimers"] = parseInt(e)
+                                    this.props.onTiersChange(this.tiers)
+                                }} />
 
-                                <p>Add a custom NFT as a reward for your backers chosing this tier</p>
-                                <NFTTier tier={index} onImageChange={this.handleNFTUpload.bind(this)}/>
 
-                                
                             </div>
                         )
                     })

@@ -120,6 +120,7 @@ class MainForm extends React.Component {
             objective:0,
             tiersArray:[],
             nftImgArray:[],
+            nftNameArray:[],
             nftImgUris:[],
             youtube: '',
             instagram: '',
@@ -593,6 +594,14 @@ class MainForm extends React.Component {
         return indexTier == 0 ? "Free donation" : `Tier ${indexTier.toString()}`
     }
 
+    getNFTName(array, indexTier){
+        if(array[indexTier]){
+            return array[indexTier]
+        } else {
+            return `${this.getTierName(indexTier)} reward`
+        }
+    }
+
     async handleNFTAndCtr(){
         import('nft.storage/dist/bundle.esm.min.js').then(async(obj) => {
             const client = new obj.NFTStorage({ token: API_KEY })
@@ -604,7 +613,7 @@ class MainForm extends React.Component {
                     // console.log(imageBlob)
                     let ctr = {
                         name: `${this.state.name}'s collection`,
-                        description: `Collect NFTs and support ${this.state.name} on BlockBoosted Tip.`,
+                        description: `Collect exclusive NFTs supporting ${this.state.name} on BlockBoosted Tip → https://tip.blockboosted.com`,
                         image: imageBlob,
                         external_link: `https://tip.blockboosted.com/`,
                         seller_fee_basis_points: 0, // no seller fees
@@ -616,6 +625,8 @@ class MainForm extends React.Component {
 
             let imgURI0 = [BASE_NFT_IMG]
             let imgURIs = imgURI0.concat(this.state.nftImgArray)
+            let name0 = [null]
+            let names = name0.concat(this.state.nftNameArray)
             for(let i = 0; i < imgURIs.length; ++i){
                 let img = imgURIs[i] ? imgURIs[i] : BASE_NFT_IMG
                 let indexTier = i    // i + 1
@@ -626,7 +637,7 @@ class MainForm extends React.Component {
                         const attributes = [{"trait_type": "Tier", "value": this.getTierAttribute(indexTier)}]
                         const nft = {
                         image: imageBlob, // use image Blob as `image` field
-                        name: `${this.state.name} - ${this.getTierName(indexTier)} reward`,
+                        name: this.getNFTName(names, indexTier),
                         description: `You supported ${this.state.name} on BlockBoosted Tip <3`,
                         attributes: attributes,
                         }
@@ -1265,6 +1276,11 @@ class MainForm extends React.Component {
                                     onNFTsChange={e => {
                                         this.setState({nftImgArray: e})
                                         console.log(this.state.nftImgArray)
+                                    }}
+
+                                    onNFTsNameChange={e => {
+                                        this.setState({nftNameArray: e})
+                                        console.log(this.state.nftNameArray)
                                     }}
                                     />
                                     
