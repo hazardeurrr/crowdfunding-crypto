@@ -94,9 +94,8 @@ const PricingTiers = (props) => {
 
 
     React.useEffect(() => {
-        
         getSubsLength();
-    }, [web3Instance])
+    }, [web3Instance, chainID])
 
     const openDialog = () => {
         setDialogOpen(true)
@@ -398,7 +397,6 @@ const PricingTiers = (props) => {
             var disable = parseInt(subsLength[i+1]) === 0 ? "disabled" : "";
             var text = parseInt(subsLength[i+1]) === 0 ? "Out of stock" : "Select Plan";
             var classe = parseInt(subsLength[i+1]) === 0 ? "btn btn-primary-disabled" : "btn btn-primary"; 
-            // console.log(subsLength)
             rows.push( 
                 <div key={i} className="col-lg-4 col-md-6">
                         <div className="pricing-table active-plan">
