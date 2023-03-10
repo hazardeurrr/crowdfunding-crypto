@@ -1,9 +1,6 @@
 import React from 'react';
 import Navbar from "@/components/_App/Navbar";
 import Footer from "@/components/_App/Footer";
-import SimpleCampaignPost from '@/components/Common/SimpleCampaignPost';
-import SimplePreCampaignPost from '@/components/Common/SimplePreCampaignPost';
-
 import CategoryListCrea from '@/utils/CategoryListCrea';
 import Checkbox from '@material-ui/core/Checkbox';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
@@ -14,7 +11,7 @@ import {bnb_chain} from '@/utils/bnb_chain'
 import { campaignAbi } from '@/components/ContractRelated/CampaignAbi';
 import { db } from 'firebase-crowdfund/index';
 import { Button } from '@material-ui/core';
-import { campaignsCollection, preCampaignsCollection } from '@/utils/collections';
+import { campaignsCollection } from '@/utils/collections';
 import SimpleCampaignPostCrea from '@/components/Common/SimpleCampaignPostCrea';
 
 
@@ -28,7 +25,6 @@ class Explore extends React.Component {
         this.networksSelected = [];
         this.nbByPage = 6;
         this.lastDoc = this.props.lastFirstDoc;
-        this.lastPreDoc = null;
 
         this.state = {
             projects: this.props.firstCampaigns,
@@ -36,8 +32,6 @@ class Explore extends React.Component {
             network_checked: [chain, bnb_chain],
             page: 0,
             lastBatch: false,
-            lastPreBatch: false,
-            preProjects: [],
             disabled: false
         }
         this.addCategory = this.addCategory.bind(this);
@@ -142,9 +136,6 @@ class Explore extends React.Component {
               }
               if(ds.docs.length < this.nbByPage){
                 this.setState({lastBatch: true})
-                this.searchPre(this.nbByPage - ds.docs.length).then((res) => {
-                  this.setState({preProjects: res})
-                })
               }
             })
           return newArr
@@ -153,40 +144,14 @@ class Explore extends React.Component {
         }
       }
 
-    async searchPre(nb){
-      if(this.categoriesSelected.length > 0){
-        var newArr = []
-        await db.collection(preCampaignsCollection).where("categories", "array-contains-any", this.categoriesSelected).orderBy("id").limit(nb)
-        .get()
-        .then((ds) => {
-            ds.forEach(element => {
-                newArr.push(element.data())
-            })
-            if(ds.docs.length > 0){
-              this.lastPreDoc = ds.docs[ds.docs.length-1]
-            }
-            if(ds.docs.length < nb){
-              this.setState({lastPreBatch: true})
-            }
-          })
-        return newArr     
-      } else {
-        return []
-      }
-    }
-
-
     
     loadProjects(){
         this.setState({disabled: true})
         this.setState({page: 0})
         this.setState({lastBatch: false})
-        this.setState({lastPreBatch: false})
         this.lastDoc = this.props.lastFirstDoc
-        this.lastPreDoc = null
         if(this.categoriesSelected.length == 0){
             this.setState({projects: this.props.firstCampaigns})
-            this.setState({preProjects: []})
             this.setState({disabled: false})
         }
         else{
@@ -194,7 +159,6 @@ class Explore extends React.Component {
             this.setState({projects: res})
             this.setState({disabled: false})
           })
-          // this.setState({preprojects: this.dynamicSearchPre()})
         }
       }
       
@@ -204,16 +168,6 @@ class Explore extends React.Component {
         .get()
       } else {
         return db.collection(campaignsCollection).where("confirmed", "==", true).startAfter(this.lastDoc).limit(this.nbByPage)
-        .get()
-      }
-    }
-
-    async getPreQuery(nb){
-      if(this.categoriesSelected.length > 0){
-        return db.collection(preCampaignsCollection).where("categories", "array-contains-any", this.categoriesSelected).orderBy("id").startAfter(this.lastPreDoc).limit(nb)
-        .get()
-      } else {
-        return db.collection(preCampaignsCollection).orderBy("id").startAfter(this.lastPreDoc).limit(nb)
         .get()
       }
     }
@@ -231,36 +185,13 @@ class Explore extends React.Component {
             }
             if(ds.docs.length < this.nbByPage){
               this.setState({lastBatch: true})
-              this.showMorePre(this.nbByPage - ds.docs.length)
             }
           })
         let nnA = this.state.projects.concat(newArr)
         this.setState({page: this.state.page + 1})  // useless ?
         this.setState({projects: nnA})
-      } else if(!this.lastPreBatch){
-        this.showMorePre(this.nbByPage)
       }
     }
-
-  async showMorePre(nb){
-    var newArr = []
-        await this.getPreQuery(nb)
-        .then((ds) => {
-            ds.forEach(element => {
-                newArr.push(element.data())
-            })
-            if(ds.docs.length > 0){
-              this.lastPreDoc = ds.docs[ds.docs.length-1]
-            }
-            if(ds.docs.length < nb){
-              this.setState({lastPreBatch: true})
-            }
-          })
-        let nnA = this.state.preProjects.concat(newArr)
-        // this.setState({page: this.state.page + 1})
-        this.setState({preProjects: nnA})
-  }
-
       
     
 
@@ -282,9 +213,7 @@ class Explore extends React.Component {
       
         var rows = [];
         // var lproj = this.state.projects.filter(p => this.state.network_checked.includes(p.network))
-        // var lproj = this.state.projects.concat(this.state.preprojects)
-        var lproj = this.state.projects.concat(this.state.preProjects)
-        // var allPreCampaigns = this.state.preprojects
+        var lproj = this.state.projects
         
         //[0 ... 20[ [20 ... 40[
         // var len = lproj.length < (this.state.page) * this.nbByPage ? lproj.length : (this.state.page) * this.nbByPage;
@@ -304,22 +233,17 @@ class Explore extends React.Component {
         // }
 
         lproj.forEach((e, index) => {
-          if(e.currency == "$" || e.currency == "€"){
-            rows.push( <div key={index} className="col-lg-4 col-md-6">
-            <SimplePreCampaignPost project={e}/>
-            </div>)
-          } else {
+        
             rows.push( <div key={index} className="col-lg-4 col-md-6">
             <SimpleCampaignPostCrea project={e}/>
             </div>)
-          }
          })
         
         return rows;
       }
 
       displayShowMoreBtn(){
-        if(!(this.state.lastBatch && this.state.lastPreBatch)){
+        if(!(this.state.lastBatch)){
           return <div style={{justifyContent:'center', textAlign:'center'}}><button className="btn btn2 btn-light" onClick={this.showMore}>Show more</button></div>
         }
       }

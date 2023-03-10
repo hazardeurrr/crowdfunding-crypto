@@ -71,7 +71,7 @@ const CampaignSidebarCrea = (props) => {
                 })
                 campCtrInstance.methods.getURIs().call().then(res => {
                     // console.log(res)
-                    console.log(res)
+                    // console.log(res)
                     setNFTImages(res)
                 })
             }        
@@ -86,7 +86,7 @@ const CampaignSidebarCrea = (props) => {
                 let newurl = "https://nftstorage.link/ipfs/" + woprefix
                 let data = await fetch(newurl).catch(err => console.log(err))
                 let json = await data.json()
-                console.log(json)
+                // console.log(json)
                 let img = json.image
                 let imgwoprefix = img.substring(7)
                 let imgnewurl = "https://nftstorage.link/ipfs/" + imgwoprefix
@@ -97,8 +97,8 @@ const CampaignSidebarCrea = (props) => {
                 names.push(null)
             }
         }
-        console.log(arr)
-        console.log(names)
+        // console.log(arr)
+        // console.log(names)
         setNFTNames(names)
         setImgURIs(arr)
     }

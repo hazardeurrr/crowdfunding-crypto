@@ -327,7 +327,7 @@ class MainForm extends React.Component {
         // console.log(amountArray)
         // console.log(stockArray)
         // console.log(nftURIsFixed)
-        console.log(contractMetadata)
+        // console.log(contractMetadata)
         // [0, tiersArray[0].threshold, tiersArray[1].threshold]
         return await this.state.factoryInstance.methods.createCampaign(
       //  this.flexible, 
@@ -654,7 +654,7 @@ class MainForm extends React.Component {
                 
             }
             let ipfsURIs = nftURIs.map(a => {if(a) return a.url; else return ""}) // REMPLACER PAR .IPNFT ET SET BASE + EXTENSION DANS LE CONTRAT POUR ECO GAS
-            console.log(ipfsURIs)
+            // console.log(ipfsURIs)
             this.checkContractCanBeCreated(ipfsURIs, d.url)
                 
         })
@@ -1195,7 +1195,7 @@ class MainForm extends React.Component {
                                                 </select>
                                             </div> */}
 
-                                            <TagList onTagChange={arr => {console.log(arr);this.setState({tags: arr})}}/>
+                                            <TagList onTagChange={arr => {this.setState({tags: arr})}}/>
 
                                         </div>
                                     </div>
@@ -1279,12 +1279,12 @@ class MainForm extends React.Component {
                                     
                                     onNFTsChange={e => {
                                         this.setState({nftImgArray: e})
-                                        console.log(this.state.nftImgArray)
+                                        // console.log(this.state.nftImgArray)
                                     }}
 
                                     onNFTsNameChange={e => {
                                         this.setState({nftNameArray: e})
-                                        console.log(this.state.nftNameArray)
+                                        // console.log(this.state.nftNameArray)
                                     }}
                                     />
                                     
