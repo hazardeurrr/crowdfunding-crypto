@@ -96,7 +96,7 @@ const PricingTiers = (props) => {
     React.useEffect(() => {
         
         getSubsLength();
-    }, [web3Instance])
+    }, [web3Instance, chainID])
 
     const openDialog = () => {
         setDialogOpen(true)
