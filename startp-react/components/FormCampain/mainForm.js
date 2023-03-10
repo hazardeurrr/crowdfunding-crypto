@@ -625,31 +625,35 @@ class MainForm extends React.Component {
 
             let imgURI0 = [BASE_NFT_IMG]
             let imgURIs = imgURI0.concat(this.state.nftImgArray)
-            let name0 = [null]
+            let name0 = ["Free donation reward"]
             let names = name0.concat(this.state.nftNameArray)
             for(let i = 0; i < imgURIs.length; ++i){
-                let img = imgURIs[i] ? imgURIs[i] : BASE_NFT_IMG
-                let indexTier = i    // i + 1
-                let data = await fetch(img)
-                    .then(res => res.blob())
-                    .then(async(imageBlob) => {
-                        // console.log(imageBlob)
-                        const attributes = [{"trait_type": "Tier", "value": this.getTierAttribute(indexTier)}]
-                        const nft = {
-                        image: imageBlob, // use image Blob as `image` field
-                        name: this.getNFTName(names, indexTier),
-                        description: `You supported ${this.state.name} on BlockBoosted Tip <3`,
-                        attributes: attributes,
-                        }
-
-                        const metadata = await client.store(nft)
-
-                        return metadata
-                    })
-                nftURIs.push(data)
-                // console.log(data)
+                if(imgURIs[i]){
+                    let img = imgURIs[i] // ? imgURIs[i] : BASE_NFT_IMG
+                    let indexTier = i    // i + 1
+                    let data = await fetch(img)
+                        .then(res => res.blob())
+                        .then(async(imageBlob) => {
+                            // console.log(imageBlob)
+                            const attributes = [{"trait_type": "Tier", "value": this.getTierAttribute(indexTier)}]
+                            const nft = {
+                            image: imageBlob, // use image Blob as `image` field
+                            name: this.getNFTName(names, indexTier),
+                            description: `You supported ${this.state.name} on BlockBoosted Tip <3`,
+                            attributes: attributes,
+                            }
+    
+                            const metadata = await client.store(nft)
+    
+                            return metadata
+                        })
+                    nftURIs.push(data)
+                } else {
+                    nftURIs.push(null)
+                }
+                
             }
-            let ipfsURIs = nftURIs.map(a => a.url) // REMPLACER PAR .IPNFT ET SET BASE + EXTENSION DANS LE CONTRAT POUR ECO GAS
+            let ipfsURIs = nftURIs.map(a => {if(a) return a.url; else return ""}) // REMPLACER PAR .IPNFT ET SET BASE + EXTENSION DANS LE CONTRAT POUR ECO GAS
             console.log(ipfsURIs)
             this.checkContractCanBeCreated(ipfsURIs, d.url)
                 

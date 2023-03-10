@@ -72,6 +72,13 @@ class Tiers extends React.Component {
 
 
     onNftOptionChange = (value, index) => {
+        if(value == "nonft"){
+            this.handleNFTUpload(null, index)
+            this.handleNFTNameChange(null, index)
+        } else if(value == "bbstnft"){
+            this.handleNFTUpload(BASE_NFT_IMG, index)
+            this.handleNFTNameChange(`Tier ${index+1} reward`, index)
+        }
         console.log(value + index)
     }
 
