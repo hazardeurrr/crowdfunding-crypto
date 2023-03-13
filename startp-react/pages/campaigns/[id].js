@@ -314,18 +314,7 @@ const Campaign = (props) => {
     const displayOwnerButtons = () => {
         if(currentUser !== undefined && campaign !== undefined && metamask_connected && chainID == campaign.network){
             if(userAddr.toLowerCase() === campaign.creator.toLowerCase()){
-                if(raisedRetrieve){
-                    if(campaign.end_date < now){
-                         return <Withdraw campaign={campaign}/>
-                    } 
-                    // else if(campaign.end_date < now) {
-                    //     return <div>
-                    //     <h4>Unfortunately, your campaign hasn't reached its goal.</h4>
-                    //     {/* <button className="btn btn-light" onClick={downloadData}>Download data</button> */}
-                    //     </div>
-                    // } 
-                }
-                
+                         return <Withdraw campaign={campaign}/> 
             }
         }
     }

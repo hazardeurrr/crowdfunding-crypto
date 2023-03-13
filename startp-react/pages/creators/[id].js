@@ -449,7 +449,7 @@ const Creators = (props) => {
                         NFT Shop
                         <CarouselNFT />
                     </div> */}
-                    {/* <CarouselNFT campaign={campaign}/> */}
+                    <CarouselNFT campaign={campaign}/>
 
                     <div className="row">
                         {/* <div className="col-lg-3 col-md-12">

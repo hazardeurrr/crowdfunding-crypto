@@ -145,7 +145,7 @@ class Tiers extends React.Component {
                                 />
 
                                 <p><b>Quantity</b> <br/>
-                                Do you want to restreint the number of claimers for this plan ? :
+                                Do you want to restreint the number of claimers for this plan ?
                                 </p>
 
                                 <Claimers index={index} onClaimersChange={e => {
