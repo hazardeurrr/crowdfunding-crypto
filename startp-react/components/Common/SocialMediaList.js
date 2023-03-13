@@ -48,8 +48,8 @@ const SocialMediaList = (props) => {
         return <a href={`https://tiktok.com/@${socials.tiktok}`} target='_about'><SiTiktok color="#000000" size={'100%'}/></a>
       case "spotify":
         return <a href={`https://open.spotify.com/artist/${socials.spotify}`} target='_about'><FaSpotify size={'100%'} color="#1fd660"/></a>
-      case "soundclound":
-        return <a href={`https://soundclound.com/${socials.soundclound}`} target='_about'><FaSoundcloud size={'100%'} color="#e56e41"/></a>
+      case "soundcloud":
+        return <a href={`https://soundcloud.com/${socials.soundcloud}`} target='_about'><FaSoundcloud size={'100%'} color="#e56e41"/></a>
       case "twitter":
         return <a href={`https://twitter.com/${socials.twitter}`} target='_about'><FaTwitter size={'100%'} color="#49aadd"/></a>
       case "twitch":
