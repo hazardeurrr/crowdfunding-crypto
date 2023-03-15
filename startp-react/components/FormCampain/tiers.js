@@ -93,7 +93,13 @@ class Tiers extends React.Component {
                                     onChange={e => {
                                         this.tiers[index]["threshold"] = e.target.value
                                         this.props.onTiersChange(this.tiers)
-                                    }}/>
+                                    }}
+                                    onKeyPress={(event) => {
+                                        if (!(/[0-9]/.test(event.key) || /[,]/.test(event.key) || /[.]/.test(event.key))) {
+                                            event.preventDefault();
+                                        }
+                                    }}
+                                    onWheel={(e) => e.target.blur()}/>
                                     </div>
                                 </div>
                                 </div>

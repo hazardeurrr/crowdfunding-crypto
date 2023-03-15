@@ -320,7 +320,7 @@ class Explore extends React.Component {
 
       displayShowMoreBtn(){
         if(!(this.state.lastBatch && this.state.lastPreBatch)){
-          return <div style={{justifyContent:'center', textAlign:'center'}}><button className="btn btn2 btn-light" onClick={this.showMore}>Show more</button></div>
+          return <div style={{justifyContent:'center', textAlign:'center', paddingBottom:'2%'}}><button className="btn btn2 btn-light" onClick={this.showMore}>Show more</button></div>
         }
       }
 

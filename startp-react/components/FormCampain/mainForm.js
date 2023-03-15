@@ -908,7 +908,13 @@ class MainForm extends React.Component {
                                         <div className="form-group">
                                         <input type="number" placeholder="Goal" min="0" step={this.getNbrStep()} className="form-control" onChange={(event) => {
                                             this.setState({objective: event.target.value})
-                                        }}/>
+                                        }}
+                                        onKeyPress={(event) => {
+                                            if (!(/[0-9]/.test(event.key) || /[,]/.test(event.key) || /[.]/.test(event.key))) {
+                                                event.preventDefault();
+                                            }
+                                        }}
+                                        onWheel={(e) => e.target.blur()}/>
                                         {this.state.objectiveError !== '' ? <p style={{color: 'red'}}>{this.state.objectiveError}</p>: null}
                                         </div>
                                     </div>
