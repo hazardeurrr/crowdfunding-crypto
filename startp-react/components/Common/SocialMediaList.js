@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import {FaFacebook, FaInstagram, FaSpotify, FaSoundcloud, FaTwitch, FaTwitter, FaYoutube, FaGlobe} from 'react-icons/fa'
+import {FaFacebook, FaInstagram, FaSoundcloud, FaTwitch, FaTwitter, FaYoutube, FaGlobe, FaDiscord} from 'react-icons/fa'
 import {SiTiktok} from 'react-icons/si'
 import Grid from '@material-ui/core/Grid';
 import Chip from '@material-ui/core/Chip';
@@ -46,16 +46,16 @@ const SocialMediaList = (props) => {
         
       case "tiktok":
         return <a href={`https://tiktok.com/@${socials.tiktok}`} target='_about'><SiTiktok color="#000000" size={'100%'}/></a>
-      case "spotify":
-        return <a href={`https://open.spotify.com/artist/${socials.spotify}`} target='_about'><FaSpotify size={'100%'} color="#1fd660"/></a>
       case "soundcloud":
         return <a href={`https://soundcloud.com/${socials.soundcloud}`} target='_about'><FaSoundcloud size={'100%'} color="#e56e41"/></a>
       case "twitter":
         return <a href={`https://twitter.com/${socials.twitter}`} target='_about'><FaTwitter size={'100%'} color="#49aadd"/></a>
+      case "discord":
+        return <a href={`https://discord.gg/${socials.discord}`} target='_about'><FaDiscord size={'100%'} color="#7289da"/></a>
       case "twitch":
         return <a href={`https://twitch.com/${socials.twitch}`} target='_about'><FaTwitch size={'100%'} color="#604b94"/></a>
       case "youtube":
-        return <a href={`https://youtube.com/${socials.youtube}`} target='_about'><FaYoutube size={'100%'} color="#cd3b34"/></a>
+        return <a href={`https://youtube.com/@${socials.youtube}`} target='_about'><FaYoutube size={'100%'} color="#cd3b34"/></a>
       case "website":
         return <a href={socials.website} target='_about'><FaGlobe size={'100%'} color="gray"/></a>
     }

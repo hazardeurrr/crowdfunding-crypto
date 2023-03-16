@@ -195,11 +195,8 @@ const CategoriesLightCrea = () => {
 
                     <div className="col-lg-3 col-6 col-sm-6 col-md-4">
                         <div className="single-industries-serve-box">
-                        <div className="icon">
-                        <i className='bx'>                        <HomeIcon sx={{ verticalAlign: "bottom", fontSize: "inherit" }} />
-</i>
-
-
+                            <div className="icon">
+                                <i className='bx bx-dribbble'></i>
                             </div>
                             {CategoryListCrea[10]}
                             <Link href={{
@@ -215,8 +212,10 @@ const CategoriesLightCrea = () => {
 
                     <div className="col-lg-3 col-6 col-sm-6 col-md-4">
                         <div className="single-industries-serve-box">
-                            <div className="icon">
-                                <i className='bx bx-unite'></i>
+                        <div className="icon">
+                        <i className='bx'>                        
+                        <HomeIcon sx={{ verticalAlign: "bottom", fontSize: "inherit" }} />
+                        </i>
                             </div>
                             {CategoryListCrea[11]}
                             <Link href={{

@@ -60,7 +60,7 @@ import { campaignsCollection } from '@/utils/collections';
 import { bsc_explorer_base, eth_explorer_base } from '@/utils/explorers';
 import router from 'next/router';
 import TagList from './tagList';
-import {FaFacebook, FaInstagram, FaSpotify, FaSoundcloud, FaTwitch, FaTwitter, FaYoutube, FaGlobe, FaGoogleDrive, FaTiktok} from 'react-icons/fa'
+import {FaFacebook, FaInstagram, FaSoundcloud, FaTwitch, FaTwitter, FaYoutube, FaGlobe, FaGoogleDrive, FaTiktok, FaDiscord} from 'react-icons/fa'
 import {SiTiktok} from 'react-icons/si'
 import TextField from '@material-ui/core/TextField';
 import InputAdornment from '@material-ui/core/InputAdornment';
@@ -127,8 +127,8 @@ class MainForm extends React.Component {
             facebook:'',
             twitter:'',
             site:'',
-            spotify:'',
             soundcloud:'',
+            discord:'',
             twitch:'',
             tiktok:'',
             profile_pic: null,
@@ -162,8 +162,8 @@ class MainForm extends React.Component {
     handleChangeFacebook = (event) => this.setState({facebook: event.target.value});
     handleChangeTwitter = (event) => this.setState({twitter: event.target.value});
     handleChangeSite = (event) => this.setState({site: event.target.value});
-    handleChangeSpotify = (event) => this.setState({spotify: event.target.value});
     handleChangeSoundcloud = (event) => this.setState({soundcloud: event.target.value});
+    handleChangeDiscord = (event) => this.setState({discord: event.target.value});
     handleChangeTwitch = (event) => this.setState({twitch: event.target.value});
     handleChangeTiktok = (event) => this.setState({tiktok: event.target.value});
 
@@ -892,14 +892,14 @@ class MainForm extends React.Component {
     getSocialsAsObject(){
         let r_site = this.state.site != '' ? this.state.site : null
         let r_youtube = this.state.youtube != '' ? this.state.youtube : null
-        let r_spotify = this.state.spotify != '' ? this.state.spotify : null
+        let r_discord = this.state.discord != '' ? this.state.discord : null
         let r_twitter = this.state.twitter != '' ? this.state.twitter : null
         let r_facebook = this.state.facebook != '' ? this.state.facebook : null
         let r_instagram = this.state.instagram != '' ? this.state.instagram : null
         let r_tiktok = this.state.tiktok != '' ? this.state.tiktok : null
         let r_twitch = this.state.twitch != '' ? this.state.twitch : null
         let r_soundcloud = this.state.soundcloud != '' ? this.state.soundcloud : null
-        let res = {website: r_site, youtube: r_youtube, spotify: r_spotify, twitter: r_twitter, instagram: r_instagram, facebook: r_facebook, tiktok: r_tiktok, twitch: r_twitch, soundcloud: r_soundcloud}
+        let res = {website: r_site, youtube: r_youtube, discord: r_discord, twitter: r_twitter, instagram: r_instagram, facebook: r_facebook, tiktok: r_tiktok, twitch: r_twitch, soundcloud: r_soundcloud}
         return res
     }
 
@@ -1044,31 +1044,31 @@ class MainForm extends React.Component {
                                         <div style={{display:'flex', alignItems:'center'}}>
                                             <FaYoutube size={25} style={{marginRight:10}} />
                                             <TextField
-                                            label="Youtube (full URL)"
+                                            label="Youtube"
                                             id="youtube"
                                             fullWidth
-                                            placeholder='https://www.youtube.com/mychannel'
+                                            placeholder='username'
                                             onChange={this.handleChangeYoutube}
                                             value={this.state.youtube}
-                                            // InputProps={{
-                                            //     startAdornment: <InputAdornment position="start">@</InputAdornment>,
-                                            // }}
+                                            InputProps={{
+                                                startAdornment: <InputAdornment position="start">youtube.com/@</InputAdornment>,
+                                            }}
                                             variant="filled"
                                             size="small"
                                         /></div>
 
                                         <div style={{display:'flex', alignItems:'center'}}>
-                                            <FaSpotify size={25} style={{marginRight:10}} />
+                                            <FaDiscord size={25} style={{marginRight:10}} />
                                             <TextField
-                                            label="Spotify (full URL)"
-                                            id="spotify"
+                                            label="Discord"
+                                            id="discord"
                                             fullWidth
-                                            placeholder='https://open.spotify.com/xxxxxxx'
-                                            onChange={this.handleChangeSpotify}
-                                            value={this.state.spotify}
-                                            // InputProps={{
-                                            //     startAdornment: <InputAdornment position="start">@</InputAdornment>,
-                                            // }}
+                                            placeholder='server'
+                                            onChange={this.handleChangeDiscord}
+                                            value={this.state.discord}
+                                            InputProps={{
+                                                startAdornment: <InputAdornment position="start">discord.gg/</InputAdornment>,
+                                            }}
                                             variant="filled"
                                             size="small"
                                         /></div>
