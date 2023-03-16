@@ -11,6 +11,14 @@ function HomeIcon(props) {
     );
   }
 
+  function BallIcon(props) {
+    return (
+      <SvgIcon {...props}>
+<path d="M12,2A10,10,0,1,0,22,12,10,10,0,0,0,12,2ZM5.15,9.77l-1,.8a7.93,7.93,0,0,1,.67-2Zm1.38,1.46,1.63.54.73,2.92L7.76,15.82l-2.84-.11a7.93,7.93,0,0,1-.83-2.55Zm1.23,6.6L8.22,19a8,8,0,0,1-1.74-1.27Zm2.37-6.39L12,10.2l1.86,1.24L13.22,14H10.78Zm6.09,6.39,1.29-.05A8,8,0,0,1,15.78,19Zm2.85-2.12-2.84.11-1.13-1.13.73-2.92,1.63-.54,2.44,1.93A7.93,7.93,0,0,1,19.08,15.71Zm-.23-5.94.35-1.24a7.93,7.93,0,0,1,.67,2ZM17.72,6.41l-.81,2.9-1.75.58L13,8.47V6.54l2.54-1.7A8,8,0,0,1,17.72,6.41ZM13.08,4.08,12,4.8l-1.08-.72A8,8,0,0,1,12,4,8,8,0,0,1,13.08,4.08Zm-4.62.76L11,6.54V8.47L8.85,9.9,7.1,9.31l-.81-2.9A8,8,0,0,1,8.46,4.84Zm2.2,15-1.11-3,.87-.87h3.17l.87.87-1.11,3a7.46,7.46,0,0,1-2.68,0Z"/>
+</SvgIcon>    
+);
+  }
+
   
 const CategoriesLightCrea = () => {
     return (
@@ -196,7 +204,9 @@ const CategoriesLightCrea = () => {
                     <div className="col-lg-3 col-6 col-sm-6 col-md-4">
                         <div className="single-industries-serve-box">
                             <div className="icon">
-                                <i className='bx bx-dribbble'></i>
+                            <i className='bx'>                        
+                        <BallIcon sx={{ verticalAlign: "bottom", fontSize: "inherit" }} />
+                        </i>                                
                             </div>
                             {CategoryListCrea[10]}
                             <Link href={{
