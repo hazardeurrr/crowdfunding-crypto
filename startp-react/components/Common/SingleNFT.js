@@ -39,7 +39,7 @@ export default function SingleNFT(props) {
       let imgnewurl = "https://nftstorage.link/ipfs/" + imgwoprefix
       
       return <div>
-      <Card>
+      <Card onClick={() => props.handleNFTClick(nft, metadata, props.index)}>
         <CardActionArea>
           <CardMedia
             component="img"

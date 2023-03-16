@@ -301,7 +301,7 @@ const Creators = (props) => {
                     <h4 style={{textAlign:'center', marginTop: 10}}>Welcome to your creator page</h4>
                     <div style={{display:"flex", justifyContent:'space-evenly'}}>
                         <Withdraw campaign={campaign}/>
-                        <AddNFTButton campaign={campaign}/>
+                        {/* <AddNFTButton campaign={campaign}/> */}
                     </div>
                 </div>
             }
@@ -442,7 +442,7 @@ const Creators = (props) => {
                         </DialogActions>
                     </Dialog>
 
-                    <CarouselNFT campaign={campaign}/>
+                    {/* <CarouselNFT campaign={campaign}/> */}
 
 
                     <div className="row">

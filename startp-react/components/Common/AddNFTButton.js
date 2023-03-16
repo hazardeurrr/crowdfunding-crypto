@@ -137,7 +137,8 @@ const uploadNFT = () => {
                 openSnackbar()
             })
 
-            ctrInstance.methods.uploadToken(data.url, nftPrice, nftQuantity)
+            let updPrice = web3Instance.utils.toWei(nftPrice)
+            ctrInstance.methods.uploadToken(data.url, updPrice, nftQuantity)
             .send({from : userAddr, value: 0})
             .on('transactionHash', function(hash){
                 setCreationState(0)
