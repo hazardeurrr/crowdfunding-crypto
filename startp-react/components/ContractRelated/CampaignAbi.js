@@ -988,11 +988,6 @@ const campaignAbi = isProd ?
 				"internalType": "uint256",
 				"name": "id",
 				"type": "uint256"
-			},
-			{
-				"internalType": "uint256",
-				"name": "price",
-				"type": "uint256"
 			}
 		],
 		"name": "mintUploadedNFT",
@@ -1279,59 +1274,6 @@ const campaignAbi = isProd ?
 			}
 		],
 		"name": "transferFrom",
-		"outputs": [],
-		"stateMutability": "nonpayable",
-		"type": "function"
-	},
-	{
-		"inputs": [
-			{
-				"components": [
-					{
-						"internalType": "uint256",
-						"name": "quantity",
-						"type": "uint256"
-					},
-					{
-						"internalType": "uint256",
-						"name": "price",
-						"type": "uint256"
-					},
-					{
-						"internalType": "string",
-						"name": "tokenURI",
-						"type": "string"
-					}
-				],
-				"internalType": "struct Campaign.UploadedNFT[]",
-				"name": "structArray",
-				"type": "tuple[]"
-			}
-		],
-		"name": "uploadMultipleTokenV1",
-		"outputs": [],
-		"stateMutability": "nonpayable",
-		"type": "function"
-	},
-	{
-		"inputs": [
-			{
-				"internalType": "string[]",
-				"name": "URIs",
-				"type": "string[]"
-			},
-			{
-				"internalType": "uint256[]",
-				"name": "prices",
-				"type": "uint256[]"
-			},
-			{
-				"internalType": "uint256[]",
-				"name": "quantities",
-				"type": "uint256[]"
-			}
-		],
-		"name": "uploadMultipleTokenV2",
 		"outputs": [],
 		"stateMutability": "nonpayable",
 		"type": "function"
