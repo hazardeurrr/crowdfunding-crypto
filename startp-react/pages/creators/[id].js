@@ -39,6 +39,7 @@ import Withdraw from '@/components/Common/withdraw';
 import CampaignSidebarCrea from '@/components/Blog/CampaignSidebarCrea';
 import CarouselNFT from '@/components/ITStartup/CarouselNFT';
 import { prefixedAddress } from '@/utils/prefix';
+import AddNFTButton from '@/components/Common/AddNFTButton';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -296,18 +297,13 @@ const Creators = (props) => {
     const displayOwnerButtons = () => {
         if(currentUser !== undefined && campaign !== undefined && metamask_connected && chainID == bnb_chain){
             if(userAddr.toLowerCase() === campaign.creator.toLowerCase()){
-                if(raisedRetrieve){
-                    if(campaign.end_date < now){
-                         return <Withdraw campaign={campaign}/>
-                    } 
-                    // else if(campaign.end_date < now) {
-                    //     return <div>
-                    //     <h4>Unfortunately, your campaign hasn't reached its goal.</h4>
-                    //     {/* <button className="btn btn-light" onClick={downloadData}>Download data</button> */}
-                    //     </div>
-                    // } 
-                }
-                
+                return <div style={{border: '2px solid black', marginTop: 15, marginBottom: 35}}>
+                    <h4 style={{textAlign:'center', marginTop: 10}}>Welcome to your creator page</h4>
+                    <div style={{display:"flex", justifyContent:'space-evenly'}}>
+                        <Withdraw campaign={campaign}/>
+                        <AddNFTButton campaign={campaign}/>
+                    </div>
+                </div>
             }
         }
     }
@@ -398,6 +394,7 @@ const Creators = (props) => {
                     <div className="about-area ptb-80">
                         <div className="container-fluid">
                             <div className="row align-items-center">
+                                {displayOwnerButtons()}
                                 <div className="col-lg-8 col-md-12">
                                     <div className="ml-about-content">
                                         <h1>{campaign.name}</h1>   
@@ -445,11 +442,8 @@ const Creators = (props) => {
                         </DialogActions>
                     </Dialog>
 
-                    {/* <div className="row">
-                        NFT Shop
-                        <CarouselNFT />
-                    </div> */}
-                    {/* <CarouselNFT campaign={campaign}/> */}
+                    <CarouselNFT campaign={campaign}/>
+
 
                     <div className="row">
                         {/* <div className="col-lg-3 col-md-12">

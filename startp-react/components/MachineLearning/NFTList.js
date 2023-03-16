@@ -12,28 +12,14 @@ import SingleNFT from '../Common/SingleNFT';
 
 const OwlCarousel = dynamic(import('react-owl-carousel3'));
 
-const NFTList = ({p}) => {
+const NFTList = ( props ) => {
     const [display, setDisplay] = React.useState(false);
-    // const [projects, setProjects] = React.useState(undefined)
     const dispatch = useDispatch()
 
-    const projects = useSelector((state) => state.firstCampaigns)
+    const projects = props.nfts
  
-    var campaigns = []
-
     React.useEffect(() => {
-        // db.collection("creatorPage")
-        // .get()
-        // .then((docs) => {
-        //     docs.forEach(element => {
-        //             campaigns.push(element.data())
-        //     })
-    
-        //     setProjects(campaigns)
-    
-        // }).catch((error) => {
-        //     console.log("Error getting document:", error);
-        // });
+
         setDisplay(true);
 
     }, [projects])
@@ -42,7 +28,7 @@ const NFTList = ({p}) => {
         loop: true,
         nav: false,
         dots: false,
-        autoplay: true,
+        autoplay: false,
         smartSpeed: 1000,
         margin: 30,
         autoplayTimeout: 5000,
@@ -66,11 +52,11 @@ const NFTList = ({p}) => {
     }
 
     const ShowProjects = () => {
-        const len = projects.length > 6 ? 6 : projects.length
+        // const len = projects.length > 6 ? 6 : projects.length
         var rows = [];
-        for (var i = 0; i < len; i++) {
-            rows.push(<div key={i} className="single-ml-projects-box">
-            <SingleNFT/></div>)
+        for (var i = 0; i < projects.length; i++) {
+            rows.push(<div key={i} className="single-ml-projects-box" style={{maxWidth: 160, maxHeight: 160}}>
+            <SingleNFT nft={projects[i]}/></div>)
         }
         return rows;
     }

@@ -1,12 +1,8 @@
 import React from 'react';
 import NFTTier from '../ITStartup/NFTTier';
-import Claimers from './claimers';
 import Nftoptions from './nftoptions';
 
-const BASE_NFT_IMG = "https://firebasestorage.googleapis.com/v0/b/crowdfunding-dev-5f802.appspot.com/o/coinbb.png?alt=media&token=9bb5befd-20a6-49d0-8aa0-c564a8ce0814"
-
-
-class AddNFTs extends React.Component {
+class AddNFT extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
@@ -156,4 +152,4 @@ class AddNFTs extends React.Component {
 
     }
 }
-export default AddNFTs;
+export default AddNFT;

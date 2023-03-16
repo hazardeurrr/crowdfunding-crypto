@@ -326,7 +326,7 @@ const showScan = () => {
   const displayBtnsOrNot = () => {
     if(ctrInstance != undefined && ctrInstance != null && campaign.network == chainID && connected){
         return <div style={{marginTop:10, marginBottom: 15}}>{displayWithdrawBtn()}
-        <button className="btn btn-light" disabled={dataState != 0} onClick={downloadData}>{showBtn()}</button></div>
+        <button className="btn btn-light" style={{border:"1px solid gray"}} disabled={dataState != 0} onClick={downloadData}>{showBtn()}</button></div>
     }
   }
 
@@ -357,7 +357,7 @@ const showScan = () => {
                 {displayConfirmModal(creationState)}
             </Dialog>
 
-            <h4>Your campaign has ended successfully!</h4>
+            {/* <h4>Your campaign has ended successfully!</h4> */}
             {displayBtnsOrNot()}
         </div>
 }
