@@ -74,9 +74,21 @@ const Layout = ({ children }) => {
             <Head>
                 <meta charSet="utf-8" />
                 <meta name="viewport" content="width=device-width, initial-scale=1" />
-                <title>BlockBoosted App - Boost your project with crypto</title>
-                <meta name="description" content="BlockBoosted App · Create your campaign and start raising funds in crypto · Get rewarded in BBST for your donations · Support projects that make sense with 0% fee · Crypto crowdfunding" />
+                <title>BlockBoosted | Web3 Crowdfunding</title>
+                <meta name="description" content="Crowdfunding in crypto on BNB Smart Chain. Raise money with 0% fee. Earn rewards donating to meaningful projects." />
 
+                {/* Protocole OpenGraph */}
+                <meta property="og:title" content="BlockBoosted | Web3 Crowdfunding" />
+                <meta property="og:type" content="website" />
+                <meta property="og:image" content="https://firebasestorage.googleapis.com/v0/b/crowdfunding-dev-5f802.appspot.com/o/bbblack.png?alt=media&token=529ac202-d7a0-4f61-8c42-79271184d858" />
+                <meta property="og:site_name" content="BlockBoosted" />
+                <meta property="og:url" content="https://blockboosted.com" />
+                <meta property="og:description" content="Crowdfunding in crypto on BNB Smart Chain. Raise money with 0% fee. Earn rewards donating to meaningful projects." />
+                <meta name="twitter:card" content="summary_large_image"/>
+                <meta name="twitter:site" content="@blockboosted"/>
+                <meta name="twitter:title" content="BlockBoosted | Web3 Crowdfunding"/>
+                <meta name="twitter:description" content="Crowdfunding in crypto on BNB Smart Chain. Raise money with 0% fee. Earn rewards donating to meaningful projects."/>
+                <meta name="twitter:image" content="https://firebasestorage.googleapis.com/v0/b/crowdfunding-dev-5f802.appspot.com/o/bbblack.png?alt=media&token=529ac202-d7a0-4f61-8c42-79271184d858"/>
             </Head>
             {showNavBar()}
             {children}
