@@ -80,7 +80,7 @@ const Layout = ({ children }) => {
                 {/* Protocole OpenGraph */}
                 <meta property="og:title" content="BlockBoosted | Web3 Crowdfunding" />
                 <meta property="og:type" content="website" />
-                <meta property="og:image" content="https://firebasestorage.googleapis.com/v0/b/crowdfunding-dev-5f802.appspot.com/o/bbblack.png?alt=media&token=529ac202-d7a0-4f61-8c42-79271184d858" />
+                <meta property="og:image" content="https://blockboosted.com/images/bbblack.png" />
                 <meta property="og:site_name" content="BlockBoosted" />
                 <meta property="og:url" content="https://blockboosted.com" />
                 <meta property="og:description" content="Crowdfunding in crypto on BNB Smart Chain. Raise money with 0% fee. Earn rewards donating to meaningful projects." />
@@ -88,7 +88,7 @@ const Layout = ({ children }) => {
                 <meta name="twitter:site" content="@blockboosted"/>
                 <meta name="twitter:title" content="BlockBoosted | Web3 Crowdfunding"/>
                 <meta name="twitter:description" content="Crowdfunding in crypto on BNB Smart Chain. Raise money with 0% fee. Earn rewards donating to meaningful projects."/>
-                <meta name="twitter:image" content="https://firebasestorage.googleapis.com/v0/b/crowdfunding-dev-5f802.appspot.com/o/bbblack.png?alt=media&token=529ac202-d7a0-4f61-8c42-79271184d858"/>
+                <meta name="twitter:image" content="https://blockboosted.com/images/bbblack.png"/>
             </Head>
             {showNavBar()}
             {children}
