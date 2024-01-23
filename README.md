@@ -16,3 +16,9 @@ Landing Page before accessing our app =>> "landingv1" branch
 Our pages are stored in the "startp-react/pages" folder.
 
 Smart-contracts are held in another repository (crowdfunding-contracts)
+
+
+How to launch ?
+=> cd startp-react
+=> npm run dev
+go to localhost:3000
