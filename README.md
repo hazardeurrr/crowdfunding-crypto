@@ -19,6 +19,9 @@ Smart-contracts are held in another repository (crowdfunding-contracts)
 
 
 How to launch ?
+
 => cd startp-react
+
 => npm run dev
+
 go to localhost:3000
